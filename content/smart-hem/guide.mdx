@@ -1,0 +1,161 @@
+{/*
+  Pillar guide for /smart-hem. Top-level sections use explicit <h2 id> so the
+  TOC can anchor to them without adding rehype-slug; sub-headings are ordinary
+  markdown ###. The page renders this inside a Section with no title of its
+  own, so these h2 elements are the real section headings.
+*/}
+
+<h2 id="las-experttester">Läs experttesterna innan du köper</h2>
+
+Det finns ingen redaktion i Sverige som köper in varje smart lampa, varje lås
+och varje kamera och testar dem sida vid sida. Inte Råd & Rön, inte vi, inte
+någon annan. Det som faktiskt finns är dussintals seriösa tester som var för sig
+täcker en handfull produkter, ofta med olika mätmetoder och olika slutsatser.
+
+Därför är rådet enkelt: läs flera experttester innan du lägger pengar på något.
+En enskild recension säger lika mycket om testarens hem som om produkten. Först
+när fyra oberoende tester säger samma sak om räckvidden vet du något.
+
+Det är precis det arbetet vi har gjort. Vi läser igenom testerna, ställer dem mot
+varandra, noterar var de är oense och sammanställer resultatet mot samma
+kriterier och samma viktning för varje kategori. Alla källor är länkade, både på
+den här sidan och på varje testsida, så du kan gå vidare till originalet när du
+vill kontrollera något.
+
+### Var de brukar vara oense
+
+Tre saker återkommer när testerna säger emot varandra, och de är värda att känna
+till innan du läser vidare.
+
+**Räckvidd.** Ett test i en norsk trävilla och ett test i en svensk
+betonglägenhet ger olika svar om samma produkt. Zigbee och Thread klarar
+betongväggar bättre än Wi-Fi, men skillnaden syns bara i det ena testet.
+
+**Appen.** Recensioner åldras snabbast här. En app som fick underkänt för två år
+sedan kan ha byggts om helt sedan dess, vilket gör äldre tester missvisande på
+just den punkten.
+
+**Priset.** Utländska tester räknar i pund eller dollar och tar inte hänsyn till
+vad produkten faktiskt kostar i svensk butik. Prisvärde är det kriterium vi
+alltid räknar om själva.
+
+<h2 id="ett-eller-flera-system">Ett system eller flera?</h2>
+
+Det korta svaret: välj **en** styrapp och köp sedan produkter som är
+Matter-certifierade från vilket märke du vill. Det är först när du försöker köra
+två konkurrerande styrappar parallellt som det blir rörigt.
+
+Anledningen är att valet av styrapp är det enda beslut som är dyrt att ångra. En
+enskild lampa kan du byta ut för ett par hundralappar. Har du däremot byggt
+fyrtio automationer i ett system tar det en helg att flytta dem.
+
+### Så väljer du styrapp
+
+Utgå från telefonerna i hushållet, inte från produkterna.
+
+- **Alla har iPhone.** Välj Apple Home. Stabilast, körs lokalt via en HomePod eller Apple TV, men har den svagaste automationsredigeraren av de stora.
+- **Blandat Android och iPhone.** Välj Google Home eller Amazon Alexa. Google har bäst röststyrning på svenska, Alexa har stöd för flest enheter.
+- **Du vill styra allt själv.** Välj Home Assistant. Mer om det längre ner.
+
+### Hur väl fungerar det att blanda märken idag?
+
+Bättre än sitt rykte, men inte så sömlöst som marknadsföringen påstår. Läget just
+nu, i korthet:
+
+**Matter är limmet.** En Matter-certifierad produkt fungerar med Apple Home,
+Google Home, Alexa, SmartThings och Home Assistant. Den kan dessutom vara
+ansluten till flera av dem samtidigt, vilket kallas multi-admin. Samma lampa kan
+alltså ligga i din Apple Home och i din sambos Google Home.
+
+**Matter går över Wi-Fi och Thread, inte över Zigbee.** Det är den vanligaste
+missuppfattningen. Dina Zigbee-lampor från Hue eller IKEA blir inte
+Matter-enheter av sig själva.
+
+**Bryggan är det som förenar dem.** Philips Hue Bridge och IKEA Dirigera talar
+Zigbee mot lamporna och Matter mot omvärlden. Har du en sådan brygga syns dina
+Zigbee-lampor i vilket Matter-system du vill, utan att lamporna behöver kunna
+Matter.
+
+**Zigbee-enheter från olika märken går ofta att blanda direkt.** IKEA:s lampor
+kan paras mot en Hue Bridge eftersom båda kör Zigbee. Det fungerar för de flesta,
+men det är inte officiellt stött av Philips, och en firmwareuppdatering kan
+tillfälligt ställa till det. Räkna med det som en bonus, inte som en garanti.
+
+**Thread behöver en border router.** Det är oftast en enhet du redan har:
+HomePod mini, Apple TV 4K, nyare Nest Hub, Echo, Dirigera eller en modern Hue
+Bridge.
+
+**Z-Wave står utanför.** Egen radio på 868 MHz, egen hubb, inget Matter-stöd.
+Fortfarande starkt för lås och sensorer tack vare räckvidden, men det är ett
+medvetet sidospår.
+
+**Det som fortfarande inte följer med.** Matter exponerar en gemensam
+grundfunktion. Avancerade scener, energimätning, kameraflöden och
+firmwareuppdateringar ligger nästan alltid kvar i tillverkarens egen app. Räkna
+med att ha kvar en app per märke även när allt annat är samlat.
+
+<h2 id="appar">Apparna som är värda att installera</h2>
+
+De flesta appar i den här världen är obligatoriska snarare än bra. Det här är de
+som faktiskt tillför något.
+
+### Home Assistant
+
+Det enda verkligt kraftfulla alternativet, och gratis. Kör på en Raspberry Pi
+eller en färdig box, talar Zigbee, Z-Wave, Matter och Thread samtidigt, och har
+integrationer mot i praktiken allt. Allt körs lokalt, så ingenting slutar
+fungera för att en tillverkare stänger sin molntjänst.
+
+Priset är tid. Räkna med en helg innan det sitter, och med att du kommer att
+pilla på det efteråt. Är det priset för högt ska du inte välja Home Assistant,
+och det är helt i sin ordning.
+
+### Apple Home
+
+Bäst om hela hushållet har iPhone. Stabilt, snabbt och lokalt så länge du har en
+HomePod eller Apple TV som nav. Automationerna är enkla men begränsade, och
+avancerade villkor får du bygga i en tredjepartsapp som Controller for HomeKit.
+
+### Google Home
+
+Den mest kompletta av de tre stora just nu. Bra svensk röststyrning, snabb
+Matter-inkoppling och en ombyggd app som äntligen är begriplig. Kräver molnet för
+det mesta.
+
+### Amazon Alexa
+
+Stöder flest enheter av alla och är svårslagen om du redan har Echo-högtalare.
+Svenskan är svagare än Googles, vilket märks direkt i vardagen.
+
+### Tillverkarnas egna appar
+
+Behåll dem, även om du styr allt från något annat. Firmwareuppdateringar,
+kalibrering och de finaste ljusscenerna finns bara där. Philips Hue-appen är det
+tydligaste exemplet: ingen generell styrapp kommer i närheten av dess dimring och
+scenhantering.
+
+<h2 id="ordning">I vilken ordning ska du köpa?</h2>
+
+Börja med ett problem du faktiskt har, inte med en produktkategori. Den som
+köper en hubb först har köpt en lösning på ett problem hen ännu inte har.
+
+1. **Belysning.** Billigast att testa, störst skillnad i vardagen, och du märker direkt om du gillar att styra saker med telefonen.
+2. **Smarta uttag.** Ett par hundralappar styck och de gör kaffebryggare, lampor och julbelysning smarta utan att du byter något.
+3. **Sensorer.** Rörelse, dörr och temperatur. Det är först här automationerna börjar kännas som magi i stället för som en fjärrkontroll.
+4. **Säkerhet.** Kamera, brandvarnare och lås. Dyrare, och kräver att du redan bestämt dig för ett ekosystem.
+5. **Hubb eller Home Assistant.** När du har tillräckligt många enheter för att irritera dig på att de inte pratar med varandra.
+
+### De vanligaste misstagen
+
+**Att köpa Wi-Fi-produkter i mängd.** Varje enhet tar en plats på nätverket.
+Runt tio enheter börjar en vanlig router klaga, och då är felsökningen tråkig.
+
+**Att låsa in sig i ett märke utan Matter.** En produkt utan Matter-stöd är värd
+exakt så mycket som tillverkarens molntjänst är, och den tjänsten kan stängas.
+
+**Att sätta smarta lampor bakom en vanlig strömbrytare.** Slår någon av
+strömmen försvinner lampan ur appen. Lösningen är en trådlös scenbrytare ovanpå
+den gamla, inte att förbjuda folk att röra brytaren.
+
+**Att börja med säkerhet.** Lås och kameror är det svåraste att byta ut och det
+mest ekosystemberoende. Ta dem sist.

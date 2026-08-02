@@ -1,0 +1,256 @@
+{/*
+  Köpguide för /smart-belysning. Renderas inuti en Section vars rubrik är h2,
+  så avsnitten här är h3. Prosan innehåller varken pris, butik eller URL —
+  produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan,
+  och köplänken går genom AffiliateCta som ärver LINK_MODE.
+*/}
+
+### Så mycket ljus behöver rummet
+
+Watt säger ingenting om hur mycket en lampa lyser. Det talet mäter hur mycket
+ström den drar, vilket var användbart när alla lampor var glödlampor och
+förhållandet mellan de två var konstant. Med LED är kopplingen bruten. Det du
+ska jämföra heter lumen.
+
+En vanlig tumregel är att ett vardagsrum vill ha runt 100 till 150 lumen per
+kvadratmeter i allmänbelysning, medan ett kök behöver det dubbla. Räknaren gör
+om det till ett tal för just ditt rum.
+
+<ToolFrame tool="lumenraknare">
+  <LumenCalculator />
+</ToolFrame>
+
+Fördela ljuset på flera ljuspunkter hellre än att lösa allt med en stark lampa i
+taket. Samma antal lumen känns helt olika beroende på om de kommer från ett
+ställe eller fyra.
+
+Har du kvar en gammal glödlampa och vill veta vad den motsvarar räcker den här
+tabellen.
+
+<ToolFrame tool="watt-till-lumen">
+  <WattLumenTable />
+</ToolFrame>
+
+### Lönar det sig ens?
+
+Det ärliga svaret är att smart belysning inte är värt pengarna för alla, och
+det är värt att veta innan du köper fem lampor.
+
+**Det lönar sig när du styr ljus du annars inte styr.** Utomhusbelysning som
+ska följa årstiden, en hall som ska tändas när någon kommer hem, lampor som ska
+se ut att vara på när du är bortrest. Här gör tekniken något du faktiskt inte
+kan göra själv.
+
+**Det lönar sig när ljuset ska ändra karaktär under dygnet.** Varmt på kvällen
+och kallare på morgonen är den funktion flest personer säger sig sakna när de
+går tillbaka till vanliga lampor.
+
+**Det lönar sig sällan i ett rum med en lampa och en strömbrytare inom
+räckhåll.** Att lyfta telefonen för att tända en läslampa du sitter bredvid är
+långsammare än att sträcka sig efter brytaren, och den insikten kommer efter
+ungefär en vecka.
+
+**Det lönar sig inte alls i utrymmen du knappt använder.** En smart lampa i en
+garderob drar ström dygnet runt för att kunna tändas i tio minuter. Där är en
+vanlig lampa både billigare och bättre.
+
+Rådet i praktiken: köp två lampor till det rum där du faktiskt vill att ljuset
+ska förändras. Lev med dem i en månad. Nästan alla ändrar åsikt om vad de vill
+ha, och de flesta som börjar med tio lampor har fel lampor i minst fyra rum.
+
+### Vad kostar lamporna att äga?
+
+En smart lampa drar ström även när den är släckt. Radion måste vara vaken för
+att kunna ta emot kommandot att tända, och den vakenheten kostar. Talet är
+litet, ungefär tre tiondels watt per lampa, men det gäller dygnet runt året om.
+
+Det intressanta är inte kronorna utan andelen. En lampa i en garderob som lyser
+tio minuter om dagen förbrukar mer i viloläge än i drift. Samma lampa i ett
+vardagsrum gör det inte. Räkna själv.
+
+<ToolFrame tool="elkostnad-lampor">
+  <RunningCostCalculator />
+</ToolFrame>
+
+Slutsatsen är sällan att man ska låta bli. En smart lampa som faktiskt släcks
+när ingen är hemma sparar mer än vad vilolägét kostar. Men det är värt att veta
+innan man sätter smarta lampor i utrymmen man knappt använder.
+
+### Strömbrytaren är det som irriterar mest
+
+Det här är den vanligaste besvikelsen med smarta lampor, och den har ingenting
+med lampan att göra.
+
+En smart lampa måste ha ström för att kunna ta emot kommandon. Slår någon av
+väggbrytaren är lampan inte längre släckt, den är död. Den syns inte i appen,
+svarar inte på röststyrning och tänds inte på schemat. Sedan kommer någon hem,
+undrar varför hallen är mörk, och slår på brytaren igen.
+
+Tre sätt att lösa det, i stigande ordning av hur bra de är:
+
+**Tejpa över brytaren.** Fungerar, ser ut precis så illa som det låter, och
+funkar inte alls när du har gäster.
+
+**Sätt en trådlös scenbrytare ovanpå den gamla.** Den gamla brytaren står kvar i
+läge på och rör sig aldrig. Den nya sitter fysiskt ovanpå och skickar kommandon
+i stället för att bryta strömmen. Det här är den vanligaste lösningen och den
+som brukar bli bra.
+
+**Flytta logiken till brytaren i stället för lampan.** Då sitter det smarta i
+väggen och lamporna kan vara vanliga. Kräver elektriker, och är egentligen en
+annan produktkategori.
+
+### Smart lampa, smart strömbrytare eller smart uttag?
+
+Tre vägar till samma sak, och valet avgörs av vad du faktiskt vill styra.
+
+**Smart lampa** när du bryr dig om ljuset självt. Färg, färgtemperatur och
+dimring finns bara här. Dyrast per ljuspunkt, och priset skalar med antalet
+lampor.
+
+**Smart strömbrytare** när du har många lampor i samma tak och bara vill kunna
+tända och släcka dem. En brytare styr hela armaturen oavsett hur många lampor
+den rymmer, vilket blir billigt i en taklampa med fem sockar. Kräver behörig
+elektriker i Sverige.
+
+**Smart uttag** när det du vill styra står på golvet. Golvlampa, julbelysning,
+kaffebryggare. Billigast av allt och kräver ingen installation, men du får bara
+av och på.
+
+De flesta hem slutar med en blandning. Färglampor där man sitter, brytare i taket
+där ljuset ändå alltid är vitt, och uttag till allt annat.
+
+### Färgåtergivning, eller varför färger ser fel ut
+
+Färgåtergivning mäts som regel i CRI, ett tal mellan 0 och 100 som beskriver hur
+naturligt en ljuskälla återger färger jämfört med dagsljus. Åttio är golvet för
+en anständig lampa. Nittio och uppåt är där det märks: mat ser aptitlig ut,
+träslag får rätt ton och hudfärg ser levande ut i stället för grå.
+
+Skillnaden syns tydligast i kök och badrum, alltså i de rum där du tittar på mat
+och på dig själv. I en hall spelar det mindre roll.
+
+Det här är kriteriet som väger tyngst i vårt betyg, och det är också där de
+dyrare lamporna faktiskt tjänar sitt pris. <ProductRef id="philips-hue-color-ambiance-e27" />
+ligger överst av lamporna vi jämfört just på den här punkten.
+
+### Flimmer och dimring
+
+Alla lampor i jämförelsen klarar att lysa fullt. Skillnaden dyker upp när du
+dimrar ner.
+
+LED dimras nästan alltid genom att lampan slås av och på snabbt, snabbare än
+ögat hinner uppfatta. Ju lägre du dimrar desto längre blir pauserna, och vid
+någon punkt börjar det synas. På en billig lampa ligger den punkten runt tjugo
+procent, vilket är precis där man vill ha ljuset på kvällen.
+
+De flesta ser inte flimret direkt. Man känner det i stället som att man blir
+trött i ögonen av ett rum utan att kunna säga varför. Ett enkelt test: filma
+lampan med mobilkameran och dimra ner. Blir det ränder i bilden flimrar den.
+
+<ProductRef id="wiz-color-a60-e27" /> är den billigaste lampan vi jämfört, och
+det är också den där flimret rapporteras tydligast i nedre registret. Som
+komplement i en läslampa spelar det ingen roll. Som grundbelysning i ett
+vardagsrum gör det det.
+
+### Protokollet är det val du inte kan ångra
+
+Lampan byter du för en hundralapp. Har du fyrtio enheter på fel teknik tar
+bytet en helg.
+
+**Wi-Fi** ansluter direkt utan brygga och är enklast att komma i gång med. Varje
+enhet tar en plats på nätverket, och runt tio enheter börjar en vanlig router
+klaga.
+
+**Zigbee** bildar ett eget nät mellan lamporna, där varje lampa fungerar som
+relästation. Blir stabilare ju fler du har, vilket är tvärtemot Wi-Fi. Kräver en
+brygga.
+
+**Thread** gör samma sak som Zigbee men är nyare och talar Matter direkt. Kräver
+en border router, som ofta är något du redan har: en HomePod, en Apple TV, en
+nyare Nest Hub eller en Dirigera.
+
+**Matter** är inget av detta utan lagret ovanpå. En Matter-certifierad produkt
+fungerar i Apple Home, Google Home, Alexa och SmartThings samtidigt. Matter går
+över Wi-Fi och Thread, aldrig över Zigbee. Zigbee-lampor kommer in via bryggan.
+
+<ToolFrame tool="protokollvaljare-smart-hem">
+  <ProtocolPicker />
+</ToolFrame>
+
+Har du redan en Thread border router hemma är <ProductRef id="nanoleaf-essentials-e27" />
+den lampa i jämförelsen som utnyttjar det bäst.
+
+### Färgtemperatur i praktiken
+
+Färgtemperatur anges i kelvin, och talet är svårt att föreställa sig och lätt
+att se. Lågt tal ger varmt ljus. 2 200 K är levandeljusvarmt, 2 700 K motsvarar
+en gammal glödlampa och 6 500 K är kallt dagsljus.
+
+<ToolFrame tool="fargtemperatur">
+  <KelvinScale />
+</ToolFrame>
+
+De flesta vill ha varmt på kvällen och kallare på morgonen, vilket är hela
+poängen med en lampa som klarar båda. Ska du bara ha en inställning är 2 700 K
+det tryggaste valet i ett hem.
+
+### Sockel och form
+
+Fel sockel är det vanligaste felköpet, och det enda som gör lampan helt
+oanvändbar.
+
+**E27** är den stora skruvsockeln och den vanligaste i svenska taklampor.
+**E14** är den lilla skruven, vanlig i kronor och vägglampor. **GU10** är en
+tvåpinnars vridsockel för spotlights i tak. **G9** är en liten tvåpinnars för
+halogenersättning.
+
+Alla lampor i den här jämförelsen är E27. Titta på den lampa du har innan du
+beställer, för sockeln står nästan alltid tryckt på sidan av den gamla lampan.
+
+Formen spelar också roll i öppna armaturer där lampan syns. En klotformad lampa
+i en armatur avsedd för päronform sticker ut, och en klar lampa bländar där en
+opalvit inte gör det.
+
+### Vad får du koppla själv?
+
+I Sverige får du byta ljuskälla, sätta stickpropp på en sladd och byta en trasig
+lamphållare i en lampa med sladd. Att dra ny fast installation, byta
+väggströmbrytare eller koppla in en dimmer i väggen kräver behörig elektriker.
+
+Det är därför smarta lampor och smarta uttag är så populära: de kräver ingen
+installation alls. Vill du ha smarta väggbrytare i stället, räkna in
+elektrikern i priset.
+
+Reglerna finns hos Elsäkerhetsverket, och de gäller oavsett hur enkelt en
+engelskspråkig guide får det att låta.
+
+### Vanliga misstag
+
+**Att köpa Wi-Fi-lampor i mängd.** Det går bra ända tills det inte gör det, och
+felsökningen är tråkig.
+
+**Att välja lampa utan Matter.** En lampa utan Matter är värd exakt så mycket
+som tillverkarens molntjänst är, och den tjänsten kan stängas.
+
+**Att jämföra watt i stället för lumen.** Två lampor på 9 W kan skilja fyrtio
+procent i ljusflöde.
+
+**Att börja för stort.** Köp två lampor, lev med dem i en månad, köp sedan
+resten. Nästan alla ändrar åsikt om vad de faktiskt vill ha.
+
+### Ordlista
+
+| Term | Betyder |
+| --- | --- |
+| **Lumen (lm)** | Hur mycket ljus lampan ger. Talet du ska jämföra. |
+| **Kelvin (K)** | Ljusets färgton. Lågt tal är varmt, högt är kallt. |
+| **CRI** | Färgåtergivning på en skala till 100. Över 90 är bra. |
+| **Watt (W)** | Hur mycket ström lampan drar. Säger ingenting om ljusstyrkan. |
+| **Zigbee** | Radioteknik där enheterna bildar ett eget nät. Kräver brygga. |
+| **Thread** | Nyare motsvarighet till Zigbee som talar Matter direkt. |
+| **Border router** | Enheten som släpper in Thread-nätet i ditt vanliga nätverk. |
+| **Matter** | Standarden som gör att produkter från olika märken fungerar ihop. |
+| **Brygga eller hubb** | Dosan som översätter mellan lampornas radio och ditt nätverk. |
+| **Multi-admin** | Att samma enhet kan ligga i flera appar samtidigt. |
+| **Scenbrytare** | Trådlös knapp som skickar kommandon i stället för att bryta strömmen. |

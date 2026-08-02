@@ -1,0 +1,254 @@
+{/*
+  Köpguide för /smart-plug. Renderas inuti en Section vars rubrik är h2,
+  så avsnitten här är h3. Prosan innehåller varken pris, butik eller URL —
+  produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan,
+  och köplänken går genom AffiliateCta som ärver LINK_MODE.
+*/}
+
+### Börja med effekten, inte med appen
+
+Nästan alla jämförelser av smarta uttag börjar med ekosystem och röststyrning.
+Det är fel ände. Den fråga som avgör om produkten alls fungerar för dig är hur
+mycket den orkar släppa igenom, och den frågan har bara två svar.
+
+Smarta uttag är i praktiken märkta för antingen 10 ampere, alltså 2 300 watt,
+eller 16 ampere, alltså 3 680 watt. Svenska butiker sätter oftast siffran rakt
+in i produktnamnet, så den är lätt att hitta när man väl vet att den betyder
+något.
+
+Skillnaden syns aldrig på en golvlampa. Den syns direkt på ett element, en
+vattenkokare, ett torkskåp eller en kupévärmare, alltså på precis de apparater
+som gör störst skillnad på elräkningen och därför är det vanligaste skälet att
+köpa ett smart uttag i Sverige över huvud taget.
+
+<ToolFrame tool="effektkoll-smart-plug">
+  <PlugLoadPicker />
+</ToolFrame>
+
+Tumregeln är tjugo procent marginal på apparatens märkeffekt. En apparat som
+står på i timmar ska inte ligga och arbeta i taket av vad adaptern tål.
+
+### Lönar det sig ens?
+
+Det ärliga svaret är att ett smart uttag inte är värt pengarna på allt, och det
+är billigare att veta det innan än efter.
+
+**Det lönar sig när apparaten drar mycket och kan flyttas i tiden.** Ett element
+eller en billaddning som går när elen är billig i stället för när den är dyr
+sparar riktiga pengar med ett timprisavtal. Det här är det starkaste argumentet
+i kategorin och det enda som ger tillbaka mer än produkten kostar.
+
+**Det lönar sig när något står på i onödan utan att du märker det.** Ett uttag
+med energimätning brukar avslöja minst en apparat som drar mer än man trodde,
+och den insikten leder oftast till att något blir avstängt för gott.
+
+**Det lönar sig sällan på något som redan drar nästan ingenting.** Ett smart
+uttag på en LED-lampa kan dra mer i viloläge än lampan gör när den lyser. Där
+har du gjort saken dyrare, inte billigare.
+
+**Det lönar sig inte alls om du köper det för bekvämligheten och sedan slutar
+öppna appen.** Det är vanligare än man tror. Ett uttag du styr en gång i veckan
+hade lika gärna kunnat vara en vanlig timer för femtio kronor.
+
+Rådet i praktiken: köp ett uttag med energimätning, sätt det på den apparat du
+misstänker mest, och låt det sitta en månad innan du köper fler.
+
+### Vad kostar uttaget att äga?
+
+Ett smart uttag drar ström dygnet runt. Radion måste vara vaken för att kunna ta
+emot kommandot att slå på, och den vakenheten kostar oavsett om det som sitter i
+uttaget är på eller av.
+
+Det som skiljer den här kategorin från smarta lampor är hur stor spridningen är.
+TP-Link anger 1,48 watt för <ProductRef id="tp-link-tapo-p100" />. Plejd anger
+0,3 watt för <ProductRef id="plejd-spr-01" />. Det är nära fem gånger så mycket,
+för produkter som ser likadana ut i hyllan och kostar ungefär lika mycket. 1,48
+watt dygnet runt blir 13 kilowattimmar om året, alltså mer än en smart lampa
+förbrukar när den faktiskt lyser.
+
+<ToolFrame tool="elkostnad-uttag">
+  <PlugRunningCostCalculator />
+</ToolFrame>
+
+Notera att flera tillverkare inte anger siffran alls. Varken Shelly, Philips
+eller Cleverio publicerar en viloförbrukning, vare sig i butiken eller i
+databladet. Vi gissar inte åt dem, men det säger något om hur lite kategorin är
+van vid att bli granskad på den punkten.
+
+### Energimätning är det som gör att uttaget kan betala sig
+
+Ungefär hälften av produkterna i den här jämförelsen kan visa vad den inkopplade
+apparaten drar. Den andra hälften slår bara av och på.
+
+Skillnaden är större i praktiken än den låter. Ett uttag som bara slår av och på
+kräver att du redan vet vad du vill styra. Ett uttag som mäter berättar det för
+dig, och nästan alla som sätter upp sitt första mätande uttag hittar något som
+drar mer än de trodde: en gammal frys, en golvvärme som går längre än den
+behöver, en dator som aldrig går ner i viloläge.
+
+<ProductRef id="shelly-plug-s-gen3" /> har den mest detaljerade mätningen av
+produkterna vi jämfört och visar förbrukningen i realtid.
+<ProductRef id="cleverio-ip200" /> har den till lägsta pris. Har du ett Plejd-
+eller Hue-system sedan tidigare får du däremot ingen mätning alls, vilket är
+värt att veta innan du väljer uttag efter märke.
+
+### Utomhus, garage och krypgrund
+
+Det här är det avsnitt som saknas i varenda svensk jämförelse vi läst, och det
+är samtidigt den fråga folk faktiskt ställer i forumen.
+
+Två uppgifter avgör om ett uttag klarar en kall eller fuktig plats.
+**Kapslingsklassen** ska vara minst IP44, vilket betyder att uttaget tål
+stänkande vatten och damm. Den siffran brukar stå tydligt. **Drifttemperaturen**
+ska täcka det kallaste platsen blir, och den siffran står nästan aldrig i en
+jämförelse.
+
+Där brister de flesta produkter. Ett vanligt inomhusuttag är inte sällan specat
+ner till noll grader, vilket gör det opålitligt i ett ouppvärmt garage från
+november till mars. Bland utomhusmodellerna skiljer det också: Shelly Outdoor
+Plug S Gen3 anger −25 till 51 °C, medan Cleverio GP120 stannar vid −20 °C. I
+Norrland är det en meningsfull skillnad.
+
+Ett inomhusuttag i en fuktig krypgrund är dessutom inte bara ett
+funktionsproblem utan en brandrisk. Ett uttag utomhus ska sitta i en krets med
+jordfelsbrytare, och en ytterdosa runt en inomhusprodukt är inte samma sak som
+en produkt byggd för att sitta ute.
+
+### Motorvärmaren, och varför den är ett specialfall
+
+Att fjärrstyra motorvärmaren är en av de vanligaste svenska användningarna, och
+den ställer högre krav än nästan allt annat man kopplar in.
+
+Fördelen mot en vanlig mekanisk timer är konkret. Du kan flytta starttiden från
+sängen när du inser att du ska iväg tidigare, du kan se i appen att den
+verkligen gick i gång, och tiden blir inte fel efter ett strömavbrott eller när
+någon tillfälligt lånat uttaget.
+
+Kraven är två. Uttaget måste vara IP44-klassat eftersom det sitter ute året om,
+och det måste klara effekten. Här räknar många fel: själva motorvärmaren ligger
+ofta mellan 400 och 1 000 watt, men sitter kupévärmaren på samma uttag ska
+båda räknas ihop, och då är man snabbt uppe kring 2 000 watt. Lägg på marginalen
+och du är i 16 ampere.
+
+### Storleken avgör om grannuttaget går att använda
+
+Det låter som en detalj tills man står med två saker som ska sitta i samma
+dubbeluttag.
+
+Flera testare tar upp det. Ljud & Bild anmärker på att WiZ rektangulära form tar
+upp plats i uttaget. Hemmastyrning konstaterar att Shelly Plug S skymmer det
+andra hålet så att två inte får plats. Tek.no utsåg en gång en vinnare delvis
+just för att den löste problemet.
+
+<ProductRef id="plejd-spr-01" /> är minst i den här jämförelsen och två stycken
+får plats i samma dubbeluttag. <ProductRef id="tp-link-tapo-p100" /> är näst
+minst. Har du ett dubbeluttag där båda hålen används, kontrollera måtten innan
+du beställer, för det går inte att göra något åt efteråt.
+
+### Protokollet avgör hur länge uttaget lever
+
+Uttaget i sig byter du för ett par hundralappar. Systemet du byggt runt det byter
+du inte lika lätt.
+
+**Wi-Fi** ansluter direkt och behöver ingenting extra, vilket är enklast att
+komma i gång med. Varje uttag tar en plats på nätverket, och runt tio enheter
+börjar en vanlig router klaga.
+
+**Zigbee** kräver en brygga men bildar ett eget nät mellan enheterna och blir
+stabilare ju fler du har. Det är vägen <ProductRef id="philips-hue-smart-plug" />
+går, och den förutsätter att du redan har bryggan.
+
+**Bluetooth mesh** är det Plejd använder. Det fungerar lokalt utan någonting
+extra, men för att styra hemifrån behövs en gateway och du är kvar i ett svenskt
+men slutet system.
+
+**Matter** är inget av detta utan lagret ovanpå. En Matter-certifierad produkt
+fungerar i Apple Home, Google Home, Alexa och SmartThings samtidigt, utan
+tillverkarens egen app. Ett uttag utan Matter är värt exakt så mycket som
+tillverkarens molntjänst är, och sådana tjänster stängs.
+
+<ToolFrame tool="protokollvaljare-smart-hem">
+  <ProtocolPicker />
+</ToolFrame>
+
+### Vad händer när nätet försvinner?
+
+Den här frågan ställdes av en läsare under ett av de svenska testerna vi citerar,
+och den fick inget svar. Den förtjänar ett.
+
+Tänk dig att uttaget startar något som bara får gå en stund. Sedan slutar
+internet fungera, eller så hänger sig servern. Startkommandot har gått fram.
+Stoppkommandot kommer aldrig.
+
+Svaret beror på var logiken ligger. Ett molnberoende wifi-uttag tappar både
+fjärrstyrning och ofta schemaläggningen när uppkopplingen bryts. Ett uttag där
+schemat ligger i själva enheten fortsätter köra sitt program oavsett nät:
+<ProductRef id="plejd-spr-01" /> har timer, veckour och astrour inbyggt.
+<ProductRef id="shelly-plug-s-gen3" /> går att styra lokalt utan att molnet
+behöver svara.
+
+Praktiskt betyder det: styr du något där det spelar roll att strömmen faktiskt
+bryts i tid, välj ett uttag som klarar sig självt. Styr du julbelysningen spelar
+det ingen roll alls.
+
+### Smart uttag, smart lampa eller smart strömbrytare?
+
+Tre vägar till samma sak, och valet avgörs av vad du vill styra.
+
+**Smart uttag** när det du vill styra står på golvet eller på en bänk och har en
+stickpropp. Golvlampa, element, julbelysning, kaffebryggare. Billigast, kräver
+ingen installation, och du får av och på plus eventuell mätning.
+
+**Smart lampa** när du bryr dig om ljuset självt. Färg, färgtemperatur och
+dimring finns bara där. Dyrast per ljuspunkt.
+
+**Smart strömbrytare** när du har många lampor i samma armatur och bara vill
+tända och släcka dem. Kräver behörig elektriker i Sverige.
+
+De flesta hem slutar med en blandning, och uttaget är nästan alltid det man
+börjar med eftersom tröskeln är lägst.
+
+### Vad får du koppla själv?
+
+Ett smart uttag sätts i ett befintligt vägguttag och räknas inte som fast
+installation. Vem som helst får använda ett, och det är just därför kategorin är
+så populär.
+
+Vill du i stället byta ut själva vägguttaget mot ett smart uttag i väggen, eller
+sätta en modul bakom strömbrytaren, krävs behörig elektriker. Reglerna finns hos
+Elsäkerhetsverket och gäller oavsett hur enkelt en engelskspråkig guide får det
+att låta.
+
+### Vanliga misstag
+
+**Att köpa 10 ampere till ett element.** Den vanligaste och den enda som är
+farlig. Kontrollera märkningen innan, inte efter.
+
+**Att glömma att motorer räknas annorlunda.** En pump på 400 watt kan dra över
+1 500 watt i startögonblicket, och den toppen står inte på apparaten.
+
+**Att sätta ett inomhusuttag i garaget.** Fungerar tills det blir kallt eller
+fuktigt, och då slutar det fungera vid precis det tillfälle du behövde det.
+
+**Att strunta i viloförbrukningen.** Åtta uttag av den törstigaste sorten kostar
+över tvåhundra kronor om året i ren bakgrundsförbrukning.
+
+**Att välja uttag utan Matter för att spara femtio kronor.** Det du sparar är
+femtio kronor. Det du riskerar är att produkten blir en dum adapter den dagen
+tillverkaren stänger sin molntjänst.
+
+### Ordlista
+
+| Term | Betyder |
+| --- | --- |
+| **Ampere (A)** | Strömstyrka. 10 A motsvarar 2 300 W, 16 A motsvarar 3 680 W. |
+| **Maxlast** | Den högsta effekt uttaget är märkt för. Det första du ska kontrollera. |
+| **Resistiv last** | Apparater som bara ger värme: element, vattenkokare, torkskåp. Märkningen gäller dessa. |
+| **Induktiv last** | Apparater med motor eller spole: pumpar, fläktar, kylskåp. Drar en startström över märkeffekten. |
+| **Viloförbrukning** | Vad uttaget självt drar dygnet runt för att kunna ta emot kommandon. |
+| **Energimätning** | Att uttaget kan visa vad den inkopplade apparaten förbrukar. |
+| **IP-klass** | Hur tätt uttaget är. IP20 är inomhus, IP44 tål stänk och damm. |
+| **Drifttemperatur** | Det temperaturintervall tillverkaren garanterar. Avgörande i ouppvärmda utrymmen. |
+| **Matter** | Standarden som gör att produkter från olika märken fungerar ihop utan tillverkarens app. |
+| **Gateway eller brygga** | Dosan som översätter mellan uttagets radio och ditt nätverk. |
+| **Astrour** | Schema som följer solens upp- och nedgång i stället för en fast klockslag. |

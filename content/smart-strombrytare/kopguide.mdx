@@ -1,0 +1,248 @@
+{/*
+  Köpguide för /smart-strombrytare. Renderas inuti en Section vars rubrik är h2,
+  så avsnitten här är h3. Prosan innehåller varken pris, butik eller URL —
+  produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan,
+  och köplänken går genom AffiliateCta som ärver LINK_MODE.
+
+  Avsnittsordningen är avsiktlig: nolledaren och behörighetsfrågan står först,
+  eftersom de avgör vad läsaren över huvud taget kan köpa. Att lägga protokoll
+  och ekosystem först, som varje konkurrent gör, är att svara på en fråga
+  läsaren ännu inte kan ställa.
+*/}
+
+### Börja i dosan, inte i appen
+
+Varje svensk jämförelse av smarta strömbrytare inleder med ekosystem, Matter
+och röststyrning. Det är fel ände. Frågan som avgör om en produkt är möjlig
+hemma hos dig ställs innan du valt märke, och den handlar om vad som sitter
+bakom knappen på väggen.
+
+En smart strömbrytare behöver ström dygnet runt. Elektroniken måste vara vaken
+för att kunna ta emot kommandot att tända, även när lampan är släckt. Till det
+krävs både fas och nolledare i dosan.
+
+I många äldre svenska hem finns bara fasen där. Nolledaren möter lampan uppe i
+taket i stället, vilket fungerar utmärkt för en vanlig strömbrytare och inte
+alls för en smart. Det är den vanligaste anledningen till att ett köp går i
+stöpet, och den upptäcks nästan alltid efter att paketet kommit.
+
+<ToolFrame tool="installationsguide-strombrytare">
+  <SwitchInstallationPicker />
+</ToolFrame>
+
+Hur avgörande nolledaren är syns tydligast i butikshyllan. Kjell säljer
+<ProductRef id="aqara-h1-utan-nolla" /> och samma brytare i en version som
+kräver nolledare som två skilda artikelnummer, och den som klarar sig utan
+kostar mer. Bor du i ett äldre hus betalar du alltså extra för samma funktion.
+
+### Vad du får göra själv, och vad du inte får
+
+Det här är sidans viktigaste avsnitt, och det som skiljer svenska förhållanden
+från nästan allt du läser på engelska.
+
+Elsäkerhetsverket delar upp elarbete efter vad du gör, inte efter hur svårt det
+känns. På listan över tillåtet egenarbete står att byta en befintlig
+strömbrytare för högst 16 A som sitter i egen kapsling eller dosa. Myndigheten
+lägger till villkoret med egna ord: om du vet hur du ska göra.
+
+Att i stället lägga in en relämodul bakom den befintliga knappen är något
+annat. Då tillför du en enhet till den fasta installationen, och förändringar i
+den fasta installationen kräver ett registrerat elinstallationsföretag.
+Tillverkarnas återförsäljare skriver det själva rakt ut i produktbeskrivningen
+för både <ProductRef id="shelly-1-gen4" /> och
+<ProductRef id="hue-inbyggnadsrela" />.
+
+Slutsatsen är värd att stanna vid. **Den produkttyp nästan alla rekommenderar
+är den som kräver elektriker, och den typ du själv får montera är den som
+knappt nämns.** Det beror inte på att reläerna är sämre, utan på att de är
+osynliga och behåller husets utseende. Men det är inte samma jobb, och det är
+inte samma kostnad.
+
+En sak till, eftersom det förekommer guider som visar motsatsen: en
+femstegsanvisning för att själv koppla in ett relä bakom brytaren är inte ett
+råd du ska följa bara för att någon publicerat den.
+
+### Relämodul, väggbrytare eller trådlös knapp
+
+Kategorin består av tre olika produkter som löser samma problem på tre sätt.
+Att blanda ihop dem är det vanligaste felet i svenska jämförelser, och det gör
+verklig skada eftersom kraven skiljer sig helt.
+
+**Relämodul bakom brytaren.** En liten dosa som göms i väggdosan. Din knapp ser
+likadan ut och fungerar som förut, men kretsen går också att styra från appen.
+Kräver nolledare och elektriker. Hit hör <ProductRef id="shelly-1-gen4" />,
+<ProductRef id="plejd-ctr-01" /> och <ProductRef id="tapo-s110e" />.
+
+**Smart väggbrytare.** Hela knappen byts mot en ny med elektronik i. Du får nya
+funktioner direkt på väggen, du slipper trängseln i dosan, och arbetet är ett
+brytarbyte. Det finns dessutom varianter som klarar sig utan nolledare.
+
+**Trådlös batteribrytare.** Skruvas eller klistras på väggen utan att röra 230
+volt. Kräver varken nolledare, elektriker eller tillstånd. Nackdelen är att den
+bara styr smarta lampor: en vanlig armatur blir inte smart av en trådlös knapp.
+Mer om den varianten längre ner.
+
+### Storleken i dosan avgör oftare än man tror
+
+En modul som ska ner i en gammal grund dosa bakom en brytare med grova ledare
+har mindre plats än produktbilden antyder. Skillnaderna är påtagliga:
+<ProductRef id="tapo-s110e" /> är minst i jämförelsen,
+<ProductRef id="plejd-ctr-01" /> störst.
+
+Är dosan trång är den mindre modulen värd de extra kronorna, och det är en av
+få gånger i den här kategorin där ett högre pris köper något du märker direkt.
+En smart väggbrytare har inte problemet alls, eftersom elektroniken sitter i
+själva knappen.
+
+### Maxlasten, som ser lika ut men inte är det
+
+Alla modulerna anger en maxlast, men de anger den på olika sätt och det gör
+jämförelsen svårare än den borde vara. Vissa uppger ampere, vissa watt, och de
+flesta uppger ett **separat och betydligt lägre tal för LED-belysning**.
+
+Det lägre talet är det som gäller för dig. En modul som klarar 16 A resistiv
+last kan vara begränsad till några hundra watt LED, eftersom LED-drivdon drar
+en kort men kraftig ström när de slås på. Skillnaden mellan produkterna i vår
+jämförelse är mer än femfaldig på just den siffran.
+
+En taklampa med ett par lampor ligger långt under alla gränser. En hel
+belysningsgrupp med infällda spottar i ett vardagsrum kan ligga över den lägsta.
+Räkna ihop vad som sitter på kretsen innan du väljer, inte efteråt.
+
+### Lönar det sig ens?
+
+Det ärliga svaret är att en smart strömbrytare inte är värd pengarna överallt,
+och det är billigare att veta det innan.
+
+**Det lönar sig när armaturen inte går att göra smart på annat sätt.** Infälld
+belysning, badrumsarmaturer och taklösningar som förra ägaren monterade går
+inte att lösa med en smart lampa. Här är brytaren det enda alternativet, och
+då är den självklar.
+
+**Det lönar sig när någon annan än du bor i huset.** Den vanligaste
+frustrationen med smarta lampor är att någon slår av väggbrytaren och lampan
+försvinner ur appen. Att flytta logiken till väggen tar bort problemet i stället
+för att förklara det för familjen.
+
+**Det lönar sig sällan på en enda lampa.** Har du en golvlampa med sladd ska du
+köpa ett smart uttag i stället. Det kostar en tredjedel, kräver ingen
+installation och gör samma sak. Har du en enda taklampa du vill styra är en
+smart lampa i armaturen både billigare och mer flexibel.
+
+**Det lönar sig sällan om du inte tänker fortsätta.** Kostnaden per punkt sjunker
+kraftigt när du gör flera, framför allt om en elektriker ändå är på plats.
+En enda modul med utryckning betalar mest för resan.
+
+### Räkna på systemet, inte på modulen
+
+Det här är den räkning nästan ingen gör, och den ändrar vilket märke som är
+billigast.
+
+Elinstallatören, elektrikernas branschtidning, räknade i januari 2025 på en
+normalstor svensk villa: 140 kvadratmeter, arton belysningsgrupper, en
+rörelsevakt, åtta jalusier och tre smarta pluggar. Materialkostnaden landade på
+11 883 kronor för Shelly, 13 758 kronor för Plejd och 20 989 kronor för Wiser.
+Arbetet tillkommer.
+
+Hundra kronor i skillnad mellan två moduler ser ut som ingenting i butiken.
+Multiplicerat med arton blir det närmare två tusen. Det är därför vårt kriterium
+Prisvärde väger totalkostnaden och inte styckpriset, och det är därför den
+billigaste modulen i jämförelsen också är den som vinner testet.
+
+### Vad händer när molnet stängs ner
+
+En väggbrytare är infrastruktur på ett sätt ett smart uttag inte är. Den sitter
+inmurad i väggen och ska fungera om tio år, och tio år är lång tid i
+molntjänstbranschen.
+
+Den fysiska knappen fungerar alltid, oavsett produkt och oavsett vad som händer
+med tillverkaren. Det som kan försvinna är appen, scheman och automatiseringar.
+
+Skillnaden mellan produkterna är verklig. <ProductRef id="shelly-1-gen4" />
+styrs helt lokalt och integreras direkt i Home Assistant. Plejds Bluetooth-nät
+är lokalt av konstruktion och behöver varken hubb eller internet. Hue Bridge kör
+också lokalt. <ProductRef id="tapo-s110e" /> ger lokal grundstyrning via Matter,
+men appens egna scheman förutsätter tillverkarens moln.
+
+Vill du kunna byta ut en del i taget snarare än hela systemet är öppna protokoll
+och lokal styrning det du ska titta efter, och det är det kriteriet vi kallar
+Drift utan moln.
+
+### Protokollet spelar mindre roll än du tror, utom när det inte gör det
+
+<ToolFrame tool="protokollvaljare-smart-hem">
+  <ProtocolPicker />
+</ToolFrame>
+
+För en enskild brytare fungerar wifi utmärkt. Problemet kommer när antalet
+enheter växer: femton wifi-enheter i ett hus belastar routern på ett sätt
+Zigbee och Bluetooth mesh inte gör, eftersom de senare bygger ett eget nät
+mellan enheterna.
+
+Matter är värt att bry sig om av ett annat skäl än det brukar säljas på. Det
+handlar mindre om vilken röstassistent du använder i dag och mer om att en
+Matter-enhet inte är låst till en tillverkares app om fem år.
+
+### Trådlös strömbrytare: den som inte kräver någon installation alls
+
+Den här varianten hamnar nästan aldrig i svenska jämförelser, trots att den är
+den enda vem som helst får sätta upp och trots att det är den de flesta letar
+efter när de börjar fundera på att styra ljuset utan att dra kablar.
+
+En trådlös batteribrytare skruvas eller tejpas på väggen och skickar en
+radiosignal till dina smarta lampor. Den rör aldrig 230 volt. Den kan sitta var
+som helst, inklusive rakt ovanpå en befintlig brytare som du vill hindra folk
+från att slå av, vilket löser hela problemet med försvunna smarta lampor för
+ungefär en tredjedel av priset.
+
+Tek.no har grupptestat kategorin och lät Samsung SmartThings Button vinna före
+Ikea Styrbar och Philips Hue Dimmer Switch. Testet är från 2023 och alltså
+gammalt, vilket är värt att veta innan du tar rangordningen som färsk.
+
+Begränsningen är enkel och absolut: en trådlös knapp styr bara redan smarta
+lampor. Sitter det en vanlig armatur i taket händer ingenting.
+
+### Dimring är alltid ett separat köp
+
+Ingen av modulerna i vår rankning dimrar. De slår av och på, punkt. Det är
+lätt att missa, eftersom produktnamnen sällan säger det.
+
+Vill du dimra finns två vägar. Antingen en dimmermodul i samma system, och då
+byter du både produkt och pris: dimmerpuckarna kostar ungefär det dubbla mot
+reläerna. Eller så dimrar du i lampan i stället, alltså sätter smarta lampor i
+armaturen och låter väggbrytaren stå kvar som den är.
+
+Två saker att räkna med. En dimmer har alltid lägre maxlast än ett relä, ofta
+väsentligt lägre. Och billiga LED-lampor kan flimra vid låg dimring oavsett hur
+bra dimmern är, vilket är ett lampfel och inte ett dimmerfel.
+
+### Vanliga misstag
+
+**Att köpa innan man tittat i dosan.** Den enskilt vanligaste orsaken till
+returer i kategorin. Det tar tio minuter att slå av säkringen och se efter.
+
+**Att jämföra styckpris.** Skillnaden mellan systemen växer med antalet punkter,
+och den billigaste modulen sitter inte alltid i det billigaste systemet.
+
+**Att tro att ett relä är samma jobb som ett brytarbyte.** Det är det inte,
+varken tekniskt eller enligt reglerna.
+
+**Att köpa en brytare till en sladdlampa.** Ett smart uttag gör samma sak,
+billigare och utan installation.
+
+**Att glömma LED-talet.** Maxlasten som står stort i produktnamnet gäller
+sällan belysning.
+
+### Ordlista
+
+| Term | Vad det betyder |
+|---|---|
+| Nolledare | Den blå ledaren som sluter kretsen. Krävs av de flesta smarta brytare, saknas ofta i äldre svenska brytardosor. |
+| Inbyggnadsrelä | Modul som göms i väggdosan bakom din befintliga knapp och styr kretsen därifrån. |
+| Fast installation | Den inmurade elen i huset. Förändringar kräver registrerat elinstallationsföretag. |
+| Brytarbyte | Att byta en befintlig strömbrytare mot en annan. Står på Elsäkerhetsverkets lista över tillåtet egenarbete. |
+| Återfjädrande brytare | Knapp som fjädrar tillbaka i stället för att stanna i läge. Alla moduler klarar inte båda typerna. |
+| Bluetooth mesh | Nät där enheterna når varandra i stället för att var och en prata med routern. Plejds grund. |
+| Zigbee | Trådlöst nät för smarta hem som kräver en hubb men avlastar wifi. |
+| Matter | Gemensam standard som gör att en enhet fungerar i flera ekosystem och inte låses till en app. |
+| LED-last | Den lägre maxeffekt som gäller för LED-belysning, alltid lägre än modulens resistiva märklast. |

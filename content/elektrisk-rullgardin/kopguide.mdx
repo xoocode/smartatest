@@ -1,0 +1,241 @@
+{/*
+  Köpguide för /elektrisk-rullgardin. Renderas inuti en Section vars rubrik är h2,
+  så avsnitten här är h3. Prosan innehåller varken pris, butik eller URL —
+  produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan,
+  och köplänken går genom AffiliateCta som ärver LINK_MODE.
+
+  Avsnittsordningen är avsiktlig: upphängningen står först, eftersom den avgör
+  vad läsaren över huvud taget kan köpa. Att inleda med appar och ekosystem,
+  som varje konkurrent gör, är att svara på en fråga läsaren ännu inte kan
+  ställa. IKEA-avsnittet ligger tidigt eftersom det är den enda uppgiften på
+  sidan som ingen annan svensk sida har rätt.
+*/}
+
+### Börja i taket, inte i appen
+
+Felköpet i den här kategorin är inte att man råkar välja en sämre produkt. Det
+är att man väljer en som inte går att sätta fast.
+
+Gardinmotorerna säljs som olika artikelnummer beroende på vad gardinen hänger
+i. SwitchBot säljer sin Curtain 3 i tre utföranden, för U-skena, I-skena och
+gardinstång. Aqara säljer sin Curtain Driver E1 i två. Artiklarna heter nästan
+likadant, produktbilderna är närmast identiska och priserna ligger inom
+hundralappen från varandra. Kommer fel variant hem går den inte att montera
+alls.
+
+Så titta uppåt först. Ett runt rör där gardinen hänger i ringar eller öglor är
+en gardinstång. En profil skruvad i tak eller vägg, där gardinen löper i
+glidare inuti, är en skena. Är profilen öppen nedåt som ett upp och nedvänt U
+är det en U-skena, den vanligaste i svenska hem.
+
+<ToolFrame tool="monteringsvaljare-gardin">
+  <CurtainMountPicker />
+</ToolFrame>
+
+Rullgardiner och persienner hör egentligen inte hemma i samma diskussion. Där
+finns ingen gardin att dra i sidled, utan en kedja att rulla eller lameller att
+vinkla, och det kräver helt andra produkter. Att butiker och jämförelsesidor
+lägger allt i samma lista är en av anledningarna till att kategorin är svår att
+navigera.
+
+### IKEA har lämnat kategorin, och nästan ingen skriver det
+
+De flesta jämförelser som ligger uppe har fortfarande IKEA FYRTUR högst upp.
+Det rådet går inte att följa längre.
+
+IKEA skriver själva, i sin egen kundtjänst, att TREDANSEN och PRAKTLYSING inom
+Home Smart utgick ur sortimentet under hösten 2025. FYRTUR och KADRILJ försvann
+dessförinnan. När vi kontrollerade ledde både FYRTUR-sidan och TREDANSEN-sidan
+vidare till vanliga rullgardiner utan motor.
+
+Det märkligaste är att IKEA:s kategorisida för elektriska rullgardiner
+fortfarande ligger uppe, med säljtexten intakt om att styra dina smarta
+rullgardiner med medföljande fjärrkontroll. Sidan innehåller inte en enda
+produkt.
+
+För den som letar efter en ersättare finns i praktiken två vägar. Antingen en
+komplett motoriserad rullgardin, där <ProductRef id="switchbot-roller-shade" />
+är det närmaste som går att köpa i dag. Eller en motor som drar i
+kedjan på den rullgardin du redan har, vilket är betydligt billigare och det
+som <ProductRef id="aqara-roller-shade-e1" /> gör.
+
+### Ljudet är det du kommer att bry dig om
+
+En gardinmotor sitter oftast i ett sovrum, och det första den gör varje dag är
+att gå igång medan du sover. Det gör ljudnivån till den egenskap som avgör om
+du blir nöjd, och den är samtidigt den enda som nästan ingen anger.
+
+SwitchBot publicerar sina siffror: 25 decibel i det tysta läget och 42 i
+normalläge. Skillnaden mellan de två är ungefär skillnaden mellan en viskning
+och ett vanligt samtal, och det märks direkt.
+
+Aqara anger ingen siffra alls. Inte på produktsidan hos Kjell, och inte i sin
+egen tekniska specifikation, som nöjer sig med vridmoment och hastighet. Nedis
+anger heller ingenting. Vi har inte mätt något själva och tänker inte hitta på
+en siffra åt en tillverkare som valt att inte publicera någon, men de
+recensenter som ställt SwitchBot och Aqara bredvid varandra är eniga om vilken
+som hörs mest.
+
+Att en tillverkare skyltar med sitt värde medan konkurrenten tiger är i sig
+information. Den som har ett bra tal brukar berätta det.
+
+### Batteritiden skiljer sex gånger
+
+Den andra siffran som avgör hur du kommer att uppleva produkten är hur ofta den
+behöver laddas, och spridningen här är större än på någon annan punkt.
+
+<ProductRef id="aqara-curtain-driver-e1-track" /> uppges klara upp till ett år
+på en laddning. SwitchBots gardinmotorer landar runt åtta månader.
+<ProductRef id="aqara-roller-shade-e1" /> klarar två månader, för en rullgardin
+på knappt två gånger två meter som körs en gång om dagen.
+
+Två månader är sex laddningar om året. Sitter gardinen högt, bakom en soffa
+eller i ett rum du sällan går in i, är det inte en detalj utan hela skillnaden
+mellan en produkt du använder och en du slutar bry dig om.
+
+Solpanel ändrar bilden helt. Till <ProductRef id="switchbot-blind-tilt" />
+ingår den i förpackningen, vilket i praktiken gör laddningen till ett
+icke-problem. Till Curtain 3 säljs den separat, och är värd att räkna in i
+priset om produkten ska sitta svåråtkomligt.
+
+### Hubben ingen räknar med
+
+Alla produkter i den här jämförelsen behöver en hubb för att kunna göra det
+folk faktiskt vill: dra för gardinen automatiskt på ett schema, styra den
+hemifrån jobbet, eller lägga in den i en scen tillsammans med lamporna. Ingen
+av dem talar Matter direkt ur kartongen.
+
+Skillnaden mellan tillverkarna är ändå viktig. SwitchBots produkter kör
+Bluetooth och fungerar utan hubb så länge du står i rummet med telefonen. Det
+räcker längre än man tror för en gardin i sovrummet. Aqara kör Zigbee och
+kräver en Aqara-hubb för att fungera över huvud taget. Utan hubb gör produkten
+ingenting.
+
+Det betyder att prisjämförelsen ser annorlunda ut beroende på vad du redan har
+hemma. Har du en Aqara-hubb är Aqara billigast. Har du ingenting alls är
+SwitchBot billigast att börja med, eftersom du kan skjuta upp hubbköpet.
+
+<ToolFrame tool="protokollvaljare-smart-hem">
+  <ProtocolPicker />
+</ToolFrame>
+
+### Friktion stoppar fler motorer än vikt
+
+Tillverkarna anger maxvikt: 16 kilo för SwitchBots skenvariant, 15 för
+stångvarianten, 12 kilo för Aqara enligt Kjell. Siffrorna är inte oviktiga, men
+de är sällan det som gör att en motor inte orkar.
+
+Det som stoppar en gardinmotor i verkligheten är friktion. En skena som aldrig
+rengjorts, glidare som kärvar, en gardin som skaver mot fönsterbrädan eller en
+stång som böjt sig någon millimeter på mitten. Allt det kostar kraft som inte
+syns i någon specifikation.
+
+Testet är enkelt och tar tio sekunder. Dra gardinen för hand, långsamt, hela
+vägen. Känns det trögt någonstans kommer motorn att kämpa på precis det
+stället, och den kommer dessutom att låta mer när den gör det. Åtgärda
+trögheten först, köp motorn sedan.
+
+### Rullgardin: dra i kedjan eller byta hela
+
+För rullgardiner finns två helt olika lösningar, och de kostar väldigt olika.
+
+Den billiga vägen är en motor som hakar i kedjan och rullar gardinen du redan
+har. Den kostar från runt sjuhundrafemtio kronor, kräver ingen som helst
+förändring av fönstret och går att flytta med om du byter bostad. Priset
+betalar du i batteritid, eftersom motorn måste kämpa mot en mekanism som inte
+är byggd för den.
+
+Den dyra vägen är en komplett motoriserad rullgardin där motorn sitter i
+rullen. Den kostar ungefär tre gånger så mycket, du måste mäta fönstret rätt
+och du slänger den gardin du har. I gengäld slipper motorn kämpa mot någon
+annans mekanism, vilket både låter mindre och håller längre.
+
+Har du en rullgardin du är nöjd med, börja med kedjemotorn. Ska du ändå byta
+gardin, hoppa direkt till den kompletta.
+
+### Persienn: ett alternativ, och det vinklar bara
+
+Persienner är kategorins fattigaste hörn. Vi gick igenom butikernas sortiment
+och hittade ett enda eftermonterat alternativ,
+<ProductRef id="switchbot-blind-tilt" />.
+
+Det är tur att det är en bra produkt, för alternativ saknas. Den sätts på
+persiennens befintliga vridmekanism, ställer lamellerna med två graders
+precision och har en ljussensor som kan följa solen under dagen.
+
+Men var tydlig med vad den gör: den vinklar lamellerna. Den hissar inte upp
+persiennen. Vill du kunna dra upp persiennen helt behöver du en persienn som
+redan är motoriserad, och till den en modul som kräver elektriker. Kontrollera
+dessutom din persienntyp mot tillverkarens lista innan du beställer, för
+kompatibiliteten är det alla testare återkommer till.
+
+### 230 V-modulerna, och var gränsen går
+
+I samma butikskategori ligger produkter som ser ut att vara billiga alternativ
+men är något helt annat. Plejd Jalusi Controller, Aqara Shutter Switch H2 och
+Aqara Smart Roller Shade Controller styr en motor som redan sitter i väggen.
+De är styrningar, inte motorer.
+
+Två saker följer av det. Du måste redan ha en motoriserad markis, persienn
+eller rullgardin för att de ska vara till någon nytta. Och installationen är en
+förändring av den fasta installationen, vilket kräver ett registrerat
+elinstallationsföretag. Det är samma gräns som gäller för smarta
+inbyggnadsreläer bakom en strömbrytare.
+
+Att Plejds modul kostar mindre än hälften av en klämrobot är alltså inte en
+prisjämförelse. Har du redan motoriserat är den ett utmärkt köp, särskilt om du
+har Plejd i övrigt. Har du det inte är den irrelevant.
+
+### Lönar det sig?
+
+I sovrummet, ofta. I resten av hemmet, sällan.
+
+Poängen med en smart gardin är att den ska röra sig när du inte är där för att
+dra i den. Gå upp med gryningen så att du vaknar av ljus i stället för av en
+signal. Gå ner när eftermiddagssolen ligger på och rummet blir varmt. Röra sig
+medan du är bortrest så att huset ser bebott ut.
+
+I ett rum där du står bredvid gardinen varje gång du drar den finns ingen
+sådan vinst. Då är det snabbare att sträcka sig efter den än att öppna appen,
+och tusenlappen är svår att motivera. Till skillnad från smarta uttag finns här
+heller ingenting att spara: en gardinmotor sänker inte din elräkning.
+
+Rådet är detsamma som för smarta lampor. Köp en motor till det fönster där du
+faktiskt vill att något ska hända av sig självt, oftast sovrummet, lev med den
+i en månad och bestäm dig sedan. De som är nöjda i dag började nästan alltid
+med ett fönster.
+
+### Vanliga misstag
+
+**Att beställa på modellnamnet.** Skenversionen och stångversionen heter nästan
+likadant och ligger bredvid varandra i butikens lista. Beställ på
+artikelnumret.
+
+**Att glömma att gardiner möts på mitten.** Två våder som ska dras åt varsitt
+håll kräver två motorer. Det dubblar kostnaden per fönster och är den
+vanligaste budgetmissen.
+
+**Att räkna bort hubben.** Aqara fungerar inte utan den. SwitchBot fungerar
+inte utanför rummet utan den. Räkna in den från början i stället för att
+upptäcka den efteråt.
+
+**Att köpa till en trög skena.** Motorn löser inte friktion, den kämpar mot
+den, låter mer och laddar ur snabbare. Fixa skenan först.
+
+**Att tro att persiennmotorn hissar.** Den vinklar lamellerna. Det är en annan
+sak.
+
+### Ordlista
+
+| Term | Vad det betyder |
+|---|---|
+| U-skena | Gardinskena öppen nedåt, formad som ett upp och nedvänt U. Vanligast i svenska hem. |
+| I-skena | Gardinskena med spår på båda sidor om en mittdel, tvärsnittet liknar ett I. |
+| Gardinstång | Runt rör där gardinen hänger i ringar, öglor eller klämmor utanpå. |
+| Glidare | Plastdetaljen som löper inuti skenan och som gardinen hänger i. |
+| Kedjemotor | Motor som hakar i rullgardinens kedja och rullar den, utan att gardinen byts. |
+| Lamell | De vågräta bladen i en persienn, som vrids för att släppa in mer eller mindre ljus. |
+| QuietDrift | SwitchBots namn på det långsamma, tysta läget på 25 dB. |
+| Hubb | Enheten som kopplar produkten till ditt wifi, så att den kan styras utifrån och nås av röstassistenter. |
+| Zigbee | Radioprotokoll där enheterna bildar eget nät. Kräver hubb, belastar inte wifi. |
+| Matter | Gemensam standard som gör att en produkt fungerar i flera ekosystem. Nås här bara via hubb. |

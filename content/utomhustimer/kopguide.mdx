@@ -1,0 +1,270 @@
+{/*
+  Köpguide för /utomhustimer. Renderas inuti en Section vars rubrik är h2, så
+  rubrikerna här är ###. Prosan innehåller aldrig pris, butik eller URL:
+  produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan,
+  och verktygen bäddas in via <ToolFrame> med slug från lib/tools.ts.
+
+  Ordningen är vald efter vad som stoppar ett köp, inte efter vad som är
+  intressantast. Väderskyddet först eftersom det är ett myndighetskrav, sedan
+  produkttyperna, sedan solnedgången som är kategorins verkliga funktionsfråga.
+*/}
+
+Kategorin ser enkel ut och är det inte. Tre helt olika produkttyper säljs som
+svar på samma fråga, priset säger nästan ingenting om vad de klarar, och den
+uppgift som avgör om produkten fungerar i februari saknas hos hälften av dem.
+
+Den här guiden går igenom vad som faktiskt skiljer dem åt, i den ordning
+frågorna stoppar ett köp.
+
+### Börja med vad som ska kopplas in
+
+Två svar avgör nästan hela valet: hur mycket lasten drar, och om tändningstiden
+behöver följa med över året. Väljaren nedan tar dem i tur och ordning och
+föreslår den enklaste produkt som räcker, inte den mest avancerade.
+
+<ToolFrame tool="timervaljare-utomhus">
+  <OutdoorTimerPicker />
+</ToolFrame>
+
+### IP44 är golvet, och det är ett myndighetskrav
+
+Elsäkerhetsverket är tydliga med gränsen: för en ljusslinga som kan placeras på
+mark utomhus gäller IP-klassen IP44 eller högre siffervärde. Samma gräns gäller
+rimligen det strömmen går igenom på vägen dit, alltså timern.
+
+Fyran i andra positionen betyder att produkten tål vatten som stänker från alla
+riktningar. En vanlig inomhustimer är IP20, alltså skyddad mot fingrar men inte
+mot vatten över huvud taget. Att lägga den under ett tak eller i en plastpåse
+gör den inte godkänd. Fukt i en produkt med 230 volt är en brandrisk och inte
+bara ett funktionsproblem.
+
+<ProductRef id="tp-link-tapo-p410m" /> är den enda i jämförelsen som går ett
+steg längre, till IP54. Det spelar roll på en fasad utan tak, mindre i en
+skyddad hörna.
+
+### IP-klassen säger ingenting om kyla
+
+Det här är kategorins största lucka och den som ingen konkurrent skriver om.
+IP-siffrorna handlar om damm och vatten. Ingen av dem säger något om vad som
+händer när det blir tjugo minusgrader, och det är precis när julbelysningen ska
+lysa.
+
+Spridningen mellan produkterna är dramatisk. <ProductRef id="shelly-outdoor-plug-s-gen3" />
+är specad för −25 till 51 °C. <ProductRef id="nedis-zigbee-utomhus" /> stannar
+vid −10 °C, alltså en temperatur stora delar av Sverige passerar flera veckor om
+året. Fem av tio produkter i jämförelsen anger ingen drifttemperatur alls, och
+där ingår samtliga mekaniska och digitala timers.
+
+Att en tillverkare inte anger siffran betyder inte att produkten går sönder. Det
+betyder att ingen lovar något. En mekanisk kopplingsskiva har ett smörjmedel och
+en liten motor som båda blir trögare i kyla, och en display kan sluta gå att
+läsa långt innan elektroniken slutar fungera.
+
+### Mekanisk, digital eller smart
+
+De tre typerna löser samma problem med olika mycket teknik.
+
+En **mekanisk timer** är en skiva som snurrar ett varv per dygn. Du trycker ner
+segment om oftast trettio minuter för de tider strömmen ska vara på. Samma
+schema gäller varje dygn. Det finns ingenting som kan sluta stödjas, ingen app
+och inget konto. <ProductRef id="anslut-utomhustimer" /> är det typiska
+exemplet.
+
+En **digital timer** har display och kan skilja på veckodagar, ställas i kortare
+steg och ofta ha ett backupbatteri. <ProductRef id="luxorparts-digital-7-dygn" />
+har hundra timmars gångreserv, vilket är den enda produkten utan app som
+överlever ett längre strömavbrott med tiden i behåll.
+
+En **smart plugg** flyttar schemat till en app och lägger till fjärrstyrning,
+astrofunktion och ofta energimätning. Priset är det högsta, och beroendet av
+tillverkarens molntjänst är den nya risken.
+
+Ett fjärde alternativ hamnar mellan stolarna i de flesta jämförelser:
+<ProductRef id="anslut-skymningsrela" /> har ingen klocka alls utan mäter
+ljuset. Det gör den immun mot både strömavbrott och årstider, till priset av att
+den bara klarar tusen watt.
+
+### Solnedgången flyttar sig sju timmar
+
+Det här är den funktionsskillnad som betyder mest och som ingen svensk
+konkurrentsida kvantifierar. I Sverige går solen ner runt kvart i tre i
+december och efter tio på kvällen i juni. En timer med fast klockslag som du
+ställer i oktober är grovt fel i mars.
+
+Två saker löser det. En **astrofunktion** räknar ut solens upp- och nedgång
+utifrån datum och plats och flyttar tändningen automatiskt. Ett
+**skymningsrelä** mäter i stället hur ljust det verkligen är.
+
+Men behovet är inte lika stort som det låter, och det är värt att säga rakt ut:
+under en julsäsong på sex veckor rör sig solnedgången knappt tjugo minuter. Ska
+timern bara styra julbelysningen mellan slutet av november och trettondagen
+räcker ett fast klockslag hela vägen. Astrofunktionen blir värd sitt pris först
+när belysningen ska gå året om.
+
+<ProductRef id="smartline-utomhuskontakt" /> är det billigaste sättet att få
+astro utan konto och utan hubb, eftersom den kör allt lokalt över Bluetooth.
+
+### Maxlasten följer inte priset
+
+Det här är kategorins mest kontraintuitiva fakta. Man förväntar sig att en
+dyrare och mer avancerad produkt också tål mer. Här gäller motsatsen ofta.
+
+| Produkt | Pris | Maxlast |
+|---|---|---|
+| Mekanisk utomhustimer | lägst i jämförelsen | 3 500 W |
+| Digital utomhustimer | dubbla priset | 1 800 W |
+| Skymningsrelä | tredubbla priset | 1 000 W |
+| Smart plugg, billigast | femdubbla priset | 3 680 W |
+| Smart plugg, dyrast | fjortondubbla priset | 2 500 W |
+
+Den dyraste produkten i hela jämförelsen klarar alltså mindre last än den
+billigaste. Skälet är att en mekanisk skiva bara behöver bryta en krets, medan
+en smart plugg har elektronik som själv ska rymmas i höljet och kylas.
+
+Kontrollera siffran innan du beställer. Den står i specifikationen och nästan
+aldrig i produktnamnet.
+
+### Motorvärmaren är ett eget fall
+
+Den vanligaste svenska anledningen att köpa något av det här slaget, efter
+julbelysningen, är motorvärmaren. Där gäller andra tal.
+
+Själva motorvärmaren ligger ofta mellan 400 och 1 000 W, vilket ryms i nästan
+vad som helst. Felet uppstår när kupévärmaren sitter på samma uttag: den kan
+ensam dra 1 500 W eller mer. Det är summan som ska rymmas, plus tjugo procent
+marginal.
+
+Det utesluter både Shelly-pluggarna, som stannar vid 2 500 W, trots att de är
+bäst i jämförelsen på köldtålighet. Kvar blir de som är märkta 3 680 W, alltså
+16 ampere, och där är <ProductRef id="cleverio-gp120" /> det billigaste rimliga
+valet.
+
+Fjärrstyrningen har dessutom ett verkligt värde just här, till skillnad från
+för julbelysningen: avresetiden ändras oftare än en ljusslingas tändningstid,
+och en timer du kan flytta från sängen är då något annat än en bekvämlighet.
+
+### Vad händer när strömmen går
+
+Tre olika saker, och skillnaden är större än de flesta räknar med.
+
+En mekanisk timer stannar. När strömmen kommer tillbaka ligger skivan fel med
+exakt avbrottets längd, och den fortsätter gå fel tills någon ställer om den. Ett
+avbrott på tre timmar i december betyder att belysningen tänds vid sju i stället
+för vid fyra resten av säsongen.
+
+En digital timer med backupbatteri behåller tiden. En digital utan backupbatteri
+gör det inte, och det är en uppgift som är värd att leta efter i
+specifikationen.
+
+En smart plugg behåller schemat i minnet, men om schemat körs i molnet i stället
+för i pluggen kan den missa både på- och avslag så länge uppkopplingen är nere.
+<ProductRef id="shelly-outdoor-plug-s-gen3" /> är den enda i jämförelsen som
+uttryckligen går att styra lokalt utan att något moln behöver svara.
+
+Skymningsreläet är det enda som inte kan gå fel, eftersom det inte har någon
+klocka att tappa.
+
+### Lönar det sig?
+
+Nej, inte på elen, och det är värt att vara tydlig med.
+
+En LED-slinga på 5 W som lyser åtta timmar om dygnet i sex veckor drar cirka
+1,7 kWh. Femton sådana slingor blir runt 25 kWh, alltså femtio kronor för hela
+säsongen med ett elpris kring två kronor per kilowattimme. Skillnaden mot att
+låta dem lysa dygnet runt är tre gånger så mycket, alltså ungefär hundra kronor
+för en hel säsong.
+
+En timer på femtio kronor tjänar in sig. En smart plugg på fyra hundra gör det
+oftast inte på elen ensam, och den drar dessutom själv omkring en watt dygnet
+runt året om.
+
+<ToolFrame tool="elkostnad-julbelysning">
+  <ChristmasLightRunningCost />
+</ToolFrame>
+
+Det verkliga argumentet är ett annat, och Elsäkerhetsverket formulerar det
+bättre än vi kan: timerfunktion och fjärrstyrning minskar risken att
+belysningen glöms tänd. Det handlar om att inte ha ström framme i onödan, inte
+om att spara pengar.
+
+### Elsäkerhetsverkets två råd drar åt olika håll
+
+Här finns en spänning som är värd att känna till, och som vi inte har sett någon
+annan skriva om.
+
+Myndigheten lyfter alltså timern som ett sätt att minska brandrisken. På en
+annan sida skriver de samtidigt: anslut bara elprodukten för utomhusbruk under
+den tid du använder den, och dra till exempel ur sladden till elgrillen när du
+har grillat klart.
+
+En timer som styr julbelysningen används i praktiken i sex veckor i sträck. Den
+sitter alltså ute betydligt längre än en elgrill gör.
+
+Det rimliga är att läsa råden tillsammans i stället för mot varandra. Produkten
+är ansluten så länge säsongen pågår, den ska vara byggd för det, och den ska
+kontrolleras när den sätts upp. Det som inte är rimligt är att låta timern sitta
+kvar i uttaget hela året, vilket är precis vad som händer i de flesta trädgårdar.
+
+Till samma sak hör två krav som gäller själva uttaget: uttag utomhus ska alltid
+vara skyddsjordade, och för nya uttag gäller dessutom krav på jordfelsbrytare.
+Skarvsladden ska vara jordad och avsedd för utomhusbruk, inte skarvad i flera
+led och inte dragen genom ett fönster som kläms igen om den.
+
+### Protokollet spelar roll för de smarta
+
+Är det en smart plugg du landar i avgör radion både vad som krävs för att komma
+i gång och hur länge produkten fungerar.
+
+<ToolFrame tool="protokollvaljare-smart-hem">
+  <ProtocolPicker />
+</ToolFrame>
+
+Kort version för just den här kategorin. Wifi kräver ingenting extra och är
+enklast att komma i gång med, men räckvidden ut till ett uthus är sällan
+tillräcklig. Zigbee och Z-Wave kräver en hubb och är alltså fel första köp, men
+når längre och fungerar lokalt. <ProductRef id="shelly-wave-outdoor-plug-s-lr" />
+är extremfallet med räckvidd upp till en kilometer utomhus, vilket är rätt svar
+på ett problem de flesta inte har.
+
+Matter är den fråga som avgör hur länge pluggen är användbar. Med Matter går den
+att styra från Apple Home, Google Home, Alexa och SmartThings utan tillverkarens
+app, alltså även den dag tillverkarens molntjänst stängs.
+
+### Vanliga misstag
+
+**Att köpa den dyrare timern till motorvärmaren.** Den digitala kostar dubbelt
+och klarar halva lasten jämfört med den mekaniska i samma serie. Priset säger
+ingenting om kapaciteten.
+
+**Att tro att IP44 räcker som besked.** Kapslingsklassen handlar om vatten. Ska
+produkten stå ute i januari är drifttemperaturen den siffra du letar efter, och
+den saknas oftare än den finns.
+
+**Att sätta skymningsreläets sensor fel.** Sitter den under ett tak, i skuggan
+eller vänd mot en gatlykta tänder den för sent, för tidigt eller aldrig. Snö över
+sensorn ger samma effekt.
+
+**Att köpa smart för julbelysningens skull.** Under sex veckor i december gör en
+app ingenting som en skiva för femtio kronor inte gör, utom att du kan släcka
+från soffan. Köp smart när du har en anledning: motorvärmaren, uthuset som wifi
+inte når, eller belysning som ska gå året om.
+
+**Att lämna timern ute över sommaren.** Den är byggd för att stå ute när den
+används, inte för att stå ute i tolv månader. Ta in den med slingorna.
+
+### Ordlista
+
+| Ord | Vad det betyder |
+|---|---|
+| IP44 | Skyddad mot vatten som stänker från alla riktningar. Elsäkerhetsverkets undre gräns för det som placeras på mark utomhus. |
+| IP54 | Som IP44 men med bättre dammskydd. Ett steg upp, relevant på oskyddad fasad. |
+| Astrotimer | Räknar ut solens upp- och nedgång från datum och plats och flyttar tändningen efter årstiden. |
+| Skymningsrelä | Mäter hur ljust det är med en sensor och tänder när det blir mörkt. Har ingen klocka. |
+| Backupbatteri | Håller den digitala timerns klocka i gång under strömavbrott. Anges i timmar. |
+| Gångreserv | Samma sak som backupbatteriets uthållighet, det ord tillverkarna oftast använder. |
+| Drifttemperatur | Det temperaturspann tillverkaren lovar att produkten fungerar inom. Saknas ofta helt. |
+| Resistiv last | Sådant som bara blir varmt: element, värmare, glödlampor. Märkningen i ampere gäller den här lasten. |
+| Induktiv last | Sådant med motor eller spole: pumpar, fläktar, kompressorer. Drar en startström långt över märkeffekten. |
+| Jordfelsbrytare | Bryter strömmen vid läckage till jord. Krav för nya uttag utomhus. |
+| Matter | Gemensam standard som gör att en produkt kan styras från flera ekosystem utan tillverkarens app. |
+| Z-Wave Long Range | Variant av Z-Wave byggd för avstånd, med räckvidd upp till en kilometer utomhus. |

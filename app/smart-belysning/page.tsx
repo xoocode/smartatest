@@ -1,0 +1,310 @@
+import type { Metadata } from "next";
+
+import { categoryTrail, SMART_BELYSNING } from "@/lib/categories";
+import { SMART_BELYSNING_SOURCES } from "@/lib/sources";
+import {
+  PRICE_CHECKED,
+  SMART_BELYSNING_FAQ,
+  SMART_BELYSNING_CONSIDERED,
+  SMART_BELYSNING_PRODUCTS,
+} from "@/lib/data/smart-belysning";
+import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
+import { getStyle } from "@/lib/style-server";
+import { SITE } from "@/lib/site";
+import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { Container } from "@/components/site/container";
+import { Section } from "@/components/site/section";
+import { Prose } from "@/components/site/prose";
+import { TocNav } from "@/components/site/toc-nav";
+import { UpdatedStamp } from "@/components/site/updated-stamp";
+import { AffiliateDisclosure } from "@/components/site/affiliate-disclosure";
+import { LegalDisclaimer } from "@/components/site/legal-disclaimer";
+import { PersonCard } from "@/components/site/person-card";
+import { SourceList } from "@/components/site/source-list";
+import { TrustBlock } from "@/components/site/trust-block";
+import { ConsideredList } from "@/components/product/considered-list";
+import { ComparisonTable } from "@/components/product/comparison-table";
+import { CriteriaScores } from "@/components/product/criteria-scores";
+import { FaqAccordion } from "@/components/product/faq-accordion";
+import { MethodologyBlock } from "@/components/product/methodology-block";
+import { ProductReview } from "@/components/product/product-review";
+import { ProductSchema } from "@/components/product/product-schema";
+import { QuickPickPanel } from "@/components/product/quick-pick-panel";
+import { WinnerCard } from "@/components/product/winner-card";
+import { WinnerGrid } from "@/components/product/winner-grid";
+
+import Kopguide from "@/content/smart-belysning/kopguide.mdx";
+
+/*
+ * ⚠️ Products, prices, GTINs and merchant URLs are real, read from the
+ * retailers' own pages on PRICE_CHECKED. Still not publishable: the criterion
+ * scores are editorial judgement from the sourced tests rather than
+ * measurements.
+ *
+ * AFFILIATE-SWAP — links go direct to the retailer, untracked and dofollow.
+ * See lib/links.ts.
+ */
+
+const CATEGORY = SMART_BELYSNING;
+const PAGE_URL = `/${CATEGORY.slug}`;
+/* Uppdaterat 2026-08-01: kriteriet Omdöme i oberoende tester infördes
+   retroaktivt och viktningen räknades om, så datumet motsvarar en verklig
+   ändring av betygen och inte bara en priskontroll. */
+const UPDATED = "2026-08-01";
+
+export const metadata: Metadata = {
+  title: CATEGORY.title,
+  description:
+    "Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och anslutning. Philips Hue vann, men billigare alternativ räcker längre än du tror.",
+  alternates: { canonical: PAGE_URL },
+  openGraph: {
+    title: CATEGORY.title,
+    url: `${SITE.url}${PAGE_URL}`,
+    type: "article",
+  },
+};
+
+const TOC = [
+  { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
+  { id: "jamforelse", label: "Jämför alla fem" },
+  { id: "recensioner", label: "Recensioner av varje lampa" },
+  { id: "andra-lampor", label: "Andra lampor vi övervägde" },
+  { id: "kopguide", label: "Köpguide" },
+  { id: "testmetod", label: "Så gjorde vi testet" },
+  { id: "darfor-litar-du-pa-oss", label: "Därför kan du lita på oss" },
+  { id: "kallor", label: "Källor och andra tester" },
+  { id: "vanliga-fragor", label: "Vanliga frågor" },
+];
+
+export default async function SmartBelysningPage() {
+  /* Only read in development. See lib/style-server.ts: production keeps the
+     default layout and the page stays static. */
+  const style = await getStyle();
+  const products = SMART_BELYSNING_PRODUCTS;
+  const [winner] = products;
+  const author = DEFAULT_AUTHOR;
+  const reviewer = DEFAULT_REVIEWER;
+
+  return (
+    <>
+      <ProductSchema
+        category={CATEGORY}
+        products={products}
+        pageUrl={PAGE_URL}
+        author={author}
+        reviewed={UPDATED}
+      />
+
+      <Container size="wide" className="pt-6">
+        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+      </Container>
+
+      {/* ------------------------------------------------ above the fold -- */}
+      {/* Mobile trims the top: breadcrumb pt-6 plus a full section pad left a
+          canyon between the trail and the h1 on a phone. Explicit paddings
+          rather than pad-section + an override, because tailwind-merge cannot
+          see a custom @utility and the winner would fall to stylesheet order. */}
+      <Container
+        size="wide"
+        className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
+      >
+        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="flex flex-col gap-row">
+            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <p className="max-w-2xl text-lg text-muted-foreground">
+              Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och
+              hur stabil anslutningen håller över tid. Ljusstyrkan skiljer
+              förvånansvärt lite mellan dem. Skillnaden syns i stället när du
+              dimrar ner, där de billigare lamporna börjar flimra en bit under
+              tjugo procent.
+            </p>
+            <UpdatedStamp
+              date={UPDATED}
+              testedCount={products.length}
+              variant="bar"
+              className="self-start"
+            />
+            <PersonCard
+              person={author}
+              variant="byline"
+              label="Av"
+              reviewer={reviewer}
+            />
+            <AffiliateDisclosure variant="inline" />
+
+            {/* Desktop only. The hero's left column is shorter than the
+                quick-pick rail beside it, so the jump list fills real estate
+                that was empty and puts navigation above the fold. On a phone
+                the column is the whole width and the pills would push the
+                quick-pick panel — the conversion element — below the fold, so
+                there they stay in their original place further down. */}
+            <TocNav
+              variant="inline"
+              entries={TOC}
+              className="mt-auto hidden pt-2 lg:flex"
+            />
+          </div>
+
+          <QuickPickPanel
+            products={products}
+            title={`${CATEGORY.label} · Bäst i test`}
+            variant="sticky"
+            footerHref="#jamforelse"
+          />
+        </div>
+      </Container>
+
+      {/* ------------------------------------------------------- verdict -- */}
+      <Section id="snabbt-svar" tone="muted" width="wide">
+        <WinnerCard
+          product={winner}
+          variant="split"
+          awardLabel="Bäst i test 2026"
+          ctaNote={`Pris kontrollerat ${PRICE_CHECKED}`}
+          showSpecs
+        />
+        {/* Mobile counterpart of the hero jump list. Only one renders at a
+            time, so `display: none` keeps the hidden copy out of the
+            accessibility tree rather than duplicating a landmark. */}
+        <TocNav
+          variant="inline"
+          entries={TOC}
+          className="mt-[var(--space-block)] lg:hidden"
+        />
+      </Section>
+
+      {/* -------------------------------------------------- ranked lists -- */}
+      {/* Parked. Hidden unless the admin toggle is on; kept in the template so
+          new category pages still get the section. See lib/theme.ts. */}
+      <Section
+        id="alla-testvinnare"
+        optionalSection="winner-grid"
+        width="wide"
+        eyebrow="Alla testvinnare"
+        title={`De ${products.length} bästa lamporna 2026`}
+        description="Varje lampa fick en egen utmärkelse. Klicka på ett namn för den fullständiga recensionen."
+      >
+        <WinnerGrid products={products} variant="grid" columns={3} />
+      </Section>
+
+      <Section
+        id="jamforelse"
+        width="wide"
+        title="Jämför alla fem"
+        description="Samma kriterier och samma viktning för alla fem lamporna."
+      >
+        <ComparisonTable
+          products={products}
+          layout={style.table}
+          variant="bordered"
+          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess.`}
+        />
+      </Section>
+
+      {/* ---------------------------------------------------- deep dives -- */}
+      <Section
+        id="recensioner"
+        tone="muted"
+        width="wide"
+        title="Recensioner av varje lampa"
+        description="Tre av fem lampor saknar ett publicerat omdöme om just den modellen och får då Ej testat på den raden. I två av fallen finns ett test av märket men av en annan produkt, vilket inte är samma sak. Vi sätter hellre ingenting än ett påhittat betyg, och vikten fördelas då på de övriga kriterierna."
+      >
+        <div className="flex flex-col gap-[var(--space-block)]">
+          {products.map((product, i) => (
+            <ProductReview key={product.id} product={product} rank={i + 1}>
+              <p className="text-muted-foreground">{product.verdict}</p>
+              <CriteriaScores
+                criteria={CATEGORY.criteria}
+                scores={product.scores}
+                size="sm"
+                className="mt-1"
+              />
+            </ProductReview>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        id="andra-lampor"
+        tone="muted"
+        className="border-t border-border"
+        width="default"
+        title="Andra lampor vi övervägde"
+        description="Sex lampor som fanns med i urvalet men inte i rankningen, och skälet till att de föll bort."
+      >
+        <ConsideredList items={SMART_BELYSNING_CONSIDERED} />
+      </Section>
+
+      {/* ---------------------------------------------------- editorial -- */}
+      <Section id="kopguide" width="default" title="Köpguide">
+        <Prose>
+          <Kopguide />
+        </Prose>
+      </Section>
+
+      <Section
+        id="testmetod"
+        tone="muted"
+        width="default"
+        title="Så gjorde vi testet"
+        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+      >
+        <MethodologyBlock
+          criteria={CATEGORY.criteria}
+          intro={CATEGORY.methodology}
+          variant="cards"
+          footnote="Saknas ett kriteriebetyg för en lampa fördelas det kriteriets vikt på de övriga. Nanoleaf Essentials, TP-Link Tapo L530E och IKEA TRÅDFRI saknar ett publicerat omdöme om just den modellen och bedöms därför på 85 av 100 viktpoäng, vilket står i deras recensioner. Omdöme i oberoende tester väger 15 här, satt efter hur mycket underlag kategorin faktiskt har. Vi tar inte betalt för placeringar. Affiliatelänkar påverkar varken betyg eller ordning."
+        />
+      </Section>
+
+      <Section
+        id="darfor-litar-du-pa-oss"
+        width="default"
+        title="Därför kan du lita på oss"
+        description="Vi testar inte alla produkterna själva fysiskt. Det här är vad vi faktiskt gör i stället, och hur vi tjänar pengar."
+      >
+        <TrustBlock />
+        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+          <PersonCard
+            person={author}
+            variant="box"
+            label="Skriven av"
+            meta="Skriver och betygsätter"
+          />
+          <PersonCard
+            person={reviewer}
+            variant="box"
+            label="Granskad av"
+            meta="Granskar siffror och källor"
+          />
+        </div>
+      </Section>
+
+      <Section
+        id="kallor"
+        tone="muted"
+        width="default"
+        title="Källor och andra tester"
+        description="Betygen bygger på specifikationer och på de här oberoende testerna. Datumen är värda att läsa: två av källorna är från 2017 och 2019 och gäller produkter som sedan dess bytt generation, vilket är skälet till att de inte räknas som omdöme för lamporna vi rankar i dag."
+      >
+        <SourceList sources={SMART_BELYSNING_SOURCES} title={null} />
+      </Section>
+
+      <Section
+        id="vanliga-fragor"
+        width="default"
+        title="Vanliga frågor"
+      >
+        <FaqAccordion items={SMART_BELYSNING_FAQ} schema />
+      </Section>
+
+      <Container size="default" className="pad-section">
+        <LegalDisclaimer
+          items={["general", "electrical", "pricing"]}
+          className="mb-[var(--space-block)]"
+        />
+        <AffiliateDisclosure />
+      </Container>
+    </>
+  );
+}

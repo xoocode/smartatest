@@ -1,26 +1,479 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Pin the `dark:` variant to an explicit `.dark` ancestor that we never set.
+   Without this it would fall back to prefers-color-scheme and the dark:
+   utilities baked into shadcn component source would fire against our
+   light-only token set. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+  smartatest.se design tokens
+  ---------------------------
+  Three independent axes, all set as data-attributes on <html> by the root
+  layout (from the st_style cookie, written by the admin style picker):
+
+    data-theme    redaktionell | testsieger | nordisk | kvallspress
+    data-density  comfortable  | compact
+    data-radius   sharp        | soft    | round
+
+  Components never hardcode colour, spacing or radius. They consume tokens, so
+  swapping a theme reskins the entire site without touching a component.
+
+  No dark mode by design: this is a content-first editorial comparison site and
+  every reference competitor ships light-only. Add it later as a fourth axis if
+  it earns its keep.
+*/
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Site-specific semantic colours, beyond the shadcn set. */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-award: var(--award);
+  --color-award-foreground: var(--award-foreground);
+  /* The saturated award ink, used where award must read as a foreground
+     (filled stars). Kept separate from --award because the chip treatment
+     makes the badge background near-white, which would erase the stars. */
+  --color-award-accent: var(--award-accent);
+  --color-award-border: var(--award-border);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---------------------------------------------------------------- themes -- */
+
+/* Warm paper, serif headings, dampened teal. Reads as journalism, not as an
+   affiliate funnel. Closest to the kostnärd.se reference. */
+[data-theme="redaktionell"] {
+  --background: oklch(0.985 0.006 85);
+  --foreground: oklch(0.22 0.015 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.015 60);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.015 60);
+  --primary: oklch(0.42 0.075 175);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.955 0.012 85);
+  --secondary-foreground: oklch(0.28 0.02 60);
+  --muted: oklch(0.955 0.012 85);
+  --muted-foreground: oklch(0.52 0.02 60);
+  --accent: oklch(0.94 0.022 85);
+  --accent-foreground: oklch(0.28 0.02 60);
+  --destructive: oklch(0.55 0.19 27);
+  --border: oklch(0.9 0.012 80);
+  --input: oklch(0.9 0.012 80);
+  --ring: oklch(0.42 0.075 175);
+
+  --brand: oklch(0.55 0.16 40);
+  --brand-foreground: oklch(0.99 0.005 85);
+  --award: oklch(0.76 0.13 78);
+  --award-foreground: oklch(0.25 0.04 60);
+  --success: oklch(0.52 0.11 150);
+  --success-foreground: oklch(0.99 0.005 85);
+  --warning: oklch(0.68 0.13 70);
+  --warning-foreground: oklch(0.24 0.04 60);
+
+  --font-heading: var(--font-serif);
+  --font-body: var(--font-sans-brand);
+  --heading-weight: 600;
+  --heading-tracking: -0.011em;
+  --eyebrow-transform: uppercase;
+  --eyebrow-tracking: 0.12em;
+
+  --shadow-card: 0 1px 2px oklch(0.22 0.015 60 / 0.05),
+    0 4px 16px oklch(0.22 0.015 60 / 0.04);
+  --shadow-raised: 0 2px 4px oklch(0.22 0.015 60 / 0.06),
+    0 12px 32px oklch(0.22 0.015 60 / 0.08);
+  --border-strength: 1px;
+}
+
+/* Clinical white, blue for trust, hot orange for the CTA. Modelled on the
+   German testsieger reference — every element is pushing toward a click. */
+[data-theme="testsieger"] {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.16 0.012 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.012 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.012 255);
+  --primary: oklch(0.48 0.19 258);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.965 0.006 250);
+  --secondary-foreground: oklch(0.22 0.015 255);
+  --muted: oklch(0.965 0.006 250);
+  --muted-foreground: oklch(0.5 0.016 255);
+  --accent: oklch(0.945 0.022 250);
+  --accent-foreground: oklch(0.28 0.05 258);
+  --destructive: oklch(0.57 0.21 27);
+  --border: oklch(0.9 0.008 250);
+  --input: oklch(0.9 0.008 250);
+  --ring: oklch(0.48 0.19 258);
+
+  --brand: oklch(0.66 0.19 45);
+  --brand-foreground: oklch(0.99 0 0);
+  --award: oklch(0.72 0.16 85);
+  --award-foreground: oklch(0.2 0.04 85);
+  --success: oklch(0.58 0.15 150);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.72 0.15 70);
+  --warning-foreground: oklch(0.2 0.04 70);
+
+  --font-heading: var(--font-sans-brand);
+  --font-body: var(--font-sans-brand);
+  --heading-weight: 800;
+  --heading-tracking: -0.025em;
+  --eyebrow-transform: uppercase;
+  --eyebrow-tracking: 0.08em;
+
+  --shadow-card: 0 1px 3px oklch(0.16 0.012 255 / 0.08),
+    0 8px 24px oklch(0.16 0.012 255 / 0.06);
+  --shadow-raised: 0 4px 8px oklch(0.16 0.012 255 / 0.1),
+    0 20px 48px oklch(0.16 0.012 255 / 0.12);
+  --border-strength: 1px;
+}
+
+/* Cool, airy, understated. Light weights and a lot of whitespace. */
+[data-theme="nordisk"] {
+  --background: oklch(0.99 0.002 250);
+  --foreground: oklch(0.24 0.012 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.012 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.012 255);
+  --primary: oklch(0.38 0.045 245);
+  --primary-foreground: oklch(0.99 0.002 250);
+  --secondary: oklch(0.968 0.004 250);
+  --secondary-foreground: oklch(0.3 0.015 255);
+  --muted: oklch(0.968 0.004 250);
+  --muted-foreground: oklch(0.55 0.012 255);
+  --accent: oklch(0.95 0.012 235);
+  --accent-foreground: oklch(0.32 0.03 240);
+  --destructive: oklch(0.55 0.17 27);
+  --border: oklch(0.92 0.005 250);
+  --input: oklch(0.92 0.005 250);
+  --ring: oklch(0.52 0.13 235);
+
+  --brand: oklch(0.52 0.13 235);
+  --brand-foreground: oklch(0.99 0.002 250);
+  --award: oklch(0.7 0.09 205);
+  --award-foreground: oklch(0.24 0.03 235);
+  --success: oklch(0.55 0.1 160);
+  --success-foreground: oklch(0.99 0.002 250);
+  --warning: oklch(0.7 0.11 75);
+  --warning-foreground: oklch(0.24 0.03 75);
+
+  --font-heading: var(--font-sans-brand);
+  --font-body: var(--font-sans-brand);
+  --heading-weight: 500;
+  --heading-tracking: -0.018em;
+  --eyebrow-transform: uppercase;
+  --eyebrow-tracking: 0.16em;
+
+  --shadow-card: 0 1px 2px oklch(0.24 0.012 255 / 0.04);
+  --shadow-raised: 0 2px 6px oklch(0.24 0.012 255 / 0.06),
+    0 16px 40px oklch(0.24 0.012 255 / 0.05);
+  --border-strength: 1px;
+}
+
+/* Tabloid test supplement: red, heavy, dense, hard shadows. */
+[data-theme="kvallspress"] {
+  --background: oklch(0.995 0.002 30);
+  --foreground: oklch(0.15 0.008 25);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.008 25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.008 25);
+  --primary: oklch(0.5 0.21 27);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.009 30);
+  --secondary-foreground: oklch(0.2 0.012 25);
+  --muted: oklch(0.96 0.009 30);
+  --muted-foreground: oklch(0.46 0.016 25);
+  --accent: oklch(0.94 0.03 30);
+  --accent-foreground: oklch(0.35 0.14 27);
+  --destructive: oklch(0.5 0.21 27);
+  --border: oklch(0.87 0.009 30);
+  --input: oklch(0.87 0.009 30);
+  --ring: oklch(0.5 0.21 27);
+
+  --brand: oklch(0.55 0.22 27);
+  --brand-foreground: oklch(0.99 0 0);
+  --award: oklch(0.78 0.16 88);
+  --award-foreground: oklch(0.2 0.05 60);
+  --success: oklch(0.55 0.15 148);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.75 0.16 75);
+  --warning-foreground: oklch(0.2 0.04 60);
+
+  --font-heading: var(--font-sans-brand);
+  --font-body: var(--font-sans-brand);
+  --heading-weight: 800;
+  --heading-tracking: -0.033em;
+  --eyebrow-transform: uppercase;
+  --eyebrow-tracking: 0.06em;
+
+  --shadow-card: 0 2px 0 oklch(0.15 0.008 25 / 0.09);
+  --shadow-raised: 0 4px 0 oklch(0.15 0.008 25 / 0.14);
+  --border-strength: 2px;
+}
+
+/* ----------------------------------------------------------------- award -- */
+
+/*
+  Award colour is its own axis because the badge is the single most-loaded
+  element on a comparison page and the right treatment differs per theme and
+  per taste. Declared after the themes so it wins on equal specificity.
+
+  Every treatment sets four tokens:
+    --award             badge background
+    --award-foreground  badge text
+    --award-border      badge border, transparent where the fill carries it
+    --award-accent      saturated ink for filled stars and outline borders
+*/
+
+[data-award="kontrast"] {
+  --award: oklch(0.62 0.17 62);
+  --award-foreground: oklch(0.99 0 0);
+  --award-border: transparent;
+  --award-accent: oklch(0.68 0.16 70);
+}
+
+[data-award="guld"] {
+  --award: oklch(0.83 0.15 88);
+  /* Neutral near-black, not a warm brown. The warm tint against warm gold is
+     what made the original combination read as murky. */
+  --award-foreground: oklch(0.18 0 0);
+  --award-border: transparent;
+  --award-accent: oklch(0.74 0.15 82);
+}
+
+[data-award="chip"] {
+  --award: oklch(0.965 0.035 88);
+  --award-foreground: oklch(0.42 0.11 62);
+  --award-border: oklch(0.79 0.11 78);
+  --award-accent: oklch(0.7 0.15 76);
+}
+
+[data-award="ink"] {
+  --award: oklch(0.21 0.015 70);
+  --award-foreground: oklch(0.86 0.14 88);
+  --award-border: transparent;
+  --award-accent: oklch(0.73 0.15 82);
+}
+
+[data-award="smaragd"] {
+  --award: oklch(0.5 0.12 158);
+  --award-foreground: oklch(0.99 0 0);
+  --award-border: transparent;
+  --award-accent: oklch(0.56 0.13 158);
+}
+
+/* --------------------------------------------------------------- density -- */
+
+[data-density="comfortable"] {
+  --space-section: 4.5rem;
+  --space-block: 2.5rem;
+  --space-card: 1.5rem;
+  --space-stack: 1.25rem;
+  --space-row: 1rem;
+  --text-body: 1.0625rem;
+  --leading-body: 1.7;
+  --text-h1: clamp(2.125rem, 1.4rem + 2.6vw, 3.25rem);
+  --text-h2: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+  --text-h3: 1.25rem;
+}
+
+[data-density="compact"] {
+  --space-section: 2.75rem;
+  --space-block: 1.75rem;
+  --space-card: 1rem;
+  --space-stack: 0.875rem;
+  --space-row: 0.625rem;
+  --text-body: 0.9375rem;
+  --leading-body: 1.6;
+  --text-h1: clamp(1.875rem, 1.3rem + 2vw, 2.625rem);
+  --text-h2: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
+  --text-h3: 1.125rem;
+}
+
+/* ---------------------------------------------------------------- radius -- */
+
+[data-radius="sharp"] {
+  --radius: 0.125rem;
+}
+[data-radius="soft"] {
+  --radius: 0.625rem;
+}
+[data-radius="round"] {
+  --radius: 1.25rem;
+}
+
+/* ------------------------------------------------------------- utilities -- */
+
+@utility font-heading {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+}
+
+@utility text-h1 {
+  font-size: var(--text-h1);
+  line-height: 1.1;
+}
+@utility text-h2 {
+  font-size: var(--text-h2);
+  line-height: 1.2;
+}
+@utility text-h3 {
+  font-size: var(--text-h3);
+  line-height: 1.3;
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: var(--eyebrow-transform);
+  letter-spacing: var(--eyebrow-tracking);
+}
+
+@utility pad-card {
+  padding: var(--space-card);
+}
+@utility pad-section {
+  padding-block: var(--space-section);
+}
+@utility gap-stack {
+  gap: var(--space-stack);
+}
+@utility gap-row {
+  gap: var(--space-row);
+}
+@utility space-block {
+  margin-block-start: var(--space-block);
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility shadow-raised {
+  box-shadow: var(--shadow-raised);
+}
+
+@utility themed-border {
+  border-width: var(--border-strength);
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
+
+  html {
+    font-family: var(--font-body);
+    /* Swedish copy leans on å/ä/ö — keep default figures and proper kerning. */
+    font-variant-numeric: tabular-nums;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /*
+    Tailwind 4 dropped the preflight rule that gave buttons a pointer cursor,
+    so anything interactive now inherits the browser default arrow. Restored
+    here rather than per component, so it covers every clickable element on
+    every page including the styleguide, and no component can forget it.
+  */
+  button,
+  summary,
+  label[for],
+  select,
+  [role="button"],
+  [role="tab"],
+  [role="option"],
+  a[href],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled,
+  [aria-disabled="true"],
+  [data-disabled] {
+    cursor: not-allowed;
+  }
+
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Optional sections, parked but not deleted.
+
+   Hidden by default. The section stays in the page template so new category
+   pages still get it, and the admin toggle can bring it back for reference.
+   Turning it on knowingly breaks the alternating section backgrounds, since
+   those are baked into the markup around the section being absent. */
+[data-winner-grid="off"] [data-optional-section="winner-grid"] {
+  display: none;
 }
+
+/* The admin pill is a floating dev-only FAB, fixed top-left. It deliberately
+   reserves no space: an earlier version added a gutter to the header container
+   so it would not cover the nav, which meant the admin build laid out
+   differently from production and we were styling a layout nobody would ship.
+   It floats over the logo instead, and moves nothing. */
