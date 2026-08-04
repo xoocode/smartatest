@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { Product } from "@/lib/products";
+import { fullName, type Product } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { VerdictText } from "@/components/product/verdict-text";
 import { AwardBadge } from "@/components/product/award-badge";
@@ -53,6 +53,7 @@ export function WinnerCard({
       affiliateUrl={product.affiliateUrl}
       merchant={product.merchant}
       productId={product.id}
+      productName={fullName(product)}
       placement="winner-card"
       size="2xl"
       note={ctaNote}

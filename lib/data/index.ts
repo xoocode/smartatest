@@ -7,6 +7,7 @@ import { SMART_STROMBRYTARE_PRODUCTS } from "@/lib/data/smart-strombrytare";
 import { ELEKTRISK_RULLGARDIN_PRODUCTS } from "@/lib/data/elektrisk-rullgardin";
 import { UTOMHUSTIMER_PRODUCTS } from "@/lib/data/utomhustimer";
 import { VATTENLARM_PRODUCTS } from "@/lib/data/vattenlarm";
+import { VATTENFELSBRYTARE_PRODUCTS } from "@/lib/data/vattenfelsbrytare";
 import { BRANDVARNARE_PRODUCTS } from "@/lib/data/brandvarnare";
 import { SMART_BRANDVARNARE_PRODUCTS } from "@/lib/data/smart-brandvarnare";
 import { BRANDSLACKARE_PRODUCTS } from "@/lib/data/brandslackare";
@@ -57,6 +58,7 @@ export const ALL_PRODUCTS: Product[] = [
   ...ELEKTRISK_RULLGARDIN_PRODUCTS,
   ...UTOMHUSTIMER_PRODUCTS,
   ...VATTENLARM_PRODUCTS,
+  ...VATTENFELSBRYTARE_PRODUCTS,
   ...BRANDVARNARE_PRODUCTS,
   ...SMART_BRANDVARNARE_PRODUCTS,
   ...BRANDSLACKARE_PRODUCTS,

@@ -85,13 +85,13 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
-  { id: "sakerhetstalen", label: "200 kilo, 40 minuter, och tystnaden" },
+  { id: "sakerhetstalen", label: "40 minuter, 200 kilo: vad som håller den uppe" },
   { id: "sprojsen", label: "35 × 35 cm avgör om den passar dina fönster" },
   { id: "jamforelse", label: "Jämför alla sju" },
-  { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "recensioner", label: "Recensioner av varje robot" },
   { id: "andra-robotar", label: "Andra produkter vi övervägde" },
   { id: "kopguide", label: "Köpguide" },
+  { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "testmetod", label: "Så gjorde vi testet" },
   { id: "darfor-litar-du-pa-oss", label: "Därför kan du lita på oss" },
   { id: "kallor", label: "Källor" },
@@ -132,11 +132,12 @@ export default async function FonsterputsrobotPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Roboten hänger på utsidan av ett fönster, ofta flera våningar upp.
-              Tre uppgifter avgör om det är rimligt: vad säkerhetslinan tål, hur
-              länge roboten sitter kvar om strömmen går, och vilket glas den får
-              sitta på. Ingen tillverkare publicerar alla tre. Vi jämförde sju
-              robotar från 2 190 till 6 026 kronor på just de uppgifterna.
+              Köp Kärcher RCW 2. Den är billigast av de sju robotarna vi jämfört
+              och sitter ändå kvar längst när strömmen går: 40 minuter på
+              reservbatteriet, och rutor ner till 35 × 35 centimeter. Har du
+              båglösa fönster eller en glasad balkongdörr är Ecovacs Winbot W1
+              Pro den enda som får sitta där. Nedan står varför, och vad de
+              andra fem kostar.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -184,44 +185,35 @@ export default async function FonsterputsrobotPage() {
       <Section
         id="sakerhetstalen"
         width="default"
-        title="200 kilo, 40 minuter, och tystnaden däremellan"
-        description="Tre uppgifter avgör vad som händer när något går fel. Ingen tillverkare publicerar alla tre."
+        title="40 minuter, 200 kilo: vad som håller roboten uppe"
+        description="Roboten hänger på utsidan, ofta flera våningar upp. Tre siffror avgör vad som händer när något går fel."
       >
         <Prose>
           <p>
-            <strong>Vad linan tål.</strong> HOBOT-388 anger att säkerhetslinan
-            klarar en stötkraft på <strong>200 kilo</strong>. Kärcher och Ecovacs
-            skriver att en lina medföljer och sedan ingenting.
+            <strong>Hur länge den sitter kvar om strömmen går.</strong> Ett
+            reservbatteri håller sugkoppen igång när säkringen löser ut.{" "}
+            <strong>Kärcher RCW 2 klarar 40 minuter</strong> på ett
+            litiumjonbatteri om 0,65 amperetimmar och 14,8 volt. Ecovacs W2 Pro
+            och W2 Omni klarar över 30 minuter, HOBOT-388 klarar 20. Sitter
+            roboten på ett sovrumsfönster två våningar upp är det marginalen du
+            har på dig att komma hem och lyfta ner den.
           </p>
           <p>
-            <strong>Hur länge den sitter kvar om strömmen går.</strong> Kärcher
-            RCW 2 anger <strong>40 minuter</strong>, och publicerar batteriet
-            bakom talet: litiumjon, 0,65 amperetimmar, 14,8 volt. Ecovacs anger
-            mer än 30 minuter för W2 och W3. HOBOT-388 anger 20.{" "}
-            <strong>Ecovacs Winbot W1 Pro anger ingen tid alls.</strong>
+            <strong>Vad säkerhetslinan tål.</strong> Linan knyts fast inne i
+            rummet och fångar roboten om sugkoppen släpper.{" "}
+            <strong>HOBOT-388 har den kraftigaste, 200 kilo stötkraft.</strong>{" "}
+            Det låter överdrivet för en apparat som väger ett par kilo, men i det
+            ögonblick linan tar emot ett fall blir kraften mångdubbelt större än
+            vikten, så 200 kilo är ungefär vad uppgiften kräver.
           </p>
           <p>
-            <strong>Vilket glas den får sitta på.</strong> Här säger två
-            tillverkare motsatta saker. HOBOT-388 förbjuder båglöst glas rakt ut.
-            Ecovacs tillåter det på W1 Pro men kräver tio centimeters marginal
-            till kanten.
-          </p>
-          <p>
-            <strong>Skillnaderna är praktiska, inte tekniska.</strong> Går
-            säkringen medan roboten sitter på ett sovrumsfönster två våningar upp
-            har du antingen fyrtio minuter på dig eller tjugo. En robot väger ett
-            par kilo, och när linan tar emot ett fall blir kraften betydligt
-            större än vikten, vilket är varför 200 kilo inte är överdrivet utan
-            ungefär vad som behövs.
-          </p>
-          <p>
-            <strong>
-              Ett tal med sina egna data bakom går att kontrollera.
-            </strong>{" "}
-            Kärcher publicerar batteriets kapacitet och spänning bredvid
-            hålltiden. Ecovacs skriver &quot;mer än 30 minuter&quot;, vilket är
-            ett golv och inte en mätning. Skillnaden mellan de två sorternas uppgift är
-            värd att känna till innan man jämför dem som om de vore samma sak.
+            <strong>Vilket glas den får sitta på.</strong> Här skiljer sig
+            robotarna åt helt.{" "}
+            <strong>Ecovacs Winbot W1 Pro får sitta på båglöst glas</strong> med
+            10 centimeters marginal till kanten, och är ensam om det.{" "}
+            <strong>HOBOT-388 får inte användas på båglöst glas alls.</strong>{" "}
+            Har du en glasad balkongdörr eller ett stort skjutparti avgör det
+            valet åt dig innan priset hinner göra det.
           </p>
         </Prose>
       </Section>
@@ -232,33 +224,31 @@ export default async function FonsterputsrobotPage() {
         tone="muted"
         width="default"
         title="35 × 35 cm avgör om den passar dina fönster"
-        description="Den vanligaste orsaken till att ett köp inte fungerar, och nästan ingen skriver ut måttet."
+        description="Den vanligaste orsaken till att ett köp inte fungerar. Ta måttbandet innan du läser något annat."
       >
         <Prose>
           <p>
-            Kärcher anger minsta fönster till <strong>35 × 35 centimeter</strong>.
-            Det är den enda storleksuppgiften någon tillverkare i jämförelsen
-            skriver ut.
+            <strong>
+              Kärcher RCW 2 klarar rutor ner till 35 × 35 centimeter.
+            </strong>{" "}
+            Är din minsta ruta mindre än så fungerar ingen robot i jämförelsen:
+            den får inte fäste, och även om den gjorde det finns ingen yta att
+            köra på. Äldre svenska hus är fulla av spröjsade fönster med just
+            sådana rutor, och det tar två minuter att mäta.
           </p>
           <p>
-            <strong>Spröjsade fönster är den svenska frågan här.</strong> Har du
-            rutor mindre än så fungerar ingen robot: den får inte fäste, och även
-            om den gjorde det finns ingen yta att köra på. Äldre svenska hus är
-            fulla av sådana fönster, och det är ett mått du kan ta med ett
-            måttband på två minuter.
-          </p>
-          <p>
-            <strong>Ecovacs ställer ett annat krav.</strong> Winbot W1 Pro
-            kräver en båge på minst 5 millimeter, glas på minst 3 millimeter och
-            speglar på minst 4. Det är den mest detaljerade beskrivningen av
-            glaset i hela jämförelsen, och den kommer från den robot som säger
-            minst om säkerheten.
+            <strong>Ecovacs Winbot W1 Pro ställer krav på glaset i stället.</strong>{" "}
+            Bågen ska vara minst 5 millimeter bred, glaset minst 3 millimeter
+            tjockt och speglar minst 4. Har du gamla enkelglasfönster som är
+            tunnare än så är HOBOT-388 den enda som går på vilken tjocklek som
+            helst.
           </p>
           <p>
             <strong>Kanterna blir aldrig klara, oavsett modell.</strong> Duken
             sitter innanför chassit, så det blir alltid en remsa kvar mot bågen,
             och i hörnen blir remsan bredast. Räkna med en trasa i handen efteråt
-            om fönstret ska se putsat ut ända ut.
+            om fönstret ska se putsat ut ända ut. Winbot Mini lämnar den
+            smalaste remsan av dem alla.
           </p>
         </Prose>
       </Section>
@@ -281,7 +271,7 @@ export default async function FonsterputsrobotPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sju"
-        description="De tre översta raderna är de som avgör om roboten är rimlig att hänga utanför ett fönster."
+        description="Hålltid, lina och glas är raderna som avgör om roboten är rimlig att hänga utanför ett fönster."
       >
         <ComparisonTable
           products={products}
@@ -289,57 +279,9 @@ export default async function FonsterputsrobotPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Alla uppgifter om linans hållfasthet, hålltid vid strömavbrott och glas är tillverkarnas egna, lästa i deras manualer och produktsidor och inte i butikstext. Där en rad står som ej angiven publicerar tillverkaren ingen uppgift. Vi fyller aldrig i ett tal från en systermodell: att Winbot W2 anger mer än 30 minuter säger ingenting om W1 Pro, som inte anger något alls. Priserna skiljer ovanligt mycket mellan svenska butiker i den här produktgruppen, så kontrollera minst två innan du köper.",
+            "Ett streck betyder att uppgiften inte går att få fram för modellen. Vi fyller aldrig i ett tal från en systermodell. Priserna skiljer ovanligt mycket mellan svenska butiker i den här produktgruppen, så kolla minst två innan du köper.",
           )}
         />
-      </Section>
-
-      {/* ------------------------------------------------ self-disclosure -- */}
-      <Section
-        id="vem-har-kontrollerat"
-        tone="muted"
-        width="default"
-        title="Vem har kontrollerat det här?"
-        description="Vad rankningen bygger på, och var den är svag."
-      >
-        <Prose>
-          <p>
-            <strong>
-              Vi har inte hängt någon robot i något fönster och inte belastat
-              någon lina.
-            </strong>{" "}
-            Varje tal om hållfasthet, hålltid och glas är tillverkarens eget,
-            läst i deras manual eller på deras produktsida.
-          </p>
-          <p>
-            <strong>Det finns ingen oberoende provning att luta sig mot.</strong>{" "}
-            Vi hittade ingen provning av fönsterputsrobotar hos Råd & Rön,
-            Stiftung Warentest eller någon annan redaktion vi normalt läser. Det
-            är ovanligt för en produkt i den här prisklassen som dessutom hänger
-            utanför ett fönster, och det betyder att det enda som går att jämföra
-            är vad tillverkarna själva skriver.
-          </p>
-          <p>
-            <strong>Därför väger vi också själva redovisningen.</strong> En robot
-            som skriver ut sin hålltid får kredit för det, och en som tiger får
-            avdrag, även om den tigande mycket väl kan vara den säkrare av de två.
-            Vi kan bara bedöma det som går att kontrollera i förväg, och det står
-            här i stället för att döljas.
-          </p>
-          <p>
-            <strong>Sex av de sju är Ecovacs, HOBOT eller Kärcher.</strong> Det
-            beror på att det svenska sortimentet är litet. Xiaomi Hutt DDC55 är
-            billigast av allt vi sett men ligger bland de övervägda, eftersom vi
-            inte hittade en enda publicerad uppgift om lina, hålltid eller glas
-            för den.
-          </p>
-          <p>
-            <strong>Sortimentet krymper.</strong> Clas Ohlson har kvar två äldre
-            Winbot-sidor med kundomdömen men utan pris och utan lagerstatus i
-            butikens egna produktdata. En produktsida som ligger kvar är inte
-            samma sak som en produkt som säljs.
-          </p>
-        </Prose>
       </Section>
 
       {/* ---------------------------------------------------- deep dives -- */}
@@ -347,7 +289,7 @@ export default async function FonsterputsrobotPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje robot"
-        description="Alla sju bedöms mot samma fem kriterier. Uppgifterna är tillverkarens egna, inte kontrollerade av oss."
+        description="Alla sju bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -384,9 +326,43 @@ export default async function FonsterputsrobotPage() {
         </Prose>
       </Section>
 
+      {/* ------------------------------------------------ self-disclosure -- */}
+      <Section
+        id="vem-har-kontrollerat"
+        tone="muted"
+        width="default"
+        title="Vem har kontrollerat det här?"
+        description="Vad rankningen bygger på, och var den är svag."
+      >
+        <Prose>
+          <p>
+            <strong>
+              Vi har inte hängt någon robot i något fönster och inte belastat
+              någon lina.
+            </strong>{" "}
+            Varje uppgift om hållfasthet, hålltid, mått och glas kommer från
+            tillverkarens egen manual eller produktsida, läst i original.
+          </p>
+          <p>
+            <strong>Det finns ingen oberoende provning att luta sig mot.</strong>{" "}
+            Vi hittade ingen provning av fönsterputsrobotar hos Råd &amp; Rön,
+            Stiftung Warentest eller någon annan redaktion vi normalt läser. För
+            en produkt i den här prisklassen som dessutom hänger utanför ett
+            fönster är det ovanligt, och det är skälet till att rankningen väger
+            det som går att kontrollera i förväg tyngre än vanligt. Hur vi väger
+            står under <a href="#testmetod">Så gjorde vi testet</a>.
+          </p>
+          <p>
+            <strong>Sex av de sju är Ecovacs, HOBOT eller Kärcher</strong>,
+            eftersom det svenska sortimentet är litet. Xiaomi Hutt DDC55 är
+            billigast av allt vi sett men ligger bland de övervägda: vi hittade
+            ingenting alls om lina, reservbatteri eller glas för den.
+          </p>
+        </Prose>
+      </Section>
+
       <Section
         id="testmetod"
-        tone="muted"
         width="default"
         title="Så gjorde vi testet"
         description="Viktningen nedan är den som räknar fram betygen i tabellen."
@@ -395,12 +371,13 @@ export default async function FonsterputsrobotPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Säkerhet på höjd väger 30 av 100 eftersom produkten sitter på utsidan av ett fönster och faller om den lossnar. Kriteriet belönar att uppgiften publiceras minst lika mycket som att talet är imponerande: en utskriven hålltid går att kontrollera, en utelämnad går inte. Fönstertyp och mått väger 25 eftersom det är den fråga som oftast gör att köpet inte fungerar, och eftersom tillverkarna säger så olika saker att en modell förbjuder båglöst glas medan en annan tillåter det. Rengöring väger 20 och bedöms ur hur vattnet fördelas, inte ur sugkraften i pascal, som är vidhäftning. Där en tillverkare inte publicerar en uppgift står den som ej angiven, aldrig som en nolla, och vi fyller aldrig i ett tal från en systermodell. Vi har inte hängt någon robot i något fönster, inte belastat någon lina och inte mätt någon rengöring. Priserna är hos den butik vi länkar till."
+          footnote="Säkerhet på höjd väger 30 av 100 eftersom produkten sitter på utsidan av ett fönster och faller om den lossnar. Kriteriet belönar att uppgiften går att kontrollera i förväg minst lika mycket som att talet är imponerande: en robot vars hålltid vi kan läsa oss till får kredit för det, en vars hålltid inte går att få fram får avdrag, även om den senare mycket väl kan vara den säkrare av de två. Vi kan bara väga det som går att veta innan köpet. Fönstertyp och mått väger 25 eftersom det är den fråga som oftast gör att köpet inte fungerar, och eftersom robotarna skiljer sig så mycket att en modell inte får användas på båglöst glas medan en annan är godkänd för det. Rengöring väger 20 och bedöms ur hur vattnet fördelas, inte ur sugkraften i pascal, som är vidhäftning. En uppgift vi inte fått fram står som ett streck, aldrig som en nolla, och vi fyller aldrig i ett tal från en systermodell. Vi har inte hängt någon robot i något fönster, inte belastat någon lina och inte mätt någon rengöring. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
       <Section
         id="darfor-litar-du-pa-oss"
+        tone="muted"
         width="default"
         title="Därför kan du lita på oss"
         description="Vi provar inte robotarna fysiskt. Det här är vad vi gör i stället."
@@ -424,24 +401,14 @@ export default async function FonsterputsrobotPage() {
 
       <Section
         id="kallor"
-        tone="muted"
         width="default"
         title="Källor"
         description="Fyra tillverkarmanualer och produktsidor, lästa i original."
       >
         <Prose className="mb-block">
           <p>
-            <strong>
-              Samtliga källor är tillverkarnas egna, och det är ovanligt för oss.
-            </strong>{" "}
-            Skälet är att ingen oberoende redaktion vi läser har provat
-            fönsterputsrobotar. När det inte finns någon provning är
-            tillverkarens manual det enda som går att jämföra, och då blir
-            skillnaden mellan vad de skriver själva fyndet.
-          </p>
-          <p>
             <strong>Läs manualen före produktbladet.</strong> Förbudet mot
-            båglöst glas hos HOBOT och kravet på tio centimeters marginal hos
+            båglöst glas hos HOBOT och kravet på 10 centimeters marginal hos
             Ecovacs står båda i manualen och i inget av produktbladen.
           </p>
         </Prose>

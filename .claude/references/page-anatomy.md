@@ -73,6 +73,18 @@ only makes sense once you know what won. Placed early it reads as padding.
 not buying today. Putting it high would serve the smallest audience with the
 most space.
 
+**Self-disclosure sits below the buying guide, next to the weighting**, not
+above the reviews. `/fonsterputsrobot` had "Vem har kontrollerat det här?"
+between the table and the reviews, which put five paragraphs about what we had
+and had not established directly in the path of the reader who came to buy.
+Moved 2026-08-04.
+
+It belongs beside `testmetod` because they answer the same question: the reader
+who doubts the verdict wants the weighting and the caveats together, and nobody
+else wants either. Everything about source state lives in those two sections and
+nowhere else on the page — see the `swedish-voice` skill,
+`references/who-you-are.md`.
+
 **Backgrounds alternate, and two adjacent greys merge into one block.**
 Re-check the alternation whenever you insert a section. Reviews and rejected
 products are both grey by necessity, so that boundary carries a hairline

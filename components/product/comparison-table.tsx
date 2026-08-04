@@ -2,7 +2,7 @@ import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { Check, Minus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { formatPrice, type Product } from "@/lib/products";
+import { formatPrice, fullName, type Product } from "@/lib/products";
 import type { TableId } from "@/lib/theme";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { AwardBadge } from "@/components/product/award-badge";
@@ -76,8 +76,33 @@ const STICKY_COL =
 const STICKY_COL_MUTED =
   "sticky left-0 z-20 bg-muted shadow-[inset_-8px_0_8px_-8px_rgb(0_0_0/0.13)]";
 
-function specValue(product: Product, label: string): string | undefined {
+/**
+ * Värden som betyder "vi letade och uppgiften gick inte att få fram".
+ *
+ * De renderas som ett streck. Ordet självt hör inte hemma i tabellen: upprepat
+ * i fyra rader gånger sju kolumner gör det tabellen till en redovisning av
+ * källäget i stället för en jämförelse av produkter, vilket är samma fel som
+ * prosan hade på `/fonsterputsrobot`. Peters avgörande 2026-08-04.
+ *
+ * ⚠️ Översättningen sitter i renderingen och **inte** i datafilerna, med flit.
+ * `TOMMA_VARDEN` nedan behandlar streck som tomt när den avgör om en hel rad
+ * ska döljas, medan `Ej angiven` räknas som ett värde. Skrev vi streck i
+ * datafilerna i stället skulle varje rad där ingen produkt har uppgiften
+ * försvinna tyst ur tabellen, och skillnaden mellan "vi har letat" och "fältet
+ * fylldes aldrig i" gå förlorad på 20 datafiler samtidigt.
+ */
+const EJ_ANGIVET = new Set(["Ej angiven", "Ej angivet", "Ej angivna"]);
+
+/** Värdet som det står i datafilen. Används av radfiltret, aldrig för visning. */
+function raSpecValue(product: Product, label: string): string | undefined {
   return product.specs.find((s) => s.label === label)?.value;
+}
+
+/** Värdet som läsaren ser. `Ej angiven` blir ett streck. */
+function specValue(product: Product, label: string): string | undefined {
+  const value = raSpecValue(product, label);
+  if (value !== undefined && EJ_ANGIVET.has(value.trim())) return "–";
+  return value;
 }
 
 /**
@@ -128,9 +153,13 @@ const ALDRIG_I_TABELLEN = new Set(["Lagerstatus"]);
    efter och inte text vi visar. */
 const TOMMA_VARDEN = new Set(["", "-", "\u2013", "\u2014"]);
 
+/* ⚠️ Läser `raSpecValue` och inte `specValue`. Visningsvärdet översätter
+   `Ej angiven` till ett streck, och streck står i `TOMMA_VARDEN`, så ett filter
+   på visningsvärdet hade dolt varje rad där ingen produkt har uppgiften — den
+   raden är ofta ett av sidans viktigaste besked. */
 function harNagotVarde(products: Product[], label: string): boolean {
   return products.some((product) => {
-    const value = specValue(product, label);
+    const value = raSpecValue(product, label);
     return value !== undefined && !TOMMA_VARDEN.has(value.trim());
   });
 }
@@ -504,6 +533,7 @@ function MatrixTable({
                   merchant={product.merchant}
                   label="Se pris"
                   productId={product.id}
+                  productName={fullName(product)}
                   placement="comparison-table"
                   size="default"
                   showIcon={false}
@@ -680,6 +710,7 @@ function ChecklistTable({
                   merchant={product.merchant}
                   label="Se pris"
                   productId={product.id}
+                  productName={fullName(product)}
                   placement="comparison-table"
                   size="default"
                   showIcon={false}
@@ -885,6 +916,7 @@ function RowsTable({
                     merchant={product.merchant}
                     label="Se pris"
                     productId={product.id}
+                    productName={fullName(product)}
                     placement="comparison-table"
                     size={dense ? "sm" : "default"}
                     showIcon={false}

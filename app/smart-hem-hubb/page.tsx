@@ -442,24 +442,15 @@ export default async function SmartHemHubbPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Fem tillverkarsidor, lästa i original, och en av dem för det den inte säger."
+        description="Fem tillverkarsidor, lästa i original."
       >
         <Prose className="mb-block">
           <p>
-            <strong>
-              Samtliga källor är tillverkarnas egna, och det är ovanligt för oss.
-            </strong>{" "}
-            Ingen oberoende redaktion vi läser har provat smarta hem-hubbar. När
-            det inte finns någon provning är tillverkarens egen beskrivning det
-            enda som går att jämföra, och då blir skillnaden mellan vad de
-            skriver själva fyndet.
-          </p>
-          <p>
-            <strong>Philips sida står med för det den inte säger.</strong> Den
-            beskriver hur Hue ansluts till Alexa, Apple Home och Google, och
-            svarar aldrig på om bryggan kan lägga till en annan tillverkares
-            Matter-enhet. En källa som inte svarar är också ett svar när alla
-            andra i jämförelsen gör det.
+            <strong>Hue Bridge är den som är svårast att placera.</strong> Den
+            kopplar ihop sig med Alexa, Apple Home och Google, men om den kan ta
+            emot en Matter-enhet från en annan tillverkare är okänt. Har du
+            tänkt bygga vidare med annat än Hue är det den frågan du behöver
+            svar på innan du köper.
           </p>
         </Prose>
         <SourceList sources={SMART_HEM_HUBB_SOURCES} title={null} />

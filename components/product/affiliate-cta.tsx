@@ -26,6 +26,15 @@ export type AffiliateCtaProps = {
   note?: string;
   /** Feeds the click tracker once analytics is wired up. */
   productId?: string;
+  /**
+   * Produkten knappen leder till, för skärmläsare. Knapptexten säger vilken
+   * butik men inte vilken vara, alltså heter varenda knapp på en testsida
+   * samma sak. Den som stegar genom länkarna med tangentbord eller listar dem
+   * i en skärmläsare hör "Köp hos Proshop" tio gånger utan att veta vilken av
+   * dem som är vilken. Namnet läggs till dolt, efter etiketten, så den synliga
+   * texten står kvar oförändrad. Skicka `fullName(product)`.
+   */
+  productName?: string;
   placement?: string;
   /**
    * Dölj "Annons"-etiketten. Bara för lägen där märkningen redan står i
@@ -57,6 +66,7 @@ export function AffiliateCta({
   showIcon = true,
   note,
   productId,
+  productName,
   placement,
   hideAdLabel = false,
   className,
@@ -143,6 +153,9 @@ export function AffiliateCta({
           data-placement={placement}
         >
           {text}
+          {productName ? (
+            <span className="sr-only">{`, ${productName}`}</span>
+          ) : null}
           {showIcon ? <ArrowUpRight aria-hidden="true" /> : null}
         </a>
       </Button>

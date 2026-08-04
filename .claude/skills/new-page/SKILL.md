@@ -17,6 +17,7 @@ not up front.
 |---|---|
 | 1 | `.claude/context/research.md`, `.claude/context/money.md` |
 | 3–4 | `.claude/context/data.md` |
+| 4 | `.claude/references/spec-sourcing.md`, before the gap pass |
 | 4 | Skill `swedish-voice`, before any reader-facing sentence |
 | 5 | `.claude/context/build.md`, `.claude/references/page-anatomy.md` |
 | 5 | `.claude/context/traps.md`, before writing component code |
@@ -75,9 +76,27 @@ dashes is worse than four criteria.
 
 ## Phase 4: Source real data
 
-Prices, GTINs, URLs, images, ratings, specs. Nothing invented, everything
-dated. Define the spec schema in `lib/spec-schema.mjs` **before** writing any
-product.
+Prices, GTINs, URLs, images, ratings, specs. Nothing invented, everything dated.
+Define the spec schema in `lib/spec-schema.mjs` **before** writing any product.
+
+Then fill it. The schema is a **work order**, not a header row: N products times
+M fields is a grid, and an empty cell is an open task with a name.
+
+1. **Sweep** — the source ladder in `.claude/context/data.md` §Specifications.
+2. **Gap pass** — list the cells still empty and hit each with a *different
+   modality than the one that already failed*. The playbook is
+   `.claude/references/spec-sourcing.md`: the manufacturer's home market rather
+   than the `.se` page, Icecat by GTIN, CE and FCC filings, the spec panel
+   photographed on the box, retailer Q&A, spare-part listings, teardowns.
+3. `pnpm check:tackning` — any highlighted row under 50 % filled is either
+   unfinished research or the wrong row. Both are fixable; decide which.
+
+Source tiers apply. A safety-shaped value needs tier A or two agreeing tier-B
+sources, and other "bäst i test" sites are a lead and never a source.
+
+None of this reaches the reader. An unobtainable value is `Ej angiven` in the
+data file, renders as a dash, and is explained once in the weighting — never in
+prose, a heading, a verdict, a pro/con or a FAQ answer.
 
 ## Phase 5: Build
 

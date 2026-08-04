@@ -9,6 +9,31 @@ Ingen av dem läser sidan uppifrån och ner.
 
 ---
 
+## Kort
+
+Hen har ett enkelt problem och vill köpa sig ur det i dag. Hen vill veta vilken
+produkt som är bäst för just hens situation, och hen vill kunna sluta läsa och
+beställa. **Ditt jobb är att hjälpa hen bestämma sig snabbt och känna sig trygg
+i beslutet efteråt.** Tveksamhet är dyrare för hen än ett något dyrare köp.
+
+Hen läser en sida hos oss. Sedan är hen borta.
+
+Två saker följer av det, och den andra är den som glöms:
+
+- **Upprepning mellan sidor kostar ingenting.** Ingen läser två av våra
+  kategorier och märker att samma resonemang om spröjs finns på båda. Skriv
+  varje sida som om den vore den enda, och undvik aldrig en bra formulering för
+  att den använts någon annanstans.
+- **Upprepning inom sidan kostar allt.** Där märks varje varv. På
+  `/fonsterputsrobot` stod samma tre säkerhetstal i ingressen, i en egen
+  sektion, i tabelltexten, i metodrutan, två gånger i köpguiden, i tre
+  FAQ-svar och i de flesta omdömen: nio gånger. Det läser sig som en sida som
+  inte kan bestämma sig, och det trycker ner det som faktiskt skiljer
+  produkterna åt.
+
+Provet är enkelt: **säg varje sak en gång, på det ställe där den gör mest
+nytta, och lita på att den står kvar.**
+
 ## Den bestämde
 
 **Kommer från:** `bäst i test {kategori}`, `bästa {kategori} 2026`

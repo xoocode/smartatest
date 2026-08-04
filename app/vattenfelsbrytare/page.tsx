@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
-import { testPageTrail, VATTENLARM } from "@/lib/test-pages";
-import { VATTENLARM_SOURCES } from "@/lib/sources";
+import { testPageTrail, VATTENFELSBRYTARE } from "@/lib/test-pages";
+import { VATTENFELSBRYTARE_SOURCES } from "@/lib/sources";
 import {
   PRICE_CHECKED,
-  VATTENLARM_CONSIDERED,
-  VATTENLARM_FAQ,
-  VATTENLARM_FILTERS,
-  VATTENLARM_PRODUCTS,
-} from "@/lib/data/vattenlarm";
+  VATTENFELSBRYTARE_CONSIDERED,
+  VATTENFELSBRYTARE_FAQ,
+  VATTENFELSBRYTARE_FILTERS,
+  VATTENFELSBRYTARE_PRODUCTS,
+} from "@/lib/data/vattenfelsbrytare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
@@ -36,37 +36,34 @@ import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
 import { VerdictText } from "@/components/product/verdict-text";
 
-import Kopguide from "@/content/vattenlarm/kopguide.mdx";
+import Kopguide from "@/content/vattenfelsbrytare/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, batterityper, batteritider, IP-klasser, EAN och
- * butiks-URL:er är riktiga, lästa på butikernas egna produktsidor på
- * PRICE_CHECKED. Kriteriebetygen är redaktionell bedömning utifrån de
- * specifikationerna, inte mätningar. Vi har inte provat ett enda larm, och det
- * står på sidan.
+ * ⚠️ Produkter, priser, certifikatnummer, RSK-nummer, EAN, anslutningar och
+ * tryck- och temperaturgränser är riktiga och lästa på PRICE_CHECKED.
+ * Kriteriebetygen är redaktionell bedömning utifrån de uppgifterna, inte
+ * mätningar. Vi har inte installerat eller läckagetestat en enda produkt.
  *
- * Produktbilderna är butikernas egna packshots och ligger som WebP-masters
- * under public/bilder/vattenlarm.
+ * De tre typgodkännandena är lästa i original som PDF hos RISE via
+ * tillverkarnas dokumentbibliotek, inte i en butikstext. Det är det som gör
+ * kriterium 1 möjligt att sätta.
  *
- * Lagerstatus anges inte, efter användarbeslut 2026-08-03: rankningen svarar
- * på vilken produkt som är bäst, inte på vad en butik råkar ha på hyllan.
- * Priserna kontrolleras med `pnpm priskoll`.
+ * Lagerstatus anges inte, samma beslut som på /vattenlarm. Två produkter
+ * ligger däremot bland de övervägda för att tillverkaren själv skriver att de
+ * inte längre är tillgängliga, vilket är något annat än att en butik är slut.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
- * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
- * varken rel="sponsored" eller annonsmärkning, och balken högst upp
- * renderar därför ingenting än. Se lib/links.ts.
- * Se lib/links.ts.
+ * 302:ar vidare till butiken och räknar klicket. Se lib/links.ts.
  */
 
-const TEST_PAGE = VATTENLARM;
+const TEST_PAGE = VATTENFELSBRYTARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde nio vattenlarm från 190 till 876 kronor. Hälften larmar bara där de ligger, tre kräver en hubb som kostar mer än larmet, och ett skickar ingen notis alls förrän du byggt en automation.",
+    "Tre av fem tillverkare publicerar ett typgodkännande du kan ladda ner och läsa. Vi jämförde fem vattenfelsbrytare och läckagebrytare från 819 till 8 495 kronor mot certifikaten, och siffran alla upprepar är fyra år gammal.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -76,11 +73,11 @@ export const metadata: Metadata = {
 };
 
 const TOC = [
-  { id: "snabbt-svar", label: "Snabbt svar: vilket ska du köpa?" },
-  { id: "tre-larmvagar", label: "Tre sätt att larma" },
-  { id: "jamforelse", label: "Jämför alla nio" },
-  { id: "recensioner", label: "Recensioner av varje larm" },
-  { id: "andra-larm", label: "Andra produkter vi övervägde" },
+  { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
+  { id: "certifikaten", label: "Certifikaten, och vad de säger" },
+  { id: "jamforelse", label: "Jämför alla fem" },
+  { id: "recensioner", label: "Recensioner av varje produkt" },
+  { id: "andra-brytare", label: "Andra produkter vi övervägde" },
   { id: "kopguide", label: "Köpguide" },
   { id: "testmetod", label: "Så gjorde vi testet" },
   { id: "darfor-litar-du-pa-oss", label: "Därför kan du lita på oss" },
@@ -88,11 +85,11 @@ const TOC = [
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
-export default async function VattenlarmPage() {
+export default async function VattenfelsbrytarePage() {
   /* Only read in development. See lib/style-server.ts: production keeps the
      default layout and the page stays static. */
   const style = await getStyle();
-  const products = VATTENLARM_PRODUCTS;
+  const products = VATTENFELSBRYTARE_PRODUCTS;
   const [winner] = products;
   const author = DEFAULT_AUTHOR;
   const reviewer = DEFAULT_REVIEWER;
@@ -122,12 +119,13 @@ export default async function VattenlarmPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde nio vattenlarm från 190 till 876 kronor. Det som
-              skiljer dem åt är inte priset utan vad som händer när de känner
-              vatten: tre av dem tjuter bara där de ligger, tre kräver en hubb
-              som kostar mer än larmet självt, och ett är uppkopplat men skickar
-              ingen notis förrän du byggt en automation i appen. Snittkostnaden
-              för en vattenskada är enligt Vattenskadecentrum 49 700 kronor.
+              Åtta vattenfelsbrytare provades av RISE 2022 och ingen klarade sig
+              i första omgången. Två godkändes efter omarbetning, och den
+              siffran upprepas fortfarande som om den beskrev nuläget. Den gör
+              inte det: tre av produkterna här har ett certifikatnummer som
+              tillverkaren publicerar, det färskaste från april 2026, och sedan
+              1 januari 2026 kräver branschreglerna ett typgodkänt aktivt skydd
+              i kök.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -168,61 +166,64 @@ export default async function VattenlarmPage() {
           ctaNote={`Pris kontrollerat ${PRICE_CHECKED}`}
           showSpecs
         />
-        <TocNav
-          variant="inline"
-          entries={TOC}
-          className="mt-block lg:hidden"
-        />
+        <TocNav variant="inline" entries={TOC} className="mt-block lg:hidden" />
       </Section>
 
-      {/* ------------------------------------------------- tre larmvagar -- */}
-      {/* Ligger högt med flit. Att två produkter i samma prisläge kan skilja
-          sig i det enda som betyder något är det första en läsare behöver veta,
-          och svaret får inte ligga nedanför en tabell där skillnaden syns som
-          en rad bland tio. */}
+      {/* ---------------------------------------------------- certifikat -- */}
+      {/* Ligger högt med flit och av samma skäl som larmvägarna på
+          /vattenlarm: det är den enda uppgiften som avgör köpet, den går att
+          kontrollera på två minuter, och den får inte ligga nedanför en tabell
+          där den syns som en rad bland femton. */}
       <Section
-        id="tre-larmvagar"
+        id="certifikaten"
         width="default"
-        title="Tre sätt att larma"
-        description="Alla nio känner vatten på golvet. Skillnaden ligger i vem som får veta, och det är den skillnaden viktningen bygger på."
+        title="Certifikaten, och vad de säger"
+        description="Kategorins enda publicerade måttstock. Tre av fem tillverkare lägger dokumentet fritt nedladdningsbart på sin egen webbplats."
       >
         <Prose>
           <p>
-            <strong>Bara siren.</strong> Larmet tjuter där det ligger, ofta över
-            hundra decibel. Det finns ingen app, inget konto och ingenting att
-            koppla upp. Numens 204, Housegard och X-Sense SWS51 utan basstation
-            fungerar så, och de kostar 190 till 230 kronor.
+            Ett typgodkännande har ett nummer, en utgåva, ett datum och en
+            innehavare. Ordet godkänd i en produktrubrik har inget av det.
           </p>
           <p>
-            <strong>Notis utan hubb.</strong> Larmet talar wifi rakt till din
-            router och skickar en notis till telefonen. SQ400B gör det för 199
-            kronor, samma pengar som ett larm med bara siren.
+            <strong>LK CubicSecure: C900737, utfärdat 13 juni 2024.</strong> Det
+            färskaste av de centrala, och certifikatet beskriver produkten som
+            utrustad med flödesmätare och tryckmätare, med en integrerad
+            kulventil som stänger vid avvikande flöde.
           </p>
           <p>
-            <strong>Notis, men hubb krävs.</strong> Tapo T300, Aqara T1 och
-            Fibaro kan inte nå din telefon på egen hand. De behöver en hubb av
-            rätt märke, som säljs separat och normalt kostar mer än larmet. Har
-            du redan hubben är de billigast i längden. Har du ingen har du köpt
-            en tjutande dosa för 179 kronor.
+            <strong>Vatette Vattenfelsbrytare: SC0056-15, utgåva 4 från 31
+            januari 2022.</strong> Den ena av de två som klarade RISE-provningen,
+            och certifikatet anger två saker som ingen butikstext nämner:
+            utgående klämringskoppling för kopparrör, och maximalt 60 grader.
           </p>
           <p>
-            Frågan som avgör vilken sort du behöver är inte hur mycket du vill
-            lägga, utan hur ofta bostaden står tom. En siren i ett tomt hus hörs
-            inte, och en läcka som börjar på förmiddagen har hela arbetsdagen på
-            sig. Väljaren i köpguiden ställer den frågan och två till.
+            <strong>Vatette Läckagebrytare: C901455, utfärdat 17 april
+            2026.</strong> Fyra månader gammalt. I februari 2025 skrev VVS-Forum
+            att typgodkända läckagebrytare med sensorer skulle dyka upp under
+            året, och det här är produkten. Certifikatet namnger fyra artiklar
+            med RSK-nummer, så du kan kontrollera exakt vilken variant som
+            omfattas.
+          </p>
+          <p>
+            Alla tre är typgodkännanden med beslut om tillverkningskontroll,
+            alltså där tillverkarens egenkontroll löpande övervakas av ett
+            oberoende organ. För de två övriga produkterna finns inget nummer
+            att läsa. Det betyder att uppgiften saknas, inte att produkterna har
+            provats och underkänts, och den skillnaden är avgörande.
           </p>
         </Prose>
       </Section>
 
       {/* -------------------------------------------------- ranked lists -- */}
       {/* Parked. Hidden unless the admin toggle is on; kept in the template so
-          new category pages still get the section. See lib/theme.ts. */}
+          new test pages still get the section. See lib/theme.ts. */}
       <Section
         id="alla-testvinnare"
         optionalSection="winner-grid"
         width="wide"
         eyebrow="Alla testvinnare"
-        title={`De ${products.length} bästa vattenlarmen 2026`}
+        title={`De ${products.length} bästa vattenfelsbrytarna 2026`}
         description="Klicka på ett namn för den fullständiga recensionen."
       >
         <WinnerGrid products={products} variant="grid" columns={3} />
@@ -232,13 +233,13 @@ export default async function VattenlarmPage() {
         id="jamforelse"
         tone="muted"
         width="wide"
-        title="Jämför alla nio"
-        description="Filtrera på hur larmet når dig. Raden att läsa noggrannast är Hubb krävs, eftersom den avgör vad produkten faktiskt kostar."
+        title="Jämför alla fem"
+        description="Filtrera på vad produkten skyddar. Raden att läsa noggrannast är Typgodkännande, eftersom den avgör om installationen går att belägga. Inget nummer publicerat betyder precis det, aldrig att produkten har provats och underkänts."
       >
         <FilterableComparison
           products={products}
-          filters={VATTENLARM_FILTERS}
-          legend="Filtrera på larmväg och underhåll"
+          filters={VATTENFELSBRYTARE_FILTERS}
+          legend="Filtrera på skydd och installation"
           layout={style.table}
           variant="bordered"
           caption={priceCaption(PRICE_CHECKED)}
@@ -249,13 +250,16 @@ export default async function VattenlarmPage() {
       <Section
         id="recensioner"
         width="wide"
-        title="Recensioner av varje larm"
-        description="Alla nio bedöms mot samma fem kriterier. Kategorin saknar oberoende laboratorieprovning, så det finns inget kriterium för testomdöme här."
+        title="Recensioner av varje produkt"
+        description="Alla fem bedöms mot samma fem kriterier. Två produkttyper jämförs i samma lista, eftersom certifieringsregeln CR 139 och kravet på aktivt skydd i kök omfattar båda."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <VerdictText text={product.verdict} className="text-muted-foreground" />
+              <VerdictText
+                text={product.verdict}
+                className="text-muted-foreground"
+              />
               <CriteriaScores
                 criteria={TEST_PAGE.criteria}
                 scores={product.scores}
@@ -268,13 +272,13 @@ export default async function VattenlarmPage() {
       </Section>
 
       <Section
-        id="andra-larm"
+        id="andra-brytare"
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex produkter som fanns i urvalet men inte i rankningen. Två av dem är vattenfelsbrytare, som är en annan produkt i en annan prisklass, och en är utgången."
+        description="Sex produkter som fanns i urvalet men inte i rankningen. Två är avvecklade enligt tillverkaren själv, en av dem är den ena av de två som klarade provningen 2022."
       >
-        <ConsideredList items={VATTENLARM_CONSIDERED} />
+        <ConsideredList items={VATTENFELSBRYTARE_CONSIDERED} />
       </Section>
 
       {/* ---------------------------------------------------- editorial -- */}
@@ -289,13 +293,13 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är den som räknar fram betygen i tabellen."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen. Den sattes innan en enda produkt prissattes."
       >
         <MethodologyBlock
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte provat de här larmen, och ingen annan har heller gjort det på ett sätt som går att kontrollera. Stiftung Warentest har inte testat kategorin, och de tyska sidor som ser ut som tester är jämförelsesajter utan mätvärden, varav en heter test-stiftung.de. Brandinfo har recenserat X-Sense-systemet, en av nio produkter, vilket är för lite för ett eget kriterium. Därför saknas kriteriet Omdöme i oberoende tester som finns på våra andra sidor. Samtidigt påstår alla fem svenska konkurrentsidor i rubriker att de utfört egna tester, med avsnitt som Genomförandet av Testet, Så testar vi våra vattenlarm och Hur vi utförde detta test, utan att någon av dem redovisar ett enda mätvärde. De står namngivna i källistan, så påståendet går att kontrollera. Priserna är hos den butik vi länkar till."
+          footnote="Vi har inte installerat, provat eller läckagetestat någon av produkterna, och det är en kategori där ingen konsumentsida har gjort det heller: en vattenfelsbrytare kräver rörmokare och ett ingrepp på inkommande ledning. Det som finns är i stället en riktig laboratorieprovning, RISE mot SP-Metod 5314 på uppdrag av Länsförsäkringars Forskningsfond, och de typgodkännanden som följt av den. De tre certifikaten är hämtade och lästa i original hos tillverkarna, inte återgivna ur en butikstext, och citaten på sidan kommer ur dokumenten själva. Betyget för dokumenterat typgodkännande mäter därför vad som går att kontrollera före köp: 5,0 med publicerat certifikatnummer, 3,0 när tillverkaren hävdar att sortimentet uppfyller reglerna utan nummer för produkten, 1,5 när ingen uppgift finns. Ett lågt betyg betyder aldrig att en produkt underkänts, eftersom RISE register inte går att söka utifrån och ett register vi inte kan läsa inte är ett bevis på frånvaro. Priserna är hos den butik vi länkar till, och eftersom ingen butik för hela sortimentet står källan utskriven per produkt."
         />
       </Section>
 
@@ -327,20 +331,17 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Notera vad som saknas: det finns ingen laboratorieprovning av vattenlarm att luta sig mot. Tyngdpunkten ligger därför på svensk skadestatistik och på försäkringsbolagens egna villkor, som är det verkliga beslutsunderlaget."
+        description="Tyngdpunkten ligger på tre typgodkännanden från RISE, lästa i original, och på branschreglerna i deras officiella ändringsdokument med paragrafnummer. Det är kategorins enda underlag som inte kommer från någon som säljer produkten."
       >
-        <SourceList sources={VATTENLARM_SOURCES} title={null} />
+        <SourceList sources={VATTENFELSBRYTARE_SOURCES} title={null} />
       </Section>
 
       <Section id="vanliga-fragor" width="default" title="Vanliga frågor">
-        <FaqAccordion items={VATTENLARM_FAQ} schema />
+        <FaqAccordion items={VATTENFELSBRYTARE_FAQ} schema />
       </Section>
 
       <Container size="default" className="pad-section">
-        <LegalDisclaimer
-          items={["general", "pricing"]}
-          className="mb-block"
-        />
+        <LegalDisclaimer items={["general", "pricing"]} className="mb-block" />
       </Container>
     </>
   );

@@ -188,6 +188,33 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     updated: "2026-08-04",
   },
   {
+    /* `vattenfelsbrytare` 2 900/mån, alltså mer än vattenlarm trots att
+       produkten kostar tjugo gånger mer. Sidan rankar både vattenfelsbrytare
+       och läckagebrytare, efter användarbeslut 2026-08-04: certifieringsregeln
+       CR 139 omfattar båda, och sedan 2026-01-01 kräver Branschregler Säker
+       Vatteninstallation 2026:1 ett typgodkänt aktivt skydd i kök, där båda
+       typerna duger. Vattenlarm ligger kvar på /vattenlarm.
+
+       Vinkeln är att tre tillverkare publicerar certifikatnummer som går att
+       ladda ner och läsa, och att ingen konsumentsida gör det. Den vanligaste
+       uppgiften i kategorin, att bara två vattenfelsbrytare är godkända, är
+       hämtad ur ett pressmeddelande från 2022 och stämmer inte 2026.
+
+       ⚠️ Kategorins enda affiliateprogram, VVSochBad via Partner-ads på
+       2,40 %, är dyrast eller näst dyrast på båda de centrala brytarna. Vi
+       länkar dit ingen produkt. Se .agent/research/vattenfelsbrytare.md §9.11. */
+    href: "/vattenfelsbrytare",
+    label: "Vattenfelsbrytare",
+    category: SAKERHET,
+    blurb: "Tre publicerar certifikatnumret. Två gör det inte.",
+    /* Live 2026-08-05. Alla fem priser lästa på butikens egen sida 2026-08-04,
+       och de tre typgodkännandena hämtade som PDF hos RISE via tillverkarnas
+       dokumentbibliotek. Ingen av de sex konkurrentsidorna nämner CR 139 eller
+       branschreglernas 2026:1, och ingen återger ett certifikatnummer. */
+    status: "live",
+    updated: "2026-08-04",
+  },
+  {
     /* `vattenlarm` 2 400/mån mot `läckagevarnare` 90, alltså tjugosex gånger.
        Sidan rankar bara sensorerna. Vattenfelsbrytare bär 2 900/mån i egen rätt
        och får en egen sida, vilket också håller isär två produkter som skiljer
@@ -199,9 +226,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* Live 2026-08-03. Alla nio priser omkontrollerade hos butiken samma dag:
        åtta stämde, Tapo T300 hade fallit från 199 till 179 och är rättad. De
        fyra Kjell-produkternas kundbetyg räknade skrivna recensioner i stället
-       för antalet betyg och är omlagda till butikens aggregateRating. */
+       för antalet betyg och är omlagda till butikens aggregateRating.
+
+       2026-08-05: de tre bortvalda som är vattenfelsbrytare pekade framåt mot
+       en sida som inte fanns. Den finns nu, så texterna säger var produkterna
+       rankas i stället. LK Cubicsecure fick samtidigt sitt certifikatnummer
+       och ett omkontrollerat riktpris, 4 798 till 5 373 hos en annan butik. */
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-05",
   },
   {
     /* `brandvarnare` 9 900/mån mot `smart brandvarnare` 720. Den här sidan

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
-import { starsFromScore, type Product } from "@/lib/products";
+import { fullName, starsFromScore, type Product } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { AwardBadge } from "@/components/product/award-badge";
 import { PriceTag } from "@/components/product/price-tag";
@@ -109,6 +109,7 @@ export function ProductReview({
               affiliateUrl={product.affiliateUrl}
               merchant={product.merchant}
               productId={product.id}
+              productName={fullName(product)}
               placement="product-review"
               size="lg"
               block
@@ -163,6 +164,7 @@ export function ProductReview({
                 affiliateUrl={product.affiliateUrl}
                 merchant={product.merchant}
                 productId={product.id}
+                productName={fullName(product)}
                 placement="product-review-compact"
                 size="lg"
               />

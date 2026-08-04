@@ -21,6 +21,7 @@ pnpm build          # kills the dev server; restart after
 | `check:vikter` | Criterion weights not summing to 100, or a test page with fewer than three or more than seven criteria |
 | `check:upplysning` | The same disclosure variant twice on one page, or a page repeating the footer's |
 | `check:fraser` | The confirmed overtramp from `measurements.md`, in reader-facing text with comments stripped. Two tiers: a short hard list that fails, and a counted list that only reports |
+| `check:tackning` | Reports, never fails: highlighted spec rows under 50 % filled |
 | `check:lankar` | Outbound links that no longer resolve |
 | `sprak "<fras>"` | Comparison against the 151k-word reference corpus |
 | `priskoll` | Price drift against the merchant pages |
@@ -29,6 +30,25 @@ pnpm build          # kills the dev server; restart after
 `tsc`, `lint` and `build`, and it silently blanks every `<ProductRef>` in a
 buying guide. Run it before calling a test page done; that is exactly the moment
 the registration gets forgotten.
+
+### `check:tackning` reports and does not fail, deliberately
+
+A highlighted spec row is a promise that the row separates the products. Mostly
+dashes means the promise is broken and the reader paid a screen height for
+nothing.
+
+It does not fail, because some numbers genuinely are not obtainable —
+manufacturers avoid publishing rated safety loads for liability reasons. A check
+that failed on that would only teach us to fill cells with guesses, which is
+worse than a dash.
+
+So it is a to-do list, and there are exactly two ways to clear a line: run the
+gap pass again (`.claude/references/spec-sourcing.md`), or **change the row**.
+`Linans hållfasthet` had a value for one product in seven; an attribute that is
+knowable and differentiating beats a prestigious row nobody publishes.
+
+Treat a line here as unfinished work on the page it names, not as a permanent
+property of the category.
 
 ## Verify in a browser at 1440px and 390px
 

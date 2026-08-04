@@ -130,7 +130,57 @@ Grab `aggregateRating` while you are on the page. Kjell separates `ratingCount`
 from `reviewCount`, and the two differ by a factor of three to five. The count
 of people who rated is the honest figure. See `.claude/context/data.md`.
 
-## 4. Also-rans
+## 4. Specs, which become the comparison table
+
+Everything above finds *products*. This step finds their *properties*, and it
+is the step that did not exist until 2026-08-04. `/fonsterputsrobot` shipped
+with four of five highlighted rows nearly empty, not because the numbers were
+unavailable but because nothing in the process ever went looking for them.
+
+The field schema, the source ladder, the harvester and the traps that produced
+wrong values are all in `.claude/context/data.md` §Specifications. **Read that
+first; it owns the subject.** What follows is only what belongs to the research
+pass: how hard to work the grid, and where to go when the ladder runs out.
+
+### Two passes, and the second is where coverage comes from
+
+1. **Sweep.** Normal sourcing. Manufacturer documentation and the retailer
+   pages you are already on for price and GTIN.
+2. **Gap attack.** List the cells still empty, then hit each one with a
+   *different modality than the one that already failed*. Searching the same
+   Swedish product page harder returns the same nothing.
+
+The playbook of modalities, ranked by yield, is
+`.claude/references/spec-sourcing.md`. Read it before the gap pass, not before
+the sweep.
+
+### Source tiers
+
+Broader sourcing is allowed and expected — retailer data, datasheets, PIM
+feeds, regulatory filings, forums, other review sites. It is **tiered**, because
+a wrong number about something that hangs three storeys up is worse than an
+empty cell. The tier table is in `.claude/context/data.md` §2b.
+
+The two rules worth carrying in your head while searching: a safety-shaped value
+needs tier A, or two independent tier-B sources that agree. And other "bäst i
+test" sites are a **lead, never a source** — they tell you a figure exists, and
+you then go find it at A or B.
+
+### What the reader sees
+
+Nothing about any of this. Tier and source are recorded in the data file and
+never rendered; see `.claude/context/data.md`. A value we could not establish
+renders as a dash, and the weighting explains what that costs — once, in the
+methodology block. It never appears in prose. See the `swedish-voice` skill,
+`references/who-you-are.md`.
+
+### Log the dead ends
+
+Write to `.agent/research/{slug}.md`: every cell you could not fill, **and
+where you looked**. A refresh six months out should not burn the same hours
+rediscovering that HOBOT does not publish a line rating anywhere.
+
+## 5. Also-rans
 
 Five or six products we looked at and left out, each with a real reason and a
 verified retailer URL. "We ran out of time" is not a reason.
@@ -139,7 +189,7 @@ A brand with no affiliate programme anywhere is worth noting here: an also-ran
 carrying no conflict of interest in either direction is a cleaner rejection
 than one where we had money on the table.
 
-## 5. Search intent
+## 6. Search intent
 
 Swedish buyers search the product category: `robotdammsugare`, `brandvarnare`,
 `smart belysning`. They do not search "smart hem". Keep concept words out of

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/products";
 import { findProduct } from "@/lib/data";
-import { formatPrice } from "@/lib/products";
+import { formatPrice, fullName } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { ProductImage, IMAGE_SIZES } from "@/components/product/product-image";
 import { ScoreBadge } from "@/components/product/score-badge";
@@ -124,6 +124,7 @@ export function ProductRef({
           affiliateUrl={product.affiliateUrl}
           merchant={product.merchant}
           productId={product.id}
+          productName={fullName(product)}
           placement="kopguide"
           size="lg"
           block

@@ -415,7 +415,7 @@ export default async function BrandstegePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje stege"
-        description="Alla åtta bedöms mot samma fem kriterier. Måtten är butikens eller tillverkarens egna, inte kontrollerade av oss."
+        description="Alla åtta bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (

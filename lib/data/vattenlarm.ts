@@ -576,7 +576,7 @@ export const VATTENLARM_CONSIDERED: ConsideredProduct[] = [
     brand: "Aqara",
     name: "Valve Controller T1",
     reason:
-      "Inte ett larm utan en avstängningsventil: den sitter på röret och vrider av vattnet när en sensor larmar. Hör alltså hemma i nivån ovanför den här sidan, tillsammans med vattenfelsbrytare, och hör hemma i en jämförelse av dem. Har dessutom ett enda kundbetyg, en etta.",
+      "Inte ett larm utan en avstängningsventil: den sitter på röret och vrider av vattnet när en sensor larmar. Hör alltså hemma i nivån ovanför den här sidan, och den rankas i vårt test av vattenfelsbrytare i stället. Bra att veta redan här: den kräver både en Aqara-hubb och en separat läckagesensor, så 819 kronor blir i praktiken det dubbla. Har dessutom ett enda kundbetyg, en etta.",
     approxPrice: 819,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -586,14 +586,14 @@ export const VATTENLARM_CONSIDERED: ConsideredProduct[] = [
     brand: "LK Systems",
     name: "Cubicsecure",
     reason:
-      "Vattenfelsbrytare och inte vattenlarm. Den mäter flöde, tryck och temperatur och stänger av inkommande vatten till hela huset, och den är den enda produkttypen som ger tio procents rabatt på villaförsäkringen. Den kostar också tjugofem gånger mer än larmen i listan. Vi jämför den inte mot en sensor för 199 kronor, utan bygger en egen sida för kategorin.",
-    approxPrice: 4798,
+      "Vattenfelsbrytare och inte vattenlarm. Den mäter flöde, tryck och temperatur och stänger av inkommande vatten till hela huset, och den är den enda produkttypen som ger tio procents rabatt på villaförsäkringen. Den kostar också tjugofem gånger mer än larmen i listan, och den är dessutom typgodkänd med certifikat C900737 från 2024, vilket inget larm på den här sidan är. Vi jämför den inte mot en sensor för 199 kronor. Den ligger i stället först i vårt test av vattenfelsbrytare.",
+    approxPrice: 5373,
   },
   {
     brand: "Grohe",
     name: "Sense Guard",
     reason:
-      "Samma sak som Cubicsecure: vattenfelsbrytare, egen prisklass, egen sida. Ligger med här för att flera svenska jämförelser blandar in den bland vanliga vattenlarm utan att säga att den kräver rörmokare.",
+      "Samma sak som Cubicsecure: vattenfelsbrytare, egen prisklass, eget test hos oss. Ligger med här för att flera svenska jämförelser blandar in den bland vanliga vattenlarm utan att säga att den kräver rörmokare. Grohe har sedan dess slutat sälja den, vilket de skriver ut på sin egen produktsida.",
   },
   {
     brand: "Sensative",

@@ -405,7 +405,7 @@ export default async function LarmUtanAbonnemangPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje larm"
-        description="Alla fem bedöms mot samma fem kriterier. Uppgifterna är butikens eller tillverkarens egna, inte kontrollerade av oss."
+        description="Alla fem bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (

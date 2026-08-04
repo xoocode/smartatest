@@ -190,12 +190,11 @@ export function FiveYearAlarmCost({
                 term={`${sub?.provider}, ${months} mån à ${kr.format(sub?.monthlyFee ?? 0)}`}
                 value={kr.format((sub?.monthlyFee ?? 0) * months)}
               />
-              <div className="mt-1 border-t border-border pt-1.5">
-                <Row
-                  term={`${sub?.provider} totalt`}
-                  value={kr.format(subTotal)}
-                />
-              </div>
+              <Row
+                summering
+                term={`${sub?.provider} totalt`}
+                value={kr.format(subTotal)}
+              />
             </dl>
 
             {breakEven !== null ? (
@@ -241,9 +240,25 @@ export function FiveYearAlarmCost({
   );
 }
 
-function Row({ term, value }: { term: string; value: string }) {
+/* Summeringslinjen sitter på raden själv, inte på en behållare runt den. HTML
+   tillåter ett lager <div> mellan <dl> och sina <dt>/<dd>, och raden är det
+   lagret; en extra behållare gav "div > div" och fällde hela listan i axe. */
+function Row({
+  term,
+  value,
+  summering = false,
+}: {
+  term: string;
+  value: string;
+  summering?: boolean;
+}) {
   return (
-    <div className="flex items-baseline justify-between gap-3">
+    <div
+      className={cn(
+        "flex items-baseline justify-between gap-3",
+        summering && "mt-1 border-t border-border pt-1.5",
+      )}
+    >
       <dt className="text-muted-foreground">{term}</dt>
       <dd className="tabular-nums">{value}</dd>
     </div>

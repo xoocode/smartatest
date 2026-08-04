@@ -783,7 +783,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["vattenlarm"],
-    updated: "2026-08-04",
+    updated: "2026-08-05",
   },
   {
     /* "aterbetalning-vattenfelsbrytare" och inte "aterbetalning": dagen vi
@@ -850,8 +850,11 @@ export const TOOLS: Tool[] = [
           "Inte om du köper den för rabattens skull, eftersom återbetalningstiden på tio procents premierabatt oftast blir över tjugo år. Den är värd pengarna om du vill att vattnet faktiskt stängs av när du inte är hemma, till exempel i ett hus som står tomt delar av året. Räknaren ovan visar din egen siffra så du kan avgöra det.",
       },
     ],
-    usedOn: ["vattenlarm"],
-    updated: "2026-08-04",
+    /* Bor på båda sidorna med flit. Frågan ställs av den som läser om larm och
+       upptäcker att rabatten inte gäller dem, och av den som står inför att
+       betala 12 000 till 18 000 kronor för en brytare installerad. */
+    usedOn: ["vattenlarm", "vattenfelsbrytare"],
+    updated: "2026-08-05",
   },
   {
     slug: "brandskydd-hemma",

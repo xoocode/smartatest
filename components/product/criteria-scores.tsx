@@ -85,15 +85,21 @@ export function CriteriaScores({
   };
 
   return (
-    <dl
+    /* <dl> är den inre behållaren, inte den yttre. HTML tillåter exakt ett lager
+       <div> mellan <dl> och sina <dt>/<dd>, och radbehållaren är det lagret.
+       Låg man listan ytterst blev det två lager, och axe fällde varje kort på
+       "dl element has direct children that are not allowed: div > div" plus ett
+       dlitem-fel per betygsrad. Flytta inte tillbaka den.
+
+       Behållaren finns för att en variant ska kunna göra raderna till ett
+       rutnät eller smalna av dem utan att totalraden följer med. Totalraden
+       ska spänna hela bredden i samtliga varianter, och står därför utanför. */
+    <div
       data-slot="criteria-scores"
       data-variant={variant}
       className={cn("flex flex-col", textSize, className)}
     >
-      {/* Egen behållare runt kriterieraderna, så att en variant kan göra dem
-          till ett rutnät eller smalna av dem utan att totalraden följer med.
-          Totalraden ska spänna hela bredden i samtliga varianter. */}
-      <div data-part="rows" className="flex flex-col">
+      <dl data-part="rows" className="flex flex-col">
         {criteria.map((criterion) => {
         const score = scores[criterion.key];
         return (
@@ -128,17 +134,22 @@ export function CriteriaScores({
           </div>
         );
         })}
-      </div>
+      </dl>
 
+      {/* Totalraden är en summering av listan ovanför, inte ett begreppspar i
+          den, alltså span och inte dt/dd. */}
       {showTotal ? (
-        <div className="mt-1 flex items-center justify-between gap-4 border-t border-border pt-2.5 font-semibold">
-          <dt>{totalLabel}</dt>
-          <dd className="flex shrink-0 items-center gap-3">
+        <div
+          data-part="total"
+          className="mt-1 flex items-center justify-between gap-4 border-t border-border pt-2.5 font-semibold"
+        >
+          <span>{totalLabel}</span>
+          <span className="flex shrink-0 items-center gap-3">
             {gauge(total)}
             {value(total)}
-          </dd>
+          </span>
         </div>
       ) : null}
-    </dl>
+    </div>
   );
 }

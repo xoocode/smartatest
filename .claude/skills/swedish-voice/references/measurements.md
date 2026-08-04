@@ -32,6 +32,32 @@ Fraser vi använder mycket och referensen knappt eller inte alls.
 | `den / det enda` | 2,11 /1000 | 0,07 /1000 |
 | `ingen annan / ingen av de` | 0,64 /1000 | 0,04 /1000 |
 
+### Kontrastiv definition, mätt 2026-08-04
+
+Vanan att säga vad något *inte* är, eller vad det används *i stället för*, i
+stället för att säga vad det är. Störst av allt vi mätt, både i kvot och i
+absoluta tal.
+
+| Fras | Vi | Referens | Kvot |
+|---|---|---|---|
+| `i stället för` | 272 | 7 | 18,4x |
+| `går inte att` | 61 | 1 | 29,0x |
+| `är inte ett` | 29 | 2 | 6,9x |
+| `och inte en` | 26 | 1 | 12,3x |
+| `aldrig som` | 22 | 0 | — |
+| `inte samma sak som` | 14 | 0 | — |
+| `är inte en detalj` | 5 | 0 | — |
+| `svårare att försvara` | 2 | 0 | — |
+| `är inte teoretisk` | 1 | 0 | — |
+
+**Kontrollmätningen är den som gör regeln användbar.** `är inte` ensamt ligger
+på 200 mot 37, alltså 2,6x och inom normalen. Negation i sig är oproblematisk.
+Det är den kontrastiva *definitionen* som är vanan, och den ska ersättas med ett
+påstående om vad saken är. Se `writing-guide.md`.
+
+`i stället för` på 272 förekomster är dessutom för stort för en enskild
+genomgång och bör städas i en egen omgång, med ersättningen mätt.
+
 Och åt andra hållet, uttryck referensen använder som vi inte gör:
 
 | Fras | Vi | Referens |
@@ -74,6 +100,15 @@ tid på att undvika dem:
 - **`, vilket`** som satslim.
 - **Regel av tre**, när det är en verklig uppräkning.
 - **Meningar som börjar med "Det"**, även om det är 10,8 % av alla.
+- **`skillnaden mellan`.** 84 mot 16, kvot 2,5x. Låg misstanke vid genomgången
+  av `/fonsterputsrobot`, mätt samma dag, friad. Referensen använder den
+  också och den bär ofta hela poängen i en jämförande mening.
+- **`är inte`** som konstruktion. 2,6x. Det är den kontrastiva definitionen som
+  fälls, inte negationen; se den mätningen ovan.
+
+De två sista är värda att minnas som metodexempel: båda flaggades på örat under
+en genomgång, båda friades av mätningen samma dag. Utan mätningen hade två
+fungerande konstruktioner förbjudits på sajten.
 
 ## Var det inte lönar sig att leta
 

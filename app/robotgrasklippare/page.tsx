@@ -409,7 +409,7 @@ export default async function RobotgrasklipparePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje robot"
-        description="Alla sju bedöms mot samma fem kriterier. Uppgifterna är butikens och tillverkarens egna, inte kontrollerade av oss."
+        description="Alla sju bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (

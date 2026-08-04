@@ -102,3 +102,56 @@ Fångat på `/elektrisk-rullgardin`.
 utomstående skribent. Ingen kontroll fångar det och en svensk läsare hör det
 direkt, vilket gör det till ett starkare tecken än em-streck. Böjningar som
 "svenska hem" är oproblematiska. Se `who-you-are.md`.
+
+## 2026-08-04, genomgång av `/fonsterputsrobot`
+
+**Får prosan handla om vad en tillverkare publicerat?**
+Nej. Inte i H1, ingress, omdöme, tagline, för- och nackdel eller FAQ-svar.
+Transparensen bor i viktningen under `testmetod`, och i tabellen som ett streck.
+
+*Skälet:* källäget är vårt arbetsmaterial, inte läsarens beslutsunderlag. Hen
+ska välja produkt och bryr sig om prestanda, mått och pris. Att en uppgift
+saknas kan mycket väl kosta poäng i betyget, men den kopplingen förklaras en
+gång på det ställe som finns för att förklara betyg. Sidan hade drivit det till
+att hela premissen var *ingen tillverkare publicerar alla tre*, vilket gjorde
+det till en artikel om branschens dokumentation med produkter inklistrade.
+
+*Generaliseringen:* en okänd uppgift beskrivs som produktens egenskap
+("hålltiden är okänd"), aldrig som tillverkarens beteende ("Ecovacs anger ingen
+hålltid"). Samma regel som förbjuder oss att berätta om vårt eget arbete, med
+någon annan som subjekt. Se `who-you-are.md`.
+
+**Får texten sälja?**
+Ja. Rubriken *Du säljer inte* i `who-you-are.md` är struken och ersatt med
+*Du säljer produkten, inte kategorin*.
+
+*Skälet:* den gamla formuleringen lästes som att all övertygande text vore
+misstänkt, och resultatet blev omdömen som redovisade i stället för att
+rekommendera. Läsaren har redan bestämt sig för att köpa något; hen ska
+bestämma sig snabbt och känna sig trygg efteråt. Det kräver att vi argumenterar
+för en produkt, inte att vi presenterar sju jämbördigt. Gränsen går vid att
+påstå något vi inte vet, inte vid att övertyga.
+
+**"Ej angiven" eller streck i tabellen?**
+Streck. Ordet behövs inte, cellen säger tillräckligt.
+
+*Skälet:* `Ej angiven` upprepad i fyra rader gånger sju kolumner gör tabellen
+till en redovisning av källäget, vilket är samma fel som prosan hade. Värdet
+`Ej angiven` står kvar i datafilerna, eftersom `comparison-table.tsx` skiljer
+det från tomt när den avgör om en rad ska döljas. Det är renderingen som ändras.
+
+**Får läsaren se varifrån en uppgift kommer?**
+Nej, inte per cell. Källförteckningen och viktningen räcker.
+
+*Skälet:* provenienskoder i tabellen är samma metaprat i annan form. Vi bär
+tiering internt för att kunna granska oss själva, inte för att visa upp.
+
+**Får underlaget bli bredare än tillverkarens manual?**
+Ja. Butiksdata, datablad, PIM-flöden, CE- och FCC-handlingar, forum och andra
+testsajter. Löftet utåt ändras inte: vi mäter fortfarande ingenting själva och
+vi anger fortfarande varje källa.
+
+*Skälet:* tabellerna var tunna för att researchen aldrig haft ett moment som
+letar produktegenskaper, inte för att uppgifterna saknats i världen. Tiering och
+regeln att andra testsajter är ett spår och aldrig en källa står i
+`.claude/references/spec-sourcing.md`.

@@ -53,6 +53,13 @@ Then it goes to the `swedish-voice` skill, and *which file* matters:
 - A ruling from Peter, **with the reasoning** → `references/rulings.md`
 - Something about the writer's stance or the reader → `references/who-you-are.md`
   or `references/who-reads.md`
+- How a sentence, omdöme, tagline or heading is *built* →
+  `references/writing-guide.md`
+
+The last split is worth respecting. The persona files answer *who is talking and
+what may they claim*; the writing guide answers *how is the sentence made*. A
+craft rule filed under persona gets read as a matter of taste and ignored, and a
+stance filed under craft gets read as a formatting preference.
 
 Before writing any of it, read `references/method.md`. No language rule enters
 this repo on the strength of the assistant's ear, and the test for whether it

@@ -70,9 +70,16 @@ delete such rows to tidy it: leave them, and the row returns by itself the day
 one product gets a real value.
 
 `Ej angiven` does **not** count as empty, deliberately. It means we looked and
-the shop does not publish the figure, which is different from a field nobody
-filled in. Several pages explain that distinction in their table caption, so
-write `Ej angiven` rather than a dash whenever it is true.
+the figure is not obtainable, which is different from a field nobody filled in.
+Write `Ej angiven` rather than a dash whenever it is true — the distinction is
+what keeps a row alive when no product has the value yet.
+
+**The reader never sees the words.** `comparison-table.tsx` renders `Ej angiven`
+as `–`; the value stays in the data file and the row filter reads the raw value,
+not the rendered one. Peter's ruling 2026-08-04: repeated across four rows and
+seven columns, the phrase turned the table into a report on our sourcing instead
+of a comparison of products. Table captions must not explain the distinction
+either. The weighting explains what an unobtainable value costs, once.
 
 ## Why `userRating` is never weighted
 
@@ -127,6 +134,28 @@ accept.
 **The shop you read the price at is rarely a spec source.** Proshop's product
 pages contain zero spec tables, only marketing copy they themselves warn may be
 machine-translated.
+
+When the ladder runs out, the gap-pass playbook takes over:
+`.claude/references/spec-sourcing.md`. It covers the routes this ladder does not
+— the manufacturer's home market rather than the `.se` page, Icecat keyed on
+GTIN, CE and FCC filings, the spec panel photographed on the box in the
+retailer's own gallery, retailer Q&A, and spare-part listings.
+
+### 2b. Tier every source, and record it
+
+| Tier | What | May be used for |
+|---|---|---|
+| **A** | Manufacturer manual, datasheet, brand-domain spec page, CE/FCC filings | Anything, including safety-shaped values |
+| **B** | Retailer spec tables, PIM feeds such as Icecat, brand A+ content, support articles | Cells and prose freely. Safety-shaped values only with two independent B sources agreeing |
+| **C** | Forums, Reddit, YouTube, other review sites, owner reports | Failure modes and leads. Never a bare number in a cell |
+
+A spec value may carry optional `source` and `tier`. **Neither is ever
+rendered** — Peter's ruling 2026-08-04. We tier so we can audit ourselves and so
+a tier-C figure cannot drift into a headline claim, not to show the reader a
+provenance code.
+
+Other "bäst i test" sites are a **lead, never a source**. They tell you a figure
+exists; find it at A or B before it enters a cell.
 
 ### 3. The harvester is a prop, not an oracle
 

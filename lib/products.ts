@@ -207,6 +207,17 @@ export function formatDate(value: Date | string): string {
   }).format(date);
 }
 
+/**
+ * Brand and model as one string, e.g. "Cleverio IP200".
+ *
+ * Used where a product has to be named out of context: the screen-reader
+ * suffix on a merchant link, where a page full of buttons all reading "Köp hos
+ * Proshop" is indistinguishable in a link list.
+ */
+export function fullName(product: Pick<Product, "brand" | "name">): string {
+  return `${product.brand} ${product.name}`;
+}
+
 export function starsFromScore(product: Product): number {
   return product.rating;
 }

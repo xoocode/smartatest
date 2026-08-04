@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { starsFromScore, type Product } from "@/lib/products";
+import { fullName, starsFromScore, type Product } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { AwardBadge } from "@/components/product/award-badge";
 import { PriceTag } from "@/components/product/price-tag";
@@ -154,6 +154,7 @@ export function ProductCard({
               merchant={product.merchant}
               label={ctaLabel}
               productId={product.id}
+              productName={fullName(product)}
               placement={placement}
               block
             />
@@ -205,6 +206,7 @@ export function ProductCard({
           merchant={product.merchant}
           label={ctaLabel}
           productId={product.id}
+          productName={fullName(product)}
           placement={placement}
           size="lg"
           block

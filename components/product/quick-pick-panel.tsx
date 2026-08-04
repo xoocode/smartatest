@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { formatPrice, type Product } from "@/lib/products";
+import { formatPrice, fullName, type Product } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
 import { IMAGE_SIZES, ProductImage } from "@/components/product/product-image";
 import { ScoreBadge } from "@/components/product/score-badge";
@@ -128,6 +128,7 @@ export function QuickPickPanel({
                     merchant={product.merchant}
                     label="Till butik"
                     productId={product.id}
+                    productName={fullName(product)}
                     placement="quick-pick"
                     size="sm"
                     showIcon={false}

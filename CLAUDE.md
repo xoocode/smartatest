@@ -17,6 +17,7 @@ ourselves. That model is the product, not a limitation to hide.
 | A new test page, start to finish | Skill `new-page` |
 | Competitors, tests, products, search intent | `.claude/context/research.md` |
 | Prices, specs, images, ratings, `lib/data/*` | `.claude/context/data.md` |
+| A spec cell you cannot fill | `.claude/references/spec-sourcing.md` |
 | Affiliate programmes, merchant links, PPC | `.claude/context/money.md` |
 | Components, tools, what may be built new | `.claude/context/build.md` |
 | Schema, sitemap, dates, AI citation | `.claude/context/seo.md` |
