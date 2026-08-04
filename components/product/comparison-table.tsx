@@ -55,6 +55,14 @@ function Scroller({
     <div
       className={cn(
         "overflow-x-auto overscroll-x-contain",
+        /* `relative` är inte dekoration. Den första kolumnen är `sticky
+           left-0`, och en sticky-cells förskjutning räknas in i förfädernas
+           skrollbara yta. Utan en positionerad förälder rann den ända upp till
+           <html>, alltså kunde hela sidan dras i sidled på mobilen: 198 px på
+           /smart-belysning, 550 px på /hemlarm. Med `relative` blir den här
+           rutan cellernas containing block och överflödet stannar där det hör
+           hemma, i tabellens egen skrollning. Uppmätt, inte gissat. */
+        "relative",
         /* Full bleed on phones. Container is px-4 at this width, and giving
            those 32px back to the table is roughly 9% more room on a 375px
            screen, which is a whole column of values. Standard treatment for

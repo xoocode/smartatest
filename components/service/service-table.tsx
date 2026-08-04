@@ -34,7 +34,10 @@ import { ScoreBadge } from "@/components/product/score-badge";
 
 function Scroller({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-x-auto overscroll-x-contain -mx-4 sm:mx-0">
+    /* `relative` av samma skäl som i comparison-table.tsx: den sticky första
+       kolumnen läcker annars sin skrollbara yta hela vägen upp till <html>,
+       och sidan går att dra 550 px i sidled på en telefon. */
+    <div className="relative overflow-x-auto overscroll-x-contain -mx-4 sm:mx-0">
       {children}
     </div>
   );
