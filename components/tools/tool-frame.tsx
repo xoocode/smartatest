@@ -59,8 +59,13 @@ export function ToolFrame({
         >
           {/* The heading right above already names the tool, so repeating it
               here only makes the link longer and clumsier as names get more
-              specific ("Öppna protokollväljare för smart hem som egen sida"). */}
+              specific ("Öppna protokollväljare för smart hem som egen sida").
+
+              Namnet finns däremot i det tillgängliga namnet. En köpguide bäddar
+              in upp till fem räknare, och utan tillägget heter alla fem länkar
+              likadant för den som listar dem i stället för att läsa sidan. */}
           Öppna som egen sida
+          <span className="sr-only">{`: ${heading}`}</span>
           <ArrowUpRight aria-hidden="true" className="size-3.5" />
         </Link>
       ) : null}

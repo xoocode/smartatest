@@ -2232,7 +2232,79 @@ export const VATTENFELSBRYTARE: TestPage = {
   ],
 };
 
+/**
+ * Nyckelskåp.
+ *
+ * ## Viktningen följer var kategorin faktiskt avgörs
+ *
+ * Beslutad av användaren 2026-08-05: 30/25/15/15/15. Underlaget är RISE
+ * P115210, där fyra skåp angreps på fyra punkter. Utfallet var lopsided på ett
+ * sätt som bestämde vikterna: **varje** skåp lossnade från väggen med kofot, på
+ * 16 till 75 sekunder, medan spridningen mot luckan var stor, från 38 sekunder
+ * till över tre minuter. Infästningen är alltså både den svagaste punkten och
+ * den som skiljer minst, luckan den som skiljer mest.
+ *
+ * ## Inget eget kriterium för oberoende provning
+ *
+ * Två av sex rankade produkter har ett resultat i RISE-rapporten, alltså samma
+ * täckning som Which? hade på /avfuktare (två av tio). Där löstes det genom att
+ * väga in provningen i sakkriteriet i stället för att lägga en egen kolumn som
+ * fyra rader skulle fylla med streck. Samma val här: RISE-tiderna väger in i
+ * `infastning` och `luckalas` för de två modeller som faktiskt provats, och det
+ * står i metodrutan.
+ *
+ * ⚠️ Betygen på de fyra oprovade produkterna är redaktionell bedömning ur
+ * publicerad konstruktion — godset, infästningens utförande, låstypen — och
+ * aldrig ett lånat provresultat. Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
+ */
+export const NYCKELSKAP: TestPage = {
+  slug: "nyckelskap",
+  label: "Nyckelskåp",
+  title: "Nyckelskåp bäst i test 2026: sex boxar med kod till ytterdörrsnyckeln",
+  category: SAKERHET,
+  methodology:
+    "Fyra av produkterna i kategorin har provats av RISE på uppdrag av Villaägarnas Riksförbund, rapport P115210 från 2022, med provmetoden SS-EN 1630:2021 på nivåerna RC2 och RC3. Två av dem säljs fortfarande här och rankas nedan. Vi har läst rapporten i sin helhet och skrivit av tiderna per angreppspunkt, och vi har bekräftat mot rapportens egna foton att det skåp som provades är den mekaniska ABUS KeyGarage 787 och inte den elektroniska Smart-BT-modellen, eftersom de är olika produkter med samma nummer. Provresultaten väger in i betygen för infästning och för lucka och lås, men bara för de två modeller som har ett eget resultat i rapporten. Övriga fyra bedöms på publicerad konstruktion, alltså gods, infästningens utförande och låstyp, och de får aldrig ett lånat provresultat från en systermodell. Skåpen är inte klassade enligt RC2 eller RC3: standarden omfattar dörrar och fönster, och RISE valde den för att kunna simulera ett standardiserat inbrottsförsök. Där en uppgift som väderskydd inte går att fastställa räknas det som en brist i betyget, eftersom en okontrollerbar egenskap är sämre för dig än en kontrollerbar. Priser och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte brutit upp ett enda skåp. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "infastning",
+      label: "Infästning i vägg",
+      weight: 30,
+      description:
+        "Hur skåpet sitter fast, vilket är det som avgör om tjuven behöver öppna det alls. Ett skåp som går att bryta loss tar man med sig och öppnar i lugn och ro någon annanstans, och då spelar låset ingen roll. Det här är kategorins svagaste punkt: i provningen lossnade samtliga fyra skåp från väggen med kofot, snabbast på 16 sekunder och långsammast på 1 minut och 15. Tyngst väger antalet infästningspunkter, om skruvarna sitter innanför luckan så att de inte går att skruva ur utifrån, och om bakstycket sitter ihop med skåpkroppen. På två av de provade skåpen lossnade bakstycket från kroppen, vilket gjorde innehållet åtkomligt utan att luckan öppnades. Underlaget väger lika mycket som skåpet: fyra skruvar i massivt trä eller betong är en annan sak än fyra i en tunn panel.",
+    },
+    {
+      key: "luckalas",
+      label: "Lucka, gångjärn och lås",
+      weight: 25,
+      description:
+        "Vad som händer när någon angriper själva luckan, vid låset eller vid gångjärnen. Här är spridningen störst och därför är raden värd mest när du jämför två skåp: i provningen öppnades den svagaste luckan på 38 sekunder med skruvmejsel och kniv, medan den starkaste stod emot hela den tid metoden ger. Gångjärnssidan är oftare den svaga av de två, och tre av fyra luckor lossnade just där. Här väger också in vad godset är gjort av. En lucka i tryckgjuten zink och en kropp i aluminium beter sig olika under en kil, och tunn plåt viker sig där gjutgods spricker. Det snabbaste angreppet i hela provningen hörde hemma på den här raden: åtta slag med en vanlig snickarhammare och nio sekunder.",
+    },
+    {
+      key: "vaderskydd",
+      label: "Väderskydd",
+      weight: 15,
+      description:
+        "Om skåpet klarar att sitta ute året om, och om koden går att använda i februari. Ett nyckelskåp sitter nästan alltid utomhus, och det som slutar fungera först är sällan stålet utan mekaniken bakom sifferhjulen och batteriet bakom en knappsats. Ett skåp med IP-klass och ett angivet temperaturspann går att kontrollera mot verkligheten där du bor. Ett där uppgiften är okänd får du prova dig fram med, och det räknas som en brist här, eftersom konsekvensen bärs av dig och inte av oss. Ett skåp som bara är avsett för skyddat läge under tak är inte sämre, men det begränsar var det får sitta, och det är värt att veta innan du borrar.",
+    },
+    {
+      key: "kod",
+      label: "Kod och handhavande",
+      weight: 15,
+      description:
+        "Hur du släpper in någon, och hur du släpper ut dem igen. Fyra sifferhjul ger 10 000 kombinationer, fungerar i alla temperaturer och behöver aldrig batteri, men alla som någon gång fått koden har den kvar tills du vrider om hjulen manuellt. En elektronisk knappsats kan ge varje gäst en egen kod som slutar gälla av sig själv, vilket är hela poängen om du hyr ut, men den slutar också fungera när batteriet tar slut. Här väger även in om koden går att avläsa av någon som står bakom dig, och om sifferhjulen syns i mörker.",
+    },
+    {
+      key: "prisvarde",
+      label: "Pris och värde",
+      weight: 15,
+      description:
+        "Vad du får för pengarna i en kategori där priset säger påfallande lite om motståndet. Spannet i jämförelsen är 349 till 2 599 kronor, alltså mer än sju gånger, och det dyraste skåpet är inte det som stod emot bäst. Väg priset mot vad som ligger i skåpet och hur länge det ligger där. Ett skåp som används två veckor om året när stugan hyrs ut är ett annat köp än ett som sitter framme dygnet runt för hemtjänsten, och det senare motiverar mer pengar även när skillnaden i plåt är liten.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  NYCKELSKAP,
   VATTENFELSBRYTARE,
   SMART_BELYSNING,
   SMART_PLUG,

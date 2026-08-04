@@ -158,6 +158,10 @@ const ROWS: Row[] = [
           className="underline decoration-dotted underline-offset-4 hover:decoration-solid"
         >
           Ja{s.terms.termsVersion ? `, ${s.terms.termsVersion}` : ""}
+          {/* Kolumnrubriken och radrubriken säger vad "Ja" gäller för den som
+              ser tabellen. Den som stegar mellan länkarna får bara ordet, och
+              tre leverantörer i tabellen ger tre länkar som heter likadant. */}
+          <span className="sr-only">{`, avtalsvillkor för ${s.provider}`}</span>
         </a>
       ) : (
         <Missing>Hittade inga</Missing>

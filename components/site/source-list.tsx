@@ -167,6 +167,11 @@ export function SourceList({
             className="inline-flex items-baseline gap-1.5 font-medium"
           >
             <span>{source.title}</span>
+            {/* Utgivaren står i raden under, alltså utanför länken. Två
+                artiklar kan heta exakt likadant, och gör det: TechRadar och
+                Expert Reviews har var sin "Philips Hue review". Titeln är
+                citerad och får inte skrivas om, så namnet skiljs åt här. */}
+            <span className="sr-only">{`, ${source.publisher}`}</span>
             <ExternalLink
               aria-hidden="true"
               className="size-3.5 shrink-0 self-center text-muted-foreground"

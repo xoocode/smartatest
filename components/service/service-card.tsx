@@ -49,7 +49,10 @@ function ExitFees({ service }: { service: Service }) {
               {formatFee(fee.amount, "Belopp anges inte")}
             </span>{" "}
             &middot; {fee.label}{" "}
-            <span className="opacity-70">({fee.source})</span>
+            {/* Ingen extra opacitet. Texten är redan dämpad, och 70 % ovanpå
+                den gav 3,04:1 mot den varma panelen. En källhänvisning är
+                dessutom det sista på sajten som ska tonas ned. */}
+            <span>({fee.source})</span>
           </li>
         ))}
       </ul>

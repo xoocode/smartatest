@@ -22,7 +22,17 @@ export function WattLumenTable({ className }: WattLumenTableProps) {
       data-slot="watt-lumen-table"
       className={cn("flex flex-col gap-row", className)}
     >
-      <div className="overflow-x-auto">
+      {/* Tabellen är bredare än en telefonskärm och måste därför gå att skrolla
+          i sidled. Med mus finns dragningen, men utan `tabIndex` går rutan inte
+          att nå med tangentbord alls, och de tre högra kolumnerna blir
+          oåtkomliga. Rollen och etiketten finns för att en fokuserbar ruta utan
+          namn läses upp som ett tomt "grupp". */}
+      <div
+        className="overflow-x-auto"
+        tabIndex={0}
+        role="region"
+        aria-label="Tabell: watt till lumen"
+      >
         <table className="w-full border-collapse text-left text-sm">
           <thead>
             <tr className="bg-muted">

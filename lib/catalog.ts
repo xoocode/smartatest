@@ -661,6 +661,61 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     status: "live",
     updated: "2026-08-04",
   },
+  {
+    /* `nyckelskap` byggd 2026-08-05.
+
+       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK, INTE PÅ SIFFROR. Termen är inte
+       uppmätt: grep på `skåp` och `skap` över samtliga keyword-CSV:er ger noll
+       träffar. Kjell, Jula, Biltema och Clas Ohlson använder alla nyckelskåp i
+       produktnamnen, och Villaägarna har det i rubriken. `nyckelgömma` och
+       `nyckelbox` ska med i nästa Keyword Planner-körning. Sajten har gissat
+       slug två gånger och haft fel båda gångerna, se .agent/keywords/utfall.md.
+
+       AVGRÄNSNING efter användarbeslut: sidan rankar bara konsumentboxarna,
+       349 till 2 599 kr. Ordet täcker även SSF 3492-klassade stålskåp som
+       börjar på 5 495 kr och rymmer 42 till 2 400 nycklar; de förklaras i
+       köpguiden och får en egen systersida. Samma lösning som /brandstege mot
+       /utrymningsstege, och H1 bär avgränsningen som på /brandvarnare.
+
+       FYNDET: RISE provade fyra nyckelskåp åt Villaägarna, rapport P115210
+       2022-11-07, metod SS-EN 1630:2021 på nivå RC2 och RC3. Samtliga fyra
+       forcerades. Med kofot lossnade alla från väggen på 16 till 75 sekunder.
+
+       ⚠️ Master Lock 5441 är det skåp som klarar sig BÄST mot standardens
+       verktyg och som öppnades på 9 sekunder med 8 slag av en 700 grams
+       snickarhammare. Hammaren ingår inte i verktygslistorna i SS-EN 1630;
+       RISE lade till den som en objektsspecifik svag punkt. Vinnaren mot
+       metoden är förloraren mot hammaren.
+
+       ⚠️ SKÅPEN ÄR INTE KLASSADE ENLIGT RC2 ELLER RC3. RISE skriver rakt ut att
+       standarden inte omfattar nyckelskåp och att den valdes som lämplig metod
+       för att simulera ett standardiserat inbrottsförsök. Skriv aldrig att ett
+       skåp "är RC2".
+
+       ⚠️ VARIANTFÄLLAN, kontrollerad och avgjord: RISE provade ABUS 787C med
+       analog kod, bekräftat i rapportens Bild 5 som visar fyra mekaniska
+       kodhjul. Kjell säljer ABUS KeyGarage 787 Smart-BT, alltså elektronisk
+       knappsats med sexsiffrig kod och app. Provresultatet gäller den mekaniska
+       787:an, EAN 4003318463310, och får aldrig knytas till Smart-BT. Samma
+       fälla som Nanoleaf Lines mot Essentials på /smart-belysning.
+
+       ⚠️ Fem svenska konkurrenter rankar på ordet och ingen av dem nämner RISE,
+       Villaägarna, SS-EN 1630 eller RC2. Testkollen anger i stället SSF 3492 på
+       ett skåp för 479 kr och EN 1143-1 på ett för 899, när golvet för ett
+       verkligt SSF 3492-skåp ligger på 5 495 kr och EN 1143-1 är
+       värdeskåpsstandarden. Påståendet att Råd & Rön provat kategorin är
+       obelagt och får varken citeras eller motbevisas.
+
+       Butiker: Byggahus Shop, Nordsec, Kjell 5 % och E-safe 7,5 % med
+       ppcMarketing 2. E-safe är sajtens bästa villkor hittills.
+       Se .agent/research/nyckelskap.md. */
+    href: "/nyckelskap",
+    label: "Nyckelskåp",
+    category: SAKERHET,
+    blurb: "Alla fyra som provades lossnade från väggen. Den bästa tog 16 sekunder.",
+    status: "planned",
+    updated: "2026-08-05",
+  },
 ];
 
 /**

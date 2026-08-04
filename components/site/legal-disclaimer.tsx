@@ -94,7 +94,9 @@ export function LegalDisclaimer({
       )}
     >
       <p className="mb-2 flex items-center gap-2 font-semibold">
-        <TriangleAlert aria-hidden="true" className="size-4 text-warning" />
+        {/* Textvärdet, inte ytvärdet: ikonen bär betydelse och omfattas därmed
+            av kravet på 3:1. `text-warning` mätte 2,56:1 mot vitt. */}
+        <TriangleAlert aria-hidden="true" className="size-4 text-warning-text" />
         {title}
       </p>
       <div className="flex flex-col gap-2 text-sm text-muted-foreground">

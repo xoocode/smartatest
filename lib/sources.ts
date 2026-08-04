@@ -3713,7 +3713,66 @@ export const VATTENFELSBRYTARE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Nyckelskåp.
+ *
+ * Kategorins underlag är ovanligt bra och ovanligt outnyttjat: ett ackrediterat
+ * institut har provat produkterna, rapporten ligger gratis på nätet i sin
+ * helhet, och ingen av de fem svenska jämförelsesajter som rankar på ordet
+ * nämner den. Samtliga URL:er hämtade och lästa i original 2026-08-05.
+ */
+export const NYCKELSKAP_SOURCES: Source[] = [
+  {
+    publisher: "RISE Research Institutes of Sweden",
+    title: "Provning av nyckelskåp, rapport P115210",
+    url: "https://www.villaagarna.se/contentassets/a90045292c544db0a96a8c6bac14c345/p115210_rapport-rise-nyckelskap-2022-11.pdf",
+    date: "2022-11-07",
+    market: "SE",
+    kind: "test",
+    note: 'Kategorins enda riktiga labbprovning, utförd på uppdrag av Villaägarnas Riksförbund och läst i sin helhet: sex sidor rapport och femton sidor bilaga med foton. Provad 2022-06-16 vid RISE Tillämpad Mekaniks laboratorium i Borås enligt SS-EN 1630:2021, nivå RC2 och RC3. Fyra skåp, samtliga forcerade. Med kofot mot infästningen lossnade Master Lock 5441 på 16 sekunder, Masunt 520 M på 23, ABUS 787 C på 35 och HMF 2030-11 på 1 minut och 15. Det snabbaste angreppet i hela rapporten står i §4.6: åtta slag med en 700 grams snickarhammare öppnade Master Lock 5441 på nio sekunder, och hammaren ingår inte i standardens verktygslistor utan lades till som en objektsspecifik svag punkt. Rapporten skriver också rakt ut att SS-EN 1630 inte omfattar nyckelskåp, vilket är skälet till att inget skåp här kallas RC2-klassat.',
+  },
+  {
+    publisher: "Villaägarnas Riksförbund",
+    title: "Nyckelskåp inger falsk trygghet",
+    url: "https://www.villaagarna.se/radgivning-och-tips/produktgranskning/artiklar/nyckelskap-inger-falsk-trygghet/",
+    market: "SE",
+    kind: "test",
+    note: 'Uppdragsgivarens egen sammanfattning av provningen ovan, och den som gör slutsatsen användbar. Chefsjuristen Ulf Stenberg: "Vårt test visar att nyckelskåpen håller låg säkerhet och ger en falsk trygghet. Om du använder ett sådant skåp, förvara inte nycklar och annan värdefull egendom där längre tid än nödvändigt." Rådet därefter, att köpa ett säkerhetsklassat nyckelskåp i stället, är skälet till att köpguiden tar upp vad ett sådant kostar: de finns, men de börjar på 5 495 kronor och rymmer 42 nycklar.',
+  },
+  {
+    publisher: "Master Lock Europe",
+    title: "Select Access Smart 5441EURD, tillverkarens produktblad",
+    url: "https://cdn.masterlock.com/masterlock/resources/documents/pdf/catalogues/product-sheets/5441EURD_Select-Access-SMART-Product-Sheet_EN.pdf",
+    kind: "standard",
+    note: 'Enda produktbladet i jämförelsen som anger både kapslingsklass och temperaturspann: IP 55 mot saltdimma, väderpåverkan, korrosion och vattenstänk, och funktion från -40 °C till +50 °C. Bladet anger också zinkkropp "for a greater resistance against attacks" och ett dubbelt låssystem "for a greater resistance against lever effects". Mot RISE:s nio sekunder med hammare är det två påståenden som är värda att läsa bredvid varandra. Mått utvändigt 12,1 x 7,6 x 7 cm, invändigt 8,9 x 6,4 x 4,4 cm, vikt 1,02 kg, CR123-batteri med angiven livslängd på två år och möjlighet att brygga med ett 9-voltsbatteri utifrån.',
+  },
+  {
+    publisher: "ABUS",
+    title: "KeyGarage 787, tillverkarens produktsida",
+    url: "https://www.abus.com/se/Konsument/KeyGarage-Nyckelrutor/787-KeyGarage",
+    kind: "standard",
+    note: "Källan som binder RISE:s provobjekt till en produkt som går att köpa. EAN 4003318463310 är samma nummer som butiken anger för den mekaniska 787:an, och rapportens Bild 5 visar fyra mekaniska kodhjul, alltså inte den elektroniska Smart-BT-modellen. Härifrån kommer också lucka i tryckgjuten zink, plats för 20 nycklar eller 14 kort, fyrsiffrig inställbar kod, 80 x 120 x 45 mm och 683 gram. ABUS anger montering i skyddad utomhusmiljö, vilket är det närmaste ett väderbesked som finns för modellen.",
+  },
+  {
+    publisher: "ABUS",
+    title: "KeyGarage 707, tillverkarens produktsida",
+    url: "https://www.abus.com/se/Konsument/KeyGarage-Nyckelrutor/707-KeyGarage",
+    kind: "standard",
+    note: "Underlaget för den billigaste produkten i jämförelsen: aluminiumhölje, plats för cirka 7 nycklar eller 4 plastkort, fyrsiffrig kod som ställs in med kodhjul, 88 x 120 x 39 mm och 502 gram. Också här anger tillverkaren väggmontering inomhus eller i skyddat område utomhus, vilket är samma begränsning som för 787:an och värt att väga in innan skåpet sätts på en fasad utan tak över.",
+  },
+  {
+    publisher: "Svensk Försäkring",
+    title: "FTR 1028 Beloppsgränser i värdeskåp, utgåva 2",
+    url: "https://www.svenskforsakring.se/globalassets/forsakringstekniska-rekommendationer/ftr-1028-vardeskap.pdf/",
+    date: "2016-10-03",
+    market: "SE",
+    kind: "standard",
+    note: "Med för att hålla isär tre standarder som blandas ihop i kategorin. Dokumentet slår fast att SS-EN 1143-1 gäller värdeskåp och styr vilka belopp ett försäkringsbolag rekommenderar, från 50 000 kronor för grade 0 och uppåt, och att den svenska standarden SS 3492 för säkerhetsskåp ersattes av SSF 3492 år 2015 med identiska krav och provningsmetoder. Myndigheter refererar till SSF 3492 för vapenförvaring och förvaring av hemlig handling. Ingen av standarderna gäller en nyckelbox för några hundra kronor, vilket är skälet till att köpguiden tar upp saken.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/nyckelskap": NYCKELSKAP_SOURCES,
   "/vattenfelsbrytare": VATTENFELSBRYTARE_SOURCES,
   "/avfuktare": AVFUKTARE_SOURCES,
   "/smart-termostat": SMART_TERMOSTAT_SOURCES,

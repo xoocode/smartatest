@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { Product } from "@/lib/products";
+import { fullName, type Product } from "@/lib/products";
 
 export type UserRatingProps = {
   product: Product;
@@ -61,6 +61,9 @@ export function UserRating({
       className="decoration-dashed underline-offset-4 hover:underline"
     >
       {source}
+      {/* Två produkter hos samma butik kan ha samma antal omdömen, och då
+          heter länkarna likadant fast de går till var sin produktsida. */}
+      <span className="sr-only">{`, ${fullName(product)}`}</span>
     </a>
   ) : (
     source

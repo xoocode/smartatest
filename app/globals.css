@@ -63,6 +63,12 @@
   --color-success-foreground: var(--success-foreground);
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
+  /* Varningsgult som förgrund. Samma skäl som --award-accent ovan, fast åt
+     andra hållet: --warning är ljus för att fungera som yta, och just därför
+     mätte den 2,34:1 som text på sin egen ton. Amber går inte att mörka utan
+     att sluta vara amber, alltså skiljs textvärdet ut i stället. Använd den
+     här överallt där färgen bär bokstäver eller en ikon. */
+  --color-warning-text: var(--warning-text);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -104,6 +110,7 @@
   --success-foreground: oklch(0.99 0.005 85);
   --warning: oklch(0.68 0.13 70);
   --warning-foreground: oklch(0.24 0.04 60);
+  --warning-text: oklch(0.53 0.13 70);
 
   --font-heading: var(--font-serif);
   --font-body: var(--font-sans-brand);
@@ -136,7 +143,11 @@
   --muted-foreground: oklch(0.5 0.016 255);
   --accent: oklch(0.945 0.022 250);
   --accent-foreground: oklch(0.28 0.05 258);
-  --destructive: oklch(0.57 0.21 27);
+  /* Speglar --success ovan, och fälldes av samma sak: "Nackdelar"-etiketten i
+     12 px står på den dämpade panelen, och 0.57 mättes till 4,49:1 mot den.
+     0.54 ger 5,08:1 mot panelen, 4,79:1 mot destructive/10 och 5,62:1 mot
+     vitt. Mät alla tre om värdet ändras. */
+  --destructive: oklch(0.54 0.21 27);
   --border: oklch(0.9 0.008 250);
   --input: oklch(0.9 0.008 250);
   --ring: oklch(0.48 0.19 258);
@@ -148,11 +159,19 @@
   --brand-foreground: oklch(0.99 0 0);
   --award: oklch(0.72 0.16 85);
   --award-foreground: oklch(0.2 0.04 85);
-  /* 4,01:1 räckte inte för "Fördelar"-etiketten i 12 px. */
-  --success: oklch(0.53 0.15 150);
+  /* 4,01:1 räckte inte för "Fördelar"-etiketten i 12 px, och 0.53 räckte inte
+     heller: den mättes till 4,47:1 mot den dämpade panelen, alltså 0,03 under
+     kravet. Etiketten står på vitt kort i mobilen och på panelen först från
+     lg-bredd, så felet syntes bara på skrivbordet.
+
+     0.50 mättes till 5,03:1 mot panelen, 4,85:1 mot badgens egen ton
+     (bg-success/10) och 5,56:1 mot vitt. Ändra inte uppåt utan att mäta alla
+     tre: den ljusaste bakgrunden är inte den som fäller färgen. */
+  --success: oklch(0.5 0.15 150);
   --success-foreground: oklch(0.99 0 0);
   --warning: oklch(0.72 0.15 70);
   --warning-foreground: oklch(0.2 0.04 70);
+  --warning-text: oklch(0.53 0.15 70);
 
   --font-heading: var(--font-sans-brand);
   --font-body: var(--font-sans-brand);
@@ -197,6 +216,7 @@
   --success-foreground: oklch(0.99 0.002 250);
   --warning: oklch(0.7 0.11 75);
   --warning-foreground: oklch(0.24 0.03 75);
+  --warning-text: oklch(0.53 0.11 75);
 
   --font-heading: var(--font-sans-brand);
   --font-body: var(--font-sans-brand);
@@ -240,6 +260,7 @@
   --success-foreground: oklch(0.99 0 0);
   --warning: oklch(0.75 0.16 75);
   --warning-foreground: oklch(0.2 0.04 60);
+  --warning-text: oklch(0.53 0.16 75);
 
   --font-heading: var(--font-sans-brand);
   --font-body: var(--font-sans-brand);

@@ -130,7 +130,9 @@ const DISCLOSURE_TONE: Record<
   string
 > = {
   publicerat: "border-success/40 bg-success/10 text-success",
-  delvis: "border-warning/40 bg-warning/10 text-warning",
+  /* Ytan är amber, texten är det mörkare textvärdet. `text-warning` mätte
+     2,34:1 mot sin egen ton här. Se --warning-text i globals.css. */
+  delvis: "border-warning/40 bg-warning/10 text-warning-text",
   dolt: "border-border bg-muted text-muted-foreground",
 };
 
