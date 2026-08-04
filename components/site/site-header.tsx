@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { cn } from "@/lib/utils";
 import { NAV, SITE } from "@/lib/site";
 import { Container } from "@/components/site/container";
 import { MobileNav } from "@/components/site/mobile-nav";
@@ -22,9 +23,18 @@ export function SiteHeader() {
             <ul className="flex items-center gap-1">
               {NAV.map((item) => (
                 <li key={item.href}>
+                  {/* Kategorierna är text, guiderna är en knapp med ram.
+                      Skillnaden är avsiktlig: en post som inte är en
+                      produktkategori ska inte läsas som en, och en ram säger
+                      det snabbare än ett ordval hinner göra. */}
                   <Link
                     href={item.href}
-                    className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className={cn(
+                      "rounded-md px-3 py-2 text-sm transition-colors",
+                      "standalone" in item && item.standalone
+                        ? "themed-border font-medium text-foreground hover:bg-muted"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                    )}
                   >
                     {item.label}
                   </Link>

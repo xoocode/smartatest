@@ -2,14 +2,12 @@
 
 export type AwardKind =
   | "winner"
-  | "runnerup"
   | "budget"
   | "premium"
   | "editor";
 
 export const AWARD_LABELS: Record<AwardKind, string> = {
   winner: "Bäst i test",
-  runnerup: "Tvåa i test",
   budget: "Bäst budget",
   premium: "Bäst premium",
   editor: "Redaktionens val",
@@ -31,7 +29,7 @@ export type Criterion = {
 };
 
 /**
- * A grouping above the category, e.g. "Smart hem" over smart belysning,
+ * A grouping above the test page, e.g. "Smart hem" over smart belysning,
  * smarta lås and övervakningskamera.
  *
  * Deliberately a taxonomy layer only — it never becomes a URL segment. Swedes
@@ -39,20 +37,20 @@ export type Criterion = {
  * in the breadcrumb and the nav but not in the path (see plan-components.md,
  * decision 2). Keeping the two separate is the whole point of this type.
  */
-export type CategoryGroup = {
+export type Category = {
   key: string;
   label: string;
   /** Hub page, when one exists. Omit and the crumb renders unlinked. */
   href?: string;
 };
 
-export type Category = {
+export type TestPage = {
   slug: string;
   label: string;
   /** H1 of the category page. */
   title: string;
   /** Taxonomy parent, shown in the breadcrumb. Not part of the URL. */
-  group?: CategoryGroup;
+  category?: Category;
   criteria: Criterion[];
   /** Intro paragraph for MethodologyBlock. */
   methodology?: string;
@@ -172,7 +170,7 @@ export type Product = {
   priceCheckedAt?: string;
   award?: AwardKind;
   /**
-   * Category-specific superlative, e.g. "Bäst utan abonnemang". Every ranked
+   * TestPage-specific superlative, e.g. "Bäst utan abonnemang". Every ranked
    * product gets one on a comparison page, so it is per-product free text
    * rather than another member on the AwardKind enum.
    */
@@ -221,11 +219,25 @@ function round1(value: number): number {
 }
 
 /**
- * Weighted average of a product's criterion scores, 0–5.
+ * Weighted average of a product's criterion scores, 0–5. **Oavrundad.**
  *
  * Criteria missing from `scores` are skipped and their weight is redistributed,
  * so a partially-scored product still produces a sensible number instead of
  * being silently dragged toward zero.
+ *
+ * ⚠️ **Avrunda inte här.** Fram till 2026-08-03 returnerade funktionen
+ * `round1(...)`, och `score` räknades sedan som `rating * 2`. Det gav bara två
+ * decimalers upplösning i tiogradiga betyget, alltså steg om 0,2, och det
+ * skapade oavgjorda betyg som inte fanns i underlaget: på `/luftrenare` fick
+ * Levoit Core 600S och Core 300S Pro båda 9,2 trots att de viktade summorna var
+ * 462,5 och 455. Två produkter kunde alltså skilja sju poäng och ändå visa
+ * samma tal.
+ *
+ * Effekten var värre än den låter, eftersom den inte gick att rätta i datan.
+ * Ett halvsteg på ett kriterium som väger 10 eller 15 flyttar betyget mindre än
+ * avrundningen äter upp, så oavgjorda betyg gick bara att bryta genom att ändra
+ * poäng mer än sakskälen bar. Se `/utomhustimer` och `/smart-strombrytare`, där
+ * det står utskrivet i kommentarerna.
  */
 export function weightedRating(
   scores: Record<string, number>,
@@ -239,7 +251,7 @@ export function weightedRating(
     (sum, c) => sum + scores[c.key] * c.weight,
     0,
   );
-  return round1(weighted / totalWeight);
+  return weighted / totalWeight;
 }
 
 /**
@@ -247,13 +259,15 @@ export function weightedRating(
  * taking a plain `product` and never need the category passed alongside.
  */
 export function resolveProducts(
-  category: Category,
+  testPage: TestPage,
   seeds: ProductSeed[],
   options: { sort?: boolean } = {},
 ): Product[] {
   const resolved = seeds.map((seed) => {
-    const rating = weightedRating(seed.scores, category.criteria);
-    return { ...seed, rating, score: round1(rating * 2) };
+    /* Båda talen räknas ur samma oavrundade summa. Avrundas rating först ärver
+       score felet, se varningen i weightedRating. */
+    const raw = weightedRating(seed.scores, testPage.criteria);
+    return { ...seed, rating: round1(raw), score: round1(raw * 2) };
   });
 
   /* Rank must follow score. Once the total is derived, authored array order

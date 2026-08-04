@@ -40,7 +40,7 @@ export default function Error({
           så brukar det lösa sig.
         </p>
 
-        <div className="mt-[var(--space-block)] flex flex-wrap gap-3">
+        <div className="mt-block flex flex-wrap gap-3">
           <Button onClick={reset}>Försök igen</Button>
           <Button asChild variant="outline">
             <Link href="/">Till startsidan</Link>
@@ -48,7 +48,7 @@ export default function Error({
         </div>
 
         {error.digest ? (
-          <p className="mt-[var(--space-block)] text-sm text-muted-foreground">
+          <p className="mt-block text-sm text-muted-foreground">
             Felkod: <code className="font-mono">{error.digest}</code>. Ta med den
             om du{" "}
             <Link

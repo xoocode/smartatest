@@ -1,9 +1,50 @@
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
 
+/**
+ * Är interna verktyg påslagna för det här bygget?
+ *
+ * Samma villkor som `isAdminEnabled()` i lib/admin.ts. Håll dem lika: skiljer
+ * de sig åt byter vi ut modulen i ett bygge där komponenten ändå försöker
+ * rendera, och då blir stilväljaren borta i utveckling.
+ */
+const adminEnabled =
+  process.env.NODE_ENV !== "production" ||
+  process.env.NEXT_PUBLIC_SHOW_ADMIN === "1";
+
 const nextConfig: NextConfig = {
   /* MDX for editorial prose. Product data stays in typed TS. */
   pageExtensions: ["ts", "tsx", "mdx"],
+
+  /*
+   * Stilväljaren ut ur produktionsbygget, på riktigt.
+   *
+   * ## Varför en alias och inte en if-sats
+   *
+   * `AdminCorner` returnerar redan `null` i produktion, men det räcker inte.
+   * En modul hamnar i klientbunten så snart något importerar den, oavsett om
+   * den renderas, och layouten importerar den på varje sida. Uppmätt
+   * 2026-08-03: en chunk på 59 kB med "Stäng stilväljaren" och "Kriterierader"
+   * laddades av varje besökare. `next/dynamic` hjälpte inte heller, eftersom
+   * Turbopack slog ihop väljaren med sökrutan och samtyckeslagret, som sidan
+   * genuint behöver.
+   *
+   * Aliaset byter ut hela modulen vid bygget. Då finns den inte i grafen och
+   * kan inte hamna i någon chunk. Ersättaren har samma signatur och returnerar
+   * `null`.
+   *
+   * Kontrollera efter ändringar här:
+   * `grep -rl "Stäng stilväljaren" .next/static/chunks/` ska ge tomt efter ett
+   * produktionsbygge, och ge en träff efter `NEXT_PUBLIC_SHOW_ADMIN=1`.
+   */
+  turbopack: {
+    resolveAlias: adminEnabled
+      ? {}
+      : {
+          "@/components/admin/admin-corner":
+            "./components/admin/admin-corner.prod.tsx",
+        },
+  },
 
   images: {
     /*

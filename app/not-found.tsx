@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 
-import { liveCategories } from "@/lib/catalog";
+import { browsableTestPages } from "@/lib/catalog";
 import { Container } from "@/components/site/container";
-import { CategoryGrid } from "@/components/site/category-grid";
+import { TestPageGrid } from "@/components/site/test-page-grid";
 import { Button } from "@/components/ui/button";
 
 /*
@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
  * sig.
  *
  * Därför listas de kategorier som faktiskt är byggda, inte hela katalogen.
- * `liveCategories()` är samma källa som sitemapen läser, så en sida som inte
+ * `browsableTestPages()` är samma källa som sitemapen läser, så en sida som inte
  * finns kan aldrig hamna här.
  *
  * Statuskoden 404 sätts av Next självt. Ingen `robots`-metadata behövs —
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  const live = liveCategories();
+  const live = browsableTestPages();
 
   return (
     <Container className="pad-section">
@@ -42,7 +42,7 @@ export default function NotFound() {
           det ett tecken fel på vägen hit.
         </p>
 
-        <div className="mt-[var(--space-block)] flex flex-wrap gap-3">
+        <div className="mt-block flex flex-wrap gap-3">
           <Button asChild>
             <Link href="/">Till startsidan</Link>
           </Button>
@@ -56,9 +56,9 @@ export default function NotFound() {
       </div>
 
       {live.length > 0 ? (
-        <div className="mt-[var(--space-block)]">
+        <div className="mt-block">
           <h2 className="text-h3">Våra jämförelser</h2>
-          <CategoryGrid
+          <TestPageGrid
             entries={live}
             className="mt-4"
             columns={3}
@@ -67,7 +67,7 @@ export default function NotFound() {
         </div>
       ) : null}
 
-      <p className="mt-[var(--space-block)] text-sm text-muted-foreground">
+      <p className="mt-block text-sm text-muted-foreground">
         Hittade du en trasig länk hos oss?{" "}
         <Link href="/kontakt" className="text-primary underline underline-offset-2">
           Säg till

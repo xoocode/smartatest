@@ -104,7 +104,7 @@ export default function RattelserPage() {
         <p className="eyebrow text-brand">Öppen redovisning</p>
         <h1 className="mt-2 text-h1">Rättelser</h1>
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             Vi kommer att ha fel ibland. En specifikation läses av från fel rad,
             en källa återges slarvigt, ett betyg bygger på en uppgift som inte
@@ -118,7 +118,7 @@ export default function RattelserPage() {
           </p>
         </Prose>
 
-        <div className="mt-[var(--space-block)]">
+        <div className="mt-block">
           {corrections.length === 0 ? (
             <div className="themed-border rounded-lg bg-muted pad-card">
               <p className="font-medium">Inga rättelser ännu.</p>
@@ -167,7 +167,7 @@ export default function RattelserPage() {
           )}
         </div>
 
-        <div className="mt-[var(--space-block)] themed-border rounded-lg bg-muted pad-card">
+        <div className="mt-block themed-border rounded-lg bg-muted pad-card">
           <h2 className="text-h3">Hittade du ett fel?</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Skriv till{" "}
@@ -185,7 +185,7 @@ export default function RattelserPage() {
           </Button>
         </div>
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p className="text-sm text-muted-foreground">
             Priser ändras hela tiden och räknas inte som rättelser. När en sida
             senast setts över står i datumstämpeln högst upp på den. Hur betygen

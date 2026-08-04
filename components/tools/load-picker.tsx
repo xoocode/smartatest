@@ -3,6 +3,14 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  PLUG_LOADS as LOADS,
+  PLUG_PLACES as PLACES,
+  decidePlugLoad as decide,
+  type PlugLoadKey as LoadKey,
+  type PlugLoadVerdict as Verdict,
+  type PlugPlaceKey as PlaceKey,
+} from "@/lib/tool-logic/plug-load";
 
 /**
  * Svarar på den enda fråga som avgör om en smart plug duger: klarar den det du
@@ -19,114 +27,9 @@ import { cn } from "@/lib/utils";
  * apparaten.
  */
 
-/** Vanliga svenska laster med typisk märkeffekt i watt. */
-const LOADS = [
-  { key: "belysning", label: "Lampa eller julbelysning", watt: 50, inductive: false },
-  { key: "media", label: "TV eller router", watt: 150, inductive: false },
-  { key: "kaffe", label: "Kaffebryggare", watt: 1000, inductive: false },
-  { key: "motorvarmare", label: "Motorvärmare", watt: 600, inductive: false },
-  { key: "element", label: "Element eller värmefläkt", watt: 2000, inductive: false },
-  { key: "vattenkokare", label: "Vattenkokare eller torkskåp", watt: 2200, inductive: false },
-  { key: "motor", label: "Pump, fläkt eller kyl", watt: 400, inductive: true },
-  { key: "eget", label: "Annat, jag vet effekten", watt: 0, inductive: false },
-] as const;
-
-const PLACES = [
-  { key: "inne", label: "Inomhus, uppvärmt" },
-  { key: "garage", label: "Garage eller krypgrund" },
-  { key: "ute", label: "Utomhus" },
-] as const;
-
-type LoadKey = (typeof LOADS)[number]["key"];
-type PlaceKey = (typeof PLACES)[number]["key"];
-
-/** 16 A-pluggar är märkta 3 680 W, 10 A-pluggar 2 300 W. */
-const AMP_16_W = 3680;
-const AMP_10_W = 2300;
-/** Påslag på märkeffekten. En apparat som står på i timmar vill ha marginal. */
-const MARGIN = 1.2;
-
-type Verdict = {
-  amp: string;
-  ip: string;
-  temp: string;
-  why: string;
-  warning?: string;
-  /**
-   * Kraven i maskinläsbar form, så att produktförslaget filtreras på exakt
-   * samma tal som texten visar. Null betyder att inget förslag ska visas,
-   * antingen för att effekten saknas eller för att ingen plugg räcker.
-   */
-  needsAmp: number | null;
-  needsOutdoor: boolean;
-};
-
-function decide(
-  load: LoadKey | null,
-  place: PlaceKey | null,
-  ownWatt: number,
-): Verdict | null {
-  if (!load || !place) return null;
-
-  const spec = LOADS.find((l) => l.key === load);
-  if (!spec) return null;
-
-  const watt = load === "eget" ? Math.max(0, ownWatt) : spec.watt;
-  const needed = Math.round(watt * MARGIN);
-
-  /* Induktiv last kräver 16 A oavsett märkeffekt: startströmmen ligger långt
-     över den siffra som står på apparaten och syns inte i märkningen. */
-  const needsSixteen = spec.inductive || needed > AMP_10_W;
-
-  const outdoors = place === "ute";
-  const cold = place !== "inne";
-
-  const verdict: Verdict = {
-    needsAmp: needsSixteen ? 16 : Math.max(10, Math.ceil(needed / 230)),
-    needsOutdoor: cold,
-    amp: needsSixteen
-      ? `16 A (3 680 W)`
-      : `10 A (2 300 W) räcker, 16 A ger marginal`,
-    ip: cold ? "Minst IP44" : "Inomhusklassad räcker (IP20)",
-    temp: outdoors
-      ? "Kontrollera drifttemperaturen, helst ner till −25 °C"
-      : cold
-        ? "Kontrollera drifttemperaturen, minst −20 °C"
-        : "Ingen särskild drifttemperatur behövs",
-    why: spec.inductive
-      ? `${spec.label} innehåller en motor eller kompressor. Märkeffekten på runt ${watt} W säger inte hela sanningen, för startströmmen ligger under någon sekund flera gånger högre. Ta därför 16 A även om siffran ser låg ut.`
-      : `${watt} W plus tjugo procent marginal blir ${needed} W. ${
-          needsSixteen
-            ? "Det passerar gränsen för en 10 A-plugg, så du behöver en märkt för 16 A."
-            : "Det ryms med god marginal i en plugg märkt för 10 A."
-        }`,
-  };
-
-  if (watt <= 0) {
-    return {
-      ...verdict,
-      needsAmp: null,
-      amp: "Ange effekten först",
-      why: "Skriv in apparatens effekt i watt. Den står oftast på en dekal på baksidan eller undersidan, ibland som ampere i stället, och då är effekten ampere gånger 230.",
-    };
-  }
-
-  if (watt > AMP_16_W) {
-    return {
-      ...verdict,
-      needsAmp: null,
-      amp: "Ingen smart plug räcker",
-      warning: `${watt} W ligger över vad ett vanligt vägguttag är säkrat för. Det här ska inte lösas med en adapter i uttaget utan med fast installation och behörig elektriker.`,
-    };
-  }
-
-  if (outdoors) {
-    verdict.warning =
-      "Ett uttag utomhus ska sitta i en jordfelsbrytarskyddad krets. En inomhusplugg i en ytterdosa är inte samma sak som en plugg byggd för utomhusbruk.";
-  }
-
-  return verdict;
-}
+/* Lasterna, platserna och regeluppsättningen bor i lib/tool-logic/plug-load.ts,
+   där agentverktyget anropar samma decidePlugLoad(). Kraven kommer tillbaka som
+   needsAmp och needsOutdoor, och urvalet mot dem görs här nere. */
 
 /**
  * En produkt verktyget kan peka på när den klarar det användaren valt.
@@ -301,7 +204,7 @@ function Matches({
         {ok.map((p) => (
           <li key={p.id} className="flex flex-wrap items-baseline gap-x-2">
             {/* Full sökväg och inte bara ankaret: verktyget renderas både på
-                kategorisidan och på sin egen sida under /verktyg, och där
+                kategorisidan och på sin egen sida under /guider, och där
                 finns ingen recension att hoppa till. */}
             <a
               href={p.href}

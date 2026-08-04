@@ -3,6 +3,15 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  FIRE_FLOORS as FLOORS,
+  FIRE_HOMES as HOME,
+  FIRE_KITCHENS as KITCHEN,
+  fireKitPlan,
+  type FireFloorKey as FloorKey,
+  type FireHomeKey as HomeKey,
+  type FireKitchenKey as KitchenKey,
+} from "@/lib/tool-logic/fire-kit";
 
 /**
  * Vad ett hem faktiskt behöver i brandskydd, och vad det kostar.
@@ -43,28 +52,11 @@ import { cn } from "@/lib/utils";
  * rekommenderas som hemmets enda filt.
  */
 
-const HOME = [
-  { key: "lagenhet", label: "Lägenhet" },
-  { key: "villa", label: "Villa eller radhus" },
-  { key: "fritidshus", label: "Fritidshus" },
-] as const;
-
-const FLOORS = [
-  { key: "ett", label: "Ett plan" },
-  { key: "tva", label: "Två plan" },
-  { key: "tre", label: "Tre eller fler" },
-] as const;
-
-const KITCHEN = [
-  { key: "samma", label: "Samma plan som entrén" },
-  { key: "annat", label: "Ett annat plan" },
-] as const;
-
-type HomeKey = (typeof HOME)[number]["key"];
-type FloorKey = (typeof FLOORS)[number]["key"];
-type KitchenKey = (typeof KITCHEN)[number]["key"];
-
-const FLOOR_COUNT: Record<FloorKey, number> = { ett: 1, tva: 2, tre: 3 };
+/* Bostadsvalen och själva planen bor i lib/tool-logic/fire-kit.ts, där
+   agentverktyget anropar samma fireKitPlan(). Planen räknar antal och skäl och
+   känner inte till någon produkt: raden pekar ut sin sort med en nyckel, och
+   uppslaget mot våra egna jämförelser görs här nere. Det är vad som gör att
+   verktyget kan ge rådet utan att lämna ut priser. */
 
 /** Billigaste produkt som uppfyller kravet, hämtad ur våra egna jämförelser. */
 export type KitItem = {
@@ -89,64 +81,6 @@ export type FireKitItems = {
   blanketSmall: KitItem;
 };
 
-type Line = {
-  item: KitItem;
-  count: number;
-  why: string;
-};
-
-function plan(
-  home: HomeKey | null,
-  floors: FloorKey | null,
-  kitchen: KitchenKey | null,
-  items: FireKitItems,
-): { lines: Line[]; note: string } | null {
-  if (!home || !floors || !kitchen) return null;
-
-  const levels = home === "lagenhet" ? 1 : FLOOR_COUNT[floors];
-
-  const lines: Line[] = [
-    {
-      item: items.alarm,
-      count: levels,
-      why:
-        levels === 1
-          ? "En brandvarnare är minimum i varje bostad."
-          : `En per våningsplan, alltså ${levels} stycken. En brandvarnare två plan bort väcker ingen.`,
-    },
-    {
-      item: items.extinguisher,
-      count: levels >= 2 ? levels : 1,
-      why:
-        levels >= 2
-          ? "En per plan. En släckare du måste springa en trappa efter är en släckare du inte hinner hämta."
-          : "En sexkilos räcker till en bostad. Mindre släckare tar slut på några sekunder.",
-    },
-    {
-      item: items.blanketLarge,
-      count: 1,
-      why: "Den storlek räddningstjänsterna rekommenderar, och den enda som räcker till en soffa eller en människa. Hängs nära köket men inte vid spisen.",
-    },
-  ];
-
-  if (kitchen === "annat" || levels >= 2) {
-    lines.push({
-      item: items.blanketSmall,
-      count: 1,
-      why: "En liten filt i själva köket, där bränderna börjar. Den ersätter inte den stora utan kompletterar den.",
-    });
-  }
-
-  const note =
-    home === "fritidshus"
-      ? "I ett fritidshus som står tomt vintertid: kontrollera batteriet varje gång du kommer dit, och räkna med att en brandvarnare med tioårsbatteri är värd mer här än i ett permanentbott hus."
-      : levels >= 2
-        ? "Sover någon bakom en stängd dörr behövs en brandvarnare till i eller utanför det rummet. En stängd dörr dämpar ljudet mer än de flesta tror."
-        : "Har du öppen spis, vedkamin eller pannrum bör släckaren hänga där och inte i hallen.";
-
-  return { lines, note };
-}
-
 export function FireKitPlanner({
   items,
   className,
@@ -161,7 +95,17 @@ export function FireKitPlanner({
   /* Lägenhet har per definition ett plan, så frågan besvaras åt användaren i
      stället för att lämnas kvar och blockera resultatet. */
   const effectiveFloors = home === "lagenhet" ? "ett" : floors;
-  const result = plan(home, effectiveFloors, kitchen, items);
+  const planned = fireKitPlan(home, effectiveFloors, kitchen);
+  /* Nyckeln blir en produkt här, inte i planen. Se kommentaren överst. */
+  const result = planned
+    ? {
+        note: planned.note,
+        lines: planned.lines.map((line) => ({
+          ...line,
+          item: items[line.key],
+        })),
+      }
+    : null;
 
   const total = result
     ? result.lines.reduce((sum, l) => sum + l.item.fromPrice * l.count, 0)

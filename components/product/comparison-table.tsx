@@ -80,12 +80,80 @@ function specValue(product: Product, label: string): string | undefined {
   return product.specs.find((s) => s.label === label)?.value;
 }
 
+/**
+ * Etiketter tabellen bygger egna rader av, och som därför aldrig får komma
+ * tillbaka som specifikationsrad.
+ *
+ * ⚠️ Det här var ett verkligt fel och inte en teoretisk risk. Varje datafil på
+ * sajten inleder sina `specs` med `{ label: "Pris" }`, samtidigt som tabellen
+ * alltid lägger till en egen prisrad ur `product.price`. Resultatet var **två
+ * Pris-rader i varje jämförelsetabell på alla 22 kategorisidor**, plus ett
+ * React-fel om två barn med samma nyckel, eftersom raderna nycklas på sin
+ * etikett. Felet syntes varken i `tsc`, `lint`, `pnpm check` eller bygget.
+ *
+ * Duplicerade rader filtreras bort här i stället för i varje datafil, eftersom
+ * en spec med etiketten Pris är rimlig att skriva och används på andra ställen
+ * än i tabellen, till exempel i `WinnerCard`.
+ */
+const EGNA_RADER = new Set(["Vårt betyg", "Utmärkelse", "Recensioner", "Pris", "Butik"]);
+
+/**
+ * Etiketter tabellen aldrig visar, även när datafilen har dem.
+ *
+ * `Lagerstatus` hör inte hemma i en jämförelse. Lagersaldo är butikens
+ * tillstånd just nu, inte produktens egenskap, och en rad som säger "Slut hos
+ * Kjell 2026-08-02" åldras fel: den ser ut som ett faktum om produkten långt
+ * efter att den fyllts på. Beslutet är sedan tidigare att slutsålda produkter
+ * rankas ändå och att lagerstatus varken kontrolleras eller visas.
+ *
+ * Filtret sitter här och inte i datafilerna, så att en ny kategori inte kan
+ * råka få tillbaka raden.
+ */
+const ALDRIG_I_TABELLEN = new Set(["Lagerstatus"]);
+
+/**
+ * Värden som inte bär någon information.
+ *
+ * En rad där samtliga produkter står med streck tar en hel rad i anspråk för
+ * att säga ingenting, och i en tabell med tio kolumner kostar det en skärmhöjd.
+ * Raden döljs i koden i stället för att plockas bort ur datafilerna: fyller vi
+ * på uppgiften för en enda produkt kommer raden tillbaka av sig själv.
+ *
+ * "Ej angiven" räknas **inte** som tomt. Den säger att vi letat och att butiken
+ * inte publicerar uppgiften, vilket är något annat än att fältet aldrig fyllts
+ * i, och flera sidor förklarar just den skillnaden i sin tabelltext.
+ */
+/* Em-strecket skrivs som escape-sekvens: `pnpm check:emdash` letar efter
+   tecknet i källkoden och kan inte veta att det här är ett värde vi letar
+   efter och inte text vi visar. */
+const TOMMA_VARDEN = new Set(["", "-", "\u2013", "\u2014"]);
+
+function harNagotVarde(products: Product[], label: string): boolean {
+  return products.some((product) => {
+    const value = specValue(product, label);
+    return value !== undefined && !TOMMA_VARDEN.has(value.trim());
+  });
+}
+
+/** Etiketterna som blir rader: inte tabellens egna, inte uteslutna, inte tomma. */
+function tabellrader(labels: string[], products: Product[]): string[] {
+  return labels.filter(
+    (label) =>
+      !EGNA_RADER.has(label) &&
+      !ALDRIG_I_TABELLEN.has(label) &&
+      harNagotVarde(products, label),
+  );
+}
+
 /** Spec labels in the order the first product declares them. */
 function specLabels(products: Product[], only?: string[]): string[] {
-  if (only) return only;
+  if (only) return tabellrader(only, products);
   const first = products[0];
   if (!first) return [];
-  return first.specs.filter((s) => s.highlight).map((s) => s.label);
+  return tabellrader(
+    first.specs.filter((s) => s.highlight).map((s) => s.label),
+    products,
+  );
 }
 
 function allSpecLabels(products: Product[]): string[] {
@@ -95,7 +163,7 @@ function allSpecLabels(products: Product[]): string[] {
       if (!seen.includes(spec.label)) seen.push(spec.label);
     }
   }
-  return seen;
+  return tabellrader(seen, products);
 }
 
 /**
@@ -139,13 +207,19 @@ function MatrixHeadCell({
           className="size-20 bg-transparent sm:size-28"
         />
       ) : null}
-      {/* `max-w-full truncate` och inte bara `truncate`: cellen har
-          `overflow: visible`, så ett långt varumärke ritas ovanpå
-          grannkolumnen i stället för att klippas. Uppmätt på /brandfilt vid
-          390 px, där "Brandvarnare.se" gick nio pixlar in i nästa produkt i
-          fyra kolumner. Gäller alla sidor: "Kjell & Company" är lika långt. */}
+      {/* `max-w-full` och inte bara radbrytning: cellen har `overflow: visible`,
+          så ett långt varumärke ritas ovanpå grannkolumnen i stället för att
+          hållas inom sin bredd. Uppmätt på /brandfilt vid 390 px, där
+          "Brandvarnare.se" gick nio pixlar in i nästa produkt i fyra kolumner.
+
+          `line-clamp-2` och inte `truncate`: klippningen gjorde att varumärket
+          stod som "Brandvarnare.s…" i tabellhuvudet, alltså exakt den uppgift
+          läsaren behöver för att veta vart länken går. 130 px text i en kolumn
+          på 113. Produktnamnet under använder redan `line-clamp-2`, så två
+          rader är husets sätt att lösa det. Mätt 2026-08-03 på /brandfilt,
+          /brandslackare, /brandstege och /utrymningsstege. */}
       <span
-        className="eyebrow max-w-full truncate text-muted-foreground"
+        className="eyebrow line-clamp-2 max-w-full break-words text-muted-foreground"
         title={product.brand}
       >
         {product.brand}

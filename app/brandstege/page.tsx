@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { BRANDSTEGE, categoryTrail } from "@/lib/categories";
+import { BRANDSTEGE, testPageTrail } from "@/lib/test-pages";
 import { BRANDSTEGE_SOURCES } from "@/lib/sources";
 import {
   BRANDSTEGE_CONSIDERED,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/brandstege";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { NOT_STATED, priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -32,6 +33,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/brandstege/kopguide.mdx";
 
@@ -43,9 +45,9 @@ import Kopguide from "@/content/brandstege/kopguide.mdx";
  * eller klättrat i någon stege.
  *
  * Sidans fynd är att kilotalet inte går att jämföra: samma sorts stege anges
- * till 150, 200, 400 och 450 kilo, ingen butik anger provmetod, och den enda
+ * till 150, 200, 400 och 450 kilo eller ingenting alls, ingen butik anger provmetod, och den enda
  * standard branschen pekar på gäller lutande och stående teleskopstegar. Se
- * lib/categories.ts för viktningen och .agent/research-brandstege.md för
+ * lib/categories.ts för viktningen och .agent/research/brandstege.md för
  * underlaget.
  *
  * Tre saker som byggdes in från start:
@@ -57,21 +59,24 @@ import Kopguide from "@/content/brandstege/kopguide.mdx";
  * 3. #kallor säger att kategorin saknar både oberoende test och tillämplig
  *    produktstandard.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = BRANDSTEGE;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-02";
+const TEST_PAGE = BRANDSTEGE;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
-    "Sex brandstegar anger 150, 200, 400 och 450 kilo, och ingen butik anger hur talet mätts. Vi jämförde sex hängande stegar från 699 till 1 294 kronor mot Boverkets femmetersgräns.",
+    "Åtta brandstegar, och sex olika svar på hur mycket de bär: 150, 200, 400, 450 kilo, och två som inte anger något alls. Vi jämförde åtta hängande stegar från 699 till 2 249 kronor mot Boverkets femmetersgräns.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -81,7 +86,7 @@ const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "kilotalet", label: "Kilotalet går inte att jämföra" },
   { id: "femmetersgransen", label: "Femmetersgränsen i byggreglerna" },
-  { id: "jamforelse", label: "Jämför alla sex" },
+  { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "engangsbruk", label: "Stegen du inte får öva med" },
   { id: "recensioner", label: "Recensioner av varje stege" },
@@ -105,15 +110,16 @@ export default async function BrandstegePage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -121,16 +127,17 @@ export default async function BrandstegePage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Sex stegar av i stort sett samma konstruktion anger 150, 200, 400
-              och 450 kilo, och ingen butik anger hur talet mätts. Det finns
-              ingen produktstandard för stegar som hängs över en fönsterkarm. Vi
-              jämförde sex hängande stegar från 699 till 1 294 kronor mot det som
-              faktiskt går att kontrollera: räckvidd, karmmått och vad butiken
-              vågar skriva ut.
+              Stegar av i stort sett samma konstruktion anger 150, 200, 400 och
+              450 kilo, två anger ingenting alls, och ingen butik anger hur talet
+              mätts. Det finns ingen produktstandard för stegar som hängs över en
+              fönsterkarm. Vi jämförde åtta hängande stegar från 699 till 2 249
+              kronor mot det som faktiskt går att kontrollera: räckvidd, karmmått
+              och vad butiken vågar skriva ut.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -155,7 +162,7 @@ export default async function BrandstegePage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -174,7 +181,7 @@ export default async function BrandstegePage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -189,8 +196,9 @@ export default async function BrandstegePage() {
       >
         <Prose>
           <p>
-            De sex stegarna anger <strong>150, 200, 400 och 450 kilo</strong>.
-            Ingen butik anger hur talet mätts.
+            Sex av de åtta stegarna anger{" "}
+            <strong>150, 200, 400 eller 450 kilo</strong>. Ingen butik anger hur
+            talet mätts. De två återstående anger inget tal alls.
           </p>
           <p>
             Det beror inte på slarv utan på att det saknas något att mäta mot.{" "}
@@ -211,6 +219,16 @@ export default async function BrandstegePage() {
             kolmonoxidvarnarna.
           </p>
           <p>
+            <strong>Två av stegarna anger ingen last alls.</strong>{" "}
+            Skeppshultstegens repstegar hos Bauhaus listar material, längd,
+            bredd, antal steg, avstånd från fasad och max väggtjocklek. Ingen
+            maxlast. I samma produkttext står ändå: överskrid aldrig den
+            maximala belastningsvikten som anges av tillverkaren. Butiken
+            hänvisar till ett tal den inte publicerar. Talet finns på en etikett
+            på själva stegen, synlig på Bauhaus egen produktbild, där du
+            kan läsa det först efter att kartongen är öppnad.
+          </p>
+          <p>
             <strong>Kontrasten mot de fasta stegarna gör saken tydlig.</strong>{" "}
             En fasadmonterad utrymningsstege provas mot EN 131-1 och EN 131-2,
             alltså de allmänna stegstandarderna, och anger då 150 kilo.
@@ -218,8 +236,8 @@ export default async function BrandstegePage() {
             medan hängande stegar utan angiven provning skriver upp till 450.
           </p>
           <p>
-            Slutsatsen är inte att stegarna är svaga. Den är att talet säger
-            något om vem som mätt försiktigast, inte om vem som byggt starkast.
+            Stegarna är alltså inte svaga. Talet säger något om vem som mätt
+            försiktigast, inte om vem som byggt starkast.
             Vi kan inte granska något certifikat och påstår därför ingenting om
             hur mycket stegarna bär. Vi kan läsa vad standarden själv säger att
             den handlar om.
@@ -233,7 +251,7 @@ export default async function BrandstegePage() {
         tone="muted"
         width="default"
         title="Femmetersgränsen i byggreglerna"
-        description="En hängande stege uppfyller aldrig byggreglerna. Men det Boverket skriver om alternativet är sidans starkaste argument för att ha en."
+        description="En hängande stege uppfyller aldrig byggreglerna. Men det Boverket skriver om alternativet är det starkaste argumentet för att ha en."
       >
         <Prose>
           <p>
@@ -286,14 +304,14 @@ export default async function BrandstegePage() {
       <Section
         id="jamforelse"
         width="wide"
-        title="Jämför alla sex"
-        description="Två rader avgör: Längd, som bestämmer om stegen når från ditt fönster, och Karmtjocklek, som bestämmer om den alls hakar fast."
+        title="Jämför alla åtta"
+        description="Längden bestämmer om stegen når från ditt fönster. Karmtjockleken bestämmer om den alls hakar fast."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, inte att egenskapen saknas. Maxlasterna är tillverkarnas egna och är uppmätta på olika sätt.`}
+          caption={priceCaption(PRICE_CHECKED, `${NOT_STATED} Maxlasterna är tillverkarnas egna och är uppmätta på olika sätt.`)}
         />
       </Section>
 
@@ -303,7 +321,7 @@ export default async function BrandstegePage() {
         tone="muted"
         width="default"
         title="Vem har kontrollerat det här?"
-        description="Tre saker om jämförelsen ovan som vi hellre säger själva än låter dig upptäcka."
+        description="Vad rankningen bygger på, och var den är svag."
       >
         <Prose>
           <p>
@@ -312,19 +330,27 @@ export default async function BrandstegePage() {
             fungerar från ditt fönster, och då hamnar den stege som täcker mest
             överst. Har du två våningar ska du inte köpa den. Då är
             4,5-metersstegen rätt produkt, den är billigare och lättare, och den
-            överflödiga längden gör ingen nytta. Verktyget i köpguiden ställer
+            överflödiga längden gör ingen nytta. Räknaren i köpguiden ställer
             frågan som avgör.
           </p>
           <p>
             <strong>
-              Butiken vi tjänar mest på tar plats ett och tre.
+              Samma butik tar plats ett och tre.
             </strong>{" "}
-            Brandvarnare.se är den enda butiken i vår brandkategori vi skulle
-            kunna annonsera mot. Deras sjumetersstege är den enda i svensk handel
-            som når tre våningar, och deras två produktsidor är de enda som
-            beskriver distanserna som håller ut stegen från fasaden. Det är vad
-            räckvidd och nedstigning gav. På deras 4,5-metersstege drar priset
-            ner betyget: 979 kronor mot 799 hos Biltema för samma längd.
+            Brandvarnare.se sjumetersstege är den billigaste vägen ner från tre
+            våningar, 955 kronor under närmaste stege med samma räckvidd, och
+            deras två produktsidor är de enda som beskriver distanserna som
+            håller ut stegen från fasaden. Det är vad räckvidd och nedstigning
+            gav. På deras 4,5-metersstege drar priset ner betyget i stället:
+            979 kronor mot 799 hos Biltema för samma längd.
+          </p>
+          <p>
+            <strong>Ettans motivering var först fel.</strong> Vi
+            påstod att sjumetersstegen var den enda i svensk handel som når tre
+            våningar. Det stämde inte: Skeppshultstegen säljer 7,5 meter hos
+            Bauhaus och 10 meter hos Stegfabriken. Rankningen står kvar, men på
+            ett skäl som går att kontrollera i stället för ett som inte gjorde
+            det. Rättat 2026-08-03.
           </p>
           <p>
             <strong>Ingen uppgift är granskad av tredje part.</strong> Vi har
@@ -343,7 +369,7 @@ export default async function BrandstegePage() {
         id="engangsbruk"
         width="default"
         title="Stegen du inte får öva med"
-        description="En mening mitt i ett säljstycke hos Jula, som ändrar vad produkten är."
+        description="Två av fyra tillverkare begränsar produkten till ett enda användningstillfälle. Bara en av dem skriver det i butiken."
       >
         <Prose>
           <p>
@@ -357,6 +383,19 @@ export default async function BrandstegePage() {
             sina produktsidor hur man gör det i två nivåer, och den här stegen
             förbrukas av övningen. Första gången du klättrar i den står huset i
             brand, i mörker, med adrenalin, på en produkt du aldrig rört.
+          </p>
+          <p>
+            <strong>Skeppshultstegen säger samma sak, i den dyrare butiken.</strong>{" "}
+            Tillverkarens egen text om repstegarna lyder{" "}
+            <em>
+              &quot;konstruerad för att användas en gång enbart och ska rullas ut
+              enbart när behov finns&quot;
+            </em>
+            . Den meningen publiceras av Stegfabriken. Bauhaus säljer exakt samma
+            artikel 42 procent billigare och skriver i stället bara att den är
+            tillverkad för att användas endast vid behov. Villkoret som avgör om
+            du får öva följer alltså inte med produkten utan med köpstället, och
+            det försvinner just där de flesta handlar.
           </p>
           <p>
             Vi har inte dragit av poäng för det i något kriterium. Det hör inte
@@ -376,14 +415,14 @@ export default async function BrandstegePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje stege"
-        description="Alla sex bedöms mot samma fem kriterier. Måtten är butikens eller tillverkarens egna, inte kontrollerade av oss."
+        description="Alla åtta bedöms mot samma fem kriterier. Måtten är butikens eller tillverkarens egna, inte kontrollerade av oss."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -398,7 +437,7 @@ export default async function BrandstegePage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex poster som inte hamnade i rankningen, inklusive de fasta fasadstegarna som får en egen sida."
+        description="Sju poster som inte hamnade i rankningen, inklusive de fasta fasadstegarna som får en egen sida."
       >
         <ConsideredList items={BRANDSTEGE_CONSIDERED} />
       </Section>
@@ -415,13 +454,13 @@ export default async function BrandstegePage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Räckvidd väger tyngst eftersom längden avgör om produkten alls fungerar från ditt fönster, och gränsen är Boverkets: sitter fönstrets underkant mer än fem meter över marken krävs en fast monterad stege, och under den höjden räknar reglerna med att du hoppar. Skalan för dokumenterad provning är 5,0 för en gällande standard med årtal som gäller stegtypen, vilket ingen produkt når eftersom en sådan standard inte finns, 2,5 när en standard anges utan årtal, 1,5 när den anges i en tillbakadragen utgåva och 1,0 när ingen standard anges alls. Julas engångsvillkor poängsätts inte i något kriterium, eftersom det inte hör hemma i något av de fem och ett dolt avdrag hade dolt saken. Det står som nackdel och har ett eget avsnitt. Vi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Räckvidd väger tyngst eftersom längden avgör om produkten alls fungerar från ditt fönster, och gränsen är Boverkets: sitter fönstrets underkant mer än fem meter över marken krävs en fast monterad stege, och under den höjden räknar reglerna med att du hoppar. Skalan för dokumenterad provning är 5,0 för en gällande standard med årtal som gäller stegtypen, vilket ingen produkt når eftersom en sådan standard inte finns, 2,5 när en standard anges utan årtal, 1,5 när den anges i en tillbakadragen utgåva och 1,0 när ingen standard anges alls. Julas engångsvillkor poängsätts inte i något kriterium, eftersom det inte hör hemma i något av de fem och ett dolt avdrag hade dolt saken. Det står som nackdel och har ett eget avsnitt. Vi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -429,10 +468,10 @@ export default async function BrandstegePage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte produkterna fysiskt. Det här är vad vi gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -455,21 +494,21 @@ export default async function BrandstegePage() {
         title="Källor"
         description="Standardkatalogen, byggreglerna och de produktsidor som bär de uppgifter vi jämfört."
       >
-        <Prose className="mb-[var(--space-block)]">
+        <Prose className="mb-block">
           <p>
             <strong>
               Det finns varken oberoende test eller tillämplig produktstandard
               för hängande brandstegar.
             </strong>{" "}
             Varken Råd &amp; Rön eller Testfakta har testat kategorin. Den bästa
-            svenska sidan vi mätt skriver att den testat produkter men redovisar
+            svenska sidan vi läst skriver att den testat produkter men redovisar
             varken metod, mätvärden eller testdatum.
           </p>
           <p>
             <strong>Primärkällorna finns däremot.</strong> SIS publicerar status
             och omfattning för de standarder butikerna hänvisar till, och
             Boverket publicerar höjdgränserna för utrymning genom fönster. Båda
-            är lästa i original och citerade ordagrant på den här sidan, i stället
+            är lästa i original och citerade ordagrant här, i stället
             för att refereras via en tredje part.
           </p>
         </Prose>
@@ -483,9 +522,8 @@ export default async function BrandstegePage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "fireSafety", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

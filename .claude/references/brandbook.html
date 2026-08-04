@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brandbook — smartatest.se</title>
+<style>
+  :root { color-scheme: light dark; --ink:#111; --bg:#fff; --dim:#666; --line:#e5e5e5; }
+  @media (prefers-color-scheme: dark) { :root { --ink:#eee; --bg:#141414; --dim:#999; --line:#333; } }
+  body { margin:0; padding:2.5rem 1.5rem 5rem; background:var(--bg); color:var(--ink);
+         font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { max-width:60rem; margin:0 auto; }
+  h1 { font-size:1.9rem; margin:0 0 .3rem; letter-spacing:-.02em; }
+  h2 { font-size:1.25rem; margin:3rem 0 .5rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:1.6rem 0 .5rem; }
+  p.lede { color:var(--dim); margin:0 0 .5rem; }
+  code { font:.85em ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--dim); }
+  .axis ul { list-style:none; margin:0; padding:0; display:grid; gap:.5rem;
+             grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); }
+  .axis li { border:1px solid var(--line); border-radius:.5rem; padding:.7rem .8rem; }
+  .axis li.is-default { border-color:currentColor; }
+  .axis li p { margin:.3rem 0 0; font-size:.85rem; color:var(--dim); }
+  .tag { font-size:.7rem; text-transform:uppercase; letter-spacing:.06em;
+         border:1px solid currentColor; border-radius:1rem; padding:.05rem .45rem; margin-left:.4rem; }
+  .swatches { display:grid; gap:.5rem; grid-template-columns:repeat(auto-fill,minmax(11rem,1fr)); }
+  .swatch { display:flex; align-items:center; gap:.5rem; }
+  .chip { width:2rem; height:2rem; border-radius:.35rem; border:1px solid var(--line); flex:none; }
+  .chip-label { font-size:.8rem; display:flex; flex-direction:column; }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; }
+  th,td { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--line); }
+  footer { margin-top:4rem; font-size:.8rem; color:var(--dim); }
+  .overflow { overflow-x:auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Brandbook</h1>
+  <p class="lede">smartatest.se — genererad ur <code>lib/theme.ts</code> och <code>app/globals.css</code> 2026-08-04.</p>
+  <p class="lede">Redigera inte den här filen. Ändra källan och kör <code>pnpm brandbook</code>.
+     Den levande bänken är <code>/styleguide</code>.</p>
+
+  <h2>Arbetsläget</h2>
+  <p>Sajten byggs i <strong>testsieger · comfortable · soft</strong>.
+     Övriga lägen finns för att kunna jämföras, inte för att blandas.</p>
+
+  <h2>Teman</h2>
+<section class="theme">
+    <h3>testsieger<span class="tag">arbetsläge</span></h3>
+    <div class="swatches">
+      <div class="swatch">
+        <span class="chip" style="background:oklch(1 0 0)"></span>
+        <span class="chip-label">Bakgrund<code>oklch(1 0 0)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.16 0.012 255)"></span>
+        <span class="chip-label">Text<code>oklch(0.16 0.012 255)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.48 0.19 258)"></span>
+        <span class="chip-label">Primär<code>oklch(0.48 0.19 258)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.55 0.19 45)"></span>
+        <span class="chip-label">Varumärke<code>oklch(0.55 0.19 45)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.72 0.16 85)"></span>
+        <span class="chip-label">Utmärkelse<code>oklch(0.72 0.16 85)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.945 0.022 250)"></span>
+        <span class="chip-label">Accent<code>oklch(0.945 0.022 250)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.965 0.006 250)"></span>
+        <span class="chip-label">Dämpad<code>oklch(0.965 0.006 250)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.9 0.008 250)"></span>
+        <span class="chip-label">Kantlinje<code>oklch(0.9 0.008 250)</code></span>
+      </div>
+    </div>
+  </section>
+<section class="theme">
+    <h3>redaktionell</h3>
+    <div class="swatches">
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.985 0.006 85)"></span>
+        <span class="chip-label">Bakgrund<code>oklch(0.985 0.006 85)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.22 0.015 60)"></span>
+        <span class="chip-label">Text<code>oklch(0.22 0.015 60)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.42 0.075 175)"></span>
+        <span class="chip-label">Primär<code>oklch(0.42 0.075 175)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.55 0.16 40)"></span>
+        <span class="chip-label">Varumärke<code>oklch(0.55 0.16 40)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.76 0.13 78)"></span>
+        <span class="chip-label">Utmärkelse<code>oklch(0.76 0.13 78)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.94 0.022 85)"></span>
+        <span class="chip-label">Accent<code>oklch(0.94 0.022 85)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.955 0.012 85)"></span>
+        <span class="chip-label">Dämpad<code>oklch(0.955 0.012 85)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.9 0.012 80)"></span>
+        <span class="chip-label">Kantlinje<code>oklch(0.9 0.012 80)</code></span>
+      </div>
+    </div>
+  </section>
+<section class="theme">
+    <h3>nordisk</h3>
+    <div class="swatches">
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.99 0.002 250)"></span>
+        <span class="chip-label">Bakgrund<code>oklch(0.99 0.002 250)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.24 0.012 255)"></span>
+        <span class="chip-label">Text<code>oklch(0.24 0.012 255)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.38 0.045 245)"></span>
+        <span class="chip-label">Primär<code>oklch(0.38 0.045 245)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.52 0.13 235)"></span>
+        <span class="chip-label">Varumärke<code>oklch(0.52 0.13 235)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.7 0.09 205)"></span>
+        <span class="chip-label">Utmärkelse<code>oklch(0.7 0.09 205)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.95 0.012 235)"></span>
+        <span class="chip-label">Accent<code>oklch(0.95 0.012 235)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.968 0.004 250)"></span>
+        <span class="chip-label">Dämpad<code>oklch(0.968 0.004 250)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.92 0.005 250)"></span>
+        <span class="chip-label">Kantlinje<code>oklch(0.92 0.005 250)</code></span>
+      </div>
+    </div>
+  </section>
+<section class="theme">
+    <h3>kvallspress</h3>
+    <div class="swatches">
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.995 0.002 30)"></span>
+        <span class="chip-label">Bakgrund<code>oklch(0.995 0.002 30)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.15 0.008 25)"></span>
+        <span class="chip-label">Text<code>oklch(0.15 0.008 25)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.5 0.21 27)"></span>
+        <span class="chip-label">Primär<code>oklch(0.5 0.21 27)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.55 0.22 27)"></span>
+        <span class="chip-label">Varumärke<code>oklch(0.55 0.22 27)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.78 0.16 88)"></span>
+        <span class="chip-label">Utmärkelse<code>oklch(0.78 0.16 88)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.94 0.03 30)"></span>
+        <span class="chip-label">Accent<code>oklch(0.94 0.03 30)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.96 0.009 30)"></span>
+        <span class="chip-label">Dämpad<code>oklch(0.96 0.009 30)</code></span>
+      </div>
+      <div class="swatch">
+        <span class="chip" style="background:oklch(0.87 0.009 30)"></span>
+        <span class="chip-label">Kantlinje<code>oklch(0.87 0.009 30)</code></span>
+      </div>
+    </div>
+  </section>
+
+  <h2>Axlar</h2>
+
+  <section class="axis">
+    <h3>Tema <code>theme</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Testsieger</strong> <code>testsieger</code><span class="tag">arbetsläge</span>
+        <p>Kliniskt vitt, blå trovärdighet, orange CTA. Byggd för konvertering.</p>
+      </li>
+      <li>
+        <strong>Redaktionell</strong> <code>redaktionell</code>
+        <p>Varmt papper, serifrubriker, dämpad teal. Läser som en tidning.</p>
+      </li>
+      <li>
+        <strong>Nordisk</strong> <code>nordisk</code>
+        <p>Sval gråskala, luftigt, lätta vikter. Minimalt och lugnt.</p>
+      </li>
+      <li>
+        <strong>Kvällspress</strong> <code>kvallspress</code>
+        <p>Rött, tätt och högljutt. Kvällstidningens testbilaga.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Täthet <code>density</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Luftig</strong> <code>comfortable</code><span class="tag">arbetsläge</span>
+        <p>Generösa mellanrum, längre sidor.</p>
+      </li>
+      <li>
+        <strong>Tät</strong> <code>compact</code>
+        <p>Mer innehåll ovanför viklinjen.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Hörn <code>radius</code></h3>
+    <ul>
+      <li>
+        <strong>Skarp</strong> <code>sharp</code>
+        <p>Nästan raka hörn.</p>
+      </li>
+      <li class="is-default">
+        <strong>Mjuk</strong> <code>soft</code><span class="tag">arbetsläge</span>
+        <p>Standard.</p>
+      </li>
+      <li>
+        <strong>Rundad</strong> <code>round</code>
+        <p>Kraftigt rundade kort och knappar.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Jämförelsetabell <code>table</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Matris</strong> <code>matrix</code><span class="tag">arbetsläge</span>
+        <p>Produkter som kolumner, egenskaper som rader. NN/g:s rekommendation.</p>
+      </li>
+      <li>
+        <strong>Grupperad</strong> <code>grouped</code>
+        <p>Matris med egenskaperna indelade i namngivna block.</p>
+      </li>
+      <li>
+        <strong>Checklista</strong> <code>checklist</code>
+        <p>Matris med bock eller streck för vad produkten har.</p>
+      </li>
+      <li>
+        <strong>Rader</strong> <code>rows</code>
+        <p>Produkter som rader. Den klassiska testsieger-formen.</p>
+      </li>
+      <li>
+        <strong>Kompakt</strong> <code>compact</code>
+        <p>Rader utan bilder, tät text, alla specifikationer.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Kriteriebetyg <code>criteria</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Punktledare</strong> <code>punktledare</code><span class="tag">arbetsläge</span>
+        <p>Prickad linje från namnet fram till betyget. Vald 2026-08-03.</p>
+      </li>
+      <li>
+        <strong>Indragen med punktledare</strong> <code>indragledare</code>
+        <p>Punktledare, plus marginal på båda sidor så blocket smalnar av.</p>
+      </li>
+      <li>
+        <strong>Mer indragen med punktledare</strong> <code>indragledare2</code>
+        <p>Dubbel marginal, alltså 5 rem på var sida.</p>
+      </li>
+      <li>
+        <strong>Mycket indragen med punktledare</strong> <code>indragledare3</code>
+        <p>Nästan 9 rem på var sida. Smalast av alla med ledare.</p>
+      </li>
+      <li>
+        <strong>Indragen</strong> <code>indrag</code>
+        <p>Oförändrade rader, men marginal på båda sidor. Kortare väg att gå.</p>
+      </li>
+      <li>
+        <strong>Mer indragen</strong> <code>indrag2</code>
+        <p>Dubbel marginal, alltså 5 rem på var sida.</p>
+      </li>
+      <li>
+        <strong>Mycket indragen</strong> <code>indrag3</code>
+        <p>Nästan 9 rem på var sida. Smalast av alla utan ledare.</p>
+      </li>
+      <li>
+        <strong>Ingen ändring</strong> <code>standard</code>
+        <p>Namn till vänster, betyg till höger. Så det såg ut innan.</p>
+      </li>
+      <li>
+        <strong>Begränsad radbredd</strong> <code>smal</code>
+        <p>Raden slutar sträcka sig, kapad vid 24 rem.</p>
+      </li>
+      <li>
+        <strong>Halva spaltbredden</strong> <code>halv</code>
+        <p>Som smal, men följer med när spalten växer.</p>
+      </li>
+      <li>
+        <strong>Två spalter</strong> <code>tvaspalt</code>
+        <p>Kriterierna delas i två, alltså halveras varje rad.</p>
+      </li>
+      <li>
+        <strong>Randade rader</strong> <code>randad</code>
+        <p>Tonat band varannan rad. Tabellens klassiska svar.</p>
+      </li>
+      <li>
+        <strong>Vänsterställt</strong> <code>stjarnorforst</code>
+        <p>Stjärnorna direkt efter namnet, inget tomrum emellan.</p>
+      </li>
+      <li>
+        <strong>Vänsterställt, tal först</strong> <code>talforst</code>
+        <p>Siffran närmast namnet, stjärnorna som illustration.</p>
+      </li>
+      <li>
+        <strong>Betyget under namnet</strong> <code>under</code>
+        <p>Rutnät i tre spalter. Inget vågrätt avstånd alls.</p>
+      </li>
+      <li>
+        <strong>Stapel</strong> <code>stapel</code>
+        <p>Stapel i stället för stjärnor. Läser som mätning, inte omdöme.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Köpknapp <code>cta</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Köp hos {butik}</strong> <code>kop</code><span class="tag">arbetsläge</span>
+        <p>Tydligast avsikt. Lovar ett köp, vilket är vad som väntar.</p>
+      </li>
+      <li>
+        <strong>Se pris hos {butik}</strong> <code>sepris</code>
+        <p>Lägre tröskel, lovar bara en prisuppgift. Klassisk jämförelseform.</p>
+      </li>
+      <li>
+        <strong>Kolla priset hos {butik}</strong> <code>kollapris</code>
+        <p>Talspråkligare än Se pris. Samma låga löfte.</p>
+      </li>
+      <li>
+        <strong>Handla hos {butik}</strong> <code>handla</code>
+        <p>Mjukare än Köp, fortfarande kommersiellt.</p>
+      </li>
+      <li>
+        <strong>Visa mig priset hos {butik}</strong> <code>visamig</code>
+        <p>Första person. Enda varianten som vilar på ett publicerat test.</p>
+      </li>
+      <li>
+        <strong>Till {butik}</strong> <code>till</code>
+        <p>Kortast. Ren navigering, lovar ingenting. Kräver synligt pris intill.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="axis">
+    <h3>Länkstil <code>link</code></h3>
+    <ul>
+      <li class="is-default">
+        <strong>Streckad</strong> <code>streckad</code><span class="tag">arbetsläge</span>
+        <p>Streckad linje som blir heldragen vid hovring. Förvalet.</p>
+      </li>
+      <li>
+        <strong>Prickad</strong> <code>prickad</code>
+        <p>Som streckad men lättare. Kan bli gyttrig i små grader.</p>
+      </li>
+      <li>
+        <strong>Heldragen</strong> <code>heldragen</code>
+        <p>Alltid heldragen, tjockare vid hovring. Mest konventionell.</p>
+      </li>
+      <li>
+        <strong>Dämpad linje</strong> <code>dampad</code>
+        <p>Blek linje som tar färg vid hovring. Lugnast i länktät text.</p>
+      </li>
+      <li>
+        <strong>Bara vid hovring</strong> <code>vid-hovring</code>
+        <p>Ingen linje förrän musen är där. Snyggast, sämst att skanna.</p>
+      </li>
+    </ul>
+  </section>
+
+  <h2>Komponenter</h2>
+  <div class="overflow">
+  <table>
+    <thead><tr><th>Grupp</th><th>Katalog</th><th>Antal</th></tr></thead>
+    <tbody>
+      <tr><td>Produkt</td><td><code>components/product</code></td><td>23</td></tr>
+      <tr><td>Sajt</td><td><code>components/site</code></td><td>26</td></tr>
+      <tr><td>Verktyg</td><td><code>components/tools</code></td><td>28</td></tr>
+      <tr><td>shadcn-primitiver</td><td><code>components/ui</code></td><td>13</td></tr>
+      <tr><td><strong>Totalt</strong></td><td></td><td><strong>90</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="lede">En ny kategorisida lägger normalt till noll till två, och båda bör vara
+     kategorispecifika verktyg. Bygger du ett kort, en tabell eller en bricka finns den redan.</p>
+
+  <footer>Genererad av <code>scripts/brandbook.mjs</code>.</footer>
+</main>
+</body>
+</html>

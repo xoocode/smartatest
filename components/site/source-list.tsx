@@ -61,11 +61,35 @@ export function SourceList({
   if (!sources.length) return null;
 
   if (variant === "summary") {
-    const { testCount, publishers, marketLabels } = sourceSummary(sources);
+    const { testCount, comparisonCount, standardCount, publishers } =
+      sourceSummary(sources);
+    /* Tre tal, en rad per sorts källa.
+     *
+     * ⚠️ Lägg inte tillbaka ett totaltal, och lägg inte tillbaka en räkning av
+     * utgivare. Båda har funnits här och båda togs bort 2026-08-04 av samma
+     * skäl: de räknade en annan sak än de tre och gick inte att stämma av mot
+     * dem.
+     *
+     * Talet "publikationer" räknade distinkta avsändarnamn, och de namnen är
+     * till två tredjedelar myndigheter, butiker och tillverkare.
+     * Elsäkerhetsverket är ingen publikation, och TP-Links produktblad är
+     * ingen publikation.
+     *
+     * Totalen var värre. På `/sakerhet` visade rutan 146 källor, 64
+     * jämförelsesidor, 4 experttester och 78 publikationer. 146 − 64 − 4 är
+     * också 78, av ren slump, så rutan såg ut att gå ihop medan det fjärde
+     * talet i själva verket räknade något helt annat. En läsare som räknade
+     * efter drog fel slutsats.
+     *
+     * Nu är de tre talen tre disjunkta grupper, och utgivarna står namngivna i
+     * raden under, vilket säger mer än ett antal.
+     *
+     * Marknader ströks 2026-08-03: siffran var oftast ett eller två och sa
+     * inget en läsare kan använda. */
     const stats = [
+      { value: String(comparisonCount), label: "jämförelsesidor" },
       { value: String(testCount), label: "experttester" },
-      { value: String(publishers.length), label: "publikationer" },
-      { value: String(marketLabels.length), label: "marknader" },
+      { value: String(standardCount), label: "andra källor" },
     ];
 
     return (
@@ -80,7 +104,10 @@ export function SourceList({
         {title ? <p className="font-heading text-lg">{title}</p> : null}
         {intro ? <p className="text-muted-foreground">{intro}</p> : null}
 
-        <dl className="grid grid-cols-3 gap-3">
+        {/* Tre tal. Två kolumner på mobil, där "jämförelsesidor" annars bryts
+            på tre rader i en tredjedels kortbredd, och tre från sm och upp så
+            att raden blir jämn. */}
+        <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {/* col-reverse keeps the dl valid (dt before dd in the DOM) while
               showing the number above its label. Do not add a second visible
               copy of the label — a sr-only dt plus a visible p reads the label
@@ -95,16 +122,17 @@ export function SourceList({
           ))}
         </dl>
 
-        <div className="flex flex-col gap-1.5 text-sm">
-          <p className="text-muted-foreground">
-            <span className="font-medium text-foreground">Källor: </span>
-            {publishers.join(", ")}.
+        {/* Utgivarna, kapade vid åtta. `/sakerhet` har sextio, och en rad som
+            räknar upp alla slutar aldrig. Hoppas över helt när listan är tom i
+            stället för att rendera en ensam punkt, vilket den gjorde på
+            `/hem-hushall`. */}
+        {publishers.length ? (
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Bland andra: </span>
+            {publishers.slice(0, 8).join(", ")}
+            {publishers.length > 8 ? " med flera" : ""}.
           </p>
-          <p className="text-muted-foreground">
-            <span className="font-medium text-foreground">Marknader: </span>
-            {marketLabels.join(", ")}.
-          </p>
-        </div>
+        ) : null}
       </div>
     );
   }

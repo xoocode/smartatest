@@ -9,8 +9,30 @@ import { IMAGE_SIZES, ProductImage } from "@/components/product/product-image";
 import { ProsCons } from "@/components/product/pros-cons";
 import { RatingStars } from "@/components/product/rating-stars";
 import { ScoreBadge } from "@/components/product/score-badge";
+import { VerdictText } from "@/components/product/verdict-text";
 import { UserRating } from "@/components/product/user-rating";
 import { SpecList } from "@/components/product/spec-list";
+
+/**
+ * Fördelar och nackdelar som en egen tonad platta på skrivbordet.
+ *
+ * ## Varför en platta och inte bara marginal
+ *
+ * Blocket flöt ihop med omdömet ovanför och specifikationerna under. Marginal
+ * ensam löste det inte, och skälet är att ytorna omkring har samma bakgrund:
+ * ögat får ingen kant att stanna vid, hur mycket luft man än lägger till. Sex
+ * varianter provkördes en per produkt på /brandvarnare 2026-08-03, och den
+ * tonade plattan valdes framför hårlinjer och framför två egna kort. Kort blev
+ * för tungt när tio recensioner har dem.
+ *
+ * Bara `lg:`. Staplat på mobil finns ingen tvåspalt att skilja blocket från,
+ * och en tonad platta som går kant i kant med kortet läser sig som ett fel.
+ *
+ * Delas med `WinnerCard`, som har samma konstant. Ändras den ena ska den andra
+ * följa med, annars ser vinnaren och recensionerna olika ut på samma sida.
+ */
+export const PROS_CONS_PANEL =
+  "lg:my-[var(--space-row)] lg:rounded-lg lg:bg-muted lg:p-[var(--space-card)]";
 
 export type ProductReviewProps = {
   product: Product;
@@ -51,9 +73,18 @@ export function ProductReview({
         className,
       )}
     >
-      <div className="flex flex-col gap-[var(--space-card)] lg:flex-row">
+      {/* Vågrätt luft är inte samma sak som lodrät. Staplat på mobil är
+          `--space-card` rätt avstånd mellan bild och text, men i två spalter
+          på skrivbordet blir samma tal trångt: bildspalten är 14 rem och
+          texten börjar direkt efter den. `lg:gap-x` höjer bara kolumnavståndet
+          och lämnar mobilstapeln orörd. */}
+      <div className="flex flex-col gap-[var(--space-card)] lg:flex-row lg:gap-x-block">
+        {/* div, inte aside. Bilden och köpknappen är en del av recensionen,
+            inte ett sidoinnehåll bredvid den, och ett aside här gav fem extra
+            complementary-landmärken inuti main på en sida med fem produkter.
+            Landmärken ska hjälpa navigering, inte fylla listan. */}
         {variant === "full" ? (
-          <aside className="flex shrink-0 flex-col gap-row lg:w-56">
+          <div className="flex shrink-0 flex-col gap-row lg:w-56">
             <ProductImage
               src={product.image}
               alt={product.name}
@@ -82,7 +113,7 @@ export function ProductReview({
               size="lg"
               block
             />
-          </aside>
+          </div>
         ) : null}
 
         <div className="flex min-w-0 flex-1 flex-col gap-row">
@@ -102,11 +133,20 @@ export function ProductReview({
             <UserRating product={product} />
           </div>
 
-          {children ?? (
-            <p className="text-muted-foreground">{product.verdict}</p>
-          )}
+          {children ??
+            (product.verdict ? (
+              <VerdictText
+                text={product.verdict}
+                className="text-muted-foreground"
+              />
+            ) : null)}
 
-          <ProsCons pros={product.pros} cons={product.cons} size="sm" />
+          <ProsCons
+            pros={product.pros}
+            cons={product.cons}
+            size="sm"
+            className={PROS_CONS_PANEL}
+          />
 
           {showSpecs ? <SpecList specs={product.specs} variant="grid" size="sm" /> : null}
 

@@ -27,10 +27,10 @@ export type BreadcrumbsProps = {
 };
 
 /**
- * URL hierarchy is flat by decision (see .agent/plan-components.md), but the
+ * URL hierarchy is flat by decision (see .agent/plans/components.md), but the
  * taxonomy is not: a category page reads Hem › Smart hem › Smart belysning
  * while still living at /smart-belysning. Build the trail with
- * `categoryTrail()` rather than assembling it per page.
+ * `testPageTrail()` rather than assembling it per page.
  *
  * A crumb with no `href` renders as plain text and emits no `item` in the
  * JSON-LD. Google only expects that of the final entry, so an unlinked middle
@@ -92,7 +92,10 @@ export function Breadcrumbs({
               {crumb.href && !last ? (
                 <Link
                   href={crumb.href}
-                  className="text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                  /* inline-flex plus min-h-6 ger 24 px hojd utan att flytta texten:
+                     WCAG 2.5.8 kraver 24x24 for klickytor, och brodsmulorna
+                     omfattas inte av undantaget for lankar inne i en mening. */
+                  className="inline-flex min-h-6 items-center text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
                 >
                   {crumb.label}
                 </Link>

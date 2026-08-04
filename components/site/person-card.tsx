@@ -1,8 +1,7 @@
 import Link from "next/link";
-/* lucide 1.x dropped brand icons, so there is no LinkedIn glyph. A generic
-   external-link mark plus an aria-label beats hand-rolling a trademarked logo. */
-import { ExternalLink, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
+import { PUBLISHER } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { personHref, type Person } from "@/lib/people";
 import { PersonAvatar } from "@/components/site/person-avatar";
@@ -34,31 +33,25 @@ export type PersonCardProps = {
   className?: string;
 };
 
+/*
+ * Kontaktknappen går till redaktionens brevlåda, inte till en personlig adress.
+ *
+ * Ändrat 2026-08-03. Tidigare bar varje person en egen `email`, och en av dem
+ * dessutom en LinkedIn-länk. Båda är borta. En delad adress är den enda som
+ * håller: den finns redan, den bevakas, och den slutar inte fungera när någon
+ * i redaktionen byts ut. En utgående profillänk lämnade dessutom sajten från
+ * just den sida som ska svara på vem som står bakom betygen.
+ */
 function ContactLinks({ person }: { person: Person }) {
-  if (!person.email && !person.linkedin) return null;
-
   return (
     <div className="flex items-center gap-2">
-      {person.email ? (
-        <a
-          href={`mailto:${person.email}`}
-          aria-label={`Mejla ${person.name}`}
-          className="themed-border flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        >
-          <Mail aria-hidden="true" className="size-4" />
-        </a>
-      ) : null}
-      {person.linkedin ? (
-        <a
-          href={person.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${person.name} på LinkedIn`}
-          className="themed-border flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        >
-          <ExternalLink aria-hidden="true" className="size-4" />
-        </a>
-      ) : null}
+      <a
+        href={`mailto:${PUBLISHER.email}`}
+        aria-label={`Mejla redaktionen om ${person.name}s texter`}
+        className="themed-border flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      >
+        <Mail aria-hidden="true" className="size-4" />
+      </a>
     </div>
   );
 }
@@ -78,7 +71,7 @@ export function PersonCard({
 
   const nameOf = (p: Person) =>
     link ? (
-      <Link href={personHref(p)} className="hover:underline">
+      <Link href={personHref(p)} className="inline-flex min-h-6 items-center hover:underline">
         {p.name}
       </Link>
     ) : (

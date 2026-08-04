@@ -145,7 +145,7 @@ export default function OpengraphImage() {
               color: OG_COLORS.mutedForeground,
             }}
           >
-            Provision påverkar inte rankningen
+            Vad du ska köpa, och varför
           </div>
         </div>
       </div>

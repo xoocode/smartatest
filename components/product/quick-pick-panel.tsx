@@ -42,7 +42,8 @@ export function QuickPickPanel({
   const rows = products.slice(0, limit);
 
   return (
-    <aside
+    <section
+      aria-label="Snabbval"
       data-slot="quick-pick-panel"
       data-variant={variant}
       className={cn(
@@ -74,11 +75,16 @@ export function QuickPickPanel({
             </span>
 
             {showImage ? (
+              /* Ingen ram. Rutan är 48 pixlar, och den tonade plattan med sin
+                 innerkant åt en tredjedel av motivet i höjd och bredd. Bilden
+                 fyller nu hela rutan, alltså blir produkten lika stor som den
+                 grå ytan var. */
               <ProductImage
                 src={product.image}
                 alt={product.name}
                 fallbackLabel={product.brand}
                 sizes={IMAGE_SIZES.thumb}
+                frame="none"
                 className="size-12 shrink-0"
               />
             ) : null}
@@ -141,6 +147,6 @@ export function QuickPickPanel({
           {footerLabel}
         </a>
       ) : null}
-    </aside>
+    </section>
   );
 }

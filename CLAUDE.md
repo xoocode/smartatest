@@ -1,47 +1,50 @@
-# smartatest.se — Claude Code Instructions
+# smartatest.se
 
-## What this project is
-Swedish comparison/testsieger affiliate site for **smart hem & säkerhet** products. Domain: `smartatest.se`. Deployment: Vercel. Registrar: HostUp.
+Swedish comparison site for smart home and home security products, monetised by
+affiliate links and purchase-intent traffic. Next.js 16 on Vercel, live with 25+
+pages. Content is Swedish; code and these notes are English.
 
-**Read `.agent/plan.md` first** — full project plan, site scope, sub-categories to build, affiliate program supply, Google Ads strategy. Read `.agent/research.md` for the underlying keyword/vertical/program analysis.
+**The rule that shapes everything:** we do not run a laboratory. We read every
+independent test, reconcile them, publish the weighting and cite every source.
+Never write, imply, or leave standing any claim that we measured something
+ourselves. That model is the product, not a limitation to hide.
 
-## Reference sites (structure to model)
-- https://gesundheitsvergleich-deutschland.de/blogs/produktratgeber/vitamind3k2-tropfen-testsieger — German testsieger format, aggressive PPC
-- https://www.xn--kostnrd-e1a.se/kosttillskott/energidryck — Swedish single-product deep dive
+## Where things are
 
-## Deployment
-- **Do NOT auto-deploy after changes.** Only deploy when explicitly asked.
-- Deploy sequence: `git add . && git commit -am "message" && git push origin main && vercel --prod`
+| Working on | Read |
+|---|---|
+| Any sentence a visitor can see | Skill `swedish-voice` |
+| A new test page, start to finish | Skill `new-page` |
+| Competitors, tests, products, search intent | `.claude/context/research.md` |
+| Prices, specs, images, ratings, `lib/data/*` | `.claude/context/data.md` |
+| Affiliate programmes, merchant links, PPC | `.claude/context/money.md` |
+| Components, tools, what may be built new | `.claude/context/build.md` |
+| Schema, sitemap, dates, AI citation | `.claude/context/seo.md` |
+| Checks, the quality bar, deploy | `.claude/context/ship.md` |
+| Something renders wrong without erroring | `.claude/context/traps.md` |
+| What a kind of page is called, and why a page is laid out as it is | `.claude/references/page-anatomy.md` |
+| The design system | `/styleguide`, `.claude/references/brandbook.html` |
+| Where a new rule or learning belongs | `.claude/context/routing.md` |
 
-## Rules
+Project background, keyword data and per-test-page research live in `.agent/`.
 
-### File organization
-- **Never save files to the project root.** All working files, temporary outputs, drafts, and downloads go in `.agent/` with clear subfolder structure: `.agent/tmp/`, `.agent/drafts/`, etc.
-- **Plan files** must be saved to `.agent/` with the prefix `plan-` and a descriptive name.
+## Gates
 
-### Communication
-- Use AskUserQuestion to align on requirements before doing significant work.
+- **Never deploy automatically.** Only when explicitly asked.
+  `git add . && git commit -am "…" && git push origin main && vercel --prod`
+- **Never save files to the project root.** Working files go in `.agent/`, plans
+  in `.agent/plans/`.
+- **Never `status: "live"`** in `lib/catalog.ts` before the page is genuinely
+  publishable. A planned test page in the sitemap feeds Google 404s.
+- Align with AskUserQuestion before significant work, not after.
+- Run `pnpm check` after multi-file changes. It is faster than reading the diff.
+- Subagents only when asked for. The work here is sequential and research-heavy,
+  and a subagent that re-derives a price from memory invents it.
 
-### Code quality
-- Centralize components and shared logic. Before creating something new, check if a reusable version already exists.
-- Do what has been asked; nothing more, nothing less.
-- Do NOT use subagents (Task/TaskCreate) unless explicitly asked.
+## Notes
 
-### Content language
-Swedish. Follow the naturlig-svenska style (avoid AI-tells like em-dashes as glue, rule-of-three reflex, thread metaphors). **Write from inside the market, not about it**: "svensk text", "på svenska", "det svenska ordet för", "svensk handel" all mark the writer as an outsider describing Sweden. Inflections like "svenska hem" and "svensk vinter" are fine. Content targets purchase-intent queries — use product-category names (robotdammsugare, brandvarnare, övervakningskamera), NOT concept names ("smart hem"). Swedes don't shop by the word "smart".
-
-## Credentials (in `C:\code\credentials\`)
-- `adtraction/credentials.json` — affiliate network API (existing account)
-- `hostup/credentials.json` — domain registrar + DNS API for `.se` domains
-
-## Tech stack (planned — not yet scaffolded)
-- Next.js 16 (App Router) + React 19 + TypeScript
-- Tailwind CSS 4
-- MDX for product-category content initially (add DB later if needed)
-- Neon Postgres + Drizzle ORM if/when a DB is added
-- Vercel deployment
-
-## Debugging
-- Run `tsc --noEmit` after multi-file TS changes.
-- For .se domain availability checks, use `whois.iis.se` port 43 (not DNS NXDOMAIN — that misses parked domains).
-- Vercel/Cloudflare cannot register `.se` — always via HostUp.
+- This Next.js version differs from training data. Read
+  `node_modules/next/dist/docs/` before writing framework code.
+- `.se` domains go through HostUp, never Vercel or Cloudflare. Check
+  availability via `whois.iis.se` port 43; DNS NXDOMAIN misses parked domains.
+- Credentials in `C:\code\credentials\`: `adtraction/`, `hostup/`.

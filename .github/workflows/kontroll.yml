@@ -1,0 +1,51 @@
+# Typkontroll, lintning, sajtens egna kontroller och ett skarpt bygge.
+#
+# Varfoer det finns: fram till 2026-08-03 fanns ingen automatik som byggde
+# repot. Ett bygge som sprack uppdicktes foerst av Vercel, alltsaa efter push,
+# och `pnpm check` koerde bara em-streck och produktreferenser. En agent som saag
+# groent daer trodde att koden var verifierad.
+#
+# `pnpm check` innehaaller nu tsc och eslint, saa jobbet nedan aer samma kommando
+# som en maenniska koer lokalt. Haall dem lika: skiljer de sig aat blir CI en
+# andra sanning i staellet foer en kontroll.
+#
+# Byggsteget koers separat och sist eftersom det aer det dyraste. Det faangar det
+# som varken tsc eller eslint ser, till exempel en MDX-fil som saknas eller en
+# sida som kastar under prerendering.
+
+name: kontroll
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# En koerning per gren. En ny push avbryter den foerra, som aendaa aer inaktuell.
+concurrency:
+  group: kontroll-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kontroll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # tsc, eslint, em-streck och produktreferenser.
+      - run: pnpm check
+
+      # Miljoevariablerna saknas i CI med flit. Bygget ska klara sig utan dem,
+      # och gjorde det inte det vore det ett fel i sig: `getConfig()` stalls av
+      # tyst utan naegel och origin trial-taggen uteblir bara.
+      - run: pnpm build

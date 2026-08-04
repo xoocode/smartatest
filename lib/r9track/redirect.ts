@@ -123,6 +123,33 @@ export function createTillRoute(options: TillRouteOptions) {
     const config = getConfig(options.config);
     const { id } = await Promise.resolve(context.params);
 
+    /*
+     * Spekulativa hämtningar utför ingenting.
+     *
+     * Webbläsare som förhämtar eller förrenderar en länk skickar `Sec-Purpose`.
+     * Den här routen har en sidoeffekt: den registrerar ett klick och kan i
+     * `redirect`-läge dessutom hämta en nätverkslänk med vår sub-id i. Att
+     * utföra det för någon som inte klickat ger falska klick i statistiken och
+     * en träff hos butiken som ingen människa orsakat.
+     *
+     * 503 i stället för att bara hoppa över rapporteringen: svaret ska inte
+     * cachas och vidarelänken ska inte utföras alls. Webbläsaren överger
+     * spekulationen, och ett riktigt klick gör en riktig förfrågan strax efter.
+     * MDN anger just non-2xx som sättet att avböja förrendering.
+     *
+     * Sajten som använder modulen bör dessutom utesluta prefixet i sina
+     * speculation rules, se lib/speculation.ts i smartatest. Det här är
+     * bältet: det gäller även spekulation vi inte bett om, alltså webbläsarens
+     * egen heuristik eller en förhämtning från någon annans sida.
+     */
+    const secPurpose = request.headers.get("sec-purpose") ?? "";
+    if (secPurpose.includes("prefetch") || secPurpose.includes("prerender")) {
+      return new NextResponse(null, {
+        status: 503,
+        headers: { "cache-control": "no-store" },
+      });
+    }
+
     const target = await resolve(id, request);
     if (!target?.url) {
       return new NextResponse(null, { status: 404 });

@@ -8,7 +8,7 @@ import {
   termsInGroup,
   type GlossaryTerm,
 } from "@/lib/glossary";
-import { CATEGORY_INDEX } from "@/lib/catalog";
+import { TEST_PAGE_INDEX, isBrowsable } from "@/lib/catalog";
 import { TOOLS, toolHref } from "@/lib/tools";
 import { DEFAULT_REVIEWER } from "@/lib/people";
 import { graph, orgRef, pageEntity } from "@/lib/schema";
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
 function resolveHref(href: string | undefined): string | null {
   if (!href) return null;
   if (TOOLS.some((tool) => toolHref(tool) === href)) return href;
-  const entry = CATEGORY_INDEX.find((c) => c.href === href);
-  if (entry) return entry.status === "live" ? href : null;
+  const entry = TEST_PAGE_INDEX.find((c) => c.href === href);
+  if (entry) return isBrowsable(entry) ? href : null;
   return href;
 }
 
@@ -105,6 +105,14 @@ export default function OrdlistaPage() {
         url: `${SITE.url}${PAGE_URL}#${term.slug}`,
         description: term.definition,
         ...(term.aliases?.length ? { alternateName: term.aliases } : {}),
+        /* Kopplar vår definition till entiteten resten av världen känner till.
+           Ordlistan säger vad *vi* menar; `sameAs` säger att det är samma sak.
+           Wikidata har fyra Thread, och tre handlar om garn, skruvgängor och
+           ett tv-spel. Q-numren är uppslagna och kontrollerade, se
+           lib/glossary.ts. Termer utan verifierad entitet får ingen. */
+        ...(term.wikidata
+          ? { sameAs: `https://www.wikidata.org/wiki/${term.wikidata}` }
+          : {}),
         inDefinedTermSet: { "@id": `${SITE.url}${PAGE_URL}#termset` },
       })),
     },
@@ -133,7 +141,7 @@ export default function OrdlistaPage() {
         <TocNav
           variant="inline"
           entries={GLOSSARY_GROUPS.map((g) => ({ id: g.key, label: g.label }))}
-          className="mt-[var(--space-block)]"
+          className="mt-block"
         />
       </Container>
 
@@ -145,7 +153,7 @@ export default function OrdlistaPage() {
           tone={i % 2 === 0 ? "muted" : "default"}
           title={group.label}
         >
-          <dl className="flex flex-col gap-[var(--space-block)]">
+          <dl className="flex flex-col gap-block">
             {termsInGroup(group.key).map((term) => (
               <Term key={term.slug} term={term} />
             ))}

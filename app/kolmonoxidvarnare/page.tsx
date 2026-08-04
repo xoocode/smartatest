@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { KOLMONOXIDVARNARE, categoryTrail } from "@/lib/categories";
+import { KOLMONOXIDVARNARE, testPageTrail } from "@/lib/test-pages";
 import { KOLMONOXIDVARNARE_SOURCES } from "@/lib/sources";
 import {
   KOLMONOXIDVARNARE_CONSIDERED,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/kolmonoxidvarnare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { NOT_STATED, priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -32,6 +33,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/kolmonoxidvarnare/kopguide.mdx";
 
@@ -44,7 +46,7 @@ import Kopguide from "@/content/kolmonoxidvarnare/kopguide.mdx";
  *
  * Sidans fynd är att EN 50291 har två delar och två generationer, och att
  * ingen svensk jämförelse nämner någotdera. Se lib/categories.ts för hur det
- * påverkar viktningen och .agent/research-kolmonoxidvarnare.md för underlaget.
+ * påverkar viktningen och .agent/research/kolmonoxidvarnare.md för underlaget.
  *
  * Tre saker som byggdes in från start, efter självgranskningen av /brandfilt:
  *
@@ -54,21 +56,24 @@ import Kopguide from "@/content/kolmonoxidvarnare/kopguide.mdx";
  *    tredje part och hur butikerna fördelar sig i rankningen.
  * 3. #behover-du-en säger nej till de läsare som inte behöver produkten.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = KOLMONOXIDVARNARE;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-02";
+const TEST_PAGE = KOLMONOXIDVARNARE;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-03";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "EN 50291 har två delar: del 1 gäller bostäder, del 2 husvagn, husbil och båt. Två av sex varnare anger dessutom en utgåva som drogs tillbaka 2021. Vi jämförde sex varnare från 399 till 1 099 kronor.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -101,15 +106,16 @@ export default async function KolmonoxidvarnarePage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -117,9 +123,10 @@ export default async function KolmonoxidvarnarePage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
               Standarden har två delar, och det avgör var varnaren får sitta.
               Del 1 gäller bostäder, del 2 gäller husvagn, husbil och båt. Två av
@@ -150,7 +157,7 @@ export default async function KolmonoxidvarnarePage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -169,7 +176,7 @@ export default async function KolmonoxidvarnarePage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -231,7 +238,7 @@ export default async function KolmonoxidvarnarePage() {
           <p>
             <strong>Utgåvan spelar också roll.</strong> EN 50291-1:2018 ersatte
             2010 års utgåva, som drogs tillbaka av BSI i september 2021. Det
-            viktigaste som tillkom är kravet på livslängdsindikering, alltså att
+            viktigaste som tillkom är kravet på livslängdsindikering, det vill säga att
             varnaren själv säger till med ljud och synlig signal när sensorn är
             förbrukad. Utan den hänger det till slut en död varnare på väggen som
             ser ut precis som en fungerande.
@@ -269,13 +276,13 @@ export default async function KolmonoxidvarnarePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sex"
-        description="Två rader avgör: Certifiering, där både delen och utgåvan spelar roll, och Livslängd, som är kategorins verkliga kostnad."
+        description="På raden Certifiering spelar både delen och utgåvan roll. Livslängd är varnarnas verkliga kostnad."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, inte att egenskapen saknas.`}
+          caption={priceCaption(PRICE_CHECKED, NOT_STATED)}
         />
       </Section>
 
@@ -285,7 +292,7 @@ export default async function KolmonoxidvarnarePage() {
         tone="muted"
         width="default"
         title="Vem har kontrollerat det här?"
-        description="Tre saker om jämförelsen ovan som vi hellre säger själva än låter dig upptäcka."
+        description="Vad rankningen bygger på, och var den är svag."
       >
         <Prose>
           <p>
@@ -297,20 +304,10 @@ export default async function KolmonoxidvarnarePage() {
             kontrollera innan du betalar.
           </p>
           <p>
-            <strong>
-              Butiken vi tjänar mest på tar ingen av de två översta platserna.
-            </strong>{" "}
-            Brandvarnare.se är den enda butiken i vår brandkategori vi skulle
-            kunna annonsera mot, och deras fyra varnare hamnade på plats tre till
-            sex. Etta blev Kjell och tvåa Clas Ohlson. Det är inget vi styrt fram
-            utan vad certifieringen och livslängden gav.
-          </p>
-          <p>
             <strong>Två varnare hos Kjell rankas inte alls.</strong> Deras Luma
             CA150 och deras eget Kolmonoxidlarm saknar publicerad specifikation,
-            och därmed all uppgift om vilken del av standarden de provats mot. Vi
-            kontrollerade det för hand och inte bara med sökning. De ligger under
-            Andra produkter vi övervägde, med skälet utskrivet.
+            och därmed all uppgift om vilken del av standarden de provats mot. De
+            ligger under Andra produkter vi övervägde, med skälet utskrivet.
           </p>
         </Prose>
       </Section>
@@ -322,12 +319,12 @@ export default async function KolmonoxidvarnarePage() {
         title="Recensioner av varje varnare"
         description="Alla sex bedöms mot samma fem kriterier. Certifieringen är angiven av butiken, inte kontrollerad av oss."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -359,13 +356,13 @@ export default async function KolmonoxidvarnarePage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Certifieringen väger tyngst men inte lika tungt som på vår brandfiltssida, eftersom sensorns livslängd här är en lika verklig skillnad: fem år mot tio är dubbla kostnaden över tid. Skalan för certifiering är 5,0 för del 1 och 2 i gällande utgåvor, 4,0 för enbart del 2 i gällande utgåva, 3,5 för enbart del 1 i gällande utgåva och 2,0 när båda delarna anges men i tillbakadragen utgåva. Kriteriet Livslängd bedömer enhetens livslängd och inte batteriets, eftersom det är enheten som ska kastas när sensorn löpt ut. Vi hittade inget svenskt eller nordiskt test av kategorin och lånar inte Consumer Reports omdömen, av skäl som står under Källor. Priserna är hos den butik vi länkar till. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Certifieringen väger tyngst men inte lika tungt som på vår brandfiltssida, eftersom sensorns livslängd här är en lika verklig skillnad: fem år mot tio är dubbla kostnaden över tid. Skalan för certifiering är 5,0 för del 1 och 2 i gällande utgåvor, 4,0 för enbart del 2 i gällande utgåva, 3,5 för enbart del 1 i gällande utgåva och 2,0 när båda delarna anges men i tillbakadragen utgåva. Kriteriet Livslängd bedömer enhetens livslängd och inte batteriets, eftersom det är enheten som ska kastas när sensorn löpt ut. Vi hittade inget svenskt eller nordiskt test av kategorin och lånar inte Consumer Reports omdömen, av skäl som står under Källor. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -373,10 +370,10 @@ export default async function KolmonoxidvarnarePage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte produkterna fysiskt. Det här är vad vi gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -399,7 +396,7 @@ export default async function KolmonoxidvarnarePage() {
         title="Källor"
         description="Standardens innehåll, myndighetens riskbild och butikernas egna produktsidor för de uppgifter vi jämfört."
       >
-        <Prose className="mb-[var(--space-block)]">
+        <Prose className="mb-block">
           <p>
             <strong>
               Det finns inget svenskt eller nordiskt test av kolmonoxidvarnare.
@@ -430,9 +427,8 @@ export default async function KolmonoxidvarnarePage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "fireSafety", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

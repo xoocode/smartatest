@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
 import { graph, pageEntity } from "@/lib/schema";
-import { categoriesInGroup, SMART_HEM } from "@/lib/catalog";
-import { SMART_HEM_SOURCES } from "@/lib/sources";
+import { SMART_HEM, testPagesInCategory, isBrowsable } from "@/lib/catalog";
+import { groupSources, SMART_HEM_SOURCES } from "@/lib/sources";
 import { PEOPLE } from "@/lib/people";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
-import { CategoryGrid } from "@/components/site/category-grid";
+import { TestPageGrid } from "@/components/site/test-page-grid";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
 import { Prose } from "@/components/site/prose";
@@ -25,7 +25,7 @@ import Guide from "@/content/smart-hem/guide.mdx";
  */
 
 const PAGE_URL = SMART_HEM.href;
-const UPDATED = "2026-08-01";
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
   title: "Smart hem: så väljer du rätt produkter",
@@ -78,6 +78,10 @@ const FAQ = [
 ];
 
 export default function SmartHemPage() {
+  /* Hela gruppens källor, avdubblerade. Se `groupSources` i lib/sources.ts:
+     sidan skickade tidigare en handplockad kategorilista hit. */
+  const groupSources_ = groupSources(SMART_HEM, SMART_HEM_SOURCES);
+
   /* Gruppnav. `CollectionPage` med kategorierna som ItemList, så gruppen blir
      en entitet i grafen och inte bara en rubrik i menyn. */
   const hubJsonLd = graph([
@@ -93,8 +97,8 @@ export default function SmartHemPage() {
       "@id": `${SITE.url}${PAGE_URL}#kategorier`,
       name: `Jämförelser inom ${SMART_HEM.label.toLowerCase()}`,
       url: `${SITE.url}${PAGE_URL}`,
-      itemListElement: categoriesInGroup(SMART_HEM)
-        .filter((c) => c.status === "live")
+      itemListElement: testPagesInCategory(SMART_HEM)
+        .filter(isBrowsable)
         .map((c, i) => ({
           "@type": "ListItem",
           position: i + 1,
@@ -127,9 +131,9 @@ export default function SmartHemPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <p className="eyebrow text-brand">Guide</p>
+            <p className="eyebrow text-brand">Kategori</p>
             <h1 className="text-h1">Smart hem: så väljer du rätt produkter</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Ingen redaktion i Sverige testar allt. Det som finns är dussintals
@@ -143,7 +147,7 @@ export default function SmartHemPage() {
           </div>
 
           <SourceList
-            sources={SMART_HEM_SOURCES}
+            sources={groupSources_}
             variant="summary"
             title="Det här har vi gått igenom"
             className="lg:sticky lg:top-20 lg:self-start"
@@ -153,7 +157,7 @@ export default function SmartHemPage() {
 
       {/* The hero above supplies the space over the pills; without this the
           row sat flush against the section below it. */}
-      <Container size="wide" className="pb-[var(--space-block)]">
+      <Container size="wide" className="pb-block">
         <TocNav variant="inline" entries={TOC} />
       </Container>
 
@@ -162,15 +166,15 @@ export default function SmartHemPage() {
         tone="muted"
         width="wide"
         eyebrow="Våra jämförelser"
-        title="Testerna i kategorin"
+        title="Vad testerna säger"
         description="Varje test bygger på samma metod: publicerade mätvärden och oberoende experttester, sammanvägda mot kriterier vi redovisar öppet."
       >
-        {/* categoriesInGroup, inte hela CATEGORY_INDEX. Fram till 2026-08-02
+        {/* testPagesInCategory, inte hela TEST_PAGE_INDEX. Fram till 2026-08-02
             fanns bara en grupp och skillnaden syntes inte. När Säkerhet
             öppnades började den här navsidan lista vattenlarm och kodlås som
             om de vore smarta hem-produkter, vilket är precis den hopblandning
             grupperna finns för att undvika. */}
-        <CategoryGrid entries={categoriesInGroup(SMART_HEM)} columns={3} />
+        <TestPageGrid entries={testPagesInCategory(SMART_HEM)} columns={3} />
       </Section>
 
       <Section width="default">
@@ -185,7 +189,7 @@ export default function SmartHemPage() {
         title="Källor"
         description="Experttesterna vi har gått igenom, och specifikationerna vi har kontrollerat definitionerna mot."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           <SourceList sources={tests} title="Experttester" />
           <SourceList
             sources={standards}
@@ -207,9 +211,8 @@ export default function SmartHemPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "electrical"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

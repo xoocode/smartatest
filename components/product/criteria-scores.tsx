@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { cn } from "@/lib/utils";
 import { weightedRating, type Criterion } from "@/lib/products";
 import { RatingStars } from "@/components/product/rating-stars";
@@ -38,7 +40,8 @@ export function CriteriaScores({
   showWeights = false,
   className,
 }: CriteriaScoresProps) {
-  const total = weightedRating(scores, criteria);
+  /* weightedRating är oavrundad sedan 2026-08-03, så den avrundas här. */
+  const total = Math.round(weightedRating(scores, criteria) * 10) / 10;
   const textSize = size === "sm" ? "text-sm" : "";
 
   const value = (score: number) => (
@@ -62,7 +65,23 @@ export function CriteriaScores({
         </span>
       );
     }
-    return <RatingStars value={score} size={size === "sm" ? "sm" : "md"} />;
+    return (
+      <>
+        <span data-part="stars">
+          <RatingStars value={score} size={size === "sm" ? "sm" : "md"} />
+        </span>
+        {/* Stapeln renderas alltid och göms av CSS. Bredden kan bara sättas
+            här, eftersom den beror på betyget, och en variant som byter
+            stjärnor mot stapel måste därför ha elementet på plats. Se
+            `data-criteria` i globals.css. */}
+        <span
+          data-part="bar"
+          aria-hidden="true"
+          className="rounded-full bg-award-accent"
+          style={{ "--criteria-fill": `${(score / 5) * 100}%` } as CSSProperties}
+        />
+      </>
+    );
   };
 
   return (
@@ -71,14 +90,19 @@ export function CriteriaScores({
       data-variant={variant}
       className={cn("flex flex-col", textSize, className)}
     >
-      {criteria.map((criterion) => {
+      {/* Egen behållare runt kriterieraderna, så att en variant kan göra dem
+          till ett rutnät eller smalna av dem utan att totalraden följer med.
+          Totalraden ska spänna hela bredden i samtliga varianter. */}
+      <div data-part="rows" className="flex flex-col">
+        {criteria.map((criterion) => {
         const score = scores[criterion.key];
         return (
           <div
             key={criterion.key}
+            data-part="row"
             className="flex items-center justify-between gap-4 py-1.5"
           >
-            <dt className="min-w-0">
+            <dt data-part="label" className="min-w-0">
               {criterion.label}
               {showWeights ? (
                 <span className="ml-1.5 text-muted-foreground tabular-nums">
@@ -86,7 +110,12 @@ export function CriteriaScores({
                 </span>
               ) : null}
             </dt>
-            <dd className="flex shrink-0 items-center gap-3">
+
+            {/* Punktledaren renderas alltid och göms av CSS, av samma skäl som
+                stapeln: en variant kan inte lägga till ett element. */}
+            <span data-part="leader" aria-hidden="true" />
+
+            <dd data-part="value" className="flex shrink-0 items-center gap-3">
               {typeof score === "number" ? (
                 <>
                   {gauge(score)}
@@ -98,7 +127,8 @@ export function CriteriaScores({
             </dd>
           </div>
         );
-      })}
+        })}
+      </div>
 
       {showTotal ? (
         <div className="mt-1 flex items-center justify-between gap-4 border-t border-border pt-2.5 font-semibold">

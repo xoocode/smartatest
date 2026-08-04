@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { categoryTrail, UTOMHUSTIMER } from "@/lib/categories";
+import { testPageTrail, UTOMHUSTIMER } from "@/lib/test-pages";
 import { UTOMHUSTIMER_SOURCES } from "@/lib/sources";
 import {
   PRICE_CHECKED,
@@ -11,6 +11,7 @@ import {
 } from "@/lib/data/utomhustimer";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -33,6 +34,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/utomhustimer/kopguide.mdx";
 
@@ -46,21 +48,24 @@ import Kopguide from "@/content/utomhustimer/kopguide.mdx";
  * rankade produkterna var slut vid priskontrollen. Kör om kontrollen före
  * lansering.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = UTOMHUSTIMER;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-01";
+const TEST_PAGE = UTOMHUSTIMER;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-03";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "Vi jämförde tio utomhustimers, från en mekanisk skiva på 49,90 kronor till en Z-Wave-plugg på 689. IP44 är golvet, kylan är det ingen anger, och maxlasten följer inte priset.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -91,15 +96,16 @@ export default async function UtomhustimerPage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -107,9 +113,10 @@ export default async function UtomhustimerPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
               Vi jämförde tio timers för utomhusbruk, från en mekanisk skiva på
               femtio kronor till en Z-Wave-plugg på nästan sjuhundra. Alla klarar
@@ -141,7 +148,7 @@ export default async function UtomhustimerPage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -160,7 +167,7 @@ export default async function UtomhustimerPage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -225,7 +232,7 @@ export default async function UtomhustimerPage() {
           legend="Filtrera på produkttyp"
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Kategorin är säsongsvara och tre av produkterna var slut vid kontrollen, vilket står i deras specar.`}
+          caption={priceCaption(PRICE_CHECKED, `Kategorin är säsongsvara, så tillgängligheten skiftar under året. Vi rankar utan hänsyn till lagerstatus.`)}
         />
       </Section>
 
@@ -236,12 +243,12 @@ export default async function UtomhustimerPage() {
         title="Recensioner av varje timer"
         description="Alla tio bedöms mot samma fem kriterier. Kategorin saknar helt oberoende tester, så det finns inget kriterium för testomdöme här, till skillnad från på våra andra sidor."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -273,13 +280,13 @@ export default async function UtomhustimerPage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen på sidan."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Den här kategorin saknar kriteriet Omdöme i oberoende tester, som finns på våra övriga sidor. Skälet är att det inte existerar ett enda oberoende test av utomhustimers på någon nordisk marknad: varken Råd & Rön, Ljud & Bild eller Tek.no har testat kategorin, och de sidor som ligger högst i sökresultatet är affiliatelistor. Vi väger hellre bort ett kriterium än fyller det med användarbetyg och kallar det test. Priserna är hos den butik vi länkar till. Jula betalar oss ingenting och ingår inte i något nätverk vi kan söka till, men har kategorins billigaste och bäst betygsatta produkt, och den länkas därför ändå. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Den här kategorin saknar kriteriet Omdöme i oberoende tester, som finns på våra övriga sidor. Skälet är att det inte existerar ett enda oberoende test av utomhustimers på någon nordisk marknad: varken Råd & Rön, Ljud & Bild eller Tek.no har testat kategorin, och de listor som ligger högst i sökresultatet rankar utan att ha provat en enda timer. Vi väger hellre bort ett kriterium än fyller det med användarbetyg och kallar det test. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -287,10 +294,10 @@ export default async function UtomhustimerPage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte alla produkterna själva fysiskt. Det här är vad vi faktiskt gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -323,9 +330,8 @@ export default async function UtomhustimerPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "electrical", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

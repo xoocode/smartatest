@@ -7,6 +7,7 @@ import { graph, orgRef, pageEntity } from "@/lib/schema";
 import { Container } from "@/components/site/container";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Prose } from "@/components/site/prose";
+import { PublisherLink } from "@/components/site/publisher-link";
 import { UpdatedStamp } from "@/components/site/updated-stamp";
 
 /*
@@ -31,7 +32,7 @@ import { UpdatedStamp } from "@/components/site/updated-stamp";
  */
 
 const PAGE_URL = "/integritetspolicy";
-const UPDATED = "2026-08-02";
+const UPDATED = "2026-08-03";
 
 export const metadata: Metadata = {
   title: "Integritetspolicy",
@@ -74,7 +75,7 @@ export default function IntegritetspolicyPage() {
         <h1 className="text-h1">Integritetspolicy</h1>
         <UpdatedStamp date={UPDATED} variant="bar" className="mt-4 self-start" />
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             Nästan varje sajt du besöker har ett mätverktyg som följer dig sida
             för sida. Vi har inget. Ingen Google Analytics, ingen besöksstatistik
@@ -89,7 +90,7 @@ export default function IntegritetspolicyPage() {
 
           <h2>Vem som ansvarar</h2>
           <p>
-            {SITE.domain} ges ut av {PUBLISHER.name}, {publisherAddress()}, som
+            {SITE.domain} ges ut av <PublisherLink />, {publisherAddress()}, som
             är personuppgiftsansvarig för behandlingen på sajten. Du når oss på{" "}
             <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a> eller via{" "}
             <Link href="/kontakt">kontaktsidan</Link>.
@@ -124,7 +125,7 @@ export default function IntegritetspolicyPage() {
             Vi annonserar på Google. Klickar du på en av våra annonser följer en
             parameter med i adressen, <code>gclid</code>, som talar om vilken
             annons klicket kom från. Vi använder den för att se vilka annonser
-            som leder till köp, alltså om pengarna vi lägger på annonsering går
+            som leder till köp, och därmed om pengarna vi lägger på annonsering går
             till något.
           </p>
           <p>
@@ -230,8 +231,12 @@ export default function IntegritetspolicyPage() {
             </li>
             <li>
               <strong>Adtraction</strong> sköter affiliatelänkarna.{" "}
+              {/* Adressen kontrollerad 2026-08-03. Den tidigare,
+                  /se/integritetspolicy, svarade 404. Adtraction publicerar
+                  policyn bara på engelska och har ingen svensk motsvarighet, så
+                  leta inte efter en. */}
               <a
-                href="https://adtraction.com/se/integritetspolicy"
+                href="https://adtraction.com/privacy-policy/"
                 rel="noopener noreferrer"
                 target="_blank"
               >

@@ -45,10 +45,13 @@ export function PersonCredentials({
     >
       {person.stats.map((stat) => {
         const Icon = statIcons[stat.icon];
+        /* Räknade rader är funktioner, se `PersonStat` i lib/people.ts. */
+        const label =
+          typeof stat.label === "function" ? stat.label() : stat.label;
         return (
-          <li key={stat.label} className="flex items-center gap-2.5">
+          <li key={label} className="flex items-center gap-2.5">
             <Icon aria-hidden="true" className="size-5 shrink-0 text-brand" />
-            <span className="font-medium">{stat.label}</span>
+            <span className="font-medium">{label}</span>
           </li>
         );
       })}
@@ -79,7 +82,7 @@ export function PersonCredentials({
       data-slot="person-credentials"
       data-variant={variant}
       className={cn(
-        "flex flex-col gap-[var(--space-block)]",
+        "flex flex-col gap-block",
         variant === "sidebar" &&
           "themed-border rounded-lg bg-card pad-card shadow-card",
         className,

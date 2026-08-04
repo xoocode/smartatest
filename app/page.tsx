@@ -3,8 +3,8 @@ import { ArrowRight } from "lucide-react";
 
 import { SITE } from "@/lib/site";
 import { graph, pageEntity } from "@/lib/schema";
-import { CATEGORY_INDEX, SMART_HEM } from "@/lib/catalog";
-import { CategoryGrid } from "@/components/site/category-grid";
+import { TEST_PAGE_INDEX, SMART_HEM } from "@/lib/catalog";
+import { TestPageGrid } from "@/components/site/test-page-grid";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
 import { AffiliateDisclosure } from "@/components/site/affiliate-disclosure";
@@ -12,7 +12,7 @@ import { UpdatedStamp } from "@/components/site/updated-stamp";
 import { Button } from "@/components/ui/button";
 
 /* Derived, so the headline number can never outrun what we have published. */
-const COMPARED_COUNT = CATEGORY_INDEX.reduce(
+const COMPARED_COUNT = TEST_PAGE_INDEX.reduce(
   (sum, cat) => sum + (cat.count ?? 0),
   0,
 );
@@ -46,7 +46,7 @@ export default function HomePage() {
             tester och publicerar viktningen som ger betygen. Sedan säger vi
             vilken vi hade valt.
           </p>
-          <div className="mt-[var(--space-block)] flex flex-wrap items-center gap-row">
+          <div className="mt-block flex flex-wrap items-center gap-row">
             <Button asChild variant="brand" size="xl">
               <Link href="/smart-belysning">
                 Se testet av smart belysning
@@ -67,7 +67,7 @@ export default function HomePage() {
         eyebrow="Kategorier"
         title="Vad letar du efter?"
       >
-        <CategoryGrid entries={CATEGORY_INDEX} columns={3} />
+        <TestPageGrid entries={TEST_PAGE_INDEX} columns={3} />
       </Section>
 
       <Container size="wide" className="pad-section">

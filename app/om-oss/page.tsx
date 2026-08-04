@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { PUBLISHER, SITE, publisherAddress } from "@/lib/site";
 import { PEOPLE } from "@/lib/people";
-import { CATEGORIES } from "@/lib/categories";
+import { publishedCategories } from "@/lib/test-pages";
 import { graph, orgRef, pageEntity, personNode, personRef } from "@/lib/schema";
 import { Container } from "@/components/site/container";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Section } from "@/components/site/section";
 import { Prose } from "@/components/site/prose";
 import { PersonCard } from "@/components/site/person-card";
+import { PublisherLink } from "@/components/site/publisher-link";
 import { TrustBlock } from "@/components/site/trust-block";
 import { Button } from "@/components/ui/button";
 
@@ -99,11 +100,11 @@ export default function OmOssPage() {
         <p className="eyebrow text-brand">Om oss</p>
         <h1 className="mt-2 text-h1">Vilka vi är</h1>
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p className="text-lg">Smartatest började i en irritation.</p>
           <p>
-            Daniel Hedin hade då arbetat i fjorton år med säkerhetsprovning och
-            CE-dokumentation, alltså med att läsa provningsintyg och avgöra om
+            Daniel Hedin hade då arbetat i fjorton år med elsäkerhet och
+            CE-dokumentation: att läsa provningsintyg och avgöra om
             en produkt verkligen klarat det tillverkaren påstår att den klarat.
             När han skulle köpa brandvarnare till sitt eget hus hittade han ett
             dussin svenska sidor med rubriken &rdquo;Så har vi testat&rdquo;, och
@@ -120,7 +121,7 @@ export default function OmOssPage() {
             ingen provningsutrustning. Det vi har är vanan att läsa en standard
             i original, och en metod som går att räkna efter: varje produkt får
             delbetyg på samma kriterier som alla andra i sin kategori, vikterna
-            står utskrivna på sidan, och totalbetyget är summan av dem.
+            står utskrivna på varje jämförelse, och totalbetyget är summan av dem.
             Ingenting justeras i efterhand.
           </p>
           <p>
@@ -132,12 +133,12 @@ export default function OmOssPage() {
           </p>
           <p>
             Vi tjänar pengar när du handlar via våra länkar. Det påverkar inte
-            ordningen på sidan, och hur det fungerar står öppet under{" "}
+            ordningen i rankningen, och hur det fungerar står öppet under{" "}
             <Link href="/annonsmarkning">annonsmärkning</Link>.
           </p>
         </Prose>
 
-        <div className="mt-[var(--space-block)] flex flex-wrap gap-3">
+        <div className="mt-block flex flex-wrap gap-3">
           <Button asChild variant="brand">
             <Link href="/sa-testar-vi">Läs hela metoden</Link>
           </Button>
@@ -156,7 +157,7 @@ export default function OmOssPage() {
         title="Personerna bakom betygen"
         description="Varje jämförelse har en namngiven skribent och en namngiven granskare. Står det ett namn på en sida går det att klicka på."
       >
-        <div className="grid gap-[var(--space-block)] sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-block sm:grid-cols-2 lg:grid-cols-3">
           {PEOPLE.map((person) => (
             <PersonCard key={person.slug} person={person} variant="box" link />
           ))}
@@ -166,12 +167,22 @@ export default function OmOssPage() {
       <Section width="default" title="Så arbetar vi">
         {/* Stycket nedan länkar redan till metodsidan i löptext. */}
         <TrustBlock showLinks={false} />
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
+          {/* ⚠️ `publishedCategories()`, inte `TEST_PAGES` och inte
+              `liveTestPages()`. Talet ska vara snittet: en viktning som
+              finns i koden men vars sida inte är publicerad är inte
+              publicerad, och en publicerad sida utan viktning ska inte heller
+              räknas.
+
+              Den här sidan och /sa-testar-vi påstod olika saker om exakt
+              samma fakta, 22 mot 23, eftersom de räknade var sin lista. Båda
+              går nu genom samma funktion. Ett tal som läsaren kan räkna efter
+              i menyn ska stämma med menyn. */}
           <p>
-            Vi har {CATEGORIES.length} kategorier med publicerad viktning, och
-            på varje jämförelse står kriterierna och vikterna innan produkterna
-            gör det. Hur en poäng blir till, och när vi stryker ett kriterium
-            för att underlaget är för tunt, står med räkneexempel på{" "}
+            Vi har {publishedCategories().length} kategorier med publicerad viktning,
+            och på varje jämförelse står kriterierna och vikterna innan
+            produkterna gör det. Hur en poäng blir till, och när vi stryker ett
+            kriterium för att underlaget är för tunt, står med räkneexempel på{" "}
             <Link href="/sa-testar-vi">så testar vi</Link>.
           </p>
         </Prose>
@@ -180,7 +191,7 @@ export default function OmOssPage() {
       <Section tone="muted" width="default" title="Utgivare">
         <Prose>
           <p>
-            {SITE.domain} ges ut av {PUBLISHER.name}, {publisherAddress()}.
+            {SITE.domain} ges ut av <PublisherLink />, {publisherAddress()}.
             Redaktionen nås på{" "}
             <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>.
           </p>

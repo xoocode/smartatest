@@ -45,9 +45,13 @@ export function ProsCons({
         >
           {label}
         </p>
+        {/* Nyckel på plats, inte på texten. Två identiska fördelar i samma
+            lista gav annars `Encountered two children with the same key`, och
+            listan är redaktionell text som ingen validering hindrar från att
+            upprepa sig. Ordningen är stabil, så indexet är en giltig nyckel. */}
         <ul className={cn("flex flex-col gap-2", textSize)}>
-          {items.map((item) => (
-            <li key={item} className="flex items-start gap-2">
+          {items.map((item, i) => (
+            <li key={i} className="flex items-start gap-2">
               <Icon
                 aria-hidden="true"
                 className={cn(

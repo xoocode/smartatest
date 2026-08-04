@@ -7,6 +7,7 @@ import { graph, orgRef, pageEntity } from "@/lib/schema";
 import { Container } from "@/components/site/container";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { ContactForm } from "@/components/site/contact-form";
+import { PublisherLink } from "@/components/site/publisher-link";
 
 /*
  * Kontaktsidan.
@@ -71,11 +72,11 @@ export default function KontaktPage() {
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
 
-      <Container className="pt-6">
+      <Container size="roomy" className="pt-6">
         <Breadcrumbs items={[{ label: "Kontakt" }]} schema />
       </Container>
 
-      <Container className="pt-3 pb-[var(--space-section)]">
+      <Container size="roomy" className="pt-3 pb-[var(--space-section)]">
         <h1 className="text-h1">Kontakt</h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
           Har vi skrivit något som inte stämmer vill vi helst höra det från dig
@@ -83,10 +84,13 @@ export default function KontaktPage() {
           lika välkomna.
         </p>
 
-        <div className="mt-[var(--space-block)] grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_18rem]">
+        {/* Sidokolumnen tillbaka på 18 rem. I en 56-rems behållare med dubbel
+            spaltluft lämnar 20 rem för lite kvar åt formuläret, som är sidans
+            uppgift. */}
+        <div className="mt-block grid gap-block lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-x-[calc(var(--space-block)*2)]">
           <ContactForm />
 
-          <div className="flex flex-col gap-[var(--space-block)] lg:sticky lg:top-20 lg:self-start">
+          <div className="flex flex-col gap-block lg:self-start">
             <div>
               <h2 className="text-h3">Mejla direkt</h2>
               <p className="mt-2 flex items-start gap-2 text-sm">
@@ -96,7 +100,7 @@ export default function KontaktPage() {
                 />
                 <a
                   href={`mailto:${PUBLISHER.email}`}
-                  className="text-primary underline underline-offset-2"
+                  className="inline-flex min-h-6 items-center text-primary underline underline-offset-2"
                 >
                   {PUBLISHER.email}
                 </a>
@@ -116,7 +120,9 @@ export default function KontaktPage() {
               <p className="mt-2 flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
                 <span>
-                  {SITE.domain} ges ut av {PUBLISHER.name}.
+                  {SITE.domain} ges ut av{" "}
+                  <PublisherLink className="text-primary underline underline-offset-2" />
+                  .
                   <br />
                   {publisherAddress()}
                 </span>
@@ -124,7 +130,7 @@ export default function KontaktPage() {
             </div>
 
             <div>
-              <h2 className="text-h3">Om pengarna</h2>
+              <h2 className="text-h3">Annonsering</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Undrar du hur sajten finansieras står det på{" "}
                 <Link

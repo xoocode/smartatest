@@ -1,7 +1,9 @@
 import { ArrowUpRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { isAdminEnabled } from "@/lib/admin";
 import { LINK_MODE, resolveMerchantLink } from "@/lib/links";
+import { CTA_IDS, DEFAULT_STYLE, ctaLabel } from "@/lib/theme";
 import { Button } from "@/components/ui/button";
 
 export type AffiliateCtaProps = {
@@ -59,7 +61,33 @@ export function AffiliateCta({
   hideAdLabel = false,
   className,
 }: AffiliateCtaProps) {
-  const text = label ?? (merchant ? `Se pris hos ${merchant}` : "Se pris");
+  /*
+   * Etiketten.
+   *
+   * En anropare som skickar `label` bestämmer själv, exempelvis snabbvalets
+   * "Till butik" som måste rymmas i en smal rad. Resten följer stilaxeln.
+   *
+   * I produktion renderas **en** sträng, den som står i `DEFAULT_STYLE`. Bara i
+   * adminläget renderas alla sex, och då visar CSS:en en åt gången utifrån
+   * `data-cta` på <html>. Skälet är att text inte går att byta med CSS: en
+   * `content`-regel hade lämnat knappen utan tillgänglig text, och att skicka
+   * axeln som prop hade krävt en ändring i varje sidfil och en omhämtning vid
+   * varje byte.
+   *
+   * `display: none` tar bort de dolda varianterna ur tillgänglighetsträdet, så
+   * en skärmläsare hör en etikett även i adminläget.
+   */
+  const text =
+    label ??
+    (isAdminEnabled() ? (
+      CTA_IDS.map((id) => (
+        <span key={id} data-cta-variant={id}>
+          {ctaLabel(id, merchant)}
+        </span>
+      ))
+    ) : (
+      ctaLabel(DEFAULT_STYLE.cta, merchant)
+    ));
   const link = resolveMerchantLink({
     id: productId ?? "",
     merchantUrl: href,

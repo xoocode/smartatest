@@ -15,7 +15,7 @@ export const DISCLAIMERS = {
   general:
     "Innehållet på smartatest.se är allmän produktinformation. Det ersätter inte tillverkarens monterings- och säkerhetsanvisningar, och det är alltid anvisningarna som gäller vid en konflikt.",
   electrical:
-    "Fast elinstallation ska utföras av behörig elinstallatör. Produkter som ansluts till vägguttag omfattas inte av det kravet, men följ alltid tillverkarens anvisningar om effekt och placering.",
+    "Fast elinstallation ska utföras av ett registrerat elinstallationsföretag, och registret finns hos Elsäkerhetsverket. Produkter som ansluts till vägguttag omfattas inte av det kravet, men följ alltid tillverkarens anvisningar om effekt och placering.",
   fireSafety:
     "Brandskyddsutrustning är livräddande utrustning. Antal, placering och underhåll bör följa Myndigheten för samhällsskydd och beredskaps och den lokala räddningstjänstens rekommendationer, och funktionen behöver kontrolleras regelbundet oavsett vad ett test säger om modellen. Beskrivningar av hur utrustningen används ersätter varken tillverkarens anvisningar eller en brandutbildning. Slocknar branden inte omedelbart: lämna bostaden, stäng dörren efter dig och ring 112.",
   pricing:
@@ -84,6 +84,10 @@ export function LegalDisclaimer({
     <aside
       data-slot="legal-disclaimer"
       data-variant="block"
+      /* Se motsvarande kommentar i affiliate-disclosure.tsx: två namnlösa
+         aside på samma sida blir ett landmärke för hjälpmedlen. `title` är
+         redan sidans egen rubrik för rutan, så namnet blir aldrig fel. */
+      aria-label={title}
       className={cn(
         "themed-border rounded-lg bg-muted pad-card",
         className,

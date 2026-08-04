@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    /* Arbetsmappen. Utkast, provkörningar och tillfälliga skript hör hemma där
+       enligt CLAUDE.md, och de är per definition halvfärdiga. Att lint:en
+       fällde bygget på en oanvänd variabel i ett provskript är fel sorts
+       larm: mappen är gitignorerad och når aldrig produktion. */
+    ".agent/**",
   ]),
 ]);
 

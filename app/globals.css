@@ -141,11 +141,15 @@
   --input: oklch(0.9 0.008 250);
   --ring: oklch(0.48 0.19 258);
 
-  --brand: oklch(0.66 0.19 45);
+  /* 0.66 gav 3,35:1 mot vitt, alltså under AA på både .eyebrow, priserna och
+     den vita etiketten i köpknappen. 0.55 ger 5,23:1 mot vitt och
+     4,73:1 mot den dämpade sidfotsbakgrunden, alltså över kravet på båda. Uppmätt med axe, inte uppskattat. */
+  --brand: oklch(0.55 0.19 45);
   --brand-foreground: oklch(0.99 0 0);
   --award: oklch(0.72 0.16 85);
   --award-foreground: oklch(0.2 0.04 85);
-  --success: oklch(0.58 0.15 150);
+  /* 4,01:1 räckte inte för "Fördelar"-etiketten i 12 px. */
+  --success: oklch(0.53 0.15 150);
   --success-foreground: oklch(0.99 0 0);
   --warning: oklch(0.72 0.15 70);
   --warning-foreground: oklch(0.2 0.04 70);
@@ -189,7 +193,7 @@
   --brand-foreground: oklch(0.99 0.002 250);
   --award: oklch(0.7 0.09 205);
   --award-foreground: oklch(0.24 0.03 235);
-  --success: oklch(0.55 0.1 160);
+  --success: oklch(0.53 0.1 160);
   --success-foreground: oklch(0.99 0.002 250);
   --warning: oklch(0.7 0.11 75);
   --warning-foreground: oklch(0.24 0.03 75);
@@ -380,8 +384,24 @@
 @utility gap-row {
   gap: var(--space-row);
 }
-@utility space-block {
+/* Steget över `--space-stack`. Fanns tidigare som `space-block`, ett namn som
+   aldrig användes en enda gång och som dessutom läste som Tailwinds
+   `space-x`-familj, alltså avstånd mellan barn. Det här är marginal på
+   elementet självt, så namnet speglar nu `mt-*` och `gap-*`. */
+@utility mt-block {
   margin-block-start: var(--space-block);
+}
+@utility gap-block {
+  gap: var(--space-block);
+}
+@utility gap-x-block {
+  column-gap: var(--space-block);
+}
+@utility mb-block {
+  margin-block-end: var(--space-block);
+}
+@utility pb-block {
+  padding-block-end: var(--space-block);
 }
 
 @utility shadow-card {
@@ -477,3 +497,347 @@
    so it would not cover the nav, which meant the admin build laid out
    differently from production and we were styling a layout nobody would ship.
    It floats over the logo instead, and moves nothing. */
+
+/* --------------------------------------------------------------- kriterier --
+
+   Layouten på kriterieraderna i ett recensionskort, styrd av `data-criteria`
+   på <html>. Se CRITERIA_IDS i lib/theme.ts för varför axeln finns.
+
+   Reglerna hänger på `data-part` i criteria-scores.tsx. Ändra inte de
+   attributen utan att läsa här.
+
+   Två element renderas alltid och göms här: punktledaren och stapeln. En
+   variant kan byta utseende men inte lägga till markup, så allt någon variant
+   behöver måste finnas på plats i utgångsläget.
+
+   Allt ligger bakom `min-width: 64rem`, alltså Tailwinds `lg`. Problemet finns
+   bara på skrivbordet: i en smal spalt står namn och betyg redan intill
+   varandra, och en variant som också ändrar mobilen löser inget och riskerar
+   något. Axeln rör bara `rows`-varianten; `compact` och `bars` är egna former
+   som anropare väljer med flit. */
+
+[data-slot="criteria-scores"] [data-part="leader"],
+[data-slot="criteria-scores"] [data-part="bar"] {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  [data-slot="criteria-scores"][data-variant="rows"] {
+    /* Bredden på namnkolumnen i de vänsterställda varianterna. Räcker för
+       "Sammankoppling" utan att kapa, och håller stjärnorna i en rak kolumn. */
+    --criteria-label: 10rem;
+  }
+
+  /* Indrag. Marginal på båda sidor smalnar av hela blocket, totalraden med,
+     så vägen mellan namn och betyg blir kortare utan att någonting läggs till.
+     Marginalen är lika på båda sidor, alltså står blocket centrerat i spalten.
+
+     Tre steg, var och en i två utföranden: med och utan punktledare. Djupet
+     sätts som variabel och appliceras en gång, så ett nytt steg är en rad.
+     Marginalen är tokenbaserad och följer därmed tätheten. */
+  [data-slot="criteria-scores"][data-variant="rows"] {
+    margin-inline: var(--criteria-indent, 0);
+  }
+  [data-criteria="indrag"] [data-slot="criteria-scores"][data-variant="rows"],
+  [data-criteria="indragledare"]
+    [data-slot="criteria-scores"][data-variant="rows"] {
+    --criteria-indent: var(--space-block);
+  }
+  [data-criteria="indrag2"] [data-slot="criteria-scores"][data-variant="rows"],
+  [data-criteria="indragledare2"]
+    [data-slot="criteria-scores"][data-variant="rows"] {
+    --criteria-indent: calc(var(--space-block) * 2);
+  }
+  [data-criteria="indrag3"] [data-slot="criteria-scores"][data-variant="rows"],
+  [data-criteria="indragledare3"]
+    [data-slot="criteria-scores"][data-variant="rows"] {
+    --criteria-indent: calc(var(--space-block) * 3.5);
+  }
+
+  /* Punktledare. Prickarna tar det utrymme som annars blir tomt, så ögat har
+     något att följa i stället för att hoppa över ett gap. */
+  [data-criteria="punktledare"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="leader"],
+  [data-criteria="indragledare"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="leader"],
+  [data-criteria="indragledare2"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="leader"],
+  [data-criteria="indragledare3"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="leader"] {
+    display: block;
+    flex: 1 1 0%;
+    min-width: 1rem;
+    border-bottom: 1px dotted var(--color-border);
+  }
+  [data-criteria="punktledare"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"],
+  [data-criteria="indragledare"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"],
+  [data-criteria="indragledare2"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"],
+  [data-criteria="indragledare3"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"] {
+    flex-shrink: 0;
+  }
+
+  /* Fast tak respektive andel av spalten. Raden slutar helt enkelt sträcka
+     sig; ingen ny grafik alls. */
+  [data-criteria="smal"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="rows"] {
+    max-width: 24rem;
+  }
+  [data-criteria="halv"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="rows"] {
+    width: 50%;
+  }
+
+  /* Två spalter. Använder bredden som orsakar problemet. */
+  [data-criteria="tvaspalt"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="rows"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-block);
+  }
+
+  /* Randade rader. Bandet får egen innerkant så det inte klipper i texten. */
+  [data-criteria="randad"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"] {
+    border-radius: var(--radius-md);
+    padding-inline: 0.625rem;
+    padding-block: 0.5rem;
+  }
+  [data-criteria="randad"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"]:nth-child(odd) {
+    background: var(--color-muted);
+  }
+
+  /* Vänsterställt. Raden packas ihop i stället för att spännas ut, och
+     namnkolumnen får fast bredd så betygen står i en rak kolumn. */
+  [data-criteria="stjarnorforst"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"],
+  [data-criteria="talforst"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"] {
+    justify-content: flex-start;
+  }
+  [data-criteria="stjarnorforst"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"],
+  [data-criteria="talforst"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"] {
+    width: var(--criteria-label);
+    flex-shrink: 0;
+  }
+  /* Samma rad, omvänd ordning: siffran närmast namnet och stjärnorna efter. */
+  [data-criteria="talforst"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="value"] {
+    flex-direction: row-reverse;
+  }
+
+  /* Betyget under namnet. Paret sitter lodrätt, alltså finns inget vågrätt
+     avstånd kvar att tappa bort. Kostar höjd. */
+  [data-criteria="under"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="rows"] {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-block);
+    row-gap: 0.75rem;
+  }
+  [data-criteria="under"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"] {
+    display: block;
+    padding-block: 0;
+  }
+  [data-criteria="under"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"] {
+    color: var(--color-muted-foreground);
+  }
+  [data-criteria="under"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="value"] {
+    margin-top: 0.25rem;
+    justify-content: flex-start;
+  }
+
+  /* Stapel i stället för stjärnor. Stapeln börjar direkt efter namnet och
+     talet sitter vid dess slut, alltså kan det inte uppstå ett tomrum:
+     stapeln är tomrummet.
+
+     Ingen grå skena bakom. En full skena läser sig som instrumentpanel och
+     överdriver små skillnader, samma resonemang som för `bars`-varianten. */
+  [data-criteria="stapel"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="row"] {
+    justify-content: flex-start;
+  }
+  [data-criteria="stapel"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="label"] {
+    width: var(--criteria-label);
+    flex-shrink: 0;
+  }
+  [data-criteria="stapel"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="value"] {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  [data-criteria="stapel"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="stars"] {
+    display: none;
+  }
+  [data-criteria="stapel"]
+    [data-slot="criteria-scores"][data-variant="rows"]
+    [data-part="bar"] {
+    display: block;
+    height: 0.375rem;
+    width: calc(var(--criteria-fill) * 0.6);
+  }
+}
+
+/* ------------------------------------------------------------------- cta --
+
+   Texten på köpknappen, styrd av `data-cta` på <html>. Se CTA_IDS i
+   lib/theme.ts för varianterna och varför de finns.
+
+   Reglerna gäller bara i adminläget, eftersom `AffiliateCta` renderar samtliga
+   varianter först då. I produktion finns ett enda textelement i knappen och de
+   här reglerna matchar ingenting. Ingen brytpunkt: knapptexten är lika viktig
+   på en telefon. */
+
+[data-slot="affiliate-cta"] [data-cta-variant] {
+  display: none;
+}
+
+[data-cta="kop"] [data-slot="affiliate-cta"] [data-cta-variant="kop"] {
+  display: inline;
+}
+
+[data-cta="sepris"] [data-slot="affiliate-cta"] [data-cta-variant="sepris"] {
+  display: inline;
+}
+
+[data-cta="kollapris"] [data-slot="affiliate-cta"] [data-cta-variant="kollapris"] {
+  display: inline;
+}
+
+[data-cta="handla"] [data-slot="affiliate-cta"] [data-cta-variant="handla"] {
+  display: inline;
+}
+
+[data-cta="visamig"] [data-slot="affiliate-cta"] [data-cta-variant="visamig"] {
+  display: inline;
+}
+
+[data-cta="till"] [data-slot="affiliate-cta"] [data-cta-variant="till"] {
+  display: inline;
+}
+
+/* ------------------------------------------------------------------ länkar --
+
+   Länkar i redaktionell text, styrda av `data-link` på <html>. Se LINK_IDS i
+   lib/theme.ts.
+
+   ## Varför reglerna flyttade hit från Prose
+
+   `prose.tsx` hade `hover:[&_:where(a)...]:no-underline`, med `hover:` utanför
+   barnväljaren. Det kompilerar till "när behållaren hovras", alltså släckte en
+   mus var som helst i ett stycke understrykningen på varje länk i stycket.
+   Rätt scope är länken själv, och när regeln ändå skulle skrivas om blev den en
+   axel.
+
+   ## Escape-luckan
+
+   `:where(.not-prose, .not-prose *)` undantas, precis som i Prose. Utan den
+   träffar reglerna `<a>`-taggen inuti en affiliateknapp som bäddats in i MDX,
+   och knappen kommer ut understruken ovanpå sina egna stilar.
+
+   Färgen är gemensam för alla lägen. Det är bara dekorationen som skiljer. */
+
+[data-slot="prose"] :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-primary);
+  text-underline-offset: 2px;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  transition:
+    text-decoration-color 120ms ease,
+    text-decoration-style 120ms ease;
+}
+
+/* Streckad, fast vid hovring. Skiljer en länk från fetstil utan att skrika,
+   och gör hovringen till en tydlig händelse i stället för att ta bort något. */
+[data-link="streckad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)) {
+  text-decoration-style: dashed;
+}
+[data-link="streckad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  text-decoration-style: solid;
+}
+
+/* Prickad, fast vid hovring. Lättare än streckad, men blir gyttrig i små
+   grader och på skärmar utan hög pixeltäthet. */
+[data-link="prickad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)) {
+  text-decoration-style: dotted;
+}
+[data-link="prickad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  text-decoration-style: solid;
+}
+
+/* Heldragen hela tiden, tjockare vid hovring. Mest konventionell. */
+[data-link="heldragen"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Dämpad linje som tar färg vid hovring. Lugnast i en text med många länkar. */
+[data-link="dampad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)) {
+  text-decoration-color: color-mix(in oklch, var(--color-primary) 35%, transparent);
+}
+[data-link="dampad"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  text-decoration-color: var(--color-primary);
+}
+
+/* Ingen linje förrän hovring. Snyggast i en ren text, sämst för den som
+   skannar efter vad som går att klicka på. Med i provet, inte som förval. */
+[data-link="vid-hovring"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)) {
+  text-decoration-line: none;
+}
+[data-link="vid-hovring"]
+  [data-slot="prose"]
+  :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  text-decoration-line: underline;
+}

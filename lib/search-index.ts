@@ -1,4 +1,4 @@
-import { GROUPS, liveCategories } from "@/lib/catalog";
+import { CATEGORIES, browsableTestPages } from "@/lib/catalog";
 import { GLOSSARY } from "@/lib/glossary";
 import { TOOLS, toolHref } from "@/lib/tools";
 import { PEOPLE, personHref } from "@/lib/people";
@@ -9,7 +9,7 @@ export type SearchDoc = {
   /** Shown under the title in results. */
   description: string;
   /** Group label in the results list. */
-  kind: "Kategori" | "Skribent" | "Sida" | "Verktyg" | "Översikt";
+  kind: "Kategori" | "Skribent" | "Sida" | "Guide" | "Översikt";
   /** Extra terms that should match but are not displayed. */
   keywords?: string[];
 };
@@ -103,25 +103,30 @@ const STATIC_PAGES: SearchDoc[] = [
  * ## Rättat 2026-08-02
  *
  * Indexet byggdes tidigare ur `NAV`. Det fungerade så länge menyn listade
- * varje kategori platt, men när menyn gjordes om till gruppnavsidor (se
- * lib/site.ts) försvann samtliga kategorisidor ur sökningen utan att något
+ * varje kategori platt, men när menyn gjordes om till categories (se
+ * lib/site.ts) försvann samtliga test pages ur sökningen utan att något
  * gick sönder synligt. En sökning på "brandvarnare" gav träff på en räknare
  * men inte på jämförelsen. Dessutom hamnade "Verktyg" bland kategorierna, och
  * grupperna fick titeln "Bäst i test smart hem 2026", som ingen söker på.
  *
- * Källan är nu `liveCategories()`, samma funktion sitemapen läser. En kategori
- * som inte är byggd kan alltså inte dyka upp här, och en som byggs dyker upp
- * av sig själv.
+ * Källan är `browsableTestPages()`. En kategori som inte är byggd kan alltså
+ * inte dyka upp här, och en som byggs dyker upp av sig själv.
+ *
+ * ⚠️ Det är medvetet **inte** samma funktion som sitemapen läser. Sitemapen
+ * använder `liveTestPages()`, alltså bara publicerade sidor. Sökningen ska
+ * hitta det som går att klicka på, sitemapen ska bara innehålla det vi står
+ * för. I förhandsläge skiljer sig de två listorna, och det är hela poängen.
+ * Se PREVIEW_PLANNED i lib/catalog.ts.
  */
 export const SEARCH_INDEX: SearchDoc[] = [
-  ...liveCategories().map((entry) => ({
+  ...browsableTestPages().map((entry) => ({
     href: entry.href,
     title: `Bäst i test ${entry.label.toLowerCase()} 2026`,
     description: entry.blurb,
     kind: "Kategori" as const,
     keywords: [entry.label, "bäst i test", "test", "jämförelse", "testvinnare"],
   })),
-  ...GROUPS.filter((group) => group.href).map((group) => ({
+  ...CATEGORIES.filter((group) => group.href).map((group) => ({
     href: group.href as string,
     title: group.label,
     description: `Alla våra jämförelser inom ${group.label.toLowerCase()}.`,
@@ -129,18 +134,20 @@ export const SEARCH_INDEX: SearchDoc[] = [
     keywords: [group.label, "översikt", "kategori"],
   })),
   {
-    href: "/verktyg",
-    title: "Verktyg",
-    description: "Räknare och guider som svarar på en fråga i taget.",
+    href: "/guider",
+    title: "Guider och räknare",
+    description: "Svar på en fråga i taget, både uträknade och utredda.",
     kind: "Översikt" as const,
-    keywords: ["räknare", "kalkylator", "verktyg"],
+    keywords: ["räknare", "kalkylator", "verktyg", "guide", "guider"],
   },
   ...TOOLS.map((tool) => ({
     href: toolHref(tool),
     title: tool.name,
     description: tool.description,
-    kind: "Verktyg" as const,
-    keywords: ["räknare", "kalkylator", "verktyg", tool.name],
+    kind: "Guide" as const,
+    /* "verktyg" står kvar som sökord fast etiketten heter Guide: läsare
+       som minns den gamla menyposten ska hitta ändå. */
+    keywords: ["räknare", "kalkylator", "verktyg", "guide", tool.name],
   })),
   ...PEOPLE.map((person) => ({
     href: personHref(person),

@@ -1,5 +1,5 @@
 import { SITE } from "@/lib/site";
-import type { Category, Product } from "@/lib/products";
+import type { TestPage, Product } from "@/lib/products";
 import { DEFAULT_REVIEWER, type Person } from "@/lib/people";
 import {
   graph,
@@ -10,7 +10,7 @@ import {
 } from "@/lib/schema";
 
 export type ProductSchemaProps = {
-  category: Category;
+  testPage: TestPage;
   products: Product[];
   /** Absolute path of the page, e.g. "/smart-belysning". */
   pageUrl: string;
@@ -21,7 +21,7 @@ export type ProductSchemaProps = {
   /**
    * The fact checker, emitted as `reviewedBy` on the page entity.
    *
-   * Defaults to DEFAULT_REVIEWER so every existing category page gains the
+   * Defaults to DEFAULT_REVIEWER so every existing testPage page gains the
    * signal without a change to its own file. Pass explicitly once a page has
    * a reviewer of its own.
    */
@@ -29,7 +29,7 @@ export type ProductSchemaProps = {
   /**
    * The page's own table of contents, for deep-linkable section nodes.
    *
-   * Optional because the TOC lives in each category page rather than here.
+   * Optional because the TOC lives in each testPage page rather than here.
    * Pass the same array the `TocNav` gets and every heading becomes citable
    * on its own; omit it and the page entity is simply emitted without
    * `hasPart`.
@@ -50,7 +50,7 @@ export type ProductSchemaProps = {
  * feed is live.
  */
 export function ProductSchema({
-  category,
+  testPage,
   products,
   pageUrl,
   author,
@@ -68,7 +68,7 @@ export function ProductSchema({
     "@type": "ItemList",
     "@id": `${url}#ranking`,
     url,
-    name: category.title,
+    name: testPage.title,
     itemListOrder: "https://schema.org/ItemListOrderDescending",
     numberOfItems: products.length,
     itemListElement: products.map((product, i) => ({
@@ -82,7 +82,7 @@ export function ProductSchema({
         description: product.tagline,
         review: {
           "@type": "Review",
-          name: product.superlative ?? category.title,
+          name: product.superlative ?? testPage.title,
           reviewBody: product.verdict ?? product.tagline,
           datePublished: reviewed,
           author: reviewAuthor,
@@ -120,14 +120,14 @@ export function ProductSchema({
   const page = pageEntity({
     type: "CollectionPage",
     pageUrl,
-    name: category.title,
+    name: testPage.title,
     author,
     reviewer,
     reviewed,
     about: {
       "@type": "Thing",
       "@id": `${url}#amne`,
-      name: category.label,
+      name: testPage.label,
       url,
     },
     mainEntity: { "@id": `${url}#ranking` },

@@ -19,7 +19,10 @@ export const OG_COLORS = {
   background: "#ffffff",
   foreground: "#0a0e12",
   primary: "#0056c5",
-  brand: "#ec6100",
+  /* Följde inte med när `--brand` mörknade för att klara AA (0.66 → 0.55).
+     Delningsbilden ritade då sajtens gamla orange, alltså en annan färg än
+     sidan den länkar till. Precis den drift kommentaren ovan varnar för. */
+  brand: "#c53c00",
   award: "#d29a00",
   mutedForeground: "#5d646c",
   border: "#dadee3",

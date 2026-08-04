@@ -20,9 +20,9 @@ import { PersonCredentials } from "@/components/site/person-credentials";
 import { PullQuote } from "@/components/site/pull-quote";
 import { SourceList } from "@/components/site/source-list";
 import { SMART_HEM_SOURCES } from "@/lib/sources";
-import { categoryTrail } from "@/lib/categories";
-import { CATEGORY_INDEX } from "@/lib/catalog";
-import { CategoryGrid } from "@/components/site/category-grid";
+import { testPageTrail } from "@/lib/test-pages";
+import { TEST_PAGE_INDEX } from "@/lib/catalog";
+import { TestPageGrid } from "@/components/site/test-page-grid";
 import { TrustBlock } from "@/components/site/trust-block";
 import { ConsideredList } from "@/components/product/considered-list";
 import { SMART_BELYSNING_CONSIDERED } from "@/lib/data/smart-belysning";
@@ -32,6 +32,15 @@ import { ToolWidget } from "@/components/tools/registry";
 import { WattLumenTable } from "@/components/tools/watt-lumen-table";
 import { UserRating } from "@/components/product/user-rating";
 import { SMART_BELYSNING_PRODUCTS } from "@/lib/data/smart-belysning";
+import { HEMLARM_SERVICES } from "@/lib/data/hemlarm";
+import {
+  DisclosureBadge,
+  ServicePrice,
+  ServiceTotalCost,
+} from "@/components/service/service-price";
+import { ServiceCard, ServiceReview } from "@/components/service/service-card";
+import { ServiceRef } from "@/components/service/service-ref";
+import { ServiceTable } from "@/components/service/service-table";
 import { Bench } from "@/app/styleguide/bench";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -392,7 +401,7 @@ export function StyleguideBoard() {
         <Bench
           title="Snabbval"
           file="components/product/quick-pick-panel.tsx"
-          description="Sidans dyraste yta. En läsare som redan vet vad hen vill ha konverterar härifrån utan att scrolla."
+          description="Sidans dyraste yta. En läsare som redan bestämt sig konverterar härifrån utan att scrolla."
           options={["panel", "sticky", "bare"] as const}
           surface="muted"
         >
@@ -432,7 +441,7 @@ export function StyleguideBoard() {
           options={["rows", "compact", "bars"] as const}
         >
           {(v) => (
-            <div className="grid gap-[var(--space-block)] sm:grid-cols-2">
+            <div className="grid gap-block sm:grid-cols-2">
               <div>
                 <p className="eyebrow mb-2 text-muted-foreground">
                   {winner.brand} {winner.name}
@@ -674,13 +683,13 @@ export function StyleguideBoard() {
 
         <Bench
           title="Kategorirutnät"
-          file="components/site/category-grid.tsx"
+          file="components/site/test-page-grid.tsx"
           description="Läser lib/catalog.ts. Planerade kategorier renderas som kort utan länk, så en död nav-post aldrig kan skeppas av misstag."
           options={["cards", "compact"] as const}
           surface="muted"
         >
           {(v) => (
-            <CategoryGrid entries={CATEGORY_INDEX} variant={v} columns={2} />
+            <TestPageGrid entries={TEST_PAGE_INDEX} variant={v} columns={2} />
           )}
         </Bench>
 
@@ -747,7 +756,7 @@ export function StyleguideBoard() {
         <Bench
           title="Verktygsram"
           file="components/tools/tool-frame.tsx"
-          description="Ramen runt en räknare. Inbäddad i en köpguide får den en diskret permalänk till verktygets egen sida under /verktyg; på den sidan skulle länken peka på sig själv och utelämnas."
+          description="Ramen runt en räknare. Inbäddad i en köpguide får den en diskret permalänk till verktygets egen sida under /guider; på den sidan skulle länken peka på sig själv och utelämnas."
           options={["embedded", "standalone"] as const}
           surface="muted"
         >
@@ -784,6 +793,49 @@ export function StyleguideBoard() {
                  bänken är därför bra för att se hur resultatrutan beter sig när
                  talet blir "Över 100 år". */
               "aterbetalning-vattenfelsbrytare",
+              /* Femårskostnaden är den enda räknaren som läser data från två
+                 kategorier samtidigt, larmpaketen från /larm-utan-abonnemang
+                 och abonnemangen från /hemlarm. Bänken är därför den bästa
+                 platsen att se vad som händer när ett larmbolag saknar
+                 publicerat pris: resultatrutan ska säga att den inte kan
+                 räkna, inte visa en nolla. Välj Sector Alarm i väljaren. */
+              "femarskostnad-larm",
+              /* Enda väljaren som ofta svarar att läsaren inte ska köpa något,
+                 och den enda som byter både rubrik och knapptext beroende på
+                 svaret: resultatrutan skriver "Vårt svar" i stället för "Vi
+                 rekommenderar" och utelämnar länken när svaret är att avstå.
+                 Bänken är därför rätt plats att kontrollera båda lägena. Välj
+                 torr luft plus 30 till 45 procent för det produktfria svaret,
+                 och tvätt som inte torkar för det med länk. */
+              "vilken-luftapparat",
+              /* Väljaren som visar två högar där den andra är hela poängen:
+                 robotar vars tillverkare inte publicerar någon passerhöjd
+                 hamnar för sig, med skälet utskrivet, i stället för att
+                 sorteras som ett ja. Bänken finns för att kontrollera att
+                 tystnadshögen faktiskt renderas när bara en av sju robotar
+                 anger ett tal. Välj "2 till 4 cm" för båda högarna, och
+                 "Inga trösklar alls" för svaret utan högar alls. */
+              "klarar-roboten-troskeln",
+              /* Det enda verktyget som kan vägra svara. Räknar avläsningen
+                 plus toleransen till ett spann och säger rakt ut när spannet
+                 ligger över en gräns i ena änden och under i den andra.
+                 Bänken finns för att kontrollera alla fyra utfallen: skriv 58
+                 och välj "± 5 procentenheter" för det oavgjorda svaret, 58 och
+                 "± 3" för ett avgjort, 30 och "± 3" för svaret under samtliga
+                 gränser, och 70 och "± 3" för det över mögelrisken. Välj
+                 "Står inte någonstans" för att se att antagandet skrivs ut. */
+              "vad-betyder-talet-pa-hygrometern",
+              /* Det andra verktyget som kan vägra svara, och det enda som
+                 sorterar tystnad i en egen lista i stället för att skriva om
+                 den till ett ja eller ett nej. Bänken finns för att
+                 kontrollera alla fem utfallen: välj "Manuell kran" respektive
+                 "Enrörssystem" för de två stoppen, "Vet inte" för nästa steg,
+                 och "Termostatventil" plus "M30 × 1,5" för det breda svaret
+                 där passformen inte behöver styra valet. Välj
+                 "Termostatventil" plus "Vaillant 30,5 mm" för utfallet där
+                 ingen tillverkare anger att de passar och en anger att
+                 adaptern inte levereras. */
+              "vilken-termostat-passar-min-ventil",
             ] as const
           }
           surface="muted"
@@ -910,12 +962,12 @@ export function StyleguideBoard() {
         <Bench
           title="Brödsmulor"
           file="components/site/breadcrumbs.tsx"
-          description="URL:en är platt, taxonomin är det inte: gruppen Smart hem syns i spåret men aldrig i sökvägen. Bygg spåret med categoryTrail(), inte för hand. BreadcrumbList-schema är avstängt som standard."
+          description="URL:en är platt, taxonomin är det inte: gruppen Smart hem syns i spåret men aldrig i sökvägen. Bygg spåret med testPageTrail(), inte för hand. BreadcrumbList-schema är avstängt som standard."
           options={["plain", "bar"] as const}
         >
           {(v) => (
             <div className="flex flex-col gap-4">
-              <Breadcrumbs variant={v} items={categoryTrail(DEMO_CATEGORY)} />
+              <Breadcrumbs variant={v} items={testPageTrail(DEMO_CATEGORY)} />
               <Breadcrumbs
                 variant={v}
                 items={[{ label: "Robotdammsugare" }]}
@@ -1077,6 +1129,87 @@ export function StyleguideBoard() {
                 </ul>
               </Prose>
             </Section>
+          )}
+        </Bench>
+
+        {/* ------------------------------------------------------ tjänster -- */}
+        {/* Sajtens andra domänmodell. Bänkarna nedan finns för att en tjänst
+            ser ut som en produkt tills man tittar på priset, och då skiljer
+            den sig på det enda sätt som betyder något: uppgiften kan saknas.
+            Verisure har hela priset, Sector Alarm har ingen månadsavgift.
+            Ställ dem bredvid varandra och regeln blir synlig. */}
+        <Bench
+          title="Tjänstepris"
+          file="components/service/service-price.tsx"
+          options={["publicerat", "dolt"] as const}
+          initial="publicerat"
+        >
+          {(v) => {
+            const service =
+              v === "publicerat"
+                ? HEMLARM_SERVICES.find((s) => s.terms.monthlyFee !== null)!
+                : HEMLARM_SERVICES.find((s) => s.terms.monthlyFee === null)!;
+            return (
+              <div className="flex flex-col gap-row">
+                <p className="text-sm text-muted-foreground">
+                  {service.provider} {service.name}
+                </p>
+                <ServicePrice terms={service.terms} size="lg" />
+                <ServiceTotalCost terms={service.terms} />
+                <DisclosureBadge terms={service.terms} className="self-start" />
+                <p className="text-xs text-muted-foreground">
+                  Ett saknat pris renderas som &quot;Publiceras inte&quot; och
+                  aldrig som 0 kr. Det är hela skälet till att tjänster har en
+                  egen prisatom i stället för att låna PriceTag.
+                </p>
+              </div>
+            );
+          }}
+        </Bench>
+
+        <Bench
+          title="Tjänstetabell"
+          file="components/service/service-table.tsx"
+          surface="muted"
+        >
+          {() => <ServiceTable services={HEMLARM_SERVICES.slice(0, 4)} />}
+        </Bench>
+
+        <Bench
+          title="Tjänstekort"
+          file="components/service/service-card.tsx"
+          options={["kort", "recension"] as const}
+          initial="kort"
+          surface="muted"
+        >
+          {(v) =>
+            v === "kort" ? (
+              <ServiceCard
+                service={HEMLARM_SERVICES[0]}
+                awardLabel="Bäst i test"
+              />
+            ) : (
+              <ServiceReview service={HEMLARM_SERVICES[0]} rank={1}>
+                <p className="text-muted-foreground">
+                  {HEMLARM_SERVICES[0].tagline}
+                </p>
+              </ServiceReview>
+            )
+          }
+        </Bench>
+
+        <Bench
+          title="Tjänstereferens i prosa"
+          file="components/service/service-ref.tsx"
+        >
+          {() => (
+            <Prose>
+              <p>
+                Hos <ServiceRef id="verisure-smart-voice" /> står priset på
+                sidan. Hos <ServiceRef id="sector-alarm" /> gör det inte det,
+                och parentesen säger det i stället för att utelämnas.
+              </p>
+            </Prose>
           )}
         </Bench>
 

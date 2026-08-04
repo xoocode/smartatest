@@ -3,7 +3,7 @@ import {
   type ConsideredProduct,
   type ProductSeed,
 } from "@/lib/products";
-import { ELEKTRISK_RULLGARDIN } from "@/lib/categories";
+import { ELEKTRISK_RULLGARDIN } from "@/lib/test-pages";
 import { productImage } from "@/lib/images";
 
 /**
@@ -76,7 +76,7 @@ import { productImage } from "@/lib/images";
  * kontrollen ska köras om före lansering.
  */
 
-export const PRICE_CHECKED = "2026-08-01";
+export const PRICE_CHECKED = "2026-08-03";
 
 const SEEDS: ProductSeed[] = [
   {
@@ -116,7 +116,7 @@ const SEEDS: ProductSeed[] = [
     award: "winner",
     superlative: "Bäst i test",
     pros: [
-      "Går ner till 25 dB i tyst läge, tystast i jämförelsen",
+      "Går ner till 25 dB i tyst läge, tystast av motorerna",
       "Orkar 16 kg gardin, mest av alla",
       "Fungerar utan hubb så länge du står i rummet",
     ],
@@ -134,7 +134,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via SwitchBot-hubb" },
     ],
     verdict:
-      "Den här vinner på det som faktiskt stör i vardagen. En gardinmotor står i ett sovrum och går i gryningen, och 25 dB mot 42 är skillnaden mellan att sova vidare och att vakna. SwitchBot är dessutom ensam i hela jämförelsen om att publicera en ljudsiffra. Lägg till 16 kg dragkraft, som räcker till mörkläggningsgardiner i tjockt tyg, och att den fungerar utan hubb om du bara vill trycka i appen hemma. En sak att veta innan du klickar: den vi rankar är U-skenemodellen, så har du gardinstång är det Curtain Rod 3 du ska ha i stället. Den finns hos samma butik och kostar lika mycket.",
+      "SwitchBot Curtain 3 låter 25 dB mot konkurrenternas 42, och är ensam om att publicera en ljudsiffra över huvud taget. En gardinmotor står i ett sovrum och går i gryningen, så skillnaden avgör om du sover vidare eller vaknar. Lägg till 16 kg dragkraft, som räcker till mörkläggningsgardiner i tjockt tyg, och att den fungerar utan hubb om du bara vill trycka i appen hemma. Den vi rankar är U-skenemodellen, så har du gardinstång är det Curtain Rod 3 du ska ha i stället. Den finns hos samma butik och kostar lika mycket.",
   },
   {
     id: "switchbot-curtain-3-rod",
@@ -209,11 +209,11 @@ const SEEDS: ProductSeed[] = [
          på modell och inte på varumärke, se lärdomen från Nanoleaf Lines och
          TP-Link LB120 i lib/data/smart-belysning.ts. */
       batteri: 4,
-      /* 2 095 kr för storlek L. Dyrast i jämförelsen med marginal, men det är
+      /* 2 075 kr för storlek L. Dyrast i jämförelsen med marginal, men det är
          också den enda som är en hel gardin. */
       prisvarde: 2,
     },
-    price: 2095,
+    price: 2075,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Proshop",
     merchantUrl:
@@ -239,7 +239,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via SwitchBot Hub 2" },
     ],
     verdict:
-      "Det här är inte en motor du sätter på din gardin, det är en hel motoriserad rullgardin. Alltså precis den produkt IKEA slutade sälja hösten 2025, och den enda i handeln som fyller det tomrummet utan att du behöver beställa måttsytt med montör. Fördelen mot en eftermonterad motor är att motorn sitter i rullen och slipper kämpa mot någon annans mekanism, vilket både låter mindre och sliter mindre. Priset är den uppenbara invändningen: 2 095 kr mot 749 för Aqaras kedjemotor. Två saker att kontrollera innan du beställer. Gardinen finns i fyra bredder mellan 58 och 185 cm, så mät fönstret. Och priset följer inte storleken som man tror, för när vi kontrollerade kostade den lilla storleken mer än den stora.",
+      "SwitchBot Roller Shade är en hel motoriserad rullgardin och inte en motor du sätter på gardinen du har. Det är precis den produkt IKEA slutade sälja hösten 2025, och den enda i handeln som fyller det tomrummet utan att du behöver beställa måttsytt med montör. Fördelen mot en eftermonterad motor är att motorn sitter i rullen och slipper kämpa mot någon annans mekanism, vilket både låter mindre och sliter mindre.\n\nPriset är den uppenbara invändningen: 2 075 kr mot 599 för Aqaras kedjemotor.\n\nKontrollera två saker innan du beställer. Gardinen finns i fyra bredder mellan 58 och 185 cm, så mät fönstret. Och priset följer inte storleken som man tror, för när vi kontrollerade kostade den lilla storleken mer än den stora.",
   },
   {
     id: "switchbot-blind-tilt",
@@ -292,7 +292,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via SwitchBot Hub 2" },
     ],
     verdict:
-      "Har du persienner i stället för gardiner är det här inte bara det bästa valet, det är i praktiken det enda eftermonterade som säljs i Sverige. Lyckligtvis är det också en bra produkt. Solpanelen ligger i kartongen i stället för att säljas separat, vilket gör att den till skillnad från Curtain 3 aldrig behöver laddas för hand, och ljussensorn kan vinkla lamellerna efter solen utan att du gör något. Missförstå inte vad den gör: den vinklar lamellerna, den hissar inte upp persiennen. Vill du ha upp persiennen helt löser den här produkten inte det. Kontrollera din persienn mot tillverkarens lista innan du beställer, för kompatibiliteten är den punkt alla testare återkommer till.",
+      "SwitchBot Blind Tilt är i praktiken den enda eftermonterade persiennstyrningen som säljs här, och lyckligtvis också en bra produkt. Solpanelen ligger i kartongen i stället för att säljas separat, vilket gör att den till skillnad från Curtain 3 aldrig behöver laddas för hand, och ljussensorn kan vinkla lamellerna efter solen utan att du gör något. Missförstå inte vad den gör: den vinklar lamellerna, den hissar inte upp persiennen. Vill du ha upp persiennen helt löser den här produkten inte det. Kontrollera din persienn mot tillverkarens lista innan du beställer, för kompatibiliteten är den punkt alla testare återkommer till.",
   },
   {
     id: "aqara-curtain-driver-e1-track",
@@ -303,7 +303,7 @@ const SEEDS: ProductSeed[] = [
     tagline: "Ett år på en laddning och Zigbee i stället för Bluetooth. Men den hörs.",
     userRating: { value: 4.5, count: 11, checkedAt: PRICE_CHECKED },
     scores: {
-      /* Kjell säljer den som en artikel för både U- och I-skena, alltså bredare
+      /* Kjell säljer den som en artikel för både U- och I-skena, vilket är bredare
          än SwitchBots enskena-artikel. Motstridiga uppgifter om I-skena finns,
          se filhuvudet, och betyget är satt utan att ta ställning. */
       passform: 4,
@@ -350,7 +350,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via Aqara-hubb" },
     ],
     verdict:
-      "Batteritiden är ingen marginell fördel. Ett år mot åtta månader betyder att du laddar den en gång om året i stället för att fundera på det varje vinter, och Zigbee gör att den inte tar plats på wifi-nätet. Har du redan en Aqara-hubb hemma är det här ett självklart köp. Har du ingen ska du räkna in den i priset, för utan hubb gör produkten ingenting alls, och det är en verklig skillnad mot SwitchBot som åtminstone fungerar i rummet på egen hand. Sedan är det ljudet. Aqara anger ingen siffra, vilket i sig säger något när konkurrenten skyltar med sina 25 dB, och de som jämfört dem sida vid sida är eniga om vilken som hörs mest.",
+      "Aqara Curtain Driver E1 håller ett år på en laddning mot SwitchBots åtta månader. Ett år mot åtta månader betyder att du laddar den en gång om året i stället för att fundera på det varje vinter, och Zigbee gör att den inte tar plats på wifi-nätet. Har du redan en Aqara-hubb hemma är det här ett självklart köp. Har du ingen ska du räkna in den i priset, för utan hubb gör produkten ingenting alls, och det är en verklig skillnad mot SwitchBot som åtminstone fungerar i rummet på egen hand. Sedan är det ljudet. Aqara anger ingen siffra, vilket i sig säger något när konkurrenten skyltar med sina 25 dB, och de som jämfört dem sida vid sida är eniga om vilken som hörs mest.",
   },
   {
     id: "aqara-curtain-driver-e1-rod",
@@ -398,7 +398,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via Aqara-hubb" },
     ],
     verdict:
-      "Stångversionen av samma motor, och den billigaste vägen till en motoriserad gardinstång i den här jämförelsen. Räkna dock hela kalkylen innan du väljer den framför SwitchBot: 135 kr sparade äts snabbt upp av att du måste köpa en Aqara-hubb om du inte redan har en, medan SwitchBot fungerar i rummet utan. Har du däremot redan Aqara hemma är det tvärtom, för då ansluter den direkt till det du har och håller ett år på laddningen. Ljudet är samma invändning som för skenversionen och gäller särskilt om stången sitter i ett sovrum.",
+      "Aqara Curtain Driver E1 i stångversion är den billigaste vägen till en motoriserad gardinstång här. Räkna dock hela kalkylen innan du väljer den framför SwitchBot: 135 kr sparade äts snabbt upp av att du måste köpa en Aqara-hubb om du inte redan har en, medan SwitchBot fungerar i rummet utan. Har du däremot redan Aqara hemma är det tvärtom, för då ansluter den direkt till det du har och håller ett år på laddningen. Ljudet är samma invändning som för skenversionen och gäller särskilt om stången sitter i ett sovrum.",
   },
   {
     id: "aqara-roller-shade-e1",
@@ -426,9 +426,13 @@ const SEEDS: ProductSeed[] = [
          Kjells egen uppgift. Sämsta värdet i jämförelsen med stor marginal:
          Aqaras egen gardinmotor klarar ett år. */
       batteri: 1.5,
-      prisvarde: 3.5,
+      /* 4,0 sedan priset föll från 749 till 599 kronor vid omkontrollen
+         2026-08-03. Den var billigast redan innan och drar nu ifrån: Nedis
+         gör samma jobb för 979. Två månaders batteritid håller den från
+         högre. */
+      prisvarde: 4,
     },
-    price: 749,
+    price: 599,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -454,7 +458,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Hubb", value: "Aqara-hubb krävs" },
     ],
     verdict:
-      "Sedan IKEA tog bort FYRTUR, TREDANSEN och PRAKTLYSING ur sortimentet är den här den billigaste vägen till en smart rullgardin. Den drar i kedjan på gardinen du redan har, vilket är både billigare och mindre ingripande än att byta hela gardinen mot SwitchBots för nästan tre gånger priset. Sedan kommer siffran som avgör om du står ut med den: två månader på en laddning, för en rullgardin på knappt två gånger två meter som körs en gång om dagen. Det är sex laddningar om året, mot en enda för Aqaras egen gardinmotor. Sitter gardinen högt eller svåråtkomligt är det ett verkligt problem och inte en detalj. Ingen oberoende part har publicerat något test av den, vilket är skälet till att raden Omdöme i oberoende tester står tom.",
+      "Sedan IKEA tog bort FYRTUR, TREDANSEN och PRAKTLYSING ur sortimentet är den här den billigaste vägen till en smart rullgardin. Den drar i kedjan på gardinen du redan har, vilket är både billigare och mindre ingripande än att byta hela gardinen mot SwitchBots för mer än tre gånger priset.\n\nSedan kommer siffran som avgör om du står ut med den: två månader på en laddning, för en rullgardin på knappt två gånger två meter som körs en gång om dagen. Det är sex laddningar om året, mot en enda för Aqaras egen gardinmotor. Sitter gardinen högt eller svåråtkomligt är det ett verkligt problem och inte en detalj.\n\nIngen oberoende part har publicerat något test av den, vilket är skälet till att raden Omdöme i oberoende tester står tom.",
   },
   {
     id: "nedis-smartlife-rullgardin",
@@ -478,8 +482,8 @@ const SEEDS: ProductSeed[] = [
       /* 2 000 mAh med solpanel, alltså bättre än Aqaras kedjemotor men klart
          under gardinmotorerna. */
       batteri: 3.5,
-      /* 979 kr mot Aqaras 749 för i praktiken samma jobb. Dyrast per funktion
-         av alla eftermonterade motorer i jämförelsen. */
+      /* 979 kr mot Aqaras 599 för i praktiken samma jobb, alltså 63 procent
+         mer. Dyrast per funktion av alla eftermonterade motorer. */
       prisvarde: 2,
     },
     price: 979,
@@ -507,7 +511,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Nej" },
     ],
     verdict:
-      "Den enda i jämförelsen som inte kommer från SwitchBot eller Aqara, och den enda som uttryckligen anges klara panelgardiner och romerska gardiner. Har du något annat än en vanlig rullgardin är det därför värt att titta på den. I övrigt är det svårt att motivera: 979 kr mot Aqaras 749 för samma jobb, ingen Matter, och SmartLife-appen bygger på Tuya och kräver ett molnkonto. Ingen oberoende part har testat den, på något språk. Värt att veta om vår egen redovisning: butiken som säljer den betalar oss högst provision av alla vi samarbetar med, 15 procent mot Kjells 5. Den hamnar ändå sist, och det är hela poängen med att viktningen ligger öppet.",
+      "Den enda motorn här som varken kommer från SwitchBot eller Aqara, och den enda som uttryckligen anges klara panelgardiner och romerska gardiner. Har du något annat än en vanlig rullgardin är det därför värt att titta på den. I övrigt är det svårt att motivera: 979 kr mot Aqaras 749 för samma jobb, ingen Matter, och SmartLife-appen bygger på Tuya och kräver ett molnkonto. Ingen oberoende part har testat den, på något språk.",
   },
 ];
 
@@ -617,7 +621,7 @@ export const ELEKTRISK_RULLGARDIN_CONSIDERED: ConsideredProduct[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/smart-gardinkontroll/switchbot-curtain-gardinkontroll-u-skena-vit-p51816",
     reason:
-      "Föregående generation, och slut i lager hos Kjell när vi kontrollerade. Tredje generationen har mer än dubbelt så stark motor och det tysta läget, som är hela skälet att välja SwitchBot. Att spara 200 kr på den gamla är inte värt det.",
+      "Föregående generation. Tredje generationen har mer än dubbelt så stark motor och det tysta läget, som är hela skälet att välja SwitchBot. Att spara 200 kr på den gamla är inte värt det.",
   },
   {
     brand: "Aqara",
@@ -680,7 +684,7 @@ export const ELEKTRISK_RULLGARDIN_FAQ = [
   {
     question: "Hur mycket låter en gardinmotor?",
     answer:
-      "Det skiljer mer än man tror, och bara en tillverkare berättar. SwitchBot anger 25 decibel i tyst läge och 42 decibel i normalläge för Curtain 3, alltså ungefär skillnaden mellan viskning och vanligt samtal. Aqara anger ingen siffra alls, varken på produktsidan eller i sin egen specifikation, och Nedis inte heller. De recensenter som jämfört SwitchBot och Aqara sida vid sida beskriver Aqara som hörbart högre. Eftersom en gardinmotor oftast sitter i ett sovrum och går på morgonen är det värt att ta på allvar.",
+      "Det skiljer mer än man tror, och bara en tillverkare berättar. SwitchBot anger 25 decibel i tyst läge och 42 decibel i normalläge för Curtain 3, alltså ungefär en viskning mot ett vanligt samtal. Aqara anger ingen siffra alls, varken på produktsidan eller i sin egen specifikation, och Nedis inte heller. De recensenter som jämfört SwitchBot och Aqara sida vid sida beskriver Aqara som hörbart högre. Eftersom en gardinmotor oftast sitter i ett sovrum och går på morgonen är det värt att ta på allvar.",
   },
   {
     question: "Behöver jag en hubb för att styra gardinerna?",
@@ -703,11 +707,6 @@ export const ELEKTRISK_RULLGARDIN_FAQ = [
       "Ja, men bara vinklingen, och det finns i praktiken ett alternativ i Sverige. SwitchBot Blind Tilt sätts på persiennens befintliga vridmekanism och vrider lamellerna med två graders precision, med en ljussensor som kan följa solen. Den hissar däremot inte upp persiennen, och det är den vanligaste missuppfattningen om produkten. Kontrollera din persienntyp mot tillverkarens kompatibilitetslista innan du beställer, för det är den punkt alla testare återkommer till.",
   },
   {
-    question: "Får jag installera en gardinmotor själv?",
-    answer:
-      "Batteridrivna gardinrobotar, ja, utan förbehåll. De klämmer eller skruvas fast och rör aldrig 230 volt, så det finns inget elarbete inblandat. Något helt annat gäller de moduler som styr en gardin- eller persiennmotor som redan är inkopplad i väggen, som Plejd JAL-01, Aqara Shutter Switch H2 och Aqara Smart Roller Shade Controller. Att koppla in en sådan är en förändring av den fasta installationen och kräver ett registrerat elinstallationsföretag.",
-  },
-  {
     question: "Lönar det sig att göra gardinerna smarta?",
     answer:
       "I sovrummet ofta, i resten av hemmet sällan. Poängen är att gardinen ska röra sig när du inte är där för att dra i den: gå upp med gryningen så att du vaknar av ljus, gå ner när solen ligger på under dagen, eller röra sig medan du är bortrest. Det finns inget att spara på det, till skillnad från smarta uttag. I ett rum där du ändå står bredvid gardinen varje gång du drar den är en motor för runt tusenlappen svår att motivera, och de flesta som är nöjda började med ett fönster och byggde ut därifrån.",
@@ -718,13 +717,13 @@ export const ELEKTRISK_RULLGARDIN_FAQ = [
       "Ja, men via hubb i samtliga fall i den här jämförelsen. SwitchBot når Google, Alexa och Siri via en SwitchBot-hubb, och HomeKit via Matter med Hub 2. Aqara når samma system via en Aqara-hubb. Nedis SmartLife når Google och Alexa men saknar Matter helt. Ingen av produkterna talar Matter direkt ur kartongen, vilket betyder att du binder dig till tillverkarens hubb oavsett vilken du väljer.",
   },
   {
-    question: "Vad kostar det att göra hela hemmet smart med gardiner?",
+    question: "Kan gardinmotorn väcka mig med morgonljus?",
     answer:
-      "Räkna per fönster, inte per hem. En eftermonterad motor kostar mellan 749 och 1 049 kronor i den här jämförelsen, en komplett motoriserad rullgardin drygt 2 000, och ett fönster med gardiner som möts på mitten kan behöva två enheter för att dra åt varsitt håll. Till det kommer hubben, som är nödvändig för Aqara och behövs för fjärrstyrning med SwitchBot. Ett hem med sex fönster landar alltså snabbt på över tiotusen kronor, vilket är skälet till att nästan alla börjar med sovrummet.",
+      "Ja, och det är den vanligaste anledningen folk faktiskt köper en. Samtliga motorer i jämförelsen kan schemaläggas, och de som når en hubb kan dessutom kopplas till soluppgången i stället för till en klockslag, vilket spelar roll i Sverige där den flyttar sig flera timmar mellan december och juni. Två saker avgör om det blir bra. Ljudnivån, eftersom en motor som låter 45 decibel väcker dig på sitt sätt och inte på ljusets. Och hur mörk gardinen är: en mörkläggningsväv som åker upp ger en skarp förändring, en tunn rullgardin ger nästan ingen alls. Vill du ha den mjuka varianten ska du köra motorn i två steg, halvvägs först, vilket alla appar i jämförelsen klarar.",
   },
   {
-    question: "Vad är skillnaden mellan smarta gardiner och elektriska gardiner?",
+    question: "Vad händer med gardinmotorn vid strömavbrott?",
     answer:
-      "Elektriska gardiner är ett äldre begrepp för gardiner med motor som styrs med fjärrkontroll eller en knapp på väggen, ofta måttbeställda och installerade av en montör, som hos Somfy och Luxaflex. Smarta gardiner betyder att motorn dessutom är uppkopplad och kan schemaläggas, styras från mobilen och ingå i automationer. De flesta produkterna i den här jämförelsen är ett tredje alternativ: motorer du sätter på gardinen du redan har.",
+      "Ingenting, eftersom samtliga i den här jämförelsen går på batteri. Det är en av kategorins verkliga fördelar mot fast installerade motorer: gardinen fungerar även när elen är borta, och du kan alltid dra den för hand. Däremot slutar automatiken fungera så fort routern eller hubben är strömlös, alltså scheman, appstyrning och röstkommandon. Har du solpanel på motorn, som Nedis SmartLife, laddar den ändå så länge det är dagsljus. Kontrollera också hur motorn beter sig när batteriet tar slut mitt i ett läge: de flesta stannar där de är, vilket kan betyda en gardin som står halvvägs tills du laddat.",
   },
 ];

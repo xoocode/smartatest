@@ -1,0 +1,50 @@
+# Kontrollerar varje rankat pris mot butikens egen produktsida, varje natt.
+#
+# Ett fel pris aer det enda felet paa sajten som kostar laesaren pengar, och det
+# enda som aendrar sig utan att naagon roer koden. Jobbet larmar men raettar
+# aldrig: priset styr kriteriet prisvaerde och prisvaerde styr rankningen, saa
+# en apparat som blivit 500 kronor billigare kan foertjaena en hoegre placering.
+# Den bedoemningen aer redaktionell. Se .agent/plans/priskoll-automatisk.md.
+#
+# --browser behoevs foer Clas Ohlson, som botkontrollerar och kraever att sidan
+# koer sin JavaScript. Hornbach hoppas oever helt: deras kontroll eskalerar till
+# en CAPTCHA, och saadana loeser vi inte.
+
+name: priskoll
+
+on:
+  schedule:
+    # 03:00 UTC, alltsaa 04:00 eller 05:00 svensk tid beroende paa aarstid.
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  priser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm exec playwright install --with-deps chromium
+
+      - name: Kontrollera priserna
+        run: node scripts/priskoll.mjs --browser --json priskoll.json
+
+      # Resultatet sparas aeven naer allt staemmer, saa att en glidning gaar att
+      # foelja bakaat i tiden och inte bara ses den natt den upptaecks.
+      - name: Spara resultatet
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: priskoll-${{ github.run_number }}
+          path: priskoll.json
+          retention-days: 90

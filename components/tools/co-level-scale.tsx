@@ -3,6 +3,11 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  CO_LEVELS as LEVELS,
+  formatDuration,
+  type CoLevel,
+} from "@/lib/tool-logic/co-level";
 
 /**
  * Vad en CO-halt betyder, och när varnaren enligt standarden får larma.
@@ -44,79 +49,10 @@ import { cn } from "@/lib/utils";
  * publicerade tabeller. Båda är länkade i källistan på sidan.
  */
 
-type Level = {
-  ppm: number;
-  /** Vad standarden kräver av varnaren vid den här halten. */
-  alarm: string;
-  /** Minuter varnaren enligt standarden inte får larma före, om något. */
-  silentFor?: number;
-  /** Vad som händer med en människa. */
-  effect: string;
-  tone: "low" | "mid" | "high";
-};
+/* Halterna, larmtiderna och hälsoeffekterna bor i lib/tool-logic/co-level.ts,
+   där agentverktyget slår upp i samma tabell. */
 
-const LEVELS: Level[] = [
-  {
-    ppm: 30,
-    alarm: "Får inte larma före 120 minuter",
-    silentFor: 120,
-    effect:
-      "Ingen akut effekt hos friska vuxna. Vid exponering dag efter dag kan huvudvärk och trötthet komma, och foster och personer med hjärtsjukdom påverkas tidigare.",
-    tone: "low",
-  },
-  {
-    ppm: 50,
-    alarm: "Tidigast efter 60 minuter, senast efter 90",
-    silentFor: 60,
-    effect:
-      "Det amerikanska gränsvärdet för yrkesexponering under en åttatimmarsdag. Alltså inte akut farligt, men inte heller något som ska finnas i ett sovrum.",
-    tone: "low",
-  },
-  {
-    ppm: 100,
-    alarm: "Tidigast efter 10 minuter, senast efter 40",
-    silentFor: 10,
-    effect:
-      "Lätt huvudvärk efter ett par timmar. Många beskriver det i efterhand som att de kände sig hängiga utan att förstå varför.",
-    tone: "mid",
-  },
-  {
-    ppm: 200,
-    alarm: "Mellan 10 och 40 minuter, som vid 100 ppm",
-    effect: "Lätt huvudvärk efter två till tre timmar.",
-    tone: "mid",
-  },
-  {
-    ppm: 300,
-    alarm: "Senast efter 3 minuter",
-    effect:
-      "Huvudvärk och illamående inom ett par timmar. Här kräver standarden att varnaren larmar nästan omedelbart.",
-    tone: "high",
-  },
-  {
-    ppm: 400,
-    alarm: "Senast efter 3 minuter",
-    effect:
-      "Huvudvärk och illamående inom en till två timmar. Livshotande efter omkring tre timmar.",
-    tone: "high",
-  },
-  {
-    ppm: 800,
-    alarm: "Senast efter 3 minuter",
-    effect:
-      "Huvudvärk, illamående och yrsel inom 45 minuter. Medvetslöshet efter omkring en timme. Dödsfall inom två till tre timmar.",
-    tone: "high",
-  },
-  {
-    ppm: 1600,
-    alarm: "Senast efter 3 minuter",
-    effect:
-      "Svår huvudvärk, illamående och yrsel inom 20 minuter. Dödsfall kan inträffa inom en timme.",
-    tone: "high",
-  },
-];
-
-const TONE_CLASS: Record<Level["tone"], string> = {
+const TONE_CLASS: Record<CoLevel["tone"], string> = {
   low: "text-foreground",
   mid: "text-foreground",
   high: "text-brand",
@@ -199,13 +135,6 @@ export function CoLevelScale({ className }: { className?: string }) {
       </p>
     </div>
   );
-}
-
-/** "60 minuter" blir "en timme", "120" blir "två timmar". Böjs, inte suffixas. */
-function formatDuration(minutes: number): string {
-  if (minutes < 60) return `${minutes} minuter`;
-  const hours = Math.round(minutes / 60);
-  return hours === 1 ? "en timme" : `${hours} timmar`;
 }
 
 function Pill({

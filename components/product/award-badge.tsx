@@ -1,5 +1,5 @@
 import type { ElementType } from "react";
-import { Award, Crown, Medal, Sparkles, Wallet } from "lucide-react";
+import { Award, Crown, Sparkles, Wallet } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -84,7 +84,6 @@ const awardVariants = cva(
 
 const awardIcons: Record<AwardKind, ElementType> = {
   winner: Crown,
-  runnerup: Medal,
   budget: Wallet,
   premium: Sparkles,
   editor: Award,

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { SITE } from "@/lib/site";
 import { searchDocs, type SearchDoc } from "@/lib/search-index";
+import { toolForm, toolParam } from "@/lib/webmcp";
 import { Container } from "@/components/site/container";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Input } from "@/components/ui/input";
@@ -62,11 +63,27 @@ export default async function SokPage({
       <Container size="narrow" className="pt-3 pb-[var(--space-section)]">
         <h1 className="text-h1">Sök</h1>
 
+        {/* Sökningen är det formulär på sajten som lämpar sig bäst som verktyg:
+            en GET utan följdverkningar, ett enda fält, och ett svar som är just
+            det en agent vill ha, alltså adresser till rätt sida.
+            `autoSubmit` är därför satt. Att köra om en sökning kostar
+            ingenting och ändrar ingenting.
+
+            Sökrutan i sidhuvudet är avsiktligt oannoterad. Den är ingen `form`
+            utan ett fält som filtrerar i klienten, och att bygga om den till ett
+            formulär bara för attributens skull vore att ändra något som
+            fungerar för att blidka en revision. */}
         <form
           action={PAGE_URL}
           method="get"
           role="search"
-          className="mt-[var(--space-block)] flex gap-2"
+          className="mt-block flex gap-2"
+          {...toolForm({
+            name: "sokPaSmartatest",
+            description:
+              "Sök bland jämförelser, köpguider, räknare och övriga sidor på smartatest.se. Svaret är en resultatsida med länkar, grupperade efter typ. Använd produktkategorins namn, till exempel brandvarnare, vattenlarm eller smart belysning.",
+            autoSubmit: true,
+          })}
         >
           <Input
             type="search"
@@ -75,6 +92,9 @@ export default async function SokPage({
             placeholder="Brandvarnare, smart plug, vattenlarm…"
             aria-label="Sök på sajten"
             autoFocus
+            {...toolParam(
+              "Sökordet. Minst två tecken. Ge produktkategorin och inte varumärket: sajten jämför kategorier, så brandvarnare ger träff medan Nest inte gör det.",
+            )}
           />
           <Button type="submit" variant="brand">
             Sök
@@ -82,30 +102,30 @@ export default async function SokPage({
         </form>
 
         {query.length === 0 ? (
-          <p className="mt-[var(--space-block)] text-muted-foreground">
+          <p className="mt-block text-muted-foreground">
             Skriv vad du letar efter, så visar vi jämförelser, räknare och
             sidor som matchar.
           </p>
         ) : query.length < 2 ? (
-          <p className="mt-[var(--space-block)] text-muted-foreground">
+          <p className="mt-block text-muted-foreground">
             Skriv minst två tecken.
           </p>
         ) : results.length === 0 ? (
-          <div className="mt-[var(--space-block)]">
+          <div className="mt-block">
             <p className="text-muted-foreground">
               Ingen träff på <strong>{query}</strong>. Kategorierna finns i
               menyn, och räknarna under{" "}
               <Link
-                href="/verktyg"
+                href="/guider"
                 className="text-primary underline underline-offset-2"
               >
-                Verktyg
+                Guider
               </Link>
               .
             </p>
           </div>
         ) : (
-          <div className="mt-[var(--space-block)] flex flex-col gap-[var(--space-block)]">
+          <div className="mt-block flex flex-col gap-block">
             <p className="text-sm text-muted-foreground">
               {results.length === 1
                 ? `1 träff på ${query}`

@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/products";
 import { AffiliateCta } from "@/components/product/affiliate-cta";
+import { VerdictText } from "@/components/product/verdict-text";
 import { AwardBadge } from "@/components/product/award-badge";
 import { PriceTag } from "@/components/product/price-tag";
 import { IMAGE_SIZES, ProductImage } from "@/components/product/product-image";
+import { PROS_CONS_PANEL } from "@/components/product/product-review";
 import { ProsCons } from "@/components/product/pros-cons";
 import { ScoreBadge } from "@/components/product/score-badge";
 import { UserRating } from "@/components/product/user-rating";
@@ -71,21 +73,27 @@ export function WinnerCard({
           they were one number. The user rating is a genuinely second opinion. */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <ScoreBadge score={product.score} showMax label="Testbetyg" size="sm" />
-        <UserRating product={product} label="Användare" variant="inline" />
+        <UserRating product={product} variant="inline" />
       </div>
 
-      <p className="text-muted-foreground">{verdict}</p>
+      <VerdictText text={verdict} className="text-muted-foreground" />
 
       {showSpecs ? (
         <SpecList specs={product.specs} highlightOnly variant="grid" size="sm" />
       ) : null}
 
+      {/* Samma tonade platta som i recensionskortet, från samma konstant, så
+          att vinnaren och recensionerna längre ned på sidan inte ser olika ut.
+          Undantaget är `stacked`, som är en enspaltsvariant för sidokolumner:
+          där är kortet redan smalt, och en platta innanför en platta läser sig
+          som ett fel snarare än som en avgränsning. */}
       {showProsCons ? (
         <ProsCons
           pros={product.pros}
           cons={product.cons}
           variant="side"
           size="sm"
+          className={variant === "stacked" ? undefined : PROS_CONS_PANEL}
         />
       ) : null}
     </div>
@@ -120,7 +128,11 @@ export function WinnerCard({
           variant="strip"
           className="rounded-none"
         />
-        <div className="flex flex-col gap-[var(--space-card)] pad-card lg:flex-row lg:items-start">
+        {/* Tre spalter på skrivbordet, alltså två mellanrum: bild mot text och
+            text mot köpruta. `--space-card` räcker staplat på mobil men blir
+            trångt i rad. Höjningen ligger på `lg:gap-x`, så mobilstapeln är
+            orörd. Texten är `flex-1 min-w-0` och tar kostnaden. */}
+        <div className="flex flex-col gap-[var(--space-card)] pad-card lg:flex-row lg:items-start lg:gap-x-block">
           <ProductImage
             src={product.image}
             alt={product.name}
@@ -186,7 +198,8 @@ export function WinnerCard({
         variant="ribbon"
         className="absolute -top-3 left-[var(--space-card)]"
       />
-      <div className="flex flex-col gap-[var(--space-card)] pt-3 lg:flex-row lg:items-start">
+      {/* Samma tre spalter som i banner-varianten, se kommentaren där. */}
+      <div className="flex flex-col gap-[var(--space-card)] pt-3 lg:flex-row lg:items-start lg:gap-x-block">
         <ProductImage
           src={product.image}
           alt={product.name}

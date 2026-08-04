@@ -1,5 +1,5 @@
 import { resolveProducts, type ProductSeed } from "@/lib/products";
-import { SMART_BELYSNING } from "@/lib/categories";
+import { SMART_BELYSNING } from "@/lib/test-pages";
 
 /**
  * Styleguide fixtures only. Prices, scores and verdicts are invented — nothing
@@ -128,7 +128,6 @@ const DEMO_SEEDS: ProductSeed[] = [
     oldPrice: 329,
     merchant: "Nexsmart",
     merchantUrl: "#demo",
-    award: "runnerup",
     superlative: "Bäst för Thread-hem",
     pros: ["Matter över Thread", "Stark ljusstyrka", "Snabb respons"],
     cons: ["Appen är stökig", "Kräver Thread-router för bästa resultat"],

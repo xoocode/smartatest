@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { BRANDFILT, categoryTrail } from "@/lib/categories";
+import { BRANDFILT, testPageTrail } from "@/lib/test-pages";
 import { BRANDFILT_SOURCES } from "@/lib/sources";
 import {
   BRANDFILT_CONSIDERED,
@@ -11,6 +11,7 @@ import {
 } from "@/lib/data/brandfilt";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { NOT_STATED, priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -33,6 +34,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/brandfilt/kopguide.mdx";
 
@@ -43,9 +45,15 @@ import Kopguide from "@/content/brandfilt/kopguide.mdx";
  * omkontrollerade samma dag. Kriteriebetygen är redaktionell bedömning utifrån
  * de uppgifterna. Vi har inte tänt eld på något.
  *
- * Sidans fynd är att EN 1869 finns i två versioner som provar olika saker, och
- * att versionsnumret står i butikstexten men i ingen jämförelse. Se
+ * Sidans fynd är att EN 1869 finns i två versioner som provar olika saker. Se
  * lib/categories.ts för hur det påverkar viktningen.
+ *
+ * ⚠️ Här stod tidigare att versionsnumret "står i butikstexten men i ingen
+ * jämförelse". **Det var fel**, uppmätt 2026-08-03: fem av sex svenska
+ * jämförelser skriver ut en version, och brandinfo.se gör det tolv gånger.
+ * Det som faktiskt skiljer oss är att ingen av dem nämner att versionerna är
+ * två. Två av dem citerar 1997 som gällande. Underlaget står vid
+ * BRANDFILT_SOURCES i lib/sources.ts.
  *
  * Tre saker som tillkom vid självgranskningen 2026-08-02 och som inte ska
  * plockas bort utan att någon tänker efter:
@@ -56,23 +64,26 @@ import Kopguide from "@/content/brandfilt/kopguide.mdx";
  *    platser, att den är den enda annonserbara, och att ingen certifiering är
  *    granskad av tredje part.
  * 3. Beskrivningen av vad revisionen 2019 ändrade är kontrollerad mot
- *    standardens egen text. Se .agent/research-brandfilt-verifiering.md.
+ *    standardens egen text. Se .agent/research/brandfilt-verifiering.md.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = BRANDFILT;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-02";
+const TEST_PAGE = BRANDFILT;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-03";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "EN 1869:2019 kräver att brandfilten provats även mot brand i vätska. Den tillbakadragna versionen från 1997 provade bara matolja. Vi jämförde åtta filtar från 99,90 till 299,90 kronor och läste årtalet i varje butiks specifikation.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -104,15 +115,16 @@ export default async function BrandfiltPage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -120,11 +132,12 @@ export default async function BrandfiltPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Två saker avgör om brandfilten du köper duger, och båda står i
+              Storleken och årtalet avgör om brandfilten du köper duger, och båda står i
               butikens specifikation. Storleken ska vara 120 × 180 centimeter,
               och certifieringen ska vara EN 1869:2019, eftersom bara den
               versionen kräver att filten provats mot brand i vätska och inte
@@ -154,7 +167,7 @@ export default async function BrandfiltPage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -173,7 +186,7 @@ export default async function BrandfiltPage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -189,13 +202,13 @@ export default async function BrandfiltPage() {
         <Prose>
           <p>
             <strong>EN 1869:1997</strong> provade brandfiltar mot brand i
-            matolja, alltså stekpannan som fattar eld, och innehöll ett prov av
+            matolja, som i stekpannan som fattar eld, och innehöll ett prov av
             elektrisk ledningsförmåga. Den versionen är tillbakadragen sedan
             2020.
           </p>
           <p>
             <strong>EN 1869:2019</strong> behöll båda proven, skärpte elprovet
-            och lade till ett obligatoriskt <strong>heptanprov</strong>, alltså
+            och lade till ett obligatoriskt <strong>heptanprov</strong> för
             brand i vätska. Den slog också fast att en brandfilt är en
             engångsprodukt. Skillnaden mellan versionerna är därför inte att den
             ena är provad och den andra inte, utan att bara den nyare är provad
@@ -238,7 +251,7 @@ export default async function BrandfiltPage() {
         tone="muted"
         width="wide"
         title="Jämför alla åtta"
-        description="Två rader avgör: Certifiering, där årtalet är hela poängen, och Storlek, där räddningstjänsterna rekommenderar 120 × 180."
+        description="Läs Certifiering först, där det är årtalet som räknas. Sedan Storlek, där räddningstjänsterna rekommenderar 120 × 180."
       >
         <FilterableComparison
           products={products}
@@ -246,7 +259,7 @@ export default async function BrandfiltPage() {
           legend="Filtrera på storlek, certifiering och förpackning"
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, inte att egenskapen saknas. En av filtarna var slut vid kontrollen.`}
+          caption={priceCaption(PRICE_CHECKED, `${NOT_STATED} En av filtarna var slut vid kontrollen.`)}
         />
       </Section>
 
@@ -258,7 +271,7 @@ export default async function BrandfiltPage() {
         id="vem-har-kontrollerat"
         width="default"
         title="Vem har kontrollerat det här?"
-        description="Tre saker om jämförelsen ovan som vi hellre säger själva än låter dig upptäcka."
+        description="Vad rankningen bygger på, och var den är svag."
       >
         <Prose>
           <p>
@@ -274,21 +287,11 @@ export default async function BrandfiltPage() {
               Fyra av åtta filtar kommer från samma butik, och de tar plats 1, 2,
               4 och 5.
             </strong>{" "}
-            Brandvarnare.se säljer dem utan angiven tillverkare, alltså som egen
+            Brandvarnare.se säljer dem utan angiven tillverkare, som egen
             etikett, och deras uppgift om SS-EN 1869:2019 vilar helt på butikens
             eget ord. Skälet till placeringarna är att de är den enda butiken som
             säljer 120 × 180 med utskrivet årtal för under 200 kronor. Kjells
             motsvarande kostar 299,90 och anger 1997.
-          </p>
-          <p>
-            <strong>
-              Samma butik är den enda i vår brandkategori vi skulle kunna
-              annonsera mot.
-            </strong>{" "}
-            Det har inte påverkat viktningen, och du kan kontrollera det själv:
-            viktningen står längre ner, poängen per kriterium står i varje
-            recension, och totalen räknas fram ur dem. Hade Kjells filt haft ett
-            utskrivet 2019 hade den vunnit på storlek och kundbetyg.
           </p>
         </Prose>
       </Section>
@@ -300,12 +303,12 @@ export default async function BrandfiltPage() {
         title="Recensioner av varje filt"
         description="Alla åtta bedöms mot samma fem kriterier. Certifieringen är provad av ett certifieringsorgan, inte av oss."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -337,13 +340,13 @@ export default async function BrandfiltPage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Kriteriet Dokumenterad certifiering väger tyngst, och namnet är noga valt. Vi betygsätter vad du kan kontrollera innan du betalar, inte vad filten fysiskt klarar, eftersom ingen av uppgifterna är granskad av tredje part. Skalan är 5,0 för utskrivet EN 1869:2019, 2,5 när standarden anges utan årtal, 1,5 för utskrivet 1997 och 1,0 när butiken inte anger någon standard alls. Att ett utskrivet 1997 får mer än en tystnad är avsiktligt: en butik ska inte tjäna på att låta bli att svara. Vi hittade inget oberoende test av brandfiltar, så till skillnad från våra sidor om smart belysning och smarta uttag finns här inget kriterium för testomdömen. Priserna är hos den butik vi länkar till. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Kriteriet Dokumenterad certifiering väger tyngst, och namnet är noga valt. Vi betygsätter vad du kan kontrollera innan du betalar, inte vad filten fysiskt klarar, eftersom ingen av uppgifterna är granskad av tredje part. Skalan är 5,0 för utskrivet EN 1869:2019, 2,5 när standarden anges utan årtal, 1,5 för utskrivet 1997 och 1,0 när butiken inte anger någon standard alls. Att ett utskrivet 1997 får mer än en tystnad är avsiktligt: en butik ska inte tjäna på att låta bli att svara. Vi hittade inget oberoende test av brandfiltar, så till skillnad från våra sidor om smart belysning och smarta uttag finns här inget kriterium för testomdömen. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -351,10 +354,10 @@ export default async function BrandfiltPage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte produkterna fysiskt. Det här är vad vi gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -377,7 +380,7 @@ export default async function BrandfiltPage() {
         title="Källor"
         description="Standarden själv, räddningstjänsternas rekommendationer och butikernas egna produktsidor för de uppgifter vi jämfört. Inget av det nedan är ett produkttest, och skälet står i rutan här under."
       >
-        <Prose className="mb-[var(--space-block)]">
+        <Prose className="mb-block">
           <p>
             <strong>Det finns inget oberoende test av brandfiltar.</strong> Inte
             hos Råd &amp; Rön, inte hos Testfakta, inte hos någon nordisk
@@ -407,9 +410,8 @@ export default async function BrandfiltPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "fireSafety", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

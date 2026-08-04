@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
 import { graph, pageEntity } from "@/lib/schema";
-import { categoriesInGroup, SAKERHET } from "@/lib/catalog";
-import { BRANDVARNARE_SOURCES, VATTENLARM_SOURCES } from "@/lib/sources";
+import { SAKERHET, testPagesInCategory, isBrowsable } from "@/lib/catalog";
+import { groupSources } from "@/lib/sources";
 import { DEFAULT_AUTHOR } from "@/lib/people";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
-import { CategoryGrid } from "@/components/site/category-grid";
+import { TestPageGrid } from "@/components/site/test-page-grid";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
 import { Prose } from "@/components/site/prose";
@@ -31,7 +31,7 @@ import { FaqAccordion } from "@/components/product/faq-accordion";
  */
 
 const PAGE_URL = "/sakerhet";
-const UPDATED = "2026-08-02";
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
   title: "Säkerhet i hemmet: brandvarnare, vattenlarm och lås",
@@ -54,12 +54,12 @@ const FAQ = [
   {
     question: "Ger säkerhetsprodukter rabatt på försäkringen?",
     answer:
-      "Ibland, men mindre ofta än man tror. Länsförsäkringar och Folksam ger båda tio procent på villaförsäkringen för en godkänd vattenfelsbrytare, alltså en enhet som stänger av vattnet. Ett vanligt vattenlarm ger ingen rabatt hos något av bolagen, och inte heller brandvarnare, eftersom de redan är ett krav.",
+      "Ibland, men bara för en produkttyp. Länsförsäkringar och Folksam ger båda tio procent på villaförsäkringen för en godkänd vattenfelsbrytare, en enhet som stänger av vattnet. Ett vanligt vattenlarm ger ingen rabatt hos något av bolagen, och inte heller brandvarnare, eftersom de redan är ett krav.",
   },
   {
     question: "Varför saknar era säkerhetssidor ibland testomdöme?",
     answer:
-      "För att det ofta inte finns något test att citera. Stiftung Warentest har testat rökvarnare men inte vattenlarm, och deras rökvarnartest gäller tyska produkter som inte säljs här. Där underlaget saknas skriver vi det rakt ut och rankar på specifikationer i stället, hellre än att kalla en specifikationsjämförelse för ett test.",
+      "För att det ofta inte finns något test att citera. Stiftung Warentest har testat rökvarnare men inte vattenlarm, och deras rökvarnartest gäller tyska produkter som inte säljs här. Saknas underlaget står det så på sidan, och då rankar vi på specifikationer i stället för att kalla en specifikationsjämförelse för ett test.",
   },
   {
     question: "Behöver säkerhetsprodukter vara uppkopplade?",
@@ -69,6 +69,10 @@ const FAQ = [
 ];
 
 export default function SakerhetPage() {
+  /* Hela gruppens källor, avdubblerade. Se `groupSources` i lib/sources.ts:
+     sidan skickade tidigare en handplockad kategorilista hit. */
+  const groupSources_ = groupSources(SAKERHET);
+
   /* Gruppnav. `CollectionPage` med kategorierna som ItemList, så gruppen blir
      en entitet i grafen och inte bara en rubrik i menyn. */
   const hubJsonLd = graph([
@@ -84,8 +88,8 @@ export default function SakerhetPage() {
       "@id": `${SITE.url}${PAGE_URL}#kategorier`,
       name: `Jämförelser inom ${SAKERHET.label.toLowerCase()}`,
       url: `${SITE.url}${PAGE_URL}`,
-      itemListElement: categoriesInGroup(SAKERHET)
-        .filter((c) => c.status === "live")
+      itemListElement: testPagesInCategory(SAKERHET)
+        .filter(isBrowsable)
         .map((c, i) => ({
           "@type": "ListItem",
           position: i + 1,
@@ -96,13 +100,7 @@ export default function SakerhetPage() {
   ]);
 
   const author = DEFAULT_AUTHOR;
-  const categories = categoriesInGroup(SAKERHET);
-  /* Gruppens källor, sammanslagna och avdubblerade på URL. Två kategorier delar
-     flera myndighetskällor, och panelen ska räkna varje källa en gång. */
-  const sources = [...BRANDVARNARE_SOURCES, ...VATTENLARM_SOURCES].filter(
-    (s, i, all) => all.findIndex((x) => x.url === s.url) === i,
-  );
-
+  const categories = testPagesInCategory(SAKERHET);
   return (
     <>
       <script
@@ -118,9 +116,9 @@ export default function SakerhetPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <p className="eyebrow text-brand">Guide</p>
+            <p className="eyebrow text-brand">Kategori</p>
             <h1 className="text-h1">Säkerhet i hemmet</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               De här produkterna köper man en gång och hoppas aldrig få höra.
@@ -135,7 +133,7 @@ export default function SakerhetPage() {
           </div>
 
           <SourceList
-            sources={sources}
+            sources={groupSources_}
             variant="summary"
             title="Det här har vi gått igenom"
             className="lg:sticky lg:top-20 lg:self-start"
@@ -151,7 +149,7 @@ export default function SakerhetPage() {
         title="Testerna i gruppen"
         description="Varje test bygger på samma metod: publicerade specifikationer och de oberoende tester som finns, sammanvägda mot kriterier vi redovisar öppet."
       >
-        <CategoryGrid entries={categories} columns={3} />
+        <TestPageGrid entries={categories} columns={3} />
       </Section>
 
       <Section width="default" title="Så tänker vi om säkerhet">
@@ -163,10 +161,8 @@ export default function SakerhetPage() {
             deras vinnare säljs inte i Sverige. Vattenlarm har ingen provat alls.
           </p>
           <p>
-            Samtidigt är de svenska jämförelserna i kategorin fulla av rubriker
-            som &rdquo;Så har vi testat&rdquo; utan ett enda mätvärde under. Flera av dem
-            tjänar pengar på samma affiliatelänkar som vi, vilket är rimligt,
-            men de säger det inte.
+            Samtidigt är jämförelserna av de här produkterna fulla av rubriker
+            som &rdquo;Så har vi testat&rdquo; utan ett enda mätvärde under.
           </p>
           <p>
             Vår linje är därför enkel. Vi rankar på det som går att kontrollera:
@@ -190,9 +186,8 @@ export default function SakerhetPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

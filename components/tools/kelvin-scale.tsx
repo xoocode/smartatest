@@ -3,6 +3,11 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { KELVIN_MAX, KELVIN_MIN, kelvinNote } from "@/lib/tool-logic/kelvin";
+
+/* Benämningarna bor i lib/tool-logic/kelvin.ts, där agentverktyget läser dem.
+   Färgomvandlingen nedan stannar här: den illustrerar hur talet upplevs och är
+   inget en agent frågar efter. */
 
 /**
  * Approximate sRGB for a colour temperature, so the preview looks like the
@@ -21,7 +26,7 @@ const ANCHORS: { k: number; rgb: [number, number, number] }[] = [
 ];
 
 function kelvinToRgb(k: number): string {
-  const clamped = Math.min(6500, Math.max(2000, k));
+  const clamped = Math.min(KELVIN_MAX, Math.max(KELVIN_MIN, k));
   let lo = ANCHORS[0];
   let hi = ANCHORS[ANCHORS.length - 1];
   for (let i = 0; i < ANCHORS.length - 1; i += 1) {
@@ -37,20 +42,11 @@ function kelvinToRgb(k: number): string {
   return `rgb(${mix(lo.rgb[0], hi.rgb[0])} ${mix(lo.rgb[1], hi.rgb[1])} ${mix(lo.rgb[2], hi.rgb[2])})`;
 }
 
-const NOTES: { max: number; name: string; use: string }[] = [
-  { max: 2300, name: "Levandeljus", use: "Stämning på kvällen. Nästan orange." },
-  { max: 2900, name: "Varmvitt", use: "Motsvarar en gammal glödlampa. Vardagsrum och sovrum." },
-  { max: 3500, name: "Varmt neutralt", use: "Kök och hall. Vaket utan att bli kyligt." },
-  { max: 4600, name: "Neutralvitt", use: "Arbetsrum och badrum. Här börjar det kännas som kontor." },
-  { max: 5600, name: "Kallvitt", use: "Garage och tvättstuga. Sällan trivsamt i vardagsrummet." },
-  { max: 6500, name: "Dagsljus", use: "Morgonljus som väcker. Obehagligt på kvällen." },
-];
-
 export type KelvinScaleProps = { className?: string };
 
 export function KelvinScale({ className }: KelvinScaleProps) {
   const [kelvin, setKelvin] = useState(2700);
-  const note = NOTES.find((n) => kelvin <= n.max) ?? NOTES[NOTES.length - 1];
+  const note = kelvinNote(kelvin);
 
   return (
     <div
@@ -71,8 +67,8 @@ export function KelvinScale({ className }: KelvinScaleProps) {
         <span className="font-medium">Färgtemperatur</span>
         <input
           type="range"
-          min={2000}
-          max={6500}
+          min={KELVIN_MIN}
+          max={KELVIN_MAX}
           step={100}
           value={kelvin}
           onChange={(e) => setKelvin(e.target.valueAsNumber)}

@@ -5,7 +5,7 @@ website. Copy this folder into any Next.js App Router project; it imports
 nothing from the site around it.
 
 Platform side lives in `redpoint9.com` (`lib/track/`, `app/api/track/click/`).
-Design rationale: `smartatest/.agent/plan-conversion-tracking.md`.
+Design rationale: `smartatest/.agent/plans/conversion-tracking.md`.
 
 ---
 

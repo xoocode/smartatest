@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { SITE } from "@/lib/site";
-import { liveCategories } from "@/lib/catalog";
-import { PEOPLE, getPerson, personHref } from "@/lib/people";
+import { PUBLISHER, SITE } from "@/lib/site";
+import { browsableTestPages } from "@/lib/catalog";
+import {
+  DEFAULT_AUTHOR,
+  PEOPLE,
+  getPerson,
+  isBylineAuthor,
+  isBylineReviewer,
+  personHref,
+} from "@/lib/people";
 import { graph, pageEntity, personNode } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -39,9 +47,16 @@ export default async function PersonPage({ params }: Params) {
 
   /* Kategorierna, inte menyn. NAV listar sedan menyomläggningen gruppernas
      navsidor plus Verktyg, så den här listan påstod att personen ansvarar för
-     "Bäst i test verktyg 2026". `liveCategories()` är samma källa sitemapen
-     och sökindexet läser, alltså kan en opublicerad kategori inte dyka upp. */
-  const categories = liveCategories();
+     "Bäst i test verktyg 2026". `browsableTestPages()` är samma källa sitemapen
+     och sökindexet läser, alltså kan en opublicerad kategori inte dyka upp.
+
+     Listan visas bara för den som faktiskt står som skribent. Tidigare fick
+     alla tre samma uppsättning kort, vilket gjorde det uppenbart vid två
+     öppna flikar att ingen av dem skrivit något särskilt. Granskaren får en
+     rad text i stället: kort läses som författarskap. */
+  const categories = browsableTestPages();
+  const isAuthor = isBylineAuthor(person);
+  const isReviewer = isBylineReviewer(person);
 
   /*
    * ProfilePage med personen som mainEntity.
@@ -60,9 +75,14 @@ export default async function PersonPage({ params }: Params) {
   const personNodeFull = {
     ...personNode(person),
     description: person.short,
-    email: person.email,
-    sameAs: person.linkedin ? [person.linkedin] : undefined,
-    knowsAbout: categories.map((c) => c.label),
+    /* Redaktionens brevlåda, inte en personlig adress. Ingen `sameAs`: den
+       ska peka på personens egna profiler någon annanstans, och när det inte
+       finns några är ett utelämnat fält rätt svar. */
+    email: PUBLISHER.email,
+    /* Bara för den som faktiskt står som skribent. Alla tre hade tidigare
+       samma `knowsAbout`, vilket är samma påstående som de identiska
+       kortlistorna gjorde, fast i maskinläsbar form. */
+    ...(isAuthor ? { knowsAbout: categories.map((c) => c.label) } : {}),
     alumniOf: person.education.map((e) => ({
       "@type": "EducationalOrganization",
       name: e.split(", ").slice(-1)[0],
@@ -89,22 +109,22 @@ export default async function PersonPage({ params }: Params) {
       />
 
       <div className="bg-muted">
-        <Container size="wide" className="py-[var(--space-section)]">
+        <Container size="narrow" className="py-[var(--space-section)]">
           <Breadcrumbs
             items={[
               { label: "Om oss", href: "/om-oss" },
               { label: person.name },
             ]}
             schema
-            className="mb-[var(--space-block)]"
+            className="mb-block"
           />
           <PersonCard person={person} variant="hero" link={false} />
         </Container>
       </div>
 
-      <Container size="wide" className="pad-section">
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_20rem]">
-          <div className="flex flex-col gap-[var(--space-block)]">
+      <Container size="narrow" className="pad-section">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <div className="flex flex-col gap-block">
             {person.quote ? (
               <PullQuote label={person.quoteLabel}>{person.quote}</PullQuote>
             ) : null}
@@ -120,7 +140,7 @@ export default async function PersonPage({ params }: Params) {
         </div>
       </Container>
 
-      {categories.length > 0 ? (
+      {isAuthor && categories.length > 0 ? (
         <Section
           tone="muted"
           width="wide"
@@ -136,6 +156,31 @@ export default async function PersonPage({ params }: Params) {
               author: person.name,
             }))}
           />
+        </Section>
+      ) : null}
+
+      {isReviewer && categories.length > 0 ? (
+        <Section
+          tone="muted"
+          width="default"
+          title={`Vad ${person.name.split(" ")[0]} granskar`}
+        >
+          <Prose>
+            <p>
+              {person.name.split(" ")[0]} faktagranskar samtliga jämförelser
+              innan de publiceras och står som granskare i bylinen på var och en
+              av dem. Namnet står alltså på sidor som någon annan skrivit,
+              vilket är avsikten: en sida som granskats av den som skrev den
+              är inte granskad.
+            </p>
+            <p>
+              Jämförelserna hittar du hos{" "}
+              <Link href={personHref(DEFAULT_AUTHOR)}>
+                {DEFAULT_AUTHOR.name}
+              </Link>
+              , som är skribent på dem.
+            </p>
+          </Prose>
         </Section>
       ) : null}
     </>

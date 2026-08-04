@@ -3,21 +3,15 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  DEFAULT_PRICE,
+  STANDBY_W,
+  runningCost,
+} from "@/lib/tool-logic/running-cost";
 
-/**
- * Standby draw of a smart bulb, in watts.
- *
- * 0,3 W is the middle of the range that independent measurements consistently
- * report for Wi-Fi and Zigbee bulbs (roughly 0,2–0,5 W). It is deliberately a
- * conservative default: we have seen a Swedish claim that standby accounts for
- * 20–70 % of a bulb's annual consumption, but the source does not respond and
- * we will not build a headline number on something we cannot check. What the
- * calculator shows is arithmetic on a figure we can stand behind.
- */
-const STANDBY_W = 0.3;
-
-/** Total consumer price per kWh incl. grid fee, tax and VAT. */
-const DEFAULT_PRICE = 2;
+/* Viloförbrukningen, elpriset och räkningen bor i
+   lib/tool-logic/running-cost.ts, där agentverktygen för lampor, uttag och
+   julbelysning anropar samma funktion. */
 
 const kr = new Intl.NumberFormat("sv-SE", {
   style: "currency",
@@ -97,19 +91,17 @@ export function RunningCostCalculator({
   const [standby, setStandby] = useState(defaultStandby);
   const [price, setPrice] = useState(DEFAULT_PRICE);
 
-  const n = (v: number, fallback = 0) => (Number.isFinite(v) ? v : fallback);
-  const bulbs = Math.max(0, n(count));
-  const onHours = Math.min(24, Math.max(0, n(hours)));
-  const w = Math.max(0, n(watt));
-  const standbyW = Math.max(0, n(standby, defaultStandby));
-  const kwhPrice = Math.max(0, n(price));
-
-  const onKwh = (bulbs * w * onHours * 365) / 1000;
-  /* Standby runs for the hours the lamp is *not* lit. */
-  const standbyKwh = (bulbs * standbyW * (24 - onHours) * 365) / 1000;
-  const totalKwh = onKwh + standbyKwh;
-
-  const standbyShare = totalKwh > 0 ? (standbyKwh / totalKwh) * 100 : 0;
+  const { onKwh, standbyKwh, standbyShare, onCost, standbyCost, totalCost } =
+    runningCost({
+      count,
+      hours,
+      watt,
+      /* Tomt fält faller tillbaka på utgångsvärdet i stället för på noll: en
+         viloförbrukning som försvinner medan man skriver ser ut som ett
+         resultat, inte som ett halvfärdigt formulär. */
+      standby: Number.isFinite(standby) ? standby : defaultStandby,
+      price,
+    });
 
   return (
     <div
@@ -161,17 +153,17 @@ export function RunningCostCalculator({
       <div className="rounded-md bg-muted pad-card">
         <p className="text-sm text-muted-foreground">Total elkostnad per år</p>
         <p className="font-heading text-h2 text-brand tabular-nums">
-          {kr.format(totalKwh * kwhPrice)}
+          {kr.format(totalCost)}
         </p>
 
         <dl className="mt-3 flex flex-col gap-1 text-sm">
           <Row
             term={text.on}
-            value={`${kr.format(onKwh * kwhPrice)} · ${onKwh.toFixed(0)} kWh`}
+            value={`${kr.format(onCost)} · ${onKwh.toFixed(0)} kWh`}
           />
           <Row
             term="I viloläge"
-            value={`${krDetailed.format(standbyKwh * kwhPrice)} · ${standbyKwh.toFixed(1)} kWh`}
+            value={`${krDetailed.format(standbyCost)} · ${standbyKwh.toFixed(1)} kWh`}
           />
           <Row
             term="Viloläget är"

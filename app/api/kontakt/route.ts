@@ -27,8 +27,8 @@ const INGEST_URL =
 /** Måste finnas bland `CONTACT_SITES` i redpoints validering. */
 const SITE_KEY = "smartatest";
 
-/** Håll i takt med `CATEGORIES` i components/site/contact-form.tsx. */
-const CATEGORIES = ["correction", "tip", "partnership", "press", "general"];
+/** Håll i takt med `TEST_PAGES` i components/site/contact-form.tsx. */
+const TEST_PAGES = ["correction", "tip", "partnership", "general"];
 
 type Payload = {
   name?: unknown;
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
   const email = asString(body.email);
   const subject = asString(body.subject);
   const message = asString(body.message);
-  const category = CATEGORIES.includes(asString(body.category))
+  const category = TEST_PAGES.includes(asString(body.category))
     ? asString(body.category)
     : "general";
 

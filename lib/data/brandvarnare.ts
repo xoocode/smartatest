@@ -2,14 +2,14 @@ import type { ComparisonFilter } from "@/components/product/filterable-compariso
 import type { ConsideredProduct, Product } from "@/lib/products";
 import { productImage } from "@/lib/images";
 import { resolveProducts } from "@/lib/products";
-import { BRANDVARNARE } from "@/lib/categories";
+import { BRANDVARNARE } from "@/lib/test-pages";
 
 /**
- * Brandvarnare. Underlag i .agent/research-brandvarnare.md.
+ * Brandvarnare. Underlag i .agent/research/brandvarnare.md.
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, lagerstatus, artikelnummer, EAN, batteri,
+ * **Verkligt och daterat:** priser, artikelnummer, EAN, batteri,
  * batteritid, ljudnivå, frekvens, systemstorlek, garanti och kundbetyg. Allt
  * läst 2026-08-02 på butikens egen produktsida. Brandvarnare.se anger priset i
  * `product:price:amount`, Kjell i JSON-LD.
@@ -28,7 +28,7 @@ import { BRANDVARNARE } from "@/lib/categories";
  * ## Kriteriet omdöme, och dess svaghet
  *
  * Användaren valde 2026-08-02 att räkna alla publicerade jämförelser lika.
- * Poängen speglar alltså hur många av de sju svenska jämförelserna vi mätt som
+ * Poängen speglar alltså hur många av de sju svenska jämförelserna vi läst som
  * utsett produkten till vinnare eller topplacering.
  *
  * ⚠️ Cirkularitetsrisken är verklig och står i kriteriebeskrivningen: fyra av
@@ -62,18 +62,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Luma 2-pack",
     brand: "Housegard",
     image: productImage(BRANDVARNARE.slug, "housegard-luma-2-pack"),
-    tagline: "Fyrtio enheter i samma system, och den enda med både paus och test bekräftat.",
+    tagline: "40 enheter i samma system, med både paus och test bekräftat.",
     scores: { sammankoppling: 5, batteritid: 4.5, tydlighet: 4.5, omdome: 5, prisvarde: 3.5 },
     price: 599,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/housegard-luma-tradlos-brandvarnare-2-pack-vit-p21220",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 17, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 62, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
     superlative: "Bäst sammankoppling",
     pros: [
-      "Upp till 40 enheter i samma system, mest i jämförelsen",
+      "Upp till 40 enheter i samma system, mest av varnarna i jämförelsen",
       "868 MHz går genom väggar och bjälklag bättre än 433",
       "Både pausfunktion och testfunktion, bekräftat i specifikationen",
       "Förseglat batteri som räcker varnarens hela tioåriga livslängd",
@@ -94,11 +94,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Pausfunktion", value: "Ja" },
       { label: "Testfunktion", value: "Ja" },
       { label: "Detektionsprincip", value: "Optisk detektionskammare" },
-      { label: "Temperaturområde", value: "0 till 55 °C" },
+      { label: "Drifttemperatur", value: "0 till 55 °C" },
       { label: "Utsedd av", value: "Brandinfo, Testix" },
+      { label: "Tystningsknapp", value: "Ja, test- och pausfunktion" },
     ],
     verdict:
-      "Luma vinner på det kriterium som väger tyngst, och den gör det med marginal. Fyrtio enheter i samma system är mer än dubbelt så många som X-Sense klarar, och 868 MHz tar sig genom bjälklag på ett sätt som 433 inte gör. Det är precis den skillnaden som avgör om varnaren i källaren väcker den som sover på övervåningen.\n\nDen är också den enda i jämförelsen där både pausfunktion och testfunktion står utskrivna i butikens specifikation. Det låter litet. Det är det inte. Pausknappen är skillnaden mellan att varnaren sitter kvar i taket och att den ligger i en låda efter tredje gången någon stekt fläsk.\n\nTvå svenska jämförelser har dessutom utsett den till vinnare, Brandinfo och Testix. Vi räknar det, men vi säger också vad de är: Brandinfo länkar via Adtraction till samma butiker som vi, och Testix påstår mätningar de inte publicerar. Att båda landat i samma produkt är ändå ett signalvärde.\n\nPriset är svagheten. 300 kronor per skyddad plats mot Pebble-trepackets hundra. Ska du täcka fyra platser kostar Luma 1 200 kronor. Är budgeten det som styr finns billigare vägar längre ner i listan, men ingen av dem larmar tillsammans.",
+      "40 enheter i samma system, mer än dubbelt så många som X-Sense klarar, och 868 MHz tar sig genom bjälklag på ett sätt som 433 inte gör. Den skillnaden avgör om varnaren i källaren väcker den som sover på övervåningen.\n\nDen är också den enda där både pausfunktion och testfunktion står utskrivna i butikens specifikation. Pausknappen avgör om varnaren sitter kvar i taket eller hamnar i en låda efter tredje gången någon stekt fläsk.\n\nTvå svenska jämförelser har dessutom utsett den till vinnare, Brandinfo och Testix. Ingen av dem har eldat i ett rum för att komma dit, och Testix påstår mätningar de inte publicerar. Att båda ändå landat i samma produkt säger något.\n\nPriset är svagheten. 300 kronor per skyddad plats mot Pebble-trepackets hundra. Ska du täcka fyra platser kostar Luma 1 200 kronor. Är budgeten det som styr finns billigare vägar längre ner i listan, men ingen av dem larmar tillsammans.",
   },
   {
     id: "x-sense-xs01-w-2-pack",
@@ -112,10 +113,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/x-sense-xs01-w-2-pack/",
     priceCheckedAt: PRICE_CHECKED,
-    award: "runnerup",
     superlative: "Enklast att komma igång med",
     pros: [
-      "Parkopplade från fabrik, alltså inget att konfigurera",
+      "Parkopplade från fabrik, inget att konfigurera",
       "Sluten grupp gör att andra enheter i närheten inte utlöser din",
       "Upp till 24 enheter per grupp, går att bygga ut",
       "Tioårs inbyggt litiumbatteri och fem års garanti",
@@ -139,9 +139,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Artikelnummer", value: "10202" },
       { label: "EAN", value: "7332211102024" },
       { label: "Utsedd av", value: "Med i Brandinfos urval" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008" },
+      { label: "Mått", value: "Ø78,5 x 49 mm" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "Den här löser sammankopplingen på ett smartare sätt än priset antyder. Enheterna är parkopplade redan i fabriken, så du skruvar upp dem och är klar. Och de sitter i en sluten grupp, vilket betyder att grannens X-Sense inte får din att tjuta när de testar sina. I ett flerbostadshus är det inte en teoretisk fråga.\n\nTjugofyra enheter per grupp räcker för vilken villa som helst, och tioårsbatteriet är förseglat så det finns ingenting att byta. Fem års garanti på köpet.\n\nTvå saker drar ner den. Butiken anger ingen ljudnivå alls, vilket är märkligt för en produkt vars enda uppgift är att höras, och vi gissar inte. Och pausfunktionen finns inte på varnaren utan i en fjärrkontroll som kostar extra. Det är faktiskt en poäng när varnaren sitter i tak man inte når, men det betyder också att du betalar mer för en funktion Housegard har inbyggd.\n\nSkillnaden mot testvinnaren är i praktiken systemstorleken och pausknappen. Är hemmet litet spelar ingetdera roll, och då är den här ett lika bra köp.",
+      "Den här löser sammankopplingen på ett smartare sätt än priset antyder. Enheterna är parkopplade redan i fabriken, så du skruvar upp dem och är klar. Och de sitter i en sluten grupp, vilket betyder att grannens X-Sense inte får din att tjuta när de testar sina. I ett flerbostadshus är det inte en teoretisk fråga.\n\nTjugofyra enheter per grupp räcker för vilken villa som helst, och tioårsbatteriet är förseglat så det finns ingenting att byta. Fem års garanti på köpet.\n\nButiken anger ingen ljudnivå alls, vilket är märkligt för en produkt vars enda uppgift är att höras, och vi gissar inte. Och pausfunktionen finns inte på varnaren utan i en fjärrkontroll som kostar extra. Det är faktiskt en poäng när varnaren sitter i tak man inte når, men det betyder också att du betalar mer för en funktion Housegard har inbyggd.\n\nSkillnaden mot testvinnaren är i praktiken systemstorleken och pausknappen. Är hemmet litet spelar ingetdera roll, och då är den här ett lika bra köp.",
   },
   {
     id: "deltronic-fhb160",
@@ -166,7 +170,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     cons: [
       "Kan inte kopplas ihop med andra varnare",
       "Ingen ljudnivå angiven av butiken",
-      "Ingen av jämförelserna vi mätt har rankat den",
+      "Ingen av jämförelserna vi läst har rankat den",
     ],
     specs: [
       { label: "Sammankopplas", value: "Nej", highlight: true },
@@ -180,9 +184,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Garanti", value: "5 år" },
       { label: "Artikelnummer", value: "10160" },
       { label: "EAN", value: "7332211101607" },
+      { label: "Certifiering", value: "SS-EN 14604:2005" },
+      { label: "Mått", value: "Ø62 x 34 mm" },
+      { label: "Detekterar", value: "Optisk reflektion" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "En optisk rökvarnare är bra på pyrande bränder och sämre på snabba, och det är den kända svagheten med tekniken. Deltronic har byggt bort en del av den. TSE, termisk känslighetsförbättring, gör att varnaren själv skruvar upp känsligheten när temperaturen i taket stiger. Butiken skriver att den därför larmar oavsett om branden startar i elektrisk utrustning, i textilier eller i brandfarliga vätskor.\n\nDet är den enda produkten i jämförelsen med den funktionen, och det är skälet till att den ligger så här högt trots att den inte kan kopplas ihop med någonting.\n\nTioårsbatteriet är inbyggt, garantin fem år, och testknappen är stor nog att träffa från en stege. Pausfunktionen finns inbyggd, till skillnad från X-Sense där den kostar extra.\n\nKöp den till ett hem där en enda varnare räcker, alltså en mindre lägenhet. Ska du ha flera ska de larma tillsammans, och då är det de två översta som gäller.",
+      "En optisk rökvarnare är bra på pyrande bränder och sämre på snabba, och det är den kända svagheten med tekniken. Deltronic har byggt bort en del av den. TSE, termisk känslighetsförbättring, gör att varnaren själv skruvar upp känsligheten när temperaturen i taket stiger. Butiken skriver att den därför larmar oavsett om branden startar i elektrisk utrustning, i textilier eller i brandfarliga vätskor.\n\nDet är den enda produkten med den funktionen, och det är skälet till att den ligger så här högt trots att den inte kan kopplas ihop med någonting.\n\nTioårsbatteriet är inbyggt, garantin fem år, och testknappen är stor nog att träffa från en stege. Pausfunktionen finns inbyggd, till skillnad från X-Sense där den kostar extra.\n\nKöp den till ett hem där en enda varnare räcker, en mindre lägenhet. Ska du ha flera ska de larma tillsammans, och då är det de två översta som gäller.",
   },
   {
     id: "housegard-pebble-10",
@@ -191,19 +199,22 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     brand: "Housegard",
     image: productImage(BRANDVARNARE.slug, "housegard-pebble-10"),
     tagline: "Förseglat batteri, tio års livslängd, ingenting att sköta.",
-    scores: { sammankoppling: 1, batteritid: 4.5, tydlighet: 4, omdome: 2.5, prisvarde: 3.5 },
+    scores: { sammankoppling: 1, batteritid: 4.5, tydlighet: 4, omdome: 2.5,      /* 3,0 och inte 3,5: 249,90 kronor för en enda varnare utan
+         sammankoppling är dyrare per skyddad plats än Deltronic FHB160 på
+         239, som dessutom har tydligare display. Sänkt 2026-08-03. */
+ prisvarde: 3 },
     price: 249.9,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/housegard-pebble-10-optisk-brandvarnare-p21307",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 28, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 96, scale: 5, checkedAt: PRICE_CHECKED },
     superlative: "Minst underhåll",
     pros: [
       "Förseglat litiumbatteri som räcker hela tioårsperioden",
       "Enkel att pausa och testa",
-      "Näst flest kundbetyg i jämförelsen",
-      "Finns i 95 av Kjells butiker, alltså lätt att få tag på",
+      "96 kundbetyg, tredje största underlaget av de tio",
+      "Finns i 95 av Kjells butiker, lätt att få tag på",
     ],
     cons: [
       "Kan inte kopplas ihop, det kan däremot Pebble Link",
@@ -218,9 +229,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmsignal", value: "85 dB på 3 m", highlight: true },
       { label: "Pausfunktion", value: "Ja" },
       { label: "Detektionsprincip", value: "Optisk" },
+      { label: "Detekterar", value: "Optisk detektionskammare" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "Housegard har byggt den här kring en enda idé: du ska aldrig behöva göra någonting. Batteriet är förseglat och räcker exakt lika länge som varnaren själv får sitta uppe, alltså tio år. När batteriet är slut är också varnaren för gammal, och du byter hela enheten. Det låter som en försämring men är motsatsen, eftersom den vanligaste orsaken till en tyst brandvarnare är ett batteri någon lovade sig själv att byta.\n\nDen har näst flest kundbetyg i jämförelsen, 4,5 av 28, och finns i nittiofem av Kjells butiker. Det senare låter trivialt tills du ska ersätta en varnare en söndag.\n\nSvagheten är att den inte kan kopplas ihop med någonting. Housegard gör en modell som kan, Pebble Link, men den var slut vid kontrollen. Vill du ha sammankoppling från Housegard är Luma vägen.",
+      "Housegard har byggt den här kring en enda idé: du ska aldrig behöva göra någonting. Batteriet är förseglat och räcker exakt lika länge som varnaren själv får sitta uppe, tio år. När batteriet är slut är också varnaren för gammal, och du byter hela enheten. Det är en fördel: den vanligaste orsaken till en tyst brandvarnare är ett batteri någon lovade sig själv att byta.\n\nDen har 96 kundbetyg på 4,5, tredje största underlaget av varnarna, och finns i 95 av Kjells butiker. Det senare låter trivialt tills du ska ersätta en varnare en söndag.\n\nSvagheten är att den inte kan kopplas ihop med någonting. Housegard gör en modell som kan, Pebble Link, men den var slut vid kontrollen. Vill du ha sammankoppling från Housegard är Luma vägen.",
   },
   {
     id: "deltronic-x10",
@@ -237,8 +250,8 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     award: "editor",
     superlative: "Redaktionens val till uthyrning",
     pros: [
-      "Tio års garanti, dubbelt mot de flesta i jämförelsen",
-      "Inbyggt damm- och insektsskydd, alltså färre falsklarm",
+      "Tio års garanti, dubbelt mot de flesta här",
+      "Inbyggt damm- och insektsskydd, som ger färre falsklarm",
       "Självövervakning och automatisk uppstart vid montage",
       "Flera monteringsmöjligheter",
       "Butikens storsäljare till allmännyttan",
@@ -246,7 +259,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     cons: [
       "Kan inte kopplas ihop med andra varnare",
       "265 kronor för en plats, dyrast av de fristående",
-      "Ingen av jämförelserna vi mätt har rankat den",
+      "Ingen av jämförelserna vi läst har rankat den",
     ],
     specs: [
       { label: "Sammankopplas", value: "Nej", highlight: true },
@@ -260,6 +273,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Extra", value: "Damm- och insektsskydd, självövervakning" },
       { label: "Artikelnummer", value: "10346" },
       { label: "EAN", value: "7332211103465" },
+      { label: "Certifiering", value: "SS-EN 14604:2005" },
+      { label: "Mått", value: "Ø88 x 38 mm" },
+      { label: "Detekterar", value: "Optisk reflektion" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
       "Den här ligger femma på poäng och får ändå Redaktionens val, för det finns en situation där den slår allt annat i listan.\n\nDeltronic skriver att X10 är deras storsäljare och sitter monterad i stora antal hos allmännyttan runt om i Sverige. Det säger något som ingen specifikation gör. En bostadsstiftelse som sätter upp tiotusen varnare bryr sig inte om design eller app, den bryr sig om hur många servicebesök produkten orsakar på tio år. Att X10 vunnit de upphandlingarna, och att Deltronic vågar ge tio års garanti, är ett hållbarhetsbetyg vi inte kan mäta men gärna citerar.\n\nDamm- och insektsskyddet hör ihop med samma sak. Falsklarm från damm är den vanligaste orsaken till att någon plockar ner en varnare, och en varnare i en låda skyddar ingen.\n\nÄger du en hyresfastighet, ett fritidshus du inte besöker ofta, eller vill du helt enkelt sätta upp något och glömma det i ett decennium, är det här produkten. Ska varnarna larma tillsammans är den fel val.",
@@ -299,9 +316,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Garanti", value: "5 år" },
       { label: "Artikelnummer", value: "10200" },
       { label: "EAN", value: "7332211102000" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008" },
+      { label: "Mått", value: "Ø78,5 x 49 mm" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "Hundrasjuttionio kronor för en varnare som aldrig behöver batteribyte är den bästa grundaffären i listan. Fem års garanti, sjuttioåtta millimeter i diameter, och skruv och tejp i förpackningen.\n\nButiken är samtidigt rakt på sak om begränsningen: en fristående brandvarnare kommunicerar inte med andra varnare. Köper du tre XS01 till tre våningsplan har du tre varnare som var och en larmar för sig. Den i källaren hörs inte i sovrummet, och det är hela problemet räddningstjänsterna varnar för.\n\nDen är alltså rätt köp i en etta eller tvåa där en varnare täcker hela bostaden, och fel köp i ett hus. I ett hus kostar XS01-W bara ett par hundra mer per enhet och löser saken.",
+      "179 kronor för en varnare som aldrig behöver batteribyte är den bästa grundaffären i listan. Fem års garanti, 78 millimeter i diameter, och skruv och tejp i förpackningen.\n\nButiken är samtidigt rakt på sak om begränsningen: en fristående brandvarnare kommunicerar inte med andra varnare. Köper du tre XS01 till tre våningsplan har du tre varnare som var och en larmar för sig. Den i källaren hörs inte i sovrummet, och det är hela problemet räddningstjänsterna varnar för.\n\nDen är alltså rätt köp i en etta eller tvåa där en varnare täcker hela bostaden, och fel köp i ett hus. I ett hus kostar XS01-W bara ett par hundra mer per enhet och löser saken.",
   },
   {
     id: "luxorparts-tradlos-2-pack",
@@ -309,24 +330,23 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Luxorparts 2-pack",
     brand: "Luxorparts",
     image: productImage(BRANDVARNARE.slug, "luxorparts-tradlos-2-pack"),
-    tagline: "Flest kundbetyg i jämförelsen, men på lägre frekvens och lösa batterier.",
+    tagline: "Flest kundbetyg av varnarna i jämförelsen, men på lägre frekvens och lösa batterier.",
     scores: { sammankoppling: 4, batteritid: 2, tydlighet: 3.5, omdome: 2, prisvarde: 2.5 },
     price: 499.9,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/luxorparts-tradlos-brandvarnare-2-pack-p21130",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4, count: 132, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4, count: 359, scale: 5, checkedAt: PRICE_CHECKED },
     superlative: "Flest kundbetyg",
     pros: [
-      "132 kundbetyg, klart störst underlag i jämförelsen",
+      "359 kundbetyg, klart störst underlag av varnarna i jämförelsen",
       "Parkoppling upp till 60 meter fri sikt",
       "Alla batterier medföljer",
     ],
     cons: [
       "433,92 MHz går sämre genom väggar än 868",
       "Utbytbara batterier, 9 V plus 3 AA per enhet",
-      "Slut hos Kjell vid priskontrollen",
       "250 kronor per plats för en varnare utan tioårsbatteri",
     ],
     specs: [
@@ -338,10 +358,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmsignal", value: "85 dB på 3 m", highlight: true },
       { label: "Mått", value: "125 × 48 mm" },
       { label: "Drifttemperatur", value: "−10 till +40 °C" },
-      { label: "Lagerstatus", value: "Slut hos Kjell 2026-08-02" },
     ],
     verdict:
-      "Hundratrettiotvå kundbetyg är fyra gånger fler än någon annan produkt i jämförelsen har, och 4,0 i snitt över så många röster säger något som en femma från två personer inte gör. Den fungerar, och folk är nöjda.\n\nTvå saker håller den nere ändå. Den kör 433,92 MHz i stället för 868, och lägre frekvens tar sig sämre genom betongbjälklag, vilket är exakt den situation sammankoppling ska lösa. Kjell anger sextio meter fri sikt, och fri sikt är sällan vad man har mellan källare och sovrum.\n\nOch batterierna är utbytbara: 9 V plus tre AA per enhet. Det betyder fyra batterier per varnare att hålla reda på i tio år, mot noll hos Housegard, X-Sense och Deltronic. Just den skillnaden är den vanligaste orsaken till att en brandvarnare är tyst när den behövs.\n\nVar dessutom slut vid priskontrollen.",
+      "359 kundbetyg är 50 procent fler än näst mest prövade produkt här och 15 gånger fler än testvinnaren. 4,0 i snitt över så många röster säger något som en femma från två personer inte gör. Den fungerar, och folk är nöjda.\n\nDen hålls ändå nere av två skäl. Den kör 433,92 MHz i stället för 868, och lägre frekvens tar sig sämre genom betongbjälklag, vilket är den situation sammankoppling finns för. Kjell anger sextio meter fri sikt, och fri sikt är sällan vad man har mellan källare och sovrum.\n\nOch batterierna är utbytbara: 9 V plus tre AA per enhet. Det betyder fyra batterier per varnare att hålla reda på i tio år, mot noll hos Housegard, X-Sense och Deltronic. Just den skillnaden är den vanligaste orsaken till att en brandvarnare är tyst när den behövs.\n\nVar dessutom slut vid priskontrollen.",
   },
   {
     id: "housegard-pebble-3-pack",
@@ -349,25 +368,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Pebble 3-pack",
     brand: "Housegard",
     image: productImage(BRANDVARNARE.slug, "housegard-pebble-3-pack"),
-    tagline: "Hundra kronor per skyddad plats. Ingen kommer i närheten.",
+    tagline: "100 kronor per skyddad plats. Ingen kommer i närheten.",
     scores: { sammankoppling: 1, batteritid: 2.5, tydlighet: 3.5, omdome: 2.5, prisvarde: 5 },
     price: 299,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/housegard-pebble-brandvarnare-3-pack-p21270",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 7, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 24, scale: 5, checkedAt: PRICE_CHECKED },
     award: "budget",
     superlative: "Billigast per skyddad plats",
     pros: [
-      "Hundra kronor per varnare, billigast i jämförelsen",
+      "100 kronor per varnare, billigast av de tio varnarna",
       "Täcker tre våningsplan för under trehundra kronor",
       "Varnar när batteriet börjar ta slut",
       "Finns i 92 av Kjells butiker",
     ],
     cons: [
       "Kan inte kopplas ihop",
-      "Utbytbart batteri, alltså tre batterier att hålla reda på",
+      "Utbytbart batteri, tre stycken att hålla reda på",
       "Butiken anger ingen batteritid",
     ],
     specs: [
@@ -379,9 +398,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmsignal", value: "85 dB på 3 m", highlight: true },
       { label: "Batterivarning", value: "Ja" },
       { label: "Testknapp", value: "Ja" },
+      { label: "Certifiering", value: "EN 14604" },
+      { label: "Detekterar", value: "Optisk detektionskammare" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "Hundra kronor per skyddad plats. Nästa produkt i listan kostar två och en halv gånger mer per varnare, och testvinnaren tre gånger.\n\nDet är hela argumentet, och det är starkare än det låter. Ett hem utan brandvarnare på övervåningen skyddas inte av att den varnare som finns är dyr. Har du tre våningsplan och trehundra kronor är det här rätt köp, och du kan uppgradera senare.\n\nMen läs vad du inte får. De larmar inte tillsammans, så var och en väcker bara den som är i samma rum eller precis intill. Batterierna är utbytbara och butiken anger ingen livslängd, vilket i praktiken betyder att du ska testa dem varje månad och räkna med byte inom några år.\n\nDet gör den till golvet i kategorin, inte till taket. Ett hem med tre Pebble är oändligt mycket bättre skyddat än ett hem med en dyr varnare i hallen, och sämre skyddat än ett hem med två sammankopplade.",
+      "100 kronor per skyddad plats. Nästa produkt i listan kostar två och en halv gånger mer per varnare, och testvinnaren tre gånger.\n\nDet är hela argumentet, och det är starkare än det låter. Ett hem utan brandvarnare på övervåningen skyddas inte av att den varnare som finns är dyr. Har du tre våningsplan och trehundra kronor är det här rätt köp, och du kan uppgradera senare.\n\nMen läs vad du inte får. De larmar inte tillsammans, så var och en väcker bara den som är i samma rum eller precis intill. Batterierna är utbytbara och butiken anger ingen livslängd, vilket i praktiken betyder att du ska testa dem varje månad och räkna med byte inom några år.\n\nDet gör den till golvet i kategorin, inte till taket. Ett hem med tre Pebble är oändligt mycket bättre skyddat än ett hem med en dyr varnare i hallen, och sämre skyddat än ett hem med två sammankopplade.",
   },
   {
     id: "deltronic-fhb155",
@@ -389,7 +411,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "FHB155",
     brand: "Deltronic",
     image: productImage(BRANDVARNARE.slug, "deltronic-fhb155"),
-    tagline: "Kategorins billigaste, och den enda med femårsbatteri i stället för tio.",
+    tagline: "Billigast av varnarna i jämförelsen, och ensam om femårsbatteri i stället för tio.",
     scores: { sammankoppling: 1, batteritid: 2, tydlighet: 3.5, omdome: 2, prisvarde: 4 },
     price: 139,
     merchant: "Brandvarnare.se",
@@ -404,7 +426,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     cons: [
       "Fem års batterilivslängd mot tio hos nästan alla andra",
       "Utbytbara AAA-batterier",
-      "Tre års garanti, kortast i jämförelsen",
+      "Tre års garanti, kortast av alla tio",
       "Kan inte kopplas ihop",
     ],
     specs: [
@@ -418,9 +440,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Garanti", value: "3 år" },
       { label: "Artikelnummer", value: "10155" },
       { label: "EAN", value: "7332211101553" },
+      { label: "Certifiering", value: "SS-EN 14604:2005" },
+      { label: "Mått", value: "Ø62 x 37 mm" },
+      { label: "Detekterar", value: "Optisk reflektion" },
+      { label: "Tystningsknapp", value: "Ja, pausfunktion" },
     ],
     verdict:
-      "Hundratrettionio kronor, med pausfunktion, vilket är ovanligt i det prisläget. Om budgeten är absolut och alternativet är ingen varnare alls är det här ett bra köp, och det ska sägas rakt ut.\n\nMen jämför den med sin egen storasyster. FHB160 kostar hundra kronor mer och ger tioårsbatteri i stället för fem, fem års garanti i stället för tre, och TSE-funktionen som höjer känsligheten vid värme. Hundra kronor utspritt över tio år är en krona i månaden.\n\nFemårsbatteriet är den verkliga invändningen. En brandvarnare får sitta uppe i tio år, vilket betyder att den här kommer kräva ett batteribyte halvvägs, och det bytet är precis vad folk glömmer. Butikens egen text säger dessutom att batteriet ska vara alkaliskt av god kvalitet, alltså ännu ett tillfälle att göra fel.",
+      "139 kronor, med pausfunktion, vilket är ovanligt i det prisläget. Om budgeten är absolut och alternativet är ingen varnare alls är det här ett bra köp.\n\nMen jämför den med sin egen storasyster. FHB160 kostar hundra kronor mer och ger tioårsbatteri i stället för fem, fem års garanti i stället för tre, och TSE-funktionen som höjer känsligheten vid värme. Hundra kronor utspritt över tio år är en krona i månaden.\n\nFemårsbatteriet är den verkliga invändningen. En brandvarnare får sitta uppe i tio år, vilket betyder att den här kommer kräva ett batteribyte halvvägs, och det bytet är precis vad folk glömmer. Butikens egen text säger dessutom att batteriet ska vara alkaliskt av god kvalitet, ännu ett tillfälle att göra fel.",
   },
   {
     id: "nexa-optisk-2-pack",
@@ -428,24 +454,27 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Nexa 2-pack",
     brand: "Nexa",
     image: productImage(BRANDVARNARE.slug, "nexa-optisk-2-pack"),
-    tagline: "Hundra kronor per varnare och SS-EN 14604 utskrivet. Men slut.",
-    scores: { sammankoppling: 1, batteritid: 2, tydlighet: 3, omdome: 2.5, prisvarde: 4 },
+    tagline: "100 kronor per varnare, och standarden står utskriven.",
+    scores: { sammankoppling: 1, batteritid: 2, tydlighet: 3, omdome: 2.5,      /* 3,5 och inte 4,0: tvåpacket ger två platser för 199,90, alltså
+         hundra kronor styck, men båda saknar sammankoppling och har bara
+         tvåårsbatteri. Deltronic FHB155 ger en plats för 139 med samma
+         begränsningar. Sänkt 2026-08-03. */
+ prisvarde: 3.5 },
     price: 199.9,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/nexa-optisk-brandvarnare-2-pack-p21100",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 44, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 240, scale: 5, checkedAt: PRICE_CHECKED },
     superlative: "Tydligast om standarden",
     pros: [
       "Hundra kronor per varnare",
       "Enda produkten där butiken skriver ut SS-EN 14604:2005",
       "Anger uttryckligen att den inte innehåller radioaktiva ämnen",
-      "44 kundbetyg på 4,5",
+      "240 kundbetyg på 4,5, näst största underlaget av alla tio",
     ],
     cons: [
-      "Slut hos Kjell vid priskontrollen",
-      "9 V-batteri per enhet, alltså utbytbart",
+      "9 V-batteri per enhet, utbytbart",
       "Kan inte kopplas ihop",
     ],
     specs: [
@@ -457,10 +486,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmsignal", value: "Ej angiven av butiken", highlight: true },
       { label: "Certifiering", value: "SS-EN 14604:2005" },
       { label: "Batterivarning", value: "Ja" },
-      { label: "Lagerstatus", value: "Slut hos Kjell 2026-08-02" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
     ],
     verdict:
-      "Nexa är den enda i hela jämförelsen där butiken skriver ut vilken standard varnaren uppfyller, SS-EN 14604:2005, och den enda som uttryckligen säger att den inte innehåller radioaktiva ämnen. Båda uppgifterna borde stå på alla tio. Att de gör det på en produkt för hundra kronor styck säger något om vem som bemödar sig.\n\nI övrigt är den enkel: optisk, varnar vid låg batterinivå, 9 V-batteri per enhet som ingår.\n\nDen ligger sist av rent mekaniska skäl. Utbytbara batterier utan angiven livslängd ger låg poäng på det kriterium som väger näst tyngst, och den kan inte kopplas ihop. Lägg till att den var slut hos Kjell vid priskontrollen, så är det svårt att rekommendera den framför Housegard Pebble trepack, som kostar detsamma per varnare och finns i nittiotvå butiker.",
+      "Nexa är ensam om att låta butiken skriva ut vilken standard varnaren uppfyller, SS-EN 14604:2005, och ensam om att uttryckligen säga att den inte innehåller radioaktiva ämnen. Båda uppgifterna borde stå på alla tio. Att de gör det på en produkt för 100 kronor styck säger något om vem som bemödar sig.\n\nI övrigt är den enkel: optisk, varnar vid låg batterinivå, 9 V-batteri per enhet som ingår.\n\nDen ligger sist av rent mekaniska skäl. Utbytbara batterier utan angiven livslängd ger låg poäng på det kriterium som väger näst tyngst, och den kan inte kopplas ihop. Lägg till att den var slut hos Kjell vid priskontrollen, så är det svårt att rekommendera den framför Housegard Pebble trepack, som kostar detsamma per varnare och finns i nittiotvå butiker.",
   },
 ];
 
@@ -543,7 +572,7 @@ export const BRANDVARNARE_CONSIDERED: ConsideredProduct[] = [
     brand: "X-Sense",
     name: "XS01-W 6-pack",
     reason:
-      "Samma varnare som tvåpacket vi rankar, i sexpack för 1 499 kronor. Det ger 250 kronor per plats i stället för 323, alltså kategorins bästa affär om du verkligen behöver sex. Vi rankar tvåpacket eftersom det är den storlek de flesta hem köper, men räkna om på sexpacket innan du beställer flera tvåpack.",
+      "Samma varnare som tvåpacket vi rankar, i sexpack för 1 499 kronor. Det ger 250 kronor per plats i stället för 323, den bästa affären av alla om du verkligen behöver sex. Vi rankar tvåpacket eftersom det är den storlek de flesta hem köper, men räkna om på sexpacket innan du beställer flera tvåpack.",
     approxPrice: 1499,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/x-sense-xs01-w-6-pack/",
@@ -559,7 +588,7 @@ export const BRANDVARNARE_CONSIDERED: ConsideredProduct[] = [
     brand: "Ei Electronics",
     name: "Ei650",
     reason:
-      "Vann Stiftung Warentests provning med betyget gut (1,9), alltså den enda produkt i vårt underlag som faktiskt utsatts för brandkammare. Den säljs bara inte i någon av de svenska butiker vi bevakar. Vi rankar inte det som inte går att köpa här, men det är värt att veta att den tyska testvinnaren inte finns på svenska hyllor.",
+      "Vann Stiftung Warentests provning med betyget gut (1,9), och är den enda produkt i vårt underlag som faktiskt utsatts för brandkammare. Den säljs bara inte i någon av de svenska butiker vi bevakar. Vi rankar inte det som inte går att köpa här, men det är värt att veta att den tyska testvinnaren inte finns på svenska hyllor.",
   },
   {
     brand: "Capidi",
@@ -593,7 +622,7 @@ export const BRANDVARNARE_FAQ = [
   {
     question: "Vad betyder seriekopplad eller sammankopplad brandvarnare?",
     answer:
-      "Att varnarna talar med varandra över radio, så att alla i bostaden larmar samtidigt när en av dem känner rök. Det är den viktigaste funktionen i kategorin, eftersom en brand som börjar i källaren annars inte hörs i ett sovrum två våningar upp. Sammankoppling kräver ingen app och inget wifi. Fyra av de tio varnare vi rankar klarar det.",
+      "Att varnarna talar med varandra över radio, så att alla i bostaden larmar samtidigt när en av dem känner rök. Det är den viktigaste funktionen en brandvarnare kan ha, eftersom en brand som börjar i källaren annars inte hörs i ett sovrum två våningar upp. Sammankoppling kräver ingen app och inget wifi. Tre av de tio varnare vi rankar klarar det: Housegard Luma, X-Sense XS01-W och Luxorparts trådlösa tvåpack.",
   },
   {
     question: "Hur ofta ska brandvarnaren bytas?",
@@ -608,17 +637,7 @@ export const BRANDVARNARE_FAQ = [
   {
     question: "Behöver en brandvarnare wifi?",
     answer:
-      "Nej. Ingen av de tio varnare vi rankar på den här sidan använder wifi, och de kan ändå larma tillsammans, eftersom sammankopplingen sker på egen radio. Wifi behövs bara om du vill ha en notis i telefonen när du inte är hemma, och då är det en smart brandvarnare du är ute efter, vilket är en egen produktkategori med egna för- och nackdelar.",
-  },
-  {
-    question: "Hur högt låter en brandvarnare?",
-    answer:
-      "Minst 85 decibel på tre meters avstånd, eftersom det är kravet i standarden EN 14604 som alla varnare som säljs i Sverige måste uppfylla. Siffran skiljer därför sällan mellan produkter. Det som avgör om larmet väcker dig är i stället var varnaren sitter och om den larmar tillsammans med de andra, inte några enstaka decibel.",
-  },
-  {
-    question: "Vad är pausfunktion på en brandvarnare?",
-    answer:
-      "En knapp som tystar larmet i några minuter utan att stänga av varnaren. Den finns för matoset som kommer när du bränner något i stekpannan. Funktionen är viktigare än den låter: det vanligaste skälet till att en brandvarnare hamnar i en låda är att någon tröttnat på falsklarm, och en varnare i en låda skyddar ingen.",
+      "Nej. Ingen av de tio varnare vi rankar använder wifi, och de kan ändå larma tillsammans, eftersom sammankopplingen sker på egen radio. Wifi behövs bara om du vill ha en notis i telefonen när du inte är hemma, och då är det en smart brandvarnare du är ute efter, vilket är en egen produktkategori med egna för- och nackdelar.",
   },
   {
     question: "Är brandvarnare lagkrav i Sverige?",
@@ -629,5 +648,15 @@ export const BRANDVARNARE_FAQ = [
     question: "Vilken brandvarnare passar i köket?",
     answer:
       "Ingen rökvarnare, egentligen. Matos utlöser optiska varnare, och resultatet blir falsklarm som slutar med att varnaren plockas ner. Sätt rökvarnaren utanför köket och använd en värmevarnare inne i köket om du vill ha bevakning där. En värmevarnare larmar på temperaturstegring i stället för på rök och bryr sig inte om stekpannan.",
+  },
+  {
+    question: "Varför piper brandvarnaren när det inte brinner?",
+    answer:
+      "Fyra orsaker täcker nästan allt. Ett enstaka pip med några minuters mellanrum är batterivarning, och det börjar nästan alltid mitt i natten, eftersom batterispänningen sjunker när temperaturen gör det. Full siren utan brand beror oftast på matos, ånga från duschen eller damm i kammaren, vilket är skälet till att Storstockholms brandförsvar avråder från att sätta varnaren i köket, i badrummet eller nära en ventilationsöppning. Insekter i kammaren ger samma sak. Och en varnare som passerat åtta till tio år kan börja larma av sig själv, eftersom sensorn åldras. Dammsug den en gång om året, byt batteri samtidigt, och byt hela varnaren när den är tio år oavsett hur den beter sig.",
+  },
+  {
+    question: "Vad ska jag göra när brandvarnaren larmar?",
+    answer:
+      "Väck alla, ta er ut, ring 112. I den ordningen, och utan att packa. Röken kommer före värmen och det är den som är farlig. Är det tjock rök i trapphuset i en lägenhet är huvudregeln den omvända: stanna kvar bakom stängd dörr och gör dig synlig i fönstret, eftersom en brandklassad lägenhetsdörr håller längre än lungorna gör i ett rökfyllt trapphus. Vet du direkt att det är matos eller ånga räcker det att vädra och trycka på pausknappen om varnaren har en. Det du inte ska göra är att ta ur batteriet för att få tyst på den, eftersom det är precis så en varnare hamnar i en byrålåda och blir kvar där.",
   },
 ];

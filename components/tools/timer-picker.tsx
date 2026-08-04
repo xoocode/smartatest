@@ -3,6 +3,16 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  TIMER_LOADS as LOADS,
+  TIMER_REACH as REACH,
+  TIMER_SEASONS as SEASON,
+  decideTimer as decide,
+  type TimerLoadKey as LoadKey,
+  type TimerReachKey as ReachKey,
+  type TimerSeasonKey as SeasonKey,
+  type TimerVerdict as Verdict,
+} from "@/lib/tool-logic/outdoor-timer";
 
 /**
  * Svarar på den fråga som avgör vilken sorts utomhustimer som duger: vad ska
@@ -25,99 +35,8 @@ import { cn } from "@/lib/utils";
  * december vore samma fel som konkurrenterna gör, bara med bättre motivering.
  */
 
-const LOADS = [
-  { key: "ljusslinga", label: "Julbelysning eller ljusslinga", watt: 200 },
-  { key: "fasad", label: "Fasad- eller trädgårdsbelysning", watt: 500 },
-  { key: "motorvarmare", label: "Motorvärmare med kupévärmare", watt: 2200 },
-  { key: "pump", label: "Pump, fläkt eller värmare", watt: 1500 },
-] as const;
-
-const SEASON = [
-  { key: "december", label: "Bara under vintersäsongen" },
-  { key: "aret", label: "Året runt" },
-] as const;
-
-const REACH = [
-  { key: "hemifran", label: "Ja, även när jag inte är hemma" },
-  { key: "pa-plats", label: "Nej, jag ställer den på plats" },
-] as const;
-
-type LoadKey = (typeof LOADS)[number]["key"];
-type SeasonKey = (typeof SEASON)[number]["key"];
-type ReachKey = (typeof REACH)[number]["key"];
-
-/* Påslag på lastens märkeffekt. Samma tjugo procent som Effektkollen använder
-   på /smart-plug, av samma skäl: en apparat som står på i timmar vill ha
-   marginal, och märkeffekten är ett typvärde och inte ditt värde. */
-const MARGIN = 1.2;
-
-type Verdict = {
-  headline: string;
-  why: string;
-  warning?: string;
-  /** Kraven i maskinläsbar form, så förslaget filtreras på samma tal som texten visar. */
-  needsWatt: number;
-  needsSun: boolean;
-  needsRemote: boolean;
-};
-
-function decide(
-  load: LoadKey | null,
-  season: SeasonKey | null,
-  reach: ReachKey | null,
-): Verdict | null {
-  if (!load || !season || !reach) return null;
-
-  const spec = LOADS.find((l) => l.key === load);
-  if (!spec) return null;
-
-  const needsWatt = Math.round(spec.watt * MARGIN);
-  /* Astro behövs när tändningstiden ska följa med över året. Under en
-     decembersäsong rör sig solnedgången i Stockholm knappt tjugo minuter, och
-     då tillför astrofunktionen ingenting som är värt att betala för. */
-  const needsSun = season === "aret";
-  const needsRemote = reach === "hemifran";
-
-  const wattNote = `${spec.watt} W plus tjugo procent marginal blir ${needsWatt} W.`;
-
-  if (needsRemote) {
-    return {
-      needsWatt,
-      needsSun,
-      needsRemote,
-      headline: "En smart plugg, för du vill nå den hemifrån",
-      why: `${wattNote} Att kunna ändra tiden när du inte står bredvid finns bara hos de smarta pluggarna, och där bara hos dem som talar wifi, Zigbee eller Z-Wave. Bluetooth räcker inte: då ska du stå på gården för att programmera om.`,
-      warning:
-        needsWatt > 2500
-          ? "Lasten kräver 16 A, och det utesluter båda Shelly-pluggarna trots att de är bäst på kyla. Kontrollera märkningen 3 680 W innan du beställer."
-          : undefined,
-    };
-  }
-
-  if (needsSun) {
-    return {
-      needsWatt,
-      needsSun,
-      needsRemote,
-      headline: "Något som följer solen, alltså astro eller ljussensor",
-      why: `${wattNote} Ska belysningen gå året runt flyttar sig solnedgången omkring sju timmar mellan december och juni, och ett fast klockslag blir fel några veckor efter att du satt det. Antingen en astrofunktion som räknar ut tiden, eller ett skymningsrelä som mäter ljuset och därför aldrig behöver ställas om.`,
-      warning:
-        needsWatt > 1000
-          ? "Skymningsreläet är det enklaste sättet att lösa det, men det klarar bara 1 000 W. Din last ligger över det, så här blir det en smart plugg med astrofunktion."
-          : undefined,
-    };
-  }
-
-  return {
-    needsWatt,
-    needsSun,
-    needsRemote,
-    headline: "En mekanisk timer räcker",
-    why: `${wattNote} Under en vintersäsong står solnedgången nästan stilla, och du ställer tiden en gång. Då gör en app ingenting som segmenten på en skiva inte gör, och skivan kostar en åttondel.`,
-    warning:
-      "Den mekaniska tappar tiden vid strömavbrott och går sedan fel tills du ställer om den. Är det viktigt att den inte gör det, välj en digital med backupbatteri i stället.",
-  };
-}
+/* Lasterna och regeluppsättningen bor i lib/tool-logic/outdoor-timer.ts, där
+   agentverktyget anropar samma decideTimer(). */
 
 /**
  * En produkt verktyget kan peka på när den uppfyller det användaren valt.
@@ -315,7 +234,7 @@ function Matches({
         {sorted.map((p) => (
           <li key={p.id} className="flex flex-wrap items-baseline gap-x-2">
             {/* Full sökväg och inte bara ankaret: verktyget renderas både på
-                kategorisidan och på sin egen sida under /verktyg, och där
+                kategorisidan och på sin egen sida under /guider, och där
                 finns ingen recension att hoppa till. */}
             <a
               href={p.href}

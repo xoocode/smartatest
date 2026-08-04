@@ -11,6 +11,14 @@ export type UserRatingProps = {
   variant?: "inline" | "compact" | "block";
   /** Link the figure to the merchant page it came from. */
   link?: boolean;
+  /**
+   * Rubrik före talet.
+   *
+   * Tom som standard. `block`-varianten är en märkt rad i en specifikationslista
+   * och sätter därför sin egen om ingen anges, men `inline` skriver ingenting:
+   * "62 omdömen hos Kjell & Company" säger redan vems omdömen det är, och
+   * "Användare" framför blev ett ord som bara upprepade nästa mening.
+   */
   label?: string;
   className?: string;
 };
@@ -33,7 +41,7 @@ export function UserRating({
   product,
   variant = "inline",
   link = true,
-  label = "Användare",
+  label,
   className,
 }: UserRatingProps) {
   const rating = product.userRating;
@@ -87,7 +95,9 @@ export function UserRating({
         data-variant="block"
         className={cn("flex items-baseline justify-between gap-3", className)}
       >
-        <span className="text-sm text-muted-foreground">{label}</span>
+        <span className="text-sm text-muted-foreground">
+          {label ?? "Användare"}
+        </span>
         <span className="text-sm">
           <span className="font-medium tabular-nums">{value}</span>{" "}
           <span className="text-muted-foreground">({sourceNode})</span>

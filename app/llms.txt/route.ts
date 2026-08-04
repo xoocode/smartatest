@@ -1,5 +1,5 @@
 import { SITE, PUBLISHER } from "@/lib/site";
-import { GROUPS, liveCategories } from "@/lib/catalog";
+import { CATEGORIES, liveTestPages } from "@/lib/catalog";
 import { TOOLS, toolHref } from "@/lib/tools";
 
 /*
@@ -21,8 +21,29 @@ import { TOOLS, toolHref } from "@/lib/tools";
 
 export const dynamic = "force-static";
 
+/**
+ * Nyaste innehållsdatumet bland jämförelserna och verktygen.
+ *
+ * Filen säger annars ingenting om hur färsk den är, och en modell som citerar
+ * ett pris eller en rankning har ingen aning om hur gammalt påståendet är.
+ * Datumet är härlett ur samma fält som sitemapens `lastmod`, så det kan inte
+ * glida isär från sidorna.
+ *
+ * De juridiska sidorna räknas med flit inte in. En omskriven integritetspolicy
+ * skulle annars påstå att jämförelserna är nyare än de är.
+ */
+function latestContentUpdate(): string | undefined {
+  const dates = [
+    ...liveTestPages().map((c) => c.updated),
+    ...TOOLS.map((t) => t.updated),
+  ].filter((d): d is string => Boolean(d));
+
+  return dates.length ? dates.reduce((a, b) => (a > b ? a : b)) : undefined;
+}
+
 export function GET() {
-  const categories = liveCategories();
+  const categories = liveTestPages();
+  const updated = latestContentUpdate();
 
   const lines = [
     `# ${SITE.name}`,
@@ -31,8 +52,17 @@ export function GET() {
     "",
     "Varje jämförelse bygger på publicerade specifikationer och de oberoende tester som finns att tillgå. Viktningen mellan kriterierna redovisas öppet på varje sida, och totalbetyget räknas fram ur delbetygen. Saknas det tester i en kategori står det utskrivet i stället för att döljas.",
     "",
-    `Sajten finansieras av provision från butikslänkar och ges ut av ${PUBLISHER.name}. Provisionen påverkar inte rankning, betyg eller urval. Se ${SITE.url}/annonsmarkning.`,
+    /* Utgivaren som markdown-länk. Filen är för maskiner, och en modell som
+       ska kunna svara på vem som står bakom sajten behöver adressen, inte bara
+       namnet. `target` finns inte i markdown, så det bortfaller här. */
+    `Sajten finansieras av provision från butikslänkar och ges ut av [${PUBLISHER.name}](${PUBLISHER.url}). Provisionen påverkar inte rankning, betyg eller urval. Se ${SITE.url}/annonsmarkning.`,
     "",
+    ...(updated
+      ? [
+          `Priser och rankningar kontrolleras för hand. Nyaste innehållsdatum bland jämförelserna och verktygen nedan: ${updated}. Varje sida bär sitt eget datum.`,
+          "",
+        ]
+      : []),
     "## Jämförelser",
     "",
     ...categories.map(
@@ -41,11 +71,11 @@ export function GET() {
     "",
     "## Kategoriöversikter",
     "",
-    ...GROUPS.filter((g) => g.href).map(
+    ...CATEGORIES.filter((g) => g.href).map(
       (g) => `- [${g.label}](${SITE.url}${g.href})`,
     ),
     "",
-    "## Verktyg",
+    "## Guider och räknare",
     "",
     ...TOOLS.map(
       (t) => `- [${t.name}](${SITE.url}${toolHref(t)}): ${t.description}`,

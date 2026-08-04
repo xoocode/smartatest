@@ -1,0 +1,212 @@
+{/*
+  Köpguide för /kodlas-ytterdorr. Renderas inuti en Section vars rubrik är h2,
+  så avsnitten här är h3. Prosan innehåller varken pris, butik eller URL —
+  produktomnämnanden går via <ProductRef id="..." />.
+
+  Certifikatavsnittet ligger först. Det är sidans fynd och det ändrar vad
+  läsaren ska fråga butiken om.
+*/}
+
+### Certifikatet gäller en konfiguration, inte en produkt
+
+Svensk Brand- och Säkerhetscertifiering har utfärdat certifikat **21-537** för
+Yale Doorman L3 tillsammans med Yale Home. Klass S3 enligt SSF 3523, giltigt
+till den 27 november 2027.
+
+I certifikatets fält *Additional* står vad godkännandet omfattar:
+
+> "Gäller bortasäkert läge med **blockerade användarkoder** och låsöppning med
+> nyckelbricka eller med appen Yale Home."
+
+Läs den meningen en gång till. Den certifierade konfigurationen har koderna
+blockerade, på den produkt som ensam bär 27 100 sökningar i månaden, i en
+kategori som heter kodlås.
+
+Det är inte en märklighet hos just Yale. Det är Stöldskyddsföreningens
+allmänna regel gjord konkret, och de skriver den själva två gånger på sin egen
+sida: *det finns begränsningar i vilka funktioner som får aktiveras för att
+uppfylla kraven för godkänd låsenhet, vilket betyder att låsenheten är
+certifierad med vissa, men inte alla, inställningar aktiverade.*
+
+**Vad det betyder ska sägas försiktigt.** Certifikatet säger vad godkännandet
+omfattar. Det säger inte att låset blir osäkert av en kod, och det säger
+ingenting om vad just ditt försäkringsbolag accepterar. Vad det säger är att
+den provade konfigurationen inte är den de flesta använder.
+
+Ring försäkringsbolaget och fråga specifikt om kodöppning. Det är ett samtal på
+fem minuter, och det är betydligt enklare att ta före köpet än efter en
+inbrottsanmälan.
+
+<ToolFrame tool="godkant-las-till-ytterdorr">
+  <LockApprovalTool />
+</ToolFrame>
+
+### Godkänd låsenhet är fyra delar, inte ett lås
+
+Det här är begreppet allting hänger på, och det missförstås nästan alltid.
+
+En **godkänd låsenhet** är enligt Stöldskyddsföreningen hela enheten:
+**låshus, låscylinder, säkerhetsslutbleck och förstärkningsbehör**. För att
+vara godkänd ska hela enheten *och varje ingående produkt var för sig* nå
+klass 3 enligt SSF 3522, eller klass S3 enligt SSF 3523 för digitala enheter.
+
+Det betyder två saker för dig som köper ett smart lås.
+
+För det första: ett godkänt lås i en dörr utan säkerhetsslutbleck ger ingen
+godkänd låsenhet. Delarna räknas tillsammans.
+
+För det andra, och det är SSF:s egen varning i fetstil: **kontrollera alltid
+vad försäkringsbolaget kräver innan du förändrar något.** Byter du ut en del av
+en enhet som redan är godkänd kan godkännandet påverkas.
+
+### Klass 3 är gränsen, och 2A är inte klass 3
+
+SSF delar in låsenheter i sju klasser enligt SSF 3522: 1A, 1B, 2A, 2B, 3, 4
+och 5. Den digitala normen SSF 3523 har fyra: S1, S2, S3 och S5. SSF noterar
+själva att den digitala normen saknar motsvarighet till klass 4.
+
+**Klass 3 respektive S3 är grundkravet i samtliga skyddsklasser** och den
+låsning SSF rekommenderar även för bostäder.
+
+Klass 2A ser nära ut men är det inte. Kravet på inbrottsskydd från dörrens
+utsida är detsamma som för klass 3, men manövreringen från insidan underordnas
+utgång och utrymning. SSF:s eget exempel på när 2A används är lägenheter utan
+annan entréväg, och de skriver i samma mening: kontrollera försäkringskrav.
+
+<ProductRef id="nimly-code" /> anges av butiken som klass 2A. Det är ovanligt
+öppet redovisat och förtjänar beröm, men det är inte en godkänd låsenhet.
+
+### Ett digitalt certifikat provar mer än metallen
+
+Det här känner nästan ingen till, och det är en av de starkaste sakerna med
+den svenska normen.
+
+En digital låsenhet i klass S3 måste klara **tre** saker samtidigt:
+
+| Vad som provas | Norm |
+|---|---|
+| Mekaniskt inbrottsskydd | SSF 3522, lägst klass 3 |
+| Distribution och lagring av digitala nycklar | **SSF 1075**, lägst klass D |
+| Motstånd mot elektroniskt angrepp | **prEN 16867**, lägst grade C |
+
+Alltså: certifikatet granskar inte bara hur svårt låset är att bryta upp, utan
+också hur appen hanterar dina nycklar och hur låset står emot elektronisk
+manipulation. SSF 1075 heter *Distribution, lagring och användning av digitala
+nycklar*.
+
+Det är en väsentligt djupare prövning än ett CE-märke, och det är skälet till
+att skillnaden mellan ett certifierat och ett icke-certifierat digitalt lås är
+större än prisskillnaden antyder.
+
+### CE-märkning är inte ett godkännande
+
+CE är tillverkarens **egen** försäkran om att produkten uppfyller tillämpliga
+EU-krav. Den säger ingenting alls om inbrottsskydd.
+
+Ett godkännande enligt SSF kräver **tredjepartscertifiering**: ett
+oberoende organ har kontrollerat att provningen skett korrekt och med godkänt
+resultat. SSF skriver att man alltid ska leta efter certifikatsmärket som visar
+vilken klass låsenheten uppfyller.
+
+<ProductRef id="nimly-code-pro" /> anger låsklass 3 men redovisar certifiering
+som CE-godkänd. Det är två olika saker, och frågan till butiken är enkel:
+finns det ett certifikatnummer?
+
+### Passar låset en svensk ytterdörr?
+
+Svenska ytterdörrar har ett eget låsuttag för **skandinaviska låshus**.
+Internationella smarta lås är ofta byggda för europeisk profilcylinder eller
+amerikansk deadbolt, och passar därför inte utan vidare.
+
+Tre arkitekturer finns i handeln:
+
+**Byter hela låset.** <ProductRef id="yale-doorman-l3s-flex" />,
+<ProductRef id="yale-doorman-classic-home" /> och Nimlys lås är byggda för det
+svenska uttaget. Doorman klarar dörrtjocklekar från 40 till 88 millimeter utan
+anpassning, Nimly Code Pro 50 till 90 millimeter men bara på dörrar från 1985
+eller senare.
+
+**Monteras på låscylindern.** <ProductRef id="aqara-u200" /> använder ett
+adapterkit för cylindern, den europeiska vägen. På en svensk ytterdörr
+med tillhållarlåshus är det inte självklart att den passar alls.
+
+**Monteras utanpå insidans vred.** <ProductRef id="yale-linus-l2" /> och
+Danalock rör inte låset i dörren över huvud taget. Det är den enda arkitekturen
+där en befintlig godkänd låsenhet i princip står kvar orörd.
+
+Mät dörrtjockleken och titta efter vilken låshustyp du har innan du beställer.
+
+### I bostadsrätt och hyresrätt äger du sällan dörren
+
+Ytterdörren tillhör normalt föreningen respektive hyresvärden. Den ingår
+dessutom ofta i ett låssystem med huvudnyckel för fastighetsskötsel, vilket
+betyder att ett byte påverkar mer än din egen lägenhet.
+
+Att byta ut låsenheten kan därför kräva tillstånd även när du betalar för det
+själv. Fråga innan, inte efter.
+
+Ett lås som monteras utanpå insidans vred rör inte den befintliga enheten och
+brukar vara enklare att få igenom. Vi säger *brukar* därför att vi inte hittat
+något skriftligt besked från SSF om hur ett motoriserat vred påverkar
+bedömningen av låsenheten. Det är en rimlig slutsats av hur normen definierar
+enheten, men en slutsats är inte ett citat.
+
+### Hur många koder behöver du?
+
+Fler än du tror.
+
+<ProductRef id="yale-doorman-classic-home" /> klarar tio användarkoder och tio
+nyckelbrickor. Doorman L3S trettio av varje utan app. Nimlys lås klarar 999 av
+varje.
+
+Poängen med separata koder är att kunna spärra en enskild utan att byta alla.
+Har du städhjälp, hantverkare, uthyrning, en granne som vattnar blommor och
+tonåringar med kompisar tar tio slut fortare än man tänker sig, och då börjar
+man dela ut samma kod till flera, vilket var det man ville undvika.
+
+### När batteriet tar slut
+
+Kontrollera nödöppningen innan du köper, inte när du står utanför.
+
+Nimlys lås har en **mekanisk nödnyckel**. <ProductRef id="aqara-u200" /> har
+mekanisk nyckel som en av fyra vägar in. Yale Doorman drivs av fyra
+AA-batterier som normalt räcker ett år och varnar i god tid.
+
+Lås som monteras utanpå insidans vred påverkar inte nyckeln alls, eftersom det
+ursprungliga låset sitter kvar. Det är arkitekturens tydligaste fördel.
+
+### Vanliga misstag
+
+**Att tro att ett godkänt lås ger en godkänd låsenhet.** Enheten är fyra
+delar, och slutblecket är den som oftast saknas.
+
+**Att läsa CE som ett godkännande.** Det är tillverkarens egen försäkran.
+
+**Att köpa efter kodfunktionen utan att kontrollera vad certifikatet omfattar.**
+Det är hela skälet att läsa vidare.
+
+**Att köpa ett internationellt lås till en svensk dörr utan att mäta.**
+Skandinaviskt låsuttag är inte samma sak som europrofil.
+
+**Att byta lås i bostadsrätt utan att fråga.** Dörren är föreningens.
+
+**Att räkna med tio koder.** De tar slut.
+
+### Ordlista
+
+**Godkänd låsenhet.** Låshus, låscylinder, säkerhetsslutbleck och
+förstärkningsbehör, där helheten och varje del når klass 3 enligt SSF 3522
+eller S3 enligt SSF 3523.
+
+**SSF 3522.** Normen för inbrottsskyddande låsenheter, klasserna 1A till 5.
+
+**SSF 3523.** Normen för digitala låsenheter, klasserna S1, S2, S3 och S5.
+
+**SSF 1075.** Normen för distribution, lagring och användning av digitala
+nycklar. Ingår i kraven för en digital låsenhet i klass S3.
+
+**Skandinaviskt låshus.** Den låshustyp svenska ytterdörrar är urtagna för, och
+skälet till att många internationella lås inte passar.
+
+**Tillhållarlåshus.** Låshus utan utbytbar cylinder, vanligt i äldre svenskt
+bestånd. Kan inte kompletteras med ett cylindermonterat smart lås.

@@ -37,7 +37,7 @@ export function MethodologyBlock({
 
   return (
     <div data-slot="methodology-block" className={className}>
-      {intro ? <p className="mb-[var(--space-block)] max-w-2xl">{intro}</p> : null}
+      {intro ? <p className="mb-block max-w-2xl">{intro}</p> : null}
 
       <div
         className={cn(
@@ -79,7 +79,7 @@ export function MethodologyBlock({
       ) : null}
 
       {footnote ? (
-        <p className="mt-[var(--space-block)] max-w-2xl text-sm text-muted-foreground">
+        <p className="mt-block max-w-2xl text-sm text-muted-foreground">
           {footnote}
         </p>
       ) : null}

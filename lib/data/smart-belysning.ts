@@ -3,7 +3,7 @@ import {
   type ConsideredProduct,
   type ProductSeed,
 } from "@/lib/products";
-import { SMART_BELYSNING } from "@/lib/categories";
+import { SMART_BELYSNING } from "@/lib/test-pages";
 import { productImage } from "@/lib/images";
 
 /**
@@ -42,12 +42,18 @@ import { productImage } from "@/lib/images";
  * enligt IDÉ-001 måste matchningen bekräftas, eftersom fel produkt bakom en
  * utmärkelse är värre än ingen utmärkelse alls.
  *
- * ⚠️ STILL NOT PUBLISHABLE. The criterion scores below are editorial judgement
- * derived from the sourced tests in lib/sources.ts, not measurements, and the
- * Prices move; re-run the check before launch.
+ * Kriteriepoängen är redaktionell bedömning ur de testade källorna i
+ * lib/sources.ts, inte mätningar. Det står också i sidans metodavsnitt.
+ *
+ * ## Priserna kontrolleras om, de rör sig
+ *
+ * WiZ Color A60 låg på 103 kronor vid bygget 2026-08-01 och på 129 två dagar
+ * senare, alltså 25 procent upp på en sida som redan var live. Sedan
+ * 2026-08-03 körs `pnpm priskoll` mot butikernas egna sidor, se
+ * .agent/plans/priskoll-automatisk.md.
  */
 
-export const PRICE_CHECKED = "2026-08-01";
+export const PRICE_CHECKED = "2026-08-03";
 
 const SEEDS: ProductSeed[] = [
   {
@@ -78,7 +84,7 @@ const SEEDS: ProductSeed[] = [
     award: "winner",
     superlative: "Bäst i test",
     pros: [
-      "Renaste färgåtergivningen av lamporna i jämförelsen",
+      "Renaste färgåtergivningen av lamporna här",
       "Zigbee håller anslutningen även genom betongvägg",
       "Fungerar med Google, Alexa, HomeKit och Matter via bryggan",
     ],
@@ -95,7 +101,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via Hue Bridge" },
     ],
     verdict:
-      "Hue kostar mest per lampa och behöver dessutom bryggan för att bli riktigt användbar. Ändå hamnar den överst. Testerna vi gått igenom är påfallande eniga om två saker: färgerna är renare än hos konkurrenterna, och anslutningen är den som håller när lamporna blir många. Ska du ha fem lampor är prisskillnaden hanterbar. Ska du ha trettio är det en annan diskussion.",
+      "Hue kostar mest per lampa och behöver dessutom bryggan för att bli riktigt användbar. Ändå hamnar den överst. Testerna är påfallande eniga om två saker: färgerna är renare än hos konkurrenterna, och anslutningen är den som håller när lamporna blir många. Ska du ha fem lampor är prisskillnaden hanterbar. Ska du ha trettio är det en annan diskussion.",
   },
   {
     id: "nanoleaf-essentials-e27",
@@ -118,7 +124,6 @@ const SEEDS: ProductSeed[] = [
     merchant: "Proshop",
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Nanoleaf-Essentials-Smart-E27-Bulb-Matter/3170357",
-    award: "runnerup",
     superlative: "Bäst för Thread-hem",
     pros: [
       "Matter över Thread utan brygga",
@@ -138,7 +143,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Inbyggt" },
     ],
     verdict:
-      "En av få lampor som kör Matter över Thread utan mellanled. Har du en HomePod, Apple TV, nyare Nest Hub eller Dirigera hemma har du redan den border router som krävs, och då svarar lampan snabbare än Wi-Fi-alternativen. Har du ingen faller den tillbaka på Bluetooth och tappar mycket av poängen.",
+      "En av få lampor som kör Matter över Thread utan mellanled. Har du en HomePod, Apple TV, nyare Nest Hub eller Dirigera hemma har du redan den border router som krävs, och då svarar lampan snabbare än Wi-Fi-alternativen. Har du ingen faller den tillbaka på Bluetooth och tappar det mesta av sin fördel.",
   },
   {
     id: "tp-link-tapo-l530e",
@@ -207,7 +212,7 @@ const SEEDS: ProductSeed[] = [
     award: "budget",
     superlative: "Bäst prisvärde",
     pros: [
-      "Lägsta pris per lumen i jämförelsen",
+      "Lägsta pris per lumen av lamporna",
       "Zigbee, så den belastar inte wifi-nätet",
       "Går att para mot en Hue Bridge",
     ],
@@ -224,7 +229,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Via Dirigera" },
     ],
     verdict:
-      "Ska du lysa upp ett helt hem blir prisskillnaden mot Hue snabbt flera tusen kronor, och Zigbee gör att lamporna bildar eget nät i stället för att tynga routern. Två saker att veta: färgversionen av TRÅDFRI E27 säljs inte längre på ikea.se, så det här är vitt spektrum, och du behöver Dirigera för att styra dem utanför hemmet.",
+      "Ska du lysa upp ett helt hem blir prisskillnaden mot Hue snabbt flera tusen kronor, och Zigbee gör att lamporna bildar eget nät i stället för att tynga routern. Färgversionen av TRÅDFRI E27 säljs inte längre på ikea.se, så det här är vitt spektrum, och du behöver Dirigera för att styra dem utanför hemmet.",
   },
   {
     id: "wiz-color-a60-e27",
@@ -232,7 +237,7 @@ const SEEDS: ProductSeed[] = [
     brand: "WiZ",
     name: "Color A60 E27 806 lm",
     image: productImage(SMART_BELYSNING.slug, "wiz-color-a60-e27"),
-    tagline: "Färg för hundralappen. Gör jobbet, men inte mycket mer.",
+    tagline: "Enda färglampan under tvåhundra. Gör jobbet, men inte mycket mer.",
     scores: {
       fargatergivning: 3,
       dimring: 2.5,
@@ -243,21 +248,24 @@ const SEEDS: ProductSeed[] = [
          tillhörande appen". En utmärkelse med uttalat förbehåll. */
       testomdome: 3.5,
       ljusstyrka: 3.5,
-      prisvarde: 5,
+      /* 4,5 och inte 5,0 sedan priset steg från 103 till 129 kronor mellan
+         2026-08-01 och 2026-08-03. Den är fortfarande den enda färglampan
+         under tvåhundra, men IKEA:s vita ligger på 99 och behåller femman. */
+      prisvarde: 4.5,
     },
-    price: 103,
+    price: 129,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/belysning-lampor/smart-belysning/smarta-e27-lampor/wiz-color-a60-smart-led-lampa-e27-806-lm-p52140",
     superlative: "Billigast med färg",
     pros: [
-      "Färg till ungefär en sjättedel av Hues pris",
+      "Färg till ungefär en femtedel av Hues pris",
       "Ingen brygga behövs",
       "Går att styra med vanlig strömbrytare",
     ],
     cons: [
-      "Svagast färgåtergivning i jämförelsen",
+      "Svagast färgåtergivning av lamporna",
       "Flimmer rapporteras vid låg dimring",
       "Wi-Fi, med samma takproblem som Tapo",
     ],
@@ -270,7 +278,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Matter", value: "Nej" },
     ],
     verdict:
-      "Vill du bara ha färgat ljus i en läslampa är WiZ svår att argumentera emot på pris. Skillnaden mot de dyrare lamporna syns när du dimrar ner: flera av testerna vi gått igenom noterar synligt flimmer i nedre registret, och färgerna är blekare. Som komplement fungerar den bra, som grund för hela hemmet mindre bra.",
+      "Vill du bara ha färgat ljus i en läslampa är WiZ svår att argumentera emot på pris. Skillnaden mot de dyrare lamporna syns när du dimrar ner: flera tester noterar synligt flimmer i nedre registret, och färgerna är blekare. Som komplement fungerar den bra, som grund för hela hemmet mindre bra.",
   },
 ];
 
@@ -391,12 +399,12 @@ export const SMART_BELYSNING_FAQ = [
   {
     question: "Drar smarta lampor ström när de är släckta?",
     answer:
-      "Ja. Radion måste vara vaken för att kunna ta emot kommandot att tända, och det kostar ungefär tre tiondels watt per lampa dygnet runt. I kronor är det sällan mycket. Det intressanta är andelen: en lampa som lyser tio minuter om dagen kan förbruka mer i viloläge än i drift, medan samma lampa i ett vardagsrum inte gör det. Slutsatsen är inte att låta bli, utan att inte sätta smarta lampor i utrymmen du knappt använder.",
+      "Ja. Radion måste vara vaken för att kunna ta emot kommandot att tända, och det kostar ungefär tre tiondels watt per lampa dygnet runt. I kronor är det sällan mycket. Det intressanta är andelen: en lampa som lyser tio minuter om dagen kan förbruka mer i viloläge än i drift, medan samma lampa i ett vardagsrum inte gör det. Låt det avgöra var lamporna sitter, inte om du köper dem: undvik utrymmen du knappt använder.",
   },
   {
     question: "Vad är CRI och vilket värde ska jag välja?",
     answer:
-      "CRI är färgåtergivning på en skala till 100 och beskriver hur naturligt lampan återger färger jämfört med dagsljus. Åttio är golvet för en anständig lampa. Nittio och uppåt är där det märks i praktiken: mat ser aptitlig ut, träslag får rätt ton och hudfärg ser levande ut i stället för grå. Skillnaden syns tydligast i kök och badrum, alltså där du tittar på mat och på dig själv. I en hall spelar det mindre roll.",
+      "CRI är färgåtergivning på en skala till 100 och beskriver hur naturligt lampan återger färger jämfört med dagsljus. Åttio är golvet för en anständig lampa. Nittio och uppåt är där det märks i praktiken: mat ser aptitlig ut, träslag får rätt ton och hudfärg ser levande ut i stället för grå. Skillnaden syns tydligast i kök och badrum, där du tittar på mat och på dig själv. I en hall spelar det mindre roll.",
   },
   {
     question: "Varför flimrar min LED-lampa när jag dimrar ner?",
@@ -406,7 +414,7 @@ export const SMART_BELYSNING_FAQ = [
   {
     question: "Vilken färgtemperatur ska jag välja?",
     answer:
-      "Ska du bara ha en inställning är 2 700 K det tryggaste valet i ett hem, eftersom det motsvarar en gammal glödlampa. Lägre tal ger varmare ljus: 2 200 K är levandeljusvarmt, medan 6 500 K är kallt dagsljus som väcker på morgonen men blir obehagligt på kvällen. De flesta vill ha varmt på kvällen och kallare på morgonen, vilket är hela poängen med en lampa som klarar båda.",
+      "Ska du bara ha en inställning är 2 700 K det tryggaste valet i ett hem, eftersom det motsvarar en gammal glödlampa. Lägre tal ger varmare ljus: 2 200 K är levandeljusvarmt, medan 6 500 K är kallt dagsljus som väcker på morgonen men blir obehagligt på kvällen. De flesta vill ha varmt på kvällen och kallare på morgonen, vilket är skälet att köpa en lampa som klarar båda.",
   },
   {
     question: "Vad är skillnaden mellan smart lampa, smart strömbrytare och smart uttag?",
@@ -421,6 +429,6 @@ export const SMART_BELYSNING_FAQ = [
   {
     question: "Får jag installera smarta strömbrytare själv?",
     answer:
-      "Nej. I Sverige får du byta ljuskälla, sätta stickpropp på en sladd och byta en trasig lamphållare i en lampa med sladd. Att dra ny fast installation, byta väggströmbrytare eller koppla in en dimmer i väggen kräver behörig elektriker. Det är därför smarta lampor och smarta uttag är så populära: de kräver ingen installation alls. Reglerna finns hos Elsäkerhetsverket och gäller oavsett hur enkelt en engelskspråkig guide får det att låta.",
+      "Nej. I Sverige får du byta ljuskälla, sätta stickpropp på en sladd och byta en trasig lamphållare i en lampa med sladd. Att dra ny fast installation, byta väggströmbrytare eller koppla in en dimmer i väggen ska utföras av ett registrerat elinstallationsföretag. Det är därför smarta lampor och smarta uttag är så populära: de kräver ingen installation alls. Reglerna finns hos Elsäkerhetsverket och gäller oavsett hur enkelt en engelskspråkig guide får det att låta.",
   },
 ];

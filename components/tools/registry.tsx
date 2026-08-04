@@ -11,8 +11,22 @@ import {
   BRANDFILT,
   KOLMONOXIDVARNARE,
   BRANDSTEGE,
-} from "@/lib/categories";
+  UTRYMNINGSSTEGE,
+  OVERVAKNINGSKAMERA,
+  DORRKLOCKA_MED_KAMERA,
+  INOMHUSKAMERA,
+  KODLAS_YTTERDORR,
+  ROBOTDAMMSUGARE,
+} from "@/lib/test-pages";
 import { formatPrice } from "@/lib/products";
+import { AgentTools } from "@/components/tools/agent-tools";
+import { Fuktavlasning } from "@/components/tools/fuktavlasning";
+import { Ventilpassning } from "@/components/tools/ventilpassning";
+import {
+  ThresholdPicker,
+  type ThresholdOption,
+} from "@/components/tools/threshold-picker";
+import { ROBOTDAMMSUGARE_PRODUCTS } from "@/lib/data/robotdammsugare";
 import {
   SMART_PLUG_CAPABILITIES,
   SMART_PLUG_PRODUCTS,
@@ -38,12 +52,38 @@ import {
   CoNeedPicker,
   type CoPickerProduct,
 } from "@/components/tools/co-need-picker";
+import { AirAppliancePicker } from "@/components/tools/air-appliance-picker";
 import { CoLevelScale } from "@/components/tools/co-level-scale";
 import { BRANDSTEGE_PRODUCTS } from "@/lib/data/brandstege";
 import {
   LadderFitPicker,
   type LadderFitProduct,
 } from "@/components/tools/ladder-fit-picker";
+import { UTRYMNINGSSTEGE_PRODUCTS } from "@/lib/data/utrymningsstege";
+import {
+  EscapeLadderHeight,
+  type EscapeLadderOption,
+} from "@/components/tools/escape-ladder-height";
+import { OVERVAKNINGSKAMERA_PRODUCTS } from "@/lib/data/overvakningskamera";
+import {
+  CameraPrivacyPicker,
+  type CameraPrivacyOption,
+} from "@/components/tools/camera-privacy-picker";
+import { DORRKLOCKA_PRODUCTS } from "@/lib/data/dorrklocka-med-kamera";
+import {
+  DoorbellHomePicker,
+  type DoorbellOption,
+} from "@/components/tools/doorbell-home-picker";
+import { INOMHUSKAMERA_PRODUCTS } from "@/lib/data/inomhuskamera";
+import {
+  IndoorPrivacyPicker,
+  type IndoorCameraOption,
+} from "@/components/tools/indoor-privacy-picker";
+import { KODLAS_PRODUCTS } from "@/lib/data/kodlas-ytterdorr";
+import {
+  LockApprovalPicker,
+  type LockOption,
+} from "@/components/tools/lock-approval-picker";
 import { BRANDVARNARE_PRODUCTS } from "@/lib/data/brandvarnare";
 import { BRANDSLACKARE_PRODUCTS } from "@/lib/data/brandslackare";
 import { BRANDFILT_PRODUCTS } from "@/lib/data/brandfilt";
@@ -65,6 +105,19 @@ import {
   type SwitchProduct,
 } from "@/components/tools/installation-picker";
 import { LoadPicker, type PickerProduct } from "@/components/tools/load-picker";
+import { HEMLARM } from "@/lib/test-pages";
+import { HEMLARM_SERVICES } from "@/lib/data/hemlarm";
+import { LARM_UTAN_ABONNEMANG_PRODUCTS } from "@/lib/data/larm-utan-abonnemang";
+import { conditionalFees } from "@/lib/services";
+import {
+  AlarmExitCalculator,
+  type ExitOption,
+} from "@/components/tools/alarm-exit-calculator";
+import {
+  FiveYearAlarmCost,
+  type KitOption,
+  type SubscriptionOption,
+} from "@/components/tools/five-year-alarm-cost";
 import { LumenCalculator } from "@/components/tools/lumen-calculator";
 import { ProtocolPicker } from "@/components/tools/protocol-picker";
 import { RunningCostCalculator } from "@/components/tools/running-cost-calculator";
@@ -389,6 +442,17 @@ function coPickerProducts(): CoPickerProduct[] {
   });
 }
 
+/**
+ * Luftklustrets enda verktyg, inbäddat på alla tre kategorisidorna.
+ *
+ * Tar inga produkter med flit. Svaret pekar på en kategorisida och slutar
+ * där, eftersom ett verktyg som lämnar ut produkt, pris och länk ersätter
+ * just det steg sajten får betalt för. Se lib/agent-tools.ts.
+ */
+export function AirAppliancePickerTool() {
+  return <AirAppliancePicker />;
+}
+
 export function CoAlarmNeedPicker() {
   return <CoNeedPicker products={coPickerProducts()} />;
 }
@@ -442,6 +506,408 @@ export function LadderFitTool() {
 }
 
 /**
+ * Längdserier och godkända höjder för de fasta utrymningsstegarna.
+ *
+ * Till skillnad från `ladderFitProducts` går det här inte att härleda ur
+ * specifikationsraderna. En stege som säljs i sexton längder har sexton priser,
+ * och tabellen bredvid visar bara den längd vi rankat. Serierna står därför
+ * här, med butiken angiven per fabrikat, alla lästa 2026-08-02.
+ *
+ * `approvedM` är null för alla utom Modum, och det är avsiktligt. Tystnad ska
+ * inte passera som en obegränsad gräns, så verktyget lägger dem i en egen hög.
+ */
+function escapeLadderOptions(): EscapeLadderOption[] {
+  const href = (id: string) => `/${UTRYMNINGSSTEGE.slug}#${id}`;
+  const named = (id: string) => UTRYMNINGSSTEGE_PRODUCTS.find((p) => p.id === id);
+  const label = (id: string, fallback: string) => {
+    const product = named(id);
+    return {
+      brand: product?.brand ?? "",
+      /* Namnet i rankningen bär längden vi prissatt, till exempel
+         "Original 3,9 m". Här väljer verktyget längd själv, så en sådan
+         etikett hade motsagt raden bredvid. */
+      name: fallback,
+    };
+  };
+
+  return [
+    {
+      id: "modum-original",
+      ...label("modum-original", "Original"),
+      href: href("modum-original"),
+      merchant: "Everglow",
+      /* 15 av 16 standardlängder. Everglow lagerför 1,2 till 5,4 m; den
+         sextonde, 0,9 m, finns i certifikatet men inte i butiken. */
+      lengths: [1.2, 1.5, 1.8, 2.1, 2.4, 2.7, 3, 3.3, 3.6, 3.9, 4.2, 4.5, 4.8, 5.1, 5.4],
+      prices: [
+        2964, 3569, 4444, 5178, 5923, 6663, 7401, 8143, 8883, 9621, 10366,
+        11358, 11844, 12586, 13325,
+      ],
+      approvedM: 5,
+      approvedWithGuardM: 7.5,
+    },
+    {
+      id: "housegard-el39",
+      ...label("housegard-el39", "EL39"),
+      href: href("housegard-el39"),
+      merchant: "Kjell & Company",
+      /* En grundlängd plus förlängningsdelar om 90 cm. Priserna är
+         grundpriset 3 695 kr plus 1 395 kr per sektion, alltså räknade och
+         inte lästa som egna artiklar. */
+      lengths: [3.86, 4.76, 5.66],
+      prices: [3695, 5090, 6485],
+      approvedM: null,
+      approvedWithGuardM: null,
+    },
+    {
+      id: "skeppshultstegen-fallbar",
+      ...label("skeppshultstegen-fallbar", "Fällbar"),
+      href: href("skeppshultstegen-fallbar"),
+      merchant: "Bauhaus",
+      /* Bara de tre längder Bauhaus lagerför. Serien går upp till 5,7 m hos
+         Stegfabriken, men till ett pris 41 till 45 procent högre, och att
+         blanda två butikers priser i samma rad hade gjort summan obegriplig. */
+      lengths: [2.7, 3.9, 4.8],
+      prices: [5599, 7799, 9199],
+      approvedM: null,
+      approvedWithGuardM: null,
+    },
+    {
+      id: "wsteps-400",
+      ...label("wsteps-400", "400"),
+      href: href("wsteps-400"),
+      merchant: "Stegfabriken",
+      lengths: [1.5, 2.1, 3.6, 4.8, 6],
+      prices: [7158, 8635, 14513, 17813, 20735],
+      approvedM: null,
+      approvedWithGuardM: null,
+    },
+    {
+      id: "wsteps-320",
+      ...label("wsteps-320", "320"),
+      href: href("wsteps-320"),
+      merchant: "Stegfabriken",
+      lengths: [1.5, 2.1, 3.6],
+      prices: [5955, 7423, 11378],
+      approvedM: null,
+      approvedWithGuardM: null,
+    },
+  ];
+}
+
+export function EscapeLadderHeightTool() {
+  return <EscapeLadderHeight options={escapeLadderOptions()} />;
+}
+
+/**
+ * Kamerornas maskeringsläge, härlett ur specifikationsraderna.
+ *
+ * Samma princip som `ladderFitProducts`: verktyget läser produktdatan i
+ * stället för att bära en egen kopia, så att det aldrig kan påstå att en
+ * kamera maskerar om tabellen bredvid säger något annat.
+ *
+ * De två raderna som styr sorteringen är `Sekretesszon` och `Zonen påverkas
+ * av rörelse`, och de är formulerade i datafilen efter respektive
+ * tillverkares egen supportdokumentation. Noteringen som visas under varje
+ * kamera i verktyget är en kort sammanfattning av samma två rader, så att
+ * läsaren ser skälet och inte bara sorteringen.
+ */
+function cameraPrivacyOptions(): CameraPrivacyOption[] {
+  return OVERVAKNINGSKAMERA_PRODUCTS.map((product) => {
+    const spec = (label: string) =>
+      product.specs.find((s) => s.label === label)?.value ?? "";
+    const zone = spec("Sekretesszon");
+    const motion = spec("Zonen påverkas av rörelse");
+
+    /* Fyra lägen och inte två: en kamera vars modell tillverkaren inte listar
+       är inte samma sak som en som saknar funktionen, och ingen av dem är
+       samma sak som en vars zon flyttar sig. Tystnad ska inte sorteras som
+       ett nej och inte heller som ett ja.
+
+       Klassningen läser rörelseraden och bara den, eftersom det är den som
+       bär svaret. Ett tidigare utkast letade efter nyckelord i båda raderna
+       och sorterade då in Arlo bland dem som håller, trots att deras egen
+       rad säger att zonerna raderas. Felet syntes inte i tsc, lint eller
+       bygget, bara i verktyget. */
+    let mask: CameraPrivacyOption["mask"];
+    if (/saknas|ej angiven|ej tillämpligt/i.test(`${zone} ${motion}`))
+      mask = "unclear";
+    else if (/^nej/i.test(motion)) mask = "solid";
+    else if (/^bara om/i.test(motion)) mask = "caveat";
+    else mask = "moves";
+
+    return {
+      id: product.id,
+      brand: product.brand,
+      name: product.shortName ?? product.name,
+      price: formatPrice(product.price, product.currency),
+      priceValue: product.price,
+      merchant: product.merchant,
+      href: `/${OVERVAKNINGSKAMERA.slug}#${product.id}`,
+      mask,
+      maskNote: `${zone}. Vid rörelse: ${motion.toLowerCase()}.`,
+    };
+  });
+}
+
+export function CameraPrivacyTool() {
+  return <CameraPrivacyPicker options={cameraPrivacyOptions()} />;
+}
+
+/**
+ * Dörrklockornas två praktiska villkor, härledda ur specifikationsraderna.
+ *
+ * Samma princip som `cameraPrivacyOptions`: verktyget läser produktdatan i
+ * stället för att bära en egen kopia, så att det aldrig kan påstå att en
+ * signalenhet ingår om tabellen bredvid säger något annat.
+ *
+ * `needsWiring` är sant bara för produkter som saknar batteridrift helt.
+ * Tapo D235 och Aqara G410 klarar båda vägarna och räknas därför inte som
+ * kabelbundna, trots att de kan kopplas in på 8 till 24 volt.
+ */
+function doorbellOptions(): DoorbellOption[] {
+  return DORRKLOCKA_PRODUCTS.map((product) => {
+    const spec = (label: string) =>
+      product.specs.find((s) => s.label === label)?.value ?? "";
+    const chime = spec("Signalenhet");
+    const power = spec("Ström");
+
+    return {
+      id: product.id,
+      brand: product.brand,
+      name: product.shortName ?? product.name,
+      price: formatPrice(product.price, product.currency),
+      priceValue: product.price,
+      merchant: product.merchant,
+      href: `/${DORRKLOCKA_MED_KAMERA.slug}#${product.id}`,
+      /* Bara den som varken nämner batteri eller erbjuder det som alternativ
+         är kabelbunden. "Batteri 10 000 mAh eller 8 till 24 V" är alltså
+         inte det. */
+      needsWiring: !/batteri/i.test(power),
+      /* Ankrat till strängens början. Ett tidigare utkast testade /ingår/i
+         någonstans i strängen, vilket gjorde att "Nej, ingår ej" räknades som
+         ett ja och verktyget skrev "Ringklocka ingår" om Ring och Google.
+         Felet syntes varken i tsc, lint eller bygget. */
+      chimeIncluded: /^(ja|ingår)/i.test(chime),
+      chimeNote: chime,
+      localStorage: /^nej/i.test(spec("Kräver abonnemang")),
+    };
+  });
+}
+
+export function DoorbellHomeTool() {
+  return <DoorbellHomePicker options={doorbellOptions()} />;
+}
+
+/**
+ * Inomhuskamerornas avstängningsläge, härlett ur specifikationsraden.
+ *
+ * Tre lägen och inte två: ett motoriserat skydd som stängs av sig självt när
+ * kameran avlarmas är inte samma sak som ett du trycker ner för hand, och
+ * ingetdera är samma sak som ett läge i en app. Skillnaden är hela sidans
+ * ärende, så den ska synas i sorteringen.
+ */
+function indoorCameraOptions(): IndoorCameraOption[] {
+  return INOMHUSKAMERA_PRODUCTS.map((product) => {
+    const spec = (label: string) =>
+      product.specs.find((s) => s.label === label)?.value ?? "";
+    const off = spec("Avstängning");
+
+    let shield: IndoorCameraOption["shield"] = "app";
+    if (/automatisk/i.test(off)) shield = "auto";
+    else if (/fysisk|skydd/i.test(off)) shield = "fysiskt";
+
+    return {
+      id: product.id,
+      brand: product.brand,
+      name: product.shortName ?? product.name,
+      price: formatPrice(product.price, product.currency),
+      priceValue: product.price,
+      merchant: product.merchant,
+      href: `/${INOMHUSKAMERA.slug}#${product.id}`,
+      shield,
+      shieldNote: off + ".",
+      localStorage: /^nej/i.test(spec("Kräver abonnemang")),
+    };
+  });
+}
+
+export function IndoorPrivacyTool() {
+  return <IndoorPrivacyPicker options={indoorCameraOptions()} />;
+}
+
+/**
+ * Låsens godkännandeläge, härlett ur specifikationsraden Godkännande.
+ *
+ * Fem lägen och inte två, eftersom skillnaderna är verkliga och alla fem
+ * förekommer i handeln: ett läst certifikat, en angiven klass 3 utan
+ * certifikat, en angiven klass under 3, ingen uppgift alls, och ett
+ * uttryckligt nej från butiken. Att slå ihop de tre sista hade dolt att
+ * "ingen uppgift" inte är samma sak som "inte godkänt".
+ */
+function lockOptions(): LockOption[] {
+  return KODLAS_PRODUCTS.map((product) => {
+    const spec = (label: string) =>
+      product.specs.find((s) => s.label === label)?.value ?? "";
+    const approval = spec("Godkännande");
+    const unlock = spec("Upplåsning");
+
+    let status: LockOption["status"] = "ingen";
+    if (/SBSC/i.test(approval)) status = "cert";
+    else if (/ej godk|inte godk/i.test(approval)) status = "nekat";
+    else if (/klass 3|klass S3/i.test(approval)) status = "klass3";
+    else if (/klass \d/i.test(approval)) status = "lagre";
+
+    return {
+      id: product.id,
+      brand: product.brand,
+      name: product.shortName ?? product.name,
+      price: formatPrice(product.price, product.currency),
+      priceValue: product.price,
+      merchant: product.merchant,
+      href: `/${KODLAS_YTTERDORR.slug}#${product.id}`,
+      status,
+      statusNote: `${approval}. ${spec("Certifikatet gäller")}.`,
+      hasCode: /kod/i.test(unlock),
+      /* Utanpåliggande lås anger monteringssättet i dörrtjockleksraden i
+         stället för ett mått, eftersom de inte har med dörrens tjocklek att
+         göra. Det är den enda raden som skiljer arkitekturerna åt. */
+      replacesUnit: !/vred/i.test(spec("Dörrtjocklek")),
+    };
+  });
+}
+
+export function LockApprovalTool() {
+  return <LockApprovalPicker options={lockOptions()} />;
+}
+
+/**
+ * Kostnaden att lämna, härledd ur tjänstedatan.
+ *
+ * Läser `terms` direkt i stället för att leta i specifikationsrader, vilket är
+ * skillnaden mot verktygen ovan: tjänsterna har riktiga fält för avgifter,
+ * bindningstid och friköpstrappa, så det finns ingen sträng att tolka.
+ *
+ * Bolag som inte publicerar någon månadsavgift tas **inte** bort ur listan.
+ * Att välja ett av dem och få veta att kostnaden inte går att räkna ut är
+ * hela poängen, och att gömma dem hade dolt kategorins verkliga tillstånd.
+ */
+function alarmExitOptions(): ExitOption[] {
+  return HEMLARM_SERVICES.map((service) => ({
+    id: service.id,
+    provider: service.provider,
+    name: service.name,
+    href: `/${HEMLARM.slug}#${service.id}`,
+    monthlyFee: service.terms.monthlyFee,
+    noticeMonths: service.terms.noticeMonths,
+    ownership: service.terms.ownership,
+    buyout: service.terms.buyout ?? [],
+    conditionalFees: conditionalFees(service.terms).map((fee) => ({
+      label: fee.label,
+      amount: fee.amount,
+      source: fee.source,
+    })),
+    buyoutNote: service.terms.buyoutNote,
+  }));
+}
+
+export function AlarmExitTool() {
+  return <AlarmExitCalculator options={alarmExitOptions()} />;
+}
+
+/**
+ * Femårskostnad: larmpaket mot abonnemang.
+ *
+ * Båda sidorna av jämförelsen läses ur riktig produktdata. Larmpaketen kommer
+ * från /larm-utan-abonnemang, abonnemangen från /hemlarm.
+ *
+ * ⚠️ Bolag som inte publicerar **både** månadsavgift och startavgift tas med i
+ * listan ändå, med sin brist synlig i verktyget. Att sålla bort dem hade dolt
+ * att fyra av åtta bolag inte går att räkna på, vilket är hela poängen med
+ * systersidan. Samma resonemang som i `alarmExitOptions` ovan.
+ */
+function alarmKits(): KitOption[] {
+  return LARM_UTAN_ABONNEMANG_PRODUCTS.map((product) => ({
+    id: product.id,
+    brand: product.brand,
+    name: product.shortName ?? product.name,
+    price: product.price,
+  }));
+}
+
+function alarmSubscriptions(): SubscriptionOption[] {
+  return HEMLARM_SERVICES.map((service) => ({
+    id: service.id,
+    provider: service.provider,
+    monthlyFee: service.terms.monthlyFee,
+    startFee: service.terms.startFee,
+    note:
+      service.terms.monthlyFee === null || service.terms.startFee === null
+        ? "Bolaget publicerar inte hela priset på sin egen sida. Se jämförelsen på vår sida om hemlarm för vad som faktiskt går att läsa."
+        : undefined,
+  }));
+}
+
+export function FiveYearAlarmCostTool() {
+  return (
+    <FiveYearAlarmCost kits={alarmKits()} subscriptions={alarmSubscriptions()} />
+  );
+}
+
+/**
+ * Robotarnas angivna passerhöjd, läst ur specifikationsraden.
+ *
+ * Samma princip som `cameraPrivacyOptions`: verktyget läser produktdatan i
+ * stället för att bära en egen kopia, så det kan aldrig påstå en passerhöjd
+ * som tabellen bredvid inte visar.
+ *
+ * Raden heter `Passerhöjd` och finns bara på de robotar vars tillverkare
+ * publicerar ett tal. Saknas raden blir `statedMm` null, och widgeten lägger
+ * roboten i högen "anger ingen passerhöjd alls" i stället för att tolka
+ * tystnaden som ett ja.
+ */
+function thresholdOptions(): ThresholdOption[] {
+  return ROBOTDAMMSUGARE_PRODUCTS.map((product) => {
+    const raw = product.specs.find((s) => s.label === "Passerhöjd")?.value ?? "";
+    /* Matchar "40 mm enligt Dreame" men inte "8,8 cm": alla tal vi publicerar
+       i den här raden anges i millimeter. Kommer en centimeteruppgift in
+       senare ska den skrivas om i datafilen, inte tolkas här. */
+    const mm = /(\d+)\s*mm/i.exec(raw);
+
+    return {
+      id: product.id,
+      brand: product.brand,
+      name: product.shortName ?? product.name,
+      href: `/${ROBOTDAMMSUGARE.slug}#${product.id}`,
+      statedMm: mm ? Number(mm[1]) : null,
+    };
+  });
+}
+
+export function RobotThresholdTool() {
+  return <ThresholdPicker options={thresholdOptions()} />;
+}
+
+/**
+ * Fuktavläsningen behöver ingen produktdata. Den räknar på det läsaren redan
+ * har på displayen och på de tre gränserna, som är hämtade och inte våra.
+ */
+export function FuktavlasningTool() {
+  return <Fuktavlasning />;
+}
+
+/**
+ * Ventilpassningen läser inte produktdatan här utan sin egen lista i
+ * lib/tool-logic/ventilpassning.ts. Skälet är att fältet som avgör svaret är
+ * tillverkarens namngivna adapterlista, och den är rikare än vad som får plats
+ * i en spec-rad: den skiljer på vad som ingår, vad som säljs separat och vad
+ * tillverkaren uttryckligen inte levererar.
+ */
+export function VentilpassningTool() {
+  return <Ventilpassning />;
+}
+
+/**
  * Slug → widget. Keeps `lib/tools.ts` free of React so it can be imported from
  * anywhere (sitemap, metadata, category pages) without pulling in components.
  *
@@ -466,6 +932,17 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "behover-du-kolmonoxidvarnare": CoAlarmNeedPicker,
   "co-halt-larmgrans": CoLevelExplainer,
   "vilken-brandstege-passar": LadderFitTool,
+  "godkand-utrymningshojd": EscapeLadderHeightTool,
+  "vad-far-kameran-filma": CameraPrivacyTool,
+  "dorrklocka-lagenhet-eller-villa": DoorbellHomeTool,
+  "kamera-nar-nagon-arbetar-hemma": IndoorPrivacyTool,
+  "godkant-las-till-ytterdorr": LockApprovalTool,
+  "vad-kostar-det-att-lamna-hemlarmet": AlarmExitTool,
+  "femarskostnad-larm": FiveYearAlarmCostTool,
+  "vilken-luftapparat": AirAppliancePickerTool,
+  "klarar-roboten-troskeln": RobotThresholdTool,
+  "vad-betyder-talet-pa-hygrometern": FuktavlasningTool,
+  "vilken-termostat-passar-min-ventil": VentilpassningTool,
 };
 
 export function hasToolWidget(slug: string): boolean {
@@ -482,5 +959,15 @@ export function hasToolWidget(slug: string): boolean {
  */
 export function ToolWidget({ slug }: { slug: string }) {
   const Widget = TOOL_WIDGETS[slug];
-  return Widget ? <Widget /> : null;
+  if (!Widget) return null;
+
+  return (
+    <>
+      <Widget />
+      {/* Registrerar sidans agentverktyg så länge räknaren är monterad. Renderar
+          ingenting, och gör ingenting alls i en webbläsare utan WebMCP. Se
+          components/tools/agent-tools.tsx. */}
+      <AgentTools slug={slug} />
+    </>
+  );
 }

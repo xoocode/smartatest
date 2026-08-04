@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { BRANDVARNARE, categoryTrail } from "@/lib/categories";
+import { BRANDVARNARE, testPageTrail } from "@/lib/test-pages";
 import { BRANDVARNARE_SOURCES } from "@/lib/sources";
 import {
   BRANDVARNARE_CONSIDERED,
@@ -11,6 +11,7 @@ import {
 } from "@/lib/data/brandvarnare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -33,6 +34,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/brandvarnare/kopguide.mdx";
 
@@ -44,24 +46,28 @@ import Kopguide from "@/content/brandvarnare/kopguide.mdx";
  * sidan.
  *
  *
- * Två av de rankade produkterna var slut hos Kjell vid kontrollen och är
- * markerade i sina specifikationer. Kör om priskontrollen före lansering.
+ * Lagerstatus anges inte, efter användarbeslut 2026-08-03: rankningen svarar
+ * på vilken produkt som är bäst, inte på vad en butik råkar ha på hyllan.
+ * Priserna kontrolleras med `pnpm priskoll`.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = BRANDVARNARE;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-02";
+const TEST_PAGE = BRANDVARNARE;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "Vi jämförde tio brandvarnare från 139 till 646 kronor. Fyra kan larma tillsammans, sex kan det inte, och det är den skillnaden som avgör om en brand i källaren väcker den som sover en trappa upp.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -92,15 +98,16 @@ export default async function BrandvarnarePage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -108,9 +115,10 @@ export default async function BrandvarnarePage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
               Vi jämförde tio brandvarnare från 139 till 646 kronor. Alla känner
               rök, alla klarar standardens 85 decibel och alla är optiska. Det
@@ -141,7 +149,7 @@ export default async function BrandvarnarePage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -160,7 +168,7 @@ export default async function BrandvarnarePage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -190,7 +198,7 @@ export default async function BrandvarnarePage() {
           <p>
             Fyra av de tio klarar det. Frekvensen spelar dessutom roll och nämns
             nästan aldrig: 868 MHz tar sig genom betongbjälklag bättre än 433,
-            vilket är precis den sträcka signalen ska klara.
+            och det är genom bjälklag signalen ska ta sig.
           </p>
           <p>
             Är hemmet en etta där en enda varnare hörs överallt är hela frågan
@@ -226,7 +234,7 @@ export default async function BrandvarnarePage() {
           legend="Filtrera på sammankoppling och batteri"
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Två av produkterna var slut hos Kjell vid kontrollen, vilket står i deras specifikationer. Ljudnivå anges som ej angiven där butiken inte publicerar den; alla varnare som säljs lagligt klarar minst 85 dB.`}
+          caption={priceCaption(PRICE_CHECKED, `Ljudnivå anges som ej angiven där butiken inte publicerar den; alla varnare som säljs lagligt klarar minst 85 dB.`)}
         />
       </Section>
 
@@ -237,12 +245,12 @@ export default async function BrandvarnarePage() {
         title="Recensioner av varje varnare"
         description="Alla tio bedöms mot samma fem kriterier. Raden Utsedd av visar vilka publicerade jämförelser som rankat produkten, eftersom det kriteriet räknar dem."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -274,13 +282,13 @@ export default async function BrandvarnarePage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte tänt eld på något. Den enda verkliga brandprovningen i kategorin är Stiftung Warentests, och de testade den tyska marknaden: Ei Electronics, Abus, Busch-Jaeger, Pyrexx, Cavius och Hekatron. Ingen av de tio varnare vi rankar ingick, och deras vinnare Ei650 säljs inte hos någon svensk butik vi bevakar. Därför heter vårt kriterium omdöme i publicerade jämförelser och inte testomdöme: det räknar hur många av de sex svenska jämförelserna som utsett produkten till vinnare eller topplacering. Fyra av dem tjänar pengar på affiliatelänkar, tre av dem mot samma butiker som vi, och ingen redovisar ett mätvärde. Vi räknar dem ändå, men vi säger vilka de är, och en produkt som tillverkaren lagt ner får aldrig poäng här oavsett hur många som rankat den. Priserna är hos den butik vi länkar till. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Vi har inte tänt eld på något. Den enda verkliga brandprovningen i kategorin är Stiftung Warentests, och de testade den tyska marknaden: Ei Electronics, Abus, Busch-Jaeger, Pyrexx, Cavius och Hekatron. Ingen av de tio varnare vi rankar ingick, och deras vinnare Ei650 säljs inte hos någon svensk butik vi bevakar. Därför heter vårt kriterium omdöme i publicerade jämförelser och inte testomdöme: det räknar hur många av de sex svenska jämförelserna som utsett produkten till vinnare eller topplacering. Ingen av de sex redovisar ett enda mätvärde. Vi räknar dem ändå, men vi säger vilka de är, och en produkt som tillverkaren lagt ner får aldrig poäng här oavsett hur många som rankat den. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -288,10 +296,10 @@ export default async function BrandvarnarePage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte produkterna fysiskt. Det här är vad vi gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -312,7 +320,7 @@ export default async function BrandvarnarePage() {
         tone="muted"
         width="default"
         title="Källor och andra jämförelser"
-        description="En verklig brandprovning och sex svenska jämförelser, var och en med en not om vad den faktiskt är. Fyra av dem är affiliatefinansierade, precis som vi."
+        description="En verklig brandprovning och sex svenska jämförelser, var och en med en not om vad den faktiskt är. Fyra av de sex har inte provat någon varnare."
       >
         <SourceList sources={BRANDVARNARE_SOURCES} title={null} />
       </Section>
@@ -324,9 +332,8 @@ export default async function BrandvarnarePage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "fireSafety", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

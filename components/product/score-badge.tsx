@@ -120,7 +120,7 @@ function ScoreDial({
       >
         {score.toLocaleString("sv-SE", { minimumFractionDigits: 1 })}
         {showMax ? (
-          <span className="text-[0.5em] opacity-70">/{max}</span>
+          <span className="text-[0.5em] opacity-90">/{max}</span>
         ) : null}
       </span>
     </span>
@@ -168,7 +168,7 @@ export function ScoreBadge({
     >
       {score.toLocaleString("sv-SE", { minimumFractionDigits: 1 })}
       {showMax ? (
-        <span className="ml-0.5 text-[0.6em] opacity-70">/{max}</span>
+        <span className="ml-0.5 text-[0.6em] opacity-90">/{max}</span>
       ) : null}
     </span>
   );

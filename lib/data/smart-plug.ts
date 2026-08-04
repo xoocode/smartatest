@@ -3,7 +3,7 @@ import {
   type ConsideredProduct,
   type ProductSeed,
 } from "@/lib/products";
-import { SMART_PLUG } from "@/lib/categories";
+import { SMART_PLUG } from "@/lib/test-pages";
 import { productImage } from "@/lib/images";
 
 /**
@@ -39,7 +39,7 @@ import { productImage } from "@/lib/images";
  * rör sig, kör om kontrollen före lansering.
  */
 
-export const PRICE_CHECKED = "2026-08-01";
+export const PRICE_CHECKED = "2026-08-03";
 
 const SEEDS: ProductSeed[] = [
   {
@@ -50,7 +50,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "IP200 3 680 W",
     image: productImage(SMART_PLUG.slug, "cleverio-ip200"),
     tagline:
-      "Den enda i jämförelsen som både klarar 16 A och mäter förbrukningen, till lägsta pris.",
+      "Den enda pluggen som både klarar 16 A och mäter förbrukningen, till lägsta pris.",
     scores: {
       /* testomdome utelämnas medvetet: ingen oberoende test finns. */
       maxeffekt: 5,
@@ -59,7 +59,7 @@ const SEEDS: ProductSeed[] = [
       /* viloforbrukning utelämnas: Cleverio anger ingen siffra. */
       prisvarde: 5,
     },
-    price: 179,
+    price: 99,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -67,8 +67,8 @@ const SEEDS: ProductSeed[] = [
     award: "winner",
     superlative: "Bäst i test",
     pros: [
-      "16 A, alltså den enda som klarar element och torkskåp",
-      "Energimätning inbyggd trots lägsta pris i jämförelsen",
+      "16 A, ensam om att klara element och torkskåp",
+      "Energimätning inbyggd trots lägsta priset av pluggarna",
       "Ingen brygga eller hubb behövs",
     ],
     cons: [
@@ -86,7 +86,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Den hamnar överst för att den gör det jobb folk faktiskt köper ett smart uttag för i Sverige. Ett element, en vattenkokare eller ett torkskåp behöver 16 A, och av de fem pluggarna är det bara den här och Plejd som är märkta för det. Cleverio är dessutom ensam om att kombinera det med energimätning, och det till samma pris som den svagaste pluggen i jämförelsen. Men var ärlig med vad betyget står på: det här är den enda produkten som ingen oberoende testare har granskat, och kriteriet som väger tyngst hos oss är just det. Utan det bedöms den på sextio av hundra viktpoäng. Cleverio anger inte heller vad pluggen själv drar i viloläge, vilket är en uppgift vi hade velat ha. Är du osäker och vill ha något som blivit granskat är Shelly nästa på listan.",
+      "Cleverio IP200 klarar 16 A och mäter energi, till 99 kronor. Ett element, en vattenkokare eller ett torkskåp behöver 16 A, och av de fem pluggarna är det bara den här och Plejd som är märkta för det. Cleverio är dessutom ensam om att kombinera det med energimätning, och det till 99 kronor, 45 procent under den svagaste pluggen här.\n\nMen var ärlig med vad betyget står på: det här är den enda produkten som ingen oberoende testare har granskat, och det vi väger tyngst är just det. Utan det väger 60 av 100 i vår bedömning. Cleverio anger inte heller vad pluggen själv drar i viloläge, vilket är en uppgift vi hade velat ha.\n\nÄr du osäker och vill ha något som blivit granskat är Shelly nästa på listan.",
   },
   {
     id: "shelly-plug-s-gen3",
@@ -107,7 +107,6 @@ const SEEDS: ProductSeed[] = [
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Hornbach",
     merchantUrl: "https://www.hornbach.se/p/smart-plug-shelly-plug-s-gen3/12341078/",
-    award: "runnerup",
     superlative: "Bäst för lokal styrning",
     pros: [
       "Matter-certifierad, fungerar i Apple Home, Google Home och Alexa",
@@ -115,7 +114,7 @@ const SEEDS: ProductSeed[] = [
       "Detaljerad energimätning i realtid",
     ],
     cons: [
-      "2 500 W, alltså inte tillräckligt för de tyngsta apparaterna",
+      "2 500 W, inte tillräckligt för de tyngsta apparaterna",
       "Testet vi hittat gäller föregående generation",
       "Sticker ut mer ur uttaget än Plejd och Tapo",
     ],
@@ -129,7 +128,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Den här är valet för den som tänker bygga vidare. Matter gör att den fungerar i alla fyra ekosystemen samtidigt, och till skillnad från de andra går den att styra lokalt utan att ett moln behöver svara, vilket också är varför den är populär bland dem som kör Home Assistant. Energimätningen är den mest detaljerade i jämförelsen. Två förbehåll. Maxlasten på 2 500 W räcker för det mesta men inte för ett element, och det svenska test vi hittat gäller föregående Plug S, som både hade lägre maxlast och saknade Matter. Vi har därför vägt ner testomdömet i stället för att låta ett betyg på en annan produkt räknas som om det gällde den här. Hornbach hade lägst pris när vi kontrollerade. Samma plugg finns hos Inet för trettio kronor mer, där kunderna ger den 4,3 av 5.",
+      "Shelly Plug S Gen3 är valet för den som tänker bygga vidare. Matter gör att den fungerar i alla fyra ekosystemen samtidigt, och till skillnad från de andra går den att styra lokalt utan att ett moln behöver svara, vilket också är varför den är populär bland dem som kör Home Assistant. Energimätningen är den mest detaljerade av de fem.\n\nTvå förbehåll. Maxlasten på 2 500 W räcker för det mesta men inte för ett element, och det svenska test vi hittat gäller föregående Plug S, som både hade lägre maxlast och saknade Matter. Vi har därför vägt ner testomdömet i stället för att låta ett betyg på en annan produkt räknas som om det gällde den här.\n\nHornbach hade lägst pris när vi kontrollerade. Samma plugg finns hos Inet för trettio kronor mer, där kunderna ger den 4,3 av 5.",
   },
   {
     id: "plejd-spr-01",
@@ -156,7 +155,7 @@ const SEEDS: ProductSeed[] = [
     award: "editor",
     superlative: "Minst och snålast",
     pros: [
-      "0,3 W i viloläge, alltså en femtedel av den sämsta i jämförelsen",
+      "0,3 W i viloläge, en femtedel av den sämsta av pluggarnaörelsen",
       "16 A, klarar samma laster som testvinnaren",
       "Så liten att två får plats i ett dubbeluttag, och scheman ligger i pluggen",
     ],
@@ -175,7 +174,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Plejd gör två saker bättre än alla andra här. Den drar 0,3 W i viloläge, mot Tapos 1,48 W, och den är så liten att två stycken får plats i samma dubbeluttag. Att timer, veckour och astrour ligger i själva pluggen är dessutom värt mer än det låter: schemat går i gång även när nätet är nere, vilket ingen av de molnberoende pluggarna kan lova. Sedan kommer priset för det. Ingen energimätning, inget Matter, och för att styra den hemifrån behöver du en Plejd-gateway. Hemmastyrning skriver rakt ut att den är ett bra köp om du redan har Plejd, och att det finns bättre alternativ om du inte har det. Vi håller med. Har du Plejd i taket är det här en självklarhet. Har du inte det köper du in dig i ett system för ett enda uttags skull.",
+      "Plejd SPR-01 drar 0,3 W i viloläge mot Tapos 1,48, och är så liten att två stycken får plats i samma dubbeluttag. Att timer, veckour och astrour ligger i själva pluggen är dessutom värt mer än det låter: schemat går i gång även när nätet är nere, vilket ingen av de molnberoende pluggarna kan lova.\n\nSedan kommer priset för det. Ingen energimätning, inget Matter, och för att styra den hemifrån behöver du en Plejd-gateway. Hemmastyrnings omdöme är att den är ett bra köp om du redan har Plejd, och att det finns bättre alternativ om du inte har det. Vi håller med.\n\nHar du Plejd i taket är det här en självklarhet. Har du inte det köper du in dig i ett system för ett enda uttags skull.",
   },
   {
     id: "philips-hue-smart-plug",
@@ -201,12 +200,12 @@ const SEEDS: ProductSeed[] = [
       "https://www.kjell.com/se/produkter/smarta-hem/philips-hue/philips-hue-tillbehor/philips-hue-smart-plug-fjarrstrombrytare-p51533",
     superlative: "Bäst om du redan har Hue",
     pros: [
-      "Zigbee via Hue Bridge, den stabilaste anslutningen i jämförelsen",
+      "Zigbee via Hue Bridge, den stabilaste anslutningen av pluggarna",
       "Ligger i samma scener och rum som resten av belysningen",
       "Fungerar med Google, Alexa och HomeKit via bryggan",
     ],
     cons: [
-      "Dyrast i jämförelsen och saknar energimätning",
+      "Dyrast av pluggarna och saknar energimätning",
       "2 300 W, klarar inte tyngre apparater",
       "Ingen egen app, så utan Hue-brygga är den nästan meningslös",
     ],
@@ -220,7 +219,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Betygsatt som fristående smart plug är den svår att försvara: högst pris, ingen mätning och lägsta maxlast. TechRadar landar i samma slutsats när de kallar den ett Hue-tillbehör snarare än en smart plug, och ger den fyra av fem på just den premissen. Det är också så du ska se på den. Har du Hue sedan tidigare gör pluggen att golvlampan hamnar i samma rum och samma scener som taklamporna, tänds med samma knapp och dimras i samma svep. Den saken kan ingen av de andra här göra. Har du inte Hue finns det ingen anledning att börja med den här produkten, eftersom den saknar egen app och alltså kräver en brygga för nästan allt.",
+      "Hue Smart Plug har högst pris, ingen energimätning och lägst maxlast av de fem, och som fristående plugg är den svår att försvara. TechRadar landar i samma slutsats när de kallar den ett Hue-tillbehör snarare än en smart plug, och ger den fyra av fem på just den premissen. Det är också så du ska se på den. Har du Hue sedan tidigare gör pluggen att golvlampan hamnar i samma rum och samma scener som taklamporna, tänds med samma knapp och dimras i samma svep. Den saken kan ingen av de andra här göra. Har du inte Hue finns det ingen anledning att börja med den här produkten, eftersom den saknar egen app och alltså kräver en brygga för nästan allt.",
   },
   {
     id: "tp-link-tapo-p100",
@@ -251,7 +250,7 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "1,48 W i viloläge, femdubbelt mot Plejd",
-      "2 300 W, alltså inte tillräckligt för element eller torkskåp",
+      "2 300 W, inte tillräckligt för element eller torkskåp",
       "Varken energimätning eller Matter",
     ],
     specs: [
@@ -264,7 +263,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Den här är den mest rekommenderade smarta pluggen i Sverige, och den hamnar sist hos oss. Det är värt att förklara varför, för Trusted Reviews ger den 4,5 av 5 och de har inte fel om det de bedömer: appen är den bästa av wifi-pluggarna, svarstiden är kort och den är liten nog att inte skymma grannuttaget. Två saker fäller den ändå. Kjell anger 1,48 W i viloläge, alltså nästan fem gånger Plejds 0,3 W. Med åtta pluggar i hemmet är det runt hundra kronor om året i ren bakgrundsförbrukning, av en produkt som ofta köps för att spara el. Och 2 300 W betyder att den inte får sitta på det som gör störst skillnad på elräkningen. Som första plugg till en golvlampa eller julbelysningen är den fortfarande ett rimligt köp. Som grund för hela hemmet är den det inte.",
+      "Tapo P100 är den mest rekommenderade smarta pluggen i landet och hamnar ändå sist här. Trusted Reviews ger den 4,5 av 5 och de har inte fel om det de bedömer: appen är den bästa av wifi-pluggarna, svarstiden är kort och den är liten nog att inte skymma grannuttaget.\n\nKjell anger 1,48 W i viloläge, nästan fem gånger Plejds 0,3 W. Med åtta pluggar i hemmet är det runt hundra kronor om året i ren bakgrundsförbrukning, av en produkt som ofta köps för att spara el. Och 2 300 W betyder att den inte får sitta på det som gör störst skillnad på elräkningen.\n\nSom första plugg till en golvlampa eller julbelysningen är den fortfarande ett rimligt köp. Som grund för hela hemmet är den det inte.",
   },
 ];
 
@@ -348,7 +347,7 @@ export const SMART_PLUG_CONSIDERED: ConsideredProduct[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/el-verktyg/starkstrom/energimatare/shelly-wave-plug-s-lr-smart-z-wave-plugg-med-energimatning-vit-p52291",
     reason:
-      "Z-Wave 800 med Long Range når betydligt längre än wifi och stör inte på 2,4 GHz-bandet. Men den kräver en Z-Wave-hubb, kostar dubbelt mot testvinnaren och lämnar Matter helt utanför. Rätt produkt för ett befintligt Z-Wave-hem, fel som första plugg.",
+      "Z-Wave 800 med Long Range når betydligt längre än wifi och stör inte på 2,4 GHz-bandet. Men den kräver en Z-Wave-hubb, kostar dubbelt mot testvinnaren och saknar Matter helt. Rätt produkt för ett befintligt Z-Wave-hem, fel som första plugg.",
   },
   {
     brand: "WiZ",
@@ -408,11 +407,6 @@ export const SMART_PLUG_FAQ = [
       "Ja, och det är en av de vanligaste svenska användningarna. Två krav gäller. Pluggen måste vara IP44-klassad eftersom den sitter ute, och den måste klara motorvärmarens effekt, som ofta ligger mellan 400 och 1 000 W för själva motorvärmaren och betydligt mer om kupévärmaren sitter på samma uttag. Räkna ihop båda. Fördelen mot en vanlig timer är att du kan flytta starttiden från sängen, se att den faktiskt gick i gång, och att tiden inte blir fel efter ett strömavbrott.",
   },
   {
-    question: "Vad är skillnaden mellan smart plug och smart uttag?",
-    answer:
-      "Ingen alls i praktiken. Smart plug är det ord som används i svenska butiker och jämförelser, smart uttag och smart eluttag är den svenska översättningen, och Kjell kallar hela kategorin fjärrströmbrytare. Alla tre syftar på samma sak: en adapter du sätter i vägguttaget och som du sedan kan slå av och på från mobilen. Det som däremot är en annan produkt är ett smart vägguttag för fast installation, som byter ut själva uttaget i väggen och kräver behörig elektriker.",
-  },
-  {
     question: "Behöver en smart plug en hubb eller brygga?",
     answer:
       "Det beror på protokollet. Wi-Fi-pluggar som Cleverio IP200, Shelly Plug S Gen3 och TP-Link Tapo P100 ansluter direkt till hemmanätet och behöver ingenting extra. Philips Hue Smart Plug kör Zigbee och kräver en Hue Bridge för att fungera fullt ut. Plejd SPR-01 kör Bluetooth mesh och fungerar lokalt utan något extra, men behöver en Plejd-gateway om du vill styra den när du inte är hemma.",
@@ -421,11 +415,6 @@ export const SMART_PLUG_FAQ = [
     question: "Lönar det sig att köpa en smart plug?",
     answer:
       "Det beror helt på vad du kopplar in. Det lönar sig när apparaten drar mycket och du kan flytta den i tiden, som ett element eller en billaddning som kan gå när elen är billig. Det lönar sig när något står på i onödan och du inte märker det, vilket en plugg med energimätning kan visa. Det lönar sig sällan på något som redan drar nästan ingenting: en smart plugg på en LED-lampa på 9 W kan mycket väl dra mer i viloläge än lampan gör när den lyser. Och det lönar sig inte alls om du köper den enbart för bekvämligheten och sedan slutar använda appen efter två veckor, vilket är vanligare än man tror.",
-  },
-  {
-    question: "Vad betyder resistiv och induktiv last?",
-    answer:
-      "Märkningen 16 A gäller resistiv last, alltså sådant som bara omvandlar ström till värme: element, vattenkokare, torkskåp, glödlampor. Induktiv last är sådant som innehåller en motor eller en spole, som pumpar, fläktar, kompressorer och kylskåp. De drar en kraftig startström under någon sekund, ofta flera gånger märkeffekten, och den toppen syns inte i den siffra som står på förpackningen. Ska du styra något med motor, ta rejält i och välj 16 A även om apparatens märkeffekt ser låg ut.",
   },
   {
     question: "Vilken smart plug är minst och blockerar inte grannuttaget?",
@@ -441,15 +430,5 @@ export const SMART_PLUG_FAQ = [
     question: "Vad händer med en smart plug om internet försvinner?",
     answer:
       "Det beror på var logiken ligger. Molnberoende wifi-pluggar tappar både fjärrstyrning och ofta schemaläggning när uppkopplingen bryts, och en apparat som slogs på kan i värsta fall bli stående på eftersom stoppkommandot aldrig kommer. Pluggar där schemat ligger i själva enheten fortsätter köra sitt program oavsett nät: Plejd SPR-01 har inbyggd timer, veckour och astrour. Shelly Plug S Gen3 går att styra lokalt utan moln. Ska pluggen styra något där det spelar roll att den slår av i tid, välj en som klarar sig själv.",
-  },
-  {
-    question: "Får jag installera en smart plug själv?",
-    answer:
-      "Ja. En smart plug sätts i ett befintligt vägguttag och räknas inte som fast installation, så vem som helst får använda den. Det är därför kategorin är så populär. Vill du i stället byta ut själva vägguttaget mot ett smart uttag, eller sätta en modul bakom väggbrytaren, krävs behörig elektriker i Sverige. Reglerna finns hos Elsäkerhetsverket och gäller oavsett hur enkelt en engelskspråkig guide får det att låta.",
-  },
-  {
-    question: "Kan en smart plug sänka elräkningen?",
-    answer:
-      "Ja, men inte av sig själv. Besparingen kommer från två saker. Energimätningen visar vad apparaterna faktiskt drar, och den siffran är ofta överraskande, vilket i sig brukar leda till att något blir avstängt. Och schemaläggningen gör att förbrukningen kan flyttas till timmar när elen är billigare, vilket med ett timprisavtal ger verklig effekt på tunga laster. Räkna samtidigt med pluggens egen viloförbrukning, för på en apparat som redan drar lite kan den äta upp hela vinsten.",
   },
 ];

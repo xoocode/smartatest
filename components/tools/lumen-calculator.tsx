@@ -3,25 +3,16 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  BULB_OUTPUTS,
+  LUMEN_ROOMS as ROOMS,
+  lampCount as countLamps,
+  lumenNeed,
+} from "@/lib/tool-logic/lumen";
 
-/**
- * Recommended illuminance per room, expressed as lumens per square metre.
- *
- * These are general-lighting figures, not task lighting. A kitchen worktop or a
- * desk wants a dedicated lamp on top of this, which is why the ranges stop
- * where they do rather than trying to cover both in one number.
- */
-const ROOMS = [
-  { key: "vardagsrum", label: "Vardagsrum", min: 100, max: 150 },
-  { key: "kok", label: "Kök", min: 250, max: 300 },
-  { key: "sovrum", label: "Sovrum", min: 100, max: 150 },
-  { key: "arbetsrum", label: "Arbetsrum", min: 250, max: 300 },
-  { key: "badrum", label: "Badrum", min: 200, max: 250 },
-  { key: "hall", label: "Hall", min: 100, max: 150 },
-] as const;
-
-/** Common bulb outputs, for translating a total into a number of lamps. */
-const BULB_OUTPUTS = [470, 806, 1055, 1100, 1521];
+/* Rummen, ljusflödena och själva räkningen bor i lib/tool-logic/lumen.ts.
+   Agentverktyget anropar samma funktioner, så widgeten och verktyget kan aldrig
+   svara olika på samma fråga. */
 
 const numberFormat = new Intl.NumberFormat("sv-SE");
 
@@ -33,14 +24,9 @@ export function LumenCalculator({ className }: LumenCalculatorProps) {
   const [room, setRoom] = useState<string>(ROOMS[0].key);
   const [area, setArea] = useState(20);
 
-  const selected = ROOMS.find((r) => r.key === room) ?? ROOMS[0];
-  const safeArea = Number.isFinite(area) && area > 0 ? area : 0;
-  const min = Math.round(selected.min * safeArea);
-  const max = Math.round(selected.max * safeArea);
-
-  /* Round up: a room that lands between two lamps is under-lit, not over-lit. */
-  const lampCount = (output: number) =>
-    safeArea ? Math.ceil(min / output) : 0;
+  const need = lumenNeed(room, area);
+  const { area: safeArea, min, max } = need;
+  const lampCount = (output: number) => countLamps(need, output);
 
   return (
     <div

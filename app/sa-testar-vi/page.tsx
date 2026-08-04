@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE } from "@/lib/site";
-import { CATEGORIES, SMART_BELYSNING } from "@/lib/categories";
+import { publishedCategories, SMART_BELYSNING } from "@/lib/test-pages";
 import { SMART_BELYSNING_PRODUCTS } from "@/lib/data/smart-belysning";
-import { CATEGORY_INDEX } from "@/lib/catalog";
+import { TEST_PAGE_INDEX, isBrowsable } from "@/lib/catalog";
 import { graph, pageEntity } from "@/lib/schema";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { Container } from "@/components/site/container";
@@ -72,9 +72,9 @@ function testCriterion(criteria: { key: string; label: string; weight: number }[
   );
 }
 
-function categoryHref(slug: string): string | null {
-  const entry = CATEGORY_INDEX.find((c) => c.href === `/${slug}`);
-  return entry?.status === "live" ? entry.href : null;
+function testPageHref(slug: string): string | null {
+  const entry = TEST_PAGE_INDEX.find((c) => c.href === `/${slug}`);
+  return entry && isBrowsable(entry) ? entry.href : null;
 }
 
 export default function SaTestarViPage() {
@@ -92,8 +92,12 @@ export default function SaTestarViPage() {
   const sum = rows.reduce((acc, r) => acc + r.product, 0);
   const raw = sum / 100;
 
-  const withTest = CATEGORIES.filter((c) => testCriterion(c.criteria));
-  const withoutTest = CATEGORIES.filter((c) => !testCriterion(c.criteria));
+  /* Publicerade, inte alla författade. Tabellen nedan står under
+     rubriken "Så här ser det ut i dag", och en kategori som ingen kan öppna
+     hör inte hemma i den beskrivningen. */
+  const publicerade = publishedCategories();
+  const withTest = publicerade.filter((c) => testCriterion(c.criteria));
+  const withoutTest = publicerade.filter((c) => !testCriterion(c.criteria));
 
   /*
    * Sidentitet med djuplänkbara avsnitt.
@@ -145,7 +149,7 @@ export default function SaTestarViPage() {
           med siffrorna från en av våra publicerade jämförelser.
         </p>
         <UpdatedStamp date={UPDATED} variant="bar" className="mt-4 self-start" />
-        <TocNav variant="inline" entries={TOC} className="mt-[var(--space-block)]" />
+        <TocNav variant="inline" entries={TOC} className="mt-block" />
       </Container>
 
       <Section id="vad-vi-inte-gor" tone="muted" width="narrow" title="Vad vi inte gör">
@@ -154,15 +158,15 @@ export default function SaTestarViPage() {
             Vi gör inga egna mätningar. Vi äger ingen provningsutrustning, vi
             har inte tänt eld på någon brandvarnare och vi har inte hällt vatten
             på någon sensor. Det står på varje jämförelse där det är relevant,
-            och det står här först eftersom allt annat på sidan följer av det.
+            och det står här först eftersom allt annat vi gör följer av det.
           </p>
           <p>
             Anledningen är enkel. En riktig brandprovning kräver en
             provningsanläggning och kostar mer än den här sajten omsätter, och
             att antyda mätvärden vi inte tagit fram vore värre än att inte ha
             några. Flera av de svenska sidorna i våra kategorier har rubriker
-            som <em>Så har vi testat</em> utan ett enda mätvärde under. Det är
-            precis det vi försöker låta bli.
+            som <em>Så har vi testat</em> utan ett enda mätvärde under. Det
+            försöker vi låta bli.
           </p>
         </Prose>
       </Section>
@@ -181,9 +185,8 @@ export default function SaTestarViPage() {
             <strong>Publicerade oberoende tester.</strong> Där någon faktiskt
             har mätt något läser vi det, ställer testerna mot varandra och
             länkar till vart och ett. Källistan på varje jämförelse säger vad
-            varje källa är: ett riktigt test, en myndighet eller en konkurrent
-            som lever på samma affiliatelänkar som vi. Den sista noteringen
-            finns med just för att den är obekväm.
+            varje källa är: ett riktigt test, en myndighet eller en annan
+            jämförelse som inte provat något själv.
           </p>
           <p>
             <strong>Standarder och myndigheter.</strong> EN 3 för brandsläckare,
@@ -203,7 +206,7 @@ export default function SaTestarViPage() {
         title="Så räknas ett betyg fram"
         description="Riktiga siffror från en publicerad jämförelse, inte ett påhittat exempel."
       >
-        <Prose className="mb-[var(--space-block)]">
+        <Prose className="mb-block">
           <p>
             Varje produkt får ett delbetyg från 0 till 5 på varje kriterium.
             Delbetyget multipliceras med kriteriets vikt, produkterna summeras
@@ -261,7 +264,7 @@ export default function SaTestarViPage() {
           </table>
         </div>
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             {sum.toLocaleString("sv-SE", { maximumFractionDigits: 1 })} delat med
             100 blir{" "}
@@ -273,7 +276,7 @@ export default function SaTestarViPage() {
               })}{" "}
               av 5
             </strong>
-            . Det talet fördubblas till skalan vi visar på sidan,{" "}
+            . Det talet fördubblas till skalan vi visar i jämförelserna,{" "}
             <strong>
               {winner.score.toLocaleString("sv-SE", {
                 minimumFractionDigits: 1,
@@ -312,7 +315,7 @@ export default function SaTestarViPage() {
           <p>
             Vikterna summerar alltid till 100 inom en kategori, och de står
             utskrivna på varje jämförelse under rubriken <em>Så gjorde vi
-            testet</em>. Just nu har vi {CATEGORIES.length} kategorier med
+            testet</em>. Just nu har vi {publishedCategories().length} kategorier med
             publicerad viktning.
           </p>
           <p>
@@ -342,12 +345,12 @@ export default function SaTestarViPage() {
           </p>
           <p>
             Så här ser det ut i dag. {withTest.length} av{" "}
-            {CATEGORIES.length} kategorier väger publicerade tester,{" "}
+            {publicerade.length} kategorier väger publicerade tester,{" "}
             {withoutTest.length} gör det inte.
           </p>
         </Prose>
 
-        <div className="mt-[var(--space-block)] overflow-x-auto">
+        <div className="mt-block overflow-x-auto">
           <table className="w-full text-left text-sm">
             <caption className="sr-only">
               Kategorier med och utan kriterium för publicerade tester
@@ -360,9 +363,9 @@ export default function SaTestarViPage() {
               </tr>
             </thead>
             <tbody>
-              {CATEGORIES.map((c) => {
+              {publicerade.map((c) => {
                 const crit = testCriterion(c.criteria);
-                const href = categoryHref(c.slug);
+                const href = testPageHref(c.slug);
                 return (
                   <tr key={c.slug} className="border-b border-border">
                     <td className="py-2">
@@ -390,10 +393,10 @@ export default function SaTestarViPage() {
           </table>
         </div>
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             Brandvarnare är gränsfallet som visar hur beslutet går till. Det
-            finns en riktig brandprovning i kategorin, Stiftung Warentests, men
+            finns en riktig brandprovning av brandvarnare, Stiftung Warentests, men
             de provade den tyska marknaden och deras vinnare säljs inte hos
             någon svensk butik vi bevakar. Ingen av produkterna vi rankar ingick.
           </p>
@@ -401,9 +404,8 @@ export default function SaTestarViPage() {
             Kriteriet heter därför <em>omdöme i publicerade jämförelser</em> och
             inte testomdöme, och det räknar hur många av de svenska
             jämförelserna som utsett produkten till vinnare eller topplacering.
-            Fyra av dem tjänar pengar på affiliatelänkar, tre mot samma butiker
-            som vi, och ingen redovisar ett mätvärde. Vi räknar dem ändå, men vi
-            skriver ut vilka de är, så att du kan värdera dem själv.
+            Ingen av dem redovisar ett enda mätvärde. Vi räknar dem ändå, men
+            vi skriver ut vilka de är, så att du kan värdera dem själv.
           </p>
         </Prose>
       </Section>
@@ -450,7 +452,7 @@ export default function SaTestarViPage() {
       <Section id="granskning" width="narrow" title="Två personer, inte en">
         {/* Vidarelänkarna av: den här sidan är målet för dem. */}
         <TrustBlock showLinks={false} />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={DEFAULT_AUTHOR}
             variant="box"
@@ -466,7 +468,7 @@ export default function SaTestarViPage() {
             link
           />
         </div>
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             Den som skriver en jämförelse granskar den inte själv. Hela
             redaktionen finns på <Link href="/om-oss">om oss</Link>.
@@ -491,6 +493,8 @@ export default function SaTestarViPage() {
         </Prose>
       </Section>
 
+      {/* Står kvar här. Sidan handlar om hur vi arbetar, och då hör
+          upplysningen om hur arbetet betalas hemma på den. */}
       <Container size="narrow" className="pad-section">
         <AffiliateDisclosure />
       </Container>

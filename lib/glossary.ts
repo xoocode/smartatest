@@ -41,12 +41,36 @@ export type GlossaryTerm = {
   matters?: string;
   /** Kategori eller verktyg som fördjupar. Bara publicerade sidor. */
   href?: string;
+  /**
+   * Wikidata-identitet, som `Q27575`. Blir `sameAs` på termens `DefinedTerm`.
+   *
+   * ## Varför
+   *
+   * En ordlista säger vad *vi* menar med ett ord. `sameAs` säger att det vi
+   * menar är samma sak som en entitet resten av världen redan känner till. För
+   * ett språkmodellsvar är det skillnaden mellan att gissa vilken "Thread" som
+   * avses och att veta det: Wikidata har fyra Thread, och tre av dem handlar om
+   * garn, skruvgängor och ett tv-spel.
+   *
+   * ## Utelämnas hellre än gissas
+   *
+   * Varje Q-nummer nedan är uppslaget mot Wikidatas API och kontrollerat mot
+   * entitetens beskrivning, inte härlett ur ordet. `EN 3` kontrollerades
+   * dessutom mot artikeln, eftersom Wikidatas beskrivning bara sa "European
+   * standard" och inte vilken.
+   *
+   * Termer utan träff får ingen `sameAs`. Ett fel Q-nummer pekar bestämt på fel
+   * sak, vilket är sämre än att inte peka alls.
+   */
+  wikidata?: string;
 };
 
 export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "cri",
     term: "CRI (Ra)",
+    /* color rendering index */
+    wikidata: "Q27575",
     aliases: ["färgåtergivning", "ra-index", "color rendering index"],
     group: "ljus",
     definition:
@@ -58,28 +82,34 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "lumen",
     term: "Lumen",
+    /* SI unit of luminous flux */
+    wikidata: "Q484092",
     aliases: ["lm", "ljusflöde"],
     group: "ljus",
     definition:
       "Lumen mäter hur mycket ljus en lampa avger totalt. Det är ljusstyrkan, till skillnad från watt som mäter hur mycket ström den drar.",
     matters:
       "En gammal 60-wattslampa gav runt 800 lumen. Eftersom LED drar en bråkdel av strömmen säger watt ingenting längre om hur ljust det blir, vilket är varför lumen är talet att jämföra.",
-    href: "/verktyg/lumenraknare",
+    href: "/guider/lumenraknare",
   },
   {
     slug: "kelvin",
     term: "Kelvin (K)",
+    /* SI unit of thermodynamic temperature */
+    wikidata: "Q11579",
     aliases: ["färgtemperatur", "varmvitt", "kallvitt"],
     group: "ljus",
     definition:
       "Kelvin anger ljusets färgton. Låga tal är varmt och gulaktigt, höga tal är kallt och blåaktigt.",
     matters:
       "2 700 K motsvarar ungefär en glödlampa och passar vardagsrum och sovrum. 4 000 K och uppåt är arbetsljus. Samma lampa kan kännas trivsam eller klinisk beroende på vilket tal du valt.",
-    href: "/verktyg/fargtemperatur",
+    href: "/guider/fargtemperatur",
   },
   {
     slug: "zigbee",
     term: "Zigbee",
+    /* IEEE 802.15.4-based specification */
+    wikidata: "Q199324",
     aliases: ["zigbee 3.0"],
     group: "protokoll",
     definition:
@@ -90,6 +120,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "thread",
     term: "Thread",
+    /* network protocol */
+    wikidata: "Q18394272",
     group: "protokoll",
     definition:
       "Thread är ett trådlöst nätverksprotokoll som liknar Zigbee men bygger på internetadressering, så enheterna kan nås direkt utan att en hubb översätter åt dem.",
@@ -99,6 +131,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "matter",
     term: "Matter",
+    /* protocol for smart home products */
+    wikidata: "Q79106566",
     group: "protokoll",
     definition:
       "Matter är en gemensam standard som låter produkter från olika tillverkare styras från samma app, oavsett om de kommunicerar över Thread, Wi-Fi eller ethernet.",
@@ -108,6 +142,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "hubb",
     term: "Hubb",
+    /* control center for a smart home */
+    wikidata: "Q107894145",
     aliases: ["gateway", "bridge", "brygga"],
     group: "protokoll",
     definition:
@@ -138,6 +174,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "en-3",
     term: "EN 3",
+    /* European standard, portable fire extinguishers */
+    wikidata: "Q5323764",
     aliases: ["effektklass", "brandsläckarklass", "13a"],
     group: "sakerhet",
     definition:
@@ -148,6 +186,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "ip-klass",
     term: "IP-klass",
+    /* IP code, protection against intrusion */
+    wikidata: "Q284700",
     aliases: ["ip44", "ip65", "kapslingsklass"],
     group: "sakerhet",
     definition:
@@ -158,6 +198,8 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "nolledare",
     term: "Nolledare",
+    /* neutral conductor in mains wiring */
+    wikidata: "Q31835967",
     aliases: ["neutralledare", "nolla"],
     group: "el",
     definition:
@@ -168,13 +210,15 @@ export const GLOSSARY: GlossaryTerm[] = [
   {
     slug: "viloforbrukning",
     term: "Viloförbrukning",
+    /* standby power */
+    wikidata: "Q1366402",
     aliases: ["standby", "tomgångsförbrukning"],
     group: "el",
     definition:
       "Viloförbrukningen är den ström en uppkopplad produkt drar dygnet runt bara för att vara uppkopplad, även när det den styr är avstängt.",
     matters:
       "Den skiljer flera gånger om mellan produkter i samma kategori och står nästan aldrig i produktbladet. På ett uttag som sitter i året om är det den, och inte inköpspriset, som avgör vad prylen kostar.",
-    href: "/verktyg/elkostnad-uttag",
+    href: "/guider/elkostnad-uttag",
   },
 ];
 

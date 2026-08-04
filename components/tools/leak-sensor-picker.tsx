@@ -3,6 +3,16 @@
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import {
+  LEAK_HUBS as HUB,
+  LEAK_PLACES as PLACE,
+  LEAK_PRESENCE as PRESENCE,
+  decideLeakSensor as decide,
+  type LeakHubKey as HubKey,
+  type LeakPlaceKey as PlaceKey,
+  type LeakPresenceKey as PresenceKey,
+  type LeakVerdict as Verdict,
+} from "@/lib/tool-logic/leak-sensor";
 
 /**
  * Svarar på den fråga som avgör vilket vattenlarm som duger: räcker en siren,
@@ -24,94 +34,9 @@ import { cn } from "@/lib/utils";
  * som timerväljaren på /utomhustimer: frågan är vad som räcker.
  */
 
-const PLACE = [
-  { key: "koket", label: "Kök eller tvättstuga" },
-  { key: "trangt", label: "Bakom eller under en maskin" },
-  { key: "beredare", label: "Intill varmvattenberedaren" },
-] as const;
-
-const PRESENCE = [
-  { key: "borta", label: "Bostaden står tom om dagarna" },
-  { key: "bortrest", label: "Vi är bortresta längre perioder" },
-  { key: "hemma", label: "Någon är nästan alltid hemma" },
-] as const;
-
-const HUB = [
-  { key: "ingen", label: "Nej, ingen hubb" },
-  { key: "tapo", label: "Ja, Tapo" },
-  { key: "aqara", label: "Ja, Aqara" },
-  { key: "zwave", label: "Ja, Z-Wave" },
-] as const;
-
-type PlaceKey = (typeof PLACE)[number]["key"];
-type PresenceKey = (typeof PRESENCE)[number]["key"];
-type HubKey = (typeof HUB)[number]["key"];
-
-type Verdict = {
-  headline: string;
-  why: string;
-  warning?: string;
-  /** Larmet måste nå telefonen. */
-  needsApp: boolean;
-  /** Hubben användaren redan äger, eller null. */
-  ownedHub: Exclude<HubKey, "ingen"> | null;
-  needsTightSpots: boolean;
-  needsHotSpot: boolean;
-};
-
-function decide(
-  place: PlaceKey | null,
-  presence: PresenceKey | null,
-  hub: HubKey | null,
-): Verdict | null {
-  if (!place || !presence || !hub) return null;
-
-  const needsApp = presence !== "hemma";
-  const ownedHub = hub === "ingen" ? null : hub;
-  const needsTightSpots = place === "trangt";
-  const needsHotSpot = place === "beredare";
-
-  const placeNote = needsTightSpots
-    ? "Bakom en maskin kommer du inte åt med en klump på golvet, så du behöver ett larm med lös sond eller kabel."
-    : needsHotSpot
-      ? "Intill en varmvattenberedare blir det varmare än fyrtio grader, och de flesta larm är bara godkända dit."
-      : "Under diskbänken och bakom diskmaskinen är rätt första plats. Enligt Vattenskadecentrum sker flest skador i köket och orsakas av vitvaror.";
-
-  if (!needsApp) {
-    return {
-      needsApp,
-      ownedHub,
-      needsTightSpots,
-      needsHotSpot,
-      headline: "En siren räcker, och då ska du välja på batteritid",
-      why: `${placeNote} Är någon nästan alltid hemma hörs sirenen av någon som kan stänga av kranen, och då betalar du för uppkoppling du inte behöver. Välj i stället det larm som håller längst utan att ses till, för det vanligaste skälet till att ett vattenlarm inte larmar är att batteriet dog i tysthet.`,
-      warning:
-        "Räknar du med att vara bortrest ens en vecka om året faller resonemanget. Då är det värt tvåhundra kronor att larmet når telefonen i stället.",
-    };
-  }
-
-  if (ownedHub) {
-    return {
-      needsApp,
-      ownedHub,
-      needsTightSpots,
-      needsHotSpot,
-      headline: "Utnyttja hubben du redan har",
-      why: `${placeNote} Med en hubb på plats är sensorn det enda du behöver köpa, och då blir de hubbkrävande larmen plötsligt de billigaste. En Tapo-hubb hanterar upp till 64 sensorer, så nästa larm efter det här kostar bara sensorpriset.`,
-    };
-  }
-
-  return {
-    needsApp,
-    ownedHub,
-    needsTightSpots,
-    needsHotSpot,
-    headline: "Ett larm som når telefonen utan hubb",
-    why: `${placeNote} Står bostaden tom om dagarna är sirenen värdelös, för ingen hör den. Utan hubb betyder det ett larm som talar wifi på egen hand, eller ett paket där basstationen ingår.`,
-    warning:
-      "Kontrollera att wifi-nätet verkligen når fram. Larmet ska ligga längst in i ett skåp eller i en källare, alltså på de sämsta platser huset har för radiotäckning.",
-  };
-}
+/* Platserna, närvaron och regeluppsättningen bor i
+   lib/tool-logic/leak-sensor.ts, där agentverktyget anropar samma
+   decideLeakSensor(). Produkturvalet stannar här. */
 
 /**
  * En produkt verktyget kan peka på.
@@ -259,7 +184,7 @@ export function LeakSensorPicker({
       </div>
 
       <p className="text-xs text-muted-foreground">
-        Verktyget bygger på specifikationerna i jämförelsen ovan, alltså på vad
+        Guiden bygger på specifikationerna i jämförelsen ovan, alltså på vad
         butiker och tillverkare uppger. Vi har inte provat larmen.
       </p>
     </div>
@@ -330,7 +255,7 @@ function Matches({
         {sorted.map((p) => (
           <li key={p.id} className="flex flex-wrap items-baseline gap-x-2">
             {/* Full sökväg och inte bara ankaret: verktyget renderas både på
-                kategorisidan och på sin egen sida under /verktyg, och där finns
+                kategorisidan och på sin egen sida under /guider, och där finns
                 ingen recension att hoppa till. */}
             <a
               href={p.href}

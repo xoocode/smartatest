@@ -7,8 +7,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "images": "node scripts/optimise-images.mjs",
-    "check:emdash": "node scripts/check-emdash.mjs"
+    "check:emdash": "node scripts/check-emdash.mjs",
+    "check:refs": "node scripts/check-refs.mjs",
+    "check:lackor": "node scripts/check-lackor.mjs",
+    "check:tools": "node scripts/check-tools.mjs",
+    "check:vikter": "node scripts/check-vikter.mjs",
+    "check:upplysning": "node scripts/check-upplysning.mjs",
+    "check": "tsc --noEmit && eslint --max-warnings 0 && node scripts/check-emdash.mjs && node scripts/check-refs.mjs && node scripts/check-lackor.mjs && node scripts/check-tools.mjs && node scripts/check-vikter.mjs && node scripts/check-upplysning.mjs && node scripts/check-fraser.mjs && node scripts/check-priser.mjs && node scripts/check-bilder.mjs",
+    "priskoll": "node scripts/priskoll.mjs",
+    "sprak": "node scripts/sprakkoll.mjs",
+    "check:lankar": "node scripts/check-lankar.mjs",
+    "brandbook": "node scripts/brandbook.mjs",
+    "check:fraser": "node scripts/check-fraser.mjs",
+    "check:priser": "node scripts/check-priser.mjs",
+    "check:bilder": "node scripts/check-bilder.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -34,6 +48,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "playwright": "^1.62.1",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"

@@ -11,7 +11,7 @@ import { OG_COLORS } from "@/lib/og";
  *
  * `display: "browser"` är avsiktligt. Ett standalone-läge skulle dölja
  * adressfältet, och på en sajt som skickar besökare vidare till externa
- * butiker är det direkt skadligt: köparen ska kunna se vilken domän hen
+ * butiker är det direkt skadligt: köparen ska kunna se vilken domän besöket
  * hamnat på.
  */
 export default function manifest(): MetadataRoute.Manifest {
@@ -28,8 +28,16 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      /*
+       * Egen fil för den maskbara varianten. Android klipper ikonen med sin
+       * egen form och lovar bara att innehållet i en cirkel med 80 % av
+       * kantlängden som diameter överlever. Kronans spetsar låg utanför den
+       * cirkeln i /icon-512.png, som dessutom är genomskinlig — maskbara
+       * ikoner ska ha botten. Motivet är därför nedskalat så att diagonalen
+       * ryms i cirkeln och lagt mot vitt.
+       */
       {
-        src: "/icon-512.png",
+        src: "/icon-maskable-512.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",

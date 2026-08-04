@@ -3,6 +3,33 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Container, type ContainerProps } from "@/components/site/container";
 
+/**
+ * När `Section` ska användas, och när den inte ska det.
+ *
+ * Sektionen bär sajtens visuella rytm: växlande grå och vit bakgrund, rubrik
+ * med ingress och ett ankare för innehållsförteckningen. Den hör hemma på
+ * sidor som **skannas**: kategorisidor, gruppsidor och hubbar.
+ *
+ * ⚠️ Den hör inte hemma på varje sida, och frånvaron är inte automatiskt en
+ * brist. En helhetsgranskning 2026-08-03 räknade sidor utan `Section` och
+ * flaggade sex stycken. Vid närmare granskning var bara en av dem ett verkligt
+ * problem, `/guider`, som hade 25 kort utan en enda rubrik och nu har en h2
+ * per grupp och h3 per kort.
+ *
+ * De övriga fem är medvetna undantag och ska inte flaggas igen:
+ *
+ * - `/annonsmarkning` och `/integritetspolicy` är juridisk löptext som ska
+ *   läsas uppifrån och ner. Växlande bakgrundsband gör en policy svårare att
+ *   läsa, inte lättare, och en enda `Prose`-spalt är rätt form.
+ * - `/rattelser` är en logg i kronologisk ordning av samma skäl.
+ * - `/kontakt` har redan en genomtänkt tvåspaltslayout med formulär och en
+ *   sticky rail med fyra `h2`. Strukturen finns, den råkar bara inte vara
+ *   byggd av sektioner.
+ * - `/sok` renderar träffar dynamiskt och har ingen fast avsnittsindelning att
+ *   spegla.
+ *
+ * Kort sagt: räkna inte sektioner. Fråga om sidan skannas eller läses.
+ */
 export type SectionProps = {
   /** Small label above the heading. */
   eyebrow?: React.ReactNode;
@@ -64,7 +91,19 @@ export function Section({
         {hasHeader ? (
           <div
             className={cn(
-              "mb-[var(--space-block)] flex flex-col gap-row sm:flex-row sm:items-end sm:justify-between",
+              /* Avståndet ned till innehållet.
+
+                 `--space-block` räckte under en rubrik följd av löptext men
+                 läste som ingenting alls under en rubrik följd av kantade
+                 rutor: kortets egen ram blir en konkurrerande linje och äter
+                 upp luften optiskt. Rapporterat på tre ställen samma dag,
+                 `/sa-testar-vi` under "Två personer, inte en", `/om-oss` under
+                 "Så arbetar vi" och under redaktionsingressen, alla tre med ett
+                 rutnät av rutor direkt efter.
+
+                 Faktorn ligger på tokenet i stället för ett fast tal, så
+                 avståndet följer med när tätheten växlas. */
+              "mb-[calc(var(--space-block)*1.4)] flex flex-col gap-row sm:flex-row sm:items-end sm:justify-between",
               align === "center" && "sm:flex-col sm:items-center sm:text-center",
             )}
           >

@@ -39,10 +39,20 @@ export function Prose({ className, ...props }: React.ComponentProps<"div">) {
         "[&_:where(ol):not(:where(.not-prose,.not-prose_*))]:list-decimal",
         "[&_:where(ol):not(:where(.not-prose,.not-prose_*))]:pl-5",
         "[&_:where(li):not(:where(.not-prose,.not-prose_*))]:my-[0.3em]",
-        "[&_:where(a):not(:where(.not-prose,.not-prose_*))]:text-primary",
-        "[&_:where(a):not(:where(.not-prose,.not-prose_*))]:underline",
-        "[&_:where(a):not(:where(.not-prose,.not-prose_*))]:underline-offset-2",
-        "hover:[&_:where(a):not(:where(.not-prose,.not-prose_*))]:no-underline",
+        /* Länkarna stylas inte här utan i globals.css, under `data-link`.
+
+           ⚠️ Här satt ett verkligt fel. Hover-prefixet låg utanför
+           barnväljaren i stället för inuti den, vilket kompilerar till "när
+           **behållaren** hovras, ta bort understrykningen på varje länk i
+           den". Att föra musen var som helst i ett stycke släckte alltså
+           understrykningen på samtliga länkar i stycket. Rätt form har hover
+           inuti barnväljaren, och eftersom stilen ändå skulle bli en axel
+           flyttade hela regeln.
+
+           ⚠️ Skriv inte ut klassträngen här. Tailwind 4 läser källfiler som
+           text, även kommentarer, och genererade en trasig regel av den som
+           stod här 2026-08-03. Bygget föll på `Parsing CSS source code
+           failed` i globals.css. */
         "[&_:where(strong):not(:where(.not-prose,.not-prose_*))]:font-semibold",
         "[&_:where(blockquote):not(:where(.not-prose,.not-prose_*))]:border-l-2",
         "[&_:where(blockquote):not(:where(.not-prose,.not-prose_*))]:border-brand",

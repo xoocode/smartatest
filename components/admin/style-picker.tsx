@@ -8,13 +8,19 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   AWARD_OPTIONS,
+  CRITERIA_OPTIONS,
+  CTA_OPTIONS,
   DENSITY_OPTIONS,
+  LINK_OPTIONS,
   DEFAULT_STYLE,
   RADIUS_OPTIONS,
   TABLE_OPTIONS,
   STYLE_COOKIE,
   THEME_OPTIONS,
   serializeStyleCookie,
+  type CriteriaId,
+  type CtaId,
+  type LinkId,
   type StyleState,
 } from "@/lib/theme";
 
@@ -46,6 +52,9 @@ function applyToDom(next: StyleState) {
      cookie and appears to do nothing until the next full page load. */
   el.dataset.winnerGrid = next.winnerGrid;
   el.dataset.table = next.table;
+  el.dataset.criteria = next.criteria;
+  el.dataset.cta = next.cta;
+  el.dataset.link = next.link;
 }
 
 /**
@@ -97,6 +106,9 @@ export function StylePicker({ initial }: { initial: StyleState }) {
   }, [open]);
 
   const activeTheme = THEME_OPTIONS.find((t) => t.id === style.theme);
+  const activeCriteria = CRITERIA_OPTIONS.find((c) => c.id === style.criteria);
+  const activeCta = CTA_OPTIONS.find((c) => c.id === style.cta);
+  const activeLink = LINK_OPTIONS.find((l) => l.id === style.link);
 
   if (!open) {
     /* Icon only when collapsed — the header reserves a matching gutter via
@@ -299,6 +311,81 @@ export function StylePicker({ initial }: { initial: StyleState }) {
               </button>
             ))}
           </div>
+        </fieldset>
+
+        {/* Rullgardin och inte knappar. Axeln har sexton lägen, och som lista
+            tog den mer höjd än panelens alla andra axlar tillsammans.
+            Beskrivningen av det valda läget står under i stället för på varje
+            rad, så förklaringen finns kvar utan att kosta höjd.
+
+            Ren CSS via `data-criteria`, alltså ingen omhämtning. Se
+            CRITERIA_IDS i lib/theme.ts för varför axeln inte är en prop. */}
+        <fieldset className="mb-3">
+          <legend className={cn(chrome.label, "mb-1.5")}>Kriterierader</legend>
+          <select
+            value={style.criteria}
+            onChange={(event) =>
+              update({ criteria: event.target.value as CriteriaId })
+            }
+            aria-label="Layout på kriterieraderna"
+            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs text-zinc-100"
+          >
+            {CRITERIA_OPTIONS.map((opt) => (
+              <option key={opt.id} value={opt.id}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1.5 text-[11px] leading-snug text-zinc-500">
+            {activeCriteria?.hint} Syns bara från 1024 px och uppåt: under den
+            bredden står namn och betyg redan intill varandra.
+          </p>
+        </fieldset>
+
+        {/* Etiketterna renderas alla sex i knappen och CSS visar en, men bara
+            i adminläget. I produktion finns bara standardvalet. Se CTA_IDS. */}
+        <fieldset className="mb-3">
+          <legend className={cn(chrome.label, "mb-1.5")}>Köpknapp</legend>
+          <select
+            value={style.cta}
+            onChange={(event) =>
+              update({ cta: event.target.value as CtaId })
+            }
+            aria-label="Text på köpknappen"
+            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs text-zinc-100"
+          >
+            {CTA_OPTIONS.map((opt) => (
+              <option key={opt.id} value={opt.id}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1.5 text-[11px] leading-snug text-zinc-500">
+            {activeCta?.hint}
+          </p>
+        </fieldset>
+
+        {/* Träffar bara redaktionell löptext, alltså `[data-slot="prose"]`.
+            Länkar med egna klasser i komponenter följer inte med. */}
+        <fieldset className="mb-3">
+          <legend className={cn(chrome.label, "mb-1.5")}>Länkar i text</legend>
+          <select
+            value={style.link}
+            onChange={(event) =>
+              update({ link: event.target.value as LinkId })
+            }
+            aria-label="Understrykning på länkar i löptext"
+            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-xs text-zinc-100"
+          >
+            {LINK_OPTIONS.map((opt) => (
+              <option key={opt.id} value={opt.id}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1.5 text-[11px] leading-snug text-zinc-500">
+            {activeLink?.hint}
+          </p>
         </fieldset>
 
         <fieldset className="mb-3 border-t border-zinc-800 pt-3">

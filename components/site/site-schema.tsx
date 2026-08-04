@@ -16,7 +16,7 @@ import { PUBLISHER, SITE } from "@/lib/site";
  *
  * ## Vad som avsiktligt inte står här
  *
- * Inget organisationsnummer. RedPoint9 är en enskild firma, och dess org.nr är
+ * Inget organisationsnummer. redpoint9 är en enskild firma, och dess org.nr är
  * innehavarens personnummer. Se `lib/site.ts`.
  *
  * Ingen `aggregateRating` på organisationen. Det är påhittade siffror på
@@ -38,11 +38,11 @@ export function SiteSchema() {
       },
       email: PUBLISHER.email,
       /* Utgivaren är en annan juridisk person än varumärket. parentOrganization
-         är rätt relation: RedPoint9 driver sajten, sajten är inte RedPoint9. */
+         är rätt relation: redpoint9 driver sajten, sajten är inte redpoint9. */
       parentOrganization: {
         "@type": "Organization",
         name: PUBLISHER.name,
-        url: "https://redpoint9.com",
+        url: PUBLISHER.url,
       },
       address: {
         "@type": "PostalAddress",

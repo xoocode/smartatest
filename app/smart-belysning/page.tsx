@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { categoryTrail, SMART_BELYSNING } from "@/lib/categories";
+import { testPageTrail, SMART_BELYSNING } from "@/lib/test-pages";
 import { SMART_BELYSNING_SOURCES } from "@/lib/sources";
 import {
   PRICE_CHECKED,
@@ -10,6 +10,7 @@ import {
 } from "@/lib/data/smart-belysning";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -32,6 +33,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/smart-belysning/kopguide.mdx";
 
@@ -45,20 +47,20 @@ import Kopguide from "@/content/smart-belysning/kopguide.mdx";
  * See lib/links.ts.
  */
 
-const CATEGORY = SMART_BELYSNING;
-const PAGE_URL = `/${CATEGORY.slug}`;
+const TEST_PAGE = SMART_BELYSNING;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
 /* Uppdaterat 2026-08-01: kriteriet Omdöme i oberoende tester infördes
    retroaktivt och viktningen räknades om, så datumet motsvarar en verklig
    ändring av betygen och inte bara en priskontroll. */
-const UPDATED = "2026-08-01";
+const UPDATED = "2026-08-03";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och anslutning. Philips Hue vann, men billigare alternativ räcker längre än du tror.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -88,7 +90,7 @@ export default async function SmartBelysningPage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
         author={author}
@@ -96,7 +98,7 @@ export default async function SmartBelysningPage() {
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -108,9 +110,9 @@ export default async function SmartBelysningPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och
               hur stabil anslutningen håller över tid. Ljusstyrkan skiljer
@@ -147,7 +149,7 @@ export default async function SmartBelysningPage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -169,7 +171,7 @@ export default async function SmartBelysningPage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -197,7 +199,7 @@ export default async function SmartBelysningPage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess.`}
+          caption={priceCaption(PRICE_CHECKED)}
         />
       </Section>
 
@@ -209,12 +211,12 @@ export default async function SmartBelysningPage() {
         title="Recensioner av varje lampa"
         description="Tre av fem lampor saknar ett publicerat omdöme om just den modellen och får då Ej testat på den raden. I två av fallen finns ett test av märket men av en annan produkt, vilket inte är samma sak. Vi sätter hellre ingenting än ett påhittat betyg, och vikten fördelas då på de övriga kriterierna."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -247,13 +249,13 @@ export default async function SmartBelysningPage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen på sidan."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Saknas ett kriteriebetyg för en lampa fördelas det kriteriets vikt på de övriga. Nanoleaf Essentials, TP-Link Tapo L530E och IKEA TRÅDFRI saknar ett publicerat omdöme om just den modellen och bedöms därför på 85 av 100 viktpoäng, vilket står i deras recensioner. Omdöme i oberoende tester väger 15 här, satt efter hur mycket underlag kategorin faktiskt har. Vi tar inte betalt för placeringar. Affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Saknas ett kriteriebetyg för en lampa fördelas det kriteriets vikt på de övriga. Nanoleaf Essentials, TP-Link Tapo L530E och IKEA TRÅDFRI saknar ett publicerat omdöme om just den modellen och bedöms därför på 85 av 100 viktpoäng, vilket står i deras recensioner. Omdöme i oberoende tester väger 15 här, satt efter hur mycket underlag kategorin faktiskt har."
         />
       </Section>
 
@@ -261,10 +263,10 @@ export default async function SmartBelysningPage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte alla produkterna själva fysiskt. Det här är vad vi faktiskt gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -301,9 +303,8 @@ export default async function SmartBelysningPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "electrical", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

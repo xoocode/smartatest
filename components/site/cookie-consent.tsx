@@ -162,7 +162,12 @@ export function CookieConsent({
           Vi mäter inte ditt besök och har varken besöksstatistik eller pixlar.
           Godkänner du annonskakor kan vi se vilken annons som ledde till ett
           köp. Säger du nej fungerar sajten precis lika bra.{" "}
-          <Link href={policyHref} className="text-primary hover:underline">
+          {/* Understruken hela tiden, inte bara vid hovring. En länk mitt i ett
+              stycke får inte skiljas ut av enbart färg, WCAG 1.4.1. */}
+          <Link
+            href={policyHref}
+            className="text-primary underline underline-offset-2 hover:no-underline"
+          >
             Så hanterar vi uppgifter
           </Link>
           .

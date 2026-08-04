@@ -34,8 +34,8 @@ export const DEFAULT_TRUST_POINTS: TrustPoint[] = [
   },
   {
     icon: Coins,
-    title: "Provision påverkar ingenting",
-    body: "Vi tjänar pengar när du handlar via våra länkar. Ingen butik och ingen tillverkare kan betala för en placering, ett betyg eller en utmärkelse.",
+    title: "Ingen kan köpa en placering",
+    body: "Vi får en andel av köpet när du handlar via länkarna här. Det avgör inte vem som blir etta, vilka betyg som sätts eller vilka produkter som är med.",
   },
   {
     icon: ShieldCheck,

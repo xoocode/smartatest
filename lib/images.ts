@@ -6,7 +6,7 @@
 import {
   IMAGE_ROLES,
   MASTER_WIDTH,
-  categoryImage,
+  testPageImage,
   personImage,
   productImage,
 } from "@/lib/image-config.mjs";
@@ -14,13 +14,13 @@ import {
 export type ImageRole = (typeof IMAGE_ROLES)[number];
 
 const typedProductImage = productImage as (
-  categorySlug: string,
+  testPageSlug: string,
   productId: string,
   role?: ImageRole,
 ) => string;
 
-const typedCategoryImage = categoryImage as (
-  categorySlug: string,
+const typedCategoryImage = testPageImage as (
+  testPageSlug: string,
   role?: ImageRole,
 ) => string;
 
@@ -30,7 +30,7 @@ const typedMasterWidth = MASTER_WIDTH as Record<ImageRole, number>;
 
 export {
   typedProductImage as productImage,
-  typedCategoryImage as categoryImage,
+  typedCategoryImage as testPageImage,
   typedPersonImage as personImage,
   typedMasterWidth as MASTER_WIDTH,
 };

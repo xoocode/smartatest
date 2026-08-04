@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { categoryTrail, VATTENLARM } from "@/lib/categories";
+import { testPageTrail, VATTENLARM } from "@/lib/test-pages";
 import { VATTENLARM_SOURCES } from "@/lib/sources";
 import {
   PRICE_CHECKED,
@@ -11,6 +11,7 @@ import {
 } from "@/lib/data/vattenlarm";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
+import { priceCaption } from "@/lib/captions";
 import { SITE } from "@/lib/site";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
@@ -33,6 +34,7 @@ import { ProductSchema } from "@/components/product/product-schema";
 import { QuickPickPanel } from "@/components/product/quick-pick-panel";
 import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
+import { VerdictText } from "@/components/product/verdict-text";
 
 import Kopguide from "@/content/vattenlarm/kopguide.mdx";
 
@@ -46,24 +48,28 @@ import Kopguide from "@/content/vattenlarm/kopguide.mdx";
  * Produktbilderna är butikernas egna packshots och ligger som WebP-masters
  * under public/bilder/vattenlarm.
  *
- * Två av de rankade produkterna var slut hos Kjell vid kontrollen och är
- * markerade i sina specifikationer. Kör om priskontrollen före lansering.
+ * Lagerstatus anges inte, efter användarbeslut 2026-08-03: rankningen svarar
+ * på vilken produkt som är bäst, inte på vad en butik råkar ha på hyllan.
+ * Priserna kontrolleras med `pnpm priskoll`.
  *
- * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårade och dofollow.
+ * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
+ * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
+ * varken rel="sponsored" eller annonsmärkning, och balken högst upp
+ * renderar därför ingenting än. Se lib/links.ts.
  * Se lib/links.ts.
  */
 
-const CATEGORY = VATTENLARM;
-const PAGE_URL = `/${CATEGORY.slug}`;
-const UPDATED = "2026-08-02";
+const TEST_PAGE = VATTENLARM;
+const PAGE_URL = `/${TEST_PAGE.slug}`;
+const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: CATEGORY.title,
+  title: TEST_PAGE.title,
   description:
     "Vi jämförde nio vattenlarm från 190 till 876 kronor. Hälften larmar bara där de ligger, tre kräver en hubb som kostar mer än larmet, och ett skickar ingen notis alls förrän du byggt en automation.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: CATEGORY.title,
+    title: TEST_PAGE.title,
     url: `${SITE.url}${PAGE_URL}`,
     type: "article",
   },
@@ -94,15 +100,16 @@ export default async function VattenlarmPage() {
   return (
     <>
       <ProductSchema
-        category={CATEGORY}
+        testPage={TEST_PAGE}
         products={products}
         pageUrl={PAGE_URL}
+        sections={TOC}
         author={author}
         reviewed={UPDATED}
       />
 
       <Container size="wide" className="pt-6">
-        <Breadcrumbs items={categoryTrail(CATEGORY)} schema />
+        <Breadcrumbs items={testPageTrail(TEST_PAGE)} schema />
       </Container>
 
       {/* ------------------------------------------------ above the fold -- */}
@@ -110,9 +117,10 @@ export default async function VattenlarmPage() {
         size="wide"
         className="pt-3 pb-[var(--space-section)] lg:pt-[var(--space-section)]"
       >
-        <div className="grid gap-[var(--space-block)] lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
-            <h1 className="text-h1">{CATEGORY.title}</h1>
+            <h1 className="text-h1">{TEST_PAGE.title}</h1>
+            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
               Vi jämförde nio vattenlarm från 190 till 876 kronor. Det som
               skiljer dem åt är inte priset utan vad som händer när de känner
@@ -144,7 +152,7 @@ export default async function VattenlarmPage() {
 
           <QuickPickPanel
             products={products}
-            title={`${CATEGORY.label} · Bäst i test`}
+            title={`${TEST_PAGE.label} · Bäst i test`}
             variant="sticky"
             footerHref="#jamforelse"
           />
@@ -163,7 +171,7 @@ export default async function VattenlarmPage() {
         <TocNav
           variant="inline"
           entries={TOC}
-          className="mt-[var(--space-block)] lg:hidden"
+          className="mt-block lg:hidden"
         />
       </Section>
 
@@ -188,14 +196,14 @@ export default async function VattenlarmPage() {
           <p>
             <strong>Notis utan hubb.</strong> Larmet talar wifi rakt till din
             router och skickar en notis till telefonen. SQ400B gör det för 199
-            kronor, alltså samma pengar som ett larm med bara siren.
+            kronor, samma pengar som ett larm med bara siren.
           </p>
           <p>
             <strong>Notis, men hubb krävs.</strong> Tapo T300, Aqara T1 och
             Fibaro kan inte nå din telefon på egen hand. De behöver en hubb av
             rätt märke, som säljs separat och normalt kostar mer än larmet. Har
             du redan hubben är de billigast i längden. Har du ingen har du köpt
-            en tjutande dosa för 199 kronor.
+            en tjutande dosa för 179 kronor.
           </p>
           <p>
             Frågan som avgör vilken sort du behöver är inte hur mycket du vill
@@ -233,7 +241,7 @@ export default async function VattenlarmPage() {
           legend="Filtrera på larmväg och underhåll"
           layout={style.table}
           variant="bordered"
-          caption={`Priser kontrollerade ${PRICE_CHECKED} hos respektive butik och kan ha ändrats sedan dess. Två av produkterna var slut hos Kjell vid kontrollen, vilket står i deras specifikationer.`}
+          caption={priceCaption(PRICE_CHECKED)}
         />
       </Section>
 
@@ -244,12 +252,12 @@ export default async function VattenlarmPage() {
         title="Recensioner av varje larm"
         description="Alla nio bedöms mot samma fem kriterier. Kategorin saknar oberoende laboratorieprovning, så det finns inget kriterium för testomdöme här."
       >
-        <div className="flex flex-col gap-[var(--space-block)]">
+        <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
-              <p className="text-muted-foreground">{product.verdict}</p>
+              <VerdictText text={product.verdict} className="text-muted-foreground" />
               <CriteriaScores
-                criteria={CATEGORY.criteria}
+                criteria={TEST_PAGE.criteria}
                 scores={product.scores}
                 size="sm"
                 className="mt-1"
@@ -281,13 +289,13 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="default"
         title="Så gjorde vi testet"
-        description="Viktningen nedan är exakt den som räknar fram betygen på den här sidan."
+        description="Viktningen nedan är den som räknar fram betygen i tabellen."
       >
         <MethodologyBlock
-          criteria={CATEGORY.criteria}
-          intro={CATEGORY.methodology}
+          criteria={TEST_PAGE.criteria}
+          intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte provat de här larmen, och ingen annan har heller gjort det på ett sätt som går att kontrollera. Stiftung Warentest har inte testat kategorin, och de tyska sidor som ser ut som tester är jämförelsesajter utan mätvärden, varav en heter test-stiftung.de. Brandinfo har recenserat X-Sense-systemet, alltså en av nio produkter, vilket är för lite för ett eget kriterium. Därför saknas kriteriet Omdöme i oberoende tester som finns på våra andra sidor. Samtidigt påstår alla tre svenska konkurrentsidor i rubriker att de utfört egna tester, med avsnitt som Genomförandet av Testet, utan att redovisa ett enda mätvärde. Priserna är hos den butik vi länkar till. Vi tar inte betalt för placeringar, och affiliatelänkar påverkar varken betyg eller ordning."
+          footnote="Vi har inte provat de här larmen, och ingen annan har heller gjort det på ett sätt som går att kontrollera. Stiftung Warentest har inte testat kategorin, och de tyska sidor som ser ut som tester är jämförelsesajter utan mätvärden, varav en heter test-stiftung.de. Brandinfo har recenserat X-Sense-systemet, en av nio produkter, vilket är för lite för ett eget kriterium. Därför saknas kriteriet Omdöme i oberoende tester som finns på våra andra sidor. Samtidigt påstår alla fem svenska konkurrentsidor i rubriker att de utfört egna tester, med avsnitt som Genomförandet av Testet, Så testar vi våra vattenlarm och Hur vi utförde detta test, utan att någon av dem redovisar ett enda mätvärde. De står namngivna i källistan, så påståendet går att kontrollera. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -295,10 +303,10 @@ export default async function VattenlarmPage() {
         id="darfor-litar-du-pa-oss"
         width="default"
         title="Därför kan du lita på oss"
-        description="Vi testar inte produkterna fysiskt. Det här är vad vi gör i stället, och hur vi tjänar pengar."
+        description="Vi provar inte produkterna fysiskt. Det här är vad vi gör i stället."
       >
         <TrustBlock />
-        <div className="mt-[var(--space-block)] grid gap-4 sm:grid-cols-2">
+        <div className="mt-block grid gap-4 sm:grid-cols-2">
           <PersonCard
             person={author}
             variant="box"
@@ -319,7 +327,7 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Notera vad som saknas: det finns ingen laboratorieprovning av vattenlarm att luta sig mot. Tyngdpunkten ligger därför på svensk skadestatistik och på försäkringsbolagens egna villkor, som är kategorins verkliga beslutsunderlag."
+        description="Notera vad som saknas: det finns ingen laboratorieprovning av vattenlarm att luta sig mot. Tyngdpunkten ligger därför på svensk skadestatistik och på försäkringsbolagens egna villkor, som är det verkliga beslutsunderlaget."
       >
         <SourceList sources={VATTENLARM_SOURCES} title={null} />
       </Section>
@@ -331,9 +339,8 @@ export default async function VattenlarmPage() {
       <Container size="default" className="pad-section">
         <LegalDisclaimer
           items={["general", "pricing"]}
-          className="mb-[var(--space-block)]"
+          className="mb-block"
         />
-        <AffiliateDisclosure />
       </Container>
     </>
   );

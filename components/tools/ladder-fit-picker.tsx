@@ -312,7 +312,7 @@ function Matches({
           {sorted.map((p) => (
             <li key={p.id} className="flex flex-wrap items-baseline gap-x-2">
               {/* Full sökväg och inte bara ankaret: verktyget renderas både på
-                  kategorisidan och på sin egen sida under /verktyg. */}
+                  kategorisidan och på sin egen sida under /guider. */}
               <a
                 href={p.href}
                 className="font-medium underline decoration-dotted underline-offset-4 hover:decoration-solid"

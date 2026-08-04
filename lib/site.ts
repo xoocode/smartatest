@@ -1,4 +1,4 @@
-import { GROUPS } from "@/lib/catalog";
+import { CATEGORIES } from "@/lib/catalog";
 
 export const SITE = {
   name: "Smartatest",
@@ -21,7 +21,7 @@ export const SITE = {
  * det enskilt starkaste förtroendetecknet på en affiliatesajt: Konsumentvalet
  * har en, och de flesta av de sämre konkurrenterna har ingen.
  *
- * Organisationsnumret står däremot fortfarande inte här. RedPoint9 är en
+ * Organisationsnumret står däremot fortfarande inte här. redpoint9 är en
  * enskild firma, och en enskild firmas org.nr *är* innehavarens personnummer.
  * Konsumentvalet kan publicera sitt utan kostnad eftersom de är ett
  * aktiebolag. Ombildas firman till AB blir det värt att lägga till, både här
@@ -29,9 +29,17 @@ export const SITE = {
  *
  * Adressen renderas genom `publisherAddress()`, som hoppar över tomma fält, så
  * ett borttaget värde ger en kortare rad i stället för ett trasigt "null".
+ *
+ * ## Namnet skrivs med gemener
+ *
+ * `redpoint9`, inte `RedPoint9`. Det är företagets egen skrivning, och den ska
+ * inte versaliseras av en mening som råkar börja med den. Alla fyra ställen
+ * där namnet står läser den här konstanten, och länken dit renderas genom
+ * `PublisherLink` så att målet bara finns på ett ställe.
  */
 export const PUBLISHER = {
-  name: "RedPoint9",
+  name: "redpoint9",
+  url: "https://redpoint9.com",
   email: "kontakt@smartatest.se",
   street: "Färögatan 33" as string | null,
   postalCode: "164 51" as string | null,
@@ -65,14 +73,23 @@ export function publisherAddress(): string {
  * Fram till 2026-08-02 listade menyn **varje kategori** platt. Det fungerade
  * med fem och sprack med elva: raden blev 1 214 px bred och sköt ut hela
  * sidhuvudet 18 px utanför fönstret vid 1440. Planen i
- * `.agent/plan-sidkarta-framat.md` har sexton kategorier, så felet var inte en
+ * `.agent/plans/sidkarta-framat.md` har sexton kategorier, så felet var inte en
  * detalj utan en tidsinställd bomb.
  *
- * Menyn visar därför gruppernas navsidor. Kategorierna når man därifrån, från
- * `CategoryGrid` på startsidan och från sökrutan. En grupp utan `href` hoppas
+ * Menyn visar därför categories. Test pages når man därifrån, från
+ * `TestPageGrid` på startsidan och från sökrutan. En grupp utan `href` hoppas
  * över, eftersom en olänkad post i en meny inte gör någon nytta.
  */
 export const NAV = [
-  ...GROUPS.filter((g) => g.href).map((g) => ({ href: g.href as string, label: g.label })),
-  { href: "/verktyg", label: "Verktyg" },
+  ...CATEGORIES.filter((g) => g.href).map((g) => ({ href: g.href as string, label: g.label })),
+  /*
+   * Guiderna är inte en produktkategori, och ska inte se ut som en.
+   *
+   * Posten hette "Verktyg" fram till 2026-08-03. I en rad som lyder "Smart hem,
+   * Säkerhet, Hem & hushåll, Verktyg" läses det sista ordet som ännu en
+   * kategori, och verktyg är dessutom en verklig avdelning i svensk handel. Nu
+   * "Guider", och `standalone` gör att sidhuvudet kan ge posten ett eget
+   * utseende i stället för att lägga den bland kategorierna.
+   */
+  { href: "/guider", label: "Guider", standalone: true },
 ];

@@ -7,7 +7,7 @@
  *   node scripts/optimise-images.mjs --category smart-belysning \
  *     --id hue-white-color-e27 --role produkt .agent/tmp/bilder/hue.jpg
  *
- * Category editorial (no product id):
+ * TestPage editorial (no product id):
  *   node scripts/optimise-images.mjs --category smart-belysning \
  *     --role hero .agent/tmp/bilder/hero.png
  *

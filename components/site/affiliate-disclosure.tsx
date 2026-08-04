@@ -30,7 +30,7 @@ export type AffiliateDisclosureProps = {
 
 /**
  * Required on every page that carries affiliate links — both by Google Ads
- * policy and by several Adtraction program terms (see .agent/research.md).
+ * policy and by several Adtraction program terms (see .agent/research/oversikt.md).
  * Centralised so the wording can never drift between pages.
  *
  * ## Balken
@@ -105,6 +105,10 @@ export function AffiliateDisclosure({
   return (
     <aside
       data-slot="affiliate-disclosure"
+      /* Namngivet landmärke. Sidan har fler än ett aside, och två utan namn
+         räknas som samma landmärke av hjälpmedel. Namnet gör dessutom att en
+         skärmläsaranvändare kan hoppa förbi det. */
+      aria-label="Annonsmärkning"
       className={cn(
         "themed-border flex items-start gap-2.5 rounded-lg bg-muted px-4 py-3 text-sm text-muted-foreground",
         className,

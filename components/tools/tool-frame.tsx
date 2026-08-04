@@ -13,7 +13,7 @@ export type ToolFrameProps = {
   title?: string;
   /**
    * embedded — inside a buying guide, with a quiet link to the tool's own page
-   * standalone — on /verktyg/{slug}, where that link would point at itself
+   * standalone — on /guider/{slug}, where that link would point at itself
    */
   variant?: "embedded" | "standalone";
   className?: string;
@@ -35,7 +35,9 @@ export function ToolFrame({
   className,
 }: ToolFrameProps) {
   const entry = findTool(tool);
-  const heading = title ?? entry?.name ?? "Verktyg";
+  /* Sista utvägen om ett id inte finns i TOOLS. Hette "Verktyg" fram till
+     2026-08-04, då hela sajten slutade kalla de här sidorna verktyg. */
+  const heading = title ?? entry?.name ?? "Guide";
 
   return (
     <div

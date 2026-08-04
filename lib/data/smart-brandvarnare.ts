@@ -2,14 +2,14 @@ import type { ComparisonFilter } from "@/components/product/filterable-compariso
 import type { ConsideredProduct, Product } from "@/lib/products";
 import { productImage } from "@/lib/images";
 import { resolveProducts } from "@/lib/products";
-import { SMART_BRANDVARNARE } from "@/lib/categories";
+import { SMART_BRANDVARNARE } from "@/lib/test-pages";
 
 /**
- * Smarta brandvarnare. Underlag i .agent/research-brandvarnare.md, §7 och §8.
+ * Smarta brandvarnare. Underlag i .agent/research/brandvarnare.md, §7 och §8.
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, lagerstatus, batterityper, batteritider,
+ * **Verkligt och daterat:** priser, batterityper, batteritider,
  * protokoll, ljudnivåer, mått, GTIN och kundbetyg. Allt läst 2026-08-02 på
  * butikens egen produktsida.
  *
@@ -42,7 +42,7 @@ import { SMART_BRANDVARNARE } from "@/lib/categories";
  */
 
 /** Alla priser lästa på butikens egen sida detta datum. */
-export const PRICE_CHECKED = "2026-08-02";
+export const PRICE_CHECKED = "2026-08-03";
 
 const SEEDS: Omit<Product, "score" | "rating">[] = [
   {
@@ -56,9 +56,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     price: 1098.9,
     merchant: "Kjell & Company",
     merchantUrl:
-      "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/housegard-luma-smart-hubb-p21221",
+      "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/housegard-luma-tradlos-brandvarnare-2-pack-vit-p21220",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 5, count: 2, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 62, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
     superlative: "Bäst utan molnberoende",
     pros: [
@@ -69,7 +69,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Hubben har hundra meters räckvidd fri sikt",
     ],
     cons: [
-      "Hubben kostar 499,90 kronor utöver varnarna",
+      "Priset är två artiklar: tvåpacket 599 kr och hubben 499,90 kr. Länken går till varnarna",
       "Hubben måste sitta i ett eluttag och drar ström dygnet runt",
       "549 kronor per skyddad plats i den här konfigurationen",
     ],
@@ -86,7 +86,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmsignal", value: "85 dB på 3 m" },
     ],
     verdict:
-      "Det här är den enda produkten i jämförelsen där uppkopplingen är ett tillägg och inte en förutsättning. Varnarna talar med varandra på 868 MHz helt utan hubben. Larmar den i källaren larmar den i sovrummet, och det fungerar under strömavbrott, under wifi-strul och den dag Housegard skulle lägga ner appen.\n\nHubben lägger till en enda sak: att telefonen får veta. Det är ett stort värde, men det är inte det som håller huset säkert, och den skillnaden är exakt vad Nest Protect-historien handlar om.\n\nSmart Life är dessutom inte Housegards egen app utan en av de största plattformarna som finns, med tusentals produkter från hundratals tillverkare. Risken att den försvinner är av en annan storleksordning än risken att en enskild tillverkare tröttnar.\n\nPriset är svagheten. 1 098,90 kronor för två skyddade platser är 549 styck, och vill du täcka fyra rum kostar det 2 296. Då är X-Sense FS61 med sex varnare billigare per plats.",
+      "Det här är den enda varnaren där uppkopplingen är ett tillägg och inte en förutsättning. Varnarna talar med varandra på 868 MHz helt utan hubben. Larmar den i källaren larmar den i sovrummet, och det fungerar under strömavbrott, under wifi-strul och den dag Housegard skulle lägga ner appen.\n\nHubben lägger till en enda sak: att telefonen får veta. Det är ett stort värde, men det är inte det som håller huset säkert, och den skillnaden är exakt vad Nest Protect-historien handlar om.\n\nSmart Life är dessutom inte Housegards egen app utan en av de största plattformarna som finns, med tusentals produkter från hundratals tillverkare. Risken att den försvinner är av en annan storleksordning än risken att en enskild tillverkare tröttnar.\n\nPriset är svagheten. 1 098,90 kronor för två skyddade platser är 549 styck, och vill du täcka fyra rum kostar det 2 296. Då är X-Sense FS61 med sex varnare billigare per plats.",
   },
   {
     id: "netatmo-smart-brandvarnare",
@@ -100,7 +100,6 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: "Proshop",
     merchantUrl: "https://www.proshop.se/Smarta-Hem/Netatmo-Smart-Brandvarnare/2679290",
     priceCheckedAt: PRICE_CHECKED,
-    award: "runnerup",
     superlative: "Bäst app",
     pros: [
       "Tio års integrerat batteri, ingenting att byta",
@@ -111,9 +110,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Uppfyller EN 14604, inga radioaktiva ämnen",
     ],
     cons: [
-      "910 kronor för en enda skyddad plats, dyrast per rum i jämförelsen",
+      "910 kronor för en enda skyddad plats, dyrast per rum av alla",
       "Notiserna går genom Netatmos moln",
-      "Slut hos Kjell, där den dessutom kostar 1 090",
+      "Kjell tar 1 090 kronor för samma varnare, 180 mer än Proshop",
     ],
     specs: [
       { label: "Når telefonen", value: "Ja, wifi direkt", highlight: true },
@@ -130,7 +129,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "GTIN", value: "3700730502269" },
     ],
     verdict:
-      "Appen är den bästa i jämförelsen och med marginal. Den skickar notis vid rök eller hög värme, den självtestar så att en trasig sensor upptäcks utan att du klättrar upp, och den kan tystas från mobilen när du står nära larmet. Den sista funktionen är underskattad: falsklarm klockan sju på morgonen tystas annars med en kvast.\n\nTio års integrerat batteri betyder att du aldrig rör den. När batteriet är slut är också sensorn för gammal, och du byter hela enheten. Det är rätt konstruktion för en produkt som ska glömmas bort.\n\nTvå saker drar ner den. Niohundratio kronor för ett enda rum är dyrast per skyddad plats i hela jämförelsen, och en brandvarnare i hallen skyddar hallen.\n\nOch så beroendet. Notiserna går genom Netatmos moln, och det är precis den konstruktion Google Nest Protect hade när Google lade ner den i mars 2025. HomeKit-stödet mjukar upp det något, eftersom Apple Home kan larma lokalt, men bara om du redan bor i det ekosystemet. Vi köper hellre ett larm vars grundfunktion inte hänger på att ett franskt bolag fortsätter driva en server.",
+      "Appen är den bästa av systemen, med marginal. Den skickar notis vid rök eller hög värme, den självtestar så att en trasig sensor upptäcks utan att du klättrar upp, och den kan tystas från mobilen när du står nära larmet. Den sista funktionen är underskattad: falsklarm klockan sju på morgonen tystas annars med en kvast.\n\nTio års integrerat batteri betyder att du aldrig rör den. När batteriet är slut är också sensorn för gammal, och du byter hela enheten. Det är rätt konstruktion för en produkt som ska glömmas bort.\n\n910 kronor för ett enda rum är dyrast per skyddad plats av alla, och en brandvarnare i hallen skyddar hallen.\n\nOch så beroendet. Notiserna går genom Netatmos moln, vilket är samma konstruktion Google Nest Protect hade när Google lade ner den i mars 2025. HomeKit-stödet mjukar upp det något, eftersom Apple Home kan larma lokalt, men bara om du redan bor i det ekosystemet. Vi köper hellre ett larm vars grundfunktion inte hänger på att ett franskt bolag fortsätter driva en server.",
   },
   {
     id: "x-sense-fs61",
@@ -147,11 +146,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     award: "premium",
     superlative: "Bäst för hela villan",
     pros: [
-      "Sex varnare och basstationen ingår, alltså 316 kronor per rum",
+      "Sex varnare och basstationen ingår, 316 kronor per rum",
       "Larmar lokalt även om basstationen är urkopplad eller strömmen gått",
       "Inga löpande abonnemangskostnader",
       "Går att bygga ut med värme-, CO- och vattenvarnare i samma app",
-      "Flera anläggningar i samma app, alltså även sommarstugan",
+      "Flera anläggningar i samma app, även sommarstugan",
     ],
     cons: [
       "Femårs utbytbart CR123A-batteri, inte tio års förseglat",
@@ -169,9 +168,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Abonnemang", value: "Nej" },
       { label: "Anslutning", value: "Wi-Fi 2,4 GHz" },
       { label: "Garanti", value: "5 år" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008, LVD och RED" },
+      { label: "Larmsignal", value: "Över 85 dB på 3 meter" },
+      { label: "Mått", value: "Ø78,5 x 49 mm (varnaren)" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
     ],
     verdict:
-      "Räknat per skyddad plats är det här det billigaste uppkopplade systemet i jämförelsen. Sex varnare och en basstation för 1 897 kronor blir 316 per rum, mot 549 för Luma och 910 för Netatmo. En villa med två våningar, källare och sovrum får full täckning i ett köp.\n\nBasstationen ingår, så det finns ingen dold andrakostnad, och X-Sense tar inget abonnemang. Systemet går att bygga ut med värmevarnare till köket, CO-varnare vid pannan och vattenvarnare i tvättstugan, allt i samma app. Flera anläggningar går att lägga upp, vilket är den funktion man vill ha till sommarstugan.\n\nX-Sense skriver också ut det som betyder mest här: varnarna larmar lokalt även om basstationen är urkopplad eller om strömmen gått i huset. Appen är ett tillägg, inte en förutsättning.\n\nSvagheten är batteriet. Femårs utbytbart CR123A mot Netatmos tio år integrerat betyder ett byte halvvägs genom varnarens liv, och med sex varnare är det sex batterier att komma ihåg samtidigt.",
+      "Räknat per skyddad plats är det här det billigaste uppkopplade systemet av alla. Sex varnare och en basstation för 1 897 kronor blir 316 per rum, mot 549 för Luma och 910 för Netatmo. En villa med två våningar, källare och sovrum får full täckning i ett köp.\n\nBasstationen ingår, så det finns ingen dold andrakostnad, och X-Sense tar inget abonnemang. Systemet går att bygga ut med värmevarnare till köket, CO-varnare vid pannan och vattenvarnare i tvättstugan, allt i samma app. Flera anläggningar går att lägga upp, vilket är den funktion man vill ha till sommarstugan.\n\nX-Sense skriver också ut det som betyder mest här: varnarna larmar lokalt även om basstationen är urkopplad eller om strömmen gått i huset. Appen är ett tillägg, inte en förutsättning.\n\nSvagheten är batteriet. Femårs utbytbart CR123A mot Netatmos tio år integrerat betyder ett byte halvvägs genom varnarens liv, och med sex varnare är det sex batterier att komma ihåg samtidigt.",
   },
   {
     id: "x-sense-fs31",
@@ -180,7 +183,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     brand: "X-Sense",
     image: productImage(SMART_BRANDVARNARE.slug, "x-sense-fs31"),
     tagline: "Samma system som FS61, i den storlek de flesta faktiskt behöver.",
-    scores: { app: 4, oberoende: 4, batteritid: 3, kravs: 4, prisvarde: 3 },
+    /* prisvarde 2,5 och inte 3,0: sidan mäter genomgående kronor per
+       skyddad plats, och där kostar FS31 438 kr mot FS61:s 316,
+       39 procent mer för det mindre paketet. Justerat 2026-08-03 vid
+       lanseringsgenomgången, då de två annars visade samma betyg. */
+    scores: { app: 4, oberoende: 4, batteritid: 3, kravs: 4, prisvarde: 2.5 },
     price: 1314,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/x-sense-fs31/",
@@ -205,9 +212,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "App", value: "X-Sense Home Security" },
       { label: "Basstation", value: "SBS50, ingår" },
       { label: "Abonnemang", value: "Nej" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008, LVD och RED" },
+      { label: "Larmsignal", value: "Över 85 dB på 3 meter" },
+      { label: "Mått", value: "Ø78,5 x 49 mm (varnaren)" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
     ],
     verdict:
-      "Tre varnare täcker en normal villa: en per våningsplan plus en utanför sovrummen. Det är den storlek de flesta hushåll faktiskt behöver, och det är därför den här ligger i jämförelsen bredvid sin större syster.\n\nAllt annat är identiskt med FS61. Samma basstation, samma app, samma lokala larm vid strömavbrott, samma femårsbatteri.\n\nDet enda som skiljer är räknestycket. 1 314 kronor delat på tre blir 438 per plats, mot 316 hos FS61. Behöver du fyra eller fler varnare är sexpacket alltså billigare trots att prislappen är högre, och det är värt att räkna efter innan du beställer det mindre.",
+      "Tre varnare täcker en normal villa: en per våningsplan plus en utanför sovrummen. Det är den storlek de flesta hushåll faktiskt behöver, och därför ligger den här bredvid sin större syster.\n\nAllt annat är identiskt med FS61. Samma basstation, samma app, samma lokala larm vid strömavbrott, samma femårsbatteri.\n\nDet enda som skiljer är räknestycket. 1 314 kronor delat på tre blir 438 per plats, mot 316 hos FS61. Behöver du fyra eller fler varnare är sexpacket alltså billigare trots att prislappen är högre, och det är värt att räkna efter innan du beställer det mindre.",
   },
   {
     id: "cleverio-smart-rok-varme",
@@ -216,13 +227,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     brand: "Cleverio",
     image: productImage(SMART_BRANDVARNARE.slug, "cleverio-smart-rok-varme"),
     tagline: "Trehundra kronor för notis i mobilen, utan hubb. Billigast vägen in.",
-    scores: { app: 4, oberoende: 2, batteritid: 2.5, kravs: 4.5, prisvarde: 4.5 },
-    price: 299.9,
+    scores: { app: 4, oberoende: 2, batteritid: 2.5, kravs: 4.5, prisvarde: 5 },
+    price: 179,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/cleverio-smart-rok-och-varmedetektor-p51328",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4, count: 116, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4, count: 271, scale: 5, checkedAt: PRICE_CHECKED },
     award: "budget",
     superlative: "Billigast med app",
     pros: [
@@ -230,7 +241,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Reagerar på både rök och snabb värmeutveckling",
       "Ansluter direkt till wifi, ingen hubb behövs",
       "Kan trigga andra Cleverio-enheter, till exempel tända lampor",
-      "116 kundbetyg, näst störst underlag i jämförelsen",
+      "116 kundbetyg, näst störst underlag av varnarna",
     ],
     cons: [
       "Cleverio är Kjells eget varumärke, och appen är deras",
@@ -264,18 +275,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/fibaro-z-wave-rokdetektor-p50779",
     priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 25, scale: 5, checkedAt: PRICE_CHECKED },
+    userRating: { value: 4.5, count: 43, scale: 5, checkedAt: PRICE_CHECKED },
     award: "editor",
     superlative: "Redaktionens val till den som vill äga sitt system",
     pros: [
       "Z-Wave är öppet, så den lyder din styrenhet och inte tillverkarens moln",
       "Fungerar med Fibaro-controllers, Tellstick och Home Assistant",
       "Varnar även vid hastiga temperaturökningar och över 54 °C",
-      "Minst i jämförelsen: 65 mm i diameter, 28 mm hög",
+      "Minst av varnarna: 65 mm i diameter, 28 mm hög",
       "Inbyggd siren och sabotageskydd",
     ],
     cons: [
-      "Kräver en Z-Wave-styrenhet, den dyraste förutsättningen i jämförelsen",
+      "Kräver en Z-Wave-styrenhet, den dyraste förutsättningen någon varnare ställer",
       "Två års batteritid, kortast av alla",
       "559 kronor för en plats, plus styrenheten",
     ],
@@ -291,7 +302,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Mått", value: "Ø65 × 28 mm" },
     ],
     verdict:
-      "Sexa på poäng, och ändå Redaktionens val, för den är den enda produkten på sidan som besvarar sidans egen fråga.\n\nZ-Wave är ett öppet protokoll. Detektorn talar med din styrenhet, inte med en molntjänst, och den bryr sig inte om vem som äger varumärket Fibaro nästa år. Kjell anger att den fungerar med Fibaros egna controllers och med Tellstick, och den fungerar med Home Assistant. Läggs Fibaro ner i morgon sitter din brandvarnare kvar och gör exakt samma sak.\n\nDet är inte en teoretisk fördel. Google lade ner Nest Protect i mars 2025, och de var det största namnet i kategorin.\n\nDen är dessutom minst i jämförelsen, sextiofem millimeter, och varnar för hastiga temperaturökningar och allt över femtiofyra grader utöver rök.\n\nHaken är tvådelad. Två års batteritid är kortast i hela jämförelsen, alltså fem byten under varnarens tioåriga liv. Och en Z-Wave-styrenhet kostar mer än detektorn. Har du redan ett Z-Wave-hem är det här ett självklart köp. Har du inte det är det ett dyrt sätt att börja.",
+      "Sexa på poäng, och ändå Redaktionens val, för den är den enda varnaren som besvarar frågan sidan ställer.\n\nZ-Wave är ett öppet protokoll. Detektorn talar med din styrenhet, inte med en molntjänst, och den bryr sig inte om vem som äger varumärket Fibaro nästa år. Kjell anger att den fungerar med Fibaros egna controllers och med Tellstick, och den fungerar med Home Assistant. Läggs Fibaro ner i morgon sitter din brandvarnare kvar och gör exakt samma sak.\n\nDet är inte en teoretisk fördel. Google lade ner Nest Protect i mars 2025, och de var det största namnet i kategorin.\n\nDen är dessutom minst av varnarna, 65 millimeter, och varnar för hastiga temperaturökningar och allt över femtiofyra grader utöver rök.\n\nHaken är tvådelad. Två års batteritid är kortast av alla, med fem byten under varnarens tioåriga liv. Och en Z-Wave-styrenhet kostar mer än detektorn. Har du redan ett Z-Wave-hem är det här ett självklart köp. Har du inte det är det ett dyrt sätt att börja.",
   },
   {
     id: "x-sense-xs01-m-3-pack",
@@ -312,7 +323,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Fem års garanti",
     ],
     cons: [
-      "Ingen basstation ingår, alltså ingen app om du inte redan har SBS50",
+      "Ingen basstation ingår, så ingen app om du inte redan har SBS50",
       "Femårs utbytbart CR123A",
       "Lätt att förväxla med FS31, som ser nästan likadan ut i butiken",
     ],
@@ -324,9 +335,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Batteritid", value: "5 år", highlight: true },
       { label: "Basstation", value: "Ingår inte" },
       { label: "Garanti", value: "5 år" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008" },
+      { label: "Larmsignal", value: "Över 85 dB på 3 meter" },
+      { label: "Mått", value: "Ø78,5 x 49 mm" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
     ],
     verdict:
-      "Det här är den produkt man köper av misstag, och därför står den i jämförelsen.\n\nXS01-M är sensorn ur FS31 och FS61, såld separat. Butikens egen text är tydlig: i det här paketet ingår ingen basstation. Utan SBS50 får du alltså tre varnare som larmar tillsammans över Link+, vilket är bra, men ingenting når din telefon. Du har köpt en icke-smart produkt på en smart sida.\n\nHar du redan basstationen är det däremot det billigaste sättet att bygga ut: 297 kronor per varnare mot 316 i FS61 och 438 i FS31.\n\nKontrollera alltså vad du redan äger innan du klickar. Ska du börja från noll är FS31 för 1 314 kronor rätt produkt, inte den här för 890 plus en basstation du sedan måste hitta.",
+      "Det här är den produkt man köper av misstag, och därför står den med här.\n\nXS01-M är sensorn ur FS31 och FS61, såld separat. Butikens egen text är tydlig: i det här paketet ingår ingen basstation. Utan SBS50 får du alltså tre varnare som larmar tillsammans över Link+, vilket är bra, men ingenting når din telefon. Du har köpt en icke-smart produkt på en smart sida.\n\nHar du redan basstationen är det däremot det billigaste sättet att bygga ut: 297 kronor per varnare mot 316 i FS61 och 438 i FS31.\n\nKontrollera alltså vad du redan äger innan du klickar. Ska du börja från noll är FS31 för 1 314 kronor rätt produkt, inte den här för 890 plus en basstation du sedan måste hitta.",
   },
   {
     id: "x-sense-xs0d-mr",
@@ -347,7 +362,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Batteriet medföljer",
     ],
     cons: [
-      "Ingen basstation, alltså ingen app på egen hand",
+      "Ingen basstation, så ingen app på egen hand",
       "398 kronor för en enda plats",
       "Femårs utbytbart batteri",
     ],
@@ -359,6 +374,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Batteritid", value: "5 år", highlight: true },
       { label: "Basstation", value: "Ingår inte" },
       { label: "Garanti", value: "5 år" },
+      { label: "Certifiering", value: "EN 14604:2005/AC:2008" },
+      { label: "Larmsignal", value: "Över 85 dB på 3 meter" },
+      { label: "Mått", value: "Ø110 x 30 mm" },
+      { label: "Detekterar", value: "Optisk rökdetektering" },
     ],
     verdict:
       "Samma sak som trepacket ovan, men styckvis och dyrare per plats. Trehundranittioåtta kronor för en varnare som inte når din telefon utan en basstation du köper separat.\n\nDen finns för ett enda ändamål: du har redan ett X-Sense-system och behöver täcka ett rum till. Då är den rätt, och då fungerar den precis som de andra i systemet.\n\nSka du börja från noll är den fel på varje sätt. Ett paket med basstation kostar mer men ger dig faktiskt det sidan handlar om, och ett vanligt sammankopplat tvåpack utan app kostar mindre om du ändå inte tänker koppla upp något.",
@@ -448,7 +467,7 @@ export const SMART_BRANDVARNARE_CONSIDERED: ConsideredProduct[] = [
     brand: "X-Sense",
     name: "XS01-M, styckvis",
     reason:
-      "En enda XS01-M för 332 kronor. Samma invändning som trepacket vi rankar, fast utan mängdrabatten: ingen basstation ingår, alltså ingen app. Med i listan för att prisbilden ska gå att jämföra, eftersom butiken säljer samma sensor i tre storlekar och bara den största innehåller det som gör systemet smart.",
+      "En enda XS01-M för 332 kronor. Samma invändning som trepacket vi rankar, fast utan mängdrabatten: ingen basstation ingår, och därmed ingen app. Med i listan för att prisbilden ska gå att jämföra, eftersom butiken säljer samma sensor i tre storlekar och bara den största innehåller det som gör systemet smart.",
     approxPrice: 332,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/xsense_xs01m_rokvarnare/",
@@ -480,37 +499,22 @@ export const SMART_BRANDVARNARE_FAQ = [
   {
     question: "Vilken smart brandvarnare är bäst 2026?",
     answer:
-      "Housegard Luma-systemet, alltså två varnare plus smart hubb för 1 098,90 kronor. Det är den enda produkten i jämförelsen där uppkopplingen är ett tillägg och inte en förutsättning: varnarna larmar ihop över egen radio även utan hubben, vid strömavbrott och den dag appen skulle försvinna. Vill du täcka fler rum är X-Sense FS61 billigare per plats.",
+      "Housegard Luma-systemet: två varnare plus smart hubb för 1 098,90 kronor. Det är den enda varnaren där uppkopplingen är ett tillägg och inte en förutsättning: varnarna larmar ihop över egen radio även utan hubben, vid strömavbrott och den dag appen skulle försvinna. Vill du täcka fler rum är X-Sense FS61 billigare per plats.",
   },
   {
     question: "Vad händer med en smart brandvarnare om tillverkaren lägger ner?",
     answer:
-      "Det beror helt på konstruktionen, och det är den viktigaste frågan i kategorin. En varnare som talar ett öppet protokoll, som Fibaros Z-Wave, lyder din egen styrenhet och påverkas inte alls. En varnare som bara talar med tillverkarens moln tappar appen och notiserna och blir en vanlig siren. Grundfunktionen, alltså att tjuta vid rök, finns kvar i båda fallen eftersom den sitter i själva enheten.",
-  },
-  {
-    question: "Behöver en smart brandvarnare en hubb?",
-    answer:
-      "Det beror på modellen. Cleverio och Netatmo ansluter direkt till ditt wifi och behöver ingenting mer. Housegard Luma behöver sin hubb för att nå telefonen, men larmar ändå ihop utan den. X-Sense XS01-M och XS0D-MR kräver basstationen SBS50, som säljs separat och inte ingår i sensorpaketen. Fibaro kräver en Z-Wave-styrenhet.",
+      "Det beror helt på konstruktionen, och det är den viktigaste frågan i kategorin. En varnare som talar ett öppet protokoll, som Fibaros Z-Wave, lyder din egen styrenhet och påverkas inte alls. En varnare som bara talar med tillverkarens moln tappar appen och notiserna och blir en vanlig siren. Grundfunktionen att tjuta vid rök finns kvar i båda fallen eftersom den sitter i själva enheten.",
   },
   {
     question: "Vad kostar en smart brandvarnare?",
     answer:
-      "De vi rankar kostar mellan 299,90 och 1 897 kronor, kontrollerat 2026-08-02. Räknat per skyddad plats är spannet 297 till 910 kronor. Billigast per rum är X-Sense FS61 med sex varnare och basstation, dyrast är Netatmo som skyddar ett rum för 910. Lägsta tröskeln in i kategorin är Cleverio för 299,90.",
-  },
-  {
-    question: "Är det värt att betala extra för en smart brandvarnare?",
-    answer:
-      "Bara om du faktiskt är borta. Uppkopplingen tillför en enda sak: att du får veta något när du inte är hemma. Är någon nästan alltid hemma hörs sirenen ändå, och då är en vanlig sammankopplad brandvarnare både billigare och mer robust. Är bostaden tom om dagarna, eller står den tom delar av året, är notisen värd pengarna.",
+      "De vi rankar kostar mellan 179 och 1 897 kronor, kontrollerat 2026-08-03. Räknat per skyddad plats är spannet 179 till 910 kronor. Billigast per rum är Cleverio, som skyddar en plats för 179, och X-Sense FS61 är billigast för den som ska täcka många rum med sex varnare och basstation. Dyrast per plats är Netatmo på 910.",
   },
   {
     question: "Fungerar smarta brandvarnare vid strömavbrott?",
     answer:
       "Själva varnaren gör det, eftersom den går på batteri. Frågan är om larmet når din telefon. X-Sense skriver uttryckligen att deras varnare larmar lokalt även om basstationen är urkopplad eller strömmen gått. Housegard Luma larmar ihop över radio utan hubben. En varnare som bara talar wifi tystnar däremot i telefonen så länge routern är strömlös.",
-  },
-  {
-    question: "Kan man tysta ett falsklarm från mobilen?",
-    answer:
-      "Netatmo kan det, förutsatt att telefonen är i närheten av larmet. Det är en av de mer användbara appfunktionerna i kategorin, eftersom falsklarm oftast kommer när man lagar mat och står med händerna fulla. De flesta andra kräver att du trycker på pausknappen på själva varnaren, alltså att du når upp till taket.",
   },
   {
     question: "Vad är skillnaden mot en vanlig sammankopplad brandvarnare?",
@@ -521,5 +525,25 @@ export const SMART_BRANDVARNARE_FAQ = [
     question: "Behöver smarta brandvarnare abonnemang?",
     answer:
       "Ingen av dem vi rankar kräver det. X-Sense skriver uttryckligen ut att det inte finns några löpande abonnemangskostnader, och Housegard, Netatmo, Cleverio och Fibaro tar heller inget. Det skiljer kategorin från övervakningskameror, där molnlagring ofta kostar månadsvis. Kontrollera ändå innan köp, eftersom det är en avgift som kan införas i efterhand.",
+  },
+  {
+    question: "Hur många brandvarnare behöver jag, och var ska de sitta?",
+    answer:
+      "Storstockholms brandförsvar är tydliga: en brandvarnare på varje våningsplan, helst i alla rum där någon sover. En varnare täcker cirka 60 kvadratmeter, men stängda dörrar begränsar räckvidden, vilket i praktiken betyder att en varnare i hallen inte hör en brand bakom en stängd sovrumsdörr. Bor du större än så behöver du fler. Den ska sitta i taket eftersom varm rök stiger, mitt i rummet eller minst 50 centimeter från väggen. Undvik ventilationsöppningar, kök och badrum om du vill slippa falsklarm, även om många moderna varnare har en pausfunktion för just köket. Det är också här smarta varnare gör mest nytta: sammankopplingen betyder att den i källaren väcker dig i sovrummet, och det är billigare per skyddad plats att köpa ett flerpack än att köpa en i taget.",
+  },
+  {
+    question: "Hur ofta ska en brandvarnare testas och när ska den bytas?",
+    answer:
+      "Minst en gång per kvartal enligt Storstockholms brandförsvar, och byt ut hela varnaren efter åtta till tio år oavsett vad batteriet säger. De rekommenderar också att du testar efter varje bortavaro längre än en vecka, med motiveringen att ett urladdat batteri kan lura dig att tro att varnaren fungerar. Har du ett vanligt niovoltsbatteri ska det bytas en gång om året, och varnaren dammsugas samtidigt. Gör det den 1 december, som är brandvarnardagen. Här har de smarta ett verkligt övertag: Netatmo testar sig själv och skickar en notis om sensorn slutat fungera, och de varnare som har förseglat tioårsbatteri tar bort det årliga batteribytet helt. Testknappen ska du ändå trycka på, eftersom den provar sirenen och inte bara elektroniken.",
+  },
+  {
+    question: "Vem ansvarar för brandvarnaren i en hyresrätt?",
+    answer:
+      "Lagen säger att ägare eller nyttjanderättshavare i skälig omfattning ska hålla utrustning för släckning av brand. I praktiken betyder det, enligt Storstockholms brandförsvar, att fastighetsägaren ansvarar för att det finns minst en brandvarnare installerad i varje hushåll, medan hyresgästen ansvarar för skötsel och underhåll. Äger du din bostad köper du den själv. Kontrollera vad som står i ditt hyresavtal, eftersom ansvaret kan vara annorlunda fördelat där. Vill du sätta upp en smart brandvarnare i en hyresrätt är det värt att veta att samtliga i vår jämförelse är batteridrivna eller magnetmonterade och alltså inte kräver ingrepp i lägenheten.",
+  },
+  {
+    question: "Kan jag blanda smarta och vanliga brandvarnare i samma hem?",
+    answer:
+      "Ja, men de larmar inte ihop. Sammankopplingen sker över tillverkarens egen radio, oftast 868 megahertz, och den fungerar bara mellan varnare av samma fabrikat och serie. En Housegard Luma kopplar ihop sig med andra Luma, inte med en X-Sense och inte med en vanlig fristående varnare från järnaffären. Det är inget hinder mot att ha båda sorterna i huset, men räkna då med att den gamla varnaren i garaget bara larmar där den sitter. Vill du ha ett hem där allt larmar samtidigt behöver du byta ut allihop, och då är ett flerpack av samma märke nästan alltid billigare än att köpa styck.",
   },
 ];

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { WATT_LUMEN_ROWS as ROWS } from "@/lib/tool-logic/watt-lumen";
 
 /**
  * Incandescent watts to the LED lumen output that replaces them.
@@ -6,15 +7,12 @@ import { cn } from "@/lib/utils";
  * Deliberately a server component with no interactivity. The whole job is a
  * lookup, and a table that works without JavaScript beats a converter that
  * needs it.
+ *
+ * Raderna bor i lib/tool-logic/watt-lumen.ts, där agentverktyget slår upp i
+ * samma tabell. Lumen ligger där som tal och formateras här, så att verktyget
+ * kan räkna på värdet i stället för att tolka en sträng.
  */
-const ROWS = [
-  { watt: 25, lumen: "220 lm", use: "Dekorationslampa, nattlampa" },
-  { watt: 40, lumen: "470 lm", use: "Sänglampa, mindre bordslampa" },
-  { watt: 60, lumen: "806 lm", use: "Vanligast av alla. Taklampa i sovrum" },
-  { watt: 75, lumen: "1 055 lm", use: "Vardagsrum, större bordslampa" },
-  { watt: 100, lumen: "1 521 lm", use: "Kök, arbetsrum, mörka rum" },
-  { watt: 150, lumen: "2 452 lm", use: "Garage, tvättstuga, verkstad" },
-];
+const lm = new Intl.NumberFormat("sv-SE");
 
 export type WattLumenTableProps = { className?: string };
 
@@ -46,7 +44,7 @@ export function WattLumenTable({ className }: WattLumenTableProps) {
                   {row.watt} W
                 </td>
                 <td className="px-3 py-2.5 font-heading text-brand tabular-nums whitespace-nowrap">
-                  {row.lumen}
+                  {lm.format(row.lumen)} lm
                 </td>
                 <td className="px-3 py-2.5 text-muted-foreground">{row.use}</td>
               </tr>

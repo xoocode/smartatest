@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 
 import { SITE } from "@/lib/site";
-import { GROUPS, liveCategories } from "@/lib/catalog";
+import { CATEGORIES, liveTestPages } from "@/lib/catalog";
+import { ALL_PRODUCTS } from "@/lib/data";
 import { TOOLS, toolHref } from "@/lib/tools";
 import { PEOPLE, personHref } from "@/lib/people";
+import { PAGE_UPDATED, homeUpdated, toolsUpdated, asDate } from "@/lib/updated";
 
 /**
  * Only routes that actually exist belong here. Listing planned category pages
@@ -12,62 +14,85 @@ import { PEOPLE, personHref } from "@/lib/people";
  * Liveness comes from `status` in lib/catalog.ts, so flipping a category to
  * "live" in the same commit as its page is the only step. There is no second
  * list here to forget.
+ *
+ * ## Om lastmod
+ *
+ * Datumen är riktiga innehållsdatum, inte byggtidpunkten. Skälet står i
+ * lib/updated.ts: ett `lastmod` som ändras vid varje bygge får Google att
+ * sluta läsa fältet för hela sajten, och då är signalen bortkastad.
+ *
+ * En adress utan känt datum får inget `lastmod` alls. Fältet är frivilligt per
+ * adress i sitemap-protokollet, och ett utelämnat datum är sämre för oss men
+ * ärligt, medan ett påhittat är sämre för alla adresser vi faktiskt vet något
+ * om. I dagsläget har varje adress ett datum.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
 
+/** Bygger en post och utelämnar `lastModified` när datum saknas. */
+function entry(
+  href: string,
+  updated: string | undefined,
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
+  priority: number,
+  images?: string[],
+): MetadataRoute.Sitemap[number] {
+  return {
+    url: `${SITE.url}${href}`,
+    ...(updated ? { lastModified: asDate(updated) } : {}),
+    changeFrequency,
+    priority,
+    ...(images?.length ? { images } : {}),
+  };
+}
+
+/**
+ * Packshots på en kategorisida, som absoluta adresser.
+ *
+ * ## Varför uppslaget ser ut så här
+ *
+ * `Product` bär ingen kategori. Kopplingen finns i bildsökvägen, som byggs av
+ * `productImage(testPageSlug, id)` i lib/image-config.mjs och därmed alltid
+ * börjar med kategorins mapp. Att filtrera på det prefixet är alltså att läsa
+ * konventionen, inte att gissa på en slump.
+ *
+ * Uppslaget bor här och inte i `lib/data/`, eftersom sitemapen är enda
+ * konsumenten. Behöver något annat samma sak är det då den ska flytta.
+ *
+ * Värdet är blygsamt och värt raderna ändå: bilderna renderas redan i `img`
+ * och hittas av en crawler, men produktresearch börjar ofta i bildsök, och en
+ * packshot som ligger i sitemapen har en väg in som inte kräver att någon
+ * först renderar sidan.
+ */
+function testPageImages(href: string): string[] {
+  const prefix = `/bilder${href}/`;
+
+  return ALL_PRODUCTS.flatMap((product) =>
+    product.image?.startsWith(prefix) ? [`${SITE.url}${product.image}`] : [],
+  );
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    {
-      url: SITE.url,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    ...GROUPS.filter((group) => group.href).map((group) => ({
-      url: `${SITE.url}${group.href}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...liveCategories().map((item) => ({
-      url: `${SITE.url}${item.href}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    })),
-    {
-      url: `${SITE.url}/verktyg`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    },
-    ...TOOLS.map((tool) => ({
-      url: `${SITE.url}${toolHref(tool)}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    })),
+    entry("", homeUpdated(), "weekly", 1),
+    /* flatMap i stället för filter + map: filter smalnar inte av typen, så
+       `group.href` skulle behöva ett utropstecken för att kompilera. */
+    ...CATEGORIES.flatMap((group) =>
+      group.href
+        ? [entry(group.href, PAGE_UPDATED[group.href], "monthly", 0.7)]
+        : [],
+    ),
+    ...liveTestPages().map((item) =>
+      entry(item.href, item.updated, "weekly", 0.9, testPageImages(item.href)),
+    ),
+    entry("/guider", toolsUpdated(), "monthly", 0.6),
+    ...TOOLS.map((tool) => entry(toolHref(tool), tool.updated, "monthly", 0.5)),
     /* Om oss och metodsidan bär E-E-A-T-signalen och ligger därför högre än
        de rent juridiska sidorna längre ned. Om oss är dessutom förälder till
-       personsidorna. */
-    {
-      url: `${SITE.url}/om-oss`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-    {
-      url: `${SITE.url}/sa-testar-vi`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    },
-    ...PEOPLE.map((person) => ({
-      url: `${SITE.url}${personHref(person)}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.4,
-    })),
+       personsidorna, som delar dess datum eftersom de redigeras tillsammans. */
+    entry("/om-oss", PAGE_UPDATED["/om-oss"], "monthly", 0.5),
+    entry("/sa-testar-vi", PAGE_UPDATED["/sa-testar-vi"], "monthly", 0.6),
+    ...PEOPLE.map((person) =>
+      entry(personHref(person), PAGE_UPDATED["/om-oss"], "monthly", 0.4),
+    ),
     /* Sekundära sidor. Låg prioritet, men de hör hemma här: annonsmärkningen
        är den sida balken på varje jämförelse pekar på, och den ska gå att
        hitta även utan att först läsa en jämförelse.
@@ -75,23 +100,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     /* Ordlistan uppdateras när nya kategorier tillkommer och är dessutom den
        av stödsidorna som har egen sökpotential, därför månadsvis och högre
        prioritet än de juridiska. */
-    {
-      url: `${SITE.url}/ordlista`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
-    {
-      url: `${SITE.url}/rattelser`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.3,
-    },
-    ...["/annonsmarkning", "/kontakt", "/integritetspolicy"].map((href) => ({
-      url: `${SITE.url}${href}`,
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    })),
+    entry("/ordlista", PAGE_UPDATED["/ordlista"], "monthly", 0.5),
+    entry("/rattelser", PAGE_UPDATED["/rattelser"], "monthly", 0.3),
+    ...["/annonsmarkning", "/kontakt", "/integritetspolicy"].map((href) =>
+      entry(href, PAGE_UPDATED[href], "yearly", 0.3),
+    ),
   ];
 }

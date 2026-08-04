@@ -15,7 +15,7 @@ export type MobileNavProps = {
 };
 
 /**
- * Category menu for phones.
+ * TestPage menu for phones.
  *
  * Replaces the horizontally scrolling strip this used to be. The strip fit two
  * and a half items on a 390px screen, so every category past "Smart belysning"

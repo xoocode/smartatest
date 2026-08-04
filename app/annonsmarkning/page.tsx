@@ -79,7 +79,7 @@ export default function AnnonsmarkningPage() {
         <h1 className="mt-2 text-h1">Annonsmärkning och hur vi tjänar pengar</h1>
         <UpdatedStamp date={UPDATED} variant="bar" className="mt-4 self-start" />
 
-        <Prose className="mt-[var(--space-block)]">
+        <Prose className="mt-block">
           <p>
             {SITE.domain} tjänar pengar när du klickar dig vidare till en butik
             och handlar. Butiken betalar oss en andel av köpet, oftast mellan
@@ -137,7 +137,7 @@ export default function AnnonsmarkningPage() {
           </p>
           <p>
             En produkt kan mycket väl hamna etta hos oss trots att den ger oss
-            lägst provision av alla i jämförelsen. Händer det motsatta, att
+            lägst provision av alla produkter vi listar. Händer det motsatta, att
             ettan också råkar vara den vi tjänar mest på, är det en slump vi
             gärna får syna.
           </p>
@@ -176,7 +176,7 @@ export default function AnnonsmarkningPage() {
           </p>
         </Prose>
 
-        <AffiliateDisclosure variant="box" className="mt-[var(--space-block)]" />
+        <AffiliateDisclosure variant="box" className="mt-block" />
       </Container>
     </>
   );
