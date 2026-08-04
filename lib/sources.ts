@@ -17,8 +17,40 @@ export type Source = {
   url: string;
   /** Publication or last-update date of the cited test, when stated. */
   date?: string;
-  /** Market the test was run in, so a reader can weigh it. */
-  market?: "SE" | "NO" | "UK" | "US";
+  /**
+   * Market the test was run in, so a reader can weigh it.
+   *
+   * Listan är explicit och inte `string`. En marknad som saknas ska fällas av
+   * typkontrollen, eftersom "Belgien" och "BE" och "be" i samma fält gör
+   * `MARKET_LABELS` till en lögn och sidfoten till en skylt med tomrum.
+   *
+   * Europa är brett representerat med flit. De stora oberoende provningarna är
+   * europeiska, samarbetar dessutom inom ICRT och provar delvis samma exemplar:
+   * Stiftung Warentest och ÖKO-TEST i Tyskland, Test-Aankoop i Belgien,
+   * Consumentenbond i Nederländerna, Que Choisir i Frankrike, Altroconsumo i
+   * Italien, K-Tipp i Schweiz. Att utesluta dem hade betytt att välja bort de
+   * bästa mätningarna som finns för en svensk köpare.
+   *
+   * Ordningen är inte alfabetisk. Norden först, sedan övriga Europa, USA sist,
+   * vilket är ungefär den ordning en svensk läsare bör väga dem i: elnät,
+   * kontakttyper, klimat och produktutbud står närmare ju högre upp.
+   */
+  market?:
+    | "SE"
+    | "NO"
+    | "DK"
+    | "FI"
+    | "DE"
+    | "BE"
+    | "NL"
+    | "AT"
+    | "CH"
+    | "FR"
+    | "IT"
+    | "ES"
+    | "PT"
+    | "UK"
+    | "US";
   /** What this source contributes that we did not measure ourselves. */
   note?: string;
   /**
@@ -36,9 +68,23 @@ export type Source = {
   kind?: "test" | "comparison" | "standard";
 };
 
+/* Skrivs ut efter utgivaren i källistan, alltså "Stiftung Warentest ·
+   Tyskland". Landsnamn på svenska och inget annat: "DE" säger ingenting till
+   den som inte redan vet, och det är hela poängen med raden. */
 export const MARKET_LABELS: Record<NonNullable<Source["market"]>, string> = {
   SE: "Sverige",
   NO: "Norge",
+  DK: "Danmark",
+  FI: "Finland",
+  DE: "Tyskland",
+  BE: "Belgien",
+  NL: "Nederländerna",
+  AT: "Österrike",
+  CH: "Schweiz",
+  FR: "Frankrike",
+  IT: "Italien",
+  ES: "Spanien",
+  PT: "Portugal",
   UK: "Storbritannien",
   US: "USA",
 };
@@ -3771,7 +3817,66 @@ export const NYCKELSKAP_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Källor för /usb-c-laddare.
+ *
+ * ⚠️ Attributionen är kategorins största fälla. Den provning som citeras är
+ * **Testaankoops**, inte Stiftung Warentests. Warentest skriver i löptexten att
+ * "unsere belgischen Partner von Testaankoop" utfört den, och bekräftar det i
+ * ett redaktionssvar i kommentarsfältet 2026-03-18: "Zum einen ist der Test
+ * nicht von uns, sondern wir berichteten über den Test der belgischen
+ * Kollegen." Båda ligger med, i den ordningen, och Warentest är märkt som
+ * referat.
+ */
+const USB_C_LADDARE_SOURCES: Source[] = [
+  {
+    publisher: "Testaankoop",
+    title: "Wat zijn de beste USB-C opladers? Dit zegt onze test",
+    url: "https://www.test-aankoop.be/hightech/universele-usb-c-oplader/nieuws/beste-usb-c-opladers",
+    date: "2026-04-14",
+    market: "BE",
+    kind: "test",
+    note: 'Kategorins enda riktiga labbprovning och den enda källa här som mätt något. Runt fyrtio universella USB-C-nätaggregat i tre effektklasser: 10 modeller på 50–100 W, 18 på 65 W och 11 på 35–45 W. Fyra kriterier vägs till en slutpoäng — prestanda, användbarhet, egenskaper och säkerhet — och under prestanda mättes både in- och uteffekt, verkningsgrad, maxeffekt på en port, maxeffekt över alla portar, tomgångsförbrukning, kortslutningsström och maxtemperatur. Talen vi använder i köpguiden kommer härifrån: verkningsgrad 85–91 %, högsta uppmätta effekt på en enskild port 113 W (OtterBox), typiskt cirka 90 W för 100 W-klassen, högst 48 W på andra porten i hela fältet, temperaturer mellan 46 och 82 °C utan att säkerhetsgränsen överskreds, och att exakt en laddare av alla stödde PD 3.1. Säkerhetsslutsatsen är värd att läsa ordagrant: inga säkerhetsproblem hittades i något exemplar, samtliga bar CE-märkning, och därav att man inte behöver välja de stora märkena för att köpa tryggt. ⚠️ Källan är inte konsekvent om antalet: samma sida skriver både "in totaal 40" och "bijna 40", klassindelningen summerar till 39, dossiersidan säger 34 och jämförarsidan "meer dan 20". Vi skriver därför runt fyrtio och aldrig ett exakt tal. ⚠️ Källan motsäger också sig själv om märkeffekten: metodavsnittet säger att alla angivna effekter uppnåddes och i de flesta fall överskreds med 5 %, medan produktposten för Belkin BoostCharge Pro 3 anger 87 W mot utlovade 100. Båda uppgifterna återges.',
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Universal-Ladegeräte im Test: Eines für alles",
+    url: "https://www.test.de/USB-C-Ladegeraete-im-Test-Ein-Ladegeraet-fuer-alle-Faelle-6169942-0/",
+    date: "2026-05-02",
+    market: "DE",
+    kind: "test",
+    note: '⚠️ Referat, inte egen provning. Warentest rapporterar om Testaankoops test ovan och skriver det själva i ingressen. Med här ändå av tre skäl. Den namnger vinnarna per effektklass med tyska riktpriser, vilket den nederländska sidan inte gör lika samlat: Xtorm 100W GaN² Ultra XEC100 för knappt 66 euro i 100 W-klassen, Hama Universal USB-C Notebook Power för 50 euro i 65 W-klassen, Xtorm GaN² Ultra XEC035 för runt 30 euro i 45 W-klassen, och belgarnas pristips IKEA SJÖSS 45 W för runt 15 euro. Den är dessutom öppen och inte betald, till skillnad från Warentests egna tester. ⚠️ Och den formulerar avbuntningsregeln löst: "Zudem müssen sie ohne eigenes Netzteil angeboten werden" om bärbara datorer. Direktivet kräver att konsumenten ska erbjudas valet att köpa utan laddare, inte att laddare måste utelämnas. Vi återger därför regeln ur direktivet och inte ur referatet.',
+  },
+  {
+    publisher: "Europeiska unionen",
+    title:
+      "Direktiv (EU) 2022/2380 om ändring av direktiv 2014/53/EU, den gemensamma laddaren",
+    url: "https://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32022L2380",
+    date: "2022-11-23",
+    kind: "standard",
+    note: 'Sidans bärande källa, läst i svensk språkversion i sin helhet. Bilaga Ia del I punkt 1 räknar upp den radioutrustning kraven gäller: mobiltelefoner, datorplattor, digitalkameror, hörlurar, headset, handhållna spelkonsoler, bärbara högtalare, läsplattor, tangentbord, datormöss, bärbara navigeringssystem, öronsnäckor och — som punkt 1.13 — bärbara datorer. Punkt 2.1 kräver att *apparaten* har ett don av USB typ C enligt EN IEC 62680-1-3:2021. Ingenting i direktivet ställer krav på en fristående laddare, vilket är hela sidans utgångspunkt. Punkt 3 sätter tröskeln för när USB PD blir obligatoriskt: laddning "vid spänning högre än 5 V eller ström högre än 3 A eller effekt högre än 15 W". Punkt 3.2 är den som skyddar tredjepartsladdaren genom att kräva att eventuella ytterligare laddningsprotokoll låter USB PD fungera fullt ut "oavsett vilken laddningsenhet som används". Del IV beskriver etiketten som ska ange "YY W", alltså den effekt en laddare minst måste ge för att apparaten ska nå högsta laddhastighet, plus förkortningen "USB PD"; artikel 10.8 kräver att den visas på förpackningen och vid distansförsäljning nära prisuppgiften. Artikel 2 anger tillämpning från 28 december 2024 för punkterna 1.1–1.12 och från 28 april 2026 för punkt 1.13. ⚠️ Datumet 28 december 2025 förekommer i texten men gäller kommissionens första utvärderingsrapport, inte när kraven börjar tillämpas.',
+  },
+  {
+    publisher: "Testaankoop",
+    title: "Universele oplader: USB-C wordt verplicht voor laptops",
+    url: "https://www.test-aankoop.be/hightech/universele-usb-c-oplader/dossier/usb-c-lader",
+    market: "BE",
+    kind: "standard",
+    note: "Testaankoops egen genomgång av regelverket, med som oberoende läsning av samma direktiv. Bekräftar att kravet gäller sedan 28 december 2024, vilket är det datum en av de svenska jämförelsesajterna anger fel. ⚠️ Källan skriver själv att bärbara datorer omfattas från 26 april 2026; direktivet säger 28 april. Ingen av de sekundära källorna återger regeln helt korrekt, vilket är skälet till att sidan citerar direktivet direkt.",
+  },
+  {
+    publisher: "M3 (IDG)",
+    title: "Stort test: Supersnabba gan-laddare (usb-c) för dina prylar",
+    url: "https://www.m3.se/article/1860723/snabbladdare-gan.html",
+    date: "2023-10-24",
+    market: "SE",
+    kind: "test",
+    note: "Det enda svenska jämförande testet i kategorin, av Petter Ahrnstedt, med betyg per modell för nio GaN-laddare från Anker, Satechi, Ugreen och Unisynk. ⚠️ Med som bakgrund och aldrig som betygsunderlag, av två skäl. Det är två år och nio månader gammalt, vilket i den här kategorin räcker för att modellerna ska ha bytts ut. Och metoden är bruksprov, inte labbmätning: texten beskriver att systeminställningar visar 65 watt och att laddaren är ljummen efter en timme, inte instrumenterad mätning av verkningsgrad eller effekt per port. Vi skriver därför aldrig att M3 mätt något. Det testet ändå bidrar med är den svenska förklaringen av vad galliumnitrid är och varför laddaren blir mindre, samt en prisbild från 2023 som visar hur snabbt kategorin rört sig.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/usb-c-laddare": USB_C_LADDARE_SOURCES,
   "/nyckelskap": NYCKELSKAP_SOURCES,
   "/vattenfelsbrytare": VATTENFELSBRYTARE_SOURCES,
   "/avfuktare": AVFUKTARE_SOURCES,
