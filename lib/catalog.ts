@@ -135,6 +135,102 @@ export type TestPageEntry = {
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
+    /* `iphone-fodral` byggd 2026-08-05, samma dag som /iphone-skal och som dess
+       systersida. Skalsidans avgränsning sköt uttryckligen plånboksfodralen hit.
+
+       ⚠️ SLUGEN ÄR VALD MOT REKOMMENDATIONEN, OCH DET ÄR ETT MEDVETET BESLUT.
+       Ordet `fodral` bär två betydelser i svensk handel: plånboksfodral, och
+       allmänt mobilskydd. Testix driver båda samtidigt, med
+       /test/planboksfodral-till-mobil och /test/fodral-till-mobil.
+       `/planboksfodral` rekommenderades för att undvika krock med /iphone-skal,
+       eftersom repot avvisat en slug på just det skälet förut: det bortvalda
+       `/hemlarm-utan-abonnemang` byggde in kannibalisering i URL:en.
+       Användaren valde `/iphone-fodral` med risken utskriven.
+
+       MOTÅTGÄRDEN LIGGER PÅ SIDAN. H1, title, ingress och metabeskrivning säger
+       alla **plånboksfodral** och inte bara fodral, och de två sidorna
+       korslänkar varandra i metoden, köpguiden och FAQ, som /brandvarnare mot
+       /smart-brandvarnare. Kontrollera i Search Console om sidorna börjar byta
+       plats på samma fråga; då är det slugen och inte texten som ska ändras.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma läge som /iphone-skal. Kör Keyword
+       Planner på `iphone fodral`, `plånboksfodral`, `plånboksfodral iphone`
+       och `mobilfodral` i samma körning som skalsidans termer.
+
+       AVGRÄNSNING efter användarbeslut: bara uppfällbara plånboksfodral.
+       Avtagbara 2-i-1, magnetiska korthållare och skal med kortficka förklaras
+       i köpguiden. ⚠️ Gränsen mot 2-i-1 är en bedömning: Gear Buffalo har ett
+       avtagbart magnetskal och ligger med, eftersom avtagbarheten är en
+       konstruktionsdetalj och inte säljargumentet. Decoded, DG Ming och
+       dbramante Lynge är uteslutna eftersom det är hela deras poäng.
+
+       FYNDET: sju av tolv fodral stänger av den trådlösa laddningen helt, och
+       uppgiften står i specifikationen men aldrig i rubriken. Den följer inte
+       heller priset. Trolsk säljer ett fodral för 199 kr som laddar trådlöst
+       med magnetring och ett för 249 som inte laddar alls.
+
+       ANDRA FYNDET: kortkapaciteten följer inte priset åt andra hållet heller.
+       Flest fack har CaseMe C30 på 279 kr med tio, medan fodralen för 699 och
+       799 tar tre respektive två till tre.
+
+       ⚠️ RFID BETYGSÄTTS INTE, efter användarbeslut. Tre skäl: ingen anger
+       dämpning, frekvens eller standard; uppgiften skiljer inte produkterna åt
+       eftersom både det billigaste och det dyraste anger den; och den enda
+       oberoende utvärderingen som finns, Alecci m.fl. RAID '23, kringgick 8 av
+       11 blockeringskort men uteslöt uttryckligen de tre skärmande korten,
+       alltså just fodralens mekanism. Att låna det talet hit vore samma
+       variantfälla som ABUS 787 mot 787 Smart-BT.
+
+       ⚠️ RADICOVERS STRÅLNINGSPÅSTÅENDE ÅTERGES INTE. Produktsidan anger ett
+       strålningsdämpande membran med en procentsiffra. Ett hälsopåstående är
+       safety-shaped och kräver tier A; Strålsäkerhetsmyndighetens hållning är
+       inte läst i original. Talet står varken i specs, omdöme, för- och
+       nackdelar eller FAQ, och vi bemöter det inte heller.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen har provat plånboksfodral. Testix
+       säger själva att de läst kundrecensioner och jämfört sortiment, vilket är
+       ärligare än deras skalsida.
+
+       PENGAR: samma som /iphone-skal, alltså iPhonebutiken 15 % och 45 dagars
+       cookie, sajtens bästa villkor. Snittpriset är dessutom högre här än på
+       skalsidan. ⚠️ ppcMarketing 0, så sidan går inte att annonsera.
+
+       Se .agent/research/iphone-fodral.md. */
+    href: "/iphone-fodral",
+    label: "iPhone-fodral",
+    category: ELEKTRONIK,
+    blurb: "Sju av tolv fodral stänger av den trådlösa laddningen. Det står aldrig i rubriken.",
+    /* Live 2026-08-05. Alla tolv priser, artikelnummer och lagerstatus lästa på
+       iPhonebutikens egna produktsidor samma dag, och RAID-papperet läst i
+       original som PDF. Tolv packshots på plats. Uppmätt vid 1440 och 390 px:
+       ingen sidscroll vid någondera bredden och ingen klippt text.
+
+       Till skillnad från /iphone-skal rapporterar `check:tackning` inga glesa
+       markerade rader här: samtliga sex ligger över 50 procent, eftersom
+       butiken publicerar kortfack, material och laddning för varje artikel.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, och slugen krockar
+       medvetet med /iphone-skal. Kör Keyword Planner på `iphone fodral`,
+       `plånboksfodral`, `plånboksfodral iphone` och `mobilfodral`, och följ
+       sidorna i Search Console. Byter de plats på samma fråga är det slugen och
+       inte texten som ska ändras.
+
+       EGET VERKTYG: `planboksfodralvaljare`, byggt 2026-08-05 direkt efter
+       sidan. Tre frågor om laddning, kapacitet och livslängd.
+
+       ⚠️ Verktyget är byggt tvärtemot skaltypsväljaren på /iphone-skal, och det
+       är avsiktligt. Där ger noll av arton kombinationer ett tomt svar. Här ger
+       **15 av 24** det, eftersom en hel plånbok och trådlös laddning inte går
+       ihop i den här hyllan. Nejet är sidans fynd och ska stå kvar, men ett
+       verktyg som svarar nej i två fall av tre är obrukbart hur sant nejet än
+       är. Därför visar widgeten alltid vad som händer om ett krav släpps, och
+       samtliga 15 tomma utfall har minst en väg vidare. Uppmätt, inte antaget:
+       se .agent/tmp-körningen i researchfilen §10. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 12,
+  },
+  {
     /* `iphone-skal` byggd 2026-08-05. Fjärde sidan i Elektronik. Beställd
        utifrån med ofylld platshållare, "iPhone {latest model} skal", så första
        uppgiften var att avgöra vilken modell som är den senaste.
@@ -828,7 +924,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: HEM_HUSHALL,
     blurb: "Tre av åtta mäter inte koldioxid, hur mycket de än kostar.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-05",
   },
   {
     /* `robotgraesklippare` 49 500/maan, uppmaett 2026-08-01. Sajtens stoersta

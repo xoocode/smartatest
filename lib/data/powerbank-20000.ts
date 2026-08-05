@@ -89,10 +89,11 @@ const SEEDS: ProductSeed[] = [
       kapacitet: 5,
       /* 165 W total, inbyggd USB-C-kabel plus USB-C och USB-A. */
       laddeffekt: 4,
-      /* Anger celluppsättning, wattimmar och effekt per port, men ingen vikt. */
-      redovisning: 4.5,
-      /* Vikten är inte publicerad, vilket är en verklig lucka i en reseprodukt. */
-      vikt: 2.5,
+      /* Anger celluppsättning, wattimmar, effekt per port, mått och vikt. */
+      redovisning: 5,
+      /* 625,1 g. Rättat 2026-08-05: vikten stod i Kjells eget specifikationsblock
+         hela tiden, som brödtext och inte som tabell. Vi läste efter en tabell. */
+      vikt: 2,
       /* 999 kr för nära maximal tillåten kapacitet. */
       prisvarde: 4.5,
     },
@@ -112,7 +113,7 @@ const SEEDS: ProductSeed[] = [
       "Upp till sex mobilladdningar",
     ],
     cons: [
-      "Vikten är okänd, vilket är en lucka i något som ska bäras",
+      "625 gram, alltså den tyngsta här och märkbar i en jackficka",
       "Ett enda kundbetyg, alltså tunt underlag för hur den fungerar över tid",
       "99,36 wattimmar lämnar ingen marginal om ett flygbolag räknar annorlunda",
     ],
@@ -126,11 +127,12 @@ const SEEDS: ProductSeed[] = [
       { label: "Porttyper", value: "1× USB-C in/ut, 1× inbyggd USB-C-kabel in/ut, 1× USB-A ut" },
       { label: "Batteri", value: "6× 4 600 mAh litium" },
       { label: "Mobilladdningar", value: "Upp till ca 6" },
-      { label: "Vikt", value: "Ej angiven" },
+      { label: "Mått", value: "161 × 59 × 51 mm" },
+      { label: "Vikt", value: "625,1 g" },
       { label: "Artikelnummer", value: "88996" },
     ],
     verdict:
-      "Linocell 165 W rymmer 27 600 mAh och kostar 999 kronor. Det är den största powerbanken i jämförelsen, och den ligger 0,64 wattimmar under gränsen för vad du får ta med ombord.\n\n**99,36 wattimmar är inte ett slumptal.** Taket för handbagage utan flygbolagets godkännande går vid 100, och den här produkten är byggd för att rymmas precis under. Det betyder att du får maximal kapacitet som fortfarande är fri att ta med, och den kapaciteten räcker till ungefär sex mobilladdningar eller en dator plus en telefon över en lång resdag.\n\n**165 watt total uteffekt gör den till en riktig datorladdare**, inte bara en telefonreserv, och den inbyggda USB-C-kabeln betyder att du klarar dig utan lös sladd. Till det kommer en USB-C-port och en USB-A, så tre saker kan laddas samtidigt. Sex battericeller på 4 600 mAh vardera står utskrivet, vilket är mer öppenhet än de flesta ger.\n\nTvå saker ska du gå in med öppna ögon om. Vikten går inte att läsa någonstans, och i en produkt vars hela syfte är att bäras är det en verklig lucka. Och den har ett enda kundbetyg, så hur den beter sig efter ett år vet ingen ännu.\n\nKöp den. Du får den största lagliga kapaciteten, en kabel som sitter i och effekt nog för en dator, för en tredjedel av vad den dyraste här kostar.",
+      "Linocell 165 W rymmer 27 600 mAh och kostar 999 kronor. Det är den största powerbanken i jämförelsen, och den ligger 0,64 wattimmar under gränsen för vad du får ta med ombord.\n\n**99,36 wattimmar är inte ett slumptal.** Taket för handbagage utan flygbolagets godkännande går vid 100, och den här produkten är byggd för att rymmas precis under. Det betyder att du får maximal kapacitet som fortfarande är fri att ta med, och den kapaciteten räcker till ungefär sex mobilladdningar eller en dator plus en telefon över en lång resdag.\n\n**165 watt total uteffekt gör den till en riktig datorladdare**, inte bara en telefonreserv, och den inbyggda USB-C-kabeln betyder att du klarar dig utan lös sladd. Till det kommer en USB-C-port och en USB-A, så tre saker kan laddas samtidigt. Sex battericeller på 4 600 mAh vardera står utskrivet, vilket är mer öppenhet än de flesta ger.\n\nTvå saker ska du gå in med öppna ögon om. Den väger 625 gram, vilket är mest i jämförelsen och känns i en jackficka. Och den har ett enda kundbetyg, så hur den beter sig efter ett år vet ingen ännu.\n\nKöp den. Du får den största lagliga kapaciteten, en kabel som sitter i och effekt nog för en dator, för en tredjedel av vad den dyraste här kostar.",
   },
   {
     id: "anker-prime-300w-26250",

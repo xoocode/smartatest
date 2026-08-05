@@ -4256,7 +4256,53 @@ export const SLACKSPRAY_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * iPhone-fodral, alltså uppfällbara plånboksfodral.
+ *
+ * ⚠️ Ingen källa har `kind: "test"`. Kategorin saknar oberoende provning helt,
+ * precis som /iphone-skal, och sidan säger det rakt ut enligt IDÉ-012.
+ *
+ * ⚠️ RAID-papperet nedan är med som **avgränsning** och inte som stöd. Det är
+ * enda gången någon utvärderat RFID-blockerande produkter, och just därför
+ * måste sidan vara tydlig med att resultatet inte gäller ett fodral.
+ */
+export const IPHONE_FODRAL_SOURCES: Source[] = [
+  {
+    publisher: "Alecci m.fl., RAID '23",
+    title: "Beware of Pickpockets: A Practical Attack against Blocking Cards",
+    url: "https://arxiv.org/pdf/2302.08992",
+    date: "2023-07-12",
+    market: "BE",
+    kind: "standard",
+    note: 'Läst i original, arXiv:2302.08992v2, publicerad på RAID \'23 (ACM). Den första och enda oberoende utvärderingen av RFID-blockerande produkter: "Whereas vendors claim the reliability of their blocking cards, no previous study has ever focused on evaluating their effectiveness." Forskarna köpte 14 blockeringskort, analyserade deras spektrum och kringgick 8 av 11 utvärderade. ⚠️ RESULTATET GÄLLER INTE ETT PLÅNBOKSFODRAL, och papperet skiljer själv på mekanismerna: "While covers and wallets generally rely on their metal shielding structure to protect smart cards, blocking cards employ a higher range of approaches (e.g., shielding, jamming)." Tre av korten var skärmande, alltså samma Faraday-princip som ett fodral, och de uteslöts uttryckligen ur angreppsutvärderingen: "we have made the decision to exclude these cards from the Attack Evaluation." När de tre lades framför ett kort kom inget svar alls från kortet. Källan är därför med som avgränsning: vi lånar aldrig talet 8 av 11 till ett fodral. Det andra som gör papperet användbart är vilka kort som angreps, nämligen MIFARE Ultralight och Classic, som enligt papperet är "widely used in access control systems, such as public transportation, event ticketing, prepaid applications, loyalty", medan MIFARE Plus och DESFire med AES respektive Triple-DES bär "electronic payments, e-passports, identity cards".',
+  },
+  {
+    publisher: "Testix",
+    title: "Plånboksfodral till mobil, bäst i test 2026",
+    url: "https://testix.se/test/planboksfodral-till-mobil",
+    market: "SE",
+    note: "Konkurrent, med som mätpunkt och inte som underlag. Tio modeller mellan 179 och 399 kronor. De är ärligare om metoden här än på sin skalsida och skriver att de läst igenom över 200 kundrecensioner och jämfört utbudet hos fem större svenska återförsäljare, alltså ingen egen provning. Deras modellspecifika sida gäller dessutom iPhone 14 Pro Max, två generationer bakåt. Ingen uppgift är hämtad härifrån.",
+  },
+  {
+    publisher: "Testexperterna",
+    title: "Plånboksfodral bäst i test 2026",
+    url: "https://testexperterna.se/planboksfodral",
+    market: "SE",
+    note: "Konkurrent, med som mätpunkt. Generisk sida utan modellavgränsning. Samma schemastack som vår, se IDÉ-009. Ingen uppgift är hämtad härifrån.",
+  },
+  {
+    publisher: "Apple",
+    title: "Apple lanserar iPhone 17 Pro och iPhone 17 Pro Max",
+    url: "https://www.apple.com/se/newsroom/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max-the-most-powerful-and-advanced-pro-models-ever/",
+    date: "2025-09-09",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens eget pressmeddelande, som källa för vilka modeller som finns och när de kom. Används för att avgränsa vilka modeller sidan gäller, och för att priset genomgående avser 17 Pro-varianten.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/iphone-fodral": IPHONE_FODRAL_SOURCES,
   "/slackspray": SLACKSPRAY_SOURCES,
   "/iphone-skal": IPHONE_SKAL_SOURCES,
   "/powerbank-20000": POWERBANK_20000_SOURCES,

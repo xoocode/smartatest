@@ -119,7 +119,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "2408 × 1536 är lägre vertikal upplösning än både Tapo och Reolink",
       "Molnbackup fungerar enligt Aqara bara i kabelansluten drift, inte på batteri",
       "Inga kundomdömen alls hos butiken än",
-      "Sex AA-batterier är många att byta, och det står inte hur länge de räcker",
+      /* Stod "…och det står inte hur länge de räcker" till 2026-08-05. Fel:
+         Aqaras produktsida anger "up to 5 months". Specifikationsbladet anger
+         bara batterityp, och den som läste specarna trodde att siffran saknades
+         överallt. Två sidor hos samma tillverkare, två olika svar. */
+      "Sex AA-batterier är många att byta, och fem månader gäller enligt Aqara bara vissa användningsfall",
     ],
     specs: [
       { label: "Sekretesszon", value: "Ja, blockeras i inspelning", highlight: true },

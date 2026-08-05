@@ -417,15 +417,24 @@ const SEEDS: ServiceSeed[] = [
       bindingMonths: null,
       noticeMonths: null,
       ownership: "kunden",
+      /* Hittad 2026-08-05. Inte länkad från sajten, men indexerad och
+         nåbar, alltså läsbar för den som söker på den. */
+      termsUrl:
+        "https://www.gardaalarm.se/uploads/1/3/5/0/135017696/garda_alarm_-_villkor_f%C3%B6r_hemlarm.pdf",
       termsCheckedAt: CHECKED,
     },
     pros: [
       "Affärsmodellen bygger på köp i stället för abonnemang, vilket tar bort inlåsningen",
+      "Villkoren finns publicerade som pdf, om än utan länk från sajten",
       "Egen larmcentralssida med kontaktvägar",
     ],
     cons: [
       "Inget pris publicerat, hela erbjudandet går via offertförfrågan",
-      "Länken till villkoren leder ingenstans",
+      /* Stod "Länken till villkoren leder ingenstans" till 2026-08-05. Fel:
+         PDF:en svarar 200 och är på 551 kB. Den är däremot inte länkad från
+         någon sida på sajten, bara indexerad, vilket är något annat och
+         mindre allvarligt än att den saknas. */
+      "Villkoren finns som pdf men är inte länkade från någon sida på sajten",
       "Ingen uppgift om vad larmcentralstjänsten kostar, om den kostar något",
       "Betyget vilar på bolagets egen beskrivning eftersom inget avtal finns att läsa",
     ],

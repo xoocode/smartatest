@@ -24,6 +24,7 @@ ourselves. That model is the product, not a limitation to hide.
 | Schema, sitemap, dates, AI citation | `.claude/context/seo.md` |
 | Checks, the quality bar, deploy | `.claude/context/ship.md` |
 | Something renders wrong without erroring | `.claude/context/traps.md` |
+| Writing that a price, spec or document is not published | `.claude/references/establishing-absence.md` |
 | What a kind of page is called, and why a page is laid out as it is | `.claude/references/page-anatomy.md` |
 | The design system | `/styleguide`, `.claude/references/brandbook.html` |
 | Where a new rule or learning belongs | `.claude/context/routing.md` |

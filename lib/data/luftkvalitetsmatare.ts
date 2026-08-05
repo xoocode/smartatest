@@ -52,6 +52,23 @@ import { LUFTKVALITETSMATARE } from "@/lib/test-pages";
  * 2. **Netatmos noggrannhet är inte fastställd.** Deras specifikationssida
  *    svarade 404 och uppgiften står som ej angiven, inte som en nolla.
  *
+ *    Kontrollerat igen 2026-08-05, med fyra ingångar: sv-se-produktsidan,
+ *    `pro.netatmo.com/eu/nhc/specifications` (omdirigerar till en landningssida),
+ *    `en-eu/.../specifications` (404) och hjälpcentrets artikel om
+ *    luftkvalitetsmätningen, som ligger bakom Cloudflares botkontroll och
+ *    svarar 403 för både Playwright och WebFetch. **Ingen av dem är läst och
+ *    tom.** Skriv därför aldrig att Netatmo inte publicerar uppgiften; skriv
+ *    att vi inte kunnat läsa den. Taglinen påstod det förra fram till
+ *    2026-08-05.
+ *
+ * ## ⚠️ Airthings anger mer än vi trodde
+ *
+ * Rättat 2026-08-05. View Radon och Wave Mini stod båda som "Ej angiven" på
+ * noggrannhet. Airthings publicerar den för båda, på sina egna produktsidor:
+ * View Radon omkring 5 % efter två månader vid 200 Bq/m³ plus ±0,5 °C och
+ * ±3 % fukt, Wave Mini ±1 °C och ±3 % fukt men ingen tolerans för TVOC, som är
+ * dess huvudgivare. Vi hade läst butikssidorna, inte tillverkaren.
+ *
  * ## Betygstalen är inte jämförbara mellan butikerna
  *
  * Clas Ohlson publicerar `reviewCount`, Proshop publicerar inget alls. Kjells
@@ -247,7 +264,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Netatmo",
     brand: "Netatmo",
     image: productImage(LUFTKVALITETSMATARE.slug, "netatmo-luftkvalitetsmatare"),
-    tagline: "Koldioxid och ljud, men toleransen står ingenstans.",
+    /* Stod "men toleransen står ingenstans" till 2026-08-05. Det är ett
+       påstående om hela Netatmos publicering, gjort utan att ha läst den.
+       Kontrollerat: sv-se-produktsidan (flikarna öppnades inte), pro-sidans
+       specifikation (omdirigerar), en-eu/specifications (404) och
+       hjälpcentrets artikel om luftkvalitetsmätningen — den sista ligger
+       bakom Cloudflares botkontroll och svarar 403 för både Playwright och
+       WebFetch. En ogenomläst källa är inte en tom källa. Taglinen säger
+       därför vad produkten gör och överlåter toleransen till specraden. */
+    tagline: "Mäter koldioxid och ljudnivå, och larmar innan du känner det.",
     scores: {
       givare: 3.5,
       beslutsnytta: 4,
@@ -279,6 +304,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       {
         label: "Angiven noggrannhet",
         shortLabel: "Noggrannhet",
+        /* Kvar som Ej angiven med flit. Hjälpcentrets artikel om
+           luftkvalitetsmätningen ligger bakom Cloudflares botkontroll och gick
+           inte att läsa 2026-08-05; en ogenomläst källa får inte räknas som
+           en läst. Var vi letat står i research-filen, inte i tabellen. */
         value: "Ej angiven",
         highlight: true,
       },
@@ -301,7 +330,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       givare: 2,
       beslutsnytta: 3.5,
       avlasning: 4.5,
-      noggrannhet: 3.5,
+      /* Höjd 2,5 -> 4,5 den 2026-08-05. Airthings publicerar
+         "Accuracy/precision at 200 Bq/m3: after 7 days ~10 %, after 2 months
+         ~5 %", plus temp +-0,5 C och fukt +-3 %, på sin egen produktsida.
+         Raden stod som Ej angiven. Kriteriet belönar att uppgiften
+         publiceras, och den publiceras. */
+      noggrannhet: 4.5,
       prisvarde: 2,
     },
     price: 1899,
@@ -326,7 +360,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       {
         label: "Angiven noggrannhet",
         shortLabel: "Noggrannhet",
-        value: "Ej angiven",
+        value: "~5 % efter 2 mån vid 200 Bq/m³, temp ±0,5 °C",
         highlight: true,
       },
       { label: "Avläsning", value: "Stor display och app", highlight: true },
@@ -348,7 +382,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       givare: 2,
       beslutsnytta: 2.5,
       avlasning: 3,
-      noggrannhet: 2.5,
+      /* Höjd 2,5 -> 3,0. Wave Mini publicerar temp +-1 C och fukt
+         +-3 %, men ingen tolerans för TVOC, som är dess huvudgivare.
+         Halv publicering, halvt betyg. */
+      noggrannhet: 3,
       prisvarde: 3.5,
     },
     price: 785,
@@ -378,7 +415,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       {
         label: "Angiven noggrannhet",
         shortLabel: "Noggrannhet",
-        value: "Ej angiven",
+        value: "Temp ±1 °C, fukt ±3 %, ingen TVOC-tolerans",
         highlight: true,
       },
       { label: "Avläsning", value: "Färgring och app", highlight: true },
@@ -431,6 +468,8 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       {
         label: "Angiven noggrannhet",
         shortLabel: "Noggrannhet",
+        /* Kontrollerat millheat.com/airquality och Clas Ohlson 2026-08-05.
+           Ingen tolerans angiven på någondera. */
         value: "Ej angiven",
         highlight: true,
       },

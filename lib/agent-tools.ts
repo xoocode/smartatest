@@ -123,6 +123,16 @@ import {
   type CaseUseKey,
 } from "@/lib/tool-logic/case-type";
 import {
+  FOLIO_CAPACITY,
+  FOLIO_CHARGING,
+  FOLIO_LIFESPAN,
+  decideFolio,
+  folioEmptyReason,
+  type FolioCapacityKey,
+  type FolioChargingKey,
+  type FolioLifespanKey,
+} from "@/lib/tool-logic/wallet-folio";
+import {
   CURTAIN_MOUNTS,
   CURTAIN_NOISE,
   CURTAIN_WINDOWS,
@@ -879,6 +889,70 @@ const leakSensorTool: AgentTool = {
   },
 };
 
+const walletFolioTool: AgentTool = {
+  name: "valj_planboksfodral",
+  description:
+    "Sager vilket uppfallbart planboksfodral till iPhone som racker, utifran hur anvandaren laddar, vad som ska fa plats och hur lange fodralet ska halla. Svarar aven att kombinationen inte finns, vilket ar kategorins centrala avvagning: inget fodral kombinerar en hel planbok med tradlos laddning.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      laddning: {
+        type: "string",
+        enum: FOLIO_CHARGING.map((o) => o.key),
+        description:
+          "Hur telefonen laddas. magnet kraver magnetring, platta kraver att laddningen fungerar genom fodralet, sladd staller inga krav.",
+      },
+      kapacitet: {
+        type: "string",
+        enum: FOLIO_CAPACITY.map((o) => o.key),
+        description:
+          "Vad som ska fa plats. kort ger minst 3 kortfack, planbok ger minst 9, och mynt-varianterna kraver dessutom myntfack.",
+      },
+      livslangd: {
+        type: "string",
+        enum: FOLIO_LIFESPAN.map((o) => o.key),
+        description:
+          "Hur lange fodralet ska halla. lange kraver garvat lader i stallet for laderimitation.",
+      },
+    },
+    required: ["laddning", "kapacitet", "livslangd"],
+  },
+  run(args) {
+    const verdict = decideFolio(
+      readString(args, "laddning") as FolioChargingKey,
+      readString(args, "kapacitet") as FolioCapacityKey,
+      readString(args, "livslangd") as FolioLifespanKey,
+    );
+
+    if (!verdict) {
+      return "Ange hur du laddar, vad som ska fa plats och hur lange fodralet ska halla for att fa ett svar.";
+    }
+
+    const criteria = [
+      verdict.needsMagnetRing
+        ? "magnetring, inte bara tradlos laddning"
+        : verdict.needsWireless
+          ? "laddning genom fodralet"
+          : "laddning behover inte styra valet",
+      `minst ${verdict.minCards} kortfack`,
+      verdict.needsCoinPocket ? "myntfack" : "",
+      verdict.needsRealLeather ? "garvat lader" : "",
+    ].filter(Boolean);
+
+    return [
+      `${verdict.headline}.`,
+      verdict.why,
+      verdict.warning ? `Att veta: ${verdict.warning}` : "",
+      `Kraven att filtrera pa: ${criteria.join(", ")}.`,
+      `Om kombinationen inte gar ihop: ${folioEmptyReason(verdict)}`,
+      `Fodral som uppfyller dem: ${SITE.url}/iphone-fodral`,
+      `Valjaren med alla svar: ${toolUrl("planboksfodralvaljare")}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  },
+};
+
 const caseTypeTool: AgentTool = {
   name: "valj_iphone_skal",
   description:
@@ -1314,6 +1388,7 @@ export const AGENT_TOOLS: Record<string, AgentTool[]> = {
   "effektkoll-smart-plug": [plugLoadTool],
   vattenlarmsvaljare: [leakSensorTool],
   skaltypsvaljare: [caseTypeTool],
+  planboksfodralvaljare: [walletFolioTool],
   "monteringsvaljare-gardin": [mountTool],
   "timervaljare-utomhus": [timerTool],
   "brandskydd-hemma": [fireKitTool],

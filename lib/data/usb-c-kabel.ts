@@ -116,7 +116,11 @@ const SEEDS: ProductSeed[] = [
       "E-markerchip, spänningssteg och bakåtkompatibilitet är fullt redovisade",
     ],
     cons: [
-      "Manteln anges inte, så slitstyrkan går inte att bedöma på förhand",
+      /* Stod "Manteln anges inte" till 2026-08-05. Fel: Delocks eget datablad
+         för artikel 81192 anger "Cable jacket material: TPE", plus diameter
+         5 mm och 22/24 AWG. Vi hade bara läst Teknikdelars nio specrader.
+         delock.com svarar 401 men renderar hela sidan ändå. */
+      "TPE-mantel utan flätat ytterhölje, alltså mindre slitstark än en flätad kabel",
       "Finns bara i 2 meter, och den som behöver 0,5 får byta märke",
     ],
     specs: [

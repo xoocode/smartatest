@@ -71,7 +71,7 @@ import Kopguide from "@/content/luftkvalitetsmatare/kopguide.mdx";
 
 const TEST_PAGE = LUFTKVALITETSMATARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-05";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
@@ -390,7 +390,7 @@ export default async function LuftkvalitetsmatarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje mätare"
-        description="Alla sju bedöms mot samma fem kriterier. Uppgifterna är tillverkarens eller butikens egna, inte kontrollerade av oss."
+        description="Alla sju bedöms mot samma fem kriterier, och koldioxidgivaren avgör mest. Tre av mätarna räknar fram sitt tal ur något annat än koldioxid."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (

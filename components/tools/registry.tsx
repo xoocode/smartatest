@@ -18,6 +18,7 @@ import {
   KODLAS_YTTERDORR,
   ROBOTDAMMSUGARE,
   IPHONE_SKAL,
+  IPHONE_FODRAL,
 } from "@/lib/test-pages";
 import { formatPrice } from "@/lib/products";
 import { AgentTools } from "@/components/tools/agent-tools";
@@ -94,6 +95,10 @@ import {
   IPHONE_SKAL_PRODUCTS,
 } from "@/lib/data/iphone-skal";
 import {
+  IPHONE_FODRAL_CAPABILITIES,
+  IPHONE_FODRAL_PRODUCTS,
+} from "@/lib/data/iphone-fodral";
+import {
   FireKitPlanner,
   type FireKitItems,
   type KitItem,
@@ -106,6 +111,10 @@ import {
   CaseTypePicker,
   type CaseTypeProduct,
 } from "@/components/tools/case-type-picker";
+import {
+  WalletFolioPicker,
+  type FolioProduct,
+} from "@/components/tools/wallet-folio-picker";
 import { InsurancePaybackCalculator } from "@/components/tools/insurance-payback-calculator";
 import { MountPicker, type CurtainProduct } from "@/components/tools/mount-picker";
 import { TimerPicker, type TimerProduct } from "@/components/tools/timer-picker";
@@ -353,6 +362,38 @@ function caseTypeProducts(): CaseTypeProduct[] {
       },
     ];
   });
+}
+
+/**
+ * Fodralväljarens produkter.
+ *
+ * Samma form som `caseTypeProducts()`. `name` och inte `shortName`, av samma
+ * skäl: widgeten renderar `{brand} {name}`, och sidans shortName bär redan
+ * märket. Det felet uppmättes i webbläsaren på skalsidan och upprepas inte.
+ */
+function folioProducts(): FolioProduct[] {
+  return IPHONE_FODRAL_CAPABILITIES.flatMap((cap) => {
+    const product = IPHONE_FODRAL_PRODUCTS.find((p) => p.id === cap.id);
+    if (!product) return [];
+    return [
+      {
+        id: product.id,
+        brand: product.brand,
+        name: product.name,
+        price: formatPrice(product.price, product.currency),
+        priceValue: product.price,
+        href: `/${IPHONE_FODRAL.slug}#${product.id}`,
+        charging: cap.charging,
+        cards: cap.cards,
+        coinPocket: cap.coinPocket,
+        realLeather: cap.realLeather,
+      },
+    ];
+  });
+}
+
+export function IphoneWalletFolioPicker() {
+  return <WalletFolioPicker products={folioProducts()} />;
 }
 
 export function IphoneCaseTypePicker() {
@@ -981,6 +1022,7 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "elkostnad-julbelysning": ChristmasLightRunningCost,
   vattenlarmsvaljare: WaterLeakSensorPicker,
   skaltypsvaljare: IphoneCaseTypePicker,
+  planboksfodralvaljare: IphoneWalletFolioPicker,
   "aterbetalning-vattenfelsbrytare": InsurancePaybackCalculator,
   "brandskydd-hemma": HomeFireKitPlanner,
   "behover-du-kolmonoxidvarnare": CoAlarmNeedPicker,

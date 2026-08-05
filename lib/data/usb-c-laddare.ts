@@ -317,25 +317,32 @@ const SEEDS: ProductSeed[] = [
       "AVS mellan 15 och 28 volt, det som krävs för de högsta effekterna",
     ],
     cons: [
-      "Hur effekten delas när flera portar används är okänt, så räkna med mindre än 140 W till datorn om telefonen sitter i",
-      "Vikt och mått är okända, så mät i grenuttaget innan du planerar in den",
+      /* Båda punkterna stod som okända till 2026-08-05. Båda står i manualen
+         som Kjell länkar från produktsidans supportflik: hela fördelningen
+         port för port, samt 100×67×36 mm och 230 g. Butikssidans
+         specifikationsblock saknar dem, och det lästes som att de inte fanns. */
+      "Med telefonen i port 3 sjunker datorporten från 140 till 100 W enligt manualen",
+      "230 gram och 100 millimeter hög, alltså ingen laddare för väskans ytterfack",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "140 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "3 × USB-C + 1 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "140 W (port 1/2)", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "Ej angiven", highlight: true },
+      /* Fem rader stod "Ej angiven" till 2026-08-05. Samtliga står i manualen
+         som produktsidan länkar till under Support. Butikssidans eget
+         specifikationsblock har dem inte, och det blocket lästes som facit. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "70 W + 70 W", highlight: true },
       { label: "Effekt per port angiven", value: "Ja, per port" },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD 3.1 med AVS" },
-      { label: "PPS", value: "Ej angiven" },
+      { label: "PPS", value: "Ja, 3,3–11 V, 5 A (55 W)" },
       { label: "Halvledarteknik", value: "GaN" },
-      { label: "Mått", value: "Ej angiven" },
-      { label: "Vikt", value: "Ej angiven" },
-      { label: "Tomgångsförbrukning", value: "Ej angiven" },
+      { label: "Mått", value: "100 × 67 × 36 mm" },
+      { label: "Vikt", value: "230 g" },
+      { label: "Tomgångsförbrukning", value: "≤ 0,3 W" },
     ],
     verdict:
-      "Linocell Premium 140 W är laddaren för den stora laptopen och kostar 699 kronor. 140 W är den effekt en MacBook Pro 16 tum vill ha, och den nivån kräver USB PD 3.1 med AVS mellan 15 och 28 volt, vilket den här har. Räknat per watt är den näst billigast i jämförelsen på 5 kronor, alltså hälften av vad de små telefonladdarna kostar per watt. Tre USB-C och en USB-A ger fyra enheter ström. Det du inte får veta är vad som händer när du använder dem: fördelningen mellan portarna vid samtidig laddning är okänd, liksom laddarens vikt och mått. I praktiken betyder det att du bör räkna med klart mindre än 140 W till datorn så fort något annat sitter i, och att du får mäta själv om den ska samsas i ett grenuttag. Köp den om du har en 16-tums laptop och laddar den ensam. Ska flera enheter dela laddaren är Ugreen Nexode 100 W ett säkrare köp för 100 kronor mer.",
+      "Linocell Premium 140 W är laddaren för den stora laptopen och kostar 699 kronor. 140 W är den effekt en MacBook Pro 16 tum vill ha, och den nivån kräver USB PD 3.1 med AVS mellan 15 och 28 volt, vilket den här har. Räknat per watt är den näst billigast i jämförelsen på 5 kronor, alltså hälften av vad de små telefonladdarna kostar per watt. Tre USB-C och en USB-A ger fyra enheter ström, och manualen redovisar hela fördelningen mellan dem: två portar ger 70 W var, medan datorporten sjunker till 100 W så snart en tredje enhet sitter i. Räkna alltså med klart mindre än 140 W till datorn i praktiken. Med 100 millimeters höjd och 230 gram är den för stor för väskans ytterfack och tar plats i ett grenuttag. Köp den om du har en 16-tums laptop och laddar den ensam. Ska flera enheter dela laddaren är Ugreen Nexode 100 W ett säkrare köp för 100 kronor mer.",
   },
   {
     id: "baseus-gan5-pro-65w",

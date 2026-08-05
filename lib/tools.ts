@@ -725,6 +725,55 @@ export const TOOLS: Tool[] = [
     /* Slugen namnger ämnet och inte funktionen, enligt namnregeln i filhuvudet:
        `skalvaljare` hade blivit tvetydig den dag vi bygger en väljare för
        Samsung-skal eller för skärmskydd. */
+    /* Slugen namnger produkten och inte funktionen, enligt namnregeln i
+       filhuvudet. `fodralvaljare` hade varit tvetydig av exakt samma skäl som
+       gör testsidans slug tvetydig: ordet fodral täcker både plånboksfodral
+       och mobilskydd i svensk handel. */
+    slug: "planboksfodralvaljare",
+    name: "Plånboksfodralväljaren",
+    title: "Vilket plånboksfodral till iPhone behöver du?",
+    description:
+      "Svara på tre frågor om hur du laddar, vad som ska få plats och hur länge fodralet ska hålla. Du får kraven och de fodral vi rankat som uppfyller dem, eller beskedet att kombinationen inte finns.",
+    intro:
+      "Ett plånboksfodral tvingar fram ett val som ingen produktsida skriver ut: du kan få en hel plånbok, eller trådlös laddning, men inte båda. Svara på tre frågor så får du veta vilka fodral som klarar just dina krav, och när kraven inte går ihop får du veta varför.",
+    sections: [
+      {
+        heading: "Så tänker väljaren",
+        body: [
+          "Den första frågan är laddningen, och den har tre svar i stället för två. Ett fodral kan blockera trådlös laddning helt, vilket sju av tolv gör, och då ska telefonen ur fodralet varje kväll. Det kan ladda genom fodralet men sakna magnetring, och då måste laddaren läggas rätt för hand varje gång. Eller så har det magnetring, och då dras laddaren till rätt läge av sig själv precis som utan fodral. Bara två fodral i jämförelsen klarar det sista.",
+          "Den andra frågan är vad som ska få plats. Kortkapaciteten spänner från två fack till tio, och myntfacket finns bara i tre av tolv. Det är myntfacket snarare än kortfacken som avgör om plånboken kan lämnas hemma helt, eftersom mynt i en annan ficka betyder att du fortfarande bär två saker.",
+          "Den tredje är materialet. Ett fodral viks flera gånger om dagen, och det är i vecket skillnaden syns: läderimitation spricker där, garvat läder mjuknar och mörknar. Väljer du att fodralet ska hålla länge filtrerar verktyget bort allt utom garvat läder.",
+        ],
+      },
+      {
+        heading: "När svaret blir tomt är det inte ett fel",
+        body: [
+          "Flera kombinationer går inte att uppfylla, och det är verktygets mest användbara besked. Inget fodral i jämförelsen kombinerar nio kortfack med trådlös laddning: de som laddar tar tre kort, och de som tar nio eller tio blockerar laddningen. Inget fodral med myntfack laddar trådlöst. Och alla fodral med nio fack eller fler är i läderimitation, eftersom fler fack kräver ett tunnare och mjukare material.",
+          "Det är kategorins verkliga avvägning, och den står inte utskriven någonstans i handeln. När väljaren säger att kombinationen inte finns är det svaret på frågan, inte ett tomt sökresultat.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Varför får jag inget resultat?",
+        answer:
+          "För att kombinationen du valt inte finns, och verktyget säger vilken av kraven som krockar. Det vanligaste är en hel plånbok plus trådlös laddning. Fodral som laddar genom materialet är tunna och tar tre kort, medan fodral med nio eller tio fack bygger så mycket att laddningen inte når igenom. Släpp det krav som betyder minst för dig, så kommer träffarna tillbaka.",
+      },
+      {
+        question: "Varför föreslås inte alltid testvinnaren?",
+        answer:
+          "För att frågan här är en annan än den rankningen svarar på. Rankningen säger vilket fodral som är bäst sammantaget, väljaren säger vilka som klarar just dina krav. Ska du bära hela plånboken är vinnaren fel svar, eftersom den tar tre kort, och då föreslås ett fodral som ligger längre ner men tar tio. Träffarna sorteras dessutom billigast först, eftersom frågan är vad som räcker.",
+      },
+      {
+        question: "Varför frågar verktyget inte om RFID-skydd?",
+        answer:
+          "Eftersom uppgiften inte skiljer produkterna åt. Ingen tillverkare publicerar hur mycket skyddet dämpar, vid vilken frekvens eller mot vilken standard, och både det billigaste och det dyraste fodralet i jämförelsen anger att kortfacken är RFID-skyddade. Ett filter på ett ja som alla har hade sett ut som ett urval utan att vara ett. Vad skyddet faktiskt gör står i köpguiden.",
+      },
+    ],
+    usedOn: ["iphone-fodral"],
+    updated: "2026-08-05",
+  },
+  {
     slug: "skaltypsvaljare",
     name: "Skaltypsväljaren",
     title: "Vilken sorts iPhone-skal behöver du?",
@@ -1654,7 +1703,7 @@ export const TOOLS: Tool[] = [
       "hygrometer",
       "luftkvalitetsmatare",
     ],
-    updated: "2026-08-04",
+    updated: "2026-08-05",
   },
   {
     /* Kabelsidans enda verktyg. Slugen bär inte ordet väljare, av samma skäl

@@ -2802,7 +2802,86 @@ export const SLACKSPRAY: TestPage = {
   ],
 };
 
+/**
+ * iPhone-fodral, alltså uppfällbara plånboksfodral.
+ *
+ * Systersidan till IPHONE_SKAL, byggd samma dag. Den sidans avgränsning sköt
+ * uttryckligen plånboksfodralen hit.
+ *
+ * ## ⚠️ Slugen är vald mot rekommendationen, och det är dokumenterat
+ *
+ * `fodral` används i svensk handel både om plånboksfodral och som allmänt ord
+ * för mobilskydd. Testix driver båda betydelserna samtidigt, med
+ * `/test/planboksfodral-till-mobil` och `/test/fodral-till-mobil`.
+ * `/planboksfodral` rekommenderades just för att undvika krock med
+ * `/iphone-skal`; användaren valde `/iphone-fodral` 2026-08-05 med risken
+ * utskriven.
+ *
+ * Motåtgärden ligger på sidan i stället: H1, ingress och `title` säger
+ * **plånboksfodral** och inte bara fodral, och de två sidorna korslänkar
+ * varandra som `/brandvarnare` och `/smart-brandvarnare`. Signalerna på sidan
+ * ska bära den skillnad URL:en inte bär.
+ *
+ * ## ⚠️ Inget kriterium för RFID, efter användarbeslut
+ *
+ * Uppgiften är ett rent ja utan tal, den skiljer inte produkterna åt, och den
+ * enda oberoende provning som finns uteslöt fodralens mekanism. Se
+ * lib/spec-schema.mjs, ALDRIG_BEDOMD.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Ingen har provat plånboksfodral. Testix jämför kundrecensioner och sortiment
+ * och säger det själva, vilket är ärligare än deras skalsida.
+ */
+export const IPHONE_FODRAL: TestPage = {
+  slug: "iphone-fodral",
+  label: "iPhone-fodral",
+  title:
+    "iPhone plånboksfodral bäst i test 2026: tolv fodral från 149 till 799 kr",
+  category: ELEKTRONIK,
+  methodology:
+    "Sidan rankar uppfällbara plånboksfodral till iPhone 17, alltså boken med kortfack som viks över skärmen. Avtagbara 2-i-1, magnetiska korthållare och skal med kortficka är andra produkter och förklaras i köpguiden. Vill du ha ett vanligt skyddsskal utan kortfack ligger den jämförelsen på /iphone-skal. Ett fodral passar exakt en modellstorlek, så priset gäller genomgående 17 Pro-varianten. Ingen har provat plånboksfodral: det finns ingen svensk eller internationell provning av kategorin, och vi har inte använt ett enda fodral själva. Betygen bygger därför på vad butiken och tillverkaren publicerar om just den artikeln, läst på produktsidan och daterat. Den uppgift som skiljer mest och syns minst är om trådlös laddning fungerar genom fodralet: sju av tolv blockerar den helt, och två fodral från samma tillverkare till nästan samma pris skiljer sig på just den punkten. Kortkapaciteten spänner från två fack till tio. RFID-skydd betygsätts inte, efter användarbeslut och av tre skäl: ingen tillverkare anger dämpning, frekvens eller standard, uppgiften skiljer inte produkterna åt eftersom både det billigaste och det dyraste anger den, och den enda oberoende utvärdering som gjorts av RFID-blockerande produkter uteslöt uttryckligen den skärmande mekanism ett fodral använder. Ett fodral bär dessutom en strålningsdämpande membranuppgift som vi varken återger eller bemöter, eftersom ett hälsopåstående kräver en myndighetskälla vi inte läst i original. Priser, artikelnummer och lagerstatus är lästa på butikens egen produktsida 2026-08-05. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "kortkapacitet",
+      label: "Kortkapacitet och förvaring",
+      weight: 25,
+      description:
+        "Hur mycket plånbok du faktiskt får, vilket är skälet att välja ett fodral framför ett skal. Spannet går från två kort till tio, alltså fem gånger, och det följer inte priset: fodralet med flest fack kostar 279 kronor medan de för 699 och 799 tar tre. Här väger antalet kortfack tyngst, men också vad som mer får plats. Ett sedelfack är standard och finns i elva av tolv. Ett myntfack är det inte, och för den som fortfarande betalar kontant ibland är det skillnaden mellan en plånbok och ett korthållarfodral. Ett genomskinligt ID-fönster väger också in, eftersom legitimation är det kort man oftast behöver visa utan att ta ut. Var uppmärksam på att många fack också gör fodralet tjockt: tio fyllda kortfack är en klump i fickan, och den avvägningen kan sidan inte göra åt dig.",
+    },
+    {
+      key: "konstruktion",
+      label: "Material och konstruktion",
+      weight: 25,
+      description:
+        "Vad fodralet är gjort av och hur telefonen sitter fast i det, alltså de två saker som avgör om det håller ett år eller fem. Materialet spänner från läderimitation till fullnarvigt läder, och skillnaden är verklig: konstläder spricker i vecket där fodralet viks, medan garvat läder mjuknar och mörknar. Tre av fodralen anger härkomst ända ned till garveriet. Infästningen väger lika tungt och nämns nästan aldrig i rubriken. Tre konstruktioner säljs under samma ord. Ett limmat plastskal släpper från lädret när limmet åldras, en mjuk TPU- eller silikonhållare gör det inte, och ett avtagbart magnetskal går att lyfta ur helt. Här väger också vad fodralet skyddar: ett metallramat kameraurtag och en förhöjd kant runt skärmen är sådant du märker den dag telefonen ligger med luckan öppen.",
+    },
+    {
+      key: "laddning",
+      label: "Laddning och magnet",
+      weight: 20,
+      description:
+        "Om telefonen går att ladda utan att tas ur fodralet, och om magneterna sitter rätt för MagSafe. Det här är kategorins största och minst synliga skillnad. Sju av tolv fodral blockerar trådlös laddning helt, alltså måste telefonen ur fodralet varje kväll, och det står i specifikationen men aldrig i rubriken. Fällan är att två fodral från samma tillverkare, i samma prisklass och med nästan samma namn, kan skilja sig på just den punkten. Här väger tre nivåer. Lägst får den som blockerar laddningen. Mitten får den som laddar på en platt Qi-platta men saknar magnetring, alltså där laddaren måste läggas rätt för hand. Högst får den som har magnetring och därmed drar en MagSafe- eller Qi2-laddare till rätt läge av sig själv. I ett av fodralen kan magneterna dessutom störa induktionsladdningen, och då är trådlös laddning ett kanske snarare än ett ja.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du får för pengarna, mätt mot vad samma sak kostar någon annanstans i jämförelsen. Spannet är fem gånger, från 149 till 799 kronor, och det köper två olika saker. I botten får du konstläder, tre kort och ingen trådlös laddning. I toppen får du garvat läder med angiven härkomst, mikrofiberfoder och laddning genom fodralet. Däremellan ligger kategorins intressantaste punkt: ett fodral för 199 kronor som laddar trådlöst och bär magnetring, alltså den funktion som annars kostar 500 kronor till. Här väger också garantin, eftersom den skiljer sig mer än i någon annan kategori vi jämfört: från sex månader till två år på en produkt som ska vikas flera gånger om dagen. Ett fodral är en gångjärnskonstruktion, och gångjärn är det som går sönder.",
+    },
+    {
+      key: "vardagsfunktion",
+      label: "Vardagsfunktion",
+      weight: 10,
+      description:
+        "Sådant du använder varje dag utan att tänka på det. Stativfunktionen väger tyngst: ett fodral som viks till ett ställ gör telefonen till en liten skärm på ett bord, och nio av tolv gör det medan tre inte gör det. Stängningen väger också in, och där finns tre lösningar med olika svagheter. Ett enkelt magnetlås öppnar sig i väskan när fodralet är fullt, dubbla magnetknäppen håller bättre just därför, och en dragkedja håller allt men tar längre tid. En avtagbar handledsrem är den detalj som faktiskt hindrar att telefonen tappas, och den finns på två. Vikriktningen räknas också: nästan alla viker åt sidan som en bok, och ett viker uppåt, vilket passar den som håller telefonen i en hand. Vikten är sidans lägsta med flit, eftersom ingen av de här sakerna är skälet att köpa ett fodral.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  IPHONE_FODRAL,
   SLACKSPRAY,
   POWERBANK_20000,
   IPHONE_SKAL,

@@ -32,6 +32,7 @@ pnpm check:tackning     # invisible rows, rows under 50 % filled
 | Touch a single sentence | Skill `swedish-voice` — all of it, plus `references/writing-guide.md` |
 | Judge the ingress or section order | `.claude/references/page-anatomy.md` |
 | Fill a spec cell | `.claude/references/spec-sourcing.md` |
+| Write that a fact is not published | `.claude/references/establishing-absence.md` — six of ten such claims were false |
 | Change spec fields or `highlight` | `.claude/context/data.md` |
 | Finish | `.claude/context/ship.md` |
 
@@ -109,13 +110,53 @@ Now that the prose is right, you know which facts it needs.
 4. Any value you add is tiered, and a safety-shaped number needs tier A or two
    agreeing tier-B sources. Never carry a value between models — match on GTIN.
 
-### 7. Two variants ranked twice
+### 7. The absence pass — verify every claim that something is missing
+
+The pass that did not exist until 2026-08-05, and the one that found the
+worst errors on the site.
+
+List every claim on the page that an absence exists — in a con, a spec value, a
+tagline, a verdict, a FAQ answer. `.agent/pastaenden-om-franvaro.md` holds the
+standing inventory for every page, with file, product and field; regenerate it
+if it is stale. Then take each claim through
+`.claude/references/establishing-absence.md`.
+
+**Expect to be wrong.** Ten claims were checked on 2026-08-05 and seven were
+false. `/hemlarm` told readers for months that Gardio publishes no price; Gardio
+publishes 249 kr/månad, no start fee and a 24-month binding period on its own
+product page, and the correction moved the company from sixth place to third.
+
+Three rules of thumb from that round:
+
+- A claim about **the manufacturer** cannot be established from a retailer.
+  Take the article number off the shop page and go to the manufacturer with it.
+- A claim about **a company's whole site** cannot be established from its front
+  page. Enumerate the sitemap and read the shop.
+- The **manual the retailer itself links to** answered two of the seven, and
+  held five spec rows on one charger alone. Open it first, not last.
+
+Where the claim survives, rewrite it to name what you checked. "Inget pris
+publicerat på den sida vi läst" was the only one of ten that could not be
+falsified, and the only one that said where we had looked.
+
+Anything that changes a score goes in `lib/corrections.ts` with
+`affectedRanking: true`. A correction that moves a ranking and is not logged
+breaks the promise on `/sa-testar-vi`.
+
+**A note on step 3.** "Any unknown is the product's property, never a source's
+conduct" is a rule about *phrasing*, and it must never be used to convert a
+fact you did not look for into a fact about the product. "Vikten är okänd" reads
+as a property of the powerbank. It was a property of our research: Kjell
+publishes 625,1 g on the page we were already on. Establish the absence first,
+then phrase it.
+
+### 8. Two variants ranked twice
 
 If two ranked products are the same thing with a small difference, move one to
 the considered list and state the difference. The test: swap the names, and see
 whether the two verdicts can still be told apart.
 
-### 8. Finish
+### 9. Finish
 
 ```bash
 pnpm check

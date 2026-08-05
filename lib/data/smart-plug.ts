@@ -74,12 +74,18 @@ const SEEDS: ProductSeed[] = [
     cons: [
       "Ingen oberoende testare har granskat den",
       "Saknar Matter, så den är beroende av att Smart Life-appen finns kvar",
-      "Viloförbrukningen anges inte av tillverkaren",
+      /* Stod "Viloförbrukningen anges inte av tillverkaren" till 2026-08-05.
+         Fel: manualen som Kjell länkar från produktsidans supportflik anger
+         "Standby: <1 W". Butikssidan har ingen specifikationstabell alls, och
+         den tystnaden lästes som ett besked från tillverkaren. */
+      "Manualen anger maxlast 2 300 W i tabellen och 3 680 W i säkerhetstexten",
     ],
     specs: [
       { label: "Maxlast", value: "3 680 W (16 A)", highlight: true },
       { label: "Energimätning", shortLabel: "Mätning", value: "Ja, i appen", highlight: true },
-      { label: "Viloförbrukning", shortLabel: "Viloläge", value: "Ej angiven", highlight: true },
+      /* Ur manualen, inte butikssidan: "Standby: <1 W". Se rättelsen
+         2026-08-05 och .agent/research/pastaenden-kontroll-2026-08-05.md. */
+      { label: "Viloförbrukning", shortLabel: "Viloläge", value: "<1 W", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi 2,4 GHz", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "App", value: "Smart Life" },

@@ -18,6 +18,7 @@ not up front.
 | 1 | `.claude/context/research.md`, `.claude/context/money.md` |
 | 3–4 | `.claude/context/data.md` |
 | 4 | `.claude/references/spec-sourcing.md`, before the gap pass |
+| any | `.claude/references/establishing-absence.md`, **the moment you are about to write that a fact is not published** |
 | 4 | Skill `swedish-voice`, before any reader-facing sentence |
 | 5 | `.claude/context/build.md`, `.claude/references/page-anatomy.md` |
 | 5 | `.claude/context/traps.md`, before writing component code |
@@ -97,6 +98,22 @@ sources, and other "bäst i test" sites are a lead and never a source.
 None of this reaches the reader. An unobtainable value is `Ej angiven` in the
 data file, renders as a dash, and is explained once in the weighting — never in
 prose, a heading, a verdict, a pro/con or a FAQ answer.
+
+**`Ej angiven` is a claim, and it is the one we get wrong.** Before you write
+it — or any of *anges inte*, *publiceras inte*, *saknas*, *är okänd*, *ingen
+tillverkare anger* — work
+`.claude/references/establishing-absence.md`. Ten such claims were checked on
+2026-08-05; seven were false. Two had the answer in the manual the retailer's
+own product page links to, two on the manufacturer's product page, one in the
+manufacturer's datasheet, and one on the retailer page we had already read.
+
+The two mechanical habits that would have caught most of them:
+
+- **Render the product page and take the article number.** Kjell ships specs as
+  JavaScript-rendered prose, so `curl` and table scrapers both return an empty
+  result that is indistinguishable from an empty page.
+- **Open the manual before declaring anything unstated.** It is one click from
+  the product page, and it routinely carries the five fields the page does not.
 
 ## Phase 5: Build
 

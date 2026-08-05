@@ -43,6 +43,13 @@ WebFetch converts to markdown and loses `href` targets and JSON-LD. The link
 targets are the most valuable thing on a competitor page: they reveal the
 monetisation model, which shapes the whole design.
 
+**This applies to competitors only.** For a *product* page you are reading to
+establish a fact, raw HTML is the wrong tool and has cost us real errors: Kjell
+renders its specifications with JavaScript, so `curl` returns an empty page that
+looks exactly like a page with nothing on it. Render those, and read
+`innerText` rather than table rows. See
+`.claude/references/establishing-absence.md` §1.
+
 ### What to extract
 
 ```bash
@@ -179,6 +186,27 @@ methodology block. It never appears in prose. See the `swedish-voice` skill,
 Write to `.agent/research/{slug}.md`: every cell you could not fill, **and
 where you looked**. A refresh six months out should not burn the same hours
 rediscovering that HOBOT does not publish a line rating anywhere.
+
+### Before you write that something is not published
+
+Stop and read `.claude/references/establishing-absence.md`.
+
+The trigger is not a phase in this document. It is the sentence you are about
+to write. The moment the words *anges inte*, *publiceras inte*, *saknas*, *är
+okänd*, *Ej angiven* or *ingen tillverkare anger* form in a con, a spec cell, a
+tagline or a verdict, you have started a research task rather than finished a
+writing one.
+
+This matters more than any other instruction in this file, because it is the
+one we have demonstrably failed. On 2026-08-05 ten such claims were checked
+against the sources. **Seven were false and one was unprovable as written.** Six of the
+seven had their answer in the manufacturer's own material — a product page, a
+datasheet, or the manual the retailer itself links to — and the seventh was on
+the retailer page we had already read, written as prose instead of a table.
+
+The gap pass above catches empty *cells*. It does not catch a confident
+sentence, because a sentence does not look like a gap. That is the hole the
+reference closes.
 
 ## 5. Also-rans
 

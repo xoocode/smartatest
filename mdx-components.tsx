@@ -55,6 +55,7 @@ const TOOL_SLUGS: Record<string, string> = {
   OutdoorTimerPicker: "timervaljare-utomhus",
   WaterLeakSensorPicker: "vattenlarmsvaljare",
   IphoneCaseTypePicker: "skaltypsvaljare",
+  IphoneWalletFolioPicker: "planboksfodralvaljare",
   InsurancePaybackCalculator: "aterbetalning-vattenfelsbrytare",
   HomeFireKitPlanner: "brandskydd-hemma",
   CoAlarmNeedPicker: "behover-du-kolmonoxidvarnare",

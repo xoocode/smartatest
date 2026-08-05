@@ -46,6 +46,14 @@ export type Correction = {
 export const CORRECTIONS: Correction[] = [
   {
     date: "2026-08-05",
+    href: "/luftkvalitetsmatare",
+    page: "Luftkvalitetsmätare",
+    changed:
+      "Vi angav att Airthings View Radon och Wave Mini inte publicerar någon noggrannhet. Båda gör det. Airthings anger för View Radon en precision på omkring 5 procent efter två månader vid 200 Bq/m³, plus ±0,5 grader för temperatur och ±3 procent för fukt, och för Wave Mini ±1 grad och ±3 procent. Uppgifterna står på tillverkarens egna produktsidor. Betyget för angiven noggrannhet höjs från 3,5 till 4,5 för View Radon och från 2,5 till 3,0 för Wave Mini. Ordningen mellan produkterna påverkas inte. Samtidigt ströks påståendet att Netatmos tolerans inte står någonstans: den sidan hos Netatmo som skulle kunna innehålla den ligger bakom en botkontroll och har inte gått att läsa, vilket är något annat än att uppgiften saknas.",
+    affectedRanking: false,
+  },
+  {
+    date: "2026-08-05",
     href: "/hemlarm",
     page: "Hemlarm",
     changed:
