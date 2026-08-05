@@ -18,9 +18,28 @@ import { productImage } from "@/lib/images";
  * AFFILIATE-SWAP — `merchantUrl` är det som ligger i href i dag: direkt,
  * ospårat, dofollow. Inget `affiliateUrl` någonstans. Se lib/links.ts.
  *
- * ⚠️ ALLA ÅTTA LÄNKAR GÅR TILL KJELL, som på systersidan. Koncentrationen står
- * utskriven på sidan. Nästa runda bör bredda mot Teknikdelar, Proshop och
- * TheMobileStore, se .agent/research/powerbank.md §5.
+ * ## Länkmålen, breddade 2026-08-05
+ *
+ * Sju av åtta länkar går till Kjell och en till Teknikdelar. Koncentrationen
+ * står utskriven på sidan.
+ *
+ * **Ugreen Nexode flyttades till Teknikdelar** efter butikskartläggningen i
+ * .agent/plans/butikskartlaggning-elektronik.md. Identiteten är bekräftad:
+ * Kjell säljer den som "Nexode" utan att publicera GTIN, Teknikdelar som
+ * "PB726" med GTIN 6941876269921, och det numret löser upp till "Ugreen Nexode
+ * 20000mAh 165W med indragbar kabel" hos flera oberoende återförsäljare.
+ * Chargerlabs teardown betitlar samma produkt "UGREEN Nexode 20000mAh 165W
+ * Power Bank with Retractable USB-C Cable (PB726)". Samma artikel, två namn.
+ *
+ * Villkoren är identiska: 990 kr hos båda, 5 % provision, 30 dagars cookie.
+ * Bytet ger alltså ingen extra provision. Skälet är att en sida där varje
+ * produkt länkar till samma butik läses som köpt placering även när
+ * rankningen är ärlig, se .claude/context/money.md. Teknikdelar publicerar
+ * dessutom GTIN, vilket Kjell inte gör.
+ *
+ * ⚠️ Nio av sexton produkter över de två powerbanksidorna är Linocell, alltså
+ * Kjells eget varumärke, och kan aldrig flyttas. TheMobileStores 10 % är
+ * oanvändbar här: de för varken Anker, Ugreen eller Denver.
  *
  * ## Här publiceras wattimmen, och det är själva poängen
  *
@@ -351,9 +370,11 @@ const SEEDS: ProductSeed[] = [
     },
     price: 990,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Kjell & Company",
+    /* Flyttad från Kjell till Teknikdelar 2026-08-05. Samma artikel, samma
+       pris, samma villkor — se filhuvudet. */
+    merchant: "Teknikdelar",
     merchantUrl:
-      "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank/ugreen-nexode-powerbank-20-000-mah-165-w-med-inbyggd-kabel-p21296",
+      "https://www.teknikdelar.se/produkt/ugreen-powerbank-pb726-20000mah-165w-gra",
     userRating: { value: 4, count: 2, scale: 5, checkedAt: PRICE_CHECKED },
     superlative: "Bäst för kabeln som sitter i",
     pros: [
@@ -381,7 +402,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Batterityp", value: "Litiumjon" },
       { label: "Mått", value: "146 × 54 × 50 mm" },
       { label: "Vikt", value: "535 g" },
-      { label: "Artikelnummer", value: "21296" },
+      { label: "GTIN", value: "6941876269921" },
     ],
     verdict:
       "Ugreen Nexode rymmer 20 000 mAh, väger 535 gram och kostar 990 kronor. Den har en kabel som sitter fast och klarar hundra watt.\n\n**Den inbyggda kabeln är 65 centimeter och tar 100 watt**, vilket är ovanligt: de flesta fasta kablar är korta och effektsvaga. Här kan den ladda en bärbar dator på riktigt, och du slipper packa en separat sladd som klarar effekten. Till det kommer en USB-C-port och en USB-A, plus en TFT-display som visar batterinivå, effekt och beräknad laddtid.\n\n**Sju laddprotokoll är fler än något annat här.** PD, QC, PPS, SCP, FCP, AFC och UFCS betyder i praktiken att den snabbladdar nästan vilken telefon som helst, inklusive kinesiska märken som använder egna standarder.\n\n**Två saker väger emot, bokstavligen.** 535 gram är tyngst i jämförelsen, 135 gram mer än den lättaste, och måtten på 146 × 54 × 50 millimeter gör den kantig i en full väska. Och energiinnehållet i wattimmar går inte att läsa någonstans, vilket är den enda uppgift du behöver för att svara på om den får följa med i kabinen.\n\nLaddar du en dator och en telefon på tåget och vill slippa hålla reda på en tjock kabel är den värd sina pengar. Ska den flyga med dig är det obekvämt att inte kunna svara på frågan vid gaten, och då är Linocell 165 W både lättare att räkna på och 9 kronor billigare.",

@@ -279,8 +279,12 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ⚠️ VIKT ÄR ETT EGET KRITERIUM här men inte på moderssidan: produkterna
        väger 400 till 535 g, och bara tre av åtta anger vikten i butiken.
 
-       ⚠️ Alla åtta länkar går till Kjell, 5 % / 30 d, ingen PPC. Koncentrationen
-       står utskriven på sidan. Se .agent/research/powerbank.md §7b. */
+       ⚠️ Sju av åtta länkar går till Kjell, 5 % / 30 d. Ugreen Nexode flyttades
+       till Teknikdelar 2026-08-05 efter butikskartläggningen: samma artikel
+       (GTIN 6941876269921 = Nexode = PB726), samma 990 kr, samma 5 % / 30 d.
+       Bytet ger ingen extra provision utan bryter koncentrationen. Ingen av
+       butikerna tillåter PPC. Se .agent/plans/butikskartlaggning-elektronik.md
+       och .agent/research/powerbank.md §7b. */
     href: "/powerbank-20000",
     label: "Powerbank 20 000 mAh",
     category: ELEKTRONIK,
