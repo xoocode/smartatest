@@ -342,43 +342,63 @@ const SEEDS: ServiceSeed[] = [
       "Sector Alarm publicerar det mest genomarbetade avtalet någon i branschen lägger ut: en daterad pdf med utgåva, 22 paragrafer, avgifter angivna i kronor och ett uttalat ansvarstak. Läs det och du vet ovanligt mycket om vad du ger dig in i.\n\nMen du får inte veta vad det kostar. Månadsavgiften finns ingenstans på deras sajt, och det är den största enskilda posten i hela affären.\n\nVillkoren innehåller dessutom de hårdaste slutklausulerna av alla åtta. Punkt 8 säger att larmsystemet vid var tid förblir bolagets egendom och att du aldrig förvärvar någon rätt utöver nyttjanderätten, så det finns ingen friköpsmöjlighet över huvud taget. Punkt 12.3 säger att nycklar du lämnat in förstörs utan förvarning om du inte skriftligen ber att få dem tillbaka, och att returen då kostar 1 990 kronor. Det är den enskilt mest överraskande siffran vi hittade i den här kategorin.",
   },
   {
+    /* ⚠️ RÄTTAD 2026-08-05. Posten påstod "Inget pris publicerat någonstans på
+       sajten" och gav 2,0 på öppenhet. Det var fel, och felet var vårt eget
+       sätt att leta: någon läste gardio.se, såg ingen prislapp på förstasidan
+       och skrev en slutsats om hela sajten.
+
+       Vad som faktiskt står där, maskinläst ur deras egen JSON-LD samma dag:
+       elva av elva produkter har pris. Hemlarmet heter "Gardio hemlarm med två
+       HD-kameror och väktare", kostar 249,00 kr/månad, har 24 månaders
+       bindningstid och ingen startavgift. Sajten är WooCommerce med publik
+       sitemap på /wp-sitemap.xml.
+
+       Leta aldrig efter ett pris på en förstasida. Leta i sitemapen, i
+       butiken och i strukturerad data. */
     id: "gardio",
     provider: "Gardio",
-    name: "Hemlarm",
+    name: "Hemlarm med två HD-kameror och väktare",
+    shortName: "Hemlarm med väktare",
     tagline:
-      "Publicerar fullständiga villkor men inte ett enda pris.",
-    providerUrl: "https://gardio.se/",
+      "Enda bolaget som publicerar hela priset och lovar fria utryckningar.",
+    providerUrl:
+      "https://gardio.se/produkt/gardio-trygg-larmadress-avarn/",
     checkedAt: CHECKED,
-    scores: { oppna: 2, lamna: 3.5, larm: 3, larmcentral: 3, prisvarde: 2.5 },
+    scores: { oppna: 5, lamna: 3, larm: 3.5, larmcentral: 3, prisvarde: 4.5 },
     terms: {
-      monthlyFee: null,
-      startFee: null,
-      bindingMonths: null,
+      monthlyFee: 249,
+      /* Noll och inte null. "Ingen startavgift" står utskrivet på
+         produktsidan, alltså är det en uppgift och inte en lucka. */
+      startFee: 0,
+      bindingMonths: 24,
       noticeMonths: 3,
       ownership: "kunden",
       termsUrl: "https://gardio.se/villkor",
       termsCheckedAt: CHECKED,
     },
     pros: [
+      "Månadsavgift, bindningstid och startavgift står på produktsidan",
       "Fullständiga allmänna villkor publicerade och läsbara utan inloggning",
+      "Fria väktarutryckningar anges, vilket ingen annan skriver ut",
+      "Två HD-kameror ingår i månadsavgiften, ingen startavgift",
       "Villkoren förutser att äganderätten övergår till kunden vid köp",
-      "Uppsägningstid angiven i villkoren, normalt tre månader",
-      "Möjligt att teckna både med och utan bindningstid",
     ],
     cons: [
-      "Inget pris publicerat någonstans på sajten",
-      "Ingen startavgift och ingen månadsavgift går att hitta utan kontakt",
-      "Larmcentralen är inköpt kapacitet och inte egen",
+      "24 månaders bindningstid, den längsta av de åtta",
+      "Larmcentralen är Avarn, alltså inköpt kapacitet och inte egen",
+      "Priset står i butiken men inte på de två sidor som förklarar larmet",
     ],
     specs: [
-      { label: "Månadsavgift", value: "Publiceras inte", highlight: true },
-      { label: "Startavgift", shortLabel: "Start", value: "Publiceras inte", highlight: true },
-      { label: "Bindningstid", value: "Både med och utan erbjuds, belopp saknas", highlight: true },
+      { label: "Månadsavgift", value: "249 kr", highlight: true },
+      { label: "Startavgift", shortLabel: "Start", value: "Ingen", highlight: true },
+      { label: "Bindningstid", value: "24 mån", highlight: true },
       { label: "Uppsägningstid", value: "Normalt 3 mån enligt villkoren", highlight: true },
       { label: "Äganderätt", value: "Övergår till kunden vid köp", highlight: true },
+      { label: "Ingår", value: "Två HD-kameror, app, Avarn larmcentral" },
+      { label: "Väktarutryckning", value: "Ingår, anges som fri" },
     ],
     verdict:
-      "Gardio speglar Sector Alarm i miniatyr: villkoren är publicerade och läsbara, priset är det inte. Villkorstexten är ovanligt utförlig för ett litet bolag och innehåller en formulering de större saknar, nämligen att äganderätten övergår till kunden när utrustningen är köpt. Det är den enda vägen ut ur inlåsningsproblemet och den är värd att lyfta. Att bolaget ändå hamnar i nedre halvan beror på att det vi väger tyngst är vad du kan ta reda på i förväg, och där finns inget pris alls. Larmcentralen är dessutom inköpt kapacitet snarare än egen, vilket i sig varken är bra eller dåligt men gör att ansvarskedjan har ett led till.",
+      "Gardio är det enda av de åtta bolagen som skriver ut hela priset: 249 kronor i månaden, ingen startavgift, 24 månaders bindningstid. Det står i butiken, på produktsidan, utan att du behöver lämna ifrån dig ett telefonnummer. Verisure publicerar också hela sitt pris, men Verisure kostar 599 i månaden plus 3 990 kronor i startavgift, alltså nästan tre gånger så mycket över fem år.\n\nI månadsavgiften ingår två HD-kameror och Avarns larmcentral, och bolaget anger fria väktarutryckningar. Det sista är värt att stanna vid: inget avtal i den här kategorin garanterar utryckning, och Gardio är det enda bolag som skriver att utryckningarna är fria. Vi har läst det på produktsidan och inte i avtalsvillkoren, så väg det därefter.\n\nDet som drar ned är bindningstiden. 24 månader är dubbelt mot Verisures tolv och det längsta någon i jämförelsen kräver. Larmcentralen är dessutom inköpt kapacitet snarare än egen, vilket varken är bra eller dåligt i sig men lägger ett led till i ansvarskedjan.\n\nEn anmärkning om oss själva: fram till den 5 augusti 2026 stod det på den här sidan att Gardio inte publicerar något pris alls. Det var fel, och det berodde på att vi läste förstasidan i stället för butiken. Rättelsen ligger på /rattelser.",
   },
   {
     id: "garda-alarm",

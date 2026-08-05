@@ -31,6 +31,7 @@ import { FONSTERPUTSROBOT_PRODUCTS } from "@/lib/data/fonsterputsrobot";
 import { SMART_HEM_HUBB_PRODUCTS } from "@/lib/data/smart-hem-hubb";
 import { SMART_TERMOSTAT_PRODUCTS } from "@/lib/data/smart-termostat";
 import { NYCKELSKAP_PRODUCTS } from "@/lib/data/nyckelskap";
+import { SLACKSPRAY_PRODUCTS } from "@/lib/data/slackspray";
 import { USB_C_LADDARE_PRODUCTS } from "@/lib/data/usb-c-laddare";
 import { USB_C_KABEL_PRODUCTS } from "@/lib/data/usb-c-kabel";
 import { GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/garageportsoppnare";
@@ -60,6 +61,7 @@ import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...SLACKSPRAY_PRODUCTS,
   ...IPHONE_SKAL_PRODUCTS,
   ...POWERBANK_PRODUCTS,
   ...POWERBANK_20000_PRODUCTS,

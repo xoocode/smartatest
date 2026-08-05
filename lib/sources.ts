@@ -2520,7 +2520,16 @@ export const HEMLARM_SOURCES: Source[] = [
     url: "https://gardio.se/villkor",
     market: "SE",
     kind: "standard",
-    note: "Fullständiga villkor publicerade och läsbara utan inloggning, vilket är ovanligt för ett mindre bolag. Anger uppsägningstid normalt tre månader, hanterar avtal både med och utan bindningstid, och innehåller en formulering de större saknar: att äganderätten övergår till kunden när utrustningen är köpt. Inget pris publiceras dock någonstans på sajten.",
+    note: "Fullständiga villkor publicerade och läsbara utan inloggning, vilket är ovanligt för ett mindre bolag. Anger uppsägningstid normalt tre månader, hanterar avtal både med och utan bindningstid, och innehåller en formulering de större saknar: att äganderätten övergår till kunden när utrustningen är köpt.",
+  },
+  {
+    publisher: "Gardio",
+    title: "Gardio hemlarm med två HD-kameror och väktare",
+    url: "https://gardio.se/produkt/gardio-trygg-larmadress-avarn/",
+    date: "2026-08-05",
+    market: "SE",
+    kind: "standard",
+    note: 'Produktsidan för hemlarmet, med hela priset utskrivet: "249,00 kr /månad", "Ingen startavgift, 24 månaders bindningstid". Anger att två HD-kameror, Avarns larmcentral och väktare med fria utryckningar ingår. Samtliga elva produkter i butiken har priset utskrivet. Sidan är skälet till rättelsen den 5 augusti 2026: vi hade läst förstasidan, sett ingen prislapp och dragit slutsatsen att bolaget inte publicerar priser.',
   },
   {
     publisher: "Svensk Brand- och Säkerhetscertifiering",
@@ -4213,7 +4222,42 @@ export const IPHONE_SKAL_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Källor för /slackspray.
+ *
+ * ⚠️ Kategorins enda oberoende utvärdering är ett examensarbete, inte en
+ * ackrediterad provning eller en myndighetsgranskning. Det ska stå rakt ut
+ * varje gång rapporten åberopas.
+ */
+export const SLACKSPRAY_SOURCES: Source[] = [
+  {
+    publisher: "Lunds tekniska högskola, Avdelningen för Brandteknik",
+    title: "Effekten av släcksprayer vid brandtillbud",
+    url: "https://lup.lub.lu.se/student-papers/search/publication/9071795",
+    date: "2022-01-17",
+    market: "SE",
+    kind: "test",
+    note: 'Kategorins enda oberoende utvärdering, och den enda källa här som prövat produkterna mot eld. Examensarbete på Brandingenjörsprogrammet av Casper Flensburg och Axel Kriborg, ISRN LUTVDG/TVBB--51XX--SE, 61 sidor. ⚠️ Skrivet under höstterminen 2020 och publicerat 2022; omslaget anger 2020 och copyrightraden 2022, så ett ensamt årtal blir missvisande. ⚠️ Det är ett examensarbete och inte en ackrediterad provning, vilket sidan säger rakt ut. Handledare var bland andra Marcus Runefors vid LTH, och de avslutande släckförsöken gjordes på övningsfältet Revinge. Två produkter provades, valda för att de var vanligast hos stora återförsäljare: Housegard FireStopper 600 ml och Taerosol Fire Fighter 500 ml. Härifrån kommer klasserna 5A 21B (E) 5F respektive 3A 13B (E) 5F, uppgiften att 43A 233B C är den lägsta klassning som rekommenderas till hemmet och i dagsläget bara uppfylls av sexkilos pulversläckare och niolitersskumsläckare, tömningstiderna 20–30 respektive 15–25 sekunder, kastlängderna 5–7 meter för pulversläckare och 4–5 för skumsläckare, samt beräkningen att en spray klarar släckning i möbler i cirka tre minuter efter att brandtillväxten startat. Rapportens egen slutsats är sidans utgångspunkt: "De största bristerna med produkten utgörs utöver detta av bristande eller annars misstolkningsbar information från tillverkare och återförsäljare." Den varnar också för att behållaren "riskerar att explodera vid upphettning". Två nyanser återges eftersom de talar för produkten: de som omkommit vid släckförsök hade enligt rapporten inte använt handbrandsläckare utan exempelvis vatten, och sprayen pekas ut som lämplig för den som på grund av rörelsesvårigheter inte kan hantera traditionell släckutrustning.',
+  },
+  {
+    publisher: "Svenska institutet för standarder",
+    title: "SS-EN 3-7:2004, Brand och räddning – Handbrandsläckare – Del 7: Egenskaper, funktionskrav och provningsmetoder",
+    url: "https://www.sis.se/produkter/miljo-och-halsoskydd-sakerhet/skydd-mot-brand/brandbekampning/ssen372004/",
+    kind: "standard",
+    note: 'Standarden som avgör vad talen på burken betyder, och skälet till att sidan alls går att skriva. Enligt LTH-rapporten klassas inom EU alla brandsläckningsprodukter avsedda för privatbruk enligt SS-EN 3–7, med undantag för brandfiltar. Det gäller alltså även släcksprayer, vilket är sidans utgångspunkt: sprayen säljs bredvid handbrandsläckaren och mäts med samma måttstock. A avser fibrösa bränslen som trä, textil och kartong, och talet framför är storleken på testbålet; B avser vätskeformiga bränslen och talet är liter n-heptan; C avser gasformiga bränslen och F fettbränder. D för metallbränder omfattas inte av standarden men förekommer ändå på släckare avsedda för det, vilket är relevant för litiumsprayerna. ⚠️ Vi har inte köpt standarden och återger därför ingenting om provvillkoren utöver det rapporten beskriver. Samma hållning som SS-EN 810 på /avfuktare och SS-EN 12453 på /garageportsoppnare.',
+  },
+  {
+    publisher: "Myndigheten för civilt försvar",
+    title: "Brandsäkerhet i hemmet",
+    url: "https://www.mcf.se/sv/rad-till-privatpersoner/brandsakerhet/brandsakerhet-i-hemmet/",
+    market: "SE",
+    kind: "standard",
+    note: '⚠️ Med som kontroll, och kontrollen föll ut negativt. Myndighetens råd till privatpersoner är att alla bör ha "brandvarnare, brandfilt och pulversläckare i sitt hem". Släckspray nämns inte, och talet 43A 233B C står inte på sidan. Den siffran har vi därför bara som LTH-rapportens återgivning av MSB, och den tillskrivs rapporten och aldrig myndigheten direkt. ⚠️ Adressen är dessutom flyttad: msb.se svarar med omdirigering hit sedan myndigheten delades vid årsskiftet 2026, vilket redan noterats för MSB RIB på /brandslackare. Att myndigheten rekommenderar en pulversläckare och inte en spray är i sig det tyngsta enskilda argumentet för hur sidan rangordnar.',
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/slackspray": SLACKSPRAY_SOURCES,
   "/iphone-skal": IPHONE_SKAL_SOURCES,
   "/powerbank-20000": POWERBANK_20000_SOURCES,
   "/powerbank": POWERBANK_SOURCES,

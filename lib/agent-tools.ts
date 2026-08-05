@@ -114,6 +114,15 @@ import {
   type LeakPresenceKey,
 } from "@/lib/tool-logic/leak-sensor";
 import {
+  CASE_CHARGING,
+  CASE_LOOKS,
+  CASE_USES,
+  decideCaseType,
+  type CaseChargingKey,
+  type CaseLookKey,
+  type CaseUseKey,
+} from "@/lib/tool-logic/case-type";
+import {
   CURTAIN_MOUNTS,
   CURTAIN_NOISE,
   CURTAIN_WINDOWS,
@@ -870,6 +879,69 @@ const leakSensorTool: AgentTool = {
   },
 };
 
+const caseTypeTool: AgentTool = {
+  name: "valj_iphone_skal",
+  description:
+    "Säger vilken sorts iPhone-skal som räcker: hybridskal med förstärkta hörn, tunt skal med kant runt kameran, eller det billigaste som finns. Avgörs av var telefonen är, om den laddas magnetiskt och hur skalet ska se ut. Frågar aldrig efter fallhöjd eller militärstandard, eftersom de talen inte går att jämföra mellan tillverkare.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      anvandning: {
+        type: "string",
+        enum: CASE_USES.map((o) => o.key),
+        description:
+          "Var telefonen är mest. ute kräver förstärkta hörn, ficka kräver kant runt kameran, hemma kräver ingetdera.",
+      },
+      laddning: {
+        type: "string",
+        enum: CASE_CHARGING.map((o) => o.key),
+        description:
+          "Hur telefonen laddas. magnet kräver en riktig magnetring; en metallplatta för bilhållare duger inte, eftersom den inte laddar.",
+      },
+      utseende: {
+        type: "string",
+        enum: CASE_LOOKS.map((o) => o.key),
+        description:
+          "Vad som ska synas. klar ger genomskinliga skal, matt ger matta, frostade, läder och robusta, egal begränsar inte urvalet.",
+      },
+    },
+    required: ["anvandning", "laddning", "utseende"],
+  },
+  run(args) {
+    const verdict = decideCaseType(
+      readString(args, "anvandning") as CaseUseKey,
+      readString(args, "laddning") as CaseChargingKey,
+      readString(args, "utseende") as CaseLookKey,
+    );
+
+    if (!verdict) {
+      return "Ange var telefonen är, hur den laddas och hur skalet ska se ut för att få ett svar.";
+    }
+
+    const criteria = [
+      verdict.needsCorners
+        ? "förstärkta hörn eller Air Cushion"
+        : "hörnkonstruktion behöver inte styra valet",
+      verdict.needsCameraCover
+        ? "kant runt kameran som är högre än linserna"
+        : "kamerakant behöver inte styra valet",
+      verdict.needsMagnetRing ? "magnetring, inte bara metallplatta" : "",
+      verdict.wantsFinish ? `yta: ${verdict.wantsFinish.join(" eller ")}` : "",
+    ].filter(Boolean);
+
+    return [
+      `${verdict.headline}.`,
+      verdict.why,
+      verdict.warning ? `Att veta: ${verdict.warning}` : "",
+      `Kraven att filtrera på: ${criteria.join(", ")}.`,
+      `Skal som uppfyller dem: ${SITE.url}/iphone-skal`,
+      `Väljaren med alla svar: ${toolUrl("skaltypsvaljare")}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  },
+};
+
 const thresholdTool: AgentTool = {
   name: "klarar_roboten_troskeln",
   description:
@@ -1241,6 +1313,7 @@ export const AGENT_TOOLS: Record<string, AgentTool[]> = {
   "installationsguide-strombrytare": [switchInstallTool],
   "effektkoll-smart-plug": [plugLoadTool],
   vattenlarmsvaljare: [leakSensorTool],
+  skaltypsvaljare: [caseTypeTool],
   "monteringsvaljare-gardin": [mountTool],
   "timervaljare-utomhus": [timerTool],
   "brandskydd-hemma": [fireKitTool],

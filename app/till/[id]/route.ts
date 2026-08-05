@@ -1,5 +1,5 @@
 import { createTillRoute } from "@/lib/r9track";
-import { findProduct } from "@/lib/data";
+import { findProduct, findService } from "@/lib/data";
 import { TRACK_CONFIG } from "@/lib/track-config";
 
 /**
@@ -26,15 +26,32 @@ export const { GET } = createTillRoute({
      Gäller bara gclid-kakan. Vidarelänken och affiliatelänken går ut oavsett
      samtyckessvar, se lib/consent.ts. */
   config: TRACK_CONFIG,
+  /* Både produkter och tjänster, och tjänsterna var borta i månader.
+     `ServiceCard` skickar `productId={service.id}` till samma `AffiliateCta`
+     som produkterna, alltså pekade varje knapp på /hemlarm mot /till/{id} —
+     och den här funktionen letade bara i ALL_PRODUCTS. Alla åtta larmbolag gav
+     404. Uppmätt 2026-08-05: /till/gardio, /till/sector-alarm och
+     /till/verisure svarade 404 i produktion medan /till/cleverio-ip200 gav
+     302. `pnpm check:lankar` täcker inte /till, se scripts/check-till.mjs. */
   resolve: (id) => {
     const product = findProduct(id);
-    if (!product) return null;
+    if (product) {
+      return {
+        url: product.affiliateUrl ?? product.merchantUrl,
+        merchant: product.merchant,
+        productId: product.id,
+        isAffiliate: Boolean(product.affiliateUrl),
+      };
+    }
+
+    const service = findService(id);
+    if (!service) return null;
 
     return {
-      url: product.affiliateUrl ?? product.merchantUrl,
-      merchant: product.merchant,
-      productId: product.id,
-      isAffiliate: Boolean(product.affiliateUrl),
+      url: service.affiliateUrl ?? service.providerUrl,
+      merchant: service.provider,
+      productId: service.id,
+      isAffiliate: Boolean(service.affiliateUrl),
     };
   },
 });

@@ -233,9 +233,16 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        att kontrollera dem artikel för artikel vore variantfällan. Nästa runda
        bör kontrollera 17, 17 Pro Max och Air per modell.
 
-       ⚠️ INGEN EGEN INTERAKTIV MODUL. Sidan använder de delade komponenterna
-       och har inget eget verktyg, till skillnad från /smart-belysning. En
-       väljare för skaltyp är den självklara kandidaten och är uppföljning. */
+       EGET VERKTYG: `skaltypsvaljare`, byggt 2026-08-05 direkt efter sidan.
+       Tre frågor om var telefonen är, hur den laddas och hur skalet ska se ut
+       ger kraven plus de rankade skal som uppfyller dem, billigast först.
+       Verktyget frågar aldrig efter fallhöjd eller militärstandard, av samma
+       skäl som kriterierna inte betygsätter dem.
+
+       ⚠️ Alla arton kombinationer är genomräknade: urvalet spänner 1 till 12
+       träffar, inget svar ger noll, och bara `hemma/sladd/egal` ger alla tolv.
+       Den tomma grenen i widgeten är alltså onåbar med dagens produkter men
+       står kvar, eftersom urvalet ändras när en produkt byts ut. */
     status: "live",
     updated: "2026-08-05",
     count: 12,
@@ -501,6 +508,65 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        23 kr mot deras 60. Släckmedlen delar inte marknaden: allt som säljs till
        privatpersoner är pulver, så ingen /pulverslackare. Släckspray och
        litiumbrand blir egna sidor. Se .agent/research/brandvarnare.md. */
+    /* `slackspray` byggd 2026-08-05. Sjätte sidan i brandfamiljen.
+
+       VALD PÅ INTERN EFTERFRÅGAN, inte på volym. Kön i sidkarta-framat.md är
+       slut, och av alla keyword-CSV:er finns bara nio termer med minst 500
+       sökningar i månaden — samtliga har redan en sida. Sidan valdes därför på
+       ett stående löfte i läsartext: /brandslackare säger om släcksprayen att
+       "den får en egen sida hos oss". Samma metod som gav /hygrometer.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `släckspray` finns inte i någon keyword-CSV.
+       Ta med `släckspray`, `brandsläckningsspray`, `släckspray litium` och
+       `brandspray` i nästa Keyword Planner-körning.
+
+       FYNDET: släcksprayer omfattas av SS-EN 3–7, alltså samma standard som
+       handbrandsläckarna på /brandslackare, och klassen ska stå på burken.
+       Housegard FireStopper anger 5A 21B (E) 5F och Taerosol Fire Fighter
+       3A 13B (E) 5F. Den lägsta klassning som rekommenderas till hemmet är
+       43A 233B C, alltså ett testbål ungefär åtta respektive fjorton gånger
+       större, och den nås bara av en sexkilos pulversläckare eller en
+       niolitersskumsläckare. Sidorna förklarar samma kod och länkar i varandra.
+
+       ANDRA FYNDET: Biltema anger ingen klass alls för någon av sina två
+       sprayer. Det är ett utfall på kriteriet och inget tomrum, se
+       ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       TREDJE FYNDET: litiumsprayerna säljs mot ett brandscenario standarden
+       inte provar. SS-EN 3–7 har ingen klass för litiumjonbatteribrand, och den
+       A-klass Lith-EX bär gäller trä och textil.
+
+       KÄLLAN är ett examensarbete från Avdelningen för Brandteknik vid Lunds
+       universitet, skrivet hösten 2020 och publicerat 2022, med släckförsök på
+       övningsfältet Revinge. ⚠️ Det är inte en ackrediterad provning och inte
+       en myndighetsgranskning, vilket sidan säger rakt ut. Rapportens egen
+       slutsats är sidans utgångspunkt: största bristen är "bristande eller
+       annars misstolkningsbar information från tillverkare och återförsäljare".
+
+       ⚠️ Housegards påstående att sprayen "ligger nära en traditionell
+       handbrandsläckares egenskaper" är LTH:s citat från omkring 2020.
+       housegard.se/brandslackare/slackspray.html svarar 404 i dag, så det får
+       aldrig skrivas i presens. Samma fälla som pressmeddelandet på
+       /vattenfelsbrytare.
+
+       ⚠️ KATEGORIN ÄR LITEN och det är kartlagt. Julas släckspraykategori
+       innehåller "0 av 0 produkter", och Brandvarnare.se — sajtens bästa
+       program på 15 % — för ingen släckspray alls. Fem produkter är hela
+       marknaden.
+
+       ⚠️ INGEN AV BUTIKERNA FINNS I ADTRACTION. Nayad, Clas Ohlson, Biltema och
+       Brandspecialisten saknas alla i katalogens 480 program, och inget eget
+       program hittades. Sidan länkar bästa pris.
+       Se .agent/research/slackspray.md. */
+    href: "/slackspray",
+    label: "Släckspray",
+    category: SAKERHET,
+    blurb: "43A rekommenderas för hemmet. Sprayerna anger 5A och 3A.",
+    status: "live",
+    updated: "2026-08-05",
+    count: 5,
+  },
+  {
     href: "/brandslackare",
     label: "Brandsläckare",
     category: SAKERHET,

@@ -17,6 +17,7 @@ import {
   INOMHUSKAMERA,
   KODLAS_YTTERDORR,
   ROBOTDAMMSUGARE,
+  IPHONE_SKAL,
 } from "@/lib/test-pages";
 import { formatPrice } from "@/lib/products";
 import { AgentTools } from "@/components/tools/agent-tools";
@@ -89,6 +90,10 @@ import { BRANDVARNARE_PRODUCTS } from "@/lib/data/brandvarnare";
 import { BRANDSLACKARE_PRODUCTS } from "@/lib/data/brandslackare";
 import { BRANDFILT_PRODUCTS } from "@/lib/data/brandfilt";
 import {
+  IPHONE_SKAL_CAPABILITIES,
+  IPHONE_SKAL_PRODUCTS,
+} from "@/lib/data/iphone-skal";
+import {
   FireKitPlanner,
   type FireKitItems,
   type KitItem,
@@ -97,6 +102,10 @@ import {
   LeakSensorPicker,
   type LeakSensorProduct,
 } from "@/components/tools/leak-sensor-picker";
+import {
+  CaseTypePicker,
+  type CaseTypeProduct,
+} from "@/components/tools/case-type-picker";
 import { InsurancePaybackCalculator } from "@/components/tools/insurance-payback-calculator";
 import { MountPicker, type CurtainProduct } from "@/components/tools/mount-picker";
 import { TimerPicker, type TimerProduct } from "@/components/tools/timer-picker";
@@ -309,6 +318,45 @@ function leakSensorProducts(): LeakSensorProduct[] {
       },
     ];
   });
+}
+
+/**
+ * Skalväljarens produkter.
+ *
+ * Samma form som `leakSensorProducts()`: egenskaperna kommer ur
+ * IPHONE_SKAL_CAPABILITIES och priset ur den resolvade produkten, så en
+ * prisändring aldrig behöver skrivas på två ställen. `priceValue` följer med
+ * vid sidan av det formaterade priset, eftersom väljaren sorterar billigast
+ * först och "349 kr" inte går att jämföra.
+ */
+function caseTypeProducts(): CaseTypeProduct[] {
+  return IPHONE_SKAL_CAPABILITIES.flatMap((cap) => {
+    const product = IPHONE_SKAL_PRODUCTS.find((p) => p.id === cap.id);
+    if (!product) return [];
+    return [
+      {
+        id: product.id,
+        brand: product.brand,
+        /* `name` och inte `shortName`. Widgeten renderar `{brand} {name}`, och
+           skalsidans shortName bär redan märket ("Spigen UH MagFit"), så
+           shortName här gav "Spigen Spigen UH MagFit" i träfflistan. Uppmätt i
+           webbläsaren, inte gissat. `name` är enligt Product-typen namnet utan
+           märke, vilket är precis vad som ska stå efter brand. */
+        name: product.name,
+        price: formatPrice(product.price, product.currency),
+        priceValue: product.price,
+        href: `/${IPHONE_SKAL.slug}#${product.id}`,
+        magnet: cap.magnet,
+        corners: cap.corners,
+        camera: cap.camera,
+        finish: cap.finish,
+      },
+    ];
+  });
+}
+
+export function IphoneCaseTypePicker() {
+  return <CaseTypePicker products={caseTypeProducts()} />;
 }
 
 export function WaterLeakSensorPicker() {
@@ -932,6 +980,7 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "timervaljare-utomhus": OutdoorTimerPicker,
   "elkostnad-julbelysning": ChristmasLightRunningCost,
   vattenlarmsvaljare: WaterLeakSensorPicker,
+  skaltypsvaljare: IphoneCaseTypePicker,
   "aterbetalning-vattenfelsbrytare": InsurancePaybackCalculator,
   "brandskydd-hemma": HomeFireKitPlanner,
   "behover-du-kolmonoxidvarnare": CoAlarmNeedPicker,

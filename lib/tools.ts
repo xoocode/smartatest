@@ -722,6 +722,54 @@ export const TOOLS: Tool[] = [
     updated: "2026-08-03",
   },
   {
+    /* Slugen namnger ämnet och inte funktionen, enligt namnregeln i filhuvudet:
+       `skalvaljare` hade blivit tvetydig den dag vi bygger en väljare för
+       Samsung-skal eller för skärmskydd. */
+    slug: "skaltypsvaljare",
+    name: "Skaltypsväljaren",
+    title: "Vilken sorts iPhone-skal behöver du?",
+    description:
+      "Svara på tre frågor om var telefonen är, hur du laddar och hur skalet ska se ut, så får du veta vilken sorts skal som räcker och vilka av de skal vi rankat som uppfyller kraven.",
+    intro:
+      "Skal går inte att skilja åt på priset och knappt på bilden. Två skal från samma tillverkare kan heta nästan samma sak, se identiska ut och kosta 70 kronor isär, där det ena har magnetring och det andra inte. Svara på tre frågor, så får du kraven och de skal som uppfyller dem.",
+    sections: [
+      {
+        heading: "Så tänker väljaren",
+        body: [
+          "Tre saker skiljer skalen åt i praktiken, och ingen av dem går att läsa av priset. Det första är hörnen. En telefon som faller landar nästan aldrig platt, den träffar ett hörn, och kraften går därifrån in i ramen. Förstärkta hörn eller Air Cushion är därför det som avgör om skalet gör något alls vid ett fall, och ett skal i enbart hård plast känns robust i handen samtidigt som det för stöten vidare.",
+          "Det andra är kanten runt kameran. Linserna repas av sand och nycklar i en ficka långt oftare än de spricker av ett fall, och kameraglaset är dyrt att byta. Bara en kant som är högre än linserna hindrar det, och tre nivåer finns i handeln: en förhöjd ring runt blocket, ett skal där hela blocket är inbyggt, och ett skjutbart lock som täcker linserna helt.",
+          "Det tredje är magnetringen. Ett skal utan ring gör att laddaren, magnetplånboken och bilhållaren slutar sitta fast, och det går inte att lägga till i efterhand. Var uppmärksam på att ordet magnetisk inte betyder ring: ett skal kan ha en metallplatta för en magnetisk bilhållare, vilket fäster mot en magnet men inte laddar någonting.",
+        ],
+      },
+      {
+        heading: "Varför verktyget inte frågar om fallhöjd",
+        body: [
+          "Nästan varje skal anger något om fall, och talen ser jämförbara ut. De är det inte. Talen kommer från MIL-STD-810, ett amerikanskt försvarsdokument, och dokumentets första del säger att det inte är giltigt att betrakta en metods provvillkor som oföränderliga. Höjden, antalet fall och underlaget får anpassas av den som provar, och varje metod bär noten att anpassning är nödvändig.",
+          "Två tillverkare kan alltså ha provat på helt olika sätt och ändå ange samma sorts påstående. Att låta dig välja skal på ett sådant tal vore att bygga in ett mått som inte håller. Verktyget frågar därför bara efter sådant som går att kontrollera på skalet självt.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Varför föreslås inte testvinnaren alltid?",
+        answer:
+          "För att frågan här är en annan än den rankningen svarar på. Rankningen säger vilket skal som är bäst sammantaget, väljaren säger vilka skal som klarar just dina krav. Vill du se telefonens färg är vinnaren fel svar, eftersom den är mattsvart, och då föreslås ett genomskinligt skal som ligger längre ner i listan. Träffarna sorteras dessutom billigast först och inte högst betyg först, eftersom frågan är vad som räcker.",
+      },
+      {
+        question: "Vad gör jag om inget skal uppfyller kraven?",
+        answer:
+          "Då säger verktyget vilken kombination som inte går ihop, och det är oftast läder mot fallskydd. Det enda läderskalet i jämförelsen saknar både förstärkta hörn och kant runt kameran, vilket är ett medvetet val från tillverkaren och inte ett fel. Släpp det krav som betyder minst för dig, eller titta bland de skal vi övervägde men inte rankade.",
+      },
+      {
+        question: "Räknar väljaren in vilken iPhone jag har?",
+        answer:
+          "Nej, och det är viktigt att veta. Ett skal passar exakt en modellstorlek, och iPhone 17 och 17 Pro har samma skärmstorlek men delar inte skal eftersom kameraplatån och tjockleken skiljer. Priserna och artiklarna vi visar gäller 17 Pro-varianten. Kontrollera alltid att artikeln du lägger i korgen anger exakt din modell och inte bara serien.",
+      },
+    ],
+    usedOn: ["iphone-skal"],
+    updated: "2026-08-05",
+  },
+  {
     slug: "vattenlarmsvaljare",
     name: "Vattenlarmsväljaren",
     title: "Vilket vattenlarm räcker för ditt hem?",

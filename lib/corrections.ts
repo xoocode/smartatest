@@ -43,7 +43,19 @@ export type Correction = {
   reportedBy?: string;
 };
 
-export const CORRECTIONS: Correction[] = [];
+export const CORRECTIONS: Correction[] = [
+  {
+    date: "2026-08-05",
+    href: "/hemlarm",
+    page: "Hemlarm",
+    changed:
+      "Vi skrev att Gardio inte publicerar något pris någonstans på sin sajt. Det stämde inte. Gardio anger 249 kronor i månaden, ingen startavgift och 24 månaders bindningstid på produktsidan för sitt hemlarm, och samtliga elva produkter i deras butik har pris. Felet uppstod genom att vi läste bolagets förstasida och drog en slutsats om hela sajten. Uppgifterna är nu rättade, och Gardio går från 2,0 till 5,0 på öppna villkor och från 2,5 till 4,5 på prisvärde, vilket flyttar bolaget från nedre halvan till toppen av jämförelsen.",
+    affectedRanking: true,
+    /* Ingen `reportedBy`. Felet hittades internt, och att skriva "en läsare"
+       hade varit ett litet påhitt i en logg vars enda uppgift är att inte
+       innehålla några. */
+  },
+];
 
 /** Nyast först, oavsett hur listan råkar vara skriven. */
 export function sortedCorrections(): Correction[] {

@@ -775,6 +775,50 @@ const CONSIDERED: ConsideredProduct[] = [
   },
 ];
 
+/**
+ * Egenskaperna skalväljaren filtrerar på.
+ *
+ * Skild från `specs` av samma skäl som `VATTENLARM_CAPABILITIES` på
+ * /vattenlarm: tabellen visar strängar för en läsare, väljaren behöver
+ * jämförbara värden. Härledda ur samma butiksuppgifter, inget nytt påstått.
+ *
+ * `camera` har fyra nivåer och de är rangordnade efter vad de skyddar mot:
+ *
+ *   lock    — skjutbart lock som täcker linserna helt, alltså även mot sand
+ *   inbyggt — hela kamerablocket ligger under skalets yta
+ *   ring    — förhöjd ram runt blocket, linserna når inte bordet
+ *   ingen   — ingen kant angiven, linserna tar i
+ *
+ * ⚠️ `magnet: "platta"` är inte en svagare ring utan en annan sak. Trolsks
+ * stöttåliga har en metallplatta för magnetiska bilhållare, vilket fäster mot
+ * en magnet men varken laddar eller håller en MagSafe-plånbok. Väljaren
+ * behandlar den som ingen ring alls, för det är vad den är för den som laddar
+ * trådlöst.
+ */
+export type CaseCapability = {
+  id: string;
+  magnet: "ring" | "platta" | "ingen";
+  /** Förstärkta hörn eller Air Cushion, alltså mjukare där telefonen landar. */
+  corners: boolean;
+  camera: "lock" | "inbyggt" | "ring" | "ingen";
+  finish: "klar" | "matt" | "lader" | "robust";
+};
+
+export const IPHONE_SKAL_CAPABILITIES: CaseCapability[] = [
+  { id: "spigen-rugged-armor-magfit-17-pro", magnet: "ring", corners: true, camera: "inbyggt", finish: "robust" },
+  { id: "nomad-rugged-case-17-pro", magnet: "ring", corners: true, camera: "ring", finish: "robust" },
+  { id: "x2o-mag-frosted-17-pro", magnet: "ring", corners: false, camera: "ring", finish: "matt" },
+  { id: "spigen-ultra-hybrid-magfit-17-pro", magnet: "ring", corners: true, camera: "ring", finish: "klar" },
+  { id: "otterbox-react-magsafe-17-pro", magnet: "ring", corners: false, camera: "ring", finish: "klar" },
+  { id: "otterbox-symmetry-clear-magsafe-17-pro", magnet: "ring", corners: false, camera: "ring", finish: "klar" },
+  { id: "uag-plyo-magsafe-17-pro", magnet: "ring", corners: true, camera: "ingen", finish: "klar" },
+  { id: "uag-monarch-pro-kevlar-magsafe-17-pro", magnet: "ring", corners: true, camera: "ring", finish: "robust" },
+  { id: "trolsk-stottaligt-kameraskydd-stativ-17-pro", magnet: "platta", corners: false, camera: "lock", finish: "robust" },
+  { id: "spigen-ultra-hybrid-17-pro", magnet: "ingen", corners: true, camera: "ring", finish: "klar" },
+  { id: "dbramante1928-roskilde-magsafe-17-pro", magnet: "ring", corners: false, camera: "ingen", finish: "lader" },
+  { id: "trolsk-mobilskal-matt-17-pro", magnet: "ingen", corners: false, camera: "ingen", finish: "matt" },
+];
+
 export const IPHONE_SKAL_PRODUCTS = resolveProducts(IPHONE_SKAL, SEEDS);
 
 export const IPHONE_SKAL_CONSIDERED = CONSIDERED;

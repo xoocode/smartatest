@@ -1300,7 +1300,7 @@ export const HEMLARM: TestPage = {
       label: "Öppna villkor",
       weight: 30,
       description:
-        "Vad du kan ta reda på innan du släpper in en säljare. Fyra av åtta bolag publicerar ett månadstal och bara två publicerar hela priset. Publiceras månadsavgiften på bolagets egen sida? Publiceras startavgiften, bindningstiden och uppsägningstiden? Går avtalsvillkoren att läsa i sin helhet utan att lämna ifrån sig kontaktuppgifter? Skalan är 5,0 när månadsavgift, startavgift och fullständiga villkor är publicerade, 3,5 när villkoren finns men bara en del av priset, 2,0 när enbart ett startpaketspris publiceras, och 1,0 när ingen prisuppgift alls går att hitta utan offertförfrågan. Kriteriet mäter öppenhet och inte prisnivå: ett dyrt bolag som skriver sitt pris slår ett billigt som vägrar.",
+        "Vad du kan ta reda på innan du släpper in en säljare. Fem av åtta bolag publicerar ett månadstal och bara två publicerar hela priset. Publiceras månadsavgiften på bolagets egen sida? Publiceras startavgiften, bindningstiden och uppsägningstiden? Går avtalsvillkoren att läsa i sin helhet utan att lämna ifrån sig kontaktuppgifter? Skalan är 5,0 när månadsavgift, startavgift och fullständiga villkor är publicerade, 3,5 när villkoren finns men bara en del av priset, 2,0 när enbart ett startpaketspris publiceras, och 1,0 när ingen prisuppgift alls går att hitta utan offertförfrågan. Kriteriet mäter öppenhet och inte prisnivå: ett dyrt bolag som skriver sitt pris slår ett billigt som vägrar.",
     },
     {
       key: "lamna",
@@ -1328,7 +1328,7 @@ export const HEMLARM: TestPage = {
       label: "Prisvärde",
       weight: 10,
       description:
-        "Vad du får för pengarna över tid, räknat på fem år inklusive startavgift. Kriteriet väger lätt av en enkel anledning: för sju av åtta bolag går det inte att räkna, eftersom månadsavgiften inte publiceras. Att låta prisvärde väga tungt hade betytt att betygsätta gissningar.",
+        "Vad du får för pengarna över tid, räknat på fem år inklusive startavgift. Kriteriet väger lätt av en enkel anledning: för fem av åtta bolag går det inte att räkna, eftersom hela priset inte publiceras. Att låta prisvärde väga tungt hade betytt att betygsätta gissningar.",
     },
   ],
 };
@@ -2763,7 +2763,47 @@ export const POWERBANK_20000: TestPage = {
   ],
 };
 
+export const SLACKSPRAY: TestPage = {
+  slug: "slackspray",
+  label: "Släckspray",
+  title: "Släckspray bäst i test 2026: fem sprayer och klassen som står på burken",
+  category: SAKERHET,
+  methodology:
+    "Släcksprayer omfattas av samma standard som handbrandsläckare, SS-EN 3–7, och ska därför bära en effektivitetsklass. Den klassen är det vi rankar på, eftersom den säger hur stort testbål produkten faktiskt provats mot. Rapporten anger att den lägsta klassning som rekommenderas till hemmet är 43A 233B C, och att den i dagsläget bara uppfylls av sexkilos pulversläckare och niolitersskumsläckare. De sprayer som anger en klass ligger på 5A respektive 3A, alltså ett testbål omkring åtta till fjorton gånger mindre. Underlaget är ett examensarbete från Avdelningen för Brandteknik vid Lunds universitet, skrivet hösten 2020 och publicerat 2022, där två av produkterna nedan provades med släckförsök på MSB:s övningsfält Revinge. Vi har läst rapporten i original och skrivit av klasserna, och vi har kontrollerat dem mot två butikers egna produktsidor. Det är ett examensarbete och inte en ackrediterad provning, vilket vi säger rakt ut. Vi har inte tänt en enda brand själva. Där en tillverkare inte anger någon klass räknas det som en brist i betyget och inte som ett neutralt tomrum, eftersom en produkt du inte kan jämföra är sämre för dig än en du kan. Priser och kundbetyg är lästa på butikernas egna produktsidor och daterade. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "slackeffekt",
+      label: "Angiven släckeffekt",
+      weight: 30,
+      description:
+        "Vilken effektivitetsklass enligt SS-EN 3–7 tillverkaren anger, och därmed hur stor brand produkten är provad mot. Koden läses som på en vanlig brandsläckare: A är trä och textil, B är brännbara vätskor, F är fett i en kastrull, och talet framför varje bokstav är storleken på testbålet. Housegard FireStopper anger 5A 21B (E) 5F och Taerosol Fire Fighter 3A 13B (E) 5F. Till jämförelse anger rapporten 43A 233B C som den lägsta klassning som rekommenderas till hemmet. Skillnaden mellan 43A och 5A är ungefär åtta gånger testbålet, och mellan 43A och 3A drygt fjorton. Den som inte anger någon klass alls får lågt betyg här, och det är avsiktligt: två av sprayerna i jämförelsen säljs utan att någonstans säga vad de klarar, och då kan du varken jämföra dem eller veta när de räcker.",
+    },
+    {
+      key: "anvandning",
+      label: "Vad den är gjord för",
+      weight: 25,
+      description:
+        "Vilket brandscenario produkten faktiskt är byggd och provad för, vilket avgör var den gör nytta. Fettbrand är det viktigaste för de flesta: en kastrull med matolja är den vanligaste brandstarten i ett svenskt kök, och F i koden betyder att produkten provats mot just den. Här väger också in vilket släckmedel som används och om tillverkaren skriver ut vad det är, samt om produkten tål att ligga i en bil över vintern. Litiumsprayerna bedöms i samma kolumn men med en varning: standarden SS-EN 3–7 har ingen klass för brand i litiumjonbatterier, så den A-klass de bär gäller trä och textil och säger ingenting om batteriet. Vi betygsätter vad som är publicerat om produkten, inte vad marknadsföringen antyder att den klarar.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 25,
+      description:
+        "Vad du får för pengarna, i en kategori där spannet är stort och inte följer förmågan. Den billigaste sprayen i jämförelsen kostar 99,90 kronor och den dyraste 539, alltså mer än fem gånger så mycket. Väg priset mot vad produkten ersätter och inte mot de andra sprayerna: en sexkilos pulversläckare med 43A kostar några hundralappar mer än den dyraste sprayen här och klarar ett testbål åtta gånger större. Sprayen köper du för att den får plats i ett köksskåp, i en verktygslåda eller i ett handskfack, och för att den går att använda med en hand. Betalar du sprayens pris för en produkt som varken anger klass eller innehåll är prisvärdet lågt oavsett hur låg summan är.",
+    },
+    {
+      key: "uthallighet",
+      label: "Volym och tömningstid",
+      weight: 20,
+      description:
+        "Hur länge du faktiskt kan spruta, vilket är den kortaste och mest underskattade siffran i kategorin. De två provade sprayerna töms på 20 till 30 respektive 15 till 25 sekunder, och det är hela din insats. En handbrandsläckare på sex kilo håller betydligt längre och når fem till sju meter, mot sprayens tre till fyra. Beräkningarna i den rapport vi bygger på pekar på att en spray klarar en möbelbrand i ungefär tre minuter efter att brandtillväxten startat, och därefter inte. Volymen i milliliter är det tal butikerna anger, men det är tömningstiden som säger vad du har att arbeta med, och den anges sällan.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  SLACKSPRAY,
   POWERBANK_20000,
   IPHONE_SKAL,
   POWERBANK,
