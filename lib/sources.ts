@@ -4047,7 +4047,176 @@ export const SMART_GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Powerbank.
+ *
+ * Kategorin har en riktig labbprovning, Stiftung Warentest 2/2026, men
+ * resultaten per modell ligger bakom betalvägg. Metoden och spannen är öppna
+ * och används; inga modellbetyg gissas. Samma hantering som Warentest på
+ * /smart-termostat och Testaankoop på /usb-c-laddare.
+ */
+export const POWERBANK_SOURCES: Source[] = [
+  {
+    publisher: "Stiftung Warentest",
+    title: "Powerbanks im Test: Kraft für müde Akkus",
+    url: "https://www.test.de/Powerbanks-im-Test-5019032-0/",
+    date: "2026-02-01",
+    market: "DE",
+    kind: "test",
+    note: 'Kategorins enda riktiga labbprovning, 24 powerbanks i häfte 2/2026. Slutsatsen som bär den här sidan står i det öppna avsnittet, ordagrant: "Beworben werden die Powerbanks im Test mit Nennkapazitäten von rund 10 000 oder 20 000 Milliamperestunden (mAh). Doch diese Anbieterangaben sind nur begrenzt aussagekräftig. Wichtiger ist die tatsächlich nutzbare Energiemenge, gemessen in Wattstunden (Wh)." De uppmätta spannen är också öppna: 28,5 till 35,8 Wh för de små och kompakta, 58,3 till 69,9 Wh för de stora. Betyg och mätvärden per modell kräver betalning, 4,90 euro, och vi har inte köpt dem. Inget modellresultat härifrån återges eller gissas.',
+  },
+  {
+    publisher: "Transportstyrelsen",
+    title: "Batteridrivna produkter och reservbatterier",
+    url: "https://www.transportstyrelsen.se/sv/luftfart/flygresenar/Bagage/Vad-far-jag-ta-med-mig-ombord/Batterier-och-batteridrivna-produkter/",
+    market: "SE",
+    kind: "standard",
+    note: "Myndighetens tabell över vad som får följa med på flyget, och skälet till att wattimmar är den enhet som avgör. Lösa litiumjonbatterier inklusive powerbanks upp till 100 Wh får tas med i handbagage men står som Nej i incheckat bagage. Mellan 100 och 160 Wh gäller handbagage, högst två batterier, och flygbolagets godkännande krävs. Över 160 Wh är de inte tillåtna alls. Gränserna uttrycks genomgående i wattimmar, alltså i den storhet som sällan står i produktnamnet.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Powerbank, produktkategori och specifikationer",
+    url: "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank",
+    market: "SE",
+    note: "Den butik vi kartlagt hylla för hylla, 39 produkter 2026-08-05. Underlaget för hur ojämnt kapaciteten redovisas: av åtta produkter i den storleksklass sidan rankar anger två wattimmar, och tre saknar specifikationsruta helt. Anker Nano 30 W anger 10 000 mAh / 37 Wh och Linocell Premium 30 W anger 10 000 mAh (36 Wh), alltså olika wattimmar för samma nominella kapacitet. Priser, artikelnummer och kundbetyg är lästa här samma dag.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Bäst i test: Powerbank 2026",
+    url: "https://www.kjell.com/se/kunskap/guider/bast-i-test-powerbank",
+    market: "SE",
+    note: "Butikens egen guide om produkterna i den egna hyllan. Den är med som mätpunkt och inte som underlag: 1 265 ord, ordet mAh 23 gånger, ordet Wh noll gånger, och varken flyg eller handbagage nämns. Vi har inte hämtat någon uppgift härifrån.",
+  },
+  {
+    publisher: "Testkompassen",
+    title: "Powerbank: 5 favoriter efter hårda tester",
+    url: "https://www.testkompassen.se/kategorier/elektronik-och-foto/mobiltilbehor/powerbank",
+    market: "SE",
+    note: 'Den enda svenska jämförelsen som tar upp wattimmar, och den gör det ordentligt: 47 förekomster av Wh, nio av 100 Wh-gränsen och elva av omvandlingsförluster. De publicerar omräkningen ordagrant, "Wh ≈ (mAh ÷ 1000) × 3,7 V", och skriver att verklig leverans blir 10 till 30 procent lägre. Deras wattimmar är räknade ur mAh och inte uppmätta, vilket är skillnaden mot Warentest. Källan står med eftersom den är korrekt och eftersom sidan aldrig ska påstå att ämnet är obehandlat på svenska.',
+  },
+];
+
+/**
+ * Powerbank, reseklassen.
+ *
+ * Delar de flesta källor med /powerbank. Skillnaden är att den här sidan
+ * faktiskt behöver Transportstyrelsens gränser: två av produkterna ligger
+ * inom en wattimme från taket på 100 Wh.
+ */
+export const POWERBANK_20000_SOURCES: Source[] = [
+  {
+    publisher: "Transportstyrelsen",
+    title: "Batteridrivna produkter och reservbatterier",
+    url: "https://www.transportstyrelsen.se/sv/luftfart/flygresenar/Bagage/Vad-far-jag-ta-med-mig-ombord/Batterier-och-batteridrivna-produkter/",
+    market: "SE",
+    kind: "standard",
+    note: "Kategorins viktigaste dokument, och skälet till att wattimmar är den enhet som avgör i den här storleksklassen. Lösa litiumjonbatterier inklusive powerbanks upp till 100 Wh får tas med i handbagage men aldrig i incheckat bagage. Mellan 100 och 160 Wh gäller handbagage, högst två batterier, och flygbolagets godkännande krävs. Över 160 Wh är de inte tillåtna alls. Två av produkterna som jämförs här anger 99,75 respektive 99,36 wattimmar, alltså inom en wattimme från gränsen.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Powerbanks im Test: Kraft für müde Akkus",
+    url: "https://www.test.de/Powerbanks-im-Test-5019032-0/",
+    date: "2026-02-01",
+    market: "DE",
+    kind: "test",
+    note: 'Labbprovning av 24 powerbanks, häfte 2/2026, som delar sitt test på samma storlekar som vi. För de stora modellerna mätte de uttagbar energi till mellan 58,3 och 69,9 wattimmar, alltså under vad de nominella talen antyder. Slutsatsen i det öppna avsnittet är att tillverkarnas mAh-uppgifter är "nur begrenzt aussagekräftig" och att det som betyder något är uttagbar energi i Wh. Betyg och mätvärden per modell kräver betalning, 4,90 euro, som vi inte lagt. Inget modellresultat härifrån återges eller gissas.',
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Powerbank, produktkategori och specifikationer",
+    url: "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank",
+    market: "SE",
+    note: "Butiken vi kartlagt produkt för produkt. Underlaget för hur olika samma nominella kapacitet redovisas: av tre powerbanks på 20 000 mAh anger Linocell Premium 72 Wh med spänningen 3,6 V utsatt, Anker Prime 72,36 Wh för 20 100 mAh, och Xtorm 100 Wh. Sju av nio produkter i storleksklassen anger sitt energiinnehåll, mot två av åtta i den mindre klassen. Priser, artikelnummer, kundbetyg och specifikationer är lästa här 2026-08-05.",
+  },
+  {
+    publisher: "Testkompassen",
+    title: "Powerbank: 5 favoriter efter hårda tester",
+    url: "https://www.testkompassen.se/kategorier/elektronik-och-foto/mobiltilbehor/powerbank",
+    market: "SE",
+    note: 'Den enda svenska jämförelsen som tar upp wattimmar, och den gör det korrekt: omräkningen "Wh ≈ (mAh ÷ 1000) × 3,7 V" står ordagrant, liksom att verklig leverans blir 10 till 30 procent lägre, och gränserna 100 och 160 Wh återges rätt. Källan står med eftersom sidan aldrig ska påstå att ämnet är obehandlat på svenska.',
+  },
+];
+
+/**
+ * iPhone-skal.
+ *
+ * ⚠️ Ingen källa här har `kind: "test"`, och det är inte ett förbiseende.
+ * Kategorin saknar oberoende provning helt. Se noten på Råd & Rön nedan.
+ *
+ * De tre MIL-STD-utgåvorna står som separata källor med flit. Hela sidans fynd
+ * ligger i skillnaden mellan dem, och en läsare som vill kontrollera det ska
+ * kunna öppna rätt dokument utan att leta.
+ */
+export const IPHONE_SKAL_SOURCES: Source[] = [
+  {
+    publisher: "US Department of Defense",
+    title: "MIL-STD-810H, Environmental Engineering Considerations and Laboratory Tests",
+    url: "https://cvgstrategy.com/wp-content/uploads/2019/03/MIL-STD-810H.pdf",
+    date: "2019-01-31",
+    market: "US",
+    kind: "standard",
+    note: 'Gällande utgåva sedan den 31 januari 2019, läst i original. Ingen produktsida i svensk handel hänvisar till den. Fyra ställen bär sidans fynd. Del ett §1.2 b: "It is not valid to call out all of the Methods in this Standard in a blanket fashion for a materiel system; nor is it valid, once a Method is determined appropriate, (except for Method 528) to regard the environmental stress data, test criteria, and procedures in the Method as unalterable." Varje metod i 500-serien bär dessutom noten "Tailoring is essential". Tabell 516.8-IX not 1 gör stål till förvalt underlag och tillåter plywood bara under två namngivna villkor, och not 5 säger ordagrant: "If desired, divide the 26 drops among no more than five test items." §4.6.5.1 anger plattan till minst 76 mm stål med Brinellhårdhet 200 på armerad betong och skriver att "The most severe damage potential is impact with a non-yielding mass that absorbs minimal energy". §4.6.4 d säger att procedur IV gäller stötar vid lastning och lossning av materiel i sin transportlåda. ⚠️ Del ett §1.3 punkt f undantar "Packaging performance or design", men *packaging* betyder transportemballage i dokumentet och inte mobilskal. Punkten får inte användas.',
+  },
+  {
+    publisher: "US Department of Defense",
+    title: "MIL-STD-810G w/Change 1, metod 516.7 Shock",
+    url: "https://cvgstrategy.com/wp-content/uploads/2019/03/MIL-STD-810G-1.pdf",
+    date: "2014-04-15",
+    market: "US",
+    kind: "standard",
+    note: 'Läst i original. Den här utgåvan avgjorde två frågor under bygget. För det första numrerades stötmetoden om från 516.6 till 516.7, vilket betyder att X2O:s hänvisning "MIL-STD810G-516.7" är riktig och den mest exakta som förekommer i svensk handel. Ett utkast var på väg att kalla den ett påhittat metodnummer. För det andra står bytet av underlag här och inte i 810H: "The default drop surface is steel backed by concrete. Concrete or 5cm (2 in.) plywood backed by concrete should be selected if it can be shown that the natural frequency of the test item is not adequately excited when dropped on the default steel surface." Plywooden har alltså inte varit förvalt underlag sedan den 15 april 2014.',
+  },
+  {
+    publisher: "US Department of Defense",
+    title: "MIL-STD-810G, metod 516.6 Shock, procedur IV Transit Drop",
+    url: "https://www.vibrationdata.com/tutorials/MIL810G_shock.pdf",
+    date: "2008-10-31",
+    market: "US",
+    kind: "standard",
+    note: 'Metodutdraget ur 2008 års utgåva, läst i original. Det är den utgåva OtterBox hänvisar till på sina svenska produktsidor, och den enda av de tre där plywood fortfarande är föreskrivet underlag: "For the floor or barrier receiving the impact, use two-inch plywood backed by concrete. For materiel over 454 kg, use a concrete floor or barrier." Ersatt två gånger sedan dess, 2014 och 2019.',
+  },
+  {
+    publisher: "Råd & Rön",
+    title: "Tester, telefoni, datorer och internet",
+    url: "https://www.radron.se/tester/telefoni-datorer--internet/mobiler/",
+    market: "SE",
+    note: "Med som belägg för att kategorin saknar oberoende provning. Råd & Rön provar mobiltelefoner, inklusive falltrumma, men har ingen provning av skyddsskal. Sökning över radron.se gav inget test av mobilskal. Ingen uppgift på sidan är hämtad härifrån, och vi påstår aldrig att någon provat skalen.",
+  },
+  {
+    publisher: "Android Police",
+    title: "Why most military-grade cases need to go back to basic training",
+    url: "https://www.androidpolice.com/most-military-grade-cases-are-a-lie/",
+    market: "US",
+    note: 'Andrahandskälla, med som bekräftelse på att branschen inte följt med utgåvorna: "810G 516.6 is still the testing standard used by almost all cases today". Artikeln daterar dock bytet av underlag till 810H 2019, vilket vi läst i original och funnit skedde redan 2014. Där de går isär gäller dokumentet.',
+  },
+  {
+    publisher: "Apple",
+    title: "Apple lanserar iPhone 17 Pro och iPhone 17 Pro Max",
+    url: "https://www.apple.com/se/newsroom/2025/09/apple-unveils-iphone-17-pro-and-iphone-17-pro-max-the-most-powerful-and-advanced-pro-models-ever/",
+    date: "2025-09-09",
+    market: "SE",
+    note: "Tillverkarens eget pressmeddelande, som källa för vilka modeller som finns och när de kom. iPhone 17-familjen presenterades den 9 september 2025 och kom i handeln den 19 september. Används för att avgränsa vilka modeller sidan gäller. ⚠️ Apple har inte presenterat någon iPhone 18 och publicerar inga mått för en sådan, vilket är relevant eftersom butiken anger passform mot den modellen.",
+  },
+  {
+    publisher: "Testix",
+    title: "Bästa mobilskal till Apple iPhone 17 Pro 2026",
+    url: "https://testix.se/test/mobilskal-apple-iphone-17-pro",
+    market: "SE",
+    note: 'Konkurrent, med som mätpunkt och inte som underlag. 6 200 ord, fem rankade skal, och viktningen 30 stöttålighet, 20 MagSafe, 20 grepp, 15 design, 15 prisvärde. Sidan skriver "Vårt testteam använde varje mobilskal i minst en vecka" och "Testet är helt oberoende och ingen av tillverkarna har haft insyn i processen". Kontrollerat ord för ord: MIL-STD-810, militärstandard, fallhöjd, provunderlag och Qi2 förekommer inte en enda gång. Ingen uppgift är hämtad härifrån.',
+  },
+  {
+    publisher: "Bäst i test Guiden",
+    title: "Bästa mobilskalet 2026",
+    url: "https://www.bast-i-test.se/tester_pa_basta/mobilskal.html",
+    market: "SE",
+    note: 'Konkurrent, med som mätpunkt. Ärligast av de svenska sidorna om sin metod: "För att se vilka mobilskal som presterar bäst just nu har vi hört vad experterna säger i sina tester, på internet och i tidningar." Rankar dock fortfarande iPhone 15 Pro-skal år 2026, och nämner varken standard, utgåva eller fallhöjd. Ingen uppgift är hämtad härifrån.',
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/iphone-skal": IPHONE_SKAL_SOURCES,
+  "/powerbank-20000": POWERBANK_20000_SOURCES,
+  "/powerbank": POWERBANK_SOURCES,
   "/smart-garageportsoppnare": SMART_GARAGEPORTSOPPNARE_SOURCES,
   "/garageportsoppnare": GARAGEPORTSOPPNARE_SOURCES,
   "/usb-c-laddare": USB_C_LADDARE_SOURCES,

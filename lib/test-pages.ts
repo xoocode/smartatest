@@ -2549,7 +2549,224 @@ export const SMART_GARAGEPORTSOPPNARE: TestPage = {
   ],
 };
 
+/**
+ * Powerbank, vardagsklassen.
+ *
+ * Systersida till USB_C_LADDARE och USB_C_KABEL, vars avgränsning sköt
+ * powerbanken hit. Delad på storlek efter användarbeslut 2026-08-05: den här
+ * sidan rankar 5 000 till 10 000 mAh, alltså det som laddar en telefon och
+ * ryms i en ficka. Den stora rese- och laptopklassen från 20 000 mAh får
+ * `/powerbank-20000`. Stiftung Warentest delar sitt eget test på samma sätt.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Warentest 2/2026 provade 24 powerbanks och mätte uttagbar energi, men
+ * resultaten per modell ligger bakom betalvägg på 4,90 euro som vi inte köpt.
+ * Metoden och de öppna spannen bär köpguiden i stället. Samma lösning som
+ * Testaankoop på /usb-c-laddare.
+ *
+ * ## Öppen redovisning väger 15 och straffar tystnad
+ *
+ * Användarbeslut 2026-08-05: en produkt som inte anger wattimmar dras ner,
+ * eftersom konsekvensen bärs av köparen. Wh är den storhet Transportstyrelsen
+ * reglerar efter, och den som bara får ett mAh-tal kan inte svara på om
+ * powerbanken får följa med ombord. Samma konstruktion som Väderskydd på
+ * /nyckelskap.
+ */
+export const POWERBANK: TestPage = {
+  slug: "powerbank",
+  label: "Powerbank",
+  title: "Powerbank bäst i test 2026: åtta som laddar telefonen i fickan",
+  category: ELEKTRONIK,
+  methodology:
+    "Sidan jämför powerbanks i den storlek som laddar en telefon och ryms i en ficka, alltså 5 000 till 10 000 mAh. Den större rese- och laptopklassen jämförs för sig. Kategorin har en riktig labbprovning, Stiftung Warentests test av 24 powerbanks i februari 2026, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och därför finns inget kriterium för testomdöme. Det labbet slår fast i sitt öppna avsnitt är däremot avgörande för hur sidan är byggd: de marknadsförda mAh-talen är enligt dem av begränsat värde, och det som betyder något är uttagbar energi i wattimmar. Wattimmar är också den enhet Transportstyrelsen reglerar efter, med 100 Wh som gräns för vad som får följa med ombord utan flygbolagets godkännande. Vi har därför räknat hur många produkter som faktiskt anger talet, och av de åtta som rankas här gör två det. Där en produkt bara anger milliamperetimmar har vi låtit cellen stå tom i stället för att räkna om, eftersom cellspänningen varierar och de två tillverkare som faktiskt räknat anger olika wattimmar för samma nominella kapacitet. Att uppgiften saknas räknas som en brist under öppen redovisning, eftersom konsekvensen bärs av dig och inte av oss. Priser, artikelnummer och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte laddat ur en enda powerbank. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "kapacitet",
+      label: "Kapacitet och uttagbar energi",
+      weight: 35,
+      description:
+        "Hur mycket ström som ryms, och hur mycket av den som når telefonen. Kapaciteten anges nästan alltid i milliamperetimmar, och det talet gäller cellen vid dess egen spänning på omkring 3,6 till 3,7 volt. Din telefon laddas vid 5 volt eller mer, och omvandlingen dit kostar energi. Det labb som mätt saken beskriver mAh-talet som av begränsat värde och pekar i stället på uttagbar energi i wattimmar, där spridningen mellan modeller i samma nominella klass visade sig vara stor. Här väger därför både det nominella talet och den publicerade wattimmen in, tillsammans med hur många laddningar av en normal telefon det räcker till i praktiken. En bank på 10 000 mAh landar runt 36 till 37 wattimmar, vilket i verkligheten blir ungefär två fulla telefonladdningar och inte de tre som kartongen ofta antyder.",
+    },
+    {
+      key: "laddeffekt",
+      label: "Laddeffekt och portar",
+      weight: 20,
+      description:
+        "Hur fort den fyller telefonen, hur fort den själv fyller på, och hur många saker den klarar samtidigt. Effekten ut avgör om en halvtimme vid ett vägguttag ger dig en fjärdedel eller halva telefonen, och skillnaden mellan 12 och 30 watt märks varje gång du har bråttom. Lika viktig är effekten in, eftersom en powerbank som tar fyra timmar att ladda ofta står tom när du behöver den. Här väger också antalet portar in, om den kan ladda och laddas samtidigt, och om en kabel sitter fast i enheten så att du slipper komma ihåg en. Trådlös laddning räknas hit men väger lättare, eftersom den kostar mer energi i värme än sladden gör.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 15,
+      description:
+        "Hur mycket du kan ta reda på innan du betalar. Spridningen är stor och den följer inte priset. I den storleksklass sidan rankar anger två av åtta produkter energiinnehållet i wattimmar, och tre saknar teknisk specifikation helt i butiken, trots att två av dem är de mest omdömda produkterna på hyllan. Wattimmen är inte en detalj för specialintresserade: det är den enhet Transportstyrelsen sätter sina gränser i, och den som bara har ett mAh-tal kan inte svara på om powerbanken får följa med ombord. Här väger också in om vikt, mått, laddtid och portar går att läsa före köpet. Att en uppgift saknas dras ner, eftersom en egenskap du inte kan kontrollera är sämre för dig än en du kan.",
+    },
+    {
+      key: "format",
+      label: "Format och vikt",
+      weight: 15,
+      description:
+        "Om den följer med eller blir kvar hemma. En powerbank som ligger i byrålådan laddar ingenting, och vikten är det som avgör om den hamnar i fickan eller i väskan. Spannet i den här klassen är stort: från runt 130 gram för de tunnaste magnetiska till 200 gram för de tjockare, alltså mer än en halv telefon i skillnad. Här väger också formen in. En platt magnetisk bank som fäster på baksidan av telefonen används på ett annat sätt än en klumpig som kräver kabel, och en enhet med fast kabel slipper det vanligaste skälet till att en powerbank inte gör nytta, nämligen att sladden ligger hemma.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Vad du får för pengarna, mätt mot vad de andra kostar för samma sak. Spannet är brett i den här klassen, från under 150 kronor till nära 800 för produkter som rymmer lika mycket ström. Det som skiljer är laddeffekt, format och hur mycket du får veta, och de tre följer inte priset särskilt väl. Här väger också in vad som ingår, alltså om kabel medföljer eller sitter fast, eftersom en powerbank utan kabel kräver en kabel du kanske redan har eller kanske måste köpa. Kundbetyg från butiken visas i tabellen men vägs aldrig in, eftersom betyg från olika butiker inte är jämförbara.",
+    },
+  ],
+};
+
+/**
+ * iPhone-skal.
+ *
+ * Fjärde sidan i Elektronik, byggd 2026-08-05.
+ *
+ * ## Varför fyra kriterier och inte fem
+ *
+ * Garanti föreslogs som femte kriterium och ströks av användaren innan
+ * insamlingen började. Skälet höll: märkena anger två år, husmärkena ett, och
+ * kolumnen hade skiljt produkterna åt på en axel ingen köper efter. Vikten
+ * fördelades på de fyra som blev kvar, med konstruktionen tyngst efter
+ * användarbeslut.
+ *
+ * ## ⚠️ Inget testomdömekriterium, och den här gången är kategorin helt tom
+ *
+ * Råd & Rön provar mobiler men inte skal. Testfakta har ingen provning. Stiftung
+ * Warentest har provat vattentäta fodral och dykhus, alltså en annan produkt.
+ * Det finns med andra ord ingen oberoende provning av skyddsskal över huvud
+ * taget, och det står utskrivet på sidan enligt IDÉ-012. Samma läge som
+ * /utomhustimer, /vattenlarm och /garageportsoppnare.
+ *
+ * ## ⚠️ Fallhöjden och militärstandarden betygsätts aldrig
+ *
+ * De ligger i ALDRIG_BEDOMD och bär kriteriet `redovisning`, inte ett eget
+ * kriterium. Skälet är läst i original: MIL-STD-810H del ett §1.2 b säger att
+ * det inte är giltigt att betrakta en metods provvillkor som oföränderliga, och
+ * varje metod bär noten "Tailoring is essential". Två tal från två tillverkare
+ * är därför inte jämförbara ens när båda anges. Samma beslut som `Angiven
+ * besparing` på /smart-termostat och `Angivet böjtal` på /usb-c-kabel.
+ */
+export const IPHONE_SKAL: TestPage = {
+  slug: "iphone-skal",
+  label: "iPhone-skal",
+  title: "iPhone-skal bäst i test 2026: tolv skal från 99 till 1 099 kr",
+  category: ELEKTRONIK,
+  methodology:
+    "Sidan rankar skyddsskal till iPhone 17, 17 Pro, 17 Pro Max och Air. Ett skal passar exakt en modellstorlek, och iPhone 17 och 17 Pro delar skärmstorlek men inte skal, så varje rad säger vilka modeller skalet finns till och priset gäller genomgående 17 Pro-varianten. Plånboksfodral, skärmskydd och kameralinsskydd är en annan sorts köp och förklaras i köpguiden. Ingen har provat skyddsskal: Råd & Rön provar mobiler men inte skal, Testfakta har ingen provning, och Stiftung Warentests fallprov gäller vattentäta dykhus. Det finns alltså inget testomdöme att väga in, och vi har inte tappat en enda telefon själva. Det som återstår är dels vad du kan se på skalet, dels vad säljaren skriver ut om det, och de två väger 40 respektive 22. MIL-STD-810 är läst i original i tre utgåvor. Talen därifrån går inte att jämföra mellan tillverkare: del ett §1.2 b säger att det inte är giltigt att betrakta en metods provvillkor som oföränderliga, varje metod bär noten att anpassning är nödvändig, och tabell 516.8-IX tillåter att de 26 fallen delas på upp till fem exemplar. Underlaget är dessutom stål sedan 2014, medan plywooden som hela branschen beskriver hör till 2008 års utgåva. Därför betygsätts varken angiven fallhöjd eller angiven militärstandard som mätvärden. De väger in enbart genom hur mycket du får veta före köpet, vilket är något du kan kontrollera själv. Priser, artikelnummer och lagerstatus är lästa på butikens egen produktsida 2026-08-05. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "konstruktion",
+      label: "Skydd du kan se",
+      weight: 40,
+      description:
+        "Det skalet gör med telefonen när den träffar marken, bedömt på konstruktion i stället för på påståenden. Fyra saker väger: om kanten runt skärmen är förhöjd så att glaset inte tar i när telefonen landar på ansiktet, om kanten runt kameran är det så att linserna klarar att telefonen läggs ner på ett bord, om hörnen är förstärkta där energin faktiskt tas upp, och om knapparna är täckta eller lämnas öppna. Hörnen väger tyngst av dem. En telefon som faller landar nästan aldrig platt, och ett skal som bara är ett tunt lager plast över baksidan flyttar kraften rakt in i ramen. Ett hårt polykarbonatskal utan mjuk ram är därför sämre skydd än en hybrid som kombinerar en styv baksida med en TPU-kant, även när det hårda skalet känns mer robust i handen. Här väger också helheten: ett skal som täcker fyra sidor men lämnar kamerablocket i nivå med bordet skyddar det som kostar minst att laga. Vikten är sidans högsta därför att det är det här läsaren betalar för.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning av skydd",
+      weight: 22,
+      description:
+        "Hur mycket du får veta om skyddet innan du betalar, vilket i den här kategorin skiljer mer än skalen gör. Spannet går från ingenting alls till en utgåva med metodnummer. Det som väger är om det finns ett tal, om det finns en standard, och om standarden är angiven så exakt att den går att slå upp. MIL-STD-810 är läst i original i tre utgåvor, och den säger själv varför den inte kan användas som ett jämförelsetal: varje metod ska anpassas till det som provas, provvillkoren får uttryckligen ändras, och de 26 fall som brukar citeras får delas på upp till fem exemplar. Underlaget är dessutom stål sedan den 15 april 2014, medan plywooden som varje förklaring i världen beskriver hör till utgåvan från 2008. Ett skal som anger 7,6 meter utan att namnge någon standard säger alltså mindre än det låter, och 7,6 meter är sex gånger den fallhöjd standarden föreskriver. Poängen här mäter inte hur bra skalet skyddar, för det vet ingen. Den mäter hur mycket av köpbeslutet du får ta själv i stället för på förtroende. En uppgift som saknas räknas som en brist, eftersom det är du som får leva med att skalet inte gjorde det du trodde.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 22,
+      description:
+        "Vad du får för pengarna, mätt mot vad samma skydd kostar någon annanstans i jämförelsen. Spannet är elva gånger, från 99 till 1 099 kronor, och det följer varken skyddet eller redovisningen. Ett hybridskal med förhöjda kanter, förstärkta hörn och magnetring kostar 269 kronor, och ett femlagersskal i kevlar kostar 1 099. Skillnaden i vad de gör är verklig men inte elva gånger. I andra änden finns skal för 99 kronor som skyddar mot repor i fickan och ingenting mer, och de är prisvärda för den som köper dem till det. Här väger också in vad som faktiskt ingår: en magnetring är den enda funktionen i kategorin som kostar pengar att lägga till i efterhand, eftersom ett skal utan magnet gör att laddaren, bilhållaren och plånboken slutar sitta fast. Ett billigt skal som tvingar fram ett andra köp är inte billigt.",
+    },
+    {
+      key: "magnet",
+      label: "Magnet och trådlös laddning",
+      weight: 16,
+      description:
+        "Om skalet har en magnetring, och vad den ringen duger till. Det här är kategorins vanligaste förväxling och den kostar pengar: två skal från samma tillverkare kan heta nästan samma sak, se identiska ut och kosta 70 kronor isär, där det ena har magneter och det andra inte. Utan ring faller MagSafe-laddaren av, magnetplånboken sitter inte kvar och bilhållaren blir en klämma. Skillnaden syns inte på produktbilden. Här väger också om ringen sitter rätt, alltså om trådlös laddning fungerar genom skalet över huvud taget, och om tillverkaren skriver ut Qi2 eller bara nämner att skalet är magnetiskt. Orden är inte utbytbara: ett magnetiskt skal kan vara ett skal med en plåtbricka för en bilhållare, vilket sitter fast på en magnet men inte laddar. Vikten är kategorins lägsta av fyra därför att den som laddar med sladd inte behöver något av det, men för alla andra är det skillnaden mellan ett skal som fungerar med resten av tillbehören och ett som inte gör det.",
+    },
+  ],
+};
+
+/**
+ * Powerbank, reseklassen.
+ *
+ * Systersida till POWERBANK. Delningen på storlek är ett användarbeslut
+ * 2026-08-05, och Stiftung Warentest delar sitt eget test likadant. Den här
+ * sidan rankar från 20 000 mAh och uppåt, alltså det som laddar en dator och
+ * följer med på resa.
+ *
+ * ## ⚠️ Fyndet är det omvända mot vardagsklassen
+ *
+ * På /powerbank anger två av åtta produkter sitt energiinnehåll i wattimmar.
+ * Här gör sju av nio det. Skälet är att taket på 100 Wh bara är i sikte i den
+ * här storleken: en bank på 10 000 mAh kan omöjligt komma nära, en på 27 600
+ * ligger 0,64 wattimmar under. Wattimmen publiceras när tillverkaren har ett
+ * skäl att visa att produkten ryms under gränsen.
+ *
+ * ## ⚠️ Tre gånger 20 000 mAh ger tre olika wattimmar
+ *
+ * Linocell Premium anger 72 Wh, Anker Prime 72,36 Wh för 20 100 mAh, och Xtorm
+ * 100 Wh. De två första är förenliga med varandra; den tredje är 39 procent
+ * högre för samma nominella kapacitet. Vi påstår inte att någon har fel — vi
+ * redovisar spridningen, som på /avfuktare och /garageportsoppnare. Talet är
+ * butikens publicerade uppgift och inget annat.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Warentests resultat per modell ligger bakom betalvägg. Metod och de öppna
+ * spannen bär köpguiden i stället.
+ */
+export const POWERBANK_20000: TestPage = {
+  slug: "powerbank-20000",
+  label: "Powerbank 20 000 mAh",
+  title: "Powerbank 20 000 mAh bäst i test 2026: åtta för resan och datorn",
+  category: ELEKTRONIK,
+  methodology:
+    "Sidan jämför powerbanks från 20 000 mAh och uppåt, alltså den storlek som laddar en bärbar dator och följer med på resa. Den mindre klassen som laddar en telefon jämförs för sig. Kategorin har en riktig labbprovning, Stiftung Warentests test av 24 powerbanks i februari 2026, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och därför finns inget kriterium för testomdöme. Det är i den här storleken flygreglerna börjar spela roll: Transportstyrelsen tillåter högst 100 wattimmar utan flygbolagets godkännande, och två av produkterna nedan anger 99,75 respektive 99,36 wattimmar. Sju av nio produkter i storleksklassen anger sitt energiinnehåll, vilket är fler än i den mindre klassen där två av åtta gör det. Tre powerbanks med samma nominella 20 000 mAh anger däremot 72, 72,36 och 100 wattimmar, och den spridningen går inte att förena. Vi återger vad som står och räknar aldrig om åt någon, eftersom cellspänningen varierar. Där en uppgift saknas räknas det som en brist under öppen redovisning, eftersom konsekvensen bärs av dig. Priser, artikelnummer och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte laddat ur en enda powerbank. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "kapacitet",
+      label: "Kapacitet och uttagbar energi",
+      weight: 30,
+      description:
+        "Hur mycket ström som ryms, och hur nära taket det för dig. I den här storleken är kapaciteten inte bara en fråga om hur länge den räcker utan om vad du får ta med ombord. Transportstyrelsens gräns går vid 100 wattimmar, och den nås runt 27 000 milliamperetimmar. Två av produkterna här ligger inom en wattimme under gränsen, vilket är konstruktion och inte slump. Här väger både det nominella talet och det publicerade energiinnehållet in, tillsammans med vad det räcker till i praktiken: en bank på 20 000 mAh ger en telefon ungefär fyra laddningar eller en lättare bärbar dator ungefär en. Ett labb som mätt uttagbar energi på den här storleksklassen fann mellan 58 och 70 wattimmar, alltså mindre än de nominella talen antyder.",
+    },
+    {
+      key: "laddeffekt",
+      label: "Laddeffekt och portar",
+      weight: 25,
+      description:
+        "Hur fort den fyller det du kopplar in, och hur fort den själv fylls. Spannet i den här klassen är extremt: från 22,5 watt till 300, alltså mer än tretton gånger. Under 60 watt laddar den en telefon fort men en bärbar dator långsamt eller inte alls. Över 100 watt laddar den en dator i full fart medan den samtidigt håller en telefon igång. Lika viktig är uppladdningen av banken själv, eftersom 20 000 milliamperetimmar tar lång tid att fylla: de snabbaste tar emot 250 watt och är fulla på under en timme, de långsammaste behöver en kväll. Här väger också antalet portar in, om en kabel sitter fast i enheten, och om laddprotokollen täcker både nyare USB-C-enheter och äldre USB-A.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 15,
+      description:
+        "Om du kan ta reda på vad du köper, och om talen går att förena med varandra. I den här storleksklassen anger de flesta sitt energiinnehåll i wattimmar, vilket är bättre än i den mindre klassen. Men uppgifterna är inte alltid inbördes begripliga: tre powerbanks med samma nominella kapacitet på 20 000 milliamperetimmar anger 72, 72,36 och 100 wattimmar, och en köpare som ska svara på om produkten får följa med ombord kan inte avgöra vilken uppgift som gäller. Här väger därför både om talet finns och om det stämmer överens med resten av hyllan. Vikt, mått, batterityp, effekt per port och laddtid räknas också hit, eftersom det är de uppgifter som avgör om produkten passar din väska och din dator.",
+    },
+    {
+      key: "vikt",
+      label: "Vikt och format",
+      weight: 15,
+      description:
+        "Vad den väger i väskan, och om den går att bära hela dagen. Det här är den stora skillnaden mot den mindre klassen: en powerbank på 20 000 milliamperetimmar väger mellan 400 och 535 gram, alltså mellan en och en och en halv telefon extra i packningen. Skillnaden på 135 gram mellan den lättaste och den tyngsta märks på en flygplats. Här väger också formen in, eftersom en tjock och kantig enhet tar plats i en datorväska på ett annat sätt än en platt. Att vikten över huvud taget går att läsa före köpet är inte självklart, och där den saknas kan du inte planera packningen.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Vad du får för pengarna, mätt mot vad de andra kostar för samma sak. Spannet är kategorins bredaste: från 349 till 2 490 kronor för produkter som alla rymmer minst 20 000 milliamperetimmar. Det som skiljer är laddeffekt, vikt och hur mycket du får veta, och de tre följer priset bättre här än i den mindre klassen men långt ifrån perfekt. Här väger också in vad som ingår, alltså om en kabel sitter fast eller följer med, eftersom en powerbank som ska ladda en dator kräver en kabel som klarar effekten. Kundbetyg från butiken visas i tabellen men vägs aldrig in, eftersom betyg från olika butiker inte är jämförbara.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  POWERBANK_20000,
+  IPHONE_SKAL,
+  POWERBANK,
   SMART_GARAGEPORTSOPPNARE,
   USB_C_KABEL,
   GARAGEPORTSOPPNARE,

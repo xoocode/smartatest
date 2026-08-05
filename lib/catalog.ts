@@ -135,6 +135,224 @@ export type TestPageEntry = {
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
+    /* `iphone-skal` byggd 2026-08-05. Fjärde sidan i Elektronik. Beställd
+       utifrån med ofylld platshållare, "iPhone {latest model} skal", så första
+       uppgiften var att avgöra vilken modell som är den senaste.
+
+       MODELLÄGET, kontrollerat 2026-08-05: iPhone 17-familjen är den senaste,
+       presenterad 2025-09-09. ⚠️ iPhone 18 Pro och Pro Max väntas i september
+       2026, alltså cirka fem veckor efter att sidan byggdes, medan basmodellen
+       iPhone 18 skjuts till våren 2027. Det är första gången Apple delar
+       lanseringen. Användarbeslut: ingen 18-sida köas nu.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `mobilskal`, `iphone`, `skal` och
+       `telefon` över samtliga keyword-CSV:er under .agent/ ger en enda träff,
+       och den är `porttelefon med kamera`. Kör Keyword Planner på `iphone skal`,
+       `mobilskal`, `iphone 17 pro skal` och `magsafe skal` när det passar.
+       Slugen är dock enkel den här gången: Testix, iPhonebutiken, Elgiganten och
+       Kjell säger alla skal, och ordet fodral betyder plånboksfodral i handeln.
+
+       AVGRÄNSNING efter användarbeslut: bara skyddsskal. Plånboksfodral,
+       korthållare, skärmskydd och kameralinsskydd förklaras i köpguiden och får
+       egna systersidor. En enda rankning över hela spannet 99 till 1 099 kr,
+       eftersom att de billigaste inte redovisar något är en del av fyndet och
+       syns bara om de får vara med.
+
+       FYNDET: plywooden som hela branschen beskriver försvann 2014. Läst i
+       original i tre utgåvor. MIL-STD-810G:2008 metod 516.6 föreskriver
+       "two-inch plywood backed by concrete". Change 1, 2014-04-15, numrerade om
+       metoden till 516.7 och gjorde stål till förval: "The default drop surface
+       is steel backed by concrete." 810H:2019 metod 516.8 behöll stålet och
+       tillåter plywood bara under två namngivna villkor. Standarden skriver
+       själv att underlaget avgör: "The most severe damage potential is impact
+       with a non-yielding mass that absorbs minimal energy."
+
+       ANDRA FYNDET: de 26 fallen får delas på fem exemplar. Tabell 516.8-IX
+       not 5, ordagrant: "If desired, divide the 26 drops among no more than
+       five test items."
+
+       TREDJE: precisionen följer inte priset. X2O på 259 kr anger utgåva och
+       metodnummer, OtterBox på 229 och 449 anger 2008 års utgåva, Spigen säger
+       bara "militärklassad", och UAG:s dyraste på 1 099 kr anger 7,6 meter utan
+       att namnge någon standard alls. 7,6 m är sex gånger standardens 122 cm.
+
+       ⚠️ TVÅ HYPOTESER PRÖVADES OCH FÖLL under bygget, båda dokumenterade i
+       researchfilen. Utkastet skulle ha kallat X2O:s `516.7` ett påhittat
+       metodnummer; Change 1 numrerade faktiskt om metoden dit. Utkastet
+       daterade också bytet plywood till stål till 810H 2019; det skedde 2014.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen har provat skyddsskal: Råd & Rön
+       provar mobiler men inte skal, Testfakta har ingen provning, och Stiftung
+       Warentests fallprov gäller vattentäta dykhus. Samma läge som
+       /utomhustimer, /vattenlarm och /garageportsoppnare.
+
+       ⚠️ FALLHÖJD OCH MILITÄRSTANDARD ÄR INGA BETYGSATTA MÄTVÄRDEN, av samma
+       skäl som `Angiven besparing` på /smart-termostat och `Angivet böjtal` på
+       /usb-c-kabel. De bär kriteriet öppen redovisning i stället.
+
+       ⚠️ BUTIKEN ANGER PASSFORM MOT IPHONE 18 PRO för flera produkter, och
+       flera bär den i produktnamnet, trots att Apple inte presenterat modellen
+       och inte publicerat några mått. Uppgiften står i köpguiden. Vi påstår
+       varken att skalen kommer att passa eller att de inte gör det.
+
+       PENGAR: sidans bästa villkor hittills. iPhonebutiken.se bär 15 % med 45
+       dagars cookie och TheMobileStore SE 10 %, mot tidigare bäst E-safe 7,5 %.
+       ⚠️ Båda ligger under `Media` i Adtraction-katalogen och inte under
+       `Electronics`, vilket är tredje gången kategorifältet döljer en butik för
+       en Elektronik-sida. Svep på sortiment, inte på kategori.
+
+       ⚠️ SIDAN GÅR SANNOLIKT INTE ATT ANNONSERA. Både iPhonebutiken och
+       TheMobileStore bär ppcMarketing 0. Prylstaden 8 % och Estore 5 % har
+       ppc 2 men är okontrollerade mot skalsortimentet.
+
+       Se .agent/research/iphone-skal.md. */
+    href: "/iphone-skal",
+    label: "iPhone-skal",
+    category: ELEKTRONIK,
+    blurb: "Plywooden som varje skaltillverkare beskriver byttes mot stål 2014.",
+    /* Live 2026-08-05. Alla tolv priser, artikelnummer och lagerstatus lästa på
+       iPhonebutikens egna produktsidor samma dag, och militärstandarden läst i
+       original i tre utgåvor som PDF. Tolv packshots på plats. Uppmätt vid
+       1440 och 390 px: ingen sidscroll vid någondera bredden, och inget klippt
+       superlativ sedan X2O:s kortades från 44 till 36 tecken enligt IDÉ-015.
+
+       ⚠️ TVÅ MARKERADE RADER LIGGER UNDER 50 %, avsiktligt: `Angiven fallhöjd`
+       4/12 och `Angiven militärstandard` 5/12. Gap-passet är gjort mot
+       tillverkarens egen sida och kommer tillbaka tomt, så uppgiften finns inte
+       publicerad någonstans. Att fylla cellen åt den som tiger raderar det
+       raden mäter. Samma konstruktion som `Angiven noggrannhet` på /hygrometer.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /usb-c-laddare
+       och /garageportsoppnare. Slugen är vald på handelns och konkurrenternas
+       gemensamma språkbruk, alltså skal och inte fodral, vilket är ett stabilare
+       underlag än de två gånger sajten gissat fel. Kör Keyword Planner ändå.
+
+       ⚠️ PASSFORMSKOLUMNEN GÄLLER BARA 17 PRO. Sidan rankar skalmodeller med
+       17 Pro-varianten som referenspris, men `Passar modeller` anger enbart den
+       artikel som faktiskt prissatts. Att skriva in de övriga storlekarna utan
+       att kontrollera dem artikel för artikel vore variantfällan. Nästa runda
+       bör kontrollera 17, 17 Pro Max och Air per modell.
+
+       ⚠️ INGEN EGEN INTERAKTIV MODUL. Sidan använder de delade komponenterna
+       och har inget eget verktyg, till skillnad från /smart-belysning. En
+       väljare för skaltyp är den självklara kandidaten och är uppföljning. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 12,
+  },
+  {
+    /* `powerbank-20000` byggd 2026-08-05. Systersida till /powerbank, delad på
+       storlek efter användarbeslut. Den här rankar från 20 000 mAh och uppåt.
+       Stiftung Warentest delar sitt eget test på samma storlekar.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma sak som moderssidan. `powerbank
+       20000` ska med i samma Keyword Planner-körning. Slugen följer
+       Teknikdelars egen kategori, `powerbank-20000mah`.
+
+       FYNDET ÄR DET OMVÄNDA MOT /powerbank. Där anger två av åtta produkter
+       sitt energiinnehåll i wattimmar; här gör sju av nio det. Skälet är att
+       taket på 100 Wh bara är i sikte i den här storleken. Wattimmen publiceras
+       när tillverkaren har ett skäl att visa att produkten ryms under gränsen.
+
+       TVÅ PRODUKTER ÄR BYGGDA INTILL TAKET: Linocell 27 600 mAh anger 99,36 Wh
+       och Anker Prime 26 250 mAh anger 99,75 Wh. Marginal 0,64 respektive 0,25
+       wattimmar mot en gräns på 100. Konstruktion, inte slump.
+
+       ⚠️ ANDRA FYNDET: tre powerbanks med samma nominella 20 000 mAh anger 72,
+       72,36 och 100 Wh. De två första är förenliga; Xtorms 100 Wh ligger 39 %
+       högre och står bredvid "Flygplansgodkänd: Ja" i samma ruta. Vi påstår
+       ALDRIG att någon har fel — vi redovisar spridningen, som Clas Ohlsons
+       7,5 mot 13 liter på /avfuktare. Xtorms uppgift är INTE kontrollerad mot
+       tillverkarens egen sida; gör det innan något skärps.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Warentest mätte uttagbar energi till
+       58,3-69,9 Wh för storleksklassen, men resultat per modell ligger bakom
+       betalvägg på 4,90 EUR som vi inte köpt.
+
+       ⚠️ VIKT ÄR ETT EGET KRITERIUM här men inte på moderssidan: produkterna
+       väger 400 till 535 g, och bara tre av åtta anger vikten i butiken.
+
+       ⚠️ Alla åtta länkar går till Kjell, 5 % / 30 d, ingen PPC. Koncentrationen
+       står utskriven på sidan. Se .agent/research/powerbank.md §7b. */
+    href: "/powerbank-20000",
+    label: "Powerbank 20 000 mAh",
+    category: ELEKTRONIK,
+    blurb: "Två ligger under en wattimme från gränsen du får flyga med.",
+    /* Live 2026-08-05. Alla åtta priser, artikelnummer och kundbetyg lästa i
+       butikens egen JSON-LD samma dag. Linocell Premium 65 W var slutsåld och
+       ligger bland övervägda, men av variantskäl och inte av lagerskäl: den är
+       samma kapacitet, samma wattimmar och samma pris som 100 W-modellen. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 8,
+  },
+  {
+    /* `powerbank` byggd 2026-08-05. Tredje systersidan ur /usb-c-laddares
+       avgränsning, efter /usb-c-kabel.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `powerbank`, `batteripack` och
+       `reservbatteri` över samtliga keyword-CSV:er ger noll träffar. Kör
+       Keyword Planner på `powerbank`, `powerbank bäst i test`, `batteripack`
+       och `powerbank 20000` när det passar.
+
+       Slugen är enkel: handeln och samtliga konkurrenter säger powerbank i ett
+       ord. Ingen använder batteripack eller reservbatteri som produktnamn.
+
+       AVGRÄNSNING efter användarbeslut: sidan rankar vardagsklassen, 5 000 till
+       10 000 mAh, alltså det som laddar en telefon och ryms i en ficka. Rese-
+       och laptopklassen från 20 000 mAh får /powerbank-20000. Stiftung
+       Warentest delar sitt eget test på exakt samma sätt.
+
+       FYNDET ligger i enheten. Milliamperetimmar mäter laddningsmängd vid
+       cellens spänning; wattimmar mäter energi och är det Transportstyrelsen
+       reglerar efter. Av de åtta rankade anger TVÅ sitt energiinnehåll i Wh.
+       Warentest 2/2026 skriver rakt ut att mAh-uppgifterna är "nur begrenzt
+       aussagekräftig" och att det som betyder något är uttagbar energi i Wh,
+       uppmätt till 28,5-35,8 Wh för de små och 58,3-69,9 för de stora.
+
+       ⚠️ DE TVÅ SOM ANGER Wh ÄR INTE ÖVERENS: Anker Nano 30 W anger 37 Wh och
+       Linocell Premium 30 W anger 36 Wh, för samma nominella 10 000 mAh.
+       Cellspänningen skiljer. Det är beviset för att aldrig räkna om åt den som
+       tiger, och `Energiinnehåll` ligger därför i ALDRIG_BEDOMD.
+
+       ⚠️ TRE AV ÅTTA SAKNAR SPECIFIKATIONSRUTA HELT hos butiken, och två av dem
+       är hyllans mest omdömda med 303 respektive 222 kundbetyg.
+
+       ⚠️ FLYGREGELN gäller alla storlekar: en powerbank får ALDRIG ligga i
+       incheckat bagage. Handbagage upp till 100 Wh, 100-160 Wh kräver
+       flygbolagets godkännande och max två, över 160 Wh inte alls.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Warentests resultat per modell ligger bakom
+       betalvägg på 4,90 EUR som vi inte köpt. Metod och spann bär köpguiden.
+
+       ⚠️ KONKURRENSEN ÄR INTE TOM, till skillnad från garagesidorna.
+       Testkompassen täcker Wh-vinkeln bra: 47 förekomster av Wh, nio av
+       100 Wh-gränsen och elva av omvandlingsförluster, med korrekt formel.
+       Påstå ALDRIG att ingen tar upp det. Kjells egen "Bäst i test"-guide och
+       bast-i-test.se nämner däremot Wh noll gånger.
+
+       ⚠️ Alla åtta länkar går till Kjell, 5 % / 30 d, ingen PPC. Koncentrationen
+       står utskriven på sidan. Se .agent/research/powerbank.md. */
+    href: "/powerbank",
+    label: "Powerbank",
+    category: ELEKTRONIK,
+    blurb: "Två av åtta anger wattimmar. Det är den enhet flygreglerna är skrivna i.",
+    /* Live 2026-08-05. Alla åtta priser, artikelnummer och kundbetyg lästa i
+       butikens egen JSON-LD samma dag, samtliga i lager.
+
+       ⚠️ Gap-passet mot tillverkarens egen sajt för att fylla Wh på fler
+       produkter MISSLYCKADES och gjorde det farligt: anker.com returnerade
+       identiska tal, 99,75 Wh och 26 250 mAh, för två olika produktsidor,
+       eftersom värdena kom ur en korsförsäljningskarusell och inte ur
+       produkten. Att föra in dem hade varit variantfällan. Raderna
+       `Energiinnehåll` och `Vikt` är därför inte highlight, alltså inga
+       tabellrader, och fyndet bärs av fyndavsnittet, kriteriet, köpguiden,
+       omdömena och FAQ i stället. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 8,
+  },
+  {
     href: "/smart-belysning",
     label: "Smart belysning",
     category: SMART_HEM,

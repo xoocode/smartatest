@@ -35,6 +35,9 @@ import { USB_C_LADDARE_PRODUCTS } from "@/lib/data/usb-c-laddare";
 import { USB_C_KABEL_PRODUCTS } from "@/lib/data/usb-c-kabel";
 import { GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/garageportsoppnare";
 import { SMART_GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/smart-garageportsoppnare";
+import { POWERBANK_PRODUCTS } from "@/lib/data/powerbank";
+import { IPHONE_SKAL_PRODUCTS } from "@/lib/data/iphone-skal";
+import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -57,6 +60,9 @@ import { SMART_GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/smart-garageportso
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...IPHONE_SKAL_PRODUCTS,
+  ...POWERBANK_PRODUCTS,
+  ...POWERBANK_20000_PRODUCTS,
   ...SMART_GARAGEPORTSOPPNARE_PRODUCTS,
   ...GARAGEPORTSOPPNARE_PRODUCTS,
   ...USB_C_LADDARE_PRODUCTS,
