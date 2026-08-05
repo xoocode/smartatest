@@ -189,7 +189,10 @@ rediscovering that HOBOT does not publish a line rating anywhere.
 
 ### Before you write that something is not published
 
-Stop and read `.claude/references/establishing-absence.md`.
+Run `node scripts/fetch.mjs <url> --find "..."` and read
+`.claude/references/establishing-absence.md`. The script tries curl, r.jina.ai
+and a real browser in turn and reports what each one returned, so a tool that
+sees nothing can never be mistaken for a source that publishes nothing.
 
 The trigger is not a phase in this document. It is the sentence you are about
 to write. The moment the words *anges inte*, *publiceras inte*, *saknas*, *är

@@ -135,6 +135,118 @@ export type TestPageEntry = {
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
+    /* `iphone-skarmskydd` byggd 2026-08-05. Tredje sidan i iPhone-familjen och
+       sjunde i Elektronik. Skalsidans avgränsning sköt uttryckligen
+       skärmskydden hit, se .agent/research/iphone-skal.md.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `skärm`, `skarm`, `glas`,
+       `display`, `iphone` och `mobil` över samtliga sex keyword-CSV:er under
+       .agent/ ger noll träffar. Kör Keyword Planner på `skärmskydd`,
+       `skärmskydd iphone`, `härdat glas`, `iphone 17 pro skärmskydd` och
+       `panzerglas` i samma körning som skal- och fodralsidornas termer.
+
+       Slugen är dock enkel: Testix, Testkollen, iPhonebutiken, Kjell,
+       Elgiganten och Holdit säger alla skärmskydd. `panzerglas` är ett tyskt
+       varumärkesord som inte används generiskt i svensk handel.
+
+       AVGRÄNSNING efter användarbeslut: alla skärmskydd i ett spann, alltså
+       härdat glas, sekretessglas och plastfilm från 69 till 399 kr.
+       Kameralinsskydd förklaras i köpguiden och får en egen systersida. Att den
+       billigaste filmen gör mindre än ordet skärmskydd antyder syns bara om den
+       får vara med, samma resonemang som spannet 99 till 1 099 på /iphone-skal.
+
+       FYNDET: 9H är taket på en färgstandards skala. Läst i original hos ASTM
+       och ISO 2026-08-05. ASTM D3363-22 §1.1 beskriver metoden som bestämning
+       av "the film hardness of an organic coating on a metal or similarly hard
+       substrate", kommitté D01, Book of Standards vol. 06.01, alltså
+       färgvolymen. ISO 15184:2020 heter "Paints and varnishes — Determination
+       of film hardness by pencil test", ICS 87.040. Skalan går enligt Tekras
+       tekniska not från 6B, mjukast, till 9H, hårdast — alltså anger tio av
+       femton produkter skalans maximum.
+
+       ANDRA FYNDET, och det avgörande: ISO underkänner själva användningen.
+       Abstractet ordagrant: "This rapid test has not been found to be useful in
+       comparing the pencil hardness of different coatings." Att jämföra
+       produkter är det enda talet används till i handeln. ASTM §5.2 lägger till
+       att resultatet varierar mellan laboratorier och pennfabrikat, och Tekra
+       att lasten kan sänkas för att få ett högre värde. Ingen butik anger last.
+
+       TREDJE: gap-passet mot tillverkaren kommer tillbaka tomt, till skillnad
+       från /iphone-skal där det fungerade. PanzerGlass egen produktsida för
+       iPhone 17 Pro anger varken hårdhet, tjocklek, glastyp eller provmetod.
+       Den enda standard sidan namnger är Global Recycled Standard, och den
+       gäller det återvunna innehållet och inte glasets styrka.
+
+       FJÄRDE: Spigen marknadsför `9H plus` i en bildbeskrivning på sin egen
+       sida, alltså ett steg över skalans tak.
+
+       ⚠️ FÖRVÄXLINGEN FINNS UTSKRIVEN HOS EN KONKURRENT. repareraiphone.se
+       skriver att 9H "refererar till Mohs hårdhetsskala där diamant är 10".
+       Vi säger att uppgiften är fel, aldrig att sajten ljuger, och vi påstår
+       ALDRIG att tillverkarna hänvisar till Mohs — det gör de inte. Samma
+       disciplin som "Philips säger varken ja eller nej" på /smart-hem-hubb.
+
+       ⚠️ TESTKOLLEN TILLSKRIVER RÅD & RÖN ETT LABBTEST av ljustransmission
+       genom skärmskydd. Sökning på radron.se ger en konsumenträttsfråga och
+       inget test. Obelagt, INTE motbevisat: får varken citeras eller användas
+       som motargument. Samma läge som Råd & Rön-påståendet på /nyckelskap.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Råd & Rön och Testfakta har ingen provning.
+       connect 12/2014 provade tretton folier med riktig labbmetod — filtskiva,
+       8 N, 30 000 slag, plus luminans, kontrast, gloss och haze — men testet är
+       tolv år gammalt, gäller folier och innehåller noll av de rankade. Samma
+       läge som Testfaktas kabelprovning på /usb-c-kabel.
+
+       ⚠️ HÅRDHETEN ÄR INGET BETYGSATT MÄTVÄRDE, av samma skäl som `Angiven
+       fallhöjd` på /iphone-skal och `Angiven besparing` på /smart-termostat.
+       Femte gången beslutet fattas. Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       ⚠️ ENKAY BÄR EN VARIANTMISS I BUTIKENS EGEN LISTNING: sidtiteln säger
+       iPhone 17 Pro Max, specifikationsraden och produkttexten säger 17 Pro.
+       Fältet följer specifikationsraden. Kontrollera vid nästa prisrunda.
+
+       ⚠️ TROLSK OCH ENKAY ANGER PASSFORM MOT IPHONE 18 PRO, en modell Apple
+       inte presenterat. Samma uppgift som /iphone-skal §10 fann. Vi påstår
+       varken att de kommer att passa eller att de inte gör det.
+
+       ⚠️ LAGERSTATUS VÄGER INTE IN, efter användarbeslut 2026-08-05. Spigen
+       Glas.tR EZ Fit hade 2–6 veckors leveranstid vid bygget, vinner ändå, och
+       lagerläget nämns inte i någon läsartext.
+
+       PENGAR: samma utbud som /iphone-skal och /iphone-fodral, alltså
+       iPhonebutiken 15 % och 45 dagars cookie, sajtens bästa villkor.
+       ⚠️ ppcMarketing 0, så sidan går inte att annonsera. Prylstaden 8 % och
+       Estore 5 % med ppc 2 är fortfarande okontrollerade mot sortimentet.
+
+       Se .agent/research/iphone-skarmskydd.md. */
+    href: "/iphone-skarmskydd",
+    label: "iPhone skärmskydd",
+    category: ELEKTRONIK,
+    blurb: "Tio av femton anger 9H. Det är taket på en skala för färg och lack.",
+    /* Live 2026-08-05. Alla femton priser och artikelnummer lästa på
+       iPhonebutikens egna produktsidor samma dag, och båda hårdhetsstandarderna
+       lästa i original hos ASTM och ISO. Femton packshots på plats.
+
+       ⚠️ TRE MARKERADE RADER LIGGER UNDER 50 %, avsiktligt och av samma sort
+       som `Angiven fallhöjd` på /iphone-skal: `Täckning`, `Monteringsram` och
+       `Angiven hårdhet` bär kriteriet öppen redovisning, och gap-passet mot
+       tillverkarens egen sida kommer tillbaka tomt. Att fylla cellen åt den som
+       tiger raderar det raden mäter.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /iphone-skal,
+       /iphone-fodral, /usb-c-laddare och /garageportsoppnare. Slugen är vald på
+       handelns och konkurrenternas gemensamma språkbruk, vilket är ett stabilare
+       underlag än de två gånger sajten gissat fel. Kör Keyword Planner ändå.
+
+       ⚠️ TVÅ SPIGEN-ARTIKLAR LIGGER ETTA OCH TVÅA. De har skilda superlativ som
+       pekar på olika köpare, den ena på den som monterat snett förr och den
+       andra på den som vill ha insynsskydd billigt, men kontrollera vid nästa
+       runda att de inte glidit ihop. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 15,
+  },
+  {
     /* `iphone-fodral` byggd 2026-08-05, samma dag som /iphone-skal och som dess
        systersida. Skalsidans avgränsning sköt uttryckligen plånboksfodralen hit.
 

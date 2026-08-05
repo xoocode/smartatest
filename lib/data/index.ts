@@ -39,6 +39,7 @@ import { SMART_GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/smart-garageportso
 import { POWERBANK_PRODUCTS } from "@/lib/data/powerbank";
 import { IPHONE_SKAL_PRODUCTS } from "@/lib/data/iphone-skal";
 import { IPHONE_FODRAL_PRODUCTS } from "@/lib/data/iphone-fodral";
+import { IPHONE_SKARMSKYDD_PRODUCTS } from "@/lib/data/iphone-skarmskydd";
 import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
 
 /**
@@ -63,6 +64,7 @@ import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
  */
 export const ALL_PRODUCTS: Product[] = [
   ...SLACKSPRAY_PRODUCTS,
+  ...IPHONE_SKARMSKYDD_PRODUCTS,
   ...IPHONE_FODRAL_PRODUCTS,
   ...IPHONE_SKAL_PRODUCTS,
   ...POWERBANK_PRODUCTS,

@@ -18,7 +18,7 @@ not up front.
 | 1 | `.claude/context/research.md`, `.claude/context/money.md` |
 | 3–4 | `.claude/context/data.md` |
 | 4 | `.claude/references/spec-sourcing.md`, before the gap pass |
-| any | `.claude/references/establishing-absence.md`, **the moment you are about to write that a fact is not published** |
+| any | `.claude/references/establishing-absence.md` + `node scripts/fetch.mjs`, **the moment you are about to write that a fact is not published** |
 | 4 | Skill `swedish-voice`, before any reader-facing sentence |
 | 5 | `.claude/context/build.md`, `.claude/references/page-anatomy.md` |
 | 5 | `.claude/context/traps.md`, before writing component code |

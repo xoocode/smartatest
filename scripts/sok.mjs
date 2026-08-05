@@ -4,9 +4,21 @@
  * Varfor inte den inbyggda WebSearch: den ar US-only, vilket ar fel marknad
  * for varenda fraga det har projektet staller. Brave tar country=SE.
  *
- * Google CSE-nyckeln i C:\code\credentials\google-cse\ fungerar inte: Custom
- * Search JSON API ar inte aktiverat pa det Google Cloud-projektet och varje
- * anrop ger 403. Kollat 2026-08-03.
+ * Google CSE-nyckeln i C:\code\credentials\google-cse\ gar inte att fa att
+ * fungera, och det ar inte ett konfigurationsfel. Custom Search JSON API ar
+ * stangd for nya kunder och laggs ned 1 januari 2027. Googles egen sida sager
+ * ordagrant "This API is not available for new customers". Projekt
+ * 702154798234 ar inte en befintlig kund, alltsa svarar varje anrop 403 med
+ * "This project does not have the access to Custom Search JSON API".
+ *
+ * Aktivera inget, lank ingen betalning. Kollat i detalj 2026-08-05: nyckeln ar
+ * giltig och fungerar mot Search Console API, API:et ar aktiverat och raknar
+ * anrop, och sokmotorn cx=95bba626b0b9f44a3 existerar och gar att sla upp.
+ * Bara sjalva ratten saknas, och den gar inte att skaffa.
+ *
+ * Anteckningen ovan sa fram till 2026-08-05 att API:et inte var aktiverat. Det
+ * var fel och kostade en timme. Vill nagon anda ha Googles index: Serper.dev
+ * eller SerpAPI, ungefar en dollar per tusen fragor, utan Google Cloud alls.
  *
  *   node scripts/sok.mjs "luftrenare affiliate"
  *   node scripts/sok.mjs --en "air purifier affiliate program"

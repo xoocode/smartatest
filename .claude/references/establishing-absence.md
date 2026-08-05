@@ -33,10 +33,39 @@ So the rule is not "read more references". It is: **the phrase is the trigger.**
 
 ---
 
+## Start here: one command
+
+```bash
+node scripts/fetch.mjs <url> --find "vikt,mått,standby"
+```
+
+It runs curl, then r.jina.ai, then a real browser that dismisses cookie banners
+and clicks through the specification, support and document tabs. It prints the
+byte count and term hits **for every rung**, so a silent tool can never pass for
+a silent source, and it lists any PDFs it found.
+
+Measured against the four sources that beat us, each needing a different rung:
+
+| Source | curl | jina | playwright |
+|---|---|---|---|
+| Kjell powerbank | **6 301 B** | — | — |
+| Netatmo help centre (403 to Playwright and WebFetch) | **4 379 B** | — | — |
+| Delock (401, renders anyway) | 50 B | 150 B | **7 730 B** |
+| Netatmo product SPA | 5 223 B | 334 B | **19 304 B** |
+
+Two things that surfaced only because the ladder reports every rung: **curl with
+a proper user-agent walks straight through the Cloudflare check** that stops
+Playwright and WebFetch, and the browser rung found a Netatmo PDF that five
+manual attempts had missed. The source was never closed. The tool we happened to
+reach for was.
+
+When every rung comes back thin, that is still not an absence — escalate to a
+real Chrome session, which carries a genuine profile and fingerprint.
+
 ## The ladder
 
-Work down until you find it or reach the bottom. Stop as soon as you have it.
-Most facts fall out at step 2 or 3.
+Use the command above first; the rungs below are what to do with what it
+returns, and where to go next. Stop as soon as you have the fact.
 
 ### 1. The retailer page — rendered, and read as text
 

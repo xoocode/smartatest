@@ -2880,7 +2880,80 @@ export const IPHONE_FODRAL: TestPage = {
   ],
 };
 
+/**
+ * iPhone skärmskydd.
+ *
+ * Tredje sidan i iPhone-familjen, byggd 2026-08-05. Skalsidans avgränsning sköt
+ * uttryckligen skärmskydden hit.
+ *
+ * ## ⚠️ Hårdheten är inget kriterium, och det är sidans hela poäng
+ *
+ * Talet 9H står på tio av femton skydd här. Det är taket på pennskalan i
+ * ASTM D3363 och ISO 15184, alltså standarder för färg och lack, och ISO skriver
+ * i sitt eget abstract att metoden inte duger till att jämföra olika
+ * beläggningar. Lasten som pennan trycks med avgör utfallet och redovisas
+ * aldrig i handeln.
+ *
+ * Att betygsätta ett tal som alla anger, på en skala som slutar där, vore att
+ * mäta butikens copywriting. Femte gången beslutet fattas i repot. Se
+ * lib/spec-schema.mjs, ALDRIG_BEDOMD.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Råd & Rön och Testfakta har ingen provning av kategorin. Den enda riktiga
+ * labbprovning som hittats är connect 12/2014, och den gäller folier snarare än
+ * härdat glas och innehåller inte en enda av de rankade produkterna. Metoden och
+ * mätvärdena bär köpguiden i stället, som Testfaktas kabelprovning på
+ * /usb-c-kabel.
+ *
+ * ## ⚠️ Prisvärdet räknas per skydd
+ *
+ * Fyra artiklar är 2-pack. Efter användarbeslut 2026-08-05 rankas prisvärdet på
+ * vad ett skydd på skärmen kostar, medan förpackningspriset står kvar i
+ * tabellen. Annars vinner enpacket på att vara ett.
+ */
+export const IPHONE_SKARMSKYDD: TestPage = {
+  slug: "iphone-skarmskydd",
+  label: "iPhone skärmskydd",
+  title:
+    "iPhone skärmskydd bäst i test 2026: femton skydd till iPhone 17 Pro, från 69 till 399 kr",
+  category: ELEKTRONIK,
+  methodology:
+    "Sidan rankar skärmskydd till iPhone 17 Pro: härdat glas, sekretessglas och plastfilm i samma lista, från 69 till 399 kronor. Kameralinsskydd är en annan produkt och förklaras i köpguiden. Ett skärmskydd passar exakt en skärmstorlek, så priset gäller genomgående 17 Pro-varianten. Fyra artiklar säljs som 2-pack, och prisvärdet räknas därför per skydd medan förpackningspriset står kvar i tabellen. Ingen har provat skärmskydd: Råd & Rön och Testfakta har ingen provning av kategorin, och den enda riktiga labbprovning som finns gäller folier och är från 2014, utan en enda av produkterna här. Vi har inte satt ett enda skydd på en telefon själva. Betygen bygger på vad butiken och tillverkaren publicerar om just den artikeln, läst på produktsidan och daterat. Hårdhetstalet 9H väger inte in i något betyg, och skälet är att det inte är ett mätvärde: det är taket på pennskalan i ASTM D3363 och ISO 15184, som båda är standarder för färg och lack, och ISO skriver i sitt eget abstract att metoden inte duger till att jämföra olika beläggningar. Lasten pennan trycks med avgör utfallet, och den finns inte angiven för något skydd i handeln. Talet står kvar i tabellen därför att köparen letar efter det, men det bär kriteriet öppen redovisning och inget annat: där kostar det poäng att lämna köparen utan tjocklek, täckning och innehåll, och där ger det poäng att skriva ut även det som är till produktens nackdel. Priser och artikelnummer är lästa på butikens egen produktsida 2026-08-05. Lagerstatus väger inte in, efter användarbeslut. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "skydd",
+      label: "Skydd och täckning",
+      weight: 35,
+      description:
+        "Hur mycket av skärmen som ligger under glaset, och vad glaset gör när telefonen faller. Det här är det du betalar för och det enda i kategorin som går att bedöma på något annat än ett påstående. Materialet väger tyngst: härdat glas spricker i stället för skärmen och tar upp stöten, medan en mjuk plastfilm bara håller repor borta och lika gärna kan vikas dubbel. Sedan kommer täckningen, som skiljer sig mer än produktnamnen antyder. Ett heltäckande glas går ända ut i kanten och har en svart ram som döljer limfogen. Ett standardglas täcker den aktiva ytan och lämnar en remsa fri så att ett skal får plats bredvid. Ett tredje slutar en bit innanför kanten, och då ligger telefonens mest utsatta yta bar. Här väger också vad mer som hamnar under glaset: ett av skydden täcker frontkameran och sensorerna ovanför skärmen, alltså den del som blir repig av bordsskivor. Tjockleken väger in åt två håll och därför lätt: 0,33 millimeter är mer material att spricka i, 0,26 är mindre att känna under fingret.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 25,
+      description:
+        "Hur mycket av köpbeslutet du får ta själv innan paketet är öppnat. Ett skärmskydd går inte att prova i butiken och inte att sätta på två gånger, så allt du vet före monteringen står i en ruta på en produktsida. Här väger fyra uppgifter. Tjockleken i millimeter, som fyra av femton anger. Täckningen, alltså om glaset når kanten eller inte. Vad som ligger i asken, eftersom ett rengöringskit och en monteringsram är skillnaden mellan ett lyckat och ett misslyckat försök. Och materialet, som ska säga mer än ordet glas. Hårdhetstalet 9H räknas in här och ingen annanstans, och det ger mindre än det ser ut att göra: det är taket på en skala för färg och lack, tio av femton anger det, och ingen anger vid vilken last talet gäller. Högst betyg får därför inte den som skriver mest utan den som skriver ut det som går att kontrollera, inklusive det som talar mot produkten. Ett av skydden anger att glaset inte går hela vägen ut i kanten, vilket är den enskilt mest användbara meningen i hela kategorin.",
+    },
+    {
+      key: "montering",
+      label: "Montering",
+      weight: 22,
+      description:
+        "Om du får skyddet rakt på skärmen vid första försöket. Det här är kategorins verkliga felkälla, och det som mest sannolikt gör pengarna bortkastade: ett skydd som hamnar två millimeter snett eller får en dammkorn under limmet går inte att lyfta och lägga om, och då är det ett nytt köp. Högst betyg får de som levererar en monteringsram, alltså en plastbygel som telefonen läggs i så att glaset bara kan hamna rätt. Fem av skydden har en, och tillverkarna kallar den olika saker. Näst högst betyg får ett 2-pack, av det enkla skälet att det andra glaset är din andra chans, och det är därför de billigaste 2-packen slår dyrare enpack här. Lägst betyg får den som säger enkel installation och lämnar dig med ett fritt liggande glas och två tummar. Ett rengöringskit väger också in: dammet på skärmen är det som blir en bubbla, och en trasa och en klisterlapp för damm kostar tillverkaren några kronor.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 18,
+      description:
+        "Vad ett skydd på skärmen kostar, alltså förpackningspriset delat med antalet i asken. Spannet är nästan sex gånger, från 99,50 till 399 kronor per skydd, och det är därför den här kolumnen inte kan läsas ur prislappen. Ett 2-pack för 199 kronor är billigare per skydd än allt annat i jämförelsen, och ett 2-pack för 249 är billigare per skydd än nio av de tio enpacken. Här väger också vad pengarna köper utöver glaset: en monteringsram, ett rengöringskit och ett extra glas är verkliga tillägg, medan ett sekretessfilter är en annan produkt snarare än ett dyrare skydd och därför inte belönas som ett. Var uppmärksam på att det billigaste i hela jämförelsen inte är billigast per skydd, och att det dyraste inte skyddar mest. Ett skärmskydd byts dessutom oftare än telefonen, så priset ska läsas som en löpande kostnad och inte som en engångsutgift.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  IPHONE_SKARMSKYDD,
   IPHONE_FODRAL,
   SLACKSPRAY,
   POWERBANK_20000,

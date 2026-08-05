@@ -4156,6 +4156,100 @@ export const POWERBANK_20000_SOURCES: Source[] = [
  * ligger i skillnaden mellan dem, och en läsare som vill kontrollera det ska
  * kunna öppna rätt dokument utan att leta.
  */
+/**
+ * /iphone-skarmskydd.
+ *
+ * De tre första bär sidans fynd och är lästa i original 2026-08-05: skalan
+ * slutar på 9H, standarden bakom den är en färgstandard, och standardens eget
+ * abstract säger att metoden inte duger till jämförelser.
+ */
+export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
+  {
+    publisher: "ASTM International",
+    title: "ASTM D3363-22, Standard Test Method for Film Hardness by Pencil Test",
+    url: "https://store.astm.org/d3363-22.html",
+    date: "2022-07-11",
+    market: "US",
+    kind: "standard",
+    note: 'Standarden bakom talet 9H, läst i original. §1.1: "This test method covers a procedure for rapid, inexpensive determination of the film hardness of an organic coating on a metal or similarly hard substrate in terms of drawing leads or pencil leads of known hardness." Registerdata på samma sida: kommitté D01, Book of Standards vol. 06.01, alltså färgvolymen. §5.3 varnar för jämförelser: "Caution should be used when attempting to compare coatings of similar film hardness." §5.2 och not 3 anger att resultatet varierar mellan laboratorier och mellan pennfabrikat och pennsatser, och §5.5 att en gemensam uppsättning referenspennor måste avtalas om talet ska ligga till grund för ett köpavtal. §1.2 anger metoden som likvärdig i innehåll men inte tekniskt likvärdig med ISO 15184.',
+  },
+  {
+    publisher: "ISO",
+    title: "ISO 15184:2020, Paints and varnishes – Determination of film hardness by pencil test",
+    url: "https://www.iso.org/standard/76044.html",
+    date: "2020-01-08",
+    kind: "standard",
+    note: 'Den internationella motsvarigheten, tredje utgåvan. Titeln placerar metoden i färg och lack, ICS 87.040, teknisk kommitté ISO/TC 35/SC 9. Abstractet, ordagrant och avgörande: "This document specifies a method for determining the film hardness by pushing pencils of known hardness over the film. […] This rapid test has not been found to be useful in comparing the pencil hardness of different coatings. It is more useful in providing relative ratings for a series of coated panels exhibiting significant differences in pencil hardness." Att jämföra olika produkter är det enda talet används till i handeln. Standarden ligger sedan 2025-07-04 i status 90.92, alltså under revidering.',
+  },
+  {
+    publisher: "Tekra",
+    title: "Tek Tip: Pencil Hardness Test",
+    url: "https://www.tekra.com/sites/default/files/downloads/Tek_Tip_Pencil_Hardness-Test.pdf",
+    market: "US",
+    kind: "standard",
+    note: 'Teknisk not från en distributör av funktionsfilm, hämtad som PDF och läst i original. Två uppgifter bär sidan. Skalans omfång: "When expressing the measurement of pencil hardness, we do so with a value scale that ranges from 6B, softest, to 9H, hardest." 9H är alltså maximum och inte ett resultat. Och lastens betydelse, under rubriken Common Pitfalls: "One common way to alter the test is to lower the gram load weight used with the pencil hardness tester. The less pressure that is put on the pencil, there is a smaller chance that the lead will scratch the film, thus yielding a \'higher pencil hardness value\'." Noten anger också att ASTM D3363 kräver att vikten redovisas i resultatet.',
+  },
+  {
+    publisher: "U.S. National Park Service",
+    title: "Mohs Hardness Scale",
+    url: "https://www.nps.gov/articles/mohs-hardness-scale.htm",
+    market: "US",
+    kind: "standard",
+    note: "Mineralskalan, alltså den skala talet 9H ofta förväxlas med. Myndighetens egen tabell: diamant 10, korund 9, topas 8, kvarts 7, ortoklas 6, apatit 5. Bland de vardagsföremål som listas för jämförelse ligger en stålspik på 6,5 och en glasskiva på 5,5. Kvarts är huvudbeståndsdelen i vanlig sand, och den ligger alltså över allt glas på skalan. Används på sidan för att förklara varför sand repar ett skärmskydd oavsett vilket H-tal som står på kartongen.",
+  },
+  {
+    publisher: "connect",
+    title: "Displayschutz: 13 Folien für Smartphones im Test",
+    url: "https://www.connect.de/vergleich/displayschutz-folien-test-vergleich-smartphone-2697784.html",
+    date: "2014-11-18",
+    market: "DE",
+    note: "Den enda riktiga labbprovningen av kategorin som hittats. En filtskiva med bestämd hårdhet och diameter kördes över folien i nio steg med stigande antal slag och kraft, med kontroll i särskild belysning efter varje steg och väntetid för självläkande effekter; godkänt krävde 8 newton och 30 000 slag. Optiskt mättes luminans, kontrast, gloss och haze. Åtta av tretton klarade proceduren utan skador, men fem visade nötning i olika grad, och tre antireflexfolier föll på haze och kontrast eftersom de är byggda för låg spegling. ⚠️ Provningen är från 2014, gäller folier snarare än härdat glas och innehåller inte en enda av de produkter sidan rankar. Inget betyg härifrån är knutet till någon produkt. Metoden och mätstorheterna bär köpguiden.",
+  },
+  {
+    publisher: "PanzerGlass",
+    title: "PanzerGlass 2-way Privacy Screen Protector iPhone 17 Pro, Ultra-Wide Fit",
+    url: "https://panzerglass.com/products/panzerglass%C2%AE-2-way-privacy-screen-protector-iphone-17-pro-ultra-wide-fit-w-easyaligner",
+    date: "2026-08-05",
+    market: "DK",
+    note: "Tillverkarens egen produktsida, läst i sin helhet. Källa för täckning, sekretessfilter, EasyAligner och andelen återvunnet glas, 60 procent, certifierad enligt Global Recycled Standard. Sidan anger inget hårdhetstal, ingen tjocklek, ingen glastyp och ingen provmetod för glasets styrka, vilket är skälet till att de cellerna står tomma i tabellen.",
+  },
+  {
+    publisher: "Spigen",
+    title: "iPhone 17 Series GLAS.tR EZ Fit (Sensor Protection) Screen Protector",
+    url: "https://www.spigen.com/products/iphone-17-series-screen-protector-glas-tr-ez-fit-sensor-protected",
+    date: "2026-08-05",
+    note: 'Tillverkarens egen produktsida. Källa för att förpackningen innehåller två skydd och en monteringsbygel, för AluminaCore-lagret och för att skyddet täcker sensorerna ovanför skärmen. Sidan har ingen specifikationstabell och anger varken tjocklek eller provmetod. Hårdheten anges som "9H plus" i en bildbeskrivning, alltså ett steg över pennskalans tak enligt ASTM D3363 och Tekras not ovan.',
+  },
+  {
+    publisher: "Råd & Rön",
+    title: "Tester, telefoni, datorer och internet",
+    url: "https://www.radron.se/tester/telefoni-datorer--internet/mobiler/",
+    market: "SE",
+    note: "Med som belägg för att kategorin saknar oberoende svensk provning. Råd & Rön provar mobiltelefoner men har ingen provning av skärmskydd; sökning över radron.se ger en konsumenträttsfråga om bytesrätt och inget test. Ingen uppgift på sidan är hämtad härifrån. ⚠️ En svensk jämförelsesajt tillskriver Råd & Rön ett laboratorietest av ljustransmission genom skärmskydd. Något sådant test har inte gått att hitta, och vi varken citerar eller motbevisar uppgiften.",
+  },
+  {
+    publisher: "Testkollen",
+    title: "Skärmskydd bäst i test 2026",
+    url: "https://www.testkollen.se/skarmskydd-mobil",
+    market: "SE",
+    note: "Konkurrent, med som mätpunkt och inte som underlag. 11 821 ord, fem rankade skydd, och den mest utförliga svenska sidan i kategorin. Talet 9H förekommer åtta gånger, alltid som en produktegenskap och aldrig förklarat. Kontrollerat term för term: ASTM, D3363, ISO 15184, pennhårdhet och provlast förekommer inte en enda gång. Ingen uppgift är hämtad härifrån.",
+  },
+  {
+    publisher: "Reparera iPhone",
+    title: "Bäst i test: Skärmskydd iPhone 17",
+    url: "https://repareraiphone.se/skarmskydd-iphone-17-bast-i-test/",
+    market: "SE",
+    note: 'Konkurrent, med därför att den är den enda svenska sidan som försöker förklara vad 9H betyder, och därför att förklaringen pekar på fel skala. Ordagrant: "Du ser ofta beteckningen 9H. Detta refererar till Mohs hårdhetsskala där diamant är 10." Talet kommer ur pennskalan i ASTM D3363 och ISO 15184, se de tre första källorna. Ingen uppgift är hämtad härifrån.',
+  },
+  {
+    publisher: "Testix",
+    title: "Skärmskydd bäst i test 2026",
+    url: "https://testix.se/test/skarmskydd",
+    market: "SE",
+    note: "Konkurrent, med som mätpunkt. 6 838 ord, fem rankade skydd över flera telefonmärken, monetiserad via PriceRunners betalda klick-ut. Talet 9H förekommer inte alls, och inte heller någon förklaring av hur reptålighet mäts. Ingen uppgift är hämtad härifrån.",
+  },
+];
+
 export const IPHONE_SKAL_SOURCES: Source[] = [
   {
     publisher: "US Department of Defense",
@@ -4304,6 +4398,7 @@ export const IPHONE_FODRAL_SOURCES: Source[] = [
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
   "/iphone-fodral": IPHONE_FODRAL_SOURCES,
   "/slackspray": SLACKSPRAY_SOURCES,
+  "/iphone-skarmskydd": IPHONE_SKARMSKYDD_SOURCES,
   "/iphone-skal": IPHONE_SKAL_SOURCES,
   "/powerbank-20000": POWERBANK_20000_SOURCES,
   "/powerbank": POWERBANK_SOURCES,

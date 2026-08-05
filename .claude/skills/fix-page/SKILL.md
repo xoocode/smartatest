@@ -32,7 +32,7 @@ pnpm check:tackning     # invisible rows, rows under 50 % filled
 | Touch a single sentence | Skill `swedish-voice` — all of it, plus `references/writing-guide.md` |
 | Judge the ingress or section order | `.claude/references/page-anatomy.md` |
 | Fill a spec cell | `.claude/references/spec-sourcing.md` |
-| Write that a fact is not published | `.claude/references/establishing-absence.md` — six of ten such claims were false |
+| Write that a fact is not published | `.claude/references/establishing-absence.md`, and `node scripts/fetch.mjs <url> --find "..."` |
 | Change spec fields or `highlight` | `.claude/context/data.md` |
 | Finish | `.claude/context/ship.md` |
 
