@@ -67,6 +67,7 @@ const TOOL_SLUGS: Record<string, string> = {
   AlarmExitTool: "vad-kostar-det-att-lamna-hemlarmet",
   FiveYearAlarmCostTool: "femarskostnad-larm",
   AirAppliancePicker: "vilken-luftapparat",
+  CableNeedPicker: "vilken-usb-c-kabel",
   RobotThresholdPicker: "klarar-roboten-troskeln",
   Fuktavlasning: "vad-betyder-talet-pa-hygrometern",
   Ventilpassning: "vilken-termostat-passar-min-ventil",

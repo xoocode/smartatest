@@ -2426,7 +2426,132 @@ export const GARAGEPORTSOPPNARE: TestPage = {
   ],
 };
 
+export const USB_C_KABEL: TestPage = {
+  slug: "usb-c-kabel",
+  label: "USB-C-kabel",
+  title: "USB-C-kabel bäst i test 2026: tretton kablar från 59 till 1 099 kr",
+  category: ELEKTRONIK,
+  methodology:
+    "Kontakten ser likadan ut i båda ändar av kategorin, och det är hela problemet: två kablar som inte går att skilja åt på hyllan kan skilja 83 gånger i datahastighet och fyra gånger i effekt. Vi har därför byggt rankningen på vad säljaren publicerar om just den kabeln, läst på produktsidan och daterat. Direktiv (EU) 2022/2380 är läst i original på EUR-Lex, och det namnger kabelstandarden EN IEC 62680-1-3:2021 i svensk lagtext utan att ställa ett enda krav på kabeln du köper: skyldigheten ligger på apparaten, som ska kunna laddas med en kabel som uppfyller standarden. Varje tal på en kabelförpackning är alltså tillverkarens eget påstående. Den enda oberoende provning som finns i kategorin är Testfaktas, där tyska PZT böjde tolv laddkablar 5 000 gånger med en publicerad metod, publicerad i februari 2020. Den bär köpguiden och förklarar varför en kabel går sönder, men den blir ingen betygskolumn: samtliga sex USB-C-kablar där är USB-A-formen, och den här sidan rankar bara USB-C till USB-C. Att låna ett provresultat från en kabelform till en annan vore en påhittad mätning. Tillverkarnas egna böjtal betygsätts inte heller, eftersom ingen av dem publicerar en metod och samma tillverkare anger allt från 5 000 till 300 000 böjningar för olika produkter. Priserna jämförs per meter, eftersom modellerna säljs i allt från 0,3 till 3 meter och den korta kabeln annars vinner på att vara kort. Vi har inte mätt en enda kabel själva och påstår aldrig något annat. Priser och kundbetyg är lästa på butikens egen produktsida 2026-08-05. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "datahastighet",
+      label: "Datahastighet och skärmstöd",
+      weight: 30,
+      description:
+        "Hur snabbt kabeln flyttar data, och om den kan driva en skärm. Det här är den egenskap som skiljer kategorin mest och som syns minst, eftersom kontakten är identisk oavsett vad som sitter inuti. En USB-C-kontakt har 24 stift, en USB 2.0-kontakt fyra, och en tillverkare som vill spara kopplar helt enkelt inte de åtta ledarna för de snabba datakanalerna. Spannet i den här jämförelsen går från 480 megabit i sekunden till 40 gigabit, alltså 83 gånger, och priset förutsäger det inte: hos Kjell kostar en kabel som anger 480 Mb/s 299,90 kronor medan en som anger 40 Gbps kostar 329. Skärmstödet ligger i samma kriterium och inte i en egen kolumn, av den enkla anledningen att en kabel som stannar på 480 Mb/s saknar de ledarpar DisplayPort Alt Mode behöver. Högst betyg får den som når 40 Gbps och driver 8K, lägst den som bara laddar. För den som enbart laddar en telefon spelar skillnaden ingen roll, och det står i köpguiden.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde per meter",
+      weight: 25,
+      description:
+        "Vad kabeln kostar per meter, vilket är det enda sättet att jämföra en rankning där modellerna säljs i 0,3 till 3 meter. Utan normaliseringen hade den kortaste kabeln vunnit på att vara kort, och en tremeterskabel förlorat på att räcka längre. Spannet är stort och följer inte kvaliteten: 39 kronor per meter i botten och 550 i toppen, alltså fjorton gånger, medan datahastigheten i toppen ibland är den samma som i botten. Måttet är också det som gör en tremeterskabel rättvisa, och längd är den egenskap köpare oftast underskattar. Kabeln som följde med telefonen är typiskt en meter, vilket räcker till ett nattduksbord och inte till en soffa. Här väger inte in vad kabeln klarar, det gör de andra kriterierna, utan bara vad metern kostar.",
+    },
+    {
+      key: "effekt",
+      label: "Effekt och e-marker",
+      weight: 20,
+      description:
+        "Hur mycket ström kabeln får släppa fram, och om den har det chip som krävs för att säga det. En USB-C-kabel utan e-marker klarar 3 ampere, alltså omkring 60 watt, oavsett hur stark laddaren är, eftersom laddaren håller igen när kabeln inte kan uppge vad den tål. Över 60 watt måste kabeln bära ett e-markerchip, och för 240 watt krävs Extended Power Range och USB PD 3.1, alltså 48 volt och 5 ampere. Det är den vanligaste orsaken till att en dyr laddare laddar långsamt, och den syns inte på kabeln. Här väger både märkeffekten och om e-markern är utskriven: Delock anger chipset e-marker rakt ut i specifikationen, medan flera kablar som säljs som 240 watt inte nämner ordet någonstans. En 60-wattskabel är inte sämre än en 240-watts för en telefon, men den är en annan produkt än vad priset ibland antyder.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 15,
+      description:
+        "Hur mycket du får veta innan du köper, vilket i den här kategorin skiljer sig mer än kablarna gör. Här väger in om datahastigheten anges med ett tal, om e-markern nämns, om USB-IF-certifiering och effekt står utskrivna, och om säljaren skriver ut vad kabeln inte klarar. Skillnaderna är stora och följer inte priset. Clas Ohlsons egen kabel anger USB 2.0, 480 Mbps, spänningsstegen för både PD 3.1 och PD 3.0 och att den är certifierad av USB-IF. Elgigantens husmärke lägger både certifieringen och 480 Mbps i själva produktnamnet och skriver dessutom ut att kabeln inte stöder USB 3.0, 4K, 8K eller Thunderbolt. Amazons specifikationstabell för en av de mest sålda kablarna anger i stället datahastigheten i gigabyte per sekund, vilket är en omöjlig enhet. En uppgift som inte går att kontrollera räknas som en brist, aldrig som ett neutralt tomrum, eftersom det är du och inte vi som får leva med att kabeln inte gör det du trodde.",
+    },
+    {
+      key: "konstruktion",
+      label: "Konstruktion och längdutbud",
+      weight: 10,
+      description:
+        "Vad kabeln är klädd i och i vilka längder modellen finns. Materialet står här därför att det är där kablar faktiskt går sönder: när PZT böjde tolv laddkablar åt Testfakta var skadan i samtliga fall ett sprucket eller missfärgat kabelhölje vid dragavlastningen, inte ett brott i ledarna. Flätad nylon och silikon står emot den påfrestningen bättre än slät plast, och det syns på butikens egen produktbild. Längdutbudet väger in därför att en modell som bara finns i en meter inte löser problemet för den som behöver tre, och att byta märke för att byta längd betyder att man börjar om med en okänd kabel. Vikten är avsiktligt låg. Tillverkarnas böjtal betygsätts inte alls: ingen publicerar en metod, och samma tillverkare anger allt mellan 5 000 och 300 000 böjningar för olika produkter i sitt eget sortiment.",
+    },
+  ],
+};
+
+/**
+ * Smart garageportsöppnare.
+ *
+ * Systersida till GARAGEPORTSOPPNARE, beslutad av användaren 2026-08-05. Den
+ * här sidan rankar modulerna som kopplas till en öppnare du redan har.
+ *
+ * ## Varför strömförsörjningen är ett eget kriterium
+ *
+ * De två billigaste modulerna, 374 och 384 kr, matas med 230 V och är
+ * konstruerade för att sitta i en kopplingsdosa. De från 499 kr och uppåt går
+ * på USB. Enligt Elsäkerhetsverket är en relämodul i den fasta installationen
+ * arbete för registrerat elinstallationsföretag, och då är den billigaste
+ * modulen inte längre billigast. Gränsen är utredd och rättad en gång på
+ * /smart-strombrytare, och formuleringen är hämtad därifrån.
+ *
+ * ## ⚠️ Positionssensorn blev inget kriterium
+ *
+ * Utkastet byggde på att billiga reläer bara kan trycka på knappen medan dyra
+ * också vet var porten står. Kontrollerat i butikernas egna texter föll den:
+ * garageportsbrytarreläet på 374 kr anger "visning av styrenhetens aktuella
+ * status (öppen/stängd)" och Tuya-modulen på 384 kr levereras med
+ * öppningssensor för tungkontakt. Sensorn är standard i hela kategorin och
+ * skiljer ingenting. Se .agent/research/smart-garageportsoppnare.md §3.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Ljud & Bilds Yale-test är kategorins enda oberoende provning och täcker en av
+ * sex produkter. Samma bedömning som på /smart-strombrytare, där vikten sattes
+ * efter hur mycket underlag kategorin faktiskt har och inte som en konstant.
+ */
+export const SMART_GARAGEPORTSOPPNARE: TestPage = {
+  slug: "smart-garageportsoppnare",
+  label: "Smart garageportsöppnare",
+  title:
+    "Smart garageportsöppnare bäst i test 2026: sex moduler till porten du redan har",
+  category: SMART_HEM,
+  methodology:
+    "Sidan jämför moduler som kopplas till en garageportsöppnare du redan äger, inte motorer. Alla sex gör i grunden samma sak: de sluter en kontakt och härmar ett tryck på väggknappen. Kategorin saknar oberoende provning så när som på ett test, Ljud & Bilds genomgång av Yale Smart Opener, som täcker en av sex produkter. Det är för tunt för ett eget kriterium men det står som källa. Betygen bygger i övrigt på tillverkarnas och butikernas publicerade uppgifter om strömförsörjning, ekosystem, kontosäkerhet och kompatibilitet. Strömförsörjningen väger tungt därför att den avgör vad du får montera själv: en modul som matas med 230 V och ska sitta i en kopplingsdosa är enligt Elsäkerhetsverket en förändring av den fasta installationen och kräver registrerat elinstallationsföretag, medan en USB-matad modul är ett skruvmejseljobb. Där en uppgift om kryptering eller tvåstegsverifiering inte gått att fastställa räknas det som en brist under säkerhet, eftersom en produkt som öppnar ditt garage över internet bör gå att kontrollera innan du köper den. Priser, artikelnummer och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte monterat en enda modul. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "installation",
+      label: "Installation och behörighet",
+      weight: 25,
+      description:
+        "Vad du får sätta upp själv, och vad som kräver att någon annan gör det. Skillnaden går rakt genom kategorin och den syns inte på prislappen. De två billigaste modulerna matas med 230 volt och är konstruerade för att sitta i en kopplingsdosa bakom väggknappen. Att lägga in en relämodul där är en förändring av den fasta installationen, och det kräver registrerat elinstallationsföretag. De dyrare modulerna går på USB eller matas från portöppnaren, och då handlar monteringen om två kablar och en skruvmejsel. Räknar du in en elektriker i priset ser kategorins prisordning helt annorlunda ut. Här väger också in hur mycket som ingår i lådan, alltså om sensor, kablar och fästen följer med eller köps separat.",
+    },
+    {
+      key: "sakerhet",
+      label: "Säkerhet och kontoskydd",
+      weight: 25,
+      description:
+        "Vad som skyddar kontot som kan öppna ditt garage. En sådan här modul flyttar en dörr till ditt hus ut på internet, och då är kontot bakom appen lika mycket en nyckel som fjärrkontrollen i bilen. Tyngst väger tvåstegsverifiering, alltså att ett stulet lösenord inte räcker för att komma in, och därefter vad tillverkaren anger om kryptering av trafiken mellan telefon, modul och molntjänst. Här väger också in om modulen kan varna dig när porten öppnas, eftersom en avisering är det enda du har att gå på när du inte är hemma. Där uppgiften inte publiceras räknas det som en brist: en produkt du inte kan kontrollera före köpet är sämre för dig än en du kan, och konsekvensen bärs av dig.",
+    },
+    {
+      key: "ekosystem",
+      label: "Ekosystem och app",
+      weight: 20,
+      description:
+        "Om modulen passar in i det du redan har hemma. De flesta som köper en sådan här produkt har redan valt sida mellan Apple, Google och Amazon, och en modul som inte pratar med rätt system blir en app till bland alla andra. Matter väger tyngst här, eftersom det är den enda uppkopplingen som fungerar över alla tre utan att tillverkaren behöver stödja dem var för sig. Apples ekosystem är det som oftast fattas: flera tillverkare säljer HomeKit-stödet som en egen artikel med ett eget artikelnummer, vilket betyder att du kan köpa fel modul utan att märka det förrän den är monterad. Här väger också in om en separat hubb krävs, eftersom en hubb är en extra kostnad och en extra sak som kan sluta fungera.",
+    },
+    {
+      key: "kompatibilitet",
+      label: "Kompatibilitet",
+      weight: 15,
+      description:
+        "Om modulen fungerar med din portöppnare och din port. Alla modulerna här arbetar likadant: de sluter en potentialfri kontakt, alltså samma slutning som när du trycker på väggknappen. Det förutsätter att din öppnare har två skruvplintar för en sådan knapp, och det har de flesta men inte alla. Här väger också in vilka porttyper tillverkaren anger, alltså takskjutport, vipport eller båda, och hur många portar en enhet klarar. Där tillverkaren inte anger vilka öppnare modulen fungerar med räknas det som en brist, eftersom det är den enda fråga som avgör om produkten alls går att använda och du inte kan svara på den innan du köpt.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Vad du får för pengarna, mätt mot vad de andra kostar för samma sak. Spannet är stort, från 374 till 2 109 kronor för produkter som utför samma grundläggande handling. Här väger in vad som ingår i lådan och vad som måste köpas till. Det som väger allra tyngst är att en modul som kräver elinstallatör bär den kostnaden i sitt verkliga pris, även när den ser billigast ut i butikshyllan. Kundbetyg från butiken visas i tabellen men vägs aldrig in, eftersom betyg från olika butiker inte är jämförbara.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  SMART_GARAGEPORTSOPPNARE,
+  USB_C_KABEL,
   GARAGEPORTSOPPNARE,
   USB_C_LADDARE,
   NYCKELSKAP,

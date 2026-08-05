@@ -148,5 +148,15 @@ rest belongs to `/fix-page`.
 
 ## Flip to live
 
-Only when genuinely publishable: `status: "live"`, images in place for every
-ranked product, criterion scores reflecting the user's decisions.
+**A page that passes phase 7 is done, and done means live.** Set
+`status: "live"` in the same pass: images in place for every ranked product,
+criterion scores reflecting the user's decisions, `pnpm check` and `pnpm build`
+green, both widths measured.
+
+Do not invent a fourth condition. Unmeasured search volume, an affiliate
+programme we have not joined, and a page we cannot advertise are **not**
+blockers — they are follow-up work, recorded once in
+`.agent/research/{slug}.md` and nowhere else. The full statement, and why each
+one costs more unpublished than published, is in `.claude/context/ship.md`.
+
+An unpublished finished page earns nothing, ages nowhere, and answers nobody.

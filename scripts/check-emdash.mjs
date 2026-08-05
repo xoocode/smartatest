@@ -22,12 +22,27 @@ const ROOTS = ["content", "lib", "components", "app"];
 const EXTS = new Set([".ts", ".tsx", ".mdx"]);
 const EM_DASH = "—";
 
-/** Blank out comments while preserving line numbers. */
+/**
+ * Blank out comments while preserving line numbers.
+ *
+ * ⚠️ Radkommentaren matchas med `[ \t]*` och inte `\s*`, och ersaetts med
+ * `blank` och inte med tom straeng. Baada delarna behoevs.
+ *
+ * `\s` matchar nyrad, saa `^\s*\/\/` boerjar matcha redan paa en tom rad
+ * ovanfoer och slukar radbrytningen paa vaegen ner till kommentaren. Med tom
+ * straeng som ersaettning foersvann daa **tvaa rader blev en**, och varje
+ * saadant par foerskoet alla radnummer under sig med ett. Felet syntes bara
+ * som att utskriften pekade paa fel rad, vilket ser ut som ett gaatfullt
+ * traeffbortfall naer man oeppnar filen och inget em-streck finns daer.
+ *
+ * Hittat 2026-08-05 vid en koerning som pekade paa tvaa rader i lib/sources.ts
+ * som inte innehoell naagot em-streck alls.
+ */
 function stripComments(src) {
   const blank = (m) => m.replace(/[^\n]/g, " ");
   return src
     .replace(/\/\*[\s\S]*?\*\//g, blank)
-    .replace(/^\s*\/\/.*$/gm, "")
+    .replace(/^[ \t]*\/\/.*$/gm, blank)
     .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, blank);
 }
 

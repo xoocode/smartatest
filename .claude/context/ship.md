@@ -190,6 +190,32 @@ author who wrote the page is theatre, not review.
 - `.agent/research/{slug}.md` records what was checked and what could not be
 - File headers state accurately what is real and what is placeholder
 
+That list is complete. **A page that meets it is publishable, and `status:
+"live"` follows in the same commit.**
+
+## What does not block going live
+
+Three things have been reported as blockers and are not. Each is ordinary work
+that continues after publication, and none of them changes whether the page is
+true.
+
+- **Unmeasured search volume.** Keyword Planner tells us what a page is worth,
+  not whether it is right. A page with a good slug and no volume figure earns
+  nothing while it sits unpublished, and it cannot start ageing in the index
+  either. Measure when convenient and rename only if the gap is big enough to
+  pay for redirects. Never hold a finished page for it.
+- **An affiliate programme we have not joined.** `LINK_MODE` is `"direct"` on
+  every page on the site; we hold no programmes at all. Waiting for one would
+  hold every page forever. Joining later is one constant plus `affiliateUrl`
+  per product, with no page or component changes. See `money.md`.
+- **A page we cannot advertise.** PPC permission decides whether Google Ads can
+  run, which is a separate decision taken later and on different grounds.
+  Organic traffic does not care.
+
+Say them once in the research file as follow-up work. Do not repeat them in the
+catalog entry, in a hand-off summary, or as a reason to leave `status:
+"planned"`.
+
 **Do not raise the byline.** It is a known, deliberate placeholder across the
 whole site. Never list it as a blocker, never flag it in a file header, never
 mention it in a hand-off summary.

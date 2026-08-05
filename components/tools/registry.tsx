@@ -53,6 +53,7 @@ import {
   type CoPickerProduct,
 } from "@/components/tools/co-need-picker";
 import { AirAppliancePicker } from "@/components/tools/air-appliance-picker";
+import { CableNeedPicker } from "@/components/tools/cable-need-picker";
 import { CoLevelScale } from "@/components/tools/co-level-scale";
 import { BRANDSTEGE_PRODUCTS } from "@/lib/data/brandstege";
 import {
@@ -451,6 +452,10 @@ function coPickerProducts(): CoPickerProduct[] {
  */
 export function AirAppliancePickerTool() {
   return <AirAppliancePicker />;
+}
+
+export function CableNeedPickerTool() {
+  return <CableNeedPicker />;
 }
 
 export function CoAlarmNeedPicker() {
@@ -940,6 +945,7 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "vad-kostar-det-att-lamna-hemlarmet": AlarmExitTool,
   "femarskostnad-larm": FiveYearAlarmCostTool,
   "vilken-luftapparat": AirAppliancePickerTool,
+  "vilken-usb-c-kabel": CableNeedPickerTool,
   "klarar-roboten-troskeln": RobotThresholdTool,
   "vad-betyder-talet-pa-hygrometern": FuktavlasningTool,
   "vilken-termostat-passar-min-ventil": VentilpassningTool,

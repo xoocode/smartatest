@@ -1,0 +1,168 @@
+## Vad modulen faktiskt gör
+
+Den trycker på väggknappen åt dig.
+
+Inuti varje modul i den här jämförelsen sitter ett relä som sluter en krets
+mellan två skruvplintar på din befintliga portöppnare. Det är exakt samma
+slutning som sker när du trycker på knappen innanför porten. Modulen kopplar
+upp sig på ditt wifi och tar emot kommandot från appen.
+
+Till det hör en liten sensor som fästs på porten och känner av om den är öppen
+eller stängd. Den behövs eftersom väggknappen är en växlande knapp: ett tryck
+startar rörelsen åt motsatt håll mot förra gången. Utan sensor vet appen inte
+om ett tryck kommer att öppna eller stänga.
+
+**Du byter alltså inte motor.** Portöppnarens egen fjärrkontroll fortsätter
+fungera, väggknappen fortsätter fungera, och tar wifit slut fungerar båda ändå.
+Det är skälet till att det här är ett lågriskköp jämfört med att byta ut hela
+öppnaren.
+
+## Kontrollera plinten innan du beställer
+
+Modulen behöver två skruvplintar för en väggknapp på portöppnarens motorenhet.
+
+De allra flesta motordrivna portöppnare har dem, ofta märkta för väggknapp eller
+extern knapp. Har du redan en knapp innanför porten sitter kablarna på just den
+plinten, och då vet du att den finns. Tillverkarna uttrycker det som att modulen
+fungerar med valfri portmekanism som har en ingång för en normalt öppen knapp.
+
+Har din öppnare ingen sådan plint alls, exempelvis för att den är mycket gammal
+eller helt trådlöst styrd, fungerar ingen av modulerna här. Det är den enda
+fråga som avgör om köpet alls är möjligt, och den tar två minuter att svara på
+med en ficklampa.
+
+## Strömförsörjningen avgör vem som får montera
+
+Här ligger den skillnad som kostar mest och syns minst.
+
+**USB eller matning från portöppnaren.** <ProductRef id="switchbot-garageportsoppnare" />,
+<ProductRef id="meross-msg100" />, <ProductRef id="ismartgate-lite" /> och
+<ProductRef id="yale-smart-opener" /> hör hit. Två kablar till plinten, en
+strömadapter i ett uttag, klart på en halvtimme med skruvmejsel.
+
+**230 volt i en kopplingsdosa.** <ProductRef id="tuya-wgm2" /> och
+<ProductRef id="garageportsbrytarrela" /> hör hit. De är konstruerade för att
+sitta i en dosa bakom väggknappen och matas direkt från elnätet.
+
+Att lägga in en relämodul i den fasta installationen är en förändring av den,
+och det kräver ett registrerat elinstallationsföretag. Det gäller oavsett hur
+enkel kopplingen ser ut i anvisningen, och oavsett att produkten säljs i
+konsumentledet.
+
+**Räkna därför om priset innan du jämför.** En modul för 384 kronor som kräver
+ett par timmars elarbete kostar mer än en för 499 kronor som du sätter upp
+själv. I den här kategorin är de två billigaste produkterna i praktiken de två
+dyraste.
+
+## Wifit måste nå ut i garaget
+
+Alla modulerna arbetar på 2,4 GHz, inte på 5 GHz.
+
+Det är i sig en fördel, eftersom 2,4 GHz går längre och genom mer. Men ett
+garage är precis den plats i huset där täckningen brukar ta slut: betongväggar,
+en plåtport och ofta ett par meter från närmaste vägg med en router bakom.
+
+Testa innan du beställer. Ställ dig där modulen ska sitta, med telefonen på
+2,4 GHz-nätet, och se om anslutningen håller. Behöver du förstärka finns
+billiga lösningar, men de ska in i kalkylen innan köpet och inte efter.
+
+Ett fristående garage utan indraget nät är den situation där hela den här
+produktkategorin fungerar sämst, och det är värt att veta innan pengarna är
+lagda.
+
+## Kontot är en nyckel
+
+En sådan här modul flyttar en dörr till ditt hus ut på internet. Den som kommer
+åt ditt konto kommer in i garaget, och därifrån ofta in i huset.
+
+Det viktigaste skyddet heter **tvåstegsverifiering**: utöver lösenordet måste en
+kod från e-post eller sms bekräftas, så att ett läckt lösenord inte räcker.
+<ProductRef id="yale-smart-opener" /> anger både tvåstegsverifiering och att
+trafiken skyddas med AES- och TLS-kryptering. För övriga moduler i jämförelsen
+är uppgiften okänd.
+
+Att uppgiften är okänd betyder inte att skyddet saknas. Det betyder att du inte
+kan kontrollera det innan du betalar, och att konsekvensen av att den saknas
+bärs av dig.
+
+Tre saker du kan göra oavsett vilken modul du väljer:
+
+1. Slå på tvåstegsverifiering om appen erbjuder det.
+2. Använd ett lösenord du inte använt någon annanstans.
+3. Koppla loss gamla telefoner från kontot när du byter telefon.
+
+## Matter löser ekosystemfrågan en gång för alla
+
+De flesta som köper en sådan här modul har redan valt sida mellan Apple, Google
+och Amazon. En modul som inte pratar med rätt system blir en app till bland alla
+andra, och den appen öppnas aldrig.
+
+**Apple är det som oftast fattas.** <ProductRef id="yale-smart-opener" /> stöder
+inte HomeKit alls. Meross säljer HomeKit-stödet som en egen artikel med eget
+artikelnummer, vilket betyder att två lådor som ser likadana ut kan skilja sig
+på just den punkten, och att du kan upptäcka det först när modulen sitter uppe.
+
+<ProductRef id="switchbot-garageportsoppnare" /> löser det annorlunda genom att
+stödja **Matter**, alltså den gemensamma standarden som Apple Home, Google,
+Alexa och Samsung alla talar. En Matter-enhet fungerar i alla fyra utan att
+tillverkaren behöver bygga och underhålla stöd för vart och ett.
+
+Kör du Apple: leta efter Matter i första hand och kontrollera artikelnumret i
+andra hand.
+
+## Varför röststyrningen kräver en kod
+
+Ber du en högtalare öppna garageporten kommer den att fråga efter en kod. Det
+upplevs som krångel och beskrivs ibland som en brist.
+
+Det är inte en brist. Ett öppningskommando till en garageport är ett kommando
+som vem som helst inom hörhåll kan ge, inklusive någon som står utanför ett
+öppet fönster. Koden finns för att en röst inte är en identitet.
+
+Vill du slippa den finns en bättre väg än att stänga av skyddet: låt porten
+öppnas av var telefonen är i stället för av vad du säger. Flera moduler kan
+öppna automatiskt när telefonen närmar sig och stänga när den lämnat garaget,
+vilket är både bekvämare och knutet till en enhet i din ficka.
+
+## Vad som händer vid strömavbrott
+
+Ingenting som modulen orsakar.
+
+Modulen sitter parallellt med väggknappen och tar inte över portöppnaren.
+Försvinner strömmen gäller samma sak som utan modul: portöppnarens manuella
+frikoppling, alltså repet med handtag som hänger ner från skenan, kopplar loss
+porten så att den kan skjutas upp för hand.
+
+Är garageporten din enda väg in i garaget bör du ha en nödupplåsning som
+manövreras med nyckel utifrån. Den frågan hör till portöppnaren och inte till
+modulen, men den är värd att lösa samtidigt.
+
+## Automatisk stängning: läs det här först
+
+Flera av modulerna kan stänga porten på schema eller när du lämnar området.
+
+Det är bekvämt och det är den funktion som gör att man slutar oroa sig för att
+ha lämnat porten öppen. Men en port som stänger sig utan att någon ser den
+ställer krav på det som ska stoppa den om något är i vägen.
+
+Innan du slår på automatisk stängning: kontrollera att portöppnarens
+backautomatik fungerar. Lägg ett föremål på golvet i portöppningen, kör porten
+nedåt, och se att den vänder när den träffar. Har du dessutom en fotocell
+monterad är du på den säkra sidan, och de kostar ett par hundralappar.
+
+Den kontrollen hör egentligen till porten och inte till appen, men det är appen
+som gör att porten börjar röra sig när ingen tittar.
+
+## Vad du bör lägga pengarna på
+
+Ordningen, om budgeten är begränsad:
+
+1. **En modul som du får montera själv.** Skillnaden mellan USB och 230 volt är
+   större än hela prisskillnaden i kategorin.
+2. **Matter**, om du vill slippa tänka på ekosystem igen.
+3. **Tvåstegsverifiering**, om du vill kunna kontrollera skyddet före köp.
+4. **Videointegration**, om du redan har en kamera i garaget.
+
+Det som inte är värt pengar är stöd för flera portar när du har en, och en
+dyrare modul köpt på känslan att dyrare är säkrare. I den här kategorin följs
+pris och kontrollerbar säkerhet inte åt särskilt väl.

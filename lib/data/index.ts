@@ -32,6 +32,9 @@ import { SMART_HEM_HUBB_PRODUCTS } from "@/lib/data/smart-hem-hubb";
 import { SMART_TERMOSTAT_PRODUCTS } from "@/lib/data/smart-termostat";
 import { NYCKELSKAP_PRODUCTS } from "@/lib/data/nyckelskap";
 import { USB_C_LADDARE_PRODUCTS } from "@/lib/data/usb-c-laddare";
+import { USB_C_KABEL_PRODUCTS } from "@/lib/data/usb-c-kabel";
+import { GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/garageportsoppnare";
+import { SMART_GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/smart-garageportsoppnare";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -54,7 +57,10 @@ import { USB_C_LADDARE_PRODUCTS } from "@/lib/data/usb-c-laddare";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...SMART_GARAGEPORTSOPPNARE_PRODUCTS,
+  ...GARAGEPORTSOPPNARE_PRODUCTS,
   ...USB_C_LADDARE_PRODUCTS,
+  ...USB_C_KABEL_PRODUCTS,
   ...NYCKELSKAP_PRODUCTS,
   ...SMART_BELYSNING_PRODUCTS,
   ...SMART_PLUG_PRODUCTS,

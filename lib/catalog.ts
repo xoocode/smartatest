@@ -496,7 +496,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ⚠️ VOLYMEN AER ALDRIG MAETT. Termen finns inte i naagon av vaara
        keyword-CSV:er. Systertermen `luftkvalitetsmaetare` ligger paa 720/maan.
        Koer Keyword Planner paa `hygrometer`, `fuktmaetare` och
-       `luftfuktighetsmaetare` innan status flippas till live. Sajten har gissat
+       `luftfuktighetsmaetare` naer det passar. Sajten har gissat
        slug tvaa gaanger och haft fel baada gaangerna, se
        .agent/keywords/utfall.md.
 
@@ -830,7 +830,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `garage` ger noll träffar i samtliga
        keyword-CSV:er under .agent/. Kör Keyword Planner på `garageportsöppnare`,
        `garageportöppnare`, `garageöppnare`, `portautomatik` och
-       `garageport motor` innan status flippas till live. Sajten har gissat slug
+       `garageport motor` naer det passar. Sajten har gissat slug
        två gånger och haft fel båda gångerna, se .agent/keywords/utfall.md.
 
        SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK. Jula, Bauhaus, Elgiganten, CDON och
@@ -892,6 +892,136 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     blurb: "Kraften de säljer är uppåt. Den som kan klämma någon står i manualen.",
     status: "planned",
     updated: "2026-08-05",
+  },
+  {
+    /* Systersidan till /garageportsoppnare, byggd 2026-08-05 efter
+       användarbeslut. Den rankar modulerna som kopplas till en öppnare du
+       redan har; motorerna ligger kvar på moderssidan. Samma delning som
+       /brandvarnare mot /smart-brandvarnare.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma sak som moderssidan. Kör
+       `smart garageportsöppnare`, `garageportsöppnare wifi`, `garageport app`
+       och `meross garageport` i samma Keyword Planner-körning.
+
+       KONKURRENSEN ÄR NOLL. De tre svenska jämförelsesajterna som rankar på
+       garageportsöppnare rankar samtliga motorer. Ingen svensk jämförelse av
+       eftermonterade garagemoduler har hittats. Det är samma läge som
+       /elektrisk-rullgardin hade, och enligt sidkarta-framat.md sajtens
+       starkaste sorts position.
+
+       FYNDET: strömförsörjningen avgör vem som får montera. De två billigaste
+       modulerna, 374 och 384 kr, matas med 230 V och ska sitta i en
+       kopplingsdosa bakom väggknappen. Enligt Elsäkerhetsverket är en relämodul
+       i den fasta installationen arbete för registrerat elinstallationsföretag.
+       De från 499 kr och uppåt går på USB och är ett skruvmejseljobb. Räknar
+       man in elektrikern är den billigaste inte billigast. Gränsen är redan
+       utredd och rättad en gång på /smart-strombrytare.
+
+       ANDRA FYNDET: Yale är ensam om att publicera kontosäkerhet.
+       Tvåfaktorsautentisering plus AES- och TLS-kryptering står i Kjells egen
+       specifikation. Ingen annan produktsida i kategorin nämner vare sig
+       kryptering eller tvåstegsverifiering, för en produkt vars hela funktion
+       är att öppna en dörr till huset över internet.
+
+       ⚠️ EN HYPOTES PRÖVADES OCH FÖLL. Utkastet byggde på att billiga reläer
+       bara kan trycka på knappen medan dyra också vet var porten står. Fel:
+       brytarreläet på 374 kr anger "visning av styrenhetens aktuella status
+       (öppen/stängd)" och Tuya-modulen på 384 kr levereras med öppningssensor.
+       Sensorn är standard från 374 kr och uppåt och blev inget kriterium. Se
+       .agent/research/smart-garageportsoppnare.md §3.
+
+       ⚠️ VARIANTFÄLLAN: Meross säljer MSG100 och MSG100HK som skilda artiklar,
+       där HK är den med HomeKit. Vi anger inte HomeKit för den artikel
+       NetOnNet säljer, eftersom artikelnumret inte gått att bekräfta mot
+       tillverkarens variantlista. Samma fälla som ABUS 787 mot 787 Smart-BT.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ljud & Bilds Yale-test täcker en av sex.
+
+       PENGAR: till skillnad från moderssidan finns här faktiskt program. Kjell
+       5 %/30 d och Proshop 3,2 %/7 d bär båda Yale. Ingen av dem tillåter PPC.
+       ⚠️ Yale kostar 1 690 kr hos Kjell och 1 439 hos Proshop, alltså 251 kr
+       mer hos den butik som betalar bättre. Användarbeslut 2026-08-05: länka
+       Kjell. Se motiveringen i lib/data/smart-garageportsoppnare.ts. */
+    href: "/smart-garageportsoppnare",
+    label: "Smart garageportsöppnare",
+    category: SMART_HEM,
+    blurb: "De två billigaste kräver elektriker. Det står inte på prislappen.",
+    status: "planned",
+    updated: "2026-08-05",
+  },
+  {
+    /* `usb-c-kabel` byggd 2026-08-05. Systersida till /usb-c-laddare, vars
+       avgränsning uttryckligen sköt kablarna hit.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `kabel`, `sladd`, `laddkabel` och
+       `usb` över samtliga keyword-CSV:er under .agent/ ger noll träffar för
+       kategorin. Kör Keyword Planner på `usb-c kabel`, `usb c sladd`,
+       `laddkabel` och `thunderbolt kabel` när det passar.
+
+       Slugen är däremot enkel den här gången, till skillnad från laddarsidan:
+       Kjell, Clas Ohlson, Teknikdelar, Testkollen och Testix säger alla kabel.
+       Beställningens ord var sladd, som ingen i handeln använder.
+
+       AVGRÄNSNING efter användarbeslut: bara USB-C till USB-C. USB-A- och
+       Lightning-formerna förklaras i köpguiden och får egna systersidor. En rad
+       per modell vid 2 m som referens, eftersom Kjells 52 poster i kategorin är
+       ungefär femton produkter i fyra längder och tre färger.
+
+       FYNDET: priset följer inte förmågan, och alla tal är butikernas egna.
+       Kjells Linocell Flätad 240 W kostar 299,90 kr och anger 480 Mb/s; Kjells
+       Unisynk USB4 kostar 329 kr och anger 40 Gbps. Trettio kronor isär,
+       83 gånger i datahastighet, och den dyrare är den långsamma. Apples
+       240 W-kabel för 445 kr hos Kjell beskrivs av Clas Ohlson som
+       "Dataöverföring: USB 2-hastighet". Hos Teknikdelar kostar en 40 Gbps-kabel
+       från Delock 199 kr, alltså hundra kronor mindre än Kjells 480 Mb/s-kabel.
+
+       ⚠️ BÅDA SVENSKA KONKURRENTERNA KORAR DEN LÅNGSAMMA DYRASTE. Testkollen
+       ger Apple 240 W 2 m 9,61 av 10 och förstaplatsen, Testix samma kabel som
+       etta. Ingen av dem nämner USB 2-hastigheten.
+
+       ANDRA FYNDET: direktivet namnger kabelstandarden utan att gälla kabeln.
+       Bilaga Ia del I punkt 2.2 kräver att *apparaten* ska "kunna laddas med
+       kablar som uppfyller standarden EN IEC 62680-1-3:2021". Standardens egen
+       titel innehåller ordet kabel, den står i svensk lagtext, och ingenting
+       kräver att kabeln i butiken uppfyller den.
+
+       TREDJE: artikel 47.3 ålägger kommissionen att senast den 28 december 2026
+       rapportera om att sälja radioutrustning utan laddare *och utan kabel*, vid
+       behov med ett lagförslag om obligatoriskt separat försäljning. Under fem
+       månader bort när sidan byggs. Skriv aldrig att det är beslutat.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Testfakta lät PZT GmbH böja tolv kablar
+       5 000 gånger, publicerat 2020-02-24, och det är kategorins enda riktiga
+       provning. Den är sex år gammal och samtliga sex USB-C-kablar där är
+       USB-A-formen, alltså noll av de rankade. Mätvärdena bär köpguiden.
+
+       ⚠️ INGET HÅLLBARHETSKRITERIUM heller, efter användarbeslut. Anker anger
+       böjtal som spänner 5 000, 10 000, 20 000, 25 000, 35 000 och 300 000 över
+       sitt eget sortiment utan att publicera någon metod. Att betygsätta det
+       vore att mäta tillverkarens copywriting. Samma beslut som besparingen på
+       /smart-termostat.
+
+       ⚠️ TESTKOLLEN SÄGER ATT DE SKULLE CITERAT TESTFAKTA. Ordagrant: "Om
+       tester från Råd & Rön eller Testfakta finns, använder vi deras oberoende
+       data som jämförelse." Testet finns, öppet, med resultattabell som PDF. De
+       återger inte ett enda resultat ur den.
+
+       ⚠️ Apple-kabeln kostar 399 kr hos Clas Ohlson och 445 hos Kjell, alltså
+       46 kronor för samma artikel. Vi länkar Clas Ohlson, som saknar program.
+
+       ⚠️ SIDAN GÅR SANNOLIKT INTE ATT ANNONSERA, samma läge som laddarsidan.
+       Nytt i svepet: TheMobileStore SE bär 10 % och är kategorins bästa villkor,
+       men ligger under `Media` i katalogen och missades därför av laddarsidan.
+       Sortimentet är budgetmärken och är inte kartlagt produkt för produkt.
+       Amazon.se togs in efter användarbeslut, och ansökan till Amazon Associates
+       följer. Se .agent/research/usb-c-kabel.md. */
+    href: "/usb-c-kabel",
+    label: "USB-C-kabel",
+    category: ELEKTRONIK,
+    blurb: "Trettio kronor isär hos samma butik. Den dyrare är 83 gånger långsammare.",
+    status: "live",
+    updated: "2026-08-05",
+    count: 13,
   },
   {
     href: "/nyckelskap",

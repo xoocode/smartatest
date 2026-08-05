@@ -85,6 +85,27 @@ to 4 before adding it here.
 
 ---
 
+## Every warning ships with its way past
+
+A rule written after something went wrong records a *false positive*: a wrong
+price, a borrowed test result, a variant mismatch. Nothing here is ever written
+after a false negative, because nobody notices the page that was not built or
+the programme nobody applied to. Left alone, the files therefore drift toward
+prohibition. Measured 2026-08-05: **ten lines of prohibition per line of
+enablement** across `.claude/context/`, and 6,6 to 1 in `swedish-voice`.
+
+So when you add a warning, add the move that gets past it in the same edit. Not
+a hedge on the warning, which weakens it. The route.
+
+| Instead of stopping at | Also write |
+|---|---|
+| "Kjell's list view shows accessory prices" | "read the price on the product's own page" |
+| "Elgiganten renders price in JavaScript" | "`needsBrowser: true` in `priskoll.mjs` already handles this" |
+| "Amazon's price moves daily" | "one line in `REGLER`, the nightly job already runs" |
+
+A warning with no route reads as a closed door, and it will be treated as one
+long after someone would have found the handle in five minutes.
+
 ## Also worth doing at calibrate time
 
 - A rule that turned out to be wrong gets **deleted**, not softened. A hedged

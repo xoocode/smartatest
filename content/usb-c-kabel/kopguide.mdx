@@ -1,0 +1,259 @@
+## Två kablar, samma kontakt, 83 gånger i skillnad
+
+Ta upp två USB-C-kablar och lägg dem bredvid varandra. Ingenting på dem säger
+vilken som gör vad.
+
+Kjell säljer <ProductRef id="linocell-flatad-240w-2m" />, som anger 480 megabit
+i sekunden. Trettio kronor högre upp i samma butik ligger
+<ProductRef id="unisynk-usb4-240w-2m" />, som anger 40 gigabit. Det är 83 gånger
+mer data för trettio kronor, och den som inte läser specifikationen har ingen
+chans att veta vilken hon plockar.
+
+Samma sak gäller uppåt i pris. <ProductRef id="apple-240w-usb-c-2m" /> är den
+dyraste rena laddkabeln vi jämför, och Clas Ohlson anger i sin specifikation att
+dataöverföringen sker i "USB 2-hastighet". Det är samma dataklass som
+<ProductRef id="ikea-lillhult-usb-c-60w" />.
+
+Kategorin fungerar alltså tvärtemot hur en hylla brukar fungera: priset säger
+ingenting om vad produkten kan.
+
+## Vad ska kabeln göra?
+
+Innan något annat: bestäm uppgiften. Kraven följer av den, och nästan aldrig av
+budgeten.
+
+<ToolFrame
+  title="Vilken USB-C-kabel behöver du?"
+  note="Tre frågor ger de tal som ska stå på förpackningen. Verktyget nämner ingen produkt och ingen butik."
+>
+  <CableNeedPicker />
+</ToolFrame>
+
+Det vanligaste svaret är att den billigaste kabeln räcker, och det är inte en
+artighet. Ingen telefon som säljs i dag drar mer än 60 watt.
+
+## Vad som faktiskt sitter inuti
+
+En USB-C-kontakt har 24 stift. En USB 2.0-kontakt har fyra, en USB 3.2-kontakt
+nio. Eftersom USB-C-kontakten går att vända måste dessutom många ledare finnas i
+dubbel uppsättning.
+
+Tillverkarna sparar på det uppenbara sättet: de kopplar inte alla stift. I en
+laddkabel utgår ofta de snabba datakanalerna helt, alltså åtta ledare färre. c't
+beskriver det rakt ut, och konstaterar samtidigt att kabeltjocklek är ett
+indicium på en fullt kopplad kabel men aldrig ett bevis.
+
+Det är därför en kabel kan vara märkt 240 W och ändå vara den långsammaste i
+butiken. Effekt och data är två olika uppsättningar ledare, och de säljs
+oberoende av varandra.
+
+## E-markern, och varför din dyra laddare laddar långsamt
+
+Det här är kategorins mest kostsamma missförstånd, och det handlar inte om
+laddaren.
+
+En USB-C-kabel utan e-marker klarar 3 ampere, alltså omkring 60 watt. E-markern
+är ett litet chip i kontakten som talar om för laddaren vad kabeln tål, och
+saknas det håller laddaren igen oavsett hur stark den är. En laddare på 140 watt
+och en kabel utan chip ger 60 watt.
+
+Gränserna är:
+
+- **Upp till 60 W.** Ingen e-marker behövs. Varje USB-C-kabel duger.
+- **60 till 100 W.** Kabeln måste ha e-marker för 5 A.
+- **240 W.** Kräver dessutom Extended Power Range och USB PD 3.1, alltså
+  48 volt och 5 ampere.
+
+Butikerna är ojämna med att skriva ut det. <ProductRef id="delock-usb-c-240w-40gbps-2m" />
+anger chipset e-marker i specifikationen, medan flera kablar som säljs som
+240-wattskablar inte nämner ordet någonstans.
+
+## Kabeln som laddar men inte visar bild
+
+Näst vanligaste felköpet: en kabel som ska koppla en dator till en bildskärm och
+inte gör det.
+
+Bildsignalen går genom samma ledarpar som de snabba datakanalerna. En kabel som
+anger 480 megabit i sekunden har dem inte inkopplade och kan därför inte driva
+någon skärm, hur många watt den än klarar.
+
+Leta efter DisplayPort Alt Mode, eller efter en upplösning i klartext.
+<ProductRef id="delock-usb-c-240w-40gbps-2m" /> anger DisplayPort 1.4a och
+DisplayPort 2.0 Alt Mode med 8K i 60 hertz. <ProductRef id="linocell-premium-kevlar-32-2m" />
+anger 4K i 60 hertz, vilket räcker till de flesta skärmar på ett skrivbord.
+
+En tillverkare skriver ut det motsatta, och det är ovanligt nog att vara värt att
+nämna: <ProductRef id="anker-powerline-iii-flow-240w" /> anges uttryckligen inte
+klara bildöverföring. Det är den enda produkten i jämförelsen där någon talar om
+vad kabeln inte gör i stället för att låta köparen upptäcka det när skärmen
+förblir svart.
+
+## EU reglerar telefonen, inte sladden
+
+Direktiv (EU) 2022/2380 om den gemensamma laddaren nämner faktiskt kabeln, och
+det gör slutsatsen intressantare än den brukar återges.
+
+Bilaga Ia del I punkt 2 ställer två krav, och båda gäller apparaten. Punkt 2.1
+säger att den ska ha ett don av USB typ C enligt EN IEC 62680-1-3:2021. Punkt 2.2
+säger att den ska **kunna laddas med kablar som uppfyller** samma standard.
+Standardens svenska titel innehåller ordet kabel: "Specifikation för kabel och
+anslutningsdon USB Typ C".
+
+Kabelstandarden står alltså namngiven i svensk lagtext. Kravet ligger ändå på
+telefonen, inte på sladden i hyllan bredvid. **Ingenting i direktivet kräver att
+kabeln du köper uppfyller standarden den nämner.**
+
+Det kan komma att ändras, och datumet är nära. Artikel 47 ålägger kommissionen
+att senast den **28 december 2026** rapportera till Europaparlamentet och rådet
+om vad det skulle innebära att kunna köpa en telefon eller dator utan laddare
+*och utan kabel*, vid behov med ett lagförslag om obligatoriskt separat
+försäljning. Det är en skyldighet att utreda. Inget är beslutat.
+
+## USB-IF-certifiering, och varför den är svår att kontrollera
+
+USB Implementers Forum är organisationen bakom standarden, och deras certifiering
+betyder att produkten klarat ett provningsprogram och får bära USB-logotypen.
+
+Den är frivillig. Vem som helst får sälja en kabel märkt USB-C utan att ha
+certifierat någonting, vilket är precis vad som följer av att direktivet inte
+ställer krav på kabeln.
+
+Två säljare gör det till en säljpunkt. Clas Ohlson skriver ut certifieringen i
+specifikationen för <ProductRef id="clas-ohlson-usb-c-240w-3m" />, och Elgigantens
+husmärke lägger både certifieringen och datahastigheten i själva produktnamnet.
+
+Kontrollen är svårare än den borde vara. USB-IF har en publik produktsökning, men
+den visar som standard bara det som certifierats de senaste två åren, den
+underhålls av medlemsföretagen själva, och den fullständiga integratörslistan
+kräver medlemsinloggning. Att en kabel inte syns i den betyder alltså ingenting.
+
+## Kablar går sönder i höljet, inte i ledarna
+
+Det finns en svensk provning av kabelhållbarhet, och den är den enda vi hittat.
+
+Testfakta lät tyska laboratoriet PZT prova tolv laddkablar och betalade själva
+för det. Metoden är publicerad: kabeln spändes fast på en roterbar balk med en
+vikt på 150 gram i andra änden, balken vred den 90 grader åt vardera hållet, och
+funktionen provades efter 1 000, 2 500, 3 500 och 5 000 böjningar. Båda ändarna
+provades, och den sämsta rapporterades.
+
+Resultatet gick tvärtemot priset. Den dyraste kabeln i provningen, för 240
+kronor, gick sönder redan under de första 1 000 böjningarna. IKEA:s för 50 kronor
+tog sig igenom hela cykeln utan skada.
+
+Skadorna såg likadana ut: sprucket eller missfärgat kabelhölje där kabeln böjdes,
+alltså vid dragavlastningen närmast kontakten. Inte brott inuti.
+
+Det är därför materialet väger något i vår bedömning. Flätad nylon, silikon och
+kevlar står emot den påfrestningen bättre än slät plast, och det syns på butikens
+egen produktbild. <ProductRef id="linocell-premium-kevlar-32-2m" /> är den enda
+här med kevlarmantel.
+
+Var uppmärksam på att provningen är från februari 2020 och att alla sex
+USB-C-kablar i den var USB-A-formen, alltså inte den sortens kabel den här sidan
+rankar.
+
+## Böjtalen på förpackningen går inte att jämföra
+
+Flera tillverkare anger hur många böjningar kabeln tål. Talen ser precisa ut och
+är det inte.
+
+Anker anger 25 000 böjningar för <ProductRef id="anker-powerline-iii-flow-240w" />
+och 35 000 för <ProductRef id="anker-nano-240w-18m" />. Över sitt eget sortiment
+anger samma tillverkare 5 000, 10 000, 20 000, 25 000, 35 000 och 300 000
+böjningar, det sista marknadsfört som hundra års hållbarhet.
+
+Ingen metod publiceras för något av talen. Vikten som hänger i kabeln, vinkeln
+den böjs i och vad som räknas som ett fel är alla okända, och alla tre avgör
+utfallet. Ett tal på 35 000 från en tillverkare och 20 000 från en annan säger
+alltså ingenting om vilken som håller längre.
+
+Det är skälet till att böjtalen står i tabellen men inte påverkar något betyg.
+Att betygsätta dem hade varit att mäta tillverkarnas marknadsföring.
+
+## Längd, och varför du ska räkna per meter
+
+Kabeln som följde med telefonen är nästan alltid en meter. Det räcker till ett
+nattduksbord och sällan till en soffa.
+
+Priset per meter skiljer mer än priset per kabel. Kjells kortaste USB-C-kabel
+kostar 99,90 kronor för en halvmeter, alltså 200 kronor metern, exakt samma
+nivå som Apples tvåmeterskabel. <ProductRef id="clas-ohlson-usb-c-240w-3m" />
+kostar 83 kronor metern och <ProductRef id="ikea-lillhult-usb-c-60w" /> 39.
+
+Långa kablar har en teknisk gräns också. En passiv kabel tappar bandbredd med
+längden, och det är därför aktiva kablar med elektronik i kontakterna existerar.
+<ProductRef id="belkin-thunderbolt-4-aktiv-2m" /> är en sådan, och den kostar
+därefter. Behöver du både tre meter och full datahastighet är det ofta billigare
+att flytta datorn närmare skärmen.
+
+## Lönar det sig att betala mer?
+
+För de flesta: nej.
+
+Ska kabeln ladda en telefon, en platta eller en mindre laptop, och aldrig göra
+något annat, finns ingen teknisk anledning att betala mer än ungefär hundra
+kronor. <ProductRef id="sign-usb-c-240w-12m" /> laddar en 16-tums MacBook Pro
+precis lika snabbt som Apples egen kabel för fyra gånger priset, eftersom båda
+gör 240 watt och laddningen förhandlas fram på samma sätt.
+
+Det finns tre lägen där mer pengar ger något verkligt:
+
+1. **Du ska flytta filer.** Då är skillnaden 83 gånger, inte marginell.
+2. **Du ska driva en bildskärm.** Då är en billig laddkabel inte långsammare
+   utan oanvändbar.
+3. **Kabeln ska överleva en väska.** Då är manteln värd något, även om talen
+   tillverkarna anger inte går att jämföra.
+
+Utanför de tre är den dyrare kabeln bara dyrare.
+
+## USB-C till USB-A, och andra former
+
+Den här jämförelsen rankar bara USB-C i båda ändar. Det finns tre former till, och
+de löser andra problem.
+
+**USB-A till USB-C** behövs till äldre laddare, bilstereor och datorer med den
+gamla rektangulära porten. Formen tar aldrig mer än 60 watt oavsett vad som står
+på den, eftersom USB-A-kontakten inte kan förhandla högre effekt. Det är den form
+Testfaktas provning gällde.
+
+**USB-C till Lightning** behövs till iPhone 14 och äldre. Från iPhone 15 har
+Apple USB-C, vilket är direktivets direkta effekt.
+
+**USB-C till HDMI** är en adapterkabel med elektronik som gör om signalen. Den
+behövs när skärmen bara har HDMI, och den är något annat än en kabel med
+DisplayPort Alt Mode.
+
+## Vanliga misstag
+
+**Att köpa efter watt när uppgiften är data.** 240 W på förpackningen säger
+ingenting om hastigheten. De två talen är oberoende.
+
+**Att tro att märket räcker.** Ett välkänt märke bygger bra kablar och säljer
+ändå både 480 megabit och 40 gigabit under samma namn.
+
+**Att lita på specifikationen där du köper.** Amazons specifikationstabell för
+en av de mest sålda kablarna anger datahastigheten i gigabyte per sekund, vilket
+inte finns som mått för en kabel, och längden på systermodellen i fot.
+
+**Att byta laddare när kabeln är problemet.** Prova samma laddare med en annan
+kabel först.
+
+**Att köpa en kort kabel för att den är billig.** Räknat per meter är den ofta
+den dyraste i butiken.
+
+## Ordlista
+
+| Term | Vad det betyder |
+|---|---|
+| **USB 2.0** | 480 megabit i sekunden. Laddkabelklass, ingen video. |
+| **USB 3.2** | 5, 10 eller 20 gigabit i sekunden beroende på generation. |
+| **USB4** | Upp till 40 gigabit i sekunden, med video via DisplayPort. |
+| **Thunderbolt 4** | 40 gigabit, men med en certifiering USB-C inte kräver. |
+| **E-marker** | Chipet som talar om för laddaren vad kabeln tål. Krävs över 60 W. |
+| **EPR** | Extended Power Range, alltså 48 volt och upp till 240 watt. |
+| **USB PD** | Power Delivery, protokollet som förhandlar spänning och ström. |
+| **DisplayPort Alt Mode** | Läget där kabeln bär en bildsignal i stället för data. |
+| **Aktiv kabel** | Kabel med elektronik i kontakterna som håller farten över längre avstånd. |
+| **Passiv kabel** | Vanlig kabel utan elektronik. Tappar bandbredd med längden. |
+| **USB-IF** | Organisationen bakom standarden, som också certifierar produkter. |

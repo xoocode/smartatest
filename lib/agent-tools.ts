@@ -73,6 +73,15 @@ import {
   type AirSymptomKey,
 } from "@/lib/tool-logic/air-appliance";
 import {
+  CABLE_LENGTHS,
+  CABLE_POWER,
+  CABLE_TASKS,
+  decideCable,
+  type CableLengthKey,
+  type CablePowerKey,
+  type CableTaskKey,
+} from "@/lib/tool-logic/usb-c-kabel";
+import {
   CO_PLACES,
   CO_SOURCES,
   decideCoNeed,
@@ -599,6 +608,55 @@ const airApplianceTool: AgentTool = {
         ? `Jämförelsen med produkterna: ${SITE.url}${verdict.page}`
         : "Ingen av våra tre jämförelser löser det här problemet, så det finns inget att köpa.",
       `Väljaren med alla svar: ${toolUrl("vilken-luftapparat")}`,
+    ].join("\n\n");
+  },
+};
+
+const cableNeedTool: AgentTool = {
+  name: "vilken_usb_c_kabel",
+  description:
+    "Översätter vad en USB-C-kabel ska användas till till de tal som står på förpackningen: watt, gigabit, e-marker och om kabeln behöver DisplayPort Alt Mode. Kontakten ser likadan ut i hela kategorin, så två kablar som inte går att skilja åt på hyllan kan skilja 83 gånger i datahastighet. Svarar att den billigaste kabeln duger när uppgiften bara är att ladda en telefon.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      uppgift: {
+        type: "string",
+        enum: CABLE_TASKS.map((t) => t.key),
+        description:
+          "Vad kabeln ska göra. skarm betyder koppla in en bildskärm, filer betyder extern disk eller kamera.",
+      },
+      effekt: {
+        type: "string",
+        enum: CABLE_POWER.map((p) => p.key),
+        description:
+          "Vad som ska laddas. under60 täcker telefon och platta, over100 en större laptop. vetinte ger det säkra svaret.",
+      },
+      langd: {
+        type: "string",
+        enum: CABLE_LENGTHS.map((l) => l.key),
+        description:
+          "Hur lång kabeln behöver vara. lang betyder tre meter eller mer, där passiva kablar börjar tappa datahastighet.",
+      },
+    },
+    required: ["uppgift", "effekt", "langd"],
+  },
+  run(args) {
+    const verdict = decideCable({
+      task: readString(args, "uppgift") as CableTaskKey,
+      power: readString(args, "effekt") as CablePowerKey,
+      length: readString(args, "langd") as CableLengthKey,
+    });
+    if (!verdict) {
+      return "Ange uppgift, effekt och langd. Är effekten okänd, skicka vetinte.";
+    }
+
+    return [
+      `${verdict.headline}.`,
+      `Leta efter: ${verdict.requirements.join(" · ")}`,
+      verdict.why,
+      `Se upp med: ${verdict.watch}`,
+      `Jämförelsen med produkterna: ${SITE.url}/usb-c-kabel`,
+      `Väljaren med alla svar: ${toolUrl("vilken-usb-c-kabel")}`,
     ].join("\n\n");
   },
 };
@@ -1179,6 +1237,7 @@ export const AGENT_TOOLS: Record<string, AgentTool[]> = {
   "protokollvaljare-smart-hem": [protocolTool],
   "behover-du-kolmonoxidvarnare": [coNeedTool],
   "vilken-luftapparat": [airApplianceTool],
+  "vilken-usb-c-kabel": [cableNeedTool],
   "installationsguide-strombrytare": [switchInstallTool],
   "effektkoll-smart-plug": [plugLoadTool],
   vattenlarmsvaljare: [leakSensorTool],

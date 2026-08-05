@@ -30,6 +30,29 @@ ourselves. That model is the product, not a limitation to hide.
 
 Project background, keyword data and per-test-page research live in `.agent/`.
 
+## Default: yes, and here is what it costs
+
+The gates below are the only prohibitions. Everything else is a judgement call,
+and the default on a judgement call is to find the way to yes and price it.
+
+Worth naming because it is invisible: every failure this repo records is a false
+positive. A wrong price, a borrowed test result, a variant mismatch. Each has a
+story, a number and a warning written after it. **Nothing records the page we did
+not build, the programme we did not apply to, or the product we dropped because
+a shop rendered its price in JavaScript.** Those cost more and leave no trace, so
+the written context tilts toward caution by roughly ten to one. Correct for it.
+
+Before writing down a no, list the ways to yes and cost the cheapest one. An
+obstacle that is *operational* — a price that moves, a shop that needs a browser,
+a programme we have not joined, an empty spec cell, a component that does not
+exist yet — is a task, not a verdict. State the size of the prize in the same
+breath as the obstacle, so the trade is visible to the person whose money it is.
+Worked example: `money.md`, "Default to yes, then engineer the path there".
+
+This loosens nothing below. The gates, and the rule at the top of this file, are
+not judgement calls: editorial integrity and irreversible actions stay hard.
+Aligning on *scope* still comes first; this is about what is *possible*.
+
 ## Gates
 
 - **Never deploy automatically.** Only when explicitly asked.

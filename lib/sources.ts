@@ -3828,6 +3828,49 @@ export const NYCKELSKAP_SOURCES: Source[] = [
  * Kollegen." Båda ligger med, i den ordningen, och Warentest är märkt som
  * referat.
  */
+export const USB_C_KABEL_SOURCES: Source[] = [
+  {
+    publisher: "Testfakta",
+    title: "Dyraste laddkabeln sämst",
+    url: "https://www.testfakta.se/sv/teknik/article/dyraste-laddkabeln-samst",
+    date: "2020-02-24",
+    market: "SE",
+    kind: "test",
+    note: 'Kategorins enda oberoende provning, och den enda källa här som mätt något. Testfakta lät tyska laboratoriet PZT GmbH prova tolv laddkablar, sex med Lightning och sex med USB-C, och betalade själva för provningen. Metoden är publicerad och det är ovanligt: kabeln spändes fast på en roterbar balk med en vikt på 150 gram i andra änden, balken vred kabeln 90 grader åt vardera hållet, och funktionen provades efter 1 000, 2 500, 3 500 och 5 000 böjningar. Båda ändarna provades och den sämsta av dem rapporterades, eftersom en kabel inte är starkare än sin svagaste punkt. Testfakta skriver själva att 150-gramsvikten simulerar milda vardagliga belastningar och att det är något annat än att rycka loss en sladd som fastnat. Resultatet är sidans mest citerade: den dyraste kabeln i provningen, Cellularline LongLife från Circle K för 240 kronor, gick sönder redan under de första 1 000 böjningarna och fick 1 av 10, medan IKEA LILLHULT för 50 kronor tog sig igenom hela cykeln utan skada och fick 10. Belkin, Clas Ohlsons Exibel och Samsung fick också 10; Kjells Linocell USB-C 3.0 fick 8 med synliga förslitningar i höljet. Resultattabellen ligger öppet som PDF. ⚠️ Provningen är från februari 2020 och samtliga sex USB-C-kablar är USB-A-formen, alltså USB-A till USB-C. Den här sidan rankar bara USB-C till USB-C, så noll av de rankade kablarna är provade. Därför finns inget kriterium för testomdöme, och inget resultat härifrån knyts till någon rankad produkt.',
+  },
+  {
+    publisher: "Europeiska unionen",
+    title:
+      "Direktiv (EU) 2022/2380 om ändring av direktiv 2014/53/EU, den gemensamma laddaren",
+    url: "https://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32022L2380",
+    date: "2022-11-23",
+    kind: "standard",
+    note: 'Läst i svensk språkversion i sin helhet, och omläst med kabeln som sökbegrepp. Bilaga Ia del I punkt 2 ställer två krav och båda gäller apparaten: punkt 2.1 att den ska ha ett don av USB typ C enligt EN IEC 62680-1-3:2021, punkt 2.2 att den ska "kunna laddas med kablar som uppfyller standarden EN IEC 62680-1-3:2021". Standardens svenska titel är "Gränssnitt för seriebuss för datakommunikation (USB) – Del 1–3: Gemensamma komponenter – Specifikation för kabel och anslutningsdon USB Typ C®", alltså en kabelstandard namngiven i svensk lagtext. Ingenting i direktivet kräver att en kabel som säljs fristående uppfyller den. Artikel 47, ny punkt 3, ålägger kommissionen att senast den 28 december 2026 lägga fram en rapport om effekterna av att kunna köpa radioutrustning "utan laddningsenhet och utan kabel", vid behov åtföljd av ett lagförslag om obligatoriskt separat försäljning av laddningsenheter och kablar. Skälstexten säger att kommissionen bör överväga att utvidga kravet till att omfatta kablar. Skälstexten bekräftar också 240-wattsgränsen: specifikationen för USB typ C har anpassats så att kraven omfattar "anslutningsdon och kablar så att de får stöd upp till 240 watt". ⚠️ Rapporten är en skyldighet att utreda, inte ett beslut att lagstifta.',
+  },
+  {
+    publisher: "USB Implementers Forum",
+    title: "Product Search, Certified Product List",
+    url: "https://www.usb.org/products",
+    kind: "standard",
+    note: "USB-IF:s publika lista över produkter som certifierats för att bära USB-logotypen, med som källa för vad en certifiering faktiskt betyder och vad den inte kan användas till. Fyra uppgifter på sidan avgör det: listorna underhålls av medlemsföretagen själva och USB-IF friskriver sig från ansvar för innehållet, sökningen omfattar bara produkter som klarat certifieringsprogrammet, den publika vyn visar som standard bara det som certifierats de senaste två åren, och USB-IF:s eget råd när en produkt saknas är att kontakta tillverkaren. ⚠️ Konsekvensen är att en frånvaro i listan inte bevisar något, och vi skriver därför aldrig att en kabel saknar certifiering. Vi återger vad säljaren skriver ut. ⚠️ Integratörslistan, som är den fullständiga, är förbehållen medlemmar: cms.usb.org/integrators-list leder till USB-IF:s inloggning.",
+  },
+  {
+    publisher: "heise / c't",
+    title: "Kabel testen: So gut ist Ihr USB-C-Kabel wirklich",
+    url: "https://www.heise.de/ratgeber/Kabel-testen-So-gut-ist-Ihr-USB-C-Kabel-wirklich-11274048.html",
+    date: "2026-06-30",
+    market: "DE",
+    kind: "test",
+    note: "Teknisk genomgång av hur man kontrollerar en kabel man redan äger, av Rudolf Opitz i c't. Ingen rankning, och därför ingen betygsgrund, men den bästa förklaringen vi hittat av varför två likadana kontakter döljer olika produkter. De uppgifter vi använder i köpguiden kommer härifrån: en USB 2.0-kontakt har 4 kontakter, USB 3.2 har 9 och USB-C har 24 stift, och eftersom USB-C-kontakten är symmetrisk måste många ledare finnas i dubbel uppsättning. Tillverkarna sparar genom att inte koppla alla kontakter, och i laddkablar utgår ofta de snabba datakanalerna, alltså åtta ledare färre. Billiga laddkablar saknar dessutom e-markerchipet som krävs för höga laddeffekter. Artikelns egen slutsats är att kabeltjocklek är ett indicium på en fullt kopplad kabel men aldrig ett bevis. ⚠️ heise har flera renodlade kabeltester bakom betalvägg, bland annat ett om kablar från tre meters längd. De är inte lästa och refereras inte.",
+  },
+  {
+    publisher: "Anker",
+    title: "Anker USB-C to USB-C Cable (240W, Upcycled-Braided), A82E2",
+    url: "https://www.anker.com/eu-en/products/a82e2",
+    note: 'Tillverkarens egen europeiska produktsida, med av två skäl. Den anger både "480 Mbps data transfer" i produkttexten och "Data Transfer Protocols: USB2.0" i artikeldatan för A82E2, vilket är de uppgifter vi använder: Amazons svenska specifikationstabell för samma artikel anger i stället 480 gigabyte per sekund, en enhet som inte finns. ⚠️ Ankers amerikanska adress för samma produkt omdirigerar en nordisk besökare till ankernordics.com, så den går inte att citera. Och den visar spridningen i tillverkarens egna böjtal, som är skälet till att sidan inte har något hållbarhetskriterium: över Ankers sortiment står 5 000, 10 000, 20 000, 25 000, 35 000 och 300 000 böjningar, det sista marknadsfört som "100-Year Bend Durability". Ingen metod publiceras för något av talen, och de går därför inte att jämföra vare sig med varandra eller med Testfaktas provning.',
+  },
+];
+
 export const USB_C_LADDARE_SOURCES: Source[] = [
   {
     publisher: "Testaankoop",
@@ -3956,7 +3999,56 @@ export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Smart garageportsöppnare.
+ *
+ * Systersida till /garageportsoppnare. Ljud & Bilds Yale-test är kategorins
+ * enda oberoende provning och täcker en av sex produkter, vilket är för tunt
+ * för ett eget kriterium men tillräckligt för att vara källa.
+ */
+export const SMART_GARAGEPORTSOPPNARE_SOURCES: Source[] = [
+  {
+    publisher: "Ljud & Bild",
+    title: "TEST: Yale Smart Opener Garage",
+    url: "https://www.ljudochbild.se/test/smart-hem/yale-smart-opener-garage/",
+    date: "2025-01-21",
+    market: "SE",
+    kind: "test",
+    note: "Kategorins enda oberoende provning, och den enda gången någon svensk redaktion monterat en av de här modulerna och beskrivit vad som hände. Geir Gråbein Nordby anger riktpris 1 700 kr och konstaterar tre begränsningar som inte står i någon butik: produkten stöder inte HomeKit, Google Assistant kräver PIN-kod vid varje öppning, och wifi-täckningen i garaget måste vara stabil. Han monterade även Yale Smart Keypad och anger batteritiden till runt ett halvår på två AAA-batterier. Testet beskriver också geotaggningen, alltså att porten öppnas när telefonen närmar sig och stängs när den lämnat garaget.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Yale Smart Opener för motordrivna garageportar, produktsida",
+    url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/las/smarta-las/yale-smart-opener-for-motordrivna-garageportar-p66156",
+    market: "SE",
+    note: 'Den utförligaste specifikationen i kategorin, och den enda som säger något om kontosäkerhet. Ordagrant: "Tvåfaktorssäkerhet: tvåfaktorsautentisering, förutom ditt lösenordet verifieras din identitet genom e-post eller telefonnummer" och "Kryptering: Bluetooth Low Energy (BLE) samt AES- och TLS-kryptering". Ingen annan produktsida i jämförelsen nämner vare sig kryptering eller tvåstegsverifiering. Sidan anger också måtten, 50 × 50 × 32 mm för styrenheten och 70 × 46 × 21 mm för positionssensorn, och att produkten passar takskjutportar och vipportar.',
+  },
+  {
+    publisher: "SwitchBot",
+    title: "SwitchBot Garage Door Opener, tillverkarens produktsida",
+    url: "https://eu.switch-bot.com/products/switchbot-garage-door-opener",
+    kind: "standard",
+    note: 'Enda produkten i jämförelsen som stöder Matter. Tillverkaren skriver "Supports Matter over Wi-Fi and works with Apple Home, Google, Alexa, and Samsung", vilket gör den till den enda som når Apples ekosystem utan att man behöver köpa en särskild artikelvariant. Sidan anger också att modulen kan koppla upp till två SwitchBot-enheter över Bluetooth.',
+  },
+  {
+    publisher: "Meross",
+    title: "Smart Wi-Fi Garage Door Opener MSG100, tillverkarens produktsida",
+    url: "https://www.meross.com/en-gc/smart-garage-door-opener/smart-wi-fi-garage-door-opener/58",
+    kind: "standard",
+    note: 'Tillverkarens beskrivning av MSG100-familjen, som anger att modulen fungerar med Apple HomeKit, Siri, Amazon Alexa, Google Assistant och SmartThings och att ingen hubb krävs. ⚠️ Meross säljer flera artiklar under MSG100-namnet, och HomeKit-stödet hör historiskt till varianten MSG100HK som säljs separat i Sverige för 569 kr. Vi anger därför inte HomeKit som en egenskap hos den artikel NetOnNet säljer, eftersom vi inte kunnat bekräfta artikelnumret mot tillverkarens variantlista. Samma variantfälla som ABUS 787 mot 787 Smart-BT på /nyckelskap.',
+  },
+  {
+    publisher: "Elsäkerhetsverket",
+    title: "Det här får du göra själv med el",
+    url: "https://www.elsakerhetsverket.se/privatpersoner/din-elsakerhet/det-har-far-du-gora-sjalv/",
+    market: "SE",
+    kind: "standard",
+    note: "Myndighetens lista över tillåtet egenarbete, och skälet till att strömförsörjningen är ett eget kriterium här. Gränsen går inte vid om produkten är smart utan vid om du byter något befintligt eller förändrar den fasta installationen. Att lägga in en relämodul i en kopplingsdosa hör till det senare och kräver registrerat elinstallationsföretag. Samma källa bär motsvarande avsnitt på /smart-strombrytare, där formuleringen rättades en gång efter att ett utkast dragit gränsen vid fel sak.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/smart-garageportsoppnare": SMART_GARAGEPORTSOPPNARE_SOURCES,
   "/garageportsoppnare": GARAGEPORTSOPPNARE_SOURCES,
   "/usb-c-laddare": USB_C_LADDARE_SOURCES,
   "/nyckelskap": NYCKELSKAP_SOURCES,

@@ -13,6 +13,60 @@ Registrar and DNS: `C:\code\credentials\hostup\credentials.json`.
 
 ---
 
+## Default to yes, then engineer the path there
+
+**Read this before the trap sections below, because they are longer than this
+one and that asymmetry is deliberate to work against.**
+
+This file spends five screens on how a programme can look real without being
+usable. Every one of those warnings is correct and was paid for. But a reader
+who absorbs only them ends up treating every obstacle as a verdict, and that
+costs far more money than the traps ever did. The traps stop us publishing
+something false. Timidity stops us publishing at all.
+
+So: a supply obstacle is a **task with an owner**, not a disqualification. When
+you find one, your job is to enumerate the ways to yes *before* you write down a
+no. Usually there are three or four, and usually one is cheap.
+
+### Things that are never a reason to drop a product or a merchant
+
+| Obstacle | The actual move |
+|---|---|
+| **The price moves daily** | `scripts/priskoll.mjs` already runs nightly and exists precisely because prices move. Add the merchant to it. Or render "senast hämtat {datum}" for that shop. Or drop the price cell for that merchant and keep the product. The site has never required a price to be *stable*, only *dated* |
+| **We are not in the programme yet** | Every page ships before the programme. `LINK_MODE` is `direct` and no `affiliateUrl` exists anywhere. Apply in parallel; the page does not wait |
+| **The shop renders in JavaScript** | Shopify `/products.json`, the sitemap, the JSON-LD, the embedded state blob. A shop that "needs a browser" has usually just not been probed properly |
+| **A spec cell is empty** | That is the gap pass, `.claude/references/spec-sourcing.md`. It is a work order |
+| **A component does not support it** | Components get built. See @build.md. The data model bends to the category, not the other way round |
+| **The programme's terms are unusual** | Read them and work out what they permit. Most terms forbid something narrow and allow the rest |
+
+If your reason for excluding something is on that list, you have not found a
+reason yet. Go back and cost the fix. A day of scripting against a 12 percent
+programme is not a close call.
+
+### What genuinely blocks
+
+Short on purpose, and none of it is operational:
+
+- A measurement we did not make, or one attributed to the wrong tester.
+- A price we cannot establish **at all**, as opposed to one that changes.
+- Ranking, weights or scores moved by what a merchant pays.
+- A product that is not actually for sale in Sweden.
+
+Everything else is engineering, and engineering is what we are here to do.
+
+### Say what it is worth before you say it is hard
+
+When you report an obstacle, report the size of the prize in the same breath. "A
+12 percent programme, and the price needs a nightly fetch" is a decision someone
+can make. "The price moves daily so I left it out" hides the trade from the
+person whose money it is.
+
+And where the number that sizes the prize is behind a login or otherwise
+unverified, that is a reason to **go and get it**, not a reason to shelve the
+idea. An unknown commission is an open question, not a small one.
+
+---
+
 ## The supply sweep
 
 Runs in phase 1, before the questions to the user, because it decides which

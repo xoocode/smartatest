@@ -1609,6 +1609,60 @@ export const TOOLS: Tool[] = [
     updated: "2026-08-04",
   },
   {
+    /* Kabelsidans enda verktyg. Slugen bär inte ordet väljare, av samma skäl
+       som luftapparatens: frågan "vilken usb-c-kabel" överlever att en andra
+       väljare byggs på samma tema, exempelvis för billaddare. */
+    slug: "vilken-usb-c-kabel",
+    name: "Vilken USB-C-kabel behöver du?",
+    title: "Vilken USB-C-kabel behöver du? Tre frågor ger kraven",
+    description:
+      "Tre frågor om vad kabeln ska göra, vad den ska ladda och hur lång den behöver vara, så får du de tal som ska stå på förpackningen: watt, gigabit, e-marker och om den behöver klara video.",
+    intro:
+      "Kontakten ser likadan ut i hela kategorin, och det är hela problemet. Två kablar som inte går att skilja åt på hyllan kan skilja 83 gånger i datahastighet och fyra gånger i effekt, och priset förutsäger ingetdera. Guiden översätter det du faktiskt ska göra till en kravlista du kan bära med dig in i vilken butik som helst.",
+    sections: [
+      {
+        heading: "Varför uppgiften avgör och inte priset",
+        body: [
+          "Ska kabeln ladda en telefon är den billigaste i butiken tekniskt likvärdig med den dyraste. Ingen telefon som säljs i dag drar mer än 60 watt, och varje USB-C-kabel klarar det. Det är därför guiden i det vanligaste fallet svarar att du inte ska betala mer.",
+          "Det som kostar pengar är data och bild. En vanlig laddkabel gör 480 megabit i sekunden, en USB4-kabel 40 gigabit. Samma filflytt tar en kvart eller en hel kväll beroende på vilken sladd som råkade ligga närmast, och skillnaden syns inte på kontakten.",
+        ],
+      },
+      {
+        heading: "Sextio watt är gränsen där kabeln börjar spela roll",
+        body: [
+          "En USB-C-kabel utan e-marker klarar 3 ampere, alltså omkring 60 watt, oavsett hur stark laddaren är. E-markern är ett litet chip som talar om för laddaren vad kabeln tål, och utan det håller laddaren igen. Det är den vanligaste orsaken till att en dyr laddare laddar långsamt.",
+          "Över 60 watt behövs alltså en e-marker, och för 240 watt krävs dessutom att kabeln stöder Extended Power Range och USB PD 3.1, alltså 48 volt och 5 ampere. Under 60 watt behövs ingenting särskilt.",
+        ],
+      },
+      {
+        heading: "En bildskärm ställer ett krav som ett wattal inte täcker",
+        body: [
+          "Bildsignalen går genom samma ledarpar som de snabba datakanalerna, och i en laddkabel är de ofta inte inkopplade alls. En kabel kan därför ladda med 240 watt och ändå lämna skärmen svart. Leta efter DisplayPort Alt Mode eller en angiven upplösning som 4K 60 Hz.",
+          "Långa kablar är en egen sak. En passiv kabel tappar bandbredd med längden, vilket är skälet till att aktiva kablar med elektronik i kontakterna finns och kostar det de gör. Behöver du både tre meter och full hastighet blir det dyrt, och att flytta skärmen närmare är ofta billigare.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Guiden säger att den billigaste kabeln räcker. Varför jämför ni då dyrare?",
+        answer:
+          "Därför att svaret beror på vad kabeln ska göra. Ska den ladda en telefon räcker den billigaste, och det säger guiden rakt ut i det vanligaste utfallet. Ska den flytta filer från en extern disk eller driva en bildskärm är det en helt annan produkt, och då är den billigaste kabeln inte en sämre variant utan fel sak. Vår jämförelse rankar tolv kablar just därför att de löser olika problem.",
+      },
+      {
+        question: "Hur vet jag hur många watt min laptop behöver?",
+        answer:
+          "Det står på datorns egen nätdel och på förpackningen den kom i. Sedan direktivet om den gemensamma laddaren trädde i kraft ska förpackningen bära en etikett med ett tal följt av W, och det talet är den effekt en laddare minst måste ge för att apparaten ska nå sin högsta laddhastighet. Som tumregel vill en ultrabook ha 65 watt, en 14-tumsdator omkring 100 och en 16-tums MacBook Pro 140.",
+      },
+      {
+        question: "Kan jag skada något med fel kabel?",
+        answer:
+          "Nej, i praktiken inte. En kabel som klarar mindre än laddaren kan ge håller laddaren tillbaka, eftersom effekten förhandlas fram mellan de tre delarna innan strömmen släpps på. Konsekvensen är att laddningen går långsammare, inte att något går sönder. Det är också därför problemet är svårt att upptäcka: allt fungerar, bara sämre än det borde.",
+      },
+    ],
+    usedOn: ["usb-c-kabel"],
+    updated: "2026-08-05",
+  },
+  {
     slug: "vad-betyder-talet-pa-hygrometern",
     name: "Vad betyder talet på hygrometern?",
     title: "Hygrometern visar 58 procent. Vad betyder det egentligen?",
