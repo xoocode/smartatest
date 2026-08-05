@@ -69,7 +69,36 @@ export const HEM_HUSHALL = {
   href: "/hem-hushall",
 } satisfies Category;
 
-export const CATEGORIES: Category[] = [SMART_HEM, SAKERHET, HEM_HUSHALL];
+/**
+ * Elektronik, öppnad 2026-08-05 med /usb-c-laddare.
+ *
+ * Sajtens fjärde grupp och den första som inte handlar om huset. De tre
+ * befintliga bär hemmet, säkerheten och hushållsarbetet; en laddare hör till
+ * personen och följer med ut. Alternativen som övervägdes och valdes bort var
+ * att lägga den under Smart hem, vilket hade gjort gruppen till en restpost
+ * eftersom en laddare varken styr något eller är uppkopplad, och under Hem &
+ * hushåll, som redan är sajtens bredaste och tänjts en gång.
+ *
+ * ⚠️ Gruppen är ett strategiskt vägval och inte bara en rubrik. Den öppnar ett
+ * stort angränsande fält — powerbank, kablar, hörlurar, bildskärmar — som är
+ * den mest affiliatemättade delen av internet, och där vi möter Prisjakt och
+ * PriceRunner i stället för fem tunna testsajter. Att vi tar oss in där ska
+ * vara ett beslut, inte en glidning.
+ *
+ * ⚠️ INGEN AV KATEGORINS BUTIKER TILLÅTER PPC. Kjell 5 %, Teknikdelar 5 %,
+ * IKEA 9 %, Proshop 3,2 %, Komplett 2,5 %, Dustin 2 % och Webhallen 1 % bär
+ * alla `ppcMarketing: 0` i Adtractions katalog. Gruppens sidor går alltså inte
+ * att annonsera med nuvarande utbud, till skillnad från /nyckelskap som fick
+ * E-safe på 7,5 % med ppc=2. Prylstaden (8 %, ppc=2) och Estore (5 %, ppc=2)
+ * är okontrollerade mot sortimentet och är enda vägen dit.
+ */
+export const ELEKTRONIK = {
+  key: "elektronik",
+  label: "Elektronik",
+  href: "/elektronik",
+} satisfies Category;
+
+export const CATEGORIES: Category[] = [SMART_HEM, SAKERHET, HEM_HUSHALL, ELEKTRONIK];
 
 export type TestPageEntry = {
   /** Path, always flat. The category is taxonomy and never a URL segment. */
@@ -709,12 +738,178 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Butiker: Byggahus Shop, Nordsec, Kjell 5 % och E-safe 7,5 % med
        ppcMarketing 2. E-safe är sajtens bästa villkor hittills.
        Se .agent/research/nyckelskap.md. */
+    /* `usb-c-laddare` byggd 2026-08-05. Öppnar gruppen Elektronik.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `laddare` ger noll träffar i samtliga
+       keyword-CSV:er under .agent/. Termen fanns inte i planen, i
+       ideas-testsidor.md eller i sidkarta-framat.md: sidan är en beställning
+       utifrån och inte en köad idé. Kör Keyword Planner på `usb-c laddare`,
+       `usb laddare`, `snabbladdare`, `gan-laddare` och `mobilladdare` innan
+       status flippas till live. Sajten har gissat slug två gånger och haft fel
+       båda gångerna, se .agent/keywords/utfall.md.
+
+       ⚠️ SLUGEN ÄR VALD PÅ BUTIKERNAS SPRÅKBRUK, inte konkurrenternas.
+       Kjell, CDON och Teknikdelar säger alla usb-c-laddare; samtliga tre
+       svenska jämförelsesajter säger usb-laddare. Kjells egen kanoniska sökväg
+       är dessutom /mobilladdare/usb-laddare/ trots att kategorilänken heter
+       usb-c-laddare. Användarbeslut 2026-08-05.
+
+       AVGRÄNSNING efter användarbeslut: bara väggladdare, inklusive flerports-
+       och bordsladdare. Billaddare, powerbank och kablar förklaras i köpguiden
+       och får egna systersidor. En enda rankning över alla effekter, inte
+       delad per effektklass.
+
+       FYNDET: direktiv (EU) 2022/2380 reglerar apparaten, inte laddaren. Bilaga
+       Ia del I listar radioutrustning — mobiler, plattor och sedan 2026-04-28
+       även bärbara datorer — och kravet är att *de* ska ha USB typ C. Ingenting
+       i direktivet ställer krav på en fristående laddare. Den vanliga svenska
+       formuleringen att EU bestämt att alla laddare ska vara USB-C är alltså
+       baklänges, och konsekvensen är att laddaren är det enda ledet i kedjan
+       ingen myndighet ställt krav på. Läst i original på EUR-Lex, CELEX
+       32022L2380.
+
+       ANDRA FYNDET: etiketten med det tal köparen behöver sitter på fel
+       kartong. Bilaga Ia del IV kräver att apparatens förpackning anger "YY W",
+       alltså den effekt en laddare minst måste ge för högsta laddhastighet,
+       plus "USB PD" om apparaten stöder det — och vid distansförsäljning ska
+       den visas nära prisuppgiften.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Testaankoop provade runt 40 laddare i tre
+       effektklasser, refererat av Stiftung Warentest 2026-05-02, men noll av de
+       nio modeller de namnger med poäng finns i Kjells eller Teknikdelars
+       sortiment. Mätvärdena bär köpguiden i stället. Se
+       .agent/research/usb-c-laddare.md §7.1.
+
+       ⚠️ TESTET ÄR INTE WARENTESTS EGET. Det är belgiska Testaankoops, vilket
+       Warentest skriver i löptexten och bekräftar i ett redaktionssvar. Skriv
+       aldrig att Stiftung Warentest provat laddarna.
+
+       ⚠️ TESTAANKOOP MOTSÄGER SIG SJÄLV och båda uppgifterna ska stå: i
+       metodavsnittet att alla angivna effekter uppnåddes, i produktposten för
+       Belkin BoostCharge Pro 3 att den ger 87 W mot utlovade 100.
+
+       ⚠️ Testkompassen daterar direktivet till 28 dec 2025. Rätt datum är
+       28 december 2024; 2025 finns i direktivet men gäller kommissionens
+       utvärderingsrapport. De har läst rätt dokument och fel rad.
+
+       ⚠️ Dustin visar priser EXKLUSIVE moms. Xtorm XEC100 står som 699 kr där
+       och är alltså cirka 874 kr för konsument. Produkten är utesluten ur
+       rankningen av det skälet plus att den är beställningsvara.
+
+       Butiker: Kjell 5 %/30 d, IKEA 9 %/30 d, Teknikdelar 5 %/30 d. Tio av tolv
+       länkar går till Kjell, och koncentrationen står utskriven på sidan, samma
+       lösning som /smart-hem-hubb. Se .agent/research/usb-c-laddare.md. */
+    href: "/usb-c-laddare",
+    label: "USB-C-laddare",
+    category: ELEKTRONIK,
+    blurb: "EU:s krav gäller telefonen. Laddaren är ledet ingen reglerat.",
+    /* Live 2026-08-05. Alla tretton priser lästa på butikernas egna
+       produktsidor samma dag, och direktivet läst i original på EUR-Lex.
+       Tretton packshots på plats.
+
+       ⚠️ SLUGEN LÅSES I OCH MED DETTA. Sökvolymen är fortfarande omätt, och
+       konkurrenterna använder `usb-laddare` medan butikerna använder
+       `usb-c-laddare`. Fram till nu hade ett slugbyte varit gratis eftersom
+       sidan aldrig legat i sitemapen; efter det här kostar det omdirigeringar.
+       Publicerad på användarbeslut med den vetskapen. Kör ändå Keyword Planner
+       på `usb-c laddare`, `usb laddare`, `snabbladdare` och `gan-laddare`, och
+       byt bara om skillnaden är stor nog att bära ett byte.
+
+       ⚠️ SIDAN GÅR INTE ATT ANNONSERA. Samtliga fyra butiker sidan länkar till
+       bär `ppcMarketing: 0` i Adtraction: Kjell 5 %, IKEA 9 %, Teknikdelar 5 %
+       och Estore 5 %. Estore tillåter visserligen PPC, men bär bara plats fem.
+       Kontrollerat 2026-08-05, se .agent/research/usb-c-laddare.md §5.1b. */
+    status: "live",
+    updated: "2026-08-05",
+    count: 13,
+  },
+  {
+    /* `garageportsoppnare` byggd 2026-08-05. Beställd utifrån, som
+       /usb-c-laddare, och alltså inte köad i planerade-sidor.md.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `garage` ger noll träffar i samtliga
+       keyword-CSV:er under .agent/. Kör Keyword Planner på `garageportsöppnare`,
+       `garageportöppnare`, `garageöppnare`, `portautomatik` och
+       `garageport motor` innan status flippas till live. Sajten har gissat slug
+       två gånger och haft fel båda gångerna, se .agent/keywords/utfall.md.
+
+       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK. Jula, Bauhaus, Elgiganten, CDON och
+       Bygghemma säger alla garageportsöppnare med foge-s, liksom alla tre
+       svenska konkurrenter. Beställningens ord `garageöppnare` förekommer i
+       praktiken bara hos smarthemsåterförsäljare för Meross-modulen.
+
+       AVGRÄNSNING efter användarbeslut: sidan rankar bara motorerna, alltså
+       själva portöppnaren från 499 kr och uppåt. Smart styrning av en befintlig
+       öppnare — Meross, SwitchBot, Tuya, Yale, iSmartGate, 384 till 5 353 kr —
+       är en annan produkt och får en egen systersida under Smart hem. Samma
+       lösning som /brandvarnare mot /smart-brandvarnare.
+
+       FYNDET: talet som säljs är inte talet som skyddar. Chamberlains manual,
+       den Clas Ohlson själva serverar, säger att kraften vid den stängande
+       portkanten inte får överstiga 400 N och att fotocell blir obligatorisk
+       över den. Fotocellen är tillbehör 770EML. Kategorin marknadsförs samtidigt
+       på dragkraft uppåt: 600, 800, 1000 N. Ingen av de fyra öppnarna levereras
+       med fotocell.
+
+       ⚠️ ANDRA FYNDET, och det som rättade det första: Julas 377011 anger
+       "230V, 100W, 700N" i sin egen försäkran om överensstämmelse. Butiken
+       säljer den som "Vridmoment 700 Nm" och bär talet i produktnamnet. Newton
+       är kraft, newtonmeter är vridmoment. Systermodellen 018980 anger 8 Nm och
+       där stämmer butiken med manualen. De två talen var alltså aldrig
+       jämförbara, och det ena har fel enhet i rubriken.
+
+       ⚠️ TREDJE: den billigaste har den bästa dokumentationen. Julas 377011 på
+       499 kr åberopar EN 12453:2017, EN 13241, EN 12635 och EN ISO 12100.
+       Boxer 3000 på 1 955 kr åberopar 98/37/EG och 89/336/EEG, som enligt
+       EUR-Lex upphörde att gälla 2009-12-28 respektive 2007-07-19, alltså före
+       försäkrans undertecknande 2015-01-05. Det säger inget om säkerheten,
+       bara om vad som går att kontrollera.
+
+       ⚠️ FJÄRDE: Boxers svenska och danska tabell i samma PDF anger 8 respektive
+       800 watt standby för samma modell, och 3,5 respektive 3 meter skena.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen har provat portöppnare: varken
+       Råd & Rön eller Stiftung Warentest, och de tyska träffarna är
+       Vergleich-sidor. Ljud & Bilds enda test i ämnet gäller Yale Smart Opener
+       och hör till systersidan. Samma läge som /utomhustimer och /vattenlarm.
+
+       ⚠️ DRAGKRAFTEN ÄR ETT REGLAGE, inte en egenskap. Boxers manual: kraften
+       ställs på en skala 1–9 där 9 är maximum. Chamberlains lärs in vid
+       installation. Därför sänktes kriteriet från 40 till 25 efter
+       användarbeslut, och skydd vid stängning gick upp till 30.
+
+       ⚠️ PROGRAMFÖRSÖRJNINGEN ÄR TOM. Adtraction har ingen av kategorins
+       butiker: inte Jula, Bauhaus, Biltema, Clas Ohlson, Bygghemma, Byggmax,
+       Hornbach, CDON eller Elgiganten. Beijer Bygg 7 %, P Lindberg 6 % med
+       ppc 2 och E-safe 7,5 % med ppc 2 är okontrollerade mot sortimentet.
+       Sidan går alltså inte att annonsera och tjänar i dag ingenting, samma
+       läge som /robotgrasklippare och /avfuktare.
+
+       Se .agent/research/garageportsoppnare.md. */
+    href: "/garageportsoppnare",
+    label: "Garageportsöppnare",
+    category: HEM_HUSHALL,
+    blurb: "Kraften de säljer är uppåt. Den som kan klämma någon står i manualen.",
+    status: "planned",
+    updated: "2026-08-05",
+  },
+  {
     href: "/nyckelskap",
     label: "Nyckelskåp",
     category: SAKERHET,
     blurb: "Alla fyra som provades lossnade från väggen. Den bästa tog 16 sekunder.",
-    status: "planned",
+    /* Live 2026-08-05. Alla sex priser kontrollerade mot butikernas egna sidor
+       samma dag och samtliga stämde: 490 Byggahus, 2 599 Nordsec, 349 och
+       1 899 Kjell, 695 och 895 E-safe.
+
+       ⚠️ Master Lock 5441 har den bredaste prisspridningen på sajten för en och
+       samma artikel: 2 015 kr hos Amazon.se, 2 599 hos Nordsec och 2 995 hos
+       Bauhaus, som är slut. PriceRunner anger lowPrice 1 994 över fem
+       erbjudanden. Vi länkar Nordsec, se motiveringen i lib/data/nyckelskap.ts.
+       Kontrollera om spridningen vid nästa prisrunda. */
+    status: "live",
     updated: "2026-08-05",
+    count: 6,
   },
 ];
 

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
-import { testPageTrail, NYCKELSKAP } from "@/lib/test-pages";
-import { NYCKELSKAP_SOURCES } from "@/lib/sources";
+import { testPageTrail, USB_C_LADDARE } from "@/lib/test-pages";
+import { USB_C_LADDARE_SOURCES } from "@/lib/sources";
 import {
   PRICE_CHECKED,
-  NYCKELSKAP_FAQ,
-  NYCKELSKAP_CONSIDERED,
-  NYCKELSKAP_PRODUCTS,
-} from "@/lib/data/nyckelskap";
+  USB_C_LADDARE_FAQ,
+  USB_C_LADDARE_CONSIDERED,
+  USB_C_LADDARE_PRODUCTS,
+} from "@/lib/data/usb-c-laddare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
@@ -35,29 +35,36 @@ import { WinnerCard } from "@/components/product/winner-card";
 import { WinnerGrid } from "@/components/product/winner-grid";
 import { VerdictText } from "@/components/product/verdict-text";
 
-import Kopguide from "@/content/nyckelskap/kopguide.mdx";
+import Kopguide from "@/content/usb-c-laddare/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, GTIN och butiks-URL:er är verkliga, lästa hos
- * butikerna på PRICE_CHECKED. Specifikationerna kommer från tillverkarnas egna
- * produktsidor och produktblad.
+ * ⚠️ Produkter, priser, kundbetyg och butiks-URL:er är verkliga, lästa hos
+ * butikerna på PRICE_CHECKED. Specifikationerna kommer från butikernas egna
+ * specifikationstabeller, som i den här kategorin är mer detaljerade än
+ * tillverkarnas svenska sidor: Ugreen och Samsung publicerar effekt per port
+ * hos Kjell.
  *
- * Provningstiderna är avskrivna ur RISE P115210 och gäller endast de två
- * modeller som har ett eget resultat i rapporten. Se lib/data/nyckelskap.ts
- * för variantfällan kring ABUS 787C mot 787 Smart-BT.
+ * ⚠️ Ingen laddare här är provad, varken av oss eller av någon annan. Den enda
+ * labbprovning som finns är Testaankoops, och ingen av de nio modeller de
+ * namnger med poäng säljs av butikerna i jämförelsen. Deras mätvärden bär
+ * köpguiden och viktningen, aldrig en betygskolumn. Se
+ * lib/data/usb-c-laddare.ts.
+ *
+ * ⚠️ Attributionsfällan: provningen är Testaankoops, inte Stiftung Warentests.
+ * Warentest refererar den och skriver det själva. Se lib/sources.ts.
  *
  * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårat och dofollow.
  * Se lib/links.ts.
  */
 
-const TEST_PAGE = NYCKELSKAP;
+const TEST_PAGE = USB_C_LADDARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
 const UPDATED = "2026-08-05";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "ABUS KeyGarage 787 vinner för 490 kronor: satt kvar längst mot skruvmejsel av de skåp som brutits upp, och tar 20 nycklar. Hyr du ut tar du Master Lock Select Access Smart. Vi jämförde fem nyckelskåp från 349 till 2 599 kronor.",
+    "EU:s krav på USB-C gäller telefonen och datorn, inte laddaren du köper till dem. Vi rankar tretton väggladdare från 179 till 1 699 kronor på effekt per port, pris per watt och plats i uttaget.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -67,11 +74,10 @@ export const metadata: Metadata = {
 };
 
 const TOC = [
-  { id: "snabbt-svar", label: "Snabbt svar: vilket ska du köpa?" },
-  { id: "hammaren", label: "9 sekunder med en hammare" },
-  { id: "jamforelse", label: "Jämför alla fem" },
-  { id: "recensioner", label: "Recensioner av varje skåp" },
-  { id: "andra-skap", label: "Andra skåp vi övervägde" },
+  { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
+  { id: "jamforelse", label: "Jämför alla tretton" },
+  { id: "recensioner", label: "Recensioner av varje laddare" },
+  { id: "andra-laddare", label: "Andra laddare vi övervägde" },
   { id: "kopguide", label: "Köpguide" },
   { id: "testmetod", label: "Så gjorde vi testet" },
   { id: "darfor-litar-du-pa-oss", label: "Därför kan du lita på oss" },
@@ -79,9 +85,9 @@ const TOC = [
   { id: "vanliga-fragor", label: "Vanliga frågor" },
 ];
 
-export default async function NyckelskapPage() {
+export default async function UsbCLaddarePage() {
   const style = await getStyle();
-  const products = NYCKELSKAP_PRODUCTS;
+  const products = USB_C_LADDARE_PRODUCTS;
   const [winner] = products;
   const author = DEFAULT_AUTHOR;
   const reviewer = DEFAULT_REVIEWER;
@@ -109,21 +115,17 @@ export default async function NyckelskapPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             {/* H1 bär avgränsningen, som på /brandvarnare och /smart-termostat:
-                ordet nyckelskåp täcker även SSF 3492-klassade stålskåp från
-                5 495 kr som rymmer 42 till 2 400 nycklar. */}
+                ordet laddare täcker även billaddare, powerbanker och kablar,
+                och den här jämförelsen rankar bara väggladdare. */}
             <h1 className="text-h1">
-              Nyckelskåp bäst i test 2026: fem boxar med kod till
-              ytterdörrsnyckeln
+              USB-C-laddare bäst i test 2026: tretton väggladdare från 179 till
+              1&nbsp;699 kr
             </h1>
-            <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp ABUS KeyGarage 787 för 490 kronor. Den satt kvar längst av
-              alla mot skruvmejsel när fyra nyckelskåp bröts upp under
-              kontrollerade former, den tar 20 nycklar och den kostar en
-              femtedel av det dyraste skåpet här. Hyr du ut och vill ge varje
-              gäst en egen kod är Master Lock Select Access Smart värd sina
-              2 599 kronor. Räkna med skydd mot tillfället, inte mot ett
-              planerat inbrott.
+              Wattalet på kartongen är nästan alltid summan över alla portar,
+              inte vad din dator får. I den labbprovning vi bygger på gav den
+              andra porten som mest 48 W, hur stark laddaren än var märkt. Vi
+              har därför vägt effekten per port tyngst av allt.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -167,55 +169,14 @@ export default async function NyckelskapPage() {
         <TocNav variant="inline" entries={TOC} className="mt-block lg:hidden" />
       </Section>
 
-      {/* --------------------------------------------------- the finding -- */}
-      <Section
-        id="hammaren"
-        width="default"
-        title="9 sekunder med en hammare: därför är pris inte säkerhet"
-        description="Det dyraste skåpet i jämförelsen var det snabbaste att öppna."
-      >
-        <Prose>
-          <p>
-            <strong>
-              Master Lock Select Access Smart klarar sig bäst av alla mot
-              standardens verktyg.
-            </strong>{" "}
-            Det är det enda skåpet vars lucka inte gick att bryta upp vid
-            låssidan, och det enda som höll längre än tidsramen när angreppet
-            flyttades till gångjärnen. På den mätningen är det överlägset.
-          </p>
-          <p>
-            <strong>Sedan byttes verktyget.</strong> Åtta slag med en 700 grams
-            snickarhammare, 9 sekunder, och luckan stod öppen. Hammaren ligger
-            utanför verktygslistan i provningsmetoden och lades till som en
-            extra angreppspunkt just för att den är trivial att få tag på.
-          </p>
-          <p>
-            <strong>Slutsatsen är inte att skåpet är dåligt.</strong> Den är att
-            pris och motstånd inte följs åt i den här kategorin, och att 2 599
-            kronor köper delbara koder och ett väderskydd du använder varje
-            vecka, inte ett skåp som står emot mer. Vill du ha motstånd för
-            pengarna gör ABUS KeyGarage 787 samma jobb för 490.
-          </p>
-          <p>
-            <strong>Det som gav vika först var samma sak på varje skåp:</strong>{" "}
-            inte låset och inte luckan, utan de fyra skruvarna i väggen. Med
-            kofot lossnade skåpen på mellan 16 sekunder och 1 minut och 15. Skruva
-            i massivt trä, betong eller tegel, aldrig i fasadpanel, och sätt
-            skåpet runt hörnet från dörren det går till i stället för bredvid
-            den.
-          </p>
-        </Prose>
-      </Section>
-
       {/* -------------------------------------------------- ranked lists -- */}
       <Section
         id="alla-testvinnare"
         optionalSection="winner-grid"
         width="wide"
         eyebrow="Alla testvinnare"
-        title={`De ${products.length} bästa nyckelskåpen 2026`}
-        description="Varje skåp fick en egen utmärkelse. Klicka på ett namn för den fullständiga recensionen."
+        title={`De ${products.length} bästa USB-C-laddarna 2026`}
+        description="Varje laddare fick en egen utmärkelse. Klicka på ett namn för den fullständiga recensionen."
       >
         <WinnerGrid products={products} variant="grid" columns={3} />
       </Section>
@@ -223,8 +184,8 @@ export default async function NyckelskapPage() {
       <Section
         id="jamforelse"
         width="wide"
-        title="Jämför alla fem"
-        description="Samma kriterier och samma viktning för alla fem skåpen."
+        title="Jämför alla tretton"
+        description="Samma kriterier och samma viktning för alla tretton laddarna. Raden att läsa först är effekten vid två portar: den säger vad du faktiskt får när både datorn och telefonen sitter i."
       >
         <ComparisonTable
           products={products}
@@ -239,8 +200,8 @@ export default async function NyckelskapPage() {
         id="recensioner"
         tone="muted"
         width="wide"
-        title="Recensioner av varje skåp"
-        description="Alla fem bedöms mot samma fem kriterier."
+        title="Recensioner av varje laddare"
+        description="Tretton väggladdare mellan 20 och 200 W, bedömda på vad de ger per port, vad effekten kostar och hur mycket plats de tar i uttaget."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -261,14 +222,14 @@ export default async function NyckelskapPage() {
       </Section>
 
       <Section
-        id="andra-skap"
+        id="andra-laddare"
         tone="muted"
         className="border-t border-border"
         width="default"
-        title="Andra skåp vi övervägde"
-        description="Sju skåp som fanns med i urvalet men inte i rankningen, och skälet till att de föll bort."
+        title="Andra laddare vi övervägde"
+        description="Sex laddare som fanns med i urvalet men inte i rankningen, och skälet till att de föll bort. Tre av dem är labbprovade och hade rankats direkt om de gått att köpa här till ett konsumentpris."
       >
-        <ConsideredList items={NYCKELSKAP_CONSIDERED} />
+        <ConsideredList items={USB_C_LADDARE_CONSIDERED} />
       </Section>
 
       {/* ---------------------------------------------------- editorial -- */}
@@ -289,7 +250,7 @@ export default async function NyckelskapPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Infästningen väger 30 därför att den gav vika på samtliga provade skåp, och lucka och lås 25 därför att spridningen mellan modellerna är störst där. Där en uppgift som kapslingsklass eller temperaturspann inte gått att fastställa räknas det som en brist under Väderskydd, eftersom ett skåp du inte kan kontrollera mot vintern där du bor är sämre för dig än ett du kan. Master Lock Select Access Smart är det enda skåpet med båda uppgifterna angivna och får därför full poäng på den raden."
+          footnote="Effekten per port väger 30 därför att den avgör vad du faktiskt får ut, och pris per watt 25 därför att rankningen är en enda lista över allt från 20 till 200 W: utan den normaliseringen hade den största laddaren vunnit på storlek snarare än på förtjänst. Sidan har inget kriterium för testomdöme. Den enda labbprovningen i kategorin är Testaankoops, och ingen av de modeller de namnger med poäng säljs av butikerna här, så en betygskolumn hade blivit tom för varenda laddare. Där en uppgift som effektfördelning eller vikt inte gått att fastställa räknas det som en brist under öppen redovisning, eftersom en laddare du inte kan planera in i ditt grenuttag är sämre för dig än en du kan."
         />
       </Section>
 
@@ -321,13 +282,13 @@ export default async function NyckelskapPage() {
         tone="muted"
         width="default"
         title="Källor och andra tester"
-        description="Provningsrapporten från RISE, tillverkarnas produktblad och butikernas produktdata."
+        description="Direktivet är läst i original på EUR-Lex. Labbprovningen är belgiska Testaankoops, publicerad i april 2026 och refererad av Stiftung Warentest i maj; talen på den här sidan kommer från originalet."
       >
-        <SourceList sources={NYCKELSKAP_SOURCES} title={null} />
+        <SourceList sources={USB_C_LADDARE_SOURCES} title={null} />
       </Section>
 
       <Section id="vanliga-fragor" width="default" title="Vanliga frågor">
-        <FaqAccordion items={NYCKELSKAP_FAQ} schema />
+        <FaqAccordion items={USB_C_LADDARE_FAQ} schema />
       </Section>
 
       <Container size="default" className="pad-section">

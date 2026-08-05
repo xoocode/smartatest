@@ -147,6 +147,30 @@ beteende.** "Hålltiden är okänd" står kvar i texten och är ärligt. "Ecovac
 publicerar ingen hålltid" är en anmärkning mot ett företag som läsaren varken
 kan agera på eller bryr sig om.
 
+Det gäller också bevisläget. "Motståndet är oprövat" handlar om vad någon har
+mätt, inte om skåpet. Skriv "hur länge den håller mot en kofot är okänt".
+
+### Regeln gäller varje sträng en besökare kan se
+
+Den togs bort ur omdömena på `/fonsterputsrobot` den 4 augusti och var tillbaka
+på `/nyckelskap` den 5:e, flyttad till sektionernas `description`. Där stod vår
+källpolicy ordagrant ovanför recensionerna: *"Vi lånar aldrig ett provresultat
+från en systermodell, eftersom det skulle betyda att vi påstår oss veta något om
+en produkt ingen brutit upp."*
+
+Att flytta meningen är inte att följa regeln. Den gäller `title`, `description`,
+ingress, prosa, `verdict`, `tagline`, `superlative`, `pros`, `cons`,
+FAQ-`answer` och tabelltext — allt utom de två ställen nedan.
+
+**Det sanktionerade hemmet är viktningen**, alltså `methodology` i
+`lib/test-pages.ts` och `footnote` på `MethodologyBlock`. Där *ska* det stå att
+en okontrollerbar uppgift kostar poäng, en gång, med skälet. `reason` i
+övervägda produkter är också undantagen, eftersom bortvalet är dess enda ämne.
+
+`pnpm check:kallprat` läser fält och inte filer, just för att kunna fälla i
+recensionen och tiga om viktningen. Kör `--sida <slug> --strict` på den sida du
+arbetar med.
+
 Att luckorna räknas i betyget ändrar inte det. Viktningen är rätt ställe att
 förklara att en okontrollerbar uppgift kostar poäng, och den förklaringen ska
 stå där en gång. Se `rulings.md`.

@@ -21,7 +21,9 @@ pnpm build          # kills the dev server; restart after
 | `check:vikter` | Criterion weights not summing to 100, or a test page with fewer than three or more than seven criteria |
 | `check:upplysning` | The same disclosure variant twice on one page, or a page repeating the footer's |
 | `check:fraser` | The confirmed overtramp from `measurements.md`, in reader-facing text with comments stripped. Two tiers: a short hard list that fails, and a counted list that only reports |
-| `check:tackning` | Reports, never fails: highlighted spec rows under 50 % filled |
+| `check:kallprat` | Reports site-wide, fails with `--strict`: reader-facing fields that describe what a source published rather than what the product does. Field-aware — `methodology`, `footnote` and `reason` are exempt by design |
+| `check:omdomen` | Reports: verdicts over 500 characters in a single paragraph, `superlative` repeating the award, two products sharing a superlative |
+| `check:tackning` | Reports: highlighted specs that never become a row, and rows under 50 % filled |
 | `check:lankar` | Outbound links that no longer resolve |
 | `sprak "<fras>"` | Comparison against the 151k-word reference corpus |
 | `priskoll` | Price drift against the merchant pages |
@@ -49,6 +51,20 @@ knowable and differentiating beats a prestigious row nobody publishes.
 
 Treat a line here as unfinished work on the page it names, not as a permanent
 property of the category.
+
+### Why three checks report instead of failing
+
+`check:kallprat`, `check:omdomen` and `check:tackning` all found that what
+looked like one page's mistake was the site's habit: 167 källprat hits across 30
+pages, 28 single-paragraph verdicts, 44 invisible highlighted specs, 10 winners
+labelled `Bäst i test`. Failing on any of them would block the repo on work that
+requires someone to write new text, page by page.
+
+So they are a worklist, and `/fix-page` is what works it. That skill runs
+`check:kallprat --sida <slug> --strict`, so **the page being fixed must come out
+clean even while the rest of the site does not.** Global report, per-page gate.
+
+When a list empties, make it fail so no new page can reinvent the fault.
 
 ## Verify in a browser at 1440px and 390px
 

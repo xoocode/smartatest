@@ -31,6 +31,7 @@ import { FONSTERPUTSROBOT_PRODUCTS } from "@/lib/data/fonsterputsrobot";
 import { SMART_HEM_HUBB_PRODUCTS } from "@/lib/data/smart-hem-hubb";
 import { SMART_TERMOSTAT_PRODUCTS } from "@/lib/data/smart-termostat";
 import { NYCKELSKAP_PRODUCTS } from "@/lib/data/nyckelskap";
+import { USB_C_LADDARE_PRODUCTS } from "@/lib/data/usb-c-laddare";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -53,6 +54,7 @@ import { NYCKELSKAP_PRODUCTS } from "@/lib/data/nyckelskap";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...USB_C_LADDARE_PRODUCTS,
   ...NYCKELSKAP_PRODUCTS,
   ...SMART_BELYSNING_PRODUCTS,
   ...SMART_PLUG_PRODUCTS,

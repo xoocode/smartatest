@@ -17,6 +17,17 @@ smartatest.se.
 
 ## Recensionens fyra rörelser
 
+**De fyra rörelserna är fyra stycken.** Separera dem med tom rad i strängen.
+`VerdictText` delar på `\n{2,}` och stödjer `**fetstil**` på den mening som bär
+poängen; utan tomrad blir hela omdömet ett enda block, eftersom HTML gör
+radbrytningar till mellanslag.
+
+Det är inte en formatfråga. `/nyckelskap` levererades med sex omdömen på 649
+till 1 177 tecken, samtliga i ett stycke, och `/avfuktare` hade tidigare 1 900
+tecken som blev 375 pixlar sammanhängande löptext i 918 pixlars bredd. Ingen
+läser det. `pnpm check:omdomen` rapporterar varje omdöme över 500 tecken utan
+styckebrytning.
+
 **1. Vad produkten är, hur den skiljer sig, vad den kostar.** Två meningar. Ut
 med det viktigaste direkt: den starkaste egenskapen och prisläget. Läsaren ska
 kunna sluta läsa efter mening två och ändå veta om produkten är intressant.
@@ -80,6 +91,12 @@ mall som syns. Alternativ som fungerar lika bra:
 - "Putsar du några rutor då och då tar du W2 Pro och lägger mellanskillnaden på
   något annat." — rekommendation genom avrådan
 - "Till priset ovan gör Kärcher jobbet för en tredjedel." — jämförelsen avgör
+
+Varianten `Ska du X är A. Ska du Y är B.` är bra och blir en mall så snart den
+används på fler än ett par produkter. På `/nyckelskap` bar fyra av sex avslut
+samma tvåarmade villkor. Låt minst hälften av avsluten på en sida ha en annan
+form: ett rakt köpråd, en avrådan, en prisjämförelse, en förutsättning som
+avgör åt läsaren.
 
 ## Definiera inte genom kontrast
 
@@ -205,9 +222,22 @@ för läsaren närmare ett beslut.
 
 En tagline som slutar i priset argumenterar mot sitt eget kort.
 
+**Ett tal i en tagline behöver sin måttstock.** "Stod emot skruvmejsel i 3
+minuter och 39 sekunder" läser sig som en svaghet för den som inte vet att det
+svagaste skåpet gick upp på 38 sekunder. Antingen bär talet jämförelsen med sig,
+eller så väljer du ett annat tal.
+
 `superlative` är fri text per produkt: "Bäst för Thread-hem". Den ska peka ut
-**vem** produkten passar, inte hur bra den är. "Bäst i test" står redan i
-rubriken och behöver inte upprepas per kort.
+**vem** produkten passar, inte hur bra den är.
+
+**Vinnarens superlativ får aldrig vara "Bäst i test".** Det står redan i H1 och
+på utmärkelsebrickan, så kortet säger samma sak tre gånger och lägger noll ny
+information till. Skriv vem den passar i stället: `Bäst för uthyrning`,
+`Bäst för höga fönster`. `pnpm check:omdomen` listar de sidor som har kvar det.
+
+**Två produkter på samma sida får inte dela superlativ.** Den avvägande läsaren
+står mellan just de två, och två etiketter som pekar på samma köpare lämnar hen
+utan hjälp precis där hjälpen behövs. Samma kontroll fäller dubbletter.
 
 Två superlativ på samma sida får inte peka på samma köpare. "Bäst för många
 fönster i rad" och "Bäst för hela huset på en dag" lämnade läsaren som stod

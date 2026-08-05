@@ -112,6 +112,22 @@ prose, a heading, a verdict, a pro/con or a FAQ answer.
 7. `app/{slug}/page.tsx`, composed from existing components
 8. A `/styleguide` bench for anything genuinely new
 
+### The four faults every new page has reinvented
+
+Check these before phase 6, because none of them is visible in `tsc`, `lint` or
+the browser, and each has shipped on a brand new page after being removed from
+the previous one:
+
+1. **The ingress names no product.** It must name the winner, what it is best
+   at and what it costs — same for `metadata.description`. See
+   `.claude/references/page-anatomy.md`.
+2. **Verdicts written as one block.** Four movements, four paragraphs,
+   separated by a blank line in the string. `pnpm check:omdomen`.
+3. **Source state in reader-facing strings**, including `description=` on a
+   `Section`. `pnpm check:kallprat --sida <slug> --strict` must be clean.
+4. **`highlight` set inconsistently**, which silently deletes a table row.
+   `pnpm check:tackning`.
+
 ## Phase 6: Critical pass
 
 Work the rubric in `.claude/context/ship.md`, then re-run the phase 1 comparison
@@ -125,6 +141,10 @@ Two passes is normal.
 
 `pnpm check`, `pnpm build`, then a browser at 1440px and 390px. Measure, never
 eyeball. Full list in `.claude/context/ship.md`.
+
+`check:kallprat`, `check:omdomen` and `check:tackning` report site-wide debt
+rather than failing. Read the lines that name **your** slug and clear them; the
+rest belongs to `/fix-page`.
 
 ## Flip to live
 

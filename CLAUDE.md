@@ -15,6 +15,7 @@ ourselves. That model is the product, not a limitation to hide.
 |---|---|
 | Any sentence a visitor can see | Skill `swedish-voice` |
 | A new test page, start to finish | Skill `new-page` |
+| Lifting an existing page to the current standard | Skill `fix-page` |
 | Competitors, tests, products, search intent | `.claude/context/research.md` |
 | Prices, specs, images, ratings, `lib/data/*` | `.claude/context/data.md` |
 | A spec cell you cannot fill | `.claude/references/spec-sourcing.md` |

@@ -3828,7 +3828,7 @@ export const NYCKELSKAP_SOURCES: Source[] = [
  * Kollegen." Båda ligger med, i den ordningen, och Warentest är märkt som
  * referat.
  */
-const USB_C_LADDARE_SOURCES: Source[] = [
+export const USB_C_LADDARE_SOURCES: Source[] = [
   {
     publisher: "Testaankoop",
     title: "Wat zijn de beste USB-C opladers? Dit zegt onze test",
@@ -3836,7 +3836,7 @@ const USB_C_LADDARE_SOURCES: Source[] = [
     date: "2026-04-14",
     market: "BE",
     kind: "test",
-    note: 'Kategorins enda riktiga labbprovning och den enda källa här som mätt något. Runt fyrtio universella USB-C-nätaggregat i tre effektklasser: 10 modeller på 50–100 W, 18 på 65 W och 11 på 35–45 W. Fyra kriterier vägs till en slutpoäng — prestanda, användbarhet, egenskaper och säkerhet — och under prestanda mättes både in- och uteffekt, verkningsgrad, maxeffekt på en port, maxeffekt över alla portar, tomgångsförbrukning, kortslutningsström och maxtemperatur. Talen vi använder i köpguiden kommer härifrån: verkningsgrad 85–91 %, högsta uppmätta effekt på en enskild port 113 W (OtterBox), typiskt cirka 90 W för 100 W-klassen, högst 48 W på andra porten i hela fältet, temperaturer mellan 46 och 82 °C utan att säkerhetsgränsen överskreds, och att exakt en laddare av alla stödde PD 3.1. Säkerhetsslutsatsen är värd att läsa ordagrant: inga säkerhetsproblem hittades i något exemplar, samtliga bar CE-märkning, och därav att man inte behöver välja de stora märkena för att köpa tryggt. ⚠️ Källan är inte konsekvent om antalet: samma sida skriver både "in totaal 40" och "bijna 40", klassindelningen summerar till 39, dossiersidan säger 34 och jämförarsidan "meer dan 20". Vi skriver därför runt fyrtio och aldrig ett exakt tal. ⚠️ Källan motsäger också sig själv om märkeffekten: metodavsnittet säger att alla angivna effekter uppnåddes och i de flesta fall överskreds med 5 %, medan produktposten för Belkin BoostCharge Pro 3 anger 87 W mot utlovade 100. Båda uppgifterna återges.',
+    note: 'Kategorins enda riktiga labbprovning och den enda källa här som mätt något. Runt fyrtio universella USB-C-nätaggregat i tre effektklasser: 10 modeller på 50–100 W, 18 på 65 W och 11 på 35–45 W. Fyra kriterier vägs till en slutpoäng: prestanda, användbarhet, egenskaper och säkerhet. Under prestanda mättes både in- och uteffekt, verkningsgrad, maxeffekt på en port, maxeffekt över alla portar, tomgångsförbrukning, kortslutningsström och maxtemperatur. Talen vi använder i köpguiden kommer härifrån: verkningsgrad 85–91 %, högsta uppmätta effekt på en enskild port 113 W (OtterBox), typiskt cirka 90 W för 100 W-klassen, högst 48 W på andra porten i hela fältet, temperaturer mellan 46 och 82 °C utan att säkerhetsgränsen överskreds, och att exakt en laddare av alla stödde PD 3.1. Säkerhetsslutsatsen är värd att läsa ordagrant: inga säkerhetsproblem hittades i något exemplar, samtliga bar CE-märkning, och därav att man inte behöver välja de stora märkena för att köpa tryggt. ⚠️ Källan är inte konsekvent om antalet: samma sida skriver både "in totaal 40" och "bijna 40", klassindelningen summerar till 39, dossiersidan säger 34 och jämförarsidan "meer dan 20". Vi skriver därför runt fyrtio och aldrig ett exakt tal. ⚠️ Källan motsäger också sig själv om märkeffekten: metodavsnittet säger att alla angivna effekter uppnåddes och i de flesta fall överskreds med 5 %, medan produktposten för Belkin BoostCharge Pro 3 anger 87 W mot utlovade 100. Båda uppgifterna återges.',
   },
   {
     publisher: "Stiftung Warentest",
@@ -3854,7 +3854,7 @@ const USB_C_LADDARE_SOURCES: Source[] = [
     url: "https://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32022L2380",
     date: "2022-11-23",
     kind: "standard",
-    note: 'Sidans bärande källa, läst i svensk språkversion i sin helhet. Bilaga Ia del I punkt 1 räknar upp den radioutrustning kraven gäller: mobiltelefoner, datorplattor, digitalkameror, hörlurar, headset, handhållna spelkonsoler, bärbara högtalare, läsplattor, tangentbord, datormöss, bärbara navigeringssystem, öronsnäckor och — som punkt 1.13 — bärbara datorer. Punkt 2.1 kräver att *apparaten* har ett don av USB typ C enligt EN IEC 62680-1-3:2021. Ingenting i direktivet ställer krav på en fristående laddare, vilket är hela sidans utgångspunkt. Punkt 3 sätter tröskeln för när USB PD blir obligatoriskt: laddning "vid spänning högre än 5 V eller ström högre än 3 A eller effekt högre än 15 W". Punkt 3.2 är den som skyddar tredjepartsladdaren genom att kräva att eventuella ytterligare laddningsprotokoll låter USB PD fungera fullt ut "oavsett vilken laddningsenhet som används". Del IV beskriver etiketten som ska ange "YY W", alltså den effekt en laddare minst måste ge för att apparaten ska nå högsta laddhastighet, plus förkortningen "USB PD"; artikel 10.8 kräver att den visas på förpackningen och vid distansförsäljning nära prisuppgiften. Artikel 2 anger tillämpning från 28 december 2024 för punkterna 1.1–1.12 och från 28 april 2026 för punkt 1.13. ⚠️ Datumet 28 december 2025 förekommer i texten men gäller kommissionens första utvärderingsrapport, inte när kraven börjar tillämpas.',
+    note: 'Sidans bärande källa, läst i svensk språkversion i sin helhet. Bilaga Ia del I punkt 1 räknar upp den radioutrustning kraven gäller: mobiltelefoner, datorplattor, digitalkameror, hörlurar, headset, handhållna spelkonsoler, bärbara högtalare, läsplattor, tangentbord, datormöss, bärbara navigeringssystem, öronsnäckor och, som punkt 1.13, bärbara datorer. Punkt 2.1 kräver att *apparaten* har ett don av USB typ C enligt EN IEC 62680-1-3:2021. Ingenting i direktivet ställer krav på en fristående laddare, vilket är hela sidans utgångspunkt. Punkt 3 sätter tröskeln för när USB PD blir obligatoriskt: laddning "vid spänning högre än 5 V eller ström högre än 3 A eller effekt högre än 15 W". Punkt 3.2 är den som skyddar tredjepartsladdaren genom att kräva att eventuella ytterligare laddningsprotokoll låter USB PD fungera fullt ut "oavsett vilken laddningsenhet som används". Del IV beskriver etiketten som ska ange "YY W", alltså den effekt en laddare minst måste ge för att apparaten ska nå högsta laddhastighet, plus förkortningen "USB PD"; artikel 10.8 kräver att den visas på förpackningen och vid distansförsäljning nära prisuppgiften. Artikel 2 anger tillämpning från 28 december 2024 för punkterna 1.1–1.12 och från 28 april 2026 för punkt 1.13. ⚠️ Datumet 28 december 2025 förekommer i texten men gäller kommissionens första utvärderingsrapport, inte när kraven börjar tillämpas.',
   },
   {
     publisher: "Testaankoop",
@@ -3875,7 +3875,89 @@ const USB_C_LADDARE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Garageportsöppnare.
+ *
+ * ⚠️ Kategorin har **ingen oberoende provning**. Varken Råd & Rön, Ljud & Bild
+ * eller Stiftung Warentest har provat portöppnare, och de tyska träffarna är
+ * `Vergleich`-sidor utan egen provning. Ingen källa nedan bär därför
+ * `kind: "test"`, och sidan saknar testomdömekriterium av samma skäl som
+ * /utomhustimer, /vattenlarm och /luftrenare.
+ *
+ * Tyngdpunkten ligger i stället på tillverkarnas egna bruksanvisningar, som är
+ * tier A och som visar sig innehålla det butikerna inte skriver ut: en
+ * kraftgräns för stängning, vilka standarder produkten åberopar, och i ett fall
+ * en dragkraft i newton som butiken gjort om till newtonmeter.
+ */
+export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
+  {
+    publisher: "Chamberlain",
+    title: "Garageportöppnare ML700, ML750 och ML850, bruksanvisning 114A2806B-S",
+    url: "https://www.clasohlson.com/medias/sys_master/9542690930718.pdf",
+    market: "SE",
+    kind: "standard",
+    note: 'Kategorins viktigaste dokument, och det Clas Ohlson själva serverar för sin ML700. Manualen är Chamberlains egen och namnger deras tillbehör, vilket bekräftar att ML700 är en Chamberlain. Avsnitt 28 anger den enda kraftgräns vi hittat som är satt för att skydda någon: "Kraften som uppstår vid den stängande portkanten får inte överstiga 400N (40kg). Om stängningskraften ställs in på över 400N måste samtidigt \'Protector System\' installeras." Protector System är fotocellen, och den ligger i avsnitt 30 som tillbehör 770EML, alltså inte i lådan. Samma avsnitt: "Vi rekommenderar verkligen detta system för garageägare som har småbarn." Avsnitt 27 ger två prov ägaren kan göra själv: porten ska reversera mot ett 40 mm högt hinder, och testet ska upprepas en gång i månaden, samt att en 20 kg vikt på porten får höja den högst 500 mm. Manualen åberopar ZH1/494 och VDE 0700, alltså äldre beteckningar, och nämner inte EN 12453.',
+  },
+  {
+    publisher: "Jula",
+    title: "Garageportsöppnare 377011, bruksanvisning och EU-försäkran om överensstämmelse",
+    url: "https://www.jula.se/catalog/bygg-och-farg/beslag-och-byggvaror/port-garagebeslag/garageportoppnare/garageportsoppnare-377011/",
+    date: "2021-03-05",
+    market: "SE",
+    kind: "standard",
+    note: 'Försäkran om överensstämmelse, utfärdad av Jula AB i Skara "på tillverkarens eget ansvar" och undertecknad av Fredrik Bohman, anger produkten som "230V, 100W, 700N". Alltså 700 newton dragkraft. Butikens egen produktsida anger i stället "Vridmoment 700 Nm" och bär talet i produktnamnet, vilket är en annan storhet: newton är kraft, newtonmeter är vridmoment. Manualens tekniska data har ingen momentrad alls, bara märkspänning 230 V, effekt 100 W, max porthöjd 2,5 m, max portbredd 5 m, max portvikt 100 kg. Försäkran är också den enda i jämförelsen som åberopar de standarder som faktiskt gäller maskindrivna portar: EN 12453:2017 om säkerhet vid användning, EN 13241:2003/A2:2016, EN 12635:2002/A1:2008 och EN ISO 12100:2010, utöver EN 60335-1 och EN 60335-2-95. Manualen anger hinderprovet till ett föremål 50 mm högt. Dokumentet ligger bakom en JavaScript-injicerad länk till assets.cdn.jula.com och går inte att nå utan webbläsare.',
+  },
+  {
+    publisher: "Jula",
+    title: "Garageportsöppnare 018980, bruksanvisning",
+    url: "https://www.jula.se/catalog/bygg-och-farg/beslag-och-byggvaror/port-garagebeslag/garageportoppnare/garageportsoppnare-018980/",
+    market: "SE",
+    kind: "standard",
+    note: 'Den andra Hard Head-öppnaren, och den där butikens uppgift stämmer med manualen. Tekniska data: max portbladsvikt 80 kg, max porthöjd 230 cm, max portöppningsarea 12 m², hastighet 12 cm/s, märkeffekt 120 W, vridmoment 8 Nm, 230 VAC, vikt 14 kg. Ingen dragkraft i newton publiceras. Manualen listar tillbehörsportens plintar, där plint 3 och 4 anges som "Fotocell (säkerhetsfunktion)". Anslutningen finns alltså, men cellen ingår inte. Dokumentet motsäger sig självt om hinderprovet: säkerhetsavsnittet anger ett föremål "ca 50 mm högt", symbolavsnittet ett "100 mm högt". Minsta avstånd mellan tak och portblad i öppet läge anges till 30 mm.',
+  },
+  {
+    publisher: "Millarco International",
+    title: "Boxer garageportsöppnare 63.002 och 63.003, bruksanvisning version 3",
+    url: "https://www.bauhaus.se/media/pdf/5514481A.pdf",
+    date: "2015-01-05",
+    kind: "standard",
+    note: 'Manualen för Boxer 3000 IIII, som är modell 63.003 med typbeteckningen ZTGD 1000NM. Tre saker står här som inte står i butiken. För det första heter fältet i tekniska data "Öppnings- och stängningskraft" och anger "Max. 1000 N", alltså samma tal för att öppna och för att stänga, mot Chamberlains gräns på 400 N vid stängning. För det andra är dragkraften inte en fast egenskap: "Trækkraften kan reguleres i en skala 1-9, hvor 9 er det maksimale (800N / 1000N)." Talet på kartongen är alltså högsta läget på ett reglage. För det tredje är automatisk stängning påslagen när apparaten kommer ur lådan: "Bemærk: Automatisk lukke funktion er aktiveret fra fabrikken." Innehållsförteckningen listar skenor, kedja, löpvagn, motor, två fjärrkontroller, stroppar och nödutkopplingslås, men ingen fotocell. Den svenska och den danska tabellen för samma modell säger dessutom olika saker: standbyförbrukning 8 watt på danska och 800 watt på svenska, dragskena 3,5 respektive 3 meter, glödlampa 230 V 15 W respektive 24 V 5 W.',
+  },
+  {
+    publisher: "Europeiska unionen",
+    title: "Direktiv 98/37/EG om maskiner, CELEX 31998L0037",
+    url: "https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=CELEX:31998L0037",
+    kind: "standard",
+    note: 'Läst för att kunna datera Boxers CE-försäkran, som åberopar direktivet. Fältet "Date of end of validity" anger 1998-års maskindirektiv som upphävt 2009-12-28 genom 2006/42/EG. Boxers försäkran undertecknades 2015-01-05, alltså drygt fem år senare. Samma försäkran åberopar även 89/336/EEG, som enligt CELEX 31989L0336 upphörde att gälla 2007-07-19. Det tredje direktivet, 2006/95/EG, gällde till 2016-04-20 och var alltså giltigt vid undertecknandet. Detta säger ingenting om produktens säkerhet eller om CE-märkningens giltighet, bara vad dokumentet hänvisar till och när direktiven upphörde.',
+  },
+  {
+    publisher: "Svenska institutet för standarder",
+    title: "SS-EN 12453, Portar – Säkerhet vid användning av maskindrivna portar – Krav",
+    url: "https://www.sis.se/produkter/byggnadsmaterial-och-byggnader/byggnadsdelar/dorrar-och-fonster/ssen12453/",
+    market: "SE",
+    kind: "standard",
+    note: "Standarden som Julas försäkran åberopar i utgåvan 2017 och som varken Boxer eller Chamberlain nämner. Vi har inte köpt den och återger därför ingenting om vilka provvillkor eller kraftgränser den föreskriver. Att den finns, vad den heter och vem som åberopar den är däremot kontrollerbart, och det är allt sidan påstår. Samma hållning som SS-EN 810 på /avfuktare.",
+  },
+  {
+    publisher: "Bauhaus",
+    title: "Garageportsöppnare 1000N Boxer 3000 IIII, produktsida",
+    url: "https://www.bauhaus.se/garageportsoppnare-1000n-boxer-3000-iiii",
+    market: "SE",
+    note: "Den enda produktsidan i kartläggningen som anger dragkraft, portyta och portvikt på samma ställe: lyftkraft 1000 newton upp till 16 m² och max 120 kg, plus 150 W, dragskena 3,5 m, max porthöjd 2,80 m, fjärrkontrollräckvidd 35 m och standbyförbrukning 8 watt. Den uppgiften om standby stämmer med manualens danska tabell och inte med dess svenska. Priset 1 955 kr och kundbetyget 4,5 av 158 lästes samma dag.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "TEST: Yale Smart Opener Garage",
+    url: "https://www.ljudochbild.se/test/smart-hem/yale-smart-opener-garage/",
+    date: "2025-01-21",
+    market: "SE",
+    kind: "test",
+    note: "Det enda oberoende svenska testet vi hittat i hela ämnesområdet, och det gäller inte portöppnare utan smart styrning av en öppnare du redan har. Geir Gråbein Nordby har monterat produkten och anger riktpris 1 700 kr. Det hör därför hemma på systersidan om smart garageportstyrning och väger inte in i betygen här. Det står med eftersom köpguiden hänvisar dit, och eftersom det är belägget för att eftermontering är ett verkligt alternativ till att byta motor.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/garageportsoppnare": GARAGEPORTSOPPNARE_SOURCES,
   "/usb-c-laddare": USB_C_LADDARE_SOURCES,
   "/nyckelskap": NYCKELSKAP_SOURCES,
   "/vattenfelsbrytare": VATTENFELSBRYTARE_SOURCES,

@@ -95,6 +95,37 @@ products are both grey by necessity, so that boundary carries a hairline
 Three sentences, comparison-framed. "Vi jämförde", never "Vi köpte in och
 mätte", because the second is false and the first is the whole business model.
 
+**The ingress must name the winner, what it is best at, and what it costs.** It
+is the only paragraph the reader who searched `bäst i test X` is guaranteed to
+read, and that reader is the one who pays for the site.
+
+Two pages in a row failed this in different costumes. `/fonsterputsrobot` opened
+on *ingen tillverkare publicerar alla tre*; `/nyckelskap` opened on *alla fyra
+gick upp… Vi har vägt infästningen tyngst av allt*. Neither named a product, a
+price or a recommendation. Both read as an introduction to our method, which is
+the single most expensive misordering on this kind of page and the one that
+feels most reasonable to write, because the method is what we are proud of.
+
+The same applies to `metadata.description`, which is the ingress a searcher sees
+before deciding whether to click at all.
+
+**In a security category, do not open on the catastrophe.** Half the portfolio
+is fear-motivated, and `who-reads.md` is explicit for den oroliga: describe the
+protection, not the disaster. A finding like *all four were broken open* is
+honest and belongs on the page — below the recommendation, not in front of it.
+Lead with what to buy, then say what it does and does not protect against.
+
+## The page needs a finding between the verdict and the table
+
+Everything strong a page knows should not end up only in the buying guide, which
+is second to last and belongs to the reader who is not buying today.
+
+`/nyckelskap` sent the reader straight from the winner card into a spec grid,
+and the most compelling fact it had — nine seconds and eight hammer blows on the
+most expensive box in the comparison — sat near the bottom in the guide. One or
+two prose sections between the verdict and the table are where a finding like
+that earns its keep.
+
 The byline is labelled. Every competitor in three markets labels theirs, and an
 unlabelled name reads as decoration rather than accountability.
 

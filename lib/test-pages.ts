@@ -1,6 +1,6 @@
 import type { TestPage } from "@/lib/products";
 import type { Crumb } from "@/components/site/breadcrumbs";
-import { HEM_HUSHALL, liveTestPages, SAKERHET, SMART_HEM } from "@/lib/catalog";
+import { ELEKTRONIK, HEM_HUSHALL, liveTestPages, SAKERHET, SMART_HEM } from "@/lib/catalog";
 
 /**
  * The breadcrumb trail for a category page, minus "Hem" which Breadcrumbs
@@ -2257,13 +2257,59 @@ export const VATTENFELSBRYTARE: TestPage = {
  * publicerad konstruktion — godset, infästningens utförande, låstypen — och
  * aldrig ett lånat provresultat. Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
  */
+export const USB_C_LADDARE: TestPage = {
+  slug: "usb-c-laddare",
+  label: "USB-C-laddare",
+  title: "USB-C-laddare bäst i test 2026: tretton väggladdare från 179 till 1 699 kr",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi har läst direktiv (EU) 2022/2380 om den gemensamma laddaren i original på EUR-Lex, och det visade sig reglera något annat än vad kategorin påstår: kraven gäller apparaten, alltså telefonen, plattan och sedan den 28 april 2026 även den bärbara datorn, inte den fristående laddaren. En laddare är därför den enda delen av kedjan som ingen myndighet ställt krav på, och varje wattal på en kartong är tillverkarens eget påstående. Rankningen bygger på vad tillverkaren och butiken publicerar om just den modellen, läst på produktsidan och daterad. Belgiska Testaankoop har labbprovat runt 40 universella USB-C-nätaggregat i tre effektklasser, publicerat 2026-04-14 och refererat av Stiftung Warentest i maj; deras mätningar används i köpguiden för att förklara vad talen betyder, men de blir ingen betygskolumn, eftersom ingen av de nio modeller de namnger med poäng säljs av de butiker vi jämför. Att låna ett provresultat från en modell till en annan vore en påhittad mätning. Vi har inte mätt en enda laddare själva och påstår aldrig något annat. Där en uppgift som effektfördelning mellan portarna inte publiceras räknas det som en brist i betyget för öppen redovisning, eftersom konsekvensen av att inte veta bärs av dig och inte av oss. Priser och kundbetyg är lästa på butikens egen produktsida 2026-08-05. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "effektdelning",
+      label: "Effekt och effektdelning",
+      weight: 30,
+      description:
+        "Vad laddaren ger på en port, och vad som händer med den effekten när du sätter i en enhet till. Det är kategorins mest missförstådda tal, eftersom siffran på kartongen nästan alltid är summan över alla portar och inte vad någon enskild enhet får. Testaankoop mätte att den första porten alltid ger mer än den andra, och att den andra porten som mest gav 48 W i hela fältet. En laddare märkt 65 W kan alltså ge 45 W till datorn och 20 W till telefonen när båda sitter i, vilket är skillnaden mellan att datorn laddar och att den laddar ur långsammare. Tyngst väger att effekten per port är publicerad, att den högsta porten räcker till en laptop, och att den andra porten inte kollapsar när den används. Ugreen publicerar hela fördelningstabellen på produktsidan; Linocell hänvisar till manualen under support.",
+    },
+    {
+      key: "prisvarde",
+      label: "Pris per watt",
+      weight: 25,
+      description:
+        "Vad effekten kostar, räknat som kronor per watt märkeffekt. Måttet finns här för att rankningen är en enda lista över allt från en 20-wattsladdare för 199 kronor till en 200-wattsstation för 1 699, och utan normalisering hade den största laddaren vunnit på konstruktion i stället för på förtjänst. Spannet är stort och följer inte priset: den billigaste laddaren i jämförelsen kostar knappt fyra kronor per watt och den dyraste per watt nästan elva. Här väger också in vad som ligger i kartongen. Testaankoop noterade att kabeln nästan aldrig ingår och att en USB-C-kabel i deras urval kostade i snitt 19,95 euro, alltså en fjärdedel av laddarens snittpris ovanpå. En laddare som är fem procent dyrare men levereras med kabeln är billigare.",
+    },
+    {
+      key: "storlek",
+      label: "Storlek och plats i uttaget",
+      weight: 20,
+      description:
+        "Hur stor laddaren är i förhållande till effekten, och om den låter dig använda uttaget bredvid. Det är hela skälet till att galliumnitrid finns: en GaN-laddare behöver färre komponenter och mindre höjd för värmen, och blir därför mindre vid samma effekt. Skillnaden är verklig och stor, från 50 gram till 280 i den här jämförelsen. Testaankoop underkände flera modeller på just den här punkten, däribland Amazon Basics prisvinnare, för att de blockerar grannuttaget när de sitter i ett grenuttag. Det är samma iakttagelse som vi gjorde om breda smarta pluggar, och den irriterar alla som råkat ut för den. En laddare som tar två platser i grenuttaget vid skrivbordet är en sämre laddare även om den laddar lika snabbt.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 15,
+      description:
+        "Hur mycket du får veta innan du köper, vilket i den här kategorin skiljer sig mer än produkterna gör. Här väger in om effekten står utskriven vid varje port, om fördelningen mellan portarna publiceras, om mått och vikt anges, och om tomgångsförbrukningen redovisas trots att den bara krävs i den tekniska dokumentationen. Testaankoop underkände Apple rakt av på den här punkten, eftersom inget anges vid portarna och höljet är för stort för effekten, och utsåg Belkins märkning till testets bästa, medan IKEA:s prisvinnare hade fel märkning på sina portar. Bland laddarna här är Samsung ensam om att publicera ett tal för standby. En uppgift som inte går att kontrollera räknas som en brist, aldrig som ett neutralt tomrum.",
+    },
+    {
+      key: "protokoll",
+      label: "Protokoll och kompatibilitet",
+      weight: 10,
+      description:
+        "Vilka laddprotokoll laddaren talar, vilket avgör om din enhet får full fart eller bara ström. USB Power Delivery är det protokoll direktivet pekar ut, och det som gäller: alla laddare i Testaankoops fält stödde PD 3.0, men bara en enda av runt fyrtio stödde PD 3.1, som krävs för de högsta effekterna över 100 W. PPS spelar roll för Samsung och en del Android-telefoner, eftersom det låter laddaren finjustera spänningen i små steg i stället för att hoppa mellan fasta nivåer. Vikten är avsiktligt låg, av två skäl: skillnaderna är mindre än marknadsföringen antyder när alla klarar PD 3.0, och en PD 3.1-märkning i svensk handel är ett påstående ingen oberoende part kontrollerat. Vi betygsätter vad som är publicerat, inte vad som är verifierat, och säger det rakt ut.",
+    },
+  ],
+};
+
 export const NYCKELSKAP: TestPage = {
   slug: "nyckelskap",
   label: "Nyckelskåp",
-  title: "Nyckelskåp bäst i test 2026: sex boxar med kod till ytterdörrsnyckeln",
+  title: "Nyckelskåp bäst i test 2026: fem boxar med kod till ytterdörrsnyckeln",
   category: SAKERHET,
   methodology:
-    "Fyra av produkterna i kategorin har provats av RISE på uppdrag av Villaägarnas Riksförbund, rapport P115210 från 2022, med provmetoden SS-EN 1630:2021 på nivåerna RC2 och RC3. Två av dem säljs fortfarande här och rankas nedan. Vi har läst rapporten i sin helhet och skrivit av tiderna per angreppspunkt, och vi har bekräftat mot rapportens egna foton att det skåp som provades är den mekaniska ABUS KeyGarage 787 och inte den elektroniska Smart-BT-modellen, eftersom de är olika produkter med samma nummer. Provresultaten väger in i betygen för infästning och för lucka och lås, men bara för de två modeller som har ett eget resultat i rapporten. Övriga fyra bedöms på publicerad konstruktion, alltså gods, infästningens utförande och låstyp, och de får aldrig ett lånat provresultat från en systermodell. Skåpen är inte klassade enligt RC2 eller RC3: standarden omfattar dörrar och fönster, och RISE valde den för att kunna simulera ett standardiserat inbrottsförsök. Där en uppgift som väderskydd inte går att fastställa räknas det som en brist i betyget, eftersom en okontrollerbar egenskap är sämre för dig än en kontrollerbar. Priser och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte brutit upp ett enda skåp. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+    "Fyra av produkterna i kategorin har provats av RISE på uppdrag av Villaägarnas Riksförbund, rapport P115210 från 2022, med provmetoden SS-EN 1630:2021 på nivåerna RC2 och RC3. Två av dem säljs fortfarande här och rankas nedan. Vi har läst rapporten i sin helhet och skrivit av tiderna per angreppspunkt, och vi har bekräftat mot rapportens egna foton att det skåp som provades är den mekaniska ABUS KeyGarage 787 och inte den elektroniska Smart-BT-modellen, eftersom de är olika produkter med samma nummer. Provresultaten väger in i betygen för infästning och för lucka och lås, men bara för de två modeller som har ett eget resultat i rapporten. Övriga tre bedöms på publicerad konstruktion, alltså gods, infästningens utförande och låstyp, och de får aldrig ett lånat provresultat från en systermodell. Skåpen är inte klassade enligt RC2 eller RC3: standarden omfattar dörrar och fönster, och RISE valde den för att kunna simulera ett standardiserat inbrottsförsök. Där en uppgift som väderskydd inte går att fastställa räknas det som en brist i betyget, eftersom en okontrollerbar egenskap är sämre för dig än en kontrollerbar. Priser och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte brutit upp ett enda skåp. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
   criteria: [
     {
       key: "infastning",
@@ -2303,7 +2349,86 @@ export const NYCKELSKAP: TestPage = {
   ],
 };
 
+/**
+ * Garageportsöppnare.
+ *
+ * ## Varför skydd vid stängning väger tyngst
+ *
+ * Utkastet lade 40 på dragkraft, eftersom det är talet kategorin säljs på.
+ * Manualerna ändrade det. Boxers säger att *"Trækkraften kan reguleres i en
+ * skala 1-9, hvor 9 er det maksimale (800N / 1000N)"* och Chamberlains
+ * avsnitt 26 heter "Ställa in kraften" och beskriver hur den **lärs in** vid
+ * installationen. Talet på kartongen är alltså högsta läget på ett reglage,
+ * inte levererad förmåga, och att vikta det till 40 hade mätt ett tak som om
+ * det vore ett utfall. Vikten sänktes till 25 efter användarbeslut 2026-08-05.
+ *
+ * Skydd vid stängning tog över på 30, eftersom det är den enda axeln där
+ * tillverkarna säger olika saker och där skillnaden är kontrollerbar per
+ * modell ur tier A-källor.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Ingen har provat portöppnare. Råd & Rön saknar test, Stiftung Warentest
+ * saknar test, och de tyska träffarna är Vergleich-sidor utan egen provning.
+ * Ljud & Bilds enda test i ämnet gäller Yale Smart Opener, alltså smart
+ * styrning av en befintlig öppnare, och hör hemma på systersidan. Samma
+ * situation som /utomhustimer, /vattenlarm och /luftrenare.
+ *
+ * ## ⚠️ Kraften får aldrig härledas
+ *
+ * `Dragkraft` och `Vridmoment` ligger i `ALDRIG_BEDOMD` i lib/spec-schema.mjs.
+ * Att räkna om Nm till N kräver utväxling och kuggdiameter som ingen
+ * publicerar. Den som tiger ska synas tiga.
+ */
+export const GARAGEPORTSOPPNARE: TestPage = {
+  slug: "garageportsoppnare",
+  label: "Garageportsöppnare",
+  title: "Garageportsöppnare bäst i test 2026: sex motorer, och talet på kartongen",
+  category: HEM_HUSHALL,
+  methodology:
+    "Kategorin saknar oberoende provning. Ingen av produkterna nedan har testats i labb av Råd & Rön, Stiftung Warentest eller någon annan vi kunnat hitta, och därför finns inget kriterium för testomdöme. I stället har vi hämtat och läst tillverkarnas egna bruksanvisningar, vilket är den enda källa som säger något om stängningskraft, fotocell och hinderprov. Det gav tre uppgifter butikerna inte skriver ut. Chamberlains manual sätter en gräns på 400 newton för kraften vid den stängande portkanten och kräver fotocell över den, medan Boxers anger max 1000 newton för både öppning och stängning. Boxers manual visar också att dragkraften ställs in på en skala från ett till nio, alltså att talet i produktnamnet är högsta läget på ett reglage och inte vad öppnaren levererar. Och Julas försäkran om överensstämmelse anger 700 newton dragkraft för en öppnare som butiken säljer som 700 newtonmeter vridmoment, vilket är en annan storhet. Där en uppgift inte gått att fastställa räknas det som en brist i betyget för öppen redovisning, eftersom en egenskap du inte kan kontrollera före köpet är sämre för dig än en du kan. Priser, artikelnummer och kundbetyg är lästa på butikens egen produktsida och daterade. Vi har inte monterat en enda öppnare och inte mätt en enda kraft. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "skydd",
+      label: "Skydd vid stängning",
+      weight: 30,
+      description:
+        "Vad som händer när porten stänger sig mot något som inte borde vara där. En garageport är den tyngsta rörliga sak de flesta har hemma, och den rör sig nedåt. Tyngst väger vad tillverkaren själv skriver ut. Chamberlains manual sätter en gräns: kraften vid den stängande portkanten får inte överstiga 400 newton, och över den gränsen blir fotocellen obligatorisk. Boxers manual anger i stället max 1000 newton för både öppning och stängning, alltså inget särskilt tak för den riktning som kan klämma någon. Här väger också in om fotocellen ligger i lådan, och det gör den inte hos någon av dem: hos Chamberlain är den tillbehör 770EML, hos Jula finns bara plintarna förberedda, hos Boxer nämns den inte alls. Dessutom väger automatisk stängning in, eftersom Boxer levereras med den påslagen från fabrik. Och slutligen om manualen alls beskriver hinderprovet du ska göra själv, och mot vilken höjd: 40 mm hos Chamberlain, 50 mm hos Jula 377011, och både 50 och 100 mm på två ställen i samma Jula-manual.",
+    },
+    {
+      key: "kapacitet",
+      label: "Dragkraft och portkapacitet",
+      weight: 25,
+      description:
+        "Vad öppnaren orkar med, och om den räcker till just din port. Dragkraften anges i newton och är det tal som beskriver arbetet, men den är inte en fast egenskap: Boxers manual säger att kraften ställs in på en skala från ett till nio där nio är maximum, och Chamberlains att den lärs in under installationen. Talet på kartongen är alltså ett tak, inte ett utfall, och vi betygsätter det som ett tak. Därför väger max portvikt, portyta och porthöjd nästan lika tungt, eftersom de är de mått du faktiskt kan hålla mot din egen port med ett måttband. En öppnare som klarar 16 kvadratmeter och 120 kilo är ett annat köp än en som klarar 12 och 80, och den skillnaden går att kontrollera innan du borrar. Där en tillverkare anger vridmoment i newtonmeter i stället för dragkraft i newton har vi inte räknat om talet, eftersom omräkningen kräver utväxling och kuggdiameter som ingen publicerar.",
+    },
+    {
+      key: "redovisning",
+      label: "Öppen redovisning",
+      weight: 25,
+      description:
+        "Hur mycket du kan ta reda på innan du köper, och om butiken och manualen säger samma sak. Kategorin är ovanligt spretig här. Bauhaus anger dragkraft i newton, portyta i kvadratmeter, portvikt i kilo och standbyförbrukning på samma sida. Jula anger vridmoment i newtonmeter under rubriken vridmoment, vilket stämmer för den ena öppnaren och inte för den andra, där manualens egen försäkran säger newton. Clas Ohlson anger ingen teknisk uppgift alls om produkten, bara förpackningens mått. Här väger också in vilka standarder tillverkaren åberopar i sin försäkran om överensstämmelse, eftersom det är det enda kontrollerbara påstående som finns om produktens säkerhet: Julas 377011 åberopar EN 12453, EN 13241, EN 12635 och EN ISO 12100, medan Boxers åberopar tre direktiv varav två var upphävda när dokumentet undertecknades. Det gör inte den ena öppnaren säkrare än den andra. Det gör den ena kontrollerbar.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Vad du får för pengarna, mätt mot vad de andra kostar för samma sak. Spannet i den här jämförelsen är stort, från 499 kronor till över 3 000, och skillnaden i pris följer inte skillnaden i förmåga särskilt väl. Här väger in vad som ingår i lådan, alltså antal fjärrkontroller, skena, beslag och nödutlösning, eftersom en öppnare som kräver tillbehör för att bli komplett kostar mer än prislappen. Kundbetyg från butiken visas i tabellen men vägs aldrig in, eftersom betyg från olika butiker inte är jämförbara.",
+    },
+    {
+      key: "drift",
+      label: "Drift och hållbarhet",
+      weight: 5,
+      description:
+        "Vad öppnaren drar när den står still, hur fort den går och hur länge garantin gäller. Standbyförbrukningen är den post som kostar pengar, eftersom en portöppnare står strömsatt dygnet runt och används några minuter om dagen. Bauhaus anger 8 watt för Boxer, vilket blir omkring 70 kilowattimmar om året. Kriteriet väger lätt eftersom uppgiften saknas hos de flesta och eftersom skillnaderna i praktiken är små jämfört med vad de andra kriterierna avgör.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[] = [
+  GARAGEPORTSOPPNARE,
+  USB_C_LADDARE,
   NYCKELSKAP,
   VATTENFELSBRYTARE,
   SMART_BELYSNING,

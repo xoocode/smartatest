@@ -63,6 +63,36 @@ net, not permission.
 If a product genuinely is unavailable for a long stretch, that belongs in the
 editorial verdict as a sentence with a date and a caveat, not in a cell.
 
+## `highlight` is a decision about the row, not about the product
+
+`ComparisonTable` builds its row list from **the first product's** highlighted
+specs: `products[0].specs.filter(s => s.highlight)`. A label highlighted on some
+other product and not on the first becomes no row at all, and its value appears
+nowhere in the comparison.
+
+`/nyckelskap` shipped with `Väderskydd` highlighted on Master Lock alone. The
+row never rendered, even though the criterion carries 15 of 100 and the
+product's whole selling case rests on it. Site-wide the first run of the check
+found **44 highlighted specs that never become a row, across 15 categories.**
+
+So: if a label is highlighted anywhere, highlight it on every product. If it is
+not worth a row, highlight it nowhere. `pnpm check:tackning` reports both this
+and rows under 50 % filled.
+
+## Two variants of the same product, ranked twice
+
+Rank one and put the other in the considered list with the difference stated.
+
+The reader gains nothing from two near-identical entries competing for the same
+slot, and the ranking loses a position it could have given to a genuinely
+different product. `/fonsterputsrobot` excluded Winbot W2S Omni on exactly this
+basis, and `/nyckelskap`'s own considered list excludes KeyGarage 787 LED with
+the reasoning written out — while ranking Top Safe T7 and T26, which differ by
+two key slots and by one criterion score.
+
+The test: could the two verdicts be told apart if you swapped the names? If not,
+the second one belongs in the considered list.
+
 ## Empty spec rows disappear on their own
 
 A row where every product's value is a dash is hidden by the table. Do not

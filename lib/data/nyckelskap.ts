@@ -25,7 +25,7 @@ import { productImage } from "@/lib/images";
  * 2030-11, hittades inte i svensk handel och ligger bland övervägda.
  *
  * Tiderna väger in i `infastning` och `luckalas` för just de två modellerna.
- * Övriga fyra produkter bedöms på publicerad konstruktion och får aldrig ett
+ * Övriga tre produkter bedöms på publicerad konstruktion och får aldrig ett
  * lånat provresultat, se ALDRIG_BEDOMD i lib/spec-schema.mjs.
  *
  * ## ⚠️ Variantfällan, kontrollerad och avgjord 2026-08-05
@@ -41,6 +41,20 @@ import { productImage } from "@/lib/images";
  * Lines mot Essentials och TP-Link LB120 mot Tapo L530E på /smart-belysning,
  * och den här gången är den kontrollerad mot rapportens foton innan något
  * skrevs.
+ *
+ * ## Prisspridningen på Master Lock 5441, kontrollerad 2026-08-05
+ *
+ * Samma modell, 5441EURD, ligger på 2 015 kr hos Amazon.se, 2 599 hos Nordsec
+ * och 2 995 hos Bauhaus, som dessutom är slut. PriceRunners egen JSON-LD anger
+ * lowPrice 1 994 och highPrice 2 995 över fem erbjudanden. Vi länkar Nordsec
+ * eftersom priset är verifierat, varan finns i lager och butiken ligger under
+ * Bauhaus, som är den av våra etablerade butiker som för modellen. Amazon
+ * valdes bort som länkmål: sajten har aldrig länkat dit i något av 216
+ * produktkort, marknadsplatspriser rör sig snabbt och `scripts/priskoll.mjs`
+ * har ingen regel för värden.
+ *
+ * Spridningen står i omdömet som ett råd till köparen, av samma skäl som
+ * /utrymningsstege skriver ut att samma artikelnummer skiljer 49 procent.
  *
  * ## Väderskyddet är produktens egenskap, inte tillverkarens beteende
  *
@@ -60,7 +74,7 @@ const SEEDS: ProductSeed[] = [
     name: "KeyGarage 787 med kombinationslås",
     shortName: "KeyGarage 787",
     image: productImage(NYCKELSKAP.slug, "abus-keygarage-787"),
-    tagline: "Stod emot skruvmejsel i 3 minuter och 39 sekunder, och kostar 490 kronor.",
+    tagline: "Höll längst av alla mot skruvmejsel, och kostar 490 kronor.",
     scores: {
       /* RISE §4.1: 3 min 39 s mot infästningen med två skruvmejslar och
          morakniv, ej forcerat inom RC2:s effektiva angreppstid på 3 min. §4.2:
@@ -84,9 +98,9 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://shop.byggahus.se/products/nyckelskap-keygarage-787-med-kombinationslas-abus",
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för villan",
     pros: [
-      "Höll emot skruvmejsel och kniv längre än tidsramen i provningen",
+      "Satt kvar 3 min 39 s mot skruvmejsel, längst av de fyra som bröts upp",
       "Lucka i tryckgjuten zink, och skruvarna sitter innanför den",
       "Rymmer 20 nycklar eller 14 passerkort",
       "Fyrsiffrig kod som fungerar lika bra i februari som i juli",
@@ -98,26 +112,26 @@ const SEEDS: ProductSeed[] = [
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "490 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontering med skruvkoppling", highlight: true },
+      { label: "Infästning", value: "Väggmontering med skruvkoppling" },
       { label: "Skruvar innanför luckan", value: "Ja", highlight: true },
       { label: "Material", value: "Metallhölje, lucka i tryckgjuten zink", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "4 mekaniska kodhjul", highlight: true },
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven" },
-      { label: "Lock över koden", value: "Nej" },
-      { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort" },
+      { label: "Väderskydd", value: "Ej angiven", highlight: true },
+      { label: "Lock över koden", value: "Nej", highlight: true },
+      { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort", highlight: true },
       { label: "Yttermått", value: "80 x 120 x 45 mm" },
       { label: "Vikt", value: "683 g" },
       { label: "App", value: "Nej" },
-      { label: "Provad av RISE", value: "Ja, som ABUS 787 C" },
+      { label: "Provad av RISE", value: "Ja, som ABUS 787 C", highlight: true },
       { label: "Tid mot infästning", value: "35 s med kofot" },
       { label: "Tid mot lucka", value: "2 min 41 s vid låssidan" },
       { label: "GTIN", value: "4003318463310" },
     ],
     verdict:
-      "ABUS KeyGarage 787 är det enda skåpet här som både har ett eget resultat i provningen och kostar under femhundra kronor. Mot skruvmejsel och kniv satt den kvar i 3 minuter och 39 sekunder, alltså längre än den effektiva angreppstid metoden ger, och luckan höll i 2 minuter och 41 sekunder vid låssidan. Det låter lite tills man jämför: det svagaste skåpet i provningen öppnades på 38 sekunder. Luckan är tryckgjuten zink och de fyra skruvarna sitter innanför den, så ingen skruvar loss skåpet utan att först komma in i det. Svagheten sitter i ryggen. När kofoten kom fram lossnade bakstycket från kroppen efter 35 sekunder, och då låg nycklarna framme utan att luckan behövde öppnas. Skruva därför alltid i massivt trä eller betong, aldrig i panel. Med plats för 20 nycklar och en kod som fungerar i minusgrader är det här skåpet att välja om du ska släppa in hantverkare, städare eller stuggäster och vill lägga pengarna på infästningen i stället för på appen.",
+      "ABUS KeyGarage 787 är det bästa köpet i jämförelsen och kostar 490 kronor. Luckan är tryckgjuten zink, de fyra skruvarna sitter innanför den, och skåpet tar 20 nycklar eller 14 passerkort.\n\nMot skruvmejsel och kniv satt den kvar i 3 minuter och 39 sekunder, längst av de fyra skåp som bröts upp under kontrollerade former. Det svagaste av dem gick upp på 38 sekunder, så spannet i kategorin är stort och det här skåpet ligger i toppen av det. Att skruvarna sitter innanför luckan betyder dessutom att ingen får loss skåpet från väggen utan att först ta sig in i det.\n\nSvagheten sitter i ryggen. Med kofot lossnade bakstycket från kroppen efter 35 sekunder, och då ligger nycklarna framme utan att luckan behöver öppnas. Skruva därför i massivt trä, betong eller tegel och aldrig i panel. Underlaget avgör lika mycket som skåpet.\n\nSka du släppa in hantverkare, städare eller stuggäster är det här skåpet du ska köpa. Du lägger pengarna på gods och infästning i stället för på en app, och får 20 nyckelplatser på köpet.",
   },
   {
     id: "master-lock-5441",
@@ -160,26 +174,27 @@ const SEEDS: ProductSeed[] = [
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "2 599 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontering, skruvar medföljer", highlight: true },
-      { label: "Skruvar innanför luckan", value: "Ja" },
+      { label: "Infästning", value: "Väggmontering, skruvar medföljer" },
+      { label: "Skruvar innanför luckan", value: "Ja", highlight: true },
       { label: "Material", value: "Zinkkropp med plastad baksida", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "Elektronisk knappsats", highlight: true },
       { label: "Kodlängd", value: "10 siffror" },
-      { label: "Antal kombinationer", value: "Ej angiven" },
+      { label: "Antal kombinationer", value: "Obegränsat antal gästkoder" },
       { label: "Nyckelbackup", value: "Nej, huvudkod via appen" },
+      { label: "Batteri", value: "CR123, cirka 2 år" },
       { label: "Väderskydd", value: "IP 55, -40 till +50 °C", highlight: true },
-      { label: "Lock över koden", value: "Nej, belyst knappsats" },
-      { label: "Nyckelkapacitet", value: "Ej angiven" },
+      { label: "Lock över koden", value: "Nej, belyst knappsats", highlight: true },
+      { label: "Nyckelkapacitet", value: "Ej angiven", highlight: true },
       { label: "Innermått", value: "89 x 64 x 44 mm" },
       { label: "Yttermått", value: "121 x 76 x 70 mm" },
       { label: "Vikt", value: "1,02 kg" },
       { label: "App", value: "Ja, Bluetooth" },
-      { label: "Provad av RISE", value: "Ja, som Master Lock 5441" },
+      { label: "Provad av RISE", value: "Ja, som Master Lock 5441", highlight: true },
       { label: "Tid mot infästning", value: "16 s med kofot" },
       { label: "Tid mot lucka", value: "9 s med hammare" },
     ],
     verdict:
-      "Master Lock Select Access Smart är skåpet för dig som hyr ut. Varje gäst får en egen kod som du kan låta sluta gälla när uthyrningen är slut, du ser i appen vem som öppnade och när, och du behöver aldrig träffa någon för att lämna över en nyckel. Det är också det enda skåpet här som talar om vad det tål: IP 55 och drift ner till 40 minusgrader, vilket betyder att det får sitta på en fasad i Jokkmokk och inte bara under ett skärmtak. Mot standardens verktyg är det dessutom det starkaste i provningen, och enda skåpet vars lucka inte gick att bryta upp vid låssidan alls. Sedan kommer siffran som avgör priset på hela kategorin: nio sekunder och åtta slag med en vanlig snickarhammare, och luckan stod öppen. En hammare ingår inte i provningsmetodens verktygslista, men den ligger i varje garage. Betala de 2 599 kronorna för koderna och för väderskyddet, som är verkliga fördelar du använder varje vecka. Betalar du dem för att skåpet ska stå emot ett inbrott har du köpt fel sak, och då gör ABUS KeyGarage 787 samma jobb för 490.",
+      "Master Lock Select Access Smart är skåpet för dig som hyr ut, och det enda här som är byggt för att sitta ute året om. IP 55, drift från 40 minusgrader till 50 plusgrader, och en egen kod till varje gäst. 2 599 kronor.\n\nKoderna är hela poängen. Du ger en gäst tillgång på distans, låter koden sluta gälla när uthyrningen är slut och ser i appen vem som öppnade när. Antalet gästkoder är obegränsat, så du behöver aldrig återanvända en. Väderskyddet är det andra skälet: ett skåp som klarar 40 minusgrader får sitta på en fri fasad i stället för under skärmtak, och tar batteriet slut bryggar du det utifrån med ett 9-voltsbatteri.\n\nMot standardens verktyg är det starkast av de fyra, och det enda vars lucka inte gick att bryta upp vid låssidan. Sedan byttes verktyget: 8 slag med en 700 grams snickarhammare, 9 sekunder, luckan öppen. Hammaren ligger utanför metodens verktygslista och i varje garage.\n\nBetala för koderna och för väderskyddet, som du använder varje vecka. Betalar du för motstånd har du köpt fel sak, och då gör ABUS KeyGarage 787 jobbet för 490. Jämför dessutom priset innan du beställer: samma modell rör sig mellan ungefär 2 000 och 3 000 kronor beroende på butik.",
   },
   {
     id: "top-safe-t7",
@@ -209,28 +224,28 @@ const SEEDS: ProductSeed[] = [
       "Sex nycklar med magnetfäste, nog för stuga, förråd och bom",
     ],
     cons: [
-      "Motståndet är oprövat, så du vet inte hur länge den håller",
-      "Kapslingsklassen är okänd trots att gummiskyddet följer med",
+      "Hur länge den håller mot en kofot är okänt",
+      "Hur mycket väder den tål är okänt, trots att gummiskyddet följer med",
       "125 kronor i frakt om du inte handlar mer samtidigt",
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "695 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontage, skruvar medföljer", highlight: true },
-      { label: "Skruvar innanför luckan", value: "Ej angiven" },
+      { label: "Infästning", value: "Väggmontage, skruvar medföljer" },
+      { label: "Skruvar innanför luckan", value: "Ej angiven", highlight: true },
       { label: "Material", value: "Aluminiumgjutgods", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "4 mekaniska kodhjul", highlight: true },
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven" },
-      { label: "Lock över koden", value: "Ja, gummiskydd medföljer" },
-      { label: "Nyckelkapacitet", value: "6 nycklar" },
+      { label: "Väderskydd", value: "Ej angiven", highlight: true },
+      { label: "Lock över koden", value: "Ja, gummiskydd medföljer", highlight: true },
+      { label: "Nyckelkapacitet", value: "6 nycklar", highlight: true },
       { label: "Vikt", value: "Ej angiven" },
       { label: "App", value: "Nej" },
-      { label: "Provad av RISE", value: "Nej" },
+      { label: "Provad av RISE", value: "Nej", highlight: true },
     ],
     verdict:
-      "Top Safe T7 är skåpet för sommarstugan, och det är gummiskyddet som avgör. Kodhjul som står ute ett år utan att röras kärvar av fukt och skit, och ett lock över dem är skillnaden mellan att koden går att vrida i april och att den inte gör det. Kroppen är aluminiumgjutgods, som beter sig annorlunda än tunn plåt under en kil, och sex nycklar med magnetfäste räcker till stuga, förråd, båt och vägbom på en gång. Låset är mekaniskt och behöver aldrig batteri, vilket betyder att skåpet fungerar likadant efter sex månader utan tillsyn som dagen du satte upp det. Det du inte får är ett känt motstånd: ingen har brutit upp den här modellen under kontrollerade former, så du köper konstruktionen och inte en mätning. Ska skåpet sitta framme dygnet runt vid en villa i stan är ABUS KeyGarage 787 en tryggare 490-kronorsaffär. Ska det sitta på en stugvägg i Roslagen och överleva vintern är T7 pengarna värd.",
+      "Top Safe T7 är skåpet för sommarstugan, och gummiskyddet över kodhjulen är skälet. 695 kronor, kropp i aluminiumgjutgods och sex nyckelplatser med magnetfäste.\n\nKodhjul som står ute ett år utan att röras kärvar av väta, och ett lock över dem är skillnaden mellan att koden går att vrida i april och att den inte gör det. Låset är mekaniskt och behöver aldrig batteri, så skåpet fungerar likadant efter sex månader utan tillsyn som dagen du satte upp det. Gjutgodset beter sig dessutom annorlunda än tunn plåt under en kil: det spricker hellre än viker sig.\n\nHur länge den håller mot en kofot är okänt, och hur mycket väder den tål är det också, trots gummiskyddet. Lägg till 125 kronor i frakt om du inte handlar mer samtidigt.\n\nSka skåpet sitta framme dygnet runt vid en villa i stan är ABUS KeyGarage 787 den tryggare affären, och 205 kronor billigare. Ska det sitta på en stugvägg i Roslagen och klara vintern är T7 pengarna värd.",
   },
   {
     id: "abus-keygarage-707",
@@ -263,28 +278,28 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Aluminiumhölje och mindre kropp än KeyGarage 787, för 141 kronor mindre",
-      "Motståndet är oprövat",
+      "Hur länge den håller mot verktyg är okänt",
       "Sju nycklar är taket, så den räcker inte till en förening eller ett företag",
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "349 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontering, hål i bakstycket", highlight: true },
-      { label: "Skruvar innanför luckan", value: "Ja" },
+      { label: "Infästning", value: "Väggmontering, hål i bakstycket" },
+      { label: "Skruvar innanför luckan", value: "Ja", highlight: true },
       { label: "Material", value: "Aluminiumhölje", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "4 mekaniska kodhjul", highlight: true },
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven" },
-      { label: "Lock över koden", value: "Nej" },
-      { label: "Nyckelkapacitet", value: "7 nycklar eller 4 kort" },
+      { label: "Väderskydd", value: "Ej angiven", highlight: true },
+      { label: "Lock över koden", value: "Nej", highlight: true },
+      { label: "Nyckelkapacitet", value: "7 nycklar eller 4 kort", highlight: true },
       { label: "Yttermått", value: "88 x 120 x 39 mm" },
       { label: "Vikt", value: "502 g" },
       { label: "App", value: "Nej" },
-      { label: "Provad av RISE", value: "Nej" },
+      { label: "Provad av RISE", value: "Nej", highlight: true },
     ],
     verdict:
-      "KeyGarage 707 är den billigaste vägen bort från nyckeln under dörrmattan, och för 349 kronor är det ett rimligt köp. Den är 502 gram och knappt nio centimeter bred, alltså liten nog att sitta bakom stupröret utan att annonsera var huset förvarar sin nyckel, och den tar fyra passerkort utöver nycklarna, vilket är ovanligt i storleken. Koden ställs med hjul och behöver inget batteri. Men den är mindre och byggd i aluminium där storasystern har lucka i tryckgjuten zink, och det är storasystern som har ett eget resultat i provningen. Mellanskillnaden är 141 kronor. Köp 707 om skåpet ska sitta i ett trapphus, i ett garage eller under tak och innehålla en nyckel till förrådet. Ska den ytterdörrsnyckel som går till hela huset ligga i den, lägg de 141 kronorna och ta KeyGarage 787 i stället.",
+      "ABUS KeyGarage 707 är billigast i jämförelsen och den enklaste vägen bort från nyckeln under dörrmattan. 349 kronor, 502 gram och 88 millimeter brett.\n\nStorleken är dess argument. Ett skåp som är knappt nio centimeter brett sitter bakom stupröret utan att annonsera var huset förvarar sin nyckel, och det väger under ett halvkilo. Det tar sju nycklar plus fyra passerkort, vilket är ovanligt mycket i den storleken, och koden ställs med hjul som aldrig behöver batteri.\n\nGodset är tunnare än på storasystern. 707 är byggd i aluminium där KeyGarage 787 har lucka i tryckgjuten zink, och det är 787:an som satt kvar i 3 minuter och 39 sekunder mot skruvmejsel. Mellanskillnaden är 141 kronor.\n\nKöp 707 till trapphuset, garaget eller förrådsdörren. Ska nyckeln som går till hela huset ligga i den lägger du de 141 kronorna och tar KeyGarage 787 i stället.",
   },
   {
     id: "abus-keygarage-787-smart-bt",
@@ -317,74 +332,27 @@ const SEEDS: ProductSeed[] = [
       "Samma nyckelkapacitet som den mekaniska 787:an",
     ],
     cons: [
-      "1 899 kronor, nästan fyra gånger den mekaniska 787:an som provats",
-      "Motståndet är oprövat, och den mekaniska modellens resultat gäller inte här",
+      "1 899 kronor, nästan fyra gånger den mekaniska 787:an",
+      "Hur länge den håller mot en kofot är okänt",
       "Knappsats med batteri, som är det som slutar fungera först i kyla",
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "1 899 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontering med skruvkoppling", highlight: true },
-      { label: "Skruvar innanför luckan", value: "Ja" },
+      { label: "Infästning", value: "Väggmontering med skruvkoppling" },
+      { label: "Skruvar innanför luckan", value: "Ja", highlight: true },
       { label: "Material", value: "Metallhölje", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "Elektronisk knappsats", highlight: true },
       { label: "Kodlängd", value: "6 siffror" },
       { label: "Antal kombinationer", value: "Ej angiven" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven" },
-      { label: "Lock över koden", value: "Nej" },
-      { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort" },
+      { label: "Väderskydd", value: "Ej angiven", highlight: true },
+      { label: "Lock över koden", value: "Nej", highlight: true },
+      { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort", highlight: true },
       { label: "App", value: "Ja, Bluetooth" },
-      { label: "Provad av RISE", value: "Nej" },
+      { label: "Provad av RISE", value: "Nej", highlight: true },
     ],
     verdict:
-      "Smart-BT löser ett problem som kodhjulen inte kan: gästen behöver aldrig få veta koden. Du skickar en länk i mobilen, den fungerar när du säger att den ska fungera, och när uthyrningen är slut tar du bort just den personen utan att röra någon annans access. Har du hantverkare, städfirma och gäster om vartannat är det en verklig lättnad jämfört med att vrida om fyra hjul mellan varje besök. Priset är det som är svårt att försvara. 1 899 kronor är nästan fyra gånger vad den mekaniska 787:an kostar, och det är den mekaniska som har ett eget resultat i provningen. Du betalar alltså mest för den modell vi vet minst om. Vill du ha delbara koder och kan tänka dig att lägga ytterligare 700 kronor får du IP 55 och ett känt temperaturspann på köpet med Master Lock Select Access Smart. Räcker det med en kod du byter någon gång om året är den mekaniska 787:an samma skåp för 490.",
-  },
-  {
-    id: "top-safe-t26",
-    brand: "Top Safe",
-    name: "Nyckelgömma T26",
-    image: productImage(NYCKELSKAP.slug, "top-safe-t26"),
-    tagline: "Åtta nycklar i gjutgods, för huset där flera ska in.",
-    scores: {
-      infastning: 2.5,
-      luckalas: 2.5,
-      vaderskydd: 3,
-      kod: 3,
-      prisvarde: 2.5,
-    },
-    price: 895,
-    priceCheckedAt: PRICE_CHECKED,
-    merchant: "E-safe",
-    merchantUrl: "https://esafe.se/products/nyckelgomma-t26",
-    superlative: "Bäst för många nycklar",
-    pros: [
-      "Åtta nycklar, flest av gjutgodsskåpen här",
-      "Gummiskydd över kodhjulen följer med",
-      "Mekanisk kod utan batteri",
-    ],
-    cons: [
-      "200 kronor dyrare än T7 för två nycklar till",
-      "Motståndet är oprövat",
-      "Kapslingsklassen är okänd",
-    ],
-    specs: [
-      { label: "Pris", shortLabel: "Pris", value: "895 kr", highlight: true },
-      { label: "Infästning", value: "Väggmontage, skruvar medföljer", highlight: true },
-      { label: "Skruvar innanför luckan", value: "Ej angiven" },
-      { label: "Material", value: "Aluminiumgjutgods", highlight: true },
-      { label: "Låstyp", shortLabel: "Lås", value: "4 mekaniska kodhjul", highlight: true },
-      { label: "Kodlängd", value: "4 siffror" },
-      { label: "Antal kombinationer", value: "10 000" },
-      { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven" },
-      { label: "Lock över koden", value: "Ja, gummiskydd medföljer" },
-      { label: "Nyckelkapacitet", value: "8 nycklar" },
-      { label: "Vikt", value: "Ej angiven" },
-      { label: "App", value: "Nej" },
-      { label: "Provad av RISE", value: "Nej" },
-    ],
-    verdict:
-      "T26 är samma skåp som T7 med plats för åtta nycklar i stället för sex, och det avgör om den är värd 200 kronor extra. Är du flera i en samfällighet som delar bom, sjöbod och förrådsdörr fylls sex platser fortare än man tror, och då är två till en riktig skillnad. Är det ett hus med en ytterdörr och en förrådsdörr är de tomma. Gummiskyddet över kodhjulen är samma som på T7 och gör samma nytta: mekaniken kärvar av väta och locket är det som håller den gångbar över en vinter. Motståndet är oprövat även här. Räkna nycklarna du faktiskt ska lägga i skåpet innan du väljer mellan de två, och landa du på fyra eller fem tar du T7 och sparar pengarna.",
+      "KeyGarage 787 Smart-BT löser det kodhjulen inte kan: gästen behöver aldrig få veta någon kod. Du skickar en länk i mobilen, den börjar gälla när du säger till och slutar gälla när du säger till. 1 899 kronor.\n\nHar du hantverkare, städfirma och gäster om vartannat är det en verklig lättnad. Varje person får sin egen access som du tar bort för sig, utan att röra någon annans, och du slipper gå ut och vrida om fyra hjul mellan varje besök. Koden är sexsiffrig i stället för fyrsiffrig, och skåpet tar 20 nycklar eller 14 passerkort precis som den mekaniska 787:an.\n\nPriset är svårt att försvara. 1 899 kronor är nästan fyra gånger den mekaniska 787:an, som har samma nyckelkapacitet och samma väggmontering. Knappsatsen går dessutom på batteri, och batteri är det som slutar fungera först i kyla.\n\nHar du 700 kronor till att lägga får du IP 55 och drift ner till 40 minusgrader med Master Lock Select Access Smart, som löser samma uthyrningsproblem och tål att sitta fritt. Räcker det med en kod du byter någon gång om året är den mekaniska 787:an samma skåp för 490.",
   },
 ];
 
@@ -395,6 +363,15 @@ export const NYCKELSKAP_PRODUCTS = resolveProducts(NYCKELSKAP, SEEDS);
  * självklara att ranka om de gått att köpa här.
  */
 export const NYCKELSKAP_CONSIDERED: ConsideredProduct[] = [
+  {
+    brand: "Top Safe",
+    name: "Nyckelgömma T26",
+    approxPrice: 895,
+    merchant: "E-safe",
+    merchantUrl: "https://esafe.se/products/nyckelgomma-t26",
+    reason:
+      "Samma skåp som T7 med åtta nyckelplatser i stället för sex, för 200 kronor mer. Delar ni bom, sjöbod och förrådsdörr i en samfällighet fylls sex platser fortare än man tror, och då är T26 rätt köp. Är det ett hus med en ytterdörr och ett förråd står två platser tomma, och T7 gör samma jobb billigare. Vi rankar T7 eftersom den täcker det vanligare fallet.",
+  },
   {
     brand: "Top Safe",
     name: "Nyckelgömma T1",
