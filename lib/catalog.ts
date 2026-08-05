@@ -890,8 +890,18 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     label: "Garageportsöppnare",
     category: HEM_HUSHALL,
     blurb: "Kraften de säljer är uppåt. Den som kan klämma någon står i manualen.",
-    status: "planned",
+    /* Live 2026-08-05. Alla fem priser och artikelnummer lästa i butikens egen
+       JSON-LD eller specifikationstabell samma dag, och kraftuppgifterna hämtade
+       ur tillverkarnas bruksanvisningar som PDF.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, efter användarbeslut.
+       Slugen är vald på handelns språkbruk: Jula, Bauhaus, Elgiganten, CDON och
+       Bygghemma säger alla garageportsöppnare med foge-s, liksom alla tre
+       svenska konkurrenter. Kör Keyword Planner ändå, och gör det innan sidan
+       hunnit indexeras: en slugändring efter indexering är den dyra sorten. */
+    status: "live",
     updated: "2026-08-05",
+    count: 5,
   },
   {
     /* Systersidan till /garageportsoppnare, byggd 2026-08-05 efter
@@ -946,8 +956,17 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     label: "Smart garageportsöppnare",
     category: SMART_HEM,
     blurb: "De två billigaste kräver elektriker. Det står inte på prislappen.",
-    status: "planned",
+    /* Live 2026-08-05. Alla sex priser och GTIN lästa i butikens egen JSON-LD
+       samma dag, samtliga i lager.
+
+       ⚠️ Samma omätta sökvolym som moderssidan, se kommentaren där.
+
+       ⚠️ Meross artikelnummer är inte bekräftat mot MSG100 respektive MSG100HK,
+       och därför står HomeKit som okänt på den produkten i stället för som ett
+       ja. Bekräfta mot tillverkarens variantlista vid nästa runda. */
+    status: "live",
     updated: "2026-08-05",
+    count: 6,
   },
   {
     /* `usb-c-kabel` byggd 2026-08-05. Systersida till /usb-c-laddare, vars
