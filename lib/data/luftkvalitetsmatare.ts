@@ -207,7 +207,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.clasohlson.com/se/Airthings-Wave-Plus,-smart-luftmatare-och-radonmatare/p/41-1802",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 317, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för radon och koldioxid i samma låda",
+    superlative: "Bäst för radon och koldioxid",
     pros: [
       "±30 ppm ±3 % för koldioxid, den snävaste toleransen någon tillverkare här anger",
       "Sex storheter: radon, VOC, koldioxid, fukt, temperatur och lufttryck",
@@ -311,7 +311,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.clasohlson.com/se/Netatmo-smart-luftkvalitetsmatare-inomhus/p/36-8764",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 7, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för den som aldrig vill byta batteri",
+    superlative: "Bäst utan batteribyten",
     pros: [
       "Mäter koldioxid, ljudnivå, fukt och temperatur",
       "Nätdriven, så den mäter vidare i åratal utan batteribyte",

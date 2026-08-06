@@ -136,7 +136,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://brandvarnare.se/produkt/raddningsstege-7-m/",
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "Bäst räckvidd per krona för tre våningar",
+    superlative: "Bäst räckvidd per krona",
     pros: [
       "Sju meter täcker tre våningar, och närmaste stege med samma räckvidd kostar 955 kronor mer",
       "Distanser sticker ut från fotstegen och håller ut stegen från fasaden, så foten får plats",
@@ -353,7 +353,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.jula.se/catalog/hem-och-hushall/brand-och-sakerhet/brand/brandstegar/brandstege-025385/",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.7, count: 19, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för den som har ont om förvaringsplats",
+    superlative: "Bäst när förvaringen är trång",
     pros: [
       "18,5 × 37 × 25 cm hopfälld, den minsta packen på sidan och lätt att få under en säng",
       "Räfflade steg och en nedstigningsinstruktion i fem punkter på produktsidan",

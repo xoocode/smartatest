@@ -390,7 +390,7 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.teknikdelar.se/produkt/baseus-gan5-pro-65w-snabbladdare-2x-usb-c-plus-1x-usb-a-inkl-100w-usb-c-kabel-svart",
     award: "budget",
-    superlative: "Mest effekt per krona med kabeln inräknad",
+    superlative: "Mest effekt per krona, kabel med",
     pros: [
       "Kabel på 100 W ingår, vilket är 150 till 250 kronor du slipper lägga",
       "Tre portar för 449 kronor, billigast per watt av flerportsladdarna",
@@ -650,7 +650,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/dator/laptop-tillbehor/laptop-laddare/unisynk-gan-laddare-med-usb-c-65-w-p45035",
-    superlative: "Bäst när uttaget sitter långt från soffan",
+    superlative: "Bäst när uttaget sitter långt bort",
     pros: [
       "1 m nätkabel plus 2 m fast USB-C-kabel ger 3 meters räckvidd från uttaget",
       "Sitter inte i vägguttaget, så den blockerar aldrig uttaget bredvid",

@@ -168,7 +168,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/aqara-hub-m3-smarta-hem-controller-p57869",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 13, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för hem med fjärrkontrollstyrd utrustning",
+    superlative: "Bäst för fjärrstyrd utrustning",
     pros: [
       "360-graders infraröd sändare styr luftvärmepump, TV och receiver",
       "Zigbee, Thread, Matter och Bluetooth 5.1 i samma enhet",

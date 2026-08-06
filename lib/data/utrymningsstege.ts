@@ -84,7 +84,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://www.everglow.se/product/modum-utrymningsstege",
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "Bäst för dig som vill ha exakt rätt längd",
+    superlative: "Bäst för exakt rätt längd",
     pros: [
       "Provad till 2,6 kN per steg, vilket enligt certifikatet motsvarar två personer samtidigt i varje stegenhet",
       "Sexton längder från 0,9 till 5,4 meter i steg om 0,3, så stegen slutar där fönstret börjar utan att kapas",

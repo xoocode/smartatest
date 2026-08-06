@@ -344,7 +344,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.elgiganten.se/product/hem-hushall-tradgard/dammsugare-rengoring/fonstertvatt-fonsterrengoring/ecovacs-winbot-w1-pro-fonsterputsrobot-wg88812edr/414864",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst för glasväggar och skjutpartier inomhus",
+    superlative: "Bäst för glasväggar inomhus",
     pros: [
       "Störst putsduk i jämförelsen, 262 × 262 mm",
       "Godkänd för båglöst glas med 10 cm marginal till kanten",

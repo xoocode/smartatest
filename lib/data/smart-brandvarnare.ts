@@ -256,7 +256,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/smarta-sensorer/smarta-brandvarnare/aqara-smoke-detector-vit-p56561",
     priceCheckedAt: "2026-08-06",
-    superlative: "Bäst för ett hem som redan styrs av Apple eller Google",
+    superlative: "Bäst för Apple- och Google-hem",
     pros: [
       "Matter over Bridge, så larmet syns i Apple Home, Google Home, Alexa och SmartThings",
       "Förseglat litiumbatteri på upp till 10 år, ingenting att byta",
@@ -411,7 +411,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/x-sense-xs01-m-3-pack/",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Billigast per varnare för den som har basstationen",
+    superlative: "Billigast per varnare med bas",
     pros: [
       "297 kronor per varnare, billigast per plats av X-Sense-produkterna",
       "Sammankopplas med Link+ helt utan basstation",

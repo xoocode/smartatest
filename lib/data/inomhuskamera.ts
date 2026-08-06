@@ -193,7 +193,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus/arlo-essential-3-hd-ptz-overvakningskamera-inomhus-2-pack-p66622",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst när ingen ska behöva komma ihåg det",
+    superlative: "Bäst när ingen minns att larma",
     pros: [
       "Kameran lutar ner tills linsen ligger mot foten så fort systemet står i standby eller hemmaläge",
       "Rörelsedetekteringen och mikrofonen stängs av samtidigt som linsen vänds bort",

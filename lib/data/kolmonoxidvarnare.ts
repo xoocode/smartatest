@@ -97,7 +97,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 12, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
-    superlative: "Bäst för dig som har både hus och husvagn",
+    superlative: "Bäst för både hus och husvagn",
     pros: [
       "Provad enligt både EN 50291-1:2018 och -2:2019, alltså godkänd för bostad, husvagn och båt",
       "Tio år på sensorn, med två vanliga AA-batterier du byter själv i stället för att kasta varnaren",
@@ -142,7 +142,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://brandvarnare.se/produkt/co10-rf/",
     priceCheckedAt: PRICE_CHECKED,
     award: "editor",
-    superlative: "Bäst för dig som redan har seriekopplade brandvarnare",
+    superlative: "Bäst för seriekopplat brandlarm",
     pros: [
       "Provad enligt både EN 50291-1:2018 och -2:2019, alltså godkänd för bostad, husvagn och båt",
       "Bär BSI:s Kitemark, KM 573122, alltså provning och löpande fabrikskontroll av tredje part",

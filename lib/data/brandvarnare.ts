@@ -398,7 +398,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandvarnare/luxorparts-tradlos-brandvarnare-2-pack-p21130",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 359, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Billigaste vägen till varnare som larmar tillsammans",
+    superlative: "Billigast för hopkopplat larm",
     pros: [
       "250 kronor per skyddad plats, femtio kronor under Housegard Luma",
       "Parkoppling upp till 60 meter fri sikt",

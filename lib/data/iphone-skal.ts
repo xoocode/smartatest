@@ -223,7 +223,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/x2o-mag-frosted-iphone-17-pro-59050.html",
-    superlative: "Bäst för den som tröttnat på fingeravtryck",
+    superlative: "Bäst mot fingeravtryck",
     pros: [
       "Frostad yta som varken blir blank av fingrar eller hal i handen",
       "Förhöjd kant runt hela skalet och en förstärkt ring runt kameran",
@@ -266,7 +266,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/spigen-ultra-hybrid-magfit-iphone-17-pro-57675.html",
-    superlative: "Bäst för den som vill se telefonens färg",
+    superlative: "Bäst för dig som vill se färgen",
     pros: [
       "Förhöjd kant vid både skärm och kamera, vilket flera dyrare skal här saknar",
       "Air Cushion i hörnen trots att skalet är tunt nog att telefonens färg syns",
@@ -354,7 +354,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/otterbox-symmetry-clear-magsafe-iphone-17-pro-57280.html",
-    superlative: "Bäst för den som vill hänga telefonen i en rem",
+    superlative: "Bäst för dig som vill ha rem",
     pros: [
       "Fästpunkter för band och remmar, så telefonen kan hänga i stället för att tappas",
       "31 gram, alltså knappt märkbart i fickan trots förhöjda kanter",

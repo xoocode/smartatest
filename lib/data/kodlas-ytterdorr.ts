@@ -295,7 +295,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 16, scale: 5, checkedAt: PRICE_CHECKED },
     award: "budget",
-    superlative: "Bäst för dörren försäkringen inte räknar",
+    superlative: "Bäst där försäkringen inte styr",
     pros: [
       "1 990 kronor, mindre än hälften av vinnaren",
       "Fingeravtryck, NFC, PIN-kod och mekanisk nyckel: fyra vägar in",

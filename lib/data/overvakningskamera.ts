@@ -76,7 +76,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 5, count: 6, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
-    superlative: "Bäst för dig som har ström vid kameraplatsen",
+    superlative: "Bäst där det finns ström",
     pros: [
       "Maskeringen svartar ut området både i direktbilden och i det som spelas in",
       "Fast monterad utan rörliga delar, så masken ligger kvar där du ritade den",
@@ -157,7 +157,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/natverkskameror/tp-link-tapo-c425-tradlos-overvakningskamera-p65454",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 268, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för den som vill ha beprövad teknik",
+    superlative: "Bäst för beprövad teknik",
     pros: [
       "268 kundomdömen med snittet 4,5, tio gånger fler än någon annan här",
       "Fyra sekretesszoner, och kameran är fast så zonerna följer inte med någon rotation",
@@ -330,7 +330,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/natverkskameror/arlo-essential-3-hd-tradlos-overvakningskamera-2-pack-p66615",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 5, count: 4, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Lägst pris per kamera, högst kostnad efter köp",
+    superlative: "Lägst pris, dyrast att äga",
     pros: [
       "Två kameror för 1 490 kronor, 745 per styck och lägst pris per kamera",
       "Täcker både uppfart och baksida på en gång, vilket ingen enskild kamera här gör",

@@ -89,7 +89,7 @@ const SEEDS: ServiceSeed[] = [
     providerUrl: "https://www.verisure.se/hemlarm",
     checkedAt: CHECKED,
     award: "editor",
-    superlative: "Bäst för den som vill ha allt hos ett bolag",
+    superlative: "Bäst med allt hos ett bolag",
     scores: { oppna: 5, lamna: 3, larm: 4, larmcentral: 4.5, prisvarde: 2.5 },
     terms: {
       monthlyFee: 599,
@@ -285,7 +285,7 @@ const SEEDS: ServiceSeed[] = [
       "449 kronor i månaden för en panel som larmar även när tjuven slår sönder den.",
     providerUrl: "https://www.avarnsecurity.se/tjanster/safe-home/",
     checkedAt: RECHECKED,
-    superlative: "Bäst för den som vill hålla koll på en anhörig",
+    superlative: "Bäst för koll på en anhörig",
     scores: { oppna: 3, lamna: 2, larm: 3.5, larmcentral: 3.5, prisvarde: 3.5 },
     terms: {
       monthlyFee: 449,
@@ -335,7 +335,7 @@ const SEEDS: ServiceSeed[] = [
       "22 paragrafer avtal med varje avgift angiven i kronor, och startpaket för 990.",
     providerUrl: "https://www.sectoralarm.se/hemlarm/",
     checkedAt: CHECKED,
-    superlative: "Bäst för den som läser avtalet före påskrift",
+    superlative: "Bäst för dig som läser avtalet",
     scores: { oppna: 3, lamna: 1.5, larm: 3.5, larmcentral: 4.5, prisvarde: 2.5 },
     terms: {
       monthlyFee: null,
@@ -430,7 +430,7 @@ const SEEDS: ServiceSeed[] = [
     providerUrl:
       "https://gardio.se/produkt/gardio-trygg-larmadress-avarn/",
     checkedAt: CHECKED,
-    superlative: "Bäst för den som vill ha kameror i månadsavgiften",
+    superlative: "Bäst med kameror i avgiften",
     scores: { oppna: 5, lamna: 3, larm: 3.5, larmcentral: 3, prisvarde: 4.5 },
     terms: {
       monthlyFee: 249,
@@ -491,7 +491,7 @@ const SEEDS: ServiceSeed[] = [
       "Ingen månadsavgift alls, 1 199 kronor om året för larmcentralen.",
     providerUrl: "https://www.gardaalarm.se/",
     checkedAt: RECHECKED,
-    superlative: "Lägst löpande kostnad för den som stannar",
+    superlative: "Lägst löpande kostnad",
     scores: { oppna: 3.5, lamna: 2.5, larm: 3, larmcentral: 3, prisvarde: 4 },
     terms: {
       monthlyFee: null,
@@ -598,7 +598,7 @@ const SEEDS: ServiceSeed[] = [
       "249 kronor i månaden utan bindningstid och utan uppsägningstid.",
     providerUrl: "https://shop.safeland.se/se/butik/ajax/larm-bas-med-abonnemang/",
     checkedAt: RECHECKED,
-    superlative: "Bäst för den som inte vill binda upp sig",
+    superlative: "Bäst utan bindningstid",
     scores: { oppna: 5, lamna: 4.5, larm: 2.5, larmcentral: 3, prisvarde: 3.5 },
     terms: {
       /* Butikens ordinarie pris. Kampanjen samma dag var 198 kr/mån och

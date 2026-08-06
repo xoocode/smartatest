@@ -487,7 +487,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/celly-easy-glass-iphone-16-pro1717-pro-55225.html",
-    superlative: "Bäst för dig som vill ha rengöringskit i asken",
+    superlative: "Bäst med rengöringskit i asken",
     pros: [
       "Rengöringskit ingår, alltså det som tar dammet som annars blir en bubbla",
       "0,3 millimeter tunt, så det knappt känns under fingret",
@@ -531,7 +531,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/trolsk-skarmskydd-privacy-hardat-glas-iphone-16-pro1717-pro-55396.html",
-    superlative: "Bäst för dig som vill dölja skärmen ända ut i kanten",
+    superlative: "Bäst insynsskydd ut i kanten",
     pros: [
       "179 kronor för ett sekretessglas, mot 399 för det dyraste i jämförelsen",
       "Heltäckande, så insynsskyddet slutar inte innanför kanten som de flesta gör",
@@ -632,7 +632,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/uag-glass-shield-iphone-17-pro-57984.html",
-    superlative: "Bäst för dig som spräckt ett glas i kanten",
+    superlative: "Bäst mot sprickor i kanten",
     pros: [
       "Förstärkta kanter, alltså mer material just där glas normalt börjar spricka",
       "Klarar en stålkula släppt från 1,8 meter, den enda fallhöjd som finns för något skydd här",
@@ -685,7 +685,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/copter-screen-protector-iphone-1717-pro-57369.html",
-    superlative: "Bäst för dig som inte vill ha glas på skärmen",
+    superlative: "Bäst utan glas på skärmen",
     pros: [
       "Livstidsgaranti med kostnadsfritt utbyte, och villkoren står utskrivna",
       "Mjuk film som inte spricker, alltså inget glas att plocka bort från skärmen",

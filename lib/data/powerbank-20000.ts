@@ -370,7 +370,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank/anker-prime-powerbank-220w-pd-20100-mah-p88932",
-    superlative: "Bäst för minsta paketet med full datorfart",
+    superlative: "Minst med full datorfart",
     pros: [
       "140 W per USB-C-port och 220 W totalt",
       "323 kubikcentimeter, minst av dem som ger 140 W ur en port",

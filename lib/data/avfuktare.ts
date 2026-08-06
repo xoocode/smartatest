@@ -238,7 +238,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/Wood%E2%80%99s-LD40-avfuktare-kallare-och-tvattstuga,-100-m2/p/46-1453`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 0, count: 0 },
-    superlative: "Bäst för att torka tvätt i ett kallt rum",
+    superlative: "Bäst för tvätt i kallt rum",
     pros: [
       "350 m³/h på hög fläkt, kraftigaste luftströmmen av alla apparaterna",
       "Fungerar ner till +2 °C, även i ett kallt garage",
@@ -699,7 +699,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/eeese-Air-Care-Emil-luftavfuktare,-10-liter,-42-m2/p/36-20`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 6 },
-    superlative: "Bäst för den som flyttar apparaten mellan rum",
+    superlative: "Bäst att flytta mellan rum",
     pros: [
       "11,3 kilo och 46 centimeter hög, med integrerade grepp i sidorna",
       "36 dB(A) på låg fläkt, tyst nog för ett sovrum",

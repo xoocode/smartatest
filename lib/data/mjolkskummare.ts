@@ -107,7 +107,7 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kitchentime.se/varumarken/wilfa/wilfa-silky-mf1b250-mjolkskummare/",
     award: "winner",
-    superlative: "Bäst för den som vill ha latte art hemma",
+    superlative: "Bäst för latte art hemma",
     pros: [
       "Skummar 150 till 250 ml, alltså två till fyra koppar i samma körning",
       "Fem program med egen temperatur: varmt skum 65 grader, latte art 60",
@@ -396,7 +396,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "KitchenTime",
     merchantUrl:
       "https://www.kitchentime.se/koksapparater/kaffemaskiner/mjolkskummare/",
-    superlative: "Bäst för den som vill ha induktion billigast",
+    superlative: "Billigaste induktionsskummaren",
     pros: [
       "Induktion under kannan, alltså ingen elektronik i kärlet",
       "Löstagbar rostfri behållare som tål maskindisk",
@@ -508,7 +508,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "Coffee Friend",
     merchantUrl:
       "https://www.coffeefriend.se/p/maidonvaahdotin-sage-the-milk-cafe-smf600/",
-    superlative: "Bäst för den som vill ha proffskänsla på bänken",
+    superlative: "Bäst för proffskänsla på bänken",
     pros: [
       "Temperaturen ställs steglöst mellan 40 och 80 grader, med 60 utmärkt på ratten",
       "Två utbytbara vispskivor: en för cappuccino och en för latte",

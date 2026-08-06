@@ -743,7 +743,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "TheMobileStore",
     merchantUrl:
       "https://www.themobilestore.se/blue-star-usb-c-usb-c-3a-60w-kabel-2m-eco-svart",
-    superlative: "Billigast per meter av tvåmeterskablarna",
+    superlative: "Billigast per meter",
     pros: [
       "49,50 kronor per meter, näst lägst i jämförelsen",
       "Två meter räcker från ett uttag till en soffa eller en säng",
