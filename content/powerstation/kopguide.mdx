@@ -1,0 +1,241 @@
+## Talet i namnet är inte en enhet
+
+En powerstation heter något med en siffra i, och siffran betyder olika saker hos
+olika tillverkare.
+
+<ProductRef id="cocraft-advance-500-386" /> lagrar 386 wattimmar och lämnar 500
+watt. Talet är alltså effekten.
+<ProductRef id="cocraft-advance-240-231" /> lagrar 231 wattimmar och lämnar 200
+watt. Talet är varken det ena eller det andra.
+<ProductRef id="togopower-advance-650" /> lagrar 634 och lämnar 500.
+<ProductRef id="jackery-explorer-1000-pro" /> lagrar 1 002 och lämnar 1 000, så
+där stämmer båda tolkningarna av en slump. EcoFlow sätter inga siffror alls
+utan använder namn som River 3 och Delta 3.
+
+Två tal betyder något och båda står längre ner på sidan. **Wattimmar** säger hur
+länge något kan drivas. **Watt** säger vad som över huvud taget går att koppla
+in.
+
+## Wattimmar avgör hur länge, watt avgör vad
+
+Det här är kategorins enda verkligt viktiga skillnad, och den är enkel när den
+väl är sagd.
+
+En station på 1 000 wattimmar kan lämna 100 watt i tio timmar, eller 1 000 watt
+i en timme. Energin är densamma. Men om apparaten drar 1 800 watt spelar det
+ingen roll att batteriet är stort: växelriktaren orkar inte, och ingenting
+startar.
+
+| Du vill driva | Effekt | Behöver minst |
+|---|---|---|
+| Router och några lampor | 20–40 W | 200 W |
+| Bärbar dator | 60 W | 200 W |
+| Kompressorkylbox | 50 W | 300 W |
+| Projektor | 200 W | 500 W |
+| Handmaskin, pump | 600–900 W | 1 200 W |
+| Kaffebryggare | 1 000 W | 1 200 W |
+| Mikrovågsugn | 1 200 W | 1 800 W |
+| Vattenkokare, hårtork | 1 800–2 000 W | 1 800 W |
+
+Gränsen går vid värme. Allt som ska bli varmt drar tio till trettio gånger så
+mycket som allt som ska laddas.
+
+### Räkna ut ditt eget krav
+
+<PowerstationSizer />
+
+## Watt-talet finns i tre versioner
+
+Det här är fällan som gör kategorin svår att jämföra, och den ligger i
+butikernas specifikationer och inte i produkterna.
+
+- **Kontinuerlig effekt** är vad växelriktaren orkar hela tiden. Det är det tal
+  du ska välja efter.
+- **Toppeffekt** är sekunderna när en motor eller kompressor startar och drar
+  två till tre gånger sin märkeffekt.
+- **Boosteffekt** heter X-Boost hos EcoFlow och SurgePad hos Anker. Där **sänker
+  stationen utspänningen** för att kunna driva mer effektkrävande utrustning än
+  den egentligen orkar.
+
+⚠️ **Boostläget fungerar inte på allt.** Sänkt spänning går bra på sådant som
+bara ska bli varmt: en värmefläkt blir svalare, en glödlampa svagare, men båda
+fungerar. På utrustning med motor, kompressor eller elektronik kan låg spänning
+ge fel eller skada. Räkna därför alltid med den kontinuerliga effekten.
+
+Skillnaden är stor. <ProductRef id="ecoflow-river-3-plus-286" /> anger 600 watt
+kontinuerligt och 1 200 i X-Boost. <ProductRef id="anker-solix-c300x-288" />
+anger 300 watt kontinuerligt och 600 med SurgePad. I båda fallen är det dubbla
+talet det som syns först i marknadsföringen.
+
+## Samma produkt, två olika watt hos två butiker
+
+Talen ovan skulle vara enkla att kontrollera om butikerna publicerade samma
+sak. Det gör de inte.
+
+Anker Solix C2000 Gen 2 är samma artikel med samma streckkod var den än säljs.
+Tillverkarens egen specifikation anger 2 400 watt kontinuerligt och 4 000 watt
+topp. Prisjakt publicerar 2 400. Elgigantens fält som heter "Max. AC" publicerar
+4 000.
+
+Ingen av dem har fel. De har valt olika tal ur samma tabell utan att säga
+vilket, och en köpare som jämför två butiker jämför två olika storheter.
+
+Samma sak inom en och samma kategorisida: EcoFlow Delta 3 anges där till 2 400
+watt, vilket är X-Boost-talet, medan tillverkaren och Clas Ohlson båda skriver
+1 800. <ProductRef id="ecoflow-river-3-245" /> anges korrekt till 300 watt,
+alltså den kontinuerliga effekten, i samma fält.
+
+**Praktiskt råd:** hitta tillverkarens egen specifikation innan du köper, och
+leta efter ordparet kontinuerlig och topp. Står bara ett tal vet du inte vilket
+av dem du fått.
+
+## Cellkemin avgör vad stationen kostar i längden
+
+Två sorters batteri säljs i kategorin och skillnaden syns inte i priset.
+
+| Cellkemi | Cykler till 80 % | Vad det betyder |
+|---|---|---|
+| Litiumjärnfosfat (LiFePO4, LFP) | 3 000–4 000 | Veckobruk i tjugo år |
+| Ternär litium | 1 000 | Veckobruk i fem år |
+| Litiumjon utan angivet tal | okänt | går inte att räkna på |
+
+En laddcykel är en full uppladdning och urladdning. Talet anger hur många sådana
+cellen klarar innan den bara rymmer 80 procent av det den gjorde ny.
+
+Räkneexemplet är obekvämt. <ProductRef id="jackery-explorer-1000-pro" /> kostar
+6,18 kronor per wattimme och är sidans billigaste. <ProductRef id="ecoflow-delta-3-1024" />
+kostar 8,59. Men den första anger 1 000 cykler och den andra 4 000, så räknat på
+hur mycket energi produkterna levererar under sin livstid blir den billiga
+dyrast per uttagen kilowattimme.
+
+⚠️ Litiumjärnfosfat tål dessutom värme bättre, vilket spelar roll i en bil på
+sommaren eller i en husvagn under tak.
+
+## Vikten är kategorins mest missbrukade ord
+
+Ordet portabel står på varenda kartong. Produkterna på den här sidan väger från
+2,75 till 12,5 kilo.
+
+| Vikt | Vad det betyder i praktiken |
+|---|---|
+| Under 4 kg | Följer med i ryggsäcken utan planering |
+| 4–7 kg | Bärs till bilen och in i husvagnen |
+| Över 10 kg | Flyttas när det behövs, inte när det passar |
+
+<ProductRef id="cocraft-advance-240-231" /> väger 2,75 kilo och
+<ProductRef id="ecoflow-delta-3-1024" /> väger 12,5. Båda kallas portabla, och
+det är sant om båda, men de löser inte samma problem.
+
+Vikten följer kapaciteten ganska nära, så det här är i praktiken samma val som
+hur mycket ström du behöver. Undantaget är
+<ProductRef id="ecoflow-river-3-plus-286" />, som har tre 230-voltsuttag på 4,7
+kilo när de andra i den vikten har ett.
+
+## Antalet vägguttag avgör om du behöver en grendosa
+
+En detalj som nästan aldrig nämns och som märks direkt.
+
+Har stationen ett enda 230-voltsuttag kan du driva en sak. Ska två saker gå
+samtidigt behöver du en grendosa, alltså ännu en sak att komma ihåg och ännu en
+sladd i väskan. Spannet här är från ett uttag till fyra.
+
+Räkna också med att USB-portarna ofta är den effektivare vägen. En dator som
+laddas via USB-C slipper omvägen genom växelriktaren till 230 volt och tillbaka
+igen, och du får därför ut mer av batteriet.
+<ProductRef id="anker-solix-c300x-288" /> lämnar 280 watt via USB, vilket räcker
+till två datorer utan att ett enda vägguttag används.
+
+## Laddtiden avgör om den hinner bli full
+
+Spannet i den här jämförelsen är från 49 minuter till fyra och en halv timme.
+
+På en stugresa där du laddar mellan två dagar är det skillnaden mellan att ha
+ström på kvällen och att inte ha det.
+<ProductRef id="anker-solix-c1000x-gen2" /> fylls på 49 minuter,
+<ProductRef id="ecoflow-delta-3-1024" /> på 56, och de billigaste stationerna på
+flera timmar.
+
+Snabbladdning har ett pris utöver kronorna: den värmer cellen mer, vilket över
+tid sliter på batteriet. De stationer som erbjuder båda lägena låter dig välja,
+och det normala läget är det du ska använda när du inte har bråttom.
+
+## Solpanel: två tal och en realistisk förväntan
+
+De flesta stationer har solcellsregulatorn inbyggd, så du kopplar bara in
+panelen.
+
+- **Hur många watt panel stationen tar emot.** Spannet här är 110 till 500 watt.
+- **Om den har MPPT**, en teknik som håller panelen på sin bästa arbetspunkt när
+  ljuset ändras. Utan den tappar du effekt varje gång ett moln passerar.
+
+⚠️ Räkna med att en panel ger ungefär hälften av sin märkeffekt under en normal
+svensk sommardag, mindre i moln och betydligt mindre på vintern. En station på
+500 wattimmar och en panel på 200 watt betyder alltså i praktiken en dag för en
+full laddning.
+
+Kabeln med MC4-kontakter ingår hos Cocraft och kostar 300 till 600 kronor hos de
+andra. Räkna in det.
+
+## 20 decibel hörs inte i ett sovrum, 40 gör det
+
+En powerstation har en kylfläkt, och den går både när stationen laddas och när
+den lämnar hög effekt.
+
+Skalan är logaritmisk, så skillnaden är större än talen ser ut:
+
+| Ljudnivå | Motsvarar ungefär |
+|---|---|
+| 20 dB | Ett tyst sovrum |
+| 25 dB | En viskning på tre meters håll |
+| 30 dB | En tyst fläkt |
+| 40 dB | Hörs tydligt i rummet |
+
+<ProductRef id="anker-solix-c1000x-gen2" /> ligger på 20 decibel och är den enda
+som går obemärkt i ett rum där någon sover. <ProductRef id="ecoflow-delta-3-1024" />
+ligger på 30 vid 600 watt men 40 vid 1 200, alltså ungefär fyra gånger så starkt
+upplevt när den arbetar hårt. Ska stationen stå bredvid en säng eller ett
+skrivbord är det skillnaden som avgör.
+
+## Som reservkraft vid strömavbrott
+
+En powerstation matar det du kopplar till den. Den kan inte mata husets fasta
+installation, och att koppla in den i en vägguttagskrets är både farligt och
+otillåtet.
+
+Det som verkligen är värt att titta på är **omkopplingstiden**, alltså hur
+snabbt stationen tar över när nätet försvinner. Under 20 millisekunder märker en
+dator eller en router ingenting.
+<ProductRef id="ecoflow-river-3-245" /> anger 20 millisekunder och
+<ProductRef id="ecoflow-river-3-plus-286" /> anger 10.
+
+Kapaciteten sätter samtidigt gränsen. 1 000 wattimmar räcker till ett kylskåp
+ungefär ett dygn, inte till en vecka. Vill du ha ström till hela hemmet över
+längre tid är det ett fast batteri eller ett elverk du ska titta på i stället,
+och elverket kräver bränsle och kan inte stå inomhus.
+
+## Den får inte följa med på flyget
+
+Reglerna för litiumbatterier i flyg är skrivna i wattimmar, och taket är 160
+wattimmar även med flygbolagets godkännande.
+
+Den minsta powerstationen här lagrar 231 wattimmar. Hela kategorin ligger alltså
+över gränsen, i både handbagage och incheckat, och det finns ingen väg runt det
+som privatperson. Ska du ha batteri med på en flygresa är det powerbanksklassen
+som gäller, upp till 100 wattimmar och aldrig i det incheckade bagaget.
+
+Färja, tåg och bil har inga motsvarande begränsningar för normalt privat bruk.
+
+## Vad du bör lägga pengarna på
+
+Ordningen, om budgeten är begränsad:
+
+1. **Tillräcklig kontinuerlig effekt för det du ska driva.** Ett stort batteri
+   bakom en för svag växelriktare startar ingenting.
+2. **Litiumjärnfosfat med ett publicerat cykeltal.** Det är där den verkliga
+   kostnaden per kilowattimme avgörs.
+3. **Kapacitet i wattimmar**, räknad på det du ska driva över tid.
+4. **Vikt du orkar flytta**, eftersom en station som står kvar i garaget inte
+   löser något.
+
+Det som sällan är värt pengar är boosteffekten i marknadsföringen. Den gäller
+bara värmande last, och den apparat du köpte stationen för har oftast en motor.

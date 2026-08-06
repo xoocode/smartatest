@@ -33,7 +33,7 @@ no. Usually there are three or four, and usually one is cheap.
 | Obstacle | The actual move |
 |---|---|
 | **The price moves daily** | `scripts/priskoll.mjs` already runs nightly and exists precisely because prices move. Add the merchant to it. Or render "senast hämtat {datum}" for that shop. Or drop the price cell for that merchant and keep the product. The site has never required a price to be *stable*, only *dated* |
-| **We are not in the programme yet** | Every page ships before the programme. `LINK_MODE` is `direct` and no `affiliateUrl` exists anywhere. Apply in parallel; the page does not wait |
+| **We are not in the programme yet** | Every page ships before the programme. Apply in parallel; the page does not wait |
 | **The shop renders in JavaScript** | Shopify `/products.json`, the sitemap, the JSON-LD, the embedded state blob. A shop that "needs a browser" has usually just not been probed properly |
 | **A spec cell is empty** | That is the gap pass, `.claude/references/spec-sourcing.md`. It is a work order |
 | **A component does not support it** | Components get built. See @build.md. The data model bends to the category, not the other way round |
@@ -204,7 +204,15 @@ them, so the page links Jula and Kjell and the research file records the gap.
 
 Read the `AFFILIATE-SWAP` block in `lib/links.ts`. In short:
 
-- `LINK_MODE` is `"direct"`: straight to the retailer, untracked, dofollow.
+- `LINK_MODE` is `"tracked"`. Outbound CTAs render as **relative** `/till/{id}`
+  links that redirect, not as absolute merchant URLs.
+
+  ⚠️ This file said `"direct"` until 2026-08-06, long after the constant
+  changed. The `/skaftdammsugare` build audited its own CTAs with
+  `a[href^='http']`, found zero anchors on a working page, and spent ten
+  minutes chasing a bug that did not exist — then copied the stale
+  `AFFILIATE-SWAP` comment into a new page header. **Read `lib/links.ts` for
+  the current value rather than trusting this line.**
 - Every outbound link goes through `resolveMerchantLink`. Never a raw `<a>`,
   never in MDX.
 - `AffiliateCta` is the only component allowed to link to a merchant.

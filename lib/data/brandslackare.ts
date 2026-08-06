@@ -5,132 +5,80 @@ import { resolveProducts } from "@/lib/products";
 import { BRANDSLACKARE } from "@/lib/test-pages";
 
 /**
- * Brandsläckare. Underlag i .agent/research/brandvarnare.md, avsnittet
- * "Research: brandsläckare".
+ * Brandsläckare. Underlag i .agent/research/brandslackare.md.
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, effektklasser, mått,
- * temperaturområden, artikelnummer och kundbetyg. Allt läst 2026-08-02 på
- * butikens egen produktsida.
+ * **Verkligt och daterat:** priser (2026-08-02), och specifikationerna
+ * (2026-08-06) från tillverkarnas och importörernas egna sidor och produktblad:
+ * housegard.se för de två Housegard-släckarna, deltronic.se och brandvarnare.se
+ * för de tre Deltronic-släckarna, biltema.se för Biltemas, kjell.com för
+ * enkilossläckaren.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte tänt eld på något.
  *
- * ## Sidans fynd: effektklassen
+ * ## Vad researchen 2026-08-06 rev upp
  *
- * Två sexkilos i listan skiljer 55A mot 43A, alltså tjugoåtta procents skillnad
- * i släckyta, och priset följer inte klassen. Billigaste 55A kostar 579 kronor,
- * dyraste 699. Kjells vita sexkilos kostar lika mycket som deras röda och är
- * enligt deras egen produktsida **inte EN3-klassad**.
+ * Sidan påstod på nio ställen att butikerna inte anger sitt typgodkännande, och
+ * byggde vinnaren på att Biltema var "enda som skriver ut sitt typgodkännande".
+ * Det var fel i alla fall utom ett:
  *
- * ## Kriteriet som skrevs om, och vad det gjorde med rankningen
+ * - Brandvarnare.se anger `EN3-7:2004+A1:2007 (EN3-10:2009)` på **alla tre**
+ *   släckarna, under fliken "Ytterligare information" på de sidor vi länkade.
+ * - Housegard anger `EN3-7, CE, Wheelmark` i sin egen specifikation för 600170.
+ * - Manometer: sagt om 1 av 7, gäller **7 av 7**. Kjell skriver "Försedd med
+ *   manometer" på alla tre sina, Biltema i produkttexten, och Deltronic i
+ *   skötselavsnittet på var och en.
+ * - Väggfäste till Kjells enkilos: "Röd modell levereras med väggfäste, vit
+ *   utan." Sidan sa att uppgiften saknades.
  *
- * Första versionen hette "redovisad certifiering" och gav full poäng till den
- * butik som skrev ut sitt typgodkännande. Det mätte butikens produkttext och
- * inte produkten, och dubbelräknade dessutom Biltemas manometer i två
- * kriterier. Kriteriet heter nu tillförlitlighet, väger 15 i stället för 25,
- * och de tio poängen gick till släckeffekten, som är det enda måttet i
- * kategorin som provats fram av ett certifieringsorgan.
+ * ## Färgen är inte en smakfråga, den är godkännandet
  *
- * Effekten: Biltema föll från första till tredje plats och Housegards 55A tog
- * över toppen. Se doc-kommentaren i lib/categories.ts.
+ * SS-EN 3-7 punkt 16.1 kräver röd färg. En vit släckare kan därför inte vara
+ * EN 3-7-certifierad, hur hög effektklass den än har. Housegards två släckare
+ * visar det rent: samma modell PE6HR-A, samma 55A 233B C, samma kropp — den
+ * röda (600170) har `EN3-7, CE, Wheelmark`, den vita (600169) har bara `CE`.
+ *
+ * Brandskyddsföreningens norm SBF 2011:1 bygger på just den punkten: en
+ * hembrandsläckare ska uppfylla samtliga krav i SS-EN 3-7 **utom** 16.1 om
+ * färgen, vara pulver, väga 6 kg och klara provbål 43A och 233B.
+ *
+ * Det är därför `placeringsfrihet` finns som kriterium och `tillforlitlighet`
+ * inte gör det. Se doc-kommentaren i lib/test-pages.ts och rättelsen i
+ * lib/corrections.ts.
+ *
+ * ## En konflikt som är kvar
+ *
+ * Deltronics produktblad `Brandslackare-ABC.pdf` anger 42A 233B C och enbart
+ * `CE-0029` för artikel 60505 (vit 6 kg), medan deras produktsida och
+ * deltronic.se anger 55A 233B C och EN3-7. Bladet beskriver en äldre fyllning
+ * (ABC 30 torr pulver), sidorna den nuvarande (Furex S ABC), och båda gäller
+ * samma artikelnummer. Vi följer de två aktuella sidorna. Noterat i
+ * researchfilen.
  *
  * ## Butiksfördelning
  *
  * Kjell tre, Brandvarnare.se tre, Biltema en. Brandvarnare.se är den enda
- * annonserbara butiken i brandfamiljen och tar andraplatsen och två platser
- * till. Biltema finns inte i något affiliatenätverk vi kan söka till, vilket
- * inte påverkat placeringen åt något håll.
+ * annonserbara butiken i brandfamiljen. Biltema finns inte i något
+ * affiliatenätverk vi kan söka till, vilket inte påverkat placeringen åt något
+ * håll: Biltemas sexkilos steg från tredje till andra plats i omräkningen.
  */
 
 /** Alla priser lästa på butikens egen sida detta datum. */
 export const PRICE_CHECKED = "2026-08-02";
 
+/** Specifikationerna lästa på tillverkarnas och importörernas egna sidor. */
+export const SPECS_CHECKED = "2026-08-06";
+
 const SEEDS: Omit<Product, "score" | "rating">[] = [
-  {
-    id: "biltema-pulver-6-kg",
-    name: "Brandsläckare pulver ABC 6 kg",
-    shortName: "Biltema 6 kg",
-    brand: "Biltema",
-    image: productImage(BRANDSLACKARE.slug, "biltema-pulver-6-kg"),
-    tagline: "Enda som skriver ut sitt typgodkännande, och billigast av sexkilosen.",
-    scores: { slackeffekt: 4, tillforlitlighet: 5, hanterbarhet: 3, placering: 3.5, prisvarde: 5 },
-    price: 489,
-    merchant: "Biltema",
-    merchantUrl:
-      "https://www.biltema.se/hem/sakerhet/brandslackare/brandslackare-pulver-abc-6-kg-2000046826",
-    priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst dokumenterad",
-    pros: [
-      "Enda släckaren med utskrivet typgodkännande enligt EN 3-7/8",
-      "Manometer, övertrycksventil och sprutmunstycke, alla angivna",
-      "Billigast av sexkilosen, 210 kronor under den dyraste",
-      "Godkänd för elektrisk utrustning upp till 1 000 V på en meters avstånd",
-      "Tål −30 till +60 °C, även i ouppvärmt garage",
-    ],
-    cons: [
-      "43A, 28 procent mindre släckyta än de bästa släckarna",
-      "Butiken anger inte om väggfäste ingår",
-      "Biltema har ingen näthandel med hemleverans i alla lägen",
-    ],
-    specs: [
-      { label: "Effektklass", value: "43A 233B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "EN 3-7/8, utskrivet", highlight: true },
-      { label: "Släckmedel", value: "6 kg Prestolit ABC", highlight: true },
-      { label: "Manometer", value: "Ja", highlight: true },
-      { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
-      { label: "Mått", value: "Ø16 × 55 cm" },
-      { label: "Elsäkerhet", value: "Upp till 1 000 V på 1 m" },
-      { label: "Övertrycksventil", value: "Ja" },
-      { label: "Artikelnummer", value: "21-837" },
-    ],
-    verdict:
-      "Den här är inte starkast, men den är den enda som redovisar vad den är.\n\nBiltema skriver ut att släckaren är typgodkänd enligt EN 3-7/8. Ingen annan butik anger vilken standard produkten uppfyller, och en av dem skriver tvärtom att deras släckare inte är klassad. För en produkt som ska stå orörd i tio år och sedan fungera första gången är det inte en detalj.\n\nDe anger också manometer, övertrycksventil och sprutmunstycke. Manometern är den viktigaste av dem: den låter dig se att trycket finns kvar utan att beställa service, och en släckare som tappat trycket ser precis likadan ut som en som inte gjort det.\n\nOch den kostar 489 kronor, 210 mindre än den dyraste sexkilosen i listan.\n\nDet du betalar med är släckeffekt. 43A mot 55A är 28 procent mindre yta, 4,3 meter i stället för 5,5 från släckaren. I en normal villa spelar det sällan roll, i en verkstad eller ett garage med brandfarlig vätska kan det göra det. Vill du ha 55A ligger både ettan och tvåan över, och den billigaste av dem kostar nittio kronor mer än den här.",
-  },
-  {
-    id: "brandvarnare-se-vit-6-kg",
-    name: "Brandsläckare vit 6 kg",
-    shortName: "Vit 6 kg",
-    brand: "Brandvarnare.se",
-    image: productImage(BRANDSLACKARE.slug, "brandvarnare-se-vit-6-kg"),
-    tagline: "Högsta effektklassen till lägsta pris. Men vit släckare har en hake.",
-    scores: { slackeffekt: 5, tillforlitlighet: 3, hanterbarhet: 3, placering: 4, prisvarde: 4 },
-    price: 579,
-    merchant: "Brandvarnare.se",
-    merchantUrl: "https://brandvarnare.se/produkt/brandslackare-vit-6kg/",
-    priceCheckedAt: PRICE_CHECKED,
-    superlative: "Billigaste 55A",
-    pros: [
-      "55A 233B C, högsta effektklassen för en sexkilos",
-      "120 kronor billigare än samma klass hos Kjell",
-      "Väggfäste medföljer",
-      "Vit passar i hall och kök där en röd inte får plats visuellt",
-    ],
-    cons: [
-      "Butiken anger inte vilket typgodkännande släckaren har",
-      "Vita släckare är enligt Kjells produkttext endast för privat bruk i hemmamiljö",
-      "Sex kilo pulver väger nära nio kilo fyllt",
-    ],
-    specs: [
-      { label: "Effektklass", value: "55A 233B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej angivet av butiken", highlight: true },
-      { label: "Släckmedel", value: "6 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
-      { label: "Temperaturområde", shortLabel: "Temp", value: "Ej angivet" },
-      { label: "Väggfäste", value: "Ingår" },
-      { label: "Färg", value: "Vit" },
-    ],
-    verdict:
-      "55A är den högsta effektklassen en sexkilos pulversläckare når, och den här är billigast av släckarna med den klassen. 120 kronor under Kjells motsvarande.\n\nMen köp den med öppna ögon i två avseenden.\n\nButiken skriver inte ut vilket typgodkännande släckaren har. Det betyder inte att den saknar godkännande, och vi drar därför inte ner betyget till botten, men det betyder att du inte kan kontrollera det innan du klickar.\n\nOch färgen är inte bara en smaksak. Kjell skriver på sin egen vita släckare att brandsläckare i annan färg än röd endast är för privat bruk i hemmamiljö, där användaren förväntas veta var släckaren står. Ska släckaren sitta i en trappuppgång, ett garage för flera hushåll eller något som liknar en arbetsplats ska den vara röd, för då ska en främling hitta den på en sekund.\n\nI en villa eller lägenhet där du själv vet var den hänger är den vita ett fullgott köp, och du får mer släckeffekt per krona än någon annan i listan.",
-  },
   {
     id: "housegard-6-kg-rod",
     name: "Brandsläckare med pulver 6 kg röd",
     shortName: "Housegard 6 kg",
     brand: "Housegard",
     image: productImage(BRANDSLACKARE.slug, "housegard-6-kg-rod"),
-    tagline: "Högsta effektklassen, och enda släckaren som uttryckligen får stå kallt.",
-    scores: { slackeffekt: 5, tillforlitlighet: 4, hanterbarhet: 3, placering: 4.5, prisvarde: 3 },
+    tagline: "Högsta effektklassen, och godkänd att stå ute året om.",
+    scores: { slackeffekt: 5, placeringsfrihet: 5, hanterbarhet: 3, utrustning: 5, prisvarde: 3 },
     price: 699,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -138,102 +86,175 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 5, count: 21, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
-    superlative: "Högsta klassen, och tål att stå kallt",
+    superlative: "Bäst för garaget och stugan",
     pros: [
-      "55A 233B C, högsta effektklassen",
-      "Uttryckligen godkänd för både inomhus- och utomhusbruk, ej frostkänslig",
-      "Tål −30 till +60 °C",
-      "Väggfäste medföljer",
-      "Kjell förklarar vad 55A och 233B faktiskt betyder på produktsidan",
+      "55A 233B C, högsta effektklassen en sexkilos når",
+      "Certifierad enligt EN3-7, CE och Wheelmark, alltså godkänd att hänga var som helst",
+      "Provad för −30 till +60 °C och godkänd för utomhusbruk",
+      "Väggfäste och manometer följer med",
+      "Kastlängd 4 till 6 meter, så du kan hålla avstånd till lågorna",
     ],
     cons: [
-      "Dyrast av släckarna i jämförelsen, 210 kronor över testvinnaren",
-      "Samma effektklass finns för 579 kronor hos en annan butik",
-      "Butiken anger inte vilket typgodkännande den har",
+      "699 kronor, högst pris i jämförelsen",
+      "9 kilo fylld, vilket inte alla i hushållet lyfter ur ett väggfäste",
+      "Samma effektklass finns för 579 kronor, fast bara i vitt",
     ],
     specs: [
+      /* housegard.se, art. 600170, modell PE6HR-A, läst 2026-08-06. */
       { label: "Effektklass", value: "55A 233B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej angivet av butiken", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "EN3-7, CE, Wheelmark", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Överallt", highlight: true },
       { label: "Släckmedel", value: "6 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
+      { label: "Manometer", value: "Ja", highlight: true },
       { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
-      { label: "Tömningstid", value: "15 sekunder" },
-      { label: "Väggfäste", value: "Ingår" },
+      { label: "Väggfäste", value: "Ingår", highlight: true },
+      { label: "Mått", value: "Ø150 × 519 mm", highlight: true },
+      { label: "Tömningstid", value: "22 sekunder" },
+      { label: "Arbetstryck", value: "15 bar" },
+      { label: "Kastlängd", value: "4–6 m" },
+      { label: "Drivgas", value: "Kvävgas" },
       { label: "Utomhus", value: "Ja, ej frostkänslig" },
-      { label: "Mått", value: "Ø150 × 519 mm" },
+      { label: "Artikelnummer", value: "600170 (Kjell 21233)" },
     ],
     verdict:
-      "55A är den högsta klassen en sexkilos når, och tre av släckarna har den. Släckeffekt väger dubbelt så tungt som något annat kriterium.\n\nKjell gör dessutom en sak ingen annan butik gör: de förklarar siffrorna. På produktsidan står att 55A betyder släckyta upp till 5,5 meter från släckaren och att 233B betyder 233 liter brinnande vätska. Den informationen saknas i resten av kategorin, och de skriver den på en produktsida i stället för att sälja på färg.\n\nSjälva släckaren är också bland de bäst utrustade. Högsta effektklassen, väggfäste, tömningstid femton sekunder, och uttryckligen godkänd för utomhusbruk och ej frostkänslig ner till minus trettio. Det senare gör den till rätt val för garage, uthus och sommarstuga, där de flesta släckare inte har någon angiven temperaturgräns alls.\n\nPriset är den uppenbara invändningen. 699 kronor är det högsta priset av släckarna, och samma effektklass finns för 579 kronor hos Brandvarnare.se. Det du betalar de hundratjugo kronorna för är den angivna temperaturtåligheten, tömningstiden och att släckaren är röd, vilket krävs så fort någon annan än du ska hitta den.\n\nSka den stå i en villa, ett garage eller ett uthus är det värt pengarna. Ska den stå i en hallgarderob i en lägenhet räcker tvåan.",
+      "Housegards röda sexkilos klarar mest eld av släckarna här och är den enda som är godkänd för utomhusbruk. Den kostar 699 kronor.\n\n55A 233B C är den högsta effektklassen en sexkilos når: släckyta upp till 5,5 meter från munstycket och 233 liter brinnande vätska. Certifieringen är EN3-7 och färgen är en del av den, så den här släckaren får hänga i trapphuset och i det delade garaget lika gärna som innanför din egen dörr. Kastlängden är 4 till 6 meter, alltså kan du stå kvar i dörröppningen medan du släcker.\n\nDen är också provad för −30 till +60 grader och uttryckligen godkänd för utomhusbruk. I ett ouppvärmt garage eller en stuga som står kall från november till april är det skillnaden mellan en släckare som fungerar och en du får hoppas på. Väggfäste följer med, och manometern på ventilen visar på en sekund att trycket finns kvar.\n\nPriset är den enda invändningen. 699 kronor är högst i jämförelsen, och 55A finns för 579 hos Brandvarnare.se, fast bara i vitt, som inte får sitta någon annanstans än i din egen bostad.\n\nKöp den. Högsta effektklassen, fri placering och den enda släckaren tillverkaren skriver ut att du får hänga utomhus, är vad de 699 kronorna köper.",
+  },
+  {
+    id: "biltema-pulver-6-kg",
+    name: "Brandsläckare pulver ABC 6 kg",
+    shortName: "Biltema 6 kg",
+    brand: "Biltema",
+    image: productImage(BRANDSLACKARE.slug, "biltema-pulver-6-kg"),
+    tagline: "Billigast av sexkilosen, med manometer och övertrycksventil.",
+    scores: { slackeffekt: 4, placeringsfrihet: 5, hanterbarhet: 3, utrustning: 4.5, prisvarde: 5 },
+    price: 489,
+    merchant: "Biltema",
+    merchantUrl:
+      "https://www.biltema.se/hem/sakerhet/brandslackare/brandslackare-pulver-abc-6-kg-2000046826",
+    priceCheckedAt: PRICE_CHECKED,
+    award: "budget",
+    superlative: "Billigast av sexkilosen",
+    pros: [
+      "489 kronor, 210 under den dyraste sexkilosen",
+      "Typgodkänd enligt EN 3-7/8 och röd, alltså godkänd för trapphus och uthyrning",
+      "Manometer, övertrycksventil och sprutmunstycke",
+      "Tål −30 till +60 °C, även i ett ouppvärmt garage",
+      "Godkänd för elektrisk utrustning upp till 1 000 V på en meters avstånd",
+    ],
+    cons: [
+      "43A, alltså 4,3 meters släckyta mot 5,5 för de starkaste",
+      "Finns bara i varuhus och på Biltemas egen sajt, inte hos någon annan butik",
+      "Ø16 centimeter är bredast av sexkilosen, vilket märks i en smal städskrubb",
+    ],
+    specs: [
+      /* biltema.se, art. 21-837, läst 2026-08-06. Väggfäste nämns inte i
+         produkttexten och står inte i något dokument vi nått; Biltema säljer en
+         separat monteringssats. Se researchfilen. */
+      { label: "Effektklass", value: "43A 233B C", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "EN 3-7/8", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Överallt", highlight: true },
+      { label: "Släckmedel", value: "6 kg Prestolit ABC", highlight: true },
+      { label: "Manometer", value: "Ja", highlight: true },
+      { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
+      { label: "Väggfäste", value: "Ej angiven", highlight: true },
+      { label: "Mått", value: "Ø160 × 550 mm", highlight: true },
+      { label: "Övertrycksventil", value: "Ja" },
+      { label: "Elsäkerhet", value: "Upp till 1 000 V på 1 m" },
+      { label: "Artikelnummer", value: "21-837" },
+    ],
+    verdict:
+      "Biltemas sexkilos kostar 489 kronor. Det är 210 kronor under den dyraste släckaren i jämförelsen och den lägsta prislappen på en fullstor pulversläckare vi hittat.\n\nEffektklassen är 43A 233B C, typgodkänd enligt EN 3-7/8. Röd färg ingår i det godkännandet, vilket betyder att den får hänga i trapphuset, i det gemensamma garaget och i en lägenhet du hyr ut. Det är tre platser en vit släckare är utesluten från. Utrustningen är också den mest kompletta här: manometer, övertrycksventil och sprutmunstycke. Övertrycksventilen släpper undan trycket om behållaren blir för varm, vilket är precis vad som händer om elden hinner fram till släckaren där den hänger.\n\nTemperaturområdet −30 till +60 grader betyder att garaget, uthuset och sommarstugan är fria placeringar, och 1 000 volt på en meters avstånd gör den användbar mot brand i elcentralen.\n\nDet du betalar med är släckyta. 43A räcker 4,3 meter från munstycket, en 55A når 5,5. Har du en verkstad, ett garage med bensin eller ett hus i två plan är det den marginalen du väljer bort.\n\nFör en lägenhet eller en normal villa är det här släckaren att ta hem, och de 210 kronorna räcker till en brandfilt och två brandvarnare. Vill du ha 55A i rött kostar det 699 kronor hos Kjell.",
+  },
+  {
+    id: "brandvarnare-se-vit-6-kg",
+    name: "Brandsläckare vit 6 kg",
+    shortName: "Vit 6 kg",
+    brand: "Deltronic",
+    image: productImage(BRANDSLACKARE.slug, "brandvarnare-se-vit-6-kg"),
+    tagline: "Högsta effektklassen, 120 kronor under närmaste röda.",
+    scores: { slackeffekt: 5, placeringsfrihet: 2, hanterbarhet: 3, utrustning: 4.5, prisvarde: 4.5 },
+    price: 579,
+    merchant: "Brandvarnare.se",
+    merchantUrl: "https://brandvarnare.se/produkt/brandslackare-vit-6kg/",
+    priceCheckedAt: PRICE_CHECKED,
+    superlative: "Billigaste 55A",
+    pros: [
+      "55A 233B C, samma effektklass som testvinnaren",
+      "120 kronor billigare än närmaste röda släckare i samma klass",
+      "Väggfäste och manometer följer med",
+      "Vit gör att den kan hänga framme i hallen i stället för i städskåpet",
+      "2 års garanti och svensk importör",
+    ],
+    cons: [
+      "Får bara sitta i en privatbostad, inte i trapphus, delat garage eller uthyrd lägenhet",
+      "9,4 kilo fylld och 51 centimeter hög",
+      "Vill du ha samma klass utan placeringsbegränsning kostar Housegards röda 120 kronor mer",
+    ],
+    specs: [
+      /* brandvarnare.se och deltronic.se, art. 60505, EAN 7332211605051, lästa
+         2026-08-06. Temperaturområdet kommer från Deltronics produktblad för
+         samma artikelnummer. Bladet anger 42A och enbart CE-0029 för en äldre
+         fyllning; konflikten är beskriven i doc-kommentaren ovan. */
+      { label: "Effektklass", value: "55A 233B C", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "EN3-7:2004+A1:2007", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Endast privat hemmiljö", highlight: true },
+      { label: "Släckmedel", value: "6 kg Furex S ABC", highlight: true },
+      { label: "Manometer", value: "Ja", highlight: true },
+      { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
+      { label: "Väggfäste", value: "Ingår", highlight: true },
+      { label: "Mått", value: "510 × 175 × 185 mm", highlight: true },
+      { label: "Fylld vikt", value: "9,4 kg" },
+      { label: "Garanti", value: "2 år" },
+      { label: "Tillverkare", value: "Ogniochron, Polen" },
+      { label: "Artikelnummer", value: "60505" },
+    ],
+    verdict:
+      "Vit 6 kg från Brandvarnare.se har högsta effektklassen och kostar 579 kronor, alltså 120 kronor mindre än den billigaste röda släckaren med samma klass.\n\n55A 233B C ger släckyta upp till 5,5 meter och 233 liter brinnande vätska, alltså samma prestanda som testvinnaren, till fyra femtedelar av priset. Väggfäste ingår, manometern sitter på ventilen och släckaren väger 9,4 kilo fylld. Den vita kroppen gör att den kan hänga i hallen i stället för bakom dammsugaren, och en släckare du når på tre sekunder är värd mer än en du gräver fram på trettio.\n\nFärgen kostar dig platser, och det är den verkliga invändningen. Deltronic skriver själva att vita släckare bara är avsedda för hemmiljö och inte får sitta på allmänna ytor. Trapphuset, det gemensamma garaget och lägenheten du hyr ut på somrarna är alltså uteslutna, och SS-EN 3-7 kräver röd färg, så någon annan läsning finns inte.\n\nSka släckaren hänga innanför din egen dörr är det här mest släckeffekt per krona i hela jämförelsen. Ska en granne, en hyresgäst eller en hantverkare hitta den tar du butikens röda i stället.",
   },
   {
     id: "brandvarnare-se-rod-6-kg",
     name: "Brandsläckare röd 6 kg",
     shortName: "Röd 6 kg",
-    brand: "Brandvarnare.se",
+    brand: "Deltronic",
     image: productImage(BRANDSLACKARE.slug, "brandvarnare-se-rod-6-kg"),
-    tagline: "Röd sexkilos med väggfäste, mitt i prisspannet.",
-    scores: { slackeffekt: 4, tillforlitlighet: 3, hanterbarhet: 3, placering: 4, prisvarde: 4 },
+    tagline: "Röd sexkilos med väggfäste, hemkörd till dörren.",
+    scores: { slackeffekt: 4, placeringsfrihet: 5, hanterbarhet: 3, utrustning: 4.5, prisvarde: 3.5 },
     price: 529,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/brandslackare-rod-6kg-2/",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Röd, med fäste, i mitten",
+    superlative: "Bäst om den ska hem till dörren",
     pros: [
-      "Röd, rätt färg där andra än du ska hitta den",
-      "Väggfäste medföljer",
-      "43A 233B C till 529 kronor",
-      "Kan stå på golvet eller hängas",
+      "Röd och godkänd enligt EN3-7:2004+A1:2007, alltså fri placering",
+      "Väggfäste och manometer följer med",
+      "25 sekunders tömningstid, längst av släckarna i jämförelsen",
+      "Kan stå på golvet eller hänga på vägg",
+      "2 års garanti och svensk importör",
     ],
     cons: [
-      "Fyrtio kronor dyrare än Biltemas med samma effektklass",
-      "Butiken anger varken typgodkännande, manometer eller temperaturområde",
+      "40 kronor dyrare än Biltemas släckare med samma effektklass och godkännande",
+      "43A, alltså 4,3 meters släckyta mot 5,5 för butikens egen vita",
+      "9,4 kilo fylld",
     ],
     specs: [
+      /* brandvarnare.se och deltronic.se, art. 60500, EAN 7332211605006, lästa
+         2026-08-06. Temperatur och tömningstid från Deltronics produktblad för
+         samma artikelnummer. */
       { label: "Effektklass", value: "43A 233B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej angivet av butiken", highlight: true },
-      { label: "Släckmedel", value: "6 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
-      { label: "Temperaturområde", shortLabel: "Temp", value: "Ej angivet" },
-      { label: "Väggfäste", value: "Ingår" },
-      { label: "Färg", value: "Röd" },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "EN3-7:2004+A1:2007", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Överallt", highlight: true },
+      { label: "Släckmedel", value: "6 kg Furex S Pro", highlight: true },
+      { label: "Manometer", value: "Ja", highlight: true },
+      { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
+      { label: "Väggfäste", value: "Ingår", highlight: true },
+      { label: "Mått", value: "510 × 175 × 185 mm", highlight: true },
+      { label: "Fylld vikt", value: "9,4 kg" },
+      { label: "Tömningstid", value: "25 sekunder" },
+      { label: "Garanti", value: "2 år" },
+      { label: "Artikelnummer", value: "60500" },
     ],
     verdict:
-      "En helt korrekt sexkilos i rätt färg med väggfäste, och det är ungefär allt vi kan säga om den, för butikens produkttext säger inte mer.\n\nEffektklassen 43A 233B C är densamma som testvinnarens. Priset är fyrtio kronor högre. Skillnaden är att Biltema skriver ut sitt typgodkännande, sin manometer och sitt temperaturområde, medan den här sidan anger ingetdera.\n\nDet är inget fel på produkten, och för den som ändå handlar hos Brandvarnare.se är den ett vettigt val. Men ska du välja mellan två släckare med identisk effektklass är den som talar om vad den är godkänd enligt det tryggare köpet.\n\nÄr det den röda färgen och väggfästet du är ute efter, och vill du ha högsta klassen, ligger butikens egen vita 55A hundra kronor högre upp i listan och femtio kronor högre i pris.",
-  },
-  {
-    id: "brandvarnare-se-rod-2-kg",
-    name: "Brandsläckare röd 2 kg",
-    shortName: "Röd 2 kg",
-    brand: "Brandvarnare.se",
-    image: productImage(BRANDSLACKARE.slug, "brandvarnare-se-rod-2-kg"),
-    tagline: "Billigast av släckarna, med väggfäste och i rätt färg.",
-    scores: { slackeffekt: 2.5, tillforlitlighet: 3, hanterbarhet: 5, placering: 4, prisvarde: 4 },
-    price: 349,
-    merchant: "Brandvarnare.se",
-    merchantUrl: "https://brandvarnare.se/produkt/brandslackare-rod_2kg/",
-    priceCheckedAt: PRICE_CHECKED,
-    award: "budget",
-    superlative: "Billigast som ändå duger",
-    pros: [
-      "13A 89B C i det lilla formatet",
-      "Väggfäste medföljer, till skillnad från konkurrenterna i samma storlek",
-      "Röd, rätt färg i gemensamma utrymmen",
-      "Butiken säger själv att pulver är bästa släckaren för privatpersoner",
-    ],
-    cons: [
-      "Butiken anger varken typgodkännande, manometer eller temperaturområde",
-    ],
-    specs: [
-      { label: "Effektklass", value: "13A 89B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej angivet av butiken", highlight: true },
-      { label: "Släckmedel", value: "2 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
-      { label: "Temperaturområde", shortLabel: "Temp", value: "Ej angivet" },
-      { label: "Väggfäste", value: "Ingår" },
-      { label: "Färg", value: "Röd" },
-    ],
-    verdict:
-      "Samma effektklass som budgetvinnaren, hundra kronor dyrare, men med väggfäste inkluderat och i rött.\n\nDe hundra kronorna köper alltså två saker: ett fäste, vilket i praktiken avgör om släckaren hänger synligt eller ligger i en garderob, och rätt färg för utrymmen där andra än du ska hitta den. Är släckaren tänkt för trappuppgången eller ett gemensamt garage är det pengarna värda.\n\nÄr den tänkt för bilen eller köksskåpet är den inte det, och då tar du Biltemas.\n\nButikens egen text är för övrigt rakare än de flesta i kategorin: de skriver att pulversläckare är den bästa släckaren för privatpersoner, vilket stämmer med vad Räddningsverket, Konsumentverket och SVEBRA rekommenderar.",
+      "Röd 6 kg från Brandvarnare.se kostar 529 kronor och är den billigaste röda sexkilossläckaren som kommer hem till dörren.\n\n43A 233B C, godkänd enligt EN3-7:2004+A1:2007, med väggfäste i lådan. Röd betyder att den får hänga där du vill ha den: trapphuset, det gemensamma garaget, stugan du hyr ut i juli. Tömningstiden är 25 sekunder, längst av släckarna här, vilket ger dig fler försök om det första svepet hamnar i lågorna i stället för i glöden.\n\nDen är också samma kropp som butikens vita, 9,4 kilo fylld och 51 centimeter hög, men 50 kronor billigare och utan placeringsbegränsningen. Det du får mindre av är släckyta: 4,3 meter mot 5,5.\n\nInvändningen är 40 kronor. Biltemas sexkilos har samma effektklass och samma godkännande för 489, och skillnaden är att den här kommer med posten och med ett fäste.\n\nHar du inget Biltemavaruhus i närheten är det här samma släckare för 40 kronor mer, och det bästa köpet i butiken. Vill du hellre ha 55A ligger den vita 50 kronor högre, men bara innanför din egen dörr.",
   },
   {
     id: "housegard-design-6-kg-vit",
@@ -241,42 +262,90 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Design Edition",
     brand: "Housegard",
     image: productImage(BRANDSLACKARE.slug, "housegard-design-6-kg-vit"),
-    tagline: "Högsta effektklassen. Och enligt butiken själv inte EN3-klassad.",
-    scores: { slackeffekt: 5, tillforlitlighet: 1, hanterbarhet: 3, placering: 4.5,      /* 1,5 och inte 2,0: 699 kronor är 170 mer än Brandvarnare.se:s röda
-         sexkilos, och butiken skriver själv att den här inte är EN3-klassad.
-         Att betala mer för mindre dokumentation är sidans sämsta affär.
-         Sänkt 2026-08-03. */
- prisvarde: 1.5 },
+    tagline: "55A som får hänga framme i hallen i stället för i städskåpet.",
+    scores: { slackeffekt: 5, placeringsfrihet: 2, hanterbarhet: 3, utrustning: 5, prisvarde: 2.5 },
     price: 699,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandslackare/housegard-brandslackare-design-edition-med-pulver-6-kg-vit-p21067",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 50, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Snyggast, med en varning",
+    superlative: "Bäst för hallen där den syns",
     pros: [
-      "55A 233B C, högsta effektklassen",
-      "Väggfäste medföljer",
-      "Tål −30 till +60 °C",
-      "Designad för att få stå framme i stället för att gömmas",
+      "55A 233B C, samma effektklass och samma kropp som testvinnaren",
+      "Väggfäste och manometer följer med",
+      "Provad för −30 till +60 °C",
+      "Ritad för att stå framme, vilket är hela poängen med en släckare du hittar snabbt",
     ],
     cons: [
-      "Butiken skriver uttryckligen: ej EN3-klassad",
-      "Endast för privat bruk i hemmamiljö, enligt butikens egen text",
-      "Kostar lika mycket som den röda som inte har den begränsningen",
+      "CE-märkt men inte EN 3-7-certifierad, eftersom standarden kräver röd färg",
+      "Får bara sitta i en privatbostad där de boende vet var den hänger",
+      "Kostar lika mycket som den röda som saknar begränsningen",
+      "Samma klass i vitt finns för 579 kronor hos en annan butik",
     ],
     specs: [
+      /* housegard.se, art. 600169, modell PE6HR-A, läst 2026-08-06.
+         Certifieringsfältet hos tillverkaren anger enbart CE, och Kjell skriver
+         "OBS: Ej EN3-klassad". Samma modellbeteckning som den röda 600170. */
       { label: "Effektklass", value: "55A 233B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej EN3-klassad, enligt butiken", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "CE, ej EN 3-7", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Endast privat hemmiljö", highlight: true },
       { label: "Släckmedel", value: "6 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
+      { label: "Manometer", value: "Ja", highlight: true },
       { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
-      { label: "Väggfäste", value: "Ingår" },
-      { label: "Tömningstid", value: "15 sekunder" },
-      { label: "Begränsning", value: "Endast privat bruk i hemmamiljö" },
+      { label: "Väggfäste", value: "Ingår", highlight: true },
+      { label: "Mått", value: "Ø150 × 519 mm", highlight: true },
+      { label: "Tömningstid", value: "22 sekunder" },
+      { label: "Arbetstryck", value: "15 bar" },
+      { label: "Kastlängd", value: "5–8 m" },
+      { label: "Artikelnummer", value: "600169 (Kjell 21067)" },
     ],
     verdict:
-      "Kjells egen produktsida är det bästa argumentet mot den här släckaren.\n\nPå produktsidan står det, med versaler, att släckaren inte är EN3-klassad, och att brandsläckare i annan färg än röd endast är för privat bruk i hemmamiljö där användaren förväntas veta var släckaren är placerad. Det är ovanligt rakt av en butik och förtjänar beröm.\n\nMen läs vad det betyder. Släckaren har högsta effektklassen och skulle på papperet ha legat i topp. Den saknar just den standard man köper en brandsläckare för, och den kostar exakt lika mycket som Kjells röda som inte har begränsningen.\n\nDet finns en situation där den ändå är rätt: du vill ha en släckare framme i hallen i stället för nedstoppad i en städskrubb, för en släckare du hittar på tre sekunder är bättre än en du hittar på trettio. Estetik är ett verkligt argument i brandskydd, av just det skälet.\n\nMen då finns en vit 55A för 579 kronor hos en annan butik, 120 billigare. Och den här var dessutom slut vid priskontrollen.",
+      "Design Edition är den vita versionen av testvinnaren. Samma kropp, samma 55A, samma pris på 699 kronor.\n\nEffektklassen är 55A 233B C, tömningstiden 22 sekunder och temperaturområdet −30 till +60 grader, precis som hos den röda. Kastlängden är till och med längre, 5 till 8 meter. Väggfäste ingår och manometern sitter på ventilen. Det du köper utöver släckeffekten är att den får stå framme: den är ritad för att hänga i hallen bredvid ytterdörren i stället för att gömmas, och det är ett riktigt brandskyddsargument, eftersom den släckare du når snabbast är den som gör nytta.\n\nFärgen har sitt pris i vad den får göra. Vit betyder CE-märkning men inte EN 3-7-certifiering, för standarden kräver rött, och Kjell skriver ut följden: endast privat bruk i hemmamiljö där användaren vet var släckaren är placerad. Trapphus, delat garage och uthyrning faller bort.\n\nVill du ha en vit 55A som får hänga framme finns samma klass för 579 kronor hos Brandvarnare.se, 120 billigare. Den här är värd sina 699 bara om det är just den här designen som får dig att faktiskt sätta upp en släckare i hallen.",
+  },
+  {
+    id: "brandvarnare-se-rod-2-kg",
+    name: "Brandsläckare röd 2 kg",
+    shortName: "Röd 2 kg",
+    brand: "Deltronic",
+    image: productImage(BRANDSLACKARE.slug, "brandvarnare-se-rod-2-kg"),
+    tagline: "Fyra kilo fylld, godkänd och röd, för båten och husvagnen.",
+    scores: { slackeffekt: 2.5, placeringsfrihet: 5, hanterbarhet: 4.5, utrustning: 4.5, prisvarde: 4 },
+    price: 349,
+    merchant: "Brandvarnare.se",
+    merchantUrl: "https://brandvarnare.se/produkt/brandslackare-rod_2kg/",
+    priceCheckedAt: PRICE_CHECKED,
+    superlative: "Bäst för båten och husvagnen",
+    pros: [
+      "4 kilo fylld och 37,5 centimeter hög, alltså hanterbar för alla i hushållet",
+      "Godkänd enligt EN3-7:2004+A1:2007 och röd, så den duger även i gemensamma utrymmen",
+      "Väggfäste och manometer följer med",
+      "13A 89B C, 62 procent mer släckeffekt än en enkilos",
+      "Uppfyller den storlek försäkringsvillkoren brukar kräva ombord på båt",
+    ],
+    cons: [
+      "13A räcker inte som enda skydd i en bostad, där rekommendationen är 6 kilo",
+      "Ø11,5 centimeter smal kropp betyder också kortare tömningstid, 15 sekunder",
+    ],
+    specs: [
+      /* brandvarnare.se och deltronic.se, art. 60510, EAN 7332211605105, lästa
+         2026-08-06. Temperatur, tömningstid och fylld vikt från Deltronics
+         produktblad för samma artikelnummer. */
+      { label: "Effektklass", value: "13A 89B C", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "EN3-7:2004+A1:2007", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Överallt", highlight: true },
+      { label: "Släckmedel", value: "2 kg Furex Pro", highlight: true },
+      { label: "Manometer", value: "Ja", highlight: true },
+      { label: "Temperaturområde", shortLabel: "Temp", value: "−30 till +60 °C", highlight: true },
+      { label: "Väggfäste", value: "Ingår", highlight: true },
+      { label: "Mått", value: "375 × 115 × 115 mm", highlight: true },
+      { label: "Fylld vikt", value: "4 kg" },
+      { label: "Tömningstid", value: "15 sekunder" },
+      { label: "Garanti", value: "2 år" },
+      { label: "Artikelnummer", value: "60510" },
+    ],
+    verdict:
+      "Röd 2 kg kostar 349 kronor, väger 4 kilo fylld och är 37,5 centimeter hög. Den får plats där en sexkilos inte gör det.\n\n13A 89B C i ett format som ryms i ett köksskåp, under en durk eller i husvagnens garderob. Den är godkänd enligt EN3-7:2004+A1:2007 och röd, alltså fri att sitta även där någon annan än du ska hitta den. Väggfäste ingår, och det är fästet som avgör om släckaren hänger monterad eller rullar omkring i ett bagageutrymme när den behövs.\n\nHar båten inombordare, utombordare på minst 20 hästkrafter, kök eller något annat med öppen låga kräver försäkringsvillkoren en funktionsduglig släckare ombord, och det är den här storleken det handlar om.\n\nSom enda skydd i en bostad räcker den inte. Brandskyddsföreningen rekommenderar minst 6 kilo pulver i hemmet, och deras norm för hembrandsläckare kräver 6 kilo och minst 43A. En 13A är en fjärdedel av en 55A.\n\nDet här är släckare nummer två, inte nummer ett. Har du redan sexkilosen på plats i hallen är den ett självklart komplement till bilen, båten eller köksskåpet.",
   },
   {
     id: "kjell-pulver-1-kg-rod",
@@ -284,37 +353,44 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Kjell 1 kg",
     brand: "Kjell & Company",
     image: productImage(BRANDSLACKARE.slug, "kjell-pulver-1-kg-rod"),
-    tagline: "Minst i testet. Bra i bilen, aldrig som enda släckare hemma.",
-    scores: { slackeffekt: 1.5, tillforlitlighet: 3, hanterbarhet: 5, placering: 3, prisvarde: 2.5 },
+    tagline: "1,8 kilo som får plats i handskfacket.",
+    scores: { slackeffekt: 1.5, placeringsfrihet: 5, hanterbarhet: 5, utrustning: 4, prisvarde: 2.5 },
     price: 349.9,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandslackare/brandslackare-med-pulver-1-kg-rod-p21026",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 506, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Får plats överallt",
+    superlative: "Bäst för handskfacket",
     pros: [
-      "506 kundbetyg, klart störst underlag av släckarna",
-      "Ett kilo, som får plats i bilen, husvagnen eller ett köksskåp",
-      "ABC-pulver, samma släckmedel som de stora",
-      "Finns i röd och vit till samma pris",
+      "1,8 kilo och 35 centimeter, minst av släckarna i jämförelsen",
+      "506 kundbetyg, 24 gånger mer underlag än någon annan släckare här",
+      "Röd modell levereras med väggfäste",
+      "ABC-pulver och manometer, samma grundfunktion som de stora",
     ],
     cons: [
-      "8A 34B C, lägst effektklass av släckarna",
-      "Dyrare än Biltemas tvåkilos, som ger sextiotvå procent mer släckeffekt",
-      "Butiken kallar den själv ett komplement till en större släckare",
+      "8A 34B C, en sjättedel av släckytan hos en 55A",
+      "Brandvarnare.se:s tvåkilos ger 62 procent mer släckeffekt för 90 öre mindre",
+      "Säljs bara i butik, inte med hemleverans",
     ],
     specs: [
+      /* kjell.com, art. 21026, läst 2026-08-06. Kjells egen produkt, ingen
+         tillverkarsida hittad; certifiering och temperaturområde inte
+         fastställda. Se researchfilen. */
       { label: "Effektklass", value: "8A 34B C", highlight: true },
-      { label: "Typgodkännande", shortLabel: "Godkänd", value: "Ej angivet av butiken", highlight: true },
+      { label: "Certifiering", shortLabel: "Godkänd", value: "Ej angiven", highlight: true },
+      { label: "Får placeras", shortLabel: "Placering", value: "Överallt", highlight: true },
       { label: "Släckmedel", value: "1 kg pulver ABC", highlight: true },
-      { label: "Manometer", value: "Ej angivet" },
-      { label: "Temperaturområde", shortLabel: "Temp", value: "Ej angivet" },
-      { label: "Väggfäste", value: "Ej angivet" },
+      { label: "Manometer", value: "Ja", highlight: true },
+      { label: "Temperaturområde", shortLabel: "Temp", value: "Ej angiven", highlight: true },
+      { label: "Väggfäste", value: "Ingår i röd", highlight: true },
+      { label: "Mått", value: "Ø86 × 350 mm", highlight: true },
+      { label: "Fylld vikt", value: "1,8 kg" },
       { label: "Färg", value: "Röd, finns även vit" },
+      { label: "Artikelnummer", value: "21026" },
     ],
     verdict:
-      "506 kundbetyg på 4,5 är 24 gånger mer underlag än testvinnaren har. Folk köper den här och blir nöjda.\n\nDe köper den också av rätt skäl. Ett kilo får plats i handskfacket, i husvagnen och i ett köksskåp, och Kjell skriver själva att den lämpar sig som komplement till en större släckare och till exempel för bilen.\n\nDärför ligger den sist, och det är ingen kritik mot produkten utan mot hur den ofta köps. 8A är lägst effektklass av släckarna, mindre än en sjättedel av en 55A. Som enda brandskydd i ett hem räcker den inte, och räddningstjänsterna rekommenderar entydigt en sexkilos.\n\nDet finns dessutom ett rakare problem. Brandvarnare.se:s tvåkilos kostar 349 kronor, 90 öre mindre, och ger 13A. Det är sextiotvå procent mer släckeffekt för samma pengar, och den har väggfäste. Ska du ha en liten släckare är det den du ska ha, om du inte behöver just den här formen eller vill hämta i butik samma dag.",
+      "Kjells enkilos väger 1,8 kilo, är 35 centimeter hög och 8,6 i diameter, och kostar 349,90 kronor. Den får plats i ett handskfack.\n\n8A 34B C, ABC-pulver och manometer i den minsta kroppen i jämförelsen. Den röda modellen levereras med väggfäste, den vita utan. 506 kundbetyg på 4,5 är 24 gånger mer underlag än någon annan släckare här har, och recensionerna handlar nästan uteslutande om bilen och bakluckan. Folk köper den till rätt saker.\n\nDärför ligger den sist, och det är ingen kritik mot produkten utan mot hur den ofta köps. 8A är en sjättedel av släckytan hos en 55A och långt under Brandskyddsföreningens golv för en hemsläckare, som är 6 kilo och 43A. Kjell skriver själva att den lämpar sig som komplement till en större släckare.\n\nHar du redan en sexkilos hemma och vill ha något i bilen är det här rätt storlek och rätt kropp. Ska du bara ha en liten släckare ger Brandvarnare.se:s tvåkilos 62 procent mer släckeffekt för 90 öre mindre, och Biltemas enkilos kostar 199.",
   },
 ];
 
@@ -325,18 +401,19 @@ type ExtinguisherTrait = {
   id: string;
   kg: number;
   klassA: number;
-  statedApproval: boolean;
+  /** Röd, och därmed fri att sitta i trapphus, delat garage och uthyrning. */
+  anywhere: boolean;
   wallMount: boolean;
 };
 
 const TRAITS: ExtinguisherTrait[] = [
-  { id: "biltema-pulver-6-kg", kg: 6, klassA: 43, statedApproval: true, wallMount: false },
-  { id: "brandvarnare-se-vit-6-kg", kg: 6, klassA: 55, statedApproval: false, wallMount: true },
-  { id: "housegard-6-kg-rod", kg: 6, klassA: 55, statedApproval: false, wallMount: true },
-  { id: "brandvarnare-se-rod-6-kg", kg: 6, klassA: 43, statedApproval: false, wallMount: true },
-  { id: "brandvarnare-se-rod-2-kg", kg: 2, klassA: 13, statedApproval: false, wallMount: true },
-  { id: "housegard-design-6-kg-vit", kg: 6, klassA: 55, statedApproval: false, wallMount: true },
-  { id: "kjell-pulver-1-kg-rod", kg: 1, klassA: 8, statedApproval: false, wallMount: false },
+  { id: "housegard-6-kg-rod", kg: 6, klassA: 55, anywhere: true, wallMount: true },
+  { id: "biltema-pulver-6-kg", kg: 6, klassA: 43, anywhere: true, wallMount: false },
+  { id: "brandvarnare-se-vit-6-kg", kg: 6, klassA: 55, anywhere: false, wallMount: true },
+  { id: "brandvarnare-se-rod-6-kg", kg: 6, klassA: 43, anywhere: true, wallMount: true },
+  { id: "housegard-design-6-kg-vit", kg: 6, klassA: 55, anywhere: false, wallMount: true },
+  { id: "brandvarnare-se-rod-2-kg", kg: 2, klassA: 13, anywhere: true, wallMount: true },
+  { id: "kjell-pulver-1-kg-rod", kg: 1, klassA: 8, anywhere: true, wallMount: true },
 ];
 
 export const BRANDSLACKARE_FILTERS: ComparisonFilter[] = [
@@ -356,9 +433,9 @@ export const BRANDSLACKARE_FILTERS: ComparisonFilter[] = [
     ids: TRAITS.filter((t) => t.klassA >= 55).map((t) => t.id),
   },
   {
-    key: "godkannande",
-    label: "Godkännande utskrivet",
-    ids: TRAITS.filter((t) => t.statedApproval).map((t) => t.id),
+    key: "far-sitta-overallt",
+    label: "Får sitta var som helst",
+    ids: TRAITS.filter((t) => t.anywhere).map((t) => t.id),
   },
   {
     key: "vaggfaste",
@@ -371,15 +448,29 @@ export const BRANDSLACKARE_FILTERS: ComparisonFilter[] = [
 export const BRANDSLACKARE_CONSIDERED: ConsideredProduct[] = [
   {
     brand: "Biltema",
+    name: "Brandsläckare pulver ABC 2 kg",
+    reason:
+      "249 kronor för 13A 89B C, typgodkänd enligt EN 3-7/8, med manometer och övertrycksventil. Det är 100 kronor under den tvåkilos vi rankar och samma effektklass. Vi rankar Brandvarnare.se:s i stället eftersom väggfästet ingår där och den kommer hem till dörren, men handlar du ändå på Biltema är den här självklar.",
+    approxPrice: 249,
+    merchant: "Biltema",
+    merchantUrl:
+      "https://www.biltema.se/hem/sakerhet/brandslackare/brandslackare-pulver-abc-2-kg-2000046825",
+  },
+  {
+    brand: "Biltema",
     name: "Brandsläckare pulver ABC 1 kg",
     reason:
-      "Biltemas minsta, som kompletterar deras två- och sexkilos. Vi rankar Kjells enkilos i stället eftersom den har 506 kundbetyg mot Biltemas okända, men slutsatsen är densamma för båda: en enkilos är ett komplement och inte ett hemskydd. Har du ändå bestämt dig för formatet är det värt att jämföra priserna, eftersom Biltema ligger lägre på sina övriga storlekar.",
+      "199 kronor för 8A 34B C, alltså 150 kronor billigare än enkilossläckaren vi rankar och med samma effektklass, manometer och EN 3-7/8. Vi rankar Kjells eftersom den har 506 kundbetyg och väggfäste, men slutsatsen är densamma för båda: en enkilos är ett komplement till bilen, inte ett hemskydd.",
+    approxPrice: 199,
+    merchant: "Biltema",
+    merchantUrl:
+      "https://www.biltema.se/hem/sakerhet/brandslackare/brandslackare-pulver-abc-1-kg-2000046824",
   },
   {
     brand: "Kjell & Company",
     name: "Brandsläckare med pulver 1 kg vit",
     reason:
-      "Identisk med den röda enkilos vi rankar: samma pris 349,90 kronor, samma effektklass 8A 34B C och samma kundbetyg, eftersom Kjell delar betygen mellan färgvarianterna. Vi rankar bara den röda för att inte fylla listan med samma produkt två gånger, och för att röd är rätt färg om någon annan än du ska hitta släckaren.",
+      "Identisk med den röda enkilos vi rankar på allt utom två punkter: väggfäste ingår inte, och vit färg gör att den bara får sitta i en privatbostad. Samma pris, 349,90 kronor, samma 8A 34B C och samma kundbetyg, eftersom Kjell delar betygen mellan färgvarianterna. Den röda är det bättre köpet av båda skälen.",
     approxPrice: 349.9,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -407,7 +498,7 @@ export const BRANDSLACKARE_CONSIDERED: ConsideredProduct[] = [
     brand: "Diverse",
     name: "Skum-, kolsyre- och vattensläckare",
     reason:
-      "Finns, men inte på svenska konsumenthyllor. Vi inventerade Kjell, Brandvarnare.se och Biltema 2026-08-02 och samtliga tio handsläckare de säljer är pulver. Räddningsverket, Konsumentverket och SVEBRA rekommenderar dessutom samstämmigt pulver till hemmet, eftersom det släcker flest typer av bränder. Skum är rimligt om du absolut inte vill ha pulverkladd, kolsyra i serverrum, men båda får du beställa från en brandskyddsfirma.",
+      "Finns, men inte på svenska konsumenthyllor. Vi inventerade Kjell, Brandvarnare.se och Biltema 2026-08-02 och samtliga tio handsläckare de säljer är pulver. Brandskyddsföreningen, Konsumentverket och SVEBRA rekommenderar dessutom samstämmigt pulver till hemmet, eftersom det släcker flest typer av bränder. Skum är rimligt om du absolut inte vill ha pulverkladd, kolsyra i serverrum, men båda får du beställa från en brandskyddsfirma.",
   },
 ];
 
@@ -415,7 +506,7 @@ export const BRANDSLACKARE_FAQ = [
   {
     question: "Vilken brandsläckare ska man ha hemma?",
     answer:
-      "En sex kilos pulversläckare av typen ABC. Det är vad Räddningsverket, Konsumentverket och SVEBRA samstämmigt rekommenderar, och pulver är det släckmedel som fungerar på flest sorters bränder: trä och textil, brinnande vätskor och gas. Komplettera gärna med en mindre i köket eller bilen, men låt den stora vara huvudskyddet.",
+      "En sex kilos pulversläckare av typen ABC. Det är vad Brandskyddsföreningen, Konsumentverket och SVEBRA samstämmigt rekommenderar, och pulver är det släckmedel som fungerar på flest sorters bränder: trä och textil, brinnande vätskor och gas. Komplettera gärna med en mindre i köket eller bilen, men låt den stora vara huvudskyddet.",
   },
   {
     question: "Vad betyder 55A 233B C på en brandsläckare?",
@@ -423,19 +514,24 @@ export const BRANDSLACKARE_FAQ = [
       "Det är effektklassen enligt standarden EN 3. A-talet gäller brand i fasta material som trä och textil och anger hur stor yta släckaren klarar, där 55A motsvarar upp till 5,5 meter från släckaren. B-talet gäller brinnande vätska, och 233B betyder 233 liter bensin, olja eller färg. C betyder att den även klarar gasbränder. Ju högre tal, desto mer eld.",
   },
   {
+    question: "Får man ha en vit brandsläckare?",
+    answer:
+      "I din egen bostad, ja. Utanför den, nej. SS-EN 3-7 kräver röd färg, så en vit släckare kan inte vara EN 3-7-certifierad, och både Kjell och Deltronic skriver ut vad det innebär: den är endast avsedd för privat bruk i hemmamiljö där användaren vet var släckaren är placerad. I ett trapphus, ett gemensamt garage eller en lägenhet du hyr ut ska släckaren vara röd, eftersom en främling ska hitta den på en sekund. Brandskyddsföreningens norm SBF 2011:1 finns just för det här undantaget: en hembrandsläckare ska uppfylla alla krav i SS-EN 3-7 utom punkt 16.1 om färgen, väga 6 kilo och klara minst 43A och 233B.",
+  },
+  {
     question: "Vad kostar en brandsläckare?",
     answer:
-      "De vi jämför kostar mellan 249 och 699 kronor, kontrollerat 2026-08-02. En sex kilos ligger på 489 till 699, en två kilos på 249 till 349 och en ett kilos runt 350. Det dyraste alternativet har inte högst effektklass, vilket är det första man bör kontrollera.",
+      "De vi jämför kostar mellan 349 och 699 kronor, kontrollerat 2026-08-02. En sex kilos ligger på 489 till 699, en två kilos på 249 till 349 och en ett kilos på 199 till 350. Det dyraste alternativet har inte högst effektklass, vilket är det första man bör kontrollera.",
   },
   {
     question: "Hur många brandsläckare behöver man?",
     answer:
-      "En sex kilos per bostad som grund, placerad där du snabbt når den, gärna nära utgången och inte inne i köket där branden ofta börjar. I en villa i två plan är två rimligt. Komplettera med en mindre i bilen och gärna en i köket, eftersom de flesta bränder i hemmet startar just där.",
+      "En sex kilos per bostad som grund, placerad där du snabbt når den, gärna nära utgången och inte inne i köket där branden ofta börjar. Bor du i flera plan är rekommendationen en släckare per våningsplan. Komplettera med en mindre i bilen och gärna en i köket, eftersom de flesta bränder i hemmet startar just där.",
   },
   {
     question: "Hur länge håller en brandsläckare?",
     answer:
-      "En pulversläckare håller normalt tio år, men den ska kontrolleras med jämna mellanrum och trycket ska ligga i det gröna fältet på manometern. Har släckaren ingen manometer kan du inte se om trycket finns kvar, vilket är ett verkligt argument för att välja en med. Vänd släckaren upp och ner ett par gånger om året så att pulvret inte packar sig.",
+      "En pulversläckare håller normalt tio år, men den ska kontrolleras med jämna mellanrum och trycket ska ligga i det gröna fältet på manometern. Samtliga sju släckare i jämförelsen har manometer, så kontrollen tar en sekund. Ogniochron, som tillverkar tre av dem, anger 20 års maximal brukstid med årlig utvändig besiktning och kontroll av behållare och ventil minst vart femte år. Vänd släckaren upp och ner ett par gånger om året så att pulvret inte packar sig.",
   },
   {
     question: "Är pulver, skum eller kolsyra bäst?",
@@ -445,7 +541,7 @@ export const BRANDSLACKARE_FAQ = [
   {
     question: "Kan man ha brandsläckare i ouppvärmt garage?",
     answer:
-      "Bara om temperaturområdet tillåter det, och det är långt ifrån alla butiker som anger det. Housegards sexkilos hos Kjell och Biltemas släckare anges båda till −30 till +60 grader, gott och väl vad en svensk vinter kräver. Där uppgiften saknas ska du utgå från att släckaren vill stå inomhus.",
+      "Ja, om släckaren är provad för det. Sex av de sju vi jämför anges till −30 till +60 grader, gott och väl vad en svensk vinter kräver, och Housegards röda sexkilos är dessutom uttryckligen godkänd för utomhusbruk och angiven som ej frostkänslig. Det gör garaget, uthuset och den kalla sommarstugan till fria placeringar.",
   },
   {
     question: "Ersätter en släckspray en brandsläckare?",

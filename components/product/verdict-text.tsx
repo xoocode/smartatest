@@ -3,7 +3,11 @@ import { Fragment } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Renderar ett omdöme som stycken i stället för som en textmassa.
+ * Sajtens styckerenderare. Tomrad blir nytt stycke, `**text**` blir fetstil.
+ *
+ * Används av omdömena, av `MethodologyBlock` (ingress, kriteriebeskrivningar
+ * och fotnot) och av källnoterna i `SourceList`. Namnet är kvar från 2026-08-03
+ * då den bara gällde omdömen; kontraktet är numera bredare.
  *
  * ## Varför komponenten finns
  *

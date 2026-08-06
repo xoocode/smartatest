@@ -9,7 +9,7 @@
  *
  * The two integration points:
  *
- *   middleware.ts        →  captureClickId(request, response)
+ *   middleware.ts        →  captureAndClean(request)
  *   app/till/[id]/route  →  createTillRoute({ resolve })
  *
  * Everything else is configuration through environment variables.
@@ -18,6 +18,7 @@
 export { getConfig, resetConfigCache, type R9TrackConfig } from "./config";
 export { mintClickId, CLICK_ID_LENGTH } from "./click-id";
 export {
+  captureAndClean,
   captureClickId,
   hasAdConsent,
   readClickCookie,

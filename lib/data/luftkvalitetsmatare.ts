@@ -8,10 +8,10 @@ import { LUFTKVALITETSMATARE } from "@/lib/test-pages";
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, kundbetyg, GTIN, givaruppsättningar och
- * Airthings angivna noggrannhet. Allt läst 2026-08-04 hos Clas Ohlson via
- * webbläsare med kakorna avvisade, hos Proshop i deras strukturerade data,
- * eller hos tillverkaren.
+ * **Verkligt och daterat:** priser, kundbetyg, GTIN, givaruppsättningar, mått,
+ * strömförsörjning och samtliga noggrannhetsuppgifter. Priser och kundbetyg är
+ * lästa 2026-08-04 hos Clas Ohlson och Proshop. Givare, noggrannhet, mått och
+ * batteritider är lästa hos tillverkaren 2026-08-06.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte mätt någon luft,
  * inte provat någon mätare och inte jämfört någon avläsning mot ett
@@ -21,15 +21,55 @@ import { LUFTKVALITETSMATARE } from "@/lib/test-pages";
  *
  * **Tre av åtta kartlagda mätare saknar koldioxidgivare helt**, trots att de
  * säljs som luftkvalitetsmätare, och en fjärde anger `eCO2`. Det är ett tal
- * uträknat ur halten flyktiga organiska ämnen och inte en mätning av
- * koldioxid, och det stiger av en doftspray i ett tomt rum. Ordet står i Clas
- * Ohlsons egen produkttext för Mill Sense.
+ * uträknat ur halten flyktiga organiska ämnen och inte en mätning av koldioxid.
+ * Mill skriver det själv i sin egen bruksanvisning: "eCO2 beräknas från
+ * VOC-mätningen ... Om det finns betydande koncentrationer av andra flyktiga
+ * organiska ämnen kommer eCO2-avläsningen att vara högre än den faktiska
+ * CO2-nivån."
  *
- * Airthings använder NDIR och publicerar ±30 ppm ±3 % mellan 15 och 35 °C.
- * Samma mönster som `/hygrometer`, fast vänt: den som har en riktig givare
- * skriver också ut vad den klarar.
+ * ## ⚠️ Rättat 2026-08-06: ±30 ppm gäller EN modell, inte tre
  *
- * **View Radon kostar 1 899 kronor och mäter radon, fukt och temperatur.**
+ * Sidan skrev att View Plus, Wave Plus och Wave Enhance delar samma angivna
+ * ±30 ppm ±3 %. De har tre olika tal, alla på Airthings egna produktsidor:
+ *
+ * - **View Plus: ±50 ppm ±3 %** mellan 10 och 35 °C
+ * - **Wave Plus: ±30 ppm ±3 %** mellan 15 och 35 °C
+ * - **Wave Enhance: ±50 ppm ±5 %** inom 500 till 2 000 ppm
+ *
+ * Wave Plus har alltså kategorins noggrannaste koldioxidgivare, vilket sidan
+ * tidigare gav bort genom att skriva att den var likvärdig. Talet ±30 ppm hade
+ * burits över från en modell till två andra, vilket är precis det fel
+ * spec-sourcing.md varnar för.
+ *
+ * ## ⚠️ Samma fälla en gång till: Netatmos två noggrannhetstal
+ *
+ * Netatmo anger **±100 ppm** för koldioxid och ±0,3 °C för temperatur i
+ * hjälpcentrets artikel 360025217051, som handlar om Smart Indoor Air Quality
+ * Monitor. Det är den uppgift som gäller vår vara, läst 2026-08-06.
+ *
+ * Artikel 360020908892 anger ±100 ppm upp till 1 000 ppm och ±10 % däröver,
+ * och samma artikel beskriver givaren som en lampa med infraröd mottagare,
+ * alltså NDIR i allt utom namnet. **Den gäller Smart Home Weather Station.**
+ * Bär inte över någotdera: det är exakt det fel som gav ±30 ppm åt tre
+ * Airthings-modeller och vände en av sidans slutsatser.
+ *
+ * Netatmos koldioxidtolerans är alltså den vidaste av de fyra mätare som
+ * verkligen mäter koldioxid, och det står nu i tabellen, en nackdel och
+ * omdömet.
+ *
+ * ## ⚠️ Rättat 2026-08-06: Wave Enhance mäter sju saker, inte fyra
+ *
+ * Clas Ohlsons produkttext listar fyra storheter. Airthings eget produktblad
+ * (`Wave Enhance - Product Sheet - EN.pdf`, V3 07/2024) listar sju: koldioxid,
+ * VOC, fukt, temperatur, lufttryck, ljudnivå och ljus. Betyget för `givare`
+ * höjs från 3,5 till 4,0. Butikens lista var kortare än varan.
+ *
+ * ## ⚠️ Kriteriet `Angiven noggrannhet` är borttaget, raden heter `Noggrannhet`
+ *
+ * Det vägde 15 och belönade att uppgiften publicerades. Fyra av de sju betygen
+ * var i praktiken satta på hur lätt vi hade att hitta ett datablad, vilket är
+ * vår research och inte varans egenskap. Se `lib/corrections.ts` 2026-08-06.
+ * Noggrannheten står kvar i tabellen, där den upplyser utan att döma.
  *
  * ## ⚠️ Radonregeln påverkar inte betygen
  *
@@ -45,29 +85,31 @@ import { LUFTKVALITETSMATARE } from "@/lib/test-pages";
  * en åtgärd hjälpte. Spårfilmen gör inte det. `eCO2` straffas däremot hårt,
  * eftersom talet inte motsvarar någon storhet som finns i rummet.
  *
+ * ## GTIN, som inte längre är en spec-rad
+ *
+ * Raden syntes ingenstans: jämförelsetabellen tar sina rader ur den första
+ * produktens markerade specar, och produktkorten renderar bara de markerade.
+ * Koderna står därför här, där de gör nytta vid prisjämförelse.
+ *
+ * | Produkt | GTIN | Källa |
+ * |---|---|---|
+ * | View Plus | 7090031109608 | Proshop |
+ * | Wave Plus | 7090031109301 | Airthings egen produktsida |
+ * | Wave Enhance | 7090031100216 | Airthings produktblad, EU-koden |
+ * | Wave Mini | 7090031109202 | Proshop |
+ * | View Radon | 7090031109899 | Proshop |
+ * | Netatmo | 3700730501767 | Proshops strukturerade data 2026-08-06 |
+ *
+ * Mill Sense saknar publicerad GTIN hos både Clas Ohlson och Mill.
+ *
  * ## ⚠️ Två saker som inte får skrivas in
  *
  * 1. **Inget pris på en ackrediterad radonmätning.** Sökresultat gav 320, 600
  *    och omkring 1 000 kronor, och laboratoriernas egna produktsidor svarar 404.
- * 2. **Netatmos noggrannhet är inte fastställd.** Deras specifikationssida
- *    svarade 404 och uppgiften står som ej angiven, inte som en nolla.
- *
- *    Kontrollerat igen 2026-08-05, med fyra ingångar: sv-se-produktsidan,
- *    `pro.netatmo.com/eu/nhc/specifications` (omdirigerar till en landningssida),
- *    `en-eu/.../specifications` (404) och hjälpcentrets artikel om
- *    luftkvalitetsmätningen, som ligger bakom Cloudflares botkontroll och
- *    svarar 403 för både Playwright och WebFetch. **Ingen av dem är läst och
- *    tom.** Skriv därför aldrig att Netatmo inte publicerar uppgiften; skriv
- *    att vi inte kunnat läsa den. Taglinen påstod det förra fram till
- *    2026-08-05.
- *
- * ## ⚠️ Airthings anger mer än vi trodde
- *
- * Rättat 2026-08-05. View Radon och Wave Mini stod båda som "Ej angiven" på
- * noggrannhet. Airthings publicerar den för båda, på sina egna produktsidor:
- * View Radon omkring 5 % efter två månader vid 200 Bq/m³ plus ±0,5 °C och
- * ±3 % fukt, Wave Mini ±1 °C och ±3 % fukt men ingen tolerans för TVOC, som är
- * dess huvudgivare. Vi hade läst butikssidorna, inte tillverkaren.
+ * 2. **Ingen garantirad.** Uppgifterna motsäger varandra: Mills egen
+ *    bruksanvisning skriver två år, Clas Ohlsons produkttext fem. Airthings ger
+ *    en standardgaranti utan angiven längd plus fem år vid registrering inom 30
+ *    dagar. En rad av det går inte att jämföra rakt av.
  *
  * ## Betygstalen är inte jämförbara mellan butikerna
  *
@@ -75,12 +117,16 @@ import { LUFTKVALITETSMATARE } from "@/lib/test-pages";
  * `ratingCount` ligger tre till fem gånger högre för samma sorts produkt, så
  * talen här ska aldrig ställas mot ett Kjell-tal på en annan sida.
  *
- * ## Sex av produkterna är Airthings
+ * ## Fem av de sju rankade är Airthings
  *
- * Det beror på att märket dominerar sortimentet, inte
- * på något annat. De hamnar dessutom på fyra skilda platser i rankningen, från
- * första till näst sist, vilket är rimligt eftersom givaruppsättningarna
- * skiljer sig från sju givare till tre.
+ * Det beror på att märket dominerar sortimentet, inte på något annat. De hamnar
+ * dessutom på fem skilda platser i rankningen, plats 1, 2, 3, 5 och 6, vilket
+ * är rimligt eftersom givaruppsättningarna skiljer sig från sju givare till
+ * tre.
+ *
+ * ⚠️ Stod som "sex produkter på fyra skilda platser" till 2026-08-06. Sexan
+ * kom från researchfilens "sex av elva är Airthings", som räknar Clas Ohlsons
+ * hela kategori och inte vår rankning. Räkna i SEEDS, inte i underlaget.
  */
 
 export const PRICE_CHECKED = "2026-08-04";
@@ -95,12 +141,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "View Plus",
     brand: "Airthings",
     image: productImage(LUFTKVALITETSMATARE.slug, "airthings-view-plus"),
-    tagline: "Sju givare, och koldioxiden mäts på riktigt.",
+    tagline: "Radon, partiklar och koldioxid på samma display.",
     scores: {
       givare: 5,
       beslutsnytta: 4.5,
       avlasning: 5,
-      noggrannhet: 4.5,
       prisvarde: 3,
     },
     price: 2856,
@@ -109,43 +154,39 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.proshop.se/Smarta-Hem/Airthings-View-Plus-Smart-Radon-and-Air-Quality-Monitor/2990814",
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "Bredaste givaruppsättningen",
+    superlative: "Bäst för trafikerad gata och vedeldning",
     pros: [
-      "Sju givare: radon, partiklar, VOC, koldioxid, fukt, temperatur och lufttryck",
-      "NDIR för koldioxid, med angiven noggrannhet ±30 ppm ±3 %",
-      "Partikelmätning, som ingen annan av de rankade har",
+      "Sju storheter i en apparat: radon, partiklar, VOC, koldioxid, fukt, temperatur och lufttryck",
+      "Enda mätaren i rankningen som mäter PM2,5",
       "Inbyggd display, så värdet syns utan att du öppnar appen",
       "1,2 av 5,0 för mätningarna hos Stiftung Warentest, där 1,0 är bäst",
+      "Går på 6 AA-batterier eller USB-C, så den kan stå där det saknas uttag",
     ],
     cons: [
-      "Dyrast av de sju, 2 856 kronor",
+      "Dyrast av mätarna här, 2 856 kronor",
+      "Wave Plus mäter koldioxid noggrannare, ±30 ppm mot ±50, för 857 kronor mindre",
       "443 kronor dyrare hos Clas Ohlson än hos Proshop för samma vara",
-      "Radonvärdet duger inte till ett myndighetsbeslut, se köpguiden",
     ],
     specs: [
       { label: "Pris", value: "2 856 kr", highlight: true },
       {
         label: "Mäter",
-        value: "Radon, PM, VOC, CO2, fukt, temp, tryck",
+        value: "Radon, PM2,5, VOC, CO2, fukt, temp, tryck",
         highlight: true,
       },
       { label: "CO2-teknik", value: "NDIR", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "± 30 ppm ± 3 % (CO2)",
+        label: "Noggrannhet",
+        value: "CO2 ±50 ppm ±3 %, radon ~5 % efter 2 mån",
         highlight: true,
       },
+      { label: "Radon", value: "Ja", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "6 AA eller USB-C", highlight: true },
       { label: "Avläsning", value: "Display och app", highlight: true },
-      { label: "Radon", value: "Ja" },
-      { label: "Partiklar", value: "Ja, PM2,5" },
-      { label: "Uppkoppling", value: "Wifi, app" },
-      { label: "Loggning", value: "Ja" },
-      { label: "Testomdöme", value: "1,2 för mätning, Stiftung Warentest" },
-      { label: "GTIN", value: "7090031109608" },
+      { label: "Mått", value: "17 × 9 × 3,3 cm", highlight: true },
     ],
     verdict:
-      "Sju givare, och ensam bland de rankade om att mäta partiklar. Den är också den enda någon oberoende har provat: Stiftung Warentest gav den 1,2 för mätningarna, alltså sehr gut på en skala där 1,0 är bäst, och 1,9 totalt.\n\nKoldioxiden mäts med NDIR, genom hur infrarött ljus absorberas av gasen. Airthings anger ±30 ppm ±3 % mellan 15 och 35 grader. Det är den tydligaste noggrannhetsuppgiften någon tillverkare här publicerar, och tre av de sju anger ingenting alls.\n\nSkillnaden mot en eCO2-mätare är inte en nyans. Ett eCO2-tal räknas fram ur halten flyktiga organiska ämnen och stiger av en doftspray i ett tomt rum. Ett NDIR-tal stiger när det finns mer koldioxid i luften.\n\nPartikelmätningen är det andra som skiljer. PM2,5 är det värde som säger något när gatan utanför är trafikerad eller när grannen eldar. Ingen annan av de rankade har den givaren, och bland de övervägda finns den bara hos Uni-T A25D.\n\nDisplayen gör att värdena syns i förbifarten. Flera av de billigare kräver att du öppnar appen, och en mätare man måste öppna en app för att läsa blir en mätare man läser en gång i månaden.\n\nPriset är det högsta av de sju. Notera samtidigt att samma apparat kostar 3 299 kronor hos Clas Ohlson, 443 kronor mer. Det är värt att kontrollera båda innan du köper.\n\nOch en sak som betyget inte tar hänsyn till, men som du behöver veta om du köper den för radonet: den siffran duger inte till ett myndighetsbeslut. Köpguiden förklarar vad som krävs i stället.",
+      "Airthings View Plus mäter sju storheter och är den enda mätaren i rankningen som mäter partiklar. Den kostar 2 856 kronor hos Proshop.\n\n**Partikelmätningen är det som skiljer den från allt annat här.** PM2,5 är värdet som säger något när gatan utanför är trafikerad eller när grannen eldar med ved, och ingen annan av de rankade har den givaren. Koldioxiden mäts med NDIR, alltså genom hur infrarött ljus absorberas av gasen, och Airthings anger ±50 ppm ±3 procent mellan 10 och 35 grader. Displayen gör att värdena syns i förbifarten: flera av de billigare kräver att du plockar upp telefonen, och en mätare du måste öppna en app för att läsa blir en mätare du läser en gång i månaden. Sex AA-batterier eller en USB-C-kabel driver den, så den kan stå i en källare utan uttag.\n\nDen är också den enda här som någon oberoende har provat. Stiftung Warentest gav den 1,2 för mätningarna, sehr gut på en tysk skala där 1,0 är bäst, och 1,9 totalt.\n\n**Wave Plus mäter däremot koldioxid noggrannare, ±30 ppm mot ±50, och kostar 857 kronor mindre.** Är koldioxid det enda du bryr dig om betalar du alltså mer för ett trubbigare tal. Men ska du täcka radon, partiklar och koldioxid i en enda apparat och kunna läsa av dem utan telefon gör ingen av de andra sex det. Köp den. Kontrollera bara båda butikerna först, för hos Clas Ohlson kostar samma apparat 3 299 kronor.",
   },
   {
     id: "airthings-wave-plus",
@@ -153,12 +194,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wave Plus",
     brand: "Airthings",
     image: productImage(LUFTKVALITETSMATARE.slug, "airthings-wave-plus"),
-    tagline: "Samma givare som toppen, utan partiklar och utan display.",
+    tagline: "Mäter koldioxid snävare än någon annan mätare här.",
     scores: {
       givare: 4.5,
       beslutsnytta: 4.5,
       avlasning: 3.5,
-      noggrannhet: 4.5,
       prisvarde: 4,
     },
     price: 1999,
@@ -167,16 +207,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.clasohlson.com/se/Airthings-Wave-Plus,-smart-luftmatare-och-radonmatare/p/41-1802",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 317, checkedAt: PRICE_CHECKED },
-    superlative: "857 kronor billigare än toppen",
+    superlative: "Bäst för radon och koldioxid i samma låda",
     pros: [
-      "Sex givare: radon, VOC, koldioxid, fukt, temperatur och lufttryck",
-      "Samma NDIR-givare och samma angivna ±30 ppm ±3 % som toppen",
-      "857 kronor billigare än View Plus",
-      "317 omdömen hos butiken, största kundunderlaget av de sju",
+      "±30 ppm ±3 % för koldioxid, den snävaste toleransen någon tillverkare här anger",
+      "Sex storheter: radon, VOC, koldioxid, fukt, temperatur och lufttryck",
+      "Två AA-batterier räcker 16 till 18 månader, alltså ett byte vartannat år",
+      "317 omdömen hos butiken, största kundunderlaget av alla sju",
     ],
     cons: [
-      "Ingen partikelmätning",
       "Ingen display, utan en färgring du väcker genom att vifta framför",
+      "Ingen partikelmätning, så trafik och vedrök syns inte",
       "220 kronor dyrare hos Proshop än hos Clas Ohlson",
     ],
     specs: [
@@ -188,20 +228,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       },
       { label: "CO2-teknik", value: "NDIR", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "± 30 ppm ± 3 % (CO2)",
+        label: "Noggrannhet",
+        value: "CO2 ±30 ppm ±3 %, radon ~5 % efter 2 mån",
         highlight: true,
       },
+      { label: "Radon", value: "Ja", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "2 AA, 16–18 månader", highlight: true },
       { label: "Avläsning", value: "Färgring och app", highlight: true },
-      { label: "Radon", value: "Ja" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "Uppkoppling", value: "Bluetooth och wifi via hubb, app" },
-      { label: "Loggning", value: "Ja" },
-      { label: "GTIN", value: "7090031109301" },
+      { label: "Mått", value: "12 cm i diameter, 3,6 cm tjock", highlight: true },
     ],
     verdict:
-      "Airthings Wave Plus kostar 1 999 kronor och mäter sex storheter. Skillnaden mot View Plus är 857 kronor, partikelgivaren och displayen.\n\nGivarna är samma på nära håll: radon, VOC, koldioxid med NDIR, fukt, temperatur och lufttryck. Samma angivna ±30 ppm ±3 %. Det som saknas är partikelmätningen, och den är värd något först om du bor vid en trafikerad gata eller har vedeldning i närheten.\n\nDet andra som saknas är displayen. Wave Plus har i stället en färgring på ovansidan som tänds när du viftar framför den, grönt, gult eller rött. Du får en känsla, inte ett tal, och för talet behöver du telefonen.\n\nDet är en verklig försämring och skälet till att den ligger tvåa och inte etta. En mätare vars värde kräver att du öppnar en app blir en mätare du läser sällan.\n\n317 omdömen hos Clas Ohlson med 4,5 i snitt är det största kundunderlaget av de sju. Det säger inget om noggrannheten och en del om att apparaten håller.\n\nJämför butikerna innan du köper. Den kostar 1 999 hos Clas Ohlson och 2 219 hos Proshop, 220 kronor mer på det andra stället.",
+      "Airthings Wave Plus kostar 1 999 kronor och mäter sex storheter, radon och koldioxid bland dem.\n\n**Koldioxidgivaren är den noggrannaste någon tillverkare här anger.** Airthings anger ±30 ppm ±3 procent mellan 15 och 35 grader, mot ±50 ppm för både View Plus och Wave Enhance. På ett värde kring 1 000 ppm är det skillnaden mellan att veta att sovrummet ligger över gränsen och att gissa det. Radongivaren är densamma som i View Plus, med omkring 5 procents precision efter två månader vid 200 becquerel per kubikmeter. Två AA-batterier räcker 16 månader över Bluetooth och 18 med hubb, så den kan stå i ett krypgrund eller en källare i två år utan att du rör den.\n\n**Det den inte har är en display.** I stället sitter en färgring på ovansidan som tänds när du viftar framför den, grönt, gult eller rött. Du får en känsla, inte ett tal, och för talet behöver du telefonen.\n\nSka du mäta radon och koldioxid i samma apparat och kan leva med att hämta siffran i appen är det här köpet. Vill du se den på en display får du gå upp till View Plus för 857 kronor mer. Och köp den hos Clas Ohlson: hos Proshop kostar den 2 219 kronor.",
   },
   {
     id: "airthings-wave-enhance",
@@ -209,12 +246,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wave Enhance",
     brand: "Airthings",
     image: productImage(LUFTKVALITETSMATARE.slug, "airthings-wave-enhance"),
-    tagline: "Riktig koldioxidgivare till halva toppens pris.",
+    tagline: "Talar om när sovrummet behöver vädras.",
     scores: {
-      givare: 3.5,
+      givare: 4,
       beslutsnytta: 4.5,
       avlasning: 4,
-      noggrannhet: 4.5,
       prisvarde: 4.5,
     },
     price: 1441,
@@ -223,40 +259,38 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.proshop.se/Smarta-Hem/Airthings-Wave-Enhance-kompakt-luftkvalitetsmaetare-foer-inomhusluft/3443877",
     priceCheckedAt: PRICE_CHECKED,
     award: "editor",
-    superlative: "Billigaste NDIR-mätaren",
+    superlative: "Bäst för sovrummet",
     pros: [
-      "Riktig NDIR-givare för koldioxid, med angiven noggrannhet",
-      "Billigaste vägen till ett koldioxidtal du kan agera på",
-      "Mäter även ljudnivå, vilket är ovanligt och användbart i ett sovrum",
-      "Halva priset mot View Plus",
+      "Sju storheter för 1 441 kronor: koldioxid, VOC, fukt, temperatur, lufttryck, ljudnivå och ljus",
+      "Billigaste vägen till ett koldioxidtal mätt med NDIR",
+      "Mäter ljudnivå och ljus, alltså det som väcker dig utöver luften",
+      "98 gram och 8 centimeter i diameter, så den kan sitta på väggen var som helst",
     ],
     cons: [
-      "Ingen radonmätning och ingen partikelmätning",
-      "Bara 3,0 i kundbetyg hos Clas Ohlson, men på tre omdömen",
-      "Fyra givare mot toppens sju",
+      "Ingen radonmätning, vilket är skälet att välja Wave Plus för 558 kronor mer",
+      "Inga partiklar, så trafik och vedrök syns inte",
+      "±50 ppm ±5 % för koldioxid, den vidaste toleransen av de tre NDIR-mätarna",
     ],
     specs: [
       { label: "Pris", value: "1 441 kr", highlight: true },
       {
         label: "Mäter",
-        value: "CO2, fukt, temp, ljudnivå",
+        value: "CO2, VOC, fukt, temp, tryck, ljud, ljus",
         highlight: true,
       },
       { label: "CO2-teknik", value: "NDIR", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "± 30 ppm ± 3 % (CO2)",
+        label: "Noggrannhet",
+        value: "CO2 ±50 ppm ±5 %, temp ±0,5 °C",
         highlight: true,
       },
+      { label: "Radon", value: "Nej", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "2 AA, upp till 14 månader", highlight: true },
       { label: "Avläsning", value: "Ljusring och app", highlight: true },
-      { label: "Radon", value: "Nej" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "Uppkoppling", value: "Wifi, app" },
-      { label: "GTIN", value: "7090031100216" },
+      { label: "Mått", value: "8 cm i diameter, 2,7 cm tjock", highlight: true },
     ],
     verdict:
-      "Airthings Wave Enhance kostar 1 441 kronor och är den billigaste vägen till ett koldioxidtal som betyder något. Ska du bara mäta en sak inomhus är det koldioxid du ska mäta.\n\nGivaren är NDIR med samma angivna ±30 ppm ±3 % som de två dyrare. Den ligger på 1 441 kronor hos Proshop, halva View Plus. För 700 kronor mindre får du Mill Sense, som anger eCO2 i stället, och det är en helt annan sorts tal.\n\nKoldioxid är dessutom det värde som är lättast att agera på. Stiger det över ungefär tusen ppm i ett sovrum betyder det att luftväxlingen inte räcker för antalet personer i rummet, och åtgärden är att öppna ett fönster eller ställa upp dörren. Ingen annan storhet har en lika enkel koppling mellan tal och handling.\n\nDen mäter också ljudnivå, vilket låter som en gimmick tills man tänker på var mätaren står. I ett sovrum är ljudnivån om natten en sak man faktiskt vill veta.\n\nDet som saknas är radon och partiklar. Vill du ha radon behöver du en av de dyrare, och läs då köpguiden först, för det talet duger inte till ett myndighetsbeslut.\n\nKundbetyget är 3,0 hos Clas Ohlson, lägst av de sju, men det bygger på tre omdömen och säger därför nästan ingenting. Betrakta det som frånvaro av underlag snarare än som ett underkännande.",
+      "Airthings Wave Enhance kostar 1 441 kronor och är den billigaste vägen till ett koldioxidtal som betyder något.\n\n**Koldioxid är det värde som är lättast att göra något åt.** Stiger det över ungefär 1 000 ppm i ett sovrum räcker luftväxlingen inte för antalet personer i rummet, och åtgärden är att öppna ett fönster eller ställa upp dörren. Ingen annan storhet har en lika kort väg från tal till handling. Givaren är NDIR med ±50 ppm ±5 procent inom 500 till 2 000 ppm, alltså just det spann ett sovrum rör sig i. Den mäter dessutom ljudnivå och ljus, vilket låter som utfyllnad tills man tänker på var apparaten står: i ett sovrum är buller och ljus om natten två av tre skäl till att man vaknar. Två AA-batterier ingår och räcker upp till 14 månader.\n\n**Radon mäter den inte, och inte partiklar heller.** Bor du i ett hus där radon är en öppen fråga är det Wave Plus du ska ha, för 558 kronor mer.\n\n1 441 kronor är golvet för ett uppmätt koldioxidtal. Under den summan räknar apparaterna fram sitt ur VOC-halten, precis som Mill Sense för 712 kronor mindre gör, och mellanskillnaden är hela avståndet mellan en siffra och en gissning. Ska luften i ett sovrum bli begriplig för under 1 500 kronor är det den här du ska ha.",
   },
   {
     id: "netatmo-luftkvalitetsmatare",
@@ -264,20 +298,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Netatmo",
     brand: "Netatmo",
     image: productImage(LUFTKVALITETSMATARE.slug, "netatmo-luftkvalitetsmatare"),
-    /* Stod "men toleransen står ingenstans" till 2026-08-05. Det är ett
-       påstående om hela Netatmos publicering, gjort utan att ha läst den.
-       Kontrollerat: sv-se-produktsidan (flikarna öppnades inte), pro-sidans
-       specifikation (omdirigerar), en-eu/specifications (404) och
-       hjälpcentrets artikel om luftkvalitetsmätningen — den sista ligger
-       bakom Cloudflares botkontroll och svarar 403 för både Playwright och
-       WebFetch. En ogenomläst källa är inte en tom källa. Taglinen säger
-       därför vad produkten gör och överlåter toleransen till specraden. */
-    tagline: "Mäter koldioxid och ljudnivå, och larmar innan du känner det.",
+    tagline: "Larmar om luften i rummet innan du märker det själv.",
     scores: {
       givare: 3.5,
       beslutsnytta: 4,
       avlasning: 4,
-      noggrannhet: 3,
       prisvarde: 4,
     },
     price: 1199,
@@ -286,38 +311,46 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.clasohlson.com/se/Netatmo-smart-luftkvalitetsmatare-inomhus/p/36-8764",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 7, checkedAt: PRICE_CHECKED },
-    superlative: "Billigast med koldioxidgivare",
+    superlative: "Bäst för den som aldrig vill byta batteri",
     pros: [
       "Mäter koldioxid, ljudnivå, fukt och temperatur",
-      "Billigast av dem som har en koldioxidgivare",
+      "Nätdriven, så den mäter vidare i åratal utan batteribyte",
       "Färgindikator på höljet, så läget syns utan telefonen",
+      "±0,3 °C för temperatur, snävast av mätarna med koldioxidgivare",
     ],
     cons: [
-      "Ingen noggrannhet publicerad, till skillnad från Airthings",
+      "Måste stå vid ett uttag, till skillnad från de batteridrivna",
+      "±100 ppm för koldioxid, vidast av de fyra som mäter den. Wave Plus håller ±30 ppm",
       "Ingen radonmätning och ingen partikelmätning",
-      "Sju omdömen hos butiken, för tunt för att säga något",
     ],
     specs: [
       { label: "Pris", value: "1 199 kr", highlight: true },
       { label: "Mäter", value: "CO2, ljud, fukt, temp", highlight: true },
-      { label: "CO2-teknik", value: "Ej angiven", highlight: true },
+      /* Netatmo anger ingen givarteknik för den här modellen. Hjälpcentrets
+         beskrivning av den optiska mätningen (lampa och infraröd mottagare)
+         gäller Smart Home Weather Station och får inte bäras hit — det är
+         precis det fel som gav ±30 ppm åt tre modeller. Cellen säger därför
+         vad talet är: uppmätt koldioxid och inte ett eCO2-tal, vilket är den
+         skillnad raden finns för. */
+      { label: "CO2-teknik", value: "Egen CO2-givare, 0–5 000 ppm", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        /* Kvar som Ej angiven med flit. Hjälpcentrets artikel om
-           luftkvalitetsmätningen ligger bakom Cloudflares botkontroll och gick
-           inte att läsa 2026-08-05; en ogenomläst källa får inte räknas som
-           en läst. Var vi letat står i research-filen, inte i tabellen. */
-        value: "Ej angiven",
+        label: "Noggrannhet",
+        /* CO2 ±100 ppm och temp ±0,3 °C ur Netatmos eget hjälpcenter, artikel
+           360025217051, som gäller just Smart Indoor Air Quality Monitor.
+           Läst 2026-08-06. ⚠️ Artikel 360020908892 anger ±100 ppm till
+           1 000 ppm och ±10 % däröver, men den gäller Smart Home Weather
+           Station. Icecat anger 5 % för samma GTIN, alltså tier B mot
+           tillverkarens tier A. Konflikten står i researchfilen. */
+        value: "CO2 ±100 ppm, temp ±0,3 °C",
         highlight: true,
       },
+      { label: "Radon", value: "Nej", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "USB-nätadapter", highlight: true },
       { label: "Avläsning", value: "Färgindikator och app", highlight: true },
-      { label: "Radon", value: "Nej" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "Uppkoppling", value: "Wifi, app" },
+      { label: "Mått", value: "4,5 × 4,5 × 15,5 cm", highlight: true },
     ],
     verdict:
-      "Netatmo kostar 1 199 kronor och är billigast av mätarna med koldioxidgivare. Den tappar mot Airthings på en enda punkt: ingen tolerans står någonstans.\n\nDen mäter koldioxid, ljudnivå, fukt och temperatur, samma fyra storheter som Wave Enhance för 242 kronor mindre. Höljet lyser i olika färger efter läget, så du ser om något är fel utan att plocka upp telefonen.\n\nSkillnaden ligger i vad tillverkaren berättar. Airthings anger ±30 ppm ±3 % och beskriver givaren som NDIR. Netatmos specifikationssida gick inte att nå när vi läste, och varken butiken eller något datablad vi hittat anger vilken teknik givaren använder eller hur mycket den får visa fel. Det behöver inte betyda att den är sämre. Det betyder att du inte kan kontrollera det i förväg, och noggrannheten väger 15 av 100 här.\n\nSju omdömen hos Clas Ohlson är för tunt för att säga något om hur den håller.\n\nDen är ett rimligt köp om du vill ha koldioxid och ljud och inte bryr dig om radon eller partiklar. Vill du kunna kontrollera vad givaren utfäster är Wave Enhance det tryggare valet.",
+      "Netatmo Smart luftkvalitetsmätare kostar 1 199 kronor och mäter koldioxid, ljudnivå, luftfuktighet och temperatur.\n\n**Den är den enda här som går på nätström.** Ett USB-nätaggregat sitter i, och därmed slutar den aldrig mäta och du byter aldrig batteri. Höljet i borstad aluminium lyser i olika färger efter läget, så du ser att något är fel utan att plocka upp telefonen. Ljudnivåmätaren går från 35 till 120 dB, ovanligt i prisklassen, och för temperatur anger Netatmo ±0,3 grader, snävast av de mätare som också mäter koldioxid.\n\n**Koldioxidtalet är däremot det trubbigaste av de fyra som mäter koldioxid på riktigt.** Netatmo anger ±100 ppm mot Wave Plus ±30, och kring gränsen 1 000 ppm betyder det att sovrummet kan ligga på 900 eller 1 100 utan att apparaten skiljer talen åt. För frågan om det behöver vädras räcker det gott. Ska du följa hur mycket en ändrad ventilation faktiskt sänkte nivån är marginalen för bred.\n\nTill ett arbetsrum med ett ledigt uttag är det här rätt apparat: koldioxid och ljudnivå i samma låda, en färg du ser i ögonvrån och aldrig ett batteribyte. 15,5 centimeter aluminium som måste nå en sladd hör däremot inte hemma i ett krypgrund eller en garderob, och det är ofta just där man vill veta hur luften står.",
   },
   {
     id: "airthings-view-radon",
@@ -325,31 +358,26 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "View Radon",
     brand: "Airthings",
     image: productImage(LUFTKVALITETSMATARE.slug, "airthings-view-radon"),
-    tagline: "1 899 kronor för radon, fukt och temperatur.",
+    tagline: "Radonvärdet syns på displayen utan att du tar upp telefonen.",
     scores: {
       givare: 2,
       beslutsnytta: 3.5,
       avlasning: 4.5,
-      /* Höjd 2,5 -> 4,5 den 2026-08-05. Airthings publicerar
-         "Accuracy/precision at 200 Bq/m3: after 7 days ~10 %, after 2 months
-         ~5 %", plus temp +-0,5 C och fukt +-3 %, på sin egen produktsida.
-         Raden stod som Ej angiven. Kriteriet belönar att uppgiften
-         publiceras, och den publiceras. */
-      noggrannhet: 4.5,
       prisvarde: 2,
     },
     price: 1899,
     merchant: PROSHOP,
     merchantUrl: "https://www.proshop.se/Smarta-Hem/Airthings-View-Radon/3051742",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Störst display av de sju",
+    superlative: "Bäst för källaren du passerar",
     pros: [
-      "Stor display med radonvärdet direkt avläsbart",
+      "Störst display av alla mätarna här, med radonvärdet direkt avläsbart",
+      "Sex AA-batterier räcker upp till 3 år, så den klarar sig utan uttag",
       "Löpande mätning år efter år, vilket en spårfilmsdosa inte ger",
       "Visar om en åtgärd mot radon har hjälpt",
     ],
     cons: [
-      "Tre givare för 1 899 kronor, dyrast per givare av de sju",
+      "Tre storheter för 1 899 kronor, dyrast per givare av alla sju",
       "Ingen koldioxid, inga partiklar, ingen VOC",
       "Wave Plus kostar 100 kronor mer och mäter tre saker till",
     ],
@@ -358,18 +386,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Mäter", value: "Radon, fukt, temp", highlight: true },
       { label: "CO2-teknik", value: "Ingen CO2-givare", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "~5 % efter 2 mån vid 200 Bq/m³, temp ±0,5 °C",
+        label: "Noggrannhet",
+        value: "Radon ~5 % efter 2 mån, temp ±0,5 °C",
         highlight: true,
       },
+      { label: "Radon", value: "Ja", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "6 AA eller USB, upp till 3 år", highlight: true },
       { label: "Avläsning", value: "Stor display och app", highlight: true },
-      { label: "Radon", value: "Ja" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "Uppkoppling", value: "Wifi, app" },
+      { label: "Mått", value: "17 × 9 × 3,3 cm", highlight: true },
     ],
     verdict:
-      "Airthings View Radon ger tre givare för 1 899 kronor, dyrast per givare av de sju.\n\nDen mäter radon, luftfuktighet och temperatur. Wave Plus kostar 100 kronor mer och lägger till koldioxid med NDIR, VOC och lufttryck. Det är svårt att hitta ett läge där den här är det bättre köpet av de två.\n\nDet den gör bra är avläsningen. Displayen är störst av de sju och visar radonvärdet direkt, utan telefon, vilket spelar roll om apparaten står i en källare du passerar.\n\nOch en sak den gör som ingen spårfilmsdosa gör: den mäter löpande, år efter år. Radon varierar kraftigt med årstid, ventilation och lufttryck, och en dosa ger dig ett medelvärde för en vinter. Den här visar kurvan, och den visar om en åtgärd har hjälpt. Det är en verklig nytta och skälet till att den inte hamnar sist.\n\nMen läs köpguiden innan du köper den för radonets skull. Ska du ha ett tal som gäller vid en husförsäljning, ett radonbidrag eller ett tillsynsärende är det inte den här apparaten du behöver, och Strålsäkerhetsmyndigheten är tydlig med varför.",
+      "Airthings View Radon kostar 1 899 kronor och mäter radon, luftfuktighet och temperatur.\n\n**Avläsningen är det den gör bättre än alla andra.** Displayen är störst av alla mätarna här och visar radonvärdet direkt, utan telefon, vilket spelar roll när apparaten står i en källare du passerar ett par gånger i veckan. Sex AA-batterier räcker upp till 3 år, så den kan stå just där utan ett uttag i närheten. Och den mäter löpande, år efter år: radon varierar kraftigt med årstid, ventilation och lufttryck, och en spårfilmsdosa ger dig ett medelvärde för en vinter. Den här visar kurvan, och den visar om en åtgärd har hjälpt.\n\n**Tre storheter för 1 899 kronor är ändå tunt.** Wave Plus kostar 100 kronor mer och lägger till koldioxid med NDIR, VOC och lufttryck, och det är svårt att hitta ett läge där den här är det bättre köpet av de två.\n\nHar du redan ett bekräftat radonvärde och vill se om åtgärden mot det hjälpte är den stora displayen värd sina pengar. Har du det inte är valet gjort åt dig: Wave Plus kostar 100 kronor mer och besvarar samma fråga plus fem till. Läs köpguiden innan du köper någondera för radonets skull, för ett värde som gäller vid en husförsäljning eller en ansökan om radonbidrag kommer bara ur spårfilmsdosor från ett ackrediterat laboratorium.",
   },
   {
     id: "airthings-wave-mini",
@@ -377,15 +404,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wave Mini",
     brand: "Airthings",
     image: productImage(LUFTKVALITETSMATARE.slug, "airthings-wave-mini"),
-    tagline: "Ingen koldioxidgivare, trots namnet på hyllan.",
+    tagline: "Följer mögelrisken i badrum och källare i tre år på batterier.",
     scores: {
       givare: 2,
       beslutsnytta: 2.5,
       avlasning: 3,
-      /* Höjd 2,5 -> 3,0. Wave Mini publicerar temp +-1 C och fukt
-         +-3 %, men ingen tolerans för TVOC, som är dess huvudgivare.
-         Halv publicering, halvt betyg. */
-      noggrannhet: 3,
       prisvarde: 3.5,
     },
     price: 785,
@@ -393,11 +416,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Airthings-Wave-Mini-kompakt-och-maangsidig-luftkvalitetsmaetare-med-riskindikator-foer-moegel/2797716",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Billigast av de sju",
+    superlative: "Bäst för mögelrisk i badrummet",
     pros: [
-      "Billigast av de sju, 785 kronor",
+      "Billigast av alla mätarna här, 785 kronor",
+      "Tre AA-batterier räcker upp till 3 år, så den kan glömmas bort i en källare",
       "Mögelrisken räknas fram ur fukt och temperatur över tid",
-      "Liten nog att ställa var som helst",
+      "135 gram och 8 centimeter bred, liten nog att ställa var som helst",
     ],
     cons: [
       "Ingen koldioxidgivare, vilket är den givare de flesta tror att de köper",
@@ -413,19 +437,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       },
       { label: "CO2-teknik", value: "Ingen CO2-givare", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "Temp ±1 °C, fukt ±3 %, ingen TVOC-tolerans",
+        label: "Noggrannhet",
+        value: "Temp ±1 °C, fukt ±3 %",
         highlight: true,
       },
+      { label: "Radon", value: "Nej", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "3 AA, upp till 3 år", highlight: true },
       { label: "Avläsning", value: "Färgring och app", highlight: true },
-      { label: "Radon", value: "Nej" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "VOC", value: "Ja" },
-      { label: "GTIN", value: "7090031109202" },
+      { label: "Mått", value: "8 cm i diameter, 2,6 cm tjock", highlight: true },
     ],
     verdict:
-      "Airthings Wave Mini kostar 785 kronor och saknar koldioxidgivare, den givare de flesta luftkvalitetsmätare säljs på.\n\nWave Mini mäter flyktiga organiska ämnen, fukt och temperatur. Ingen koldioxid. Det står i butikens produkttext, men det står inte i namnet, och en luftkvalitetsmätare för 785 kronor från samma märke som de dyra är lätt att ta för en billigare version av samma sak. Den mäter andra saker.\n\nMögelrisken är värd en förklaring. Den är inte en mätning av mögel utan ett tal som räknas fram ur hur fukt och temperatur legat över tid, alltså en modell av när förhållandena gynnar mögeltillväxt. Det är användbart i en källare eller ett badrum, och det ska inte förväxlas med att apparaten upptäckt något.\n\nVOC-värdet är det svåraste av alla att göra något åt. Det stiger av städmedel, nymålade väggar, möbler och matlagning, och åtgärden är nästan alltid att vädra. Det är sällan en upplysning som ändrar vad du gör.\n\nVill du mäta fukt räcker en hygrometer för en tredjedel av priset. Vill du mäta luften i den mening folk brukar avse är det koldioxiden du är ute efter, och då är Wave Enhance den billigaste vägen dit.",
+      "Airthings Wave Mini kostar 785 kronor och mäter flyktiga organiska ämnen, fukt och temperatur. Ingen koldioxid.\n\n**Det den är byggd för är fuktproblem över tid.** Ur hur fukten och temperaturen legat räknar den fram ett mögelrisktal, alltså en modell av när förhållandena gynnar mögeltillväxt, och tre AA-batterier räcker upp till 3 år. Det gör den till en apparat du sätter i ett badrum eller en källare och sedan glömmer bort, och som ändå har en kurva att visa när du kommer tillbaka. 135 gram och 8 centimeter i diameter får plats bakom en tvättmaskin.\n\n**VOC-värdet är däremot det svåraste av alla att göra något åt.** Det stiger av städmedel, nymålade väggar, möbler och matlagning, och åtgärden är nästan alltid att vädra. Att apparaten heter luftkvalitetsmätare och kommer från samma märke som de dyra gör den dessutom lätt att ta för en billigare version av samma sak, och den mäter andra saker.\n\nDe flesta som lägger 785 kronor på något som heter luftkvalitetsmätare räknar med att få ett koldioxidtal, och här får de inget. Vet du redan att det är fukten i badrummet eller källaren du vill följa är priset lågt för tre år utan batteribyte. För alla andra: lägg 656 kronor till och ta Wave Enhance.",
   },
   {
     id: "mill-sense",
@@ -433,12 +455,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Mill Sense",
     brand: "Mill",
     image: productImage(LUFTKVALITETSMATARE.slug, "mill-sense"),
-    tagline: "Talet den kallar koldioxid är uträknat, inte uppmätt.",
+    tagline: "Liten nog att sätta i flera rum samtidigt.",
     scores: {
       givare: 2,
       beslutsnytta: 2,
       avlasning: 3.5,
-      noggrannhet: 2,
       prisvarde: 3.5,
     },
     price: 729,
@@ -446,40 +467,44 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://www.clasohlson.com/se/Luftkvalitetsmatare-Mill-Sense/p/36-8155",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 37, checkedAt: PRICE_CHECKED },
-    superlative: "Finns som trepack",
+    superlative: "Bäst för flera rum till låg peng",
     pros: [
       "Billig nog att sätta i flera rum, och säljs som trepack",
-      "37 omdömen hos butiken, näst största underlaget av de sju",
-      "Appstyrd med historik",
+      "±0,15 °C för temperatur och ±2 % för fukt, snävast av alla sju",
+      "Inbyggt batteri och USB-C, så den kan flyttas mellan rum utan sladd",
+      "Magnetiskt väggfäste medföljer, och en knapp på ovansidan visar läget i färg",
     ],
     cons: [
       "Anger eCO2, ett tal uträknat ur VOC-halten och ingen koldioxidmätning",
-      "Ingen noggrannhet publicerad",
       "Ingen radon- eller partikelmätning",
+      "Sensorerna behöver 72 timmar innan avläsningen är att lita på",
     ],
     specs: [
       { label: "Pris", value: "729 kr", highlight: true },
       {
         label: "Mäter",
-        value: "Fukt, VOC, temp, eCO2",
+        value: "VOC, fukt, temp, eCO2",
         highlight: true,
       },
       { label: "CO2-teknik", value: "eCO2, härlett ur VOC", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        /* Kontrollerat millheat.com/airquality och Clas Ohlson 2026-08-05.
-           Ingen tolerans angiven på någondera. */
-        value: "Ej angiven",
+        label: "Noggrannhet",
+        /* Ur Mills egen bruksanvisning, den Clas Ohlson länkar från
+           produktsidan. Läst 2026-08-06. Stod som "Ej angiven" till dess,
+           efter en kontroll som stannat vid millheat.com och butikssidan. */
+        value: "Temp ±0,15 °C, fukt ±2 %",
         highlight: true,
       },
-      { label: "Avläsning", value: "App", highlight: true },
-      { label: "Radon", value: "Nej" },
-      { label: "Partiklar", value: "Nej" },
-      { label: "VOC", value: "Ja" },
+      { label: "Radon", value: "Nej", highlight: true },
+      { label: "Strömförsörjning", shortLabel: "Ström", value: "Inbyggt batteri, USB-C", highlight: true },
+      /* Stod som "App". Manualen visar en knapp på ovansidan som tänder en
+         färg i fyra lägen: blått under 18 °C, grönt, gult och rött. Läst
+         2026-08-06 i den svenska användarmanualen Clas Ohlson länkar. */
+      { label: "Avläsning", value: "Färgindikator och app", highlight: true },
+      { label: "Mått", value: "7 × 7 × 3 cm", highlight: true },
     ],
     verdict:
-      "Mill Sense kostar 729 kronor, och butikens egen produkttext säger eCO2. Det lilla e:et är hela skillnaden.\n\nEn NDIR-givare mäter koldioxid genom hur gasen absorberar infrarött ljus. En eCO2-uppgift kommer från en VOC-givare, som mäter flyktiga organiska ämnen och sedan räknar om resultatet till ett koldioxidliknande tal. Antagandet bakom omräkningen är att det som tillför organiska ämnen till rummet är människor som andas.\n\nDet antagandet håller ibland. Det håller inte när någon sprejar deodorant, öppnar en burk lösningsmedel, lagar mat eller nyligen målat, och då stiger det uträknade koldioxidtalet i ett rum där ingen befinner sig. Åt andra hållet kan talet ligga stilla i ett fullsatt rum med god ventilation och dålig lukt.\n\nDärför får den låg beslutsnytta trots att appen visar ett tal som ser precis lika användbart ut som Airthings. Ett värde du inte kan agera på är inte ett värde.\n\nDet som talar för den är priset och att den säljs som trepack, vilket gör det möjligt att mäta i flera rum. Går du den vägen mäter du fukt och VOC i tre rum, inte koldioxid.\n\n37 omdömen med 4,0 i snitt säger att folk är nöjda med apparaten som produkt. Det säger inget om vad talet betyder.",
+      "Mill Sense kostar 729 kronor, väger lite och går på ett inbyggt batteri med USB-C. Talet den kallar koldioxid är uträknat.\n\n**Som fukt- och temperaturmätare är den skarpast här.** Mill anger ±0,15 grader och ±2 procent relativ fuktighet, snävare än vad någon annan tillverkare här anger, och tre enheter i ett trepack kostar 566 kronor styck. Det gör den till ett rimligt sätt att följa fukten i tre rum samtidigt, exempelvis i ett hus där en källare och ett badrum båda är misstänkta.\n\n**Men eCO2-talet är inte en koldioxidmätning, och Mill skriver det själv.** I bruksanvisningen står att eCO2 beräknas från VOC-mätningen, och att avläsningen blir högre än den faktiska koldioxidnivån när det finns betydande halter av andra flyktiga organiska ämnen. I klartext: sprejar någon deodorant, lagar mat eller öppnar en burk lösningsmedel stiger det uträknade koldioxidtalet i ett rum där ingen befinner sig. Åt andra hållet kan talet ligga stilla i ett fullsatt rum med god ventilation.\n\nKöp den om du vill följa fukt och temperatur i flera rum och kan bortse från koldioxidsiffran helt. Ska du veta när det behöver vädras är det en riktig NDIR-givare du behöver, och Wave Enhance är den billigaste som har en.",
   },
 ];
 
@@ -564,7 +589,7 @@ export const LUFTKVALITETSMATARE_FAQ = [
   {
     question: "Vilken luftkvalitetsmätare är bäst 2026?",
     answer:
-      "Airthings View Plus för 2 856 kronor hos Proshop. Den har sju givare och mäter radon, partiklar, flyktiga organiska ämnen, koldioxid, luftfuktighet, temperatur och lufttryck. Koldioxiden mäts med en NDIR-givare, genom hur infrarött ljus absorberas av gasen, och Airthings anger noggrannheten till ±30 ppm ±3 procent mellan 15 och 35 grader. Den har dessutom display, så värdena syns utan att du öppnar appen. Notera att samma apparat kostar 3 299 kronor hos Clas Ohlson, 443 kronor mer. Tvåa är Airthings Wave Plus för 1 999 kronor, som har samma koldioxidgivare men saknar partikelmätning och display.",
+      "Airthings View Plus för 2 856 kronor hos Proshop. Den mäter sju storheter: radon, partiklar, flyktiga organiska ämnen, koldioxid, luftfuktighet, temperatur och lufttryck, och den är ensam i rankningen om partikelmätning. Koldioxiden mäts med en NDIR-givare, genom hur infrarött ljus absorberas av gasen, och Airthings anger ±50 ppm ±3 procent mellan 10 och 35 grader. Den har dessutom display, så värdena syns utan att du öppnar appen. Notera att samma apparat kostar 3 299 kronor hos Clas Ohlson, 443 kronor mer. Tvåa är Airthings Wave Plus för 1 999 kronor, som saknar partiklar och display men faktiskt mäter koldioxid noggrannare, ±30 ppm ±3 procent.",
   },
   {
     question: "Kan jag använda en digital radonmätare vid en husförsäljning?",
@@ -574,7 +599,7 @@ export const LUFTKVALITETSMATARE_FAQ = [
   {
     question: "Vad är skillnaden mellan CO2 och eCO2?",
     answer:
-      "En NDIR-givare mäter koldioxid direkt, genom hur mycket infrarött ljus gasen absorberar. Ett eCO2-värde är i stället uträknat: apparaten mäter halten flyktiga organiska ämnen och räknar sedan om den till ett koldioxidliknande tal, med antagandet att det som tillför organiska ämnen till rummet är människor som andas. Antagandet håller ibland och ibland inte. Sprejar någon deodorant, lagar mat eller öppnar en burk lösningsmedel stiger det uträknade talet i ett rum där ingen befinner sig. Vill du veta om det behöver vädras är det ett riktigt koldioxidvärde du är ute efter.",
+      "En NDIR-givare mäter koldioxid direkt, genom hur mycket infrarött ljus gasen absorberar. Ett eCO2-värde är i stället uträknat: apparaten mäter halten flyktiga organiska ämnen och räknar sedan om den till ett koldioxidliknande tal, med antagandet att det som tillför organiska ämnen till rummet är människor som andas. Mill skriver själv i bruksanvisningen till Sense att avläsningen blir högre än den faktiska koldioxidnivån när det finns betydande halter av andra flyktiga ämnen. Sprejar någon deodorant, lagar mat eller öppnar en burk lösningsmedel stiger alltså det uträknade talet i ett rum där ingen befinner sig. Vill du veta om det behöver vädras är det ett riktigt koldioxidvärde du är ute efter.",
   },
   {
     question: "Vilket koldioxidvärde är för högt inomhus?",
@@ -599,12 +624,12 @@ export const LUFTKVALITETSMATARE_FAQ = [
   {
     question: "Var ska luftkvalitetsmätaren stå?",
     answer:
-      "I det rum vars luft du vill veta något om, i ungefär den höjd där du vistas, och en bit från fönster, dörrar och ventiler. En mätare precis vid en tilluftsventil mäter uteluften och inte rummet, och en i direkt solljus får en temperatur som inte stämmer. För koldioxid är sovrummet oftast det mest upplysande stället, eftersom det är där flest personer andas i ett stängt rum under flest timmar. Ska du mäta radon gäller andra regler, och de står i Strålsäkerhetsmyndighetens vägledning.",
+      "I det rum vars luft du vill veta något om, i ungefär den höjd där du vistas, och en bit från fönster, dörrar och ventiler. En mätare precis vid en tilluftsventil mäter uteluften och inte rummet, och en i direkt solljus får en temperatur som inte stämmer. För koldioxid är sovrummet oftast det mest upplysande stället, eftersom det är där flest personer andas i ett stängt rum under flest timmar. Airthings anger andningshöjd, 110 till 170 centimeter över golvet, som optimal placering för Wave Enhance. Ska du mäta radon gäller andra regler, och de står i Strålsäkerhetsmyndighetens vägledning.",
   },
   {
     question: "Hur ofta behöver mätaren kalibreras?",
     answer:
-      "En NDIR-givare för koldioxid driver långsamt över tid, och de flesta apparater hanterar det med en automatisk nollställning som utgår från att rummet någon gång under en period är nästan tomt och därmed ligger nära utomhusnivån. Det fungerar i ett vanligt hem men sämre i ett rum som aldrig står tomt. Vill du kontrollera en mätare kan du ta ut den och låta den stå i friluft en stund, där värdet bör hamna omkring 400 ppm. Vi har inte utfört den kontrollen på någon av mätarna här och redovisar därför inga resultat från den.",
+      "En NDIR-givare för koldioxid driver långsamt över tid, och de flesta apparater hanterar det med en automatisk nollställning som utgår från att rummet någon gång under en period är nästan tomt och därmed ligger nära utomhusnivån. Airthings anger att Wave Enhance gör om den beräkningen en gång i veckan för koldioxid och löpande för VOC. Det fungerar i ett vanligt hem men sämre i ett rum som aldrig står tomt. Nya mätare behöver dessutom tid att sätta sig: Mill anger 72 timmar för Sense, och Airthings ungefär 7 dagar innan VOC-värdet betyder något. Vi har inte utfört någon egen kalibreringskontroll och redovisar därför inga resultat från en sådan.",
   },
   {
     question: "Ersätter en luftkvalitetsmätare en luftrenare?",

@@ -2,6 +2,7 @@ import { CalendarCheck, UserRound } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/products";
+import { publishedFor } from "@/lib/catalog";
 
 export type UpdatedStampProps = {
   /** ISO date string or Date. */
@@ -9,6 +10,14 @@ export type UpdatedStampProps = {
   author?: string;
   /** Number of products considered, e.g. "14 modeller jämförda". */
   testedCount?: number;
+  /**
+   * Testsidans slug. Sätts publiceringsdatumet ut vid sidan av uppdaterings-
+   * datumet, hämtat ur katalogen.
+   *
+   * Finns eftersom ett reparationspass över hela sajten ger fyrtio sidor samma
+   * `updated` samma dag, och sidan då ser ut att ha uppstått ur ingenting.
+   */
+  slug?: string;
   variant?: "inline" | "bar";
   className?: string;
 };
@@ -21,10 +30,16 @@ export function UpdatedStamp({
   date,
   author,
   testedCount,
+  slug,
   variant = "inline",
   className,
 }: UpdatedStampProps) {
   const iso = typeof date === "string" ? date : date.toISOString();
+
+  /* Bara när det säger något nytt. Publicerad och uppdaterad samma dag är en
+     nybyggd sida, och då är raden brus. */
+  const publicerad = slug ? publishedFor(slug) : undefined;
+  const visaPublicerad = publicerad && publicerad !== iso.slice(0, 10);
 
   return (
     <div
@@ -42,6 +57,14 @@ export function UpdatedStamp({
           {formatDate(date)}
         </time>
       </span>
+      {visaPublicerad ? (
+        <span className="inline-flex items-center gap-1.5">
+          Publicerad{" "}
+          <time dateTime={publicerad} className="font-medium text-foreground">
+            {formatDate(publicerad)}
+          </time>
+        </span>
+      ) : null}
       {author ? (
         <span className="inline-flex items-center gap-1.5">
           <UserRound aria-hidden="true" className="size-4" />

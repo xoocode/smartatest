@@ -16,35 +16,73 @@ import { BRANDSTEGE } from "@/lib/test-pages";
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte belastat, hängt upp
  * eller klättrat i någon stege, och vi har inte sett något provningsintyg.
  *
- * ## Sidans fynd: kilotalet går inte att jämföra
+ * ## ⚠️⚠️ Sidans fynd, omskrivet 2026-08-06 efter att manualerna lästs
  *
- * | Produkt | Angiven maxlast | Provad enligt |
+ * **Sex av åtta stegar får utlösas en enda gång och ska kasseras efteråt**,
+ * och uppgiften står i tillverkarens bruksanvisning, inte i butiken.
+ *
+ * | Produkt | Engångsbruk | Står i |
  * |---|---|---|
- * | Jula Hard Head | 150 kg | ingenting angivet |
- * | Biltema | 200 kg | ingenting angivet |
- * | Housegard EL45A | 200 kg rek, 450 kg "testad upp till" | EN 131-6, utan årtal, endast hos tillverkaren |
- * | Nexa FLB-104 | 400 kg | EN 131-6:2015 |
- * | Brandvarnare.se 4,5 och 7 m | 450 kg eller 3 personer | ingenting angivet |
- * | Skeppshultstegen 4,5 och 7,5 m | **ingen uppgift alls** | ingenting angivet |
+ * | Brandvarnare.se 7 m och 4,5 m | **Ja** | SAVS-manualen butiken själv publicerar |
+ * | Hard Head 4,3 m | **Ja** | manualen heter "One time use fire ladder" |
+ * | Biltema 4,5 m | **Ja** | produktsidan, "Får bara användas en gång" |
+ * | Skeppshultstegen 4,5 och 7,5 m | **Ja** | tillverkarens text, publicerad av Stegfabriken |
+ * | **Housegard EL45A** | **Nej** | Clas Ohlson: "återanvändbar ... lämpligt efter t.ex. en brandövning" |
+ * | Nexa FLB-104 | ingen uppgift | — |
  *
- * Trefaldig spridning på produkter som ser likadana ut, plus två som inte
- * svarar. Båda som anger en standard anger EN 131-6, som enligt SIS gäller
- * **lutande och stående teleskopstegar**, och Bauhaus anger utgåvan 2015 som
- * SIS listar som tillbakadragen och ersatt av 2019.
+ * Samtliga manualer säger dessutom att du **inte ska dra i utlösningsbandet
+ * när du övar**. Brandvarnare.se:s egna produktsidor skriver tvärtom att du
+ * kan öva genom att fälla ut stegen hela vägen ned, alltså rakt emot den
+ * manual de själva länkar i dokumentfliken. Det var tidigare en fördel på
+ * båda deras stegar och ett superlativ på 4,5-metersstegen.
  *
- * Kontrasten som gör fyndet skarpt: Housegards fasadmonterade EL39 anger
- * EN 131-1:2015 och EN 131-2:2010, alltså de allmänna stegstandarderna, och
- * uppger **150 kg**. Den produkt som provats mot en tillämplig standard anger
- * den lägsta lasten av alla.
+ * ## Kilotalet går fortfarande inte att jämföra
  *
- * ## ⚠️ Två fel i ett tidigare utkast, rättade
+ * | Produkt | Angiven maxlast | Källa |
+ * |---|---|---|
+ * | Jula Hard Head | 150 kg, och "högst tre personer samtidigt" | manualen |
+ * | Housegard EL45A och Biltema | 200 kg rek, testad till 450 | manualen, en person åt gången |
+ * | Nexa FLB-104 | **450 kg**, inte 400 som Bauhaus anger | Nexas eget produktblad |
+ * | Brandvarnare.se 4,5 och 7 m | 450 kg eller 3 personer | SAVS-manualen |
+ * | Skeppshultstegen 4,5 och 7,5 m | 450 kg för hela repstegeserien | tillverkarens sida |
  *
- * Modellen heter **EL45A**, inte EL45S. EL45S kommer från brandinfo.se.
+ * Sju av åtta anger alltså 450 kilo någonstans, och den enda som håller sig
+ * lägre, Jula, säger i samma manual att tre personer får använda stegen
+ * samtidigt. Kontrasten som gör det skarpt: Housegards fasadmonterade EL39
+ * provas mot EN 131-1 och EN 131-2 och uppger **150 kg**. Samma standarder
+ * som den hängande EL45A, tre gånger talet.
+ *
+ * ## ⚠️ Fel i tidigare utkast, rättade
+ *
+ * Modellen heter **EL45A**, inte EL45S. EL45S kommer från brandinfo.se, och
+ * är också det namn Housegards egen bruksanvisning bär.
  *
  * Kjells "Bredd: 30 cm" är **stegbredden**, inte karmdjupet. Ett tidigare
  * utkast förde in det som karmtjocklek, hämtat från en sökmotorsammanfattning
- * och inte från en läst sida. Tillverkarens egen sida anger 15 till 34 cm.
- * Samma felkälla som temperaturuppgiften på /brandfilt.
+ * och inte från en läst sida. Samma felkälla som temperaturuppgiften på
+ * /brandfilt.
+ *
+ * ⚠️ Karmtjockleken är **15 till 30 cm**, inte 15 till 34. Bruksanvisningen
+ * som Kjell själv länkar, `897328_21053_stege_manual_se_no.pdf`, anger
+ * "Maximal karmtjocklek: 30 cm" och intervallet 15–30, och Clas Ohlson svarar
+ * samma sak i sin frågespalt. Housegards **egen produktsida anger 15–34** och
+ * har 34 i sin sidtitel; manualen väger tyngre. Samma manual anger
+ * EN 131-1:2007+A1-2011 och EN 131-2:2010, inte EN 131-6, och att stegen är
+ * avsedd för **en person åt gången**. Se lib/corrections.ts.
+ *
+ * ⚠️ **Julas 43 cm var aldrig ett väggavstånd.** Bruksanvisningens tekniska
+ * data listar `Utfälld: L 430 x B 31 x D 43 cm` under rubriken Mått, alltså
+ * stegens eget djup utfälld inklusive krokbygeln, inte avståndet mellan
+ * stegpinne och fasad. Vi publicerade det som "Väggavstånd utfälld", byggde
+ * en fördel och ett superlativ på det och satte betyget för nedstigning
+ * därefter. Samma manual anger **maximal karmtjocklek 30 cm**, inte 28 som vi
+ * publicerade på fyra ställen.
+ *
+ * ⚠️ **Housegard och Biltema har avståndsklossar mot vägg.** Båda manualerna
+ * varnar för att klossarna kan krossa fönstret på våningen under, och Clas
+ * Ohlson skriver ut "Avståndsklossar mot vägg" i produkttexten. Vi skrev att
+ * båda saknade distanser, gjorde nackdelar av det och drog ned betyget för
+ * nedstigning på båda. Biltema låg sist på sidan i tre veckor på den grunden.
  *
  * ## ⚠️⚠️ Rättelse 2026-08-03: två stegar saknades, och ett påstående var fel
  *
@@ -91,8 +129,8 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Räddningsstege 7 m",
     brand: "Brandvarnare.se",
     image: productImage(BRANDSTEGE.slug, "brandvarnare-raddningsstege-7m"),
-    tagline: "Billigaste vägen ner från tre våningar, med 955 kronor.",
-    scores: { rackvidd: 5, nedstigning: 4.5, provning: 1, passform: 3.5, prisvarde: 4 },
+    tagline: "Sju meter tar dig ner från tredje våningen för 955 kronor mindre än närmaste stege som gör det.",
+    scores: { rackvidd: 5, nedstigning: 4.5, passform: 3.5, prisvarde: 4 },
     price: 1294,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/raddningsstege-7-m/",
@@ -102,13 +140,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     pros: [
       "Sju meter täcker tre våningar, och närmaste stege med samma räckvidd kostar 955 kronor mer",
       "Distanser sticker ut från fotstegen och håller ut stegen från fasaden, så foten får plats",
-      "Butiken beskriver hur du övar med stegen, både att bara hänga den och att fälla ut den helt",
+      "21 fotsteg i räfflad aluminium, det tätaste steget till marken av stegarna med den längden",
       "Nylonband mellan fotstegen gör att den kan hänga rakt ned eller läggas över en takfot",
     ],
     cons: [
+      "Får utlösas en enda gång och ska kasseras efteråt, så du kan bara öva på upphängningen",
       "Dyrast av stegarna, 1 294 kronor mot 699 för den billigaste",
       "6,5 kilo att bära fram och haka på i mörker, tyngst av alla",
-      "Ingen standard anges, och maxlasten 450 kilo saknar redovisad provmetod precis som hos de flesta",
     ],
     specs: [
       { label: "Längd", value: "7 m", highlight: true },
@@ -116,12 +154,21 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Angiven maxlast", value: "450 kg eller 3 personer", highlight: true },
       { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
       { label: "Vikt", value: "6,5 kg", highlight: true },
-      { label: "Standard som anges", value: "Ingen" },
-      { label: "Distanser mot vägg", value: "Ja, uttalat" },
+      /* SAVS-manualen som butiken själv länkar i dokumentfliken,
+         SAVS-manual-8fold-version-FINAL-v1.1-SE.pdf: "Denna stege är endast
+         avsedd för engångsbruk" och "byt ut denna stege efter 5 år". Samma
+         manual täcker ESC-450 till ESC-2000 och bär specifikationstabellen med
+         13/21 steg och 4,8/6,5 kg. Läst 2026-08-06. */
+      { label: "Engångsbruk", value: "Ja, kasseras efter användning", highlight: true },
+      { label: "Antal steg", value: "21" },
+      { label: "Distanser mot vägg", value: "Ja" },
+      { label: "Byt ut efter", value: "5 år" },
       { label: "Mått hopfälld", value: "37 x 24 x 28 cm" },
+      { label: "Provad enligt", value: "Ingen" },
+      { label: "Artikelnummer", value: "60602, SAVS ESC-700" },
     ],
     verdict:
-      "Den här vinner på täckning. Vad det betyder, och inte betyder:\n\nSju meter når ner från ett fönster på tredje våningen. Det gör Skeppshultstegens 7,5-metersstege hos Bauhaus också, men den kostar 2 249 kronor, 955 mer, och Bauhaus publicerar varken maxlast eller standard för den. Resten av jämförelsen ligger på 4 till 4,5 meter och är byggd för en andravåning. Har du sovrum på plan tre är det här alltså inte det enda alternativet, men det är det billigaste med god marginal.\n\nHar du två våningar ska du inte köpa den här. Då är 4,5-metersstegen rätt produkt, den är billigare, den väger mindre och den överflödiga längden gör ingen nytta. Vår rankning väger räckvidd tyngst för att längden avgör om produkten alls fungerar från ditt fönster, och det gör att den bredaste täckningen hamnar överst. Det är inte en uppmaning att köpa dyrast.\n\nDet den gör bra utöver längden är nedstigningen. Butiken är den enda som skriver ut att det sitter distanser på fotstegen som håller ut stegen från fasaden. Utan dem trycks stegen mot väggen av din egen vikt och framfoten får ingenstans att ta vägen, och det är den vanligaste anledningen till att en repstege är svår att klättra i.\n\nDen är också den enda butiken som beskriver hur du övar. Jämför med Jula, som säljer en stege uttryckligen avsedd för engångsbruk: den kan du aldrig pröva innan det gäller.\n\nSvagheten är dokumentationen. Ingen standard, och 450 kilo angivet utan att någon säger hur det mätts. Där är den inte sämre än fyra av de fem andra, men den är inte bättre heller, och 1 294 kronor är mycket för en produkt vars enda kontrollerbara uppgift är längden.",
+      "Räddningsstege 7 m kostar 1 294 kronor och är den enda stegen under tvåtusen som når ner från ett fönster på tredje våningen.\n\nSju meter räcker till tre våningar. Skeppshultstegens 7,5-meters hos Bauhaus gör det också, men kostar 2 249 kronor, alltså 955 mer för en halv meter du inte behöver. Resten av jämförelsen ligger på 4 till 4,5 meter och är byggd för en andravåning. Sitter sovrummet på plan tre är det här stegen att köpa, och det är inte ens nära.\n\nDen är byggd för att klättras i. Från fotstegen sticker det ut distanser som håller stegen en bit från fasaden, och det är det som avgör om framfoten får plats: en stege av band pressas annars platt mot väggen av vikten hos den som klättrar. 21 fotsteg i räfflad aluminium ger tätare grepp ner än någon annan stege med den räckvidden, och de kraftiga nylonbanden gör att den kan hänga rakt ned eller läggas över en takfot.\n\nDen får däremot bara användas en gång. Manualen som Brandvarnare.se själva publicerar säger att stegen ska kasseras efter användning och bytas efter fem år, och att du inte ska dra i utlösningsbandet när du övar. Du kan alltså öva på att haka krokarna över karmen, som är det svåraste momentet i mörker, men aldrig på nedklättringen. Vill du ha en stege hela familjen får klättra i finns en enda på sidan, Housegard EL45A för 849 kronor, och den når bara en andravåning.\n\nHar du tre våningar: köp den här. Har du två räcker 4,5 meter, och då lägger du 495 kronor mindre på Housegard och får dessutom en stege du får öva med.",
   },
   {
     id: "housegard-el45a",
@@ -129,37 +176,66 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "EL45A",
     brand: "Housegard",
     image: productImage(BRANDSTEGE.slug, "housegard-el45a"),
-    tagline: "Den enda vars karmmått är publicerat i båda riktningarna.",
-    scores: { rackvidd: 4, nedstigning: 3.5, provning: 2.5, passform: 4.5, prisvarde: 4 },
+    tagline: "Den enda stegen du får hänga upp, klättra i och använda igen.",
+    /* nedstigning höjd 3,5 → 4,5 2026-08-06. Betyget var satt på att stegen
+       saknade distanser mot fasaden. Bruksanvisningen varnar för att
+       "avståndsklossarna på stegen" kan krossa fönstret på våningen under, och
+       Clas Ohlson skriver ut "Avståndsklossar mot vägg och halksäkra steg i
+       aluminium". Se lib/corrections.ts. */
+    scores: { rackvidd: 4, nedstigning: 4.5, passform: 4.5, prisvarde: 4 },
     price: 849,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandstegar/housegard-brandstege-45-m-p21053",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 21, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst köp för en normal andravåning",
+    superlative: "Bäst för den som tänker öva",
     pros: [
-      "Karmtjocklek 15 till 34 cm, ensam om att ange både ett tak och ett golv",
-      "Tillverkaren anger EN 131-6, vilket är mer än sex av de åtta produkterna gör",
-      "4,5 meter räcker till en andravåning med marginal, även med hög takhöjd",
+      "Får återanvändas, så hela hushållet kan öva på den stege som sedan hänger kvar i garderoben",
+      "Avståndsklossar mot vägg och halksäkra aluminiumsteg, så foten får plats hela vägen ner",
+      "Krokarna sitter på karmar mellan 15 och 30 cm, alltså både för tunn och för tjock är utskrivet",
+      "Provad mot EN 131-1 och EN 131-2 och CE-märkt, de allmänna stegstandarderna",
       "Levereras i en väska som går att förvara vid fönstret och få ut snabbt",
     ],
     cons: [
-      "Varken Kjell eller Clas Ohlson för standarduppgiften vidare, den finns bara hos tillverkaren",
-      "Två maxlaster anges, 200 kilo rekommenderat och 450 testat, utan att någon förklarar skillnaden",
-      "Ingen uppgift om distanser mot väggen, till skillnad från Brandvarnare.se och Jula",
+      "Avsedd för en person i taget, trots att kartongen talar om 450 kilo",
+      "Utrymningshöjden är 4,7 meter från fönstrets underkant, alltså ingen tredje våning",
+      "Får inte användas från ett fönster rakt ovanför ett annat, eftersom klossarna kan krossa rutan under",
     ],
     specs: [
       { label: "Längd", value: "4,5 m", highlight: true },
       { label: "Räcker till", value: "Två våningar", highlight: true },
+      /* 200/450 kg står på förpackningen, men bruksanvisningen (Kjells egen
+         länk, 897328_21053_stege_manual_se_no.pdf) säger "avsedd att användas
+         av en person åt gången". Det talet är det som styr, och det står i
+         omdömet. Läst 2026-08-06. */
       { label: "Angiven maxlast", value: "200 kg rek, testad till 450 kg", highlight: true },
-      { label: "Karmtjocklek", value: "15 till 34 cm", highlight: true },
-      { label: "Standard som anges", value: "EN 131-6, utan årtal", highlight: true },
+      /* Bruksanvisningen anger 15–30 cm och "Maximal karmtjocklek: 30 cm".
+         Housegards egen produktsida anger 15–34 och har 34 i sidtiteln; Clas
+         Ohlsons frågespalt svarar 15 till 30. Manualen väger tyngst.
+         Rättat 2026-08-06, se .agent/research/brandstege.md. */
+      { label: "Karmtjocklek", value: "15 till 30 cm", highlight: true },
+      /* Varken Kjell, Clas Ohlson, Housegard eller manualen anger stegens
+         nettovikt. Clas Ohlson anger förpackningens vikt, 5,04 kg, vilket är
+         ett annat mått och inte förs in i en kolumn med nettovikter. */
+      { label: "Vikt", value: "Ej angiven", highlight: true },
+      /* Clas Ohlson, som säljer samma artikel: "Stegen är återanvändbar och
+         kan användas för fler bruk vilket kan vara lämpligt efter t.ex. en
+         brandövning." Manualen saknar den kasseringsinstruktion som de sex
+         andra stegarnas manualer bär, och säger i stället att stegen ska
+         kontrolleras noggrant efter användning och bytas vid synliga skador.
+         Läst 2026-08-06. */
+      { label: "Engångsbruk", value: "Nej, får återanvändas", highlight: true },
+      { label: "Max utrymningshöjd", value: "4,7 m" },
+      { label: "Distanser mot vägg", value: "Ja" },
+      { label: "Provad enligt", value: "EN 131-1 och EN 131-2, CE" },
+      { label: "Garanti", value: "5 år" },
+      { label: "Byt ut efter", value: "6 till 8 år" },
       { label: "Förvaring", value: "Medföljande väska" },
       { label: "Artikelnummer", value: "21053, modell 605012" },
     ],
     verdict:
-      "Det här är stegen de flesta ska köpa, och den är tvåa bara för att den inte når tre våningar.\n\nDen gör en sak ingen annan gör: anger karmtjockleken i båda riktningarna. Tillverkarens egen sida skriver 15 till 34 centimeter. Alla andra anger bara ett tak, vanligen 30 centimeter, och nämner inte att en alltför tunn karm också är ett problem eftersom krokarna då inte får något grepp. Det är det billigaste förköpet du kan göra i den här kategorin: mät karmen vid det fönster du tänkt använda innan du beställer.\n\nDen är också den enda som ens antyder en provning. Housegards egen sida skriver att produkten är testad enligt EN 131-6. Det är inte hela sanningen, för den standarden gäller enligt SIS lutande och stående teleskopstegar och en hängande stege av nylonband är ingetdera. Men att peka på någonting alls är mer än Biltema, Jula och Brandvarnare.se gör.\n\nHaken är att uppgiften stannar hos tillverkaren. Handlar du hos Kjell eller Clas Ohlson ser du bara kilotalet, och där står två tal bredvid varandra: rekommenderat 200 kilo, testat upp till 450. Ingen förklarar vad skillnaden består i, och den som väger 120 kilo och undrar om stegen bär både honom och ett barn får inget svar.\n\n849 kronor hos Kjell är femtio mindre än Clas Ohlson tog innan den tog slut hos dem, och femtio mer än Biltema. För de pengarna får du den bäst dokumenterade stegen. Det är fortfarande en låg ribba.",
+      "Housegard EL45A kostar 849 kronor hos Kjell och är den enda stegen på sidan du får använda mer än en gång.\n\nDet är hela argumentet, och det är större än det låter. De sex andra stegarna ska kasseras efter att de fällts ut, vilket betyder att den enda gången någon i hushållet klättrar i dem är när huset brinner. Den här får du hänga upp, klättra ner för och sedan kontrollera och lägga tillbaka. Öva en gång om året med hela familjen, ungefär som ni testar brandvarnaren, så vet den som behöver stegen vad som händer när man kliver ut baklänges genom ett fönster.\n\nDen är också väl måttsatt för sitt jobb. Krokarna tar karmar mellan 15 och 30 centimeter, alltså både ett tak och ett golv, och golvet är det ingen annan som talar om: en alltför tunn karm ger krokarna inget att bita i. Avståndsklossar håller ut stegen från fasaden så att framfoten får plats, stegen är halksäkra i aluminium, och alltihop ligger i en väska du kan ställa vid fönstret och få ut i mörker. Provad mot EN 131-1 och EN 131-2 och CE-märkt.\n\nTvå gränser att räkna med. Utrymningshöjden är 4,7 meter från fönstrets underkant, så sitter fönstret högre räcker den inte. Och den får inte hängas från ett fönster som sitter rakt ovanför ett annat: avståndsklossarna kan slå sönder rutan under. Kilotalen på kartongen, 200 rekommenderat och 450 testat, ska du samtidigt bortse från, för manualen säger att stegen är avsedd för en person i taget.\n\nTill en andravåning finns ingen anledning att välja något annat på den här sidan. Bara tre stegar är billigare, och ingen av dem låter er ta reda på hur det känns innan det gäller.",
   },
   {
     id: "brandvarnare-raddningsstege-45m",
@@ -167,23 +243,23 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Räddningsstege 4,5 m",
     brand: "Brandvarnare.se",
     image: productImage(BRANDSTEGE.slug, "brandvarnare-raddningsstege-45m"),
-    tagline: "Bäst beskrivna nedstigningen, till det näst högsta priset av stegarna.",
-    scores: { rackvidd: 4, nedstigning: 4.5, provning: 1, passform: 4, prisvarde: 3 },
+    tagline: "Distanserna på fotstegen håller ut stegen från väggen, så att foten får plats hela vägen ner.",
+    scores: { rackvidd: 4, nedstigning: 4.5, passform: 4, prisvarde: 3 },
     price: 979,
     merchant: "Brandvarnare.se",
     merchantUrl: "https://brandvarnare.se/produkt/raddningsstege-4-5m/",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst om du tänker öva",
+    superlative: "Bäst nedstigning till en andravåning",
     pros: [
-      "Distanser på fotstegen som håller ut stegen från fasaden, uttalat i produkttexten",
+      "Distanser på fotstegen som håller ut stegen från fasaden, så att framfoten får plats",
       "Räfflad aluminium på fotstegen, och nylonband som håller avståndet mellan stegen",
-      "Butiken beskriver övning i två steg, både bara upphängning och full utfällning",
+      "13 fotsteg på 4,5 meter, alltså tätare än de fyrametersstegar som har 12",
       "Ett klistermärke medföljer att sätta på dörren där stegen förvaras",
     ],
     cons: [
+      "Får utlösas en enda gång, trots att produktsidan beskriver hur du övar med full utfällning",
       "979 kronor för 4,5 meter, 180 mer än Biltema och 130 mer än Kjell för samma räckvidd",
-      "Ingen standard anges över huvud taget",
-      "450 kilo eller tre personer anges utan provmetod, och de två talen går inte ihop",
+      "450 kilo eller tre personer i samma mening, och de två talen går inte ihop",
     ],
     specs: [
       { label: "Längd", value: "4,5 m", highlight: true },
@@ -191,12 +267,21 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Angiven maxlast", value: "450 kg eller 3 personer", highlight: true },
       { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
       { label: "Vikt", value: "4,8 kg", highlight: true },
-      { label: "Standard som anges", value: "Ingen" },
-      { label: "Distanser mot vägg", value: "Ja, uttalat" },
+      /* Samma SAVS-manual som sjumetersstegen: den täcker ESC-450 till
+         ESC-2000 och säger "Denna stege är endast avsedd för engångsbruk" och
+         "Nu kan du dra av det svarta transportbandet (gör inte det vid
+         övning)". Butikens produkttext säger tvärtom att du kan öva genom att
+         fälla ut hela vägen ned. Läst 2026-08-06. */
+      { label: "Engångsbruk", value: "Ja, kasseras efter användning", highlight: true },
+      { label: "Antal steg", value: "13" },
+      { label: "Distanser mot vägg", value: "Ja" },
+      { label: "Byt ut efter", value: "5 år" },
       { label: "Mått hopfälld", value: "37 x 18,5 x 28 cm" },
+      { label: "Provad enligt", value: "Ingen" },
+      { label: "Artikelnummer", value: "60601, SAVS ESC-450" },
     ],
     verdict:
-      "Samma stege som sjumetersvinnaren i kortare utförande, och den bästa beskrivningen av hur en nedstigning faktiskt går till.\n\nButiken är den enda som skriver ut varför distanserna på fotstegen finns: de håller ut stegen från väggen så att foten får plats. En stege av band pressas nämligen platt mot fasaden av vikten hos den som klättrar. Utan distanser står du med tårna på en pinne och fasaden mot knäna.\n\nDe är också ensamma om att skriva hur du övar, och de delar upp det i två nivåer: bara hänga stegen över karmen, eller hänga och fälla ut hela vägen. Det andra sliter på stegen, så de säger till om att kontrollera den efteråt. Det är den sortens ärlighet som kostar butiken en försäljning ibland och som vi räknar som ett plus.\n\nProblemet är priset. 979 kronor för fyra och en halv meter, när Biltema tar 799 och Kjell 849 för samma längd och Bauhaus 699 för fyra. Du betalar cirka 150 kronor för en bättre produktbeskrivning, och en beskrivning är inte samma sak som en bättre stege. Vi kan inte belägga att distanserna saknas hos konkurrenterna, bara att ingen annan nämner dem.\n\nDokumentationen är dessutom den svagaste av stegarna, tillsammans med Biltemas och Julas: ingen standard alls. Och de två talen i lastuppgiften motsäger varandra, för 450 kilo är mer än tre vuxna men de skriver ändå max tre personer.",
+      "Samma stege som sjumetersvinnaren i kortare utförande, för 979 kronor, och den som är byggd bäst för själva nedklättringen av stegarna till en andravåning.\n\nDistanserna på fotstegen är skälet. De håller ut stegen från väggen så att foten får plats, för en stege av band pressas annars platt mot fasaden av vikten hos den som klättrar, och då står du med tårna på en pinne och knäna mot huset. Ovanpå det räfflad aluminium på fotstegen, kraftiga nylonband som håller avståndet mellan dem, och 13 steg på 4,5 meter mot 12 på de kortare stegarna.\n\nOch så det som inte står i butiken. Produktsidan beskriver hur du övar i två nivåer, både att bara hänga stegen och att fälla ut den hela vägen ned. Manualen som butiken publicerar i samma dokumentflik säger raka motsatsen: stegen är avsedd för engångsbruk, ska kasseras efter användning, och du ska inte dra i transportbandet när du övar. Fäll ut den och du har förbrukat en stege för 979 kronor.\n\nPriset är den andra invändningen. Biltema tar 799 och Kjell 849 för samma räckvidd, och Kjells får du dessutom öva med.\n\nKöp den om distanserna och de tätare stegen är värda 130 kronor mot Housegard och du ändå inte tänkt öva. Ska familjen träna på att ta sig ut är Housegard EL45A det enda valet här.",
   },
   {
     id: "nexa-flb-104",
@@ -204,8 +289,8 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "FLB-104",
     brand: "Nexa",
     image: productImage(BRANDSTEGE.slug, "nexa-flb-104"),
-    tagline: "Billigast, och den enda som anger en standard i butiken.",
-    scores: { rackvidd: 3.5, nedstigning: 3.5, provning: 1.5, passform: 3.5, prisvarde: 5 },
+    tagline: "699 kronor för fyra meter, hundra under närmaste stege.",
+    scores: { rackvidd: 3.5, nedstigning: 3.5, passform: 3.5, prisvarde: 5 },
     price: 699,
     merchant: "Bauhaus",
     merchantUrl: "https://www.bauhaus.se/brandstege-nexa-flb-104-4m",
@@ -213,27 +298,38 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     award: "budget",
     superlative: "Billigast, om räckvidden räcker",
     pros: [
-      "699 kronor, 100 kronor under näst billigaste och 595 under den dyraste",
-      "Enda produkten där butiken själv skriver ut en standardhänvisning i specifikationen",
-      "Butiken anger maximal evakueringshöjd separat från stegens längd, vilket ingen annan gör",
-      "4,5 kilo och tolv steg, lätt att hantera",
+      "699 kronor, 100 kronor under näst billigaste och 1 550 under den dyraste",
+      "30 centimeter breda fotsteg, brett att stå på i förhållande till priset",
+      "4,5 kilo och tolv steg, den lättaste stegen på sidan att bära fram och haka på",
+      "Krokarna tar karmar upp till 30 cm, samma gräns som stegar för tre gånger priset",
     ],
     cons: [
-      "Standarden anges som EN 131-6:2015, en utgåva SIS listar som tillbakadragen och ersatt 2019",
-      "EN 131-6 gäller lutande och stående teleskopstegar, inte en stege som hänger fritt",
       "4,3 meters evakueringshöjd är knappt för en andravåning med hög takhöjd",
+      "Inga distanser mot fasaden, till skillnad från Housegard och Biltema i samma prisklass",
+      "CE-märkningen hänvisar till EN 131-6:2015, som gäller teleskopstegar och är ersatt sedan 2019",
     ],
     specs: [
       { label: "Längd", value: "4 m", highlight: true },
-      { label: "Max evakueringshöjd", value: "4,3 m från fönstrets nederkant", highlight: true },
-      { label: "Angiven maxlast", value: "400 kg", highlight: true },
+      { label: "Räcker till", value: "Två våningar", highlight: true },
+      /* Bauhaus anger 400 kg. Nexas eget produktblad, som Bauhaus länkar under
+         Dokument, anger 450 kg, och etiketten på stegen i produktbladets egen
+         bild läser "MAX ... 450KG". Tillverkaren väger tyngre än butiken.
+         Läst 2026-08-06, artikel 13750, EAN 7330545137507. */
+      { label: "Angiven maxlast", value: "450 kg", highlight: true },
       { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
-      { label: "Standard som anges", value: "CE (EN 131-6:2015)", highlight: true },
-      { label: "Vikt", value: "4,5 kg" },
+      { label: "Vikt", value: "4,5 kg", highlight: true },
+      /* Varken Bauhaus produktsida eller Nexas produktblad säger något om hur
+         många gånger stegen får användas. De sex andra stegarnas manualer gör
+         det. Cellen står som streck tills uppgiften är läst någonstans. */
+      { label: "Engångsbruk", value: "Ej angivet", highlight: true },
+      { label: "Max utrymningshöjd", value: "4,3 m" },
       { label: "Antal steg", value: "12" },
+      { label: "Stegbredd", value: "30 cm" },
+      { label: "Provad enligt", value: "CE (EN 131-6:2015)" },
+      { label: "Artikelnummer", value: "1312824, Nexa 13750" },
     ],
     verdict:
-      "Billigast av stegarna med 100 kronor, och samtidigt den enda vars standardhänvisning går att ta i. Att den inte håller är hela poängen.\n\nBauhaus skriver \"Godkänd enligt: CE (EN131-6:2015)\" rakt ut i specifikationen. Ingen annan butik anger någon standard alls. Uppgiften hjälper dig ändå inte, av två skäl.\n\nDen första är årtalet. SIS listar SS-EN 131-6:2015 som tillbakadragen och ersatt av utgåvan från 2019. Det är tredje gången i vår brandfamilj som en svensk butik anger en indragen utgåva, efter EN 1869:1997 på brandfiltarna och EN 50291:2010 på kolmonoxidvarnarna.\n\nDen andra är vilken standard det är. SIS beskriver omfattningen som lutande och stående teleskopstegar. FLB-104 är varken lutande eller stående, den hänger fritt i nylonband längs fasaden. Vi kan inte granska certifikatet och påstår därför ingenting om det, men vi kan läsa vad standarden själv säger att den handlar om.\n\nRäckvidden är den kortaste av stegarna. Fyra meters stege och 4,3 meters evakueringshöjd räknat från fönstrets nederkant, vilket är hederligt angivet men knappt i ett hus med tre meters takhöjd. Mät innan du beställer.\n\nFör 699 kronor är den ändå rätt köp om fönstret sitter lågt nog och du hellre lägger pengarna på en brandvarnare till. Vad du inte får är någon kontrollerbar uppgift om att den bär dig.",
+      "Nexa FLB-104 kostar 699 kronor hos Bauhaus och är hundra kronor billigare än allt annat på sidan.\n\nFör pengarna får du en stege som gör grunderna. Fotstegen är 30 centimeter breda, vilket är lika brett som på stegar för tre gånger priset och märks när du står med bara tårna på en pinne i mörker. Krokarna tar karmar upp till 30 centimeter, samma gräns som alla andra. Och 4,5 kilo gör den till den lättaste stegen här att få fram ur en garderob och haka på med en hand.\n\nRäckvidden är gränsen. Fyra meters stege ger 4,3 meters evakueringshöjd räknat från fönstrets nederkant, och i ett hus med tre meters takhöjd sitter fönstret på andra våningen ofta precis där. Mät från marken upp till fönsterbrädan innan du beställer, för hundralappen du sparar är inte värd en stege som slutar en halvmeter ovanför gräsmattan.\n\nDen saknar också distanser mot fasaden, som Housegard och Biltema har för 150 respektive 100 kronor mer. Utan dem pressas stegen mot väggen av din egen tyngd och framfoten får mindre plats.\n\nSitter fönstret lågt nog är det här rätt köp, och mellanskillnaden räcker till en brandvarnare till. Är du osäker på höjden: lägg hundralappen på Biltemas 4,5-metersstege i stället.",
   },
   {
     id: "hardhead-brandstege-43m",
@@ -243,39 +339,56 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Brandstege 4,3 m",
     brand: "Hard Head",
     image: productImage(BRANDSTEGE.slug, "hardhead-brandstege-43m"),
-    tagline: "Enda med publicerat väggavstånd, och enda du inte får öva med.",
-    scores: { rackvidd: 3.5, nedstigning: 4.5, provning: 1, passform: 3.5, prisvarde: 3 },
+    tagline: "18,5 × 37 × 25 centimeter hopfälld, alltså plats under sängen i barnrummet.",
+    /* nedstigning sänkt 4,5 → 3,5 2026-08-06. Betyget byggde på ett publicerat
+       väggavstånd på 43 cm. Bruksanvisningens tekniska data listar
+       "Utfälld: L 430 x B 31 x D 43 cm" under rubriken Mått, alltså stegens
+       eget djup utfälld och inte avståndet till fasaden. Ingenting skiljer den
+       därmed från Nexa FLB-104, som är samma OEM-stege med samma krokbygel.
+       Se lib/corrections.ts. */
+    scores: { rackvidd: 3.5, nedstigning: 3.5, passform: 3.5, prisvarde: 3 },
     price: 799,
     merchant: "Jula",
     merchantUrl:
       "https://www.jula.se/catalog/hem-och-hushall/brand-och-sakerhet/brand/brandstegar/brandstege-025385/",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.7, count: 19, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst mått, sämst villkor",
+    superlative: "Bäst för den som har ont om förvaringsplats",
     pros: [
-      "Väggavståndet är publicerat som ett mått, 43 cm utfällt, vilket ingen annan anger",
-      "Hopfällt mått utskrivet, 18,5 × 37 × 25 cm, så du vet vad som ska få plats i garderoben",
-      "Den mest återhållsamma lastuppgiften av stegarna, 150 kg, samma nivå som fasta stegar anger",
+      "18,5 × 37 × 25 cm hopfälld, den minsta packen på sidan och lätt att få under en säng",
       "Räfflade steg och en nedstigningsinstruktion i fem punkter på produktsidan",
+      "Engångsvillkoret står i butiken, inte bara i manualen, till skillnad från fyra av de andra",
+      "4,68 kilo, alltså i den lätta halvan av stegarna",
     ],
     cons: [
-      "Endast avsedd för engångsbruk, så du kan inte öva med den",
-      "Max karmtjocklek 28 cm, snålast av stegarna och tillräckligt för att utesluta en tjock nisch",
-      "Ingen standard anges",
+      "Ska kasseras efter en utlösning, och bytas efter fem år även om den aldrig använts",
+      "Inga distanser mot fasaden, så framfoten får mindre plats än på Housegard och Biltema",
+      "150 kilo angivet, och tre personer samtidigt tillåtna i samma manual",
     ],
     specs: [
       { label: "Längd", value: "4,3 m utfälld", highlight: true },
-      { label: "Engångsbruk", value: "Ja, enligt butikens egen text", highlight: true },
+      { label: "Räcker till", value: "Två våningar", highlight: true },
       { label: "Angiven maxlast", value: "150 kg", highlight: true },
-      { label: "Karmtjocklek", value: "Högst 28 cm", highlight: true },
-      { label: "Väggavstånd utfälld", value: "43 cm", highlight: true },
-      { label: "Vikt", value: "4,68 kg" },
-      { label: "Hopfällt mått", value: "18,5 × 37 × 25 cm" },
+      /* Bruksanvisningen: "Fönsterbrädjupet får maximalt vara 30 cm", och
+         måttskissen anger MAX 300 mm. Vi publicerade 28 cm på fyra ställen
+         utan att kunna belägga det i manualen. Rättat 2026-08-06. */
+      { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
+      { label: "Vikt", value: "4,68 kg", highlight: true },
+      /* Manualen heter "ONE TIME USE FIRE LADDER / BRANDSTEGE FÖR
+         ENGÅNGSBRUK" och säger "Efter användning ska produkten kasseras".
+         Samma manual: "Produkten bör bytas ut vart 5:e år" och "Dra inte i
+         utlösningsbandet vid övningsmontering". Läst 2026-08-06. */
+      { label: "Engångsbruk", value: "Ja, kasseras efter användning", highlight: true },
+      { label: "Byt ut efter", value: "5 år" },
+      { label: "Mått hopfälld", value: "18,5 × 37 × 25 cm" },
+      /* Inte ett väggavstånd. Manualens tekniska data listar det under Mått
+         som stegens djup i utfällt läge, tillsammans med längd och bredd. */
+      { label: "Mått utfälld", value: "430 × 31 × 43 cm" },
+      { label: "Provad enligt", value: "Ingen" },
       { label: "Artikelnummer", value: "025385" },
-      { label: "Mått hopfälld", value: "18,5 x 37 x 25 cm (BxHxD)" },
     ],
     verdict:
-      "Den bäst måttsatta stegen av alla, sänkt av en mening mitt i säljtexten.\n\nJula skriver ut siffror ingen annan bryr sig om. Väggavståndet i utfällt läge är 43 centimeter, vilket är det mått som avgör om foten får plats mellan stegpinnen och fasaden, och de är ensamma om att ange det som ett tal i stället för att beskriva det i ord. De skriver ut hopfällt mått så du vet om den får plats under sängen. Och deras lastuppgift, 150 kilo, är den mest återhållsamma i kategorin och råkar ligga på samma nivå som fasadmonterade stegar anger efter provning mot EN 131.\n\nSedan kommer meningen: \"Endast avsedd för engångsbruk.\"\n\nDen står i löpande text i ett säljstycke, inte i specifikationen. Konsekvensen är att du aldrig kan pröva stegen. Varje räddningstjänst säger åt dig att öva utrymningsvägen, Brandvarnare.se beskriver på sina produktsidor hur man gör det, och den här stegen förbrukas av övningen. Första gången du klättrar i den står huset i brand, i mörker, med adrenalin, på en produkt du aldrig rört.\n\nJula är däremot inte ensam om villkoret, bara ensam om att skriva det i butiken. Skeppshultstegens egen text säger samma sak, men den syns bara hos Stegfabriken och inte hos Bauhaus. Se avsnittet om engångsbruk.\n\nVi drar inte av poäng för det i något kriterium, eftersom det inte hör hemma i något av de fem och eftersom ett dolt avdrag hade dolt själva saken. Det står som nackdel och har ett eget avsnitt ovanför.\n\nKarmmåttet är dessutom stegarnas snålaste, 28 centimeter mot 30 hos de flesta och 34 hos Housegard. I ett hus med tjock isolering eller djup fönsternisch är det skillnaden mellan en stege som hakar och en som inte gör det.",
+      "Hard Head Brandstege kostar 799 kronor hos Jula och packar ihop till 18,5 × 37 × 25 centimeter, den minsta packen på sidan.\n\nDet spelar roll för var stegen hamnar. En brandstege gör nytta i det rum vars fönster du tänkt utrymma genom, och den vanligaste anledningen till att den i stället hamnar i förrådet är att den inte får plats under sängen eller i garderoben. Den här gör det, i ett barnrum också. Fotstegen är räfflade och Jula skriver ut nedstigningen i fem punkter på produktsidan.\n\nJula är också ensam om att skriva engångsvillkoret där du handlar. \"Endast avsedd för engångsbruk\" står i produkttexten, och bruksanvisningen heter rakt av One time use fire ladder. Fyra av de andra stegarna har samma villkor men bara i en manual du läser efter köpet, så den som jämför i butiken tror att Julas är sämre än den är.\n\nDet den saknar är distanser mot fasaden. Housegard för 849 och Biltema för 799 har avståndsklossar som håller ut stegen från väggen, och utan dem pressas den mot huset av din egen tyngd och framfoten får mindre plats. Manualen anger dessutom 150 kilo och tillåter tre personer samtidigt på samma sida, vilket inte går ihop.\n\nKöp den om förvaringsplatsen avgör och stegen ska ligga i ett litet rum. Har du plats för en väska under sängen får du mer stege för pengarna hos Biltema, och en du dessutom får öva med hos Kjell.",
   },
   /* Tillagda 2026-08-03 vid rättelsen. Priserna är lästa hos Bauhaus samma
      dag och inte på filens PRICE_CHECKED, därav den egna konstanten. */
@@ -285,36 +398,50 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Repstege 7,5 m",
     brand: "Skeppshultstegen",
     image: productImage(BRANDSTEGE.slug, "skeppshult-repstege-75m"),
-    tagline: "Längst räckvidd i handeln, utan en enda uppgift om last.",
-    scores: { rackvidd: 5, nedstigning: 4, provning: 1, passform: 3, prisvarde: 2 },
+    tagline: "7,5 meter räcker ned från tredje våningen, och 80 mm ut från fasaden ger foten plats.",
+    scores: { rackvidd: 5, nedstigning: 4, passform: 3, prisvarde: 2 },
     price: 2249,
     merchant: "Bauhaus",
     merchantUrl: "https://www.bauhaus.se/brandstege-skepphultstegen-plast-7-5m",
     priceCheckedAt: PRICE_CHECKED_SKEPPSHULT,
-    superlative: "Längst av alla, dyrast av alla",
+    superlative: "Bäst för tre våningar med hög takhöjd",
     pros: [
-      "7,5 meter är den längsta hängande stegen vi hittat i svensk handel",
-      "Avståndet ut från fasaden anges som ett mått, 80 mm, vilket bara två andra gör",
-      "22 fotsteg och 306 mm stegbredd står utskrivet, två uppgifter de flesta butiker hoppar över",
-      "1 000 kronor billigare än exakt samma artikel hos Stegfabriken",
+      "80 mm ut från fasaden, vilket ger framfoten plats hela vägen ned",
+      "306 mm mellan sidorna och 22 fotsteg, alltså bredare att stå på än de flesta",
+      "7,5 meter räcker till tre våningar med marginal även vid hög takhöjd",
+      "936 kronor billigare än exakt samma artikel hos Stegfabriken",
     ],
     cons: [
-      "Ingen maxlast alls i specifikationen, samtidigt som säkerhetstexten säger åt dig att aldrig överskrida den",
       "2 249 kronor är 955 mer än sjumetersstegen hos Brandvarnare.se",
-      "Ingen standard anges, ingen vikt anges, och ingen uppgift om hur den förvaras",
+      "Konstruerad för att användas en gång, enligt tillverkarens egen text",
+      "Ingen väska eller låda ingår, så den behöver en egen plats i garderoben",
     ],
     specs: [
       { label: "Längd", value: "7,5 m", highlight: true },
       { label: "Räcker till", value: "Tre våningar", highlight: true },
-      { label: "Angiven maxlast", value: "Ej angivet", highlight: true },
+      /* 450 kg står på Skeppshultstegens egen produktsida för hela
+         repstegeserien, inte hos Bauhaus som säljer den. Vi skrev "Ej angivet"
+         och gjorde en nackdel av det, med butiken som enda källa. Läst
+         2026-08-06 på
+         skeppshultstegen.se/sv/tak-fasadstegar/repstege-utrymning-standard.html */
+      { label: "Angiven maxlast", value: "450 kg", highlight: true },
       { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
-      { label: "Avstånd från fasad", value: "80 mm", highlight: true },
-      { label: "Standard som anges", value: "Ingen" },
+      /* 6,3 kg står i tillverkarens egen varianttabell för art 62-75-1, som
+         Stegfabriken publicerar tillsammans med 4,30 kg för 4,7 m och 8,50 kg
+         för 10 m. Bauhaus anger 6,8 kg för samma artikel. Vi tar tillverkarens
+         tabell, som är internt konsekvent över de tre längderna; avvikelsen
+         står i .agent/research/brandstege.md. */
+      { label: "Vikt", value: "6,3 kg", highlight: true },
+      { label: "Engångsbruk", value: "Ja, enligt tillverkaren", highlight: true },
+      { label: "Avstånd från fasad", value: "80 mm" },
+      { label: "Stegbredd", value: "306 mm" },
       { label: "Antal steg", value: "22" },
-      { label: "Artikelnummer", value: "1503513" },
+      { label: "Mått hopfälld", value: "0,29 m" },
+      { label: "Provad enligt", value: "Ingen" },
+      { label: "Artikelnummer", value: "1503513, tillverkarens 62-75-1" },
     ],
     verdict:
-      "Den längsta hängande stegen i svensk handel, och den enda där butiken inte anger vad den bär.\n\nBörja med det den gör rätt. 7,5 meter räcker till tre våningar med marginal. Avståndet ut från fasaden står som ett tal, 80 millimeter, och det är den uppgift som avgör om foten får plats när stegen ligger an mot väggen. Antal steg och stegbredd står också utskrivet. Det är mer specifikation än Biltema publicerar på någon av sina produkter.\n\nSedan luckan. Under rubriken Teknisk information står material, längd, bredd, antal steg, avstånd från fasad och max väggtjocklek. Ingen maxlast. I samma produkttext står samtidigt: överskrid aldrig den maximala belastningsvikten som anges av tillverkaren. Butiken hänvisar alltså till ett tal den inte publicerar.\n\nTalet finns. På Bauhaus egen produktbild syns en etikett på stegen med 450 kilo och en CE-märkning, delvis skymd av spännbandet. Du kan alltså läsa maxlasten först när kartongen är öppnad, och det är exakt tvärtemot vad kriteriet dokumenterad provning mäter. Det ger lägsta betyget, samma som de fyra andra som inte anger någon standard.\n\nPriset är den andra invändningen. 2 249 kronor mot 1 294 för sjumetersstegen hos Brandvarnare.se, 955 kronor för en halv meter extra och sämre publicerade uppgifter. Vill du ändå ha just den här: köp den hos Bauhaus. Stegfabriken tar 3 185 kronor för samma artikel.",
+      "Skeppshultstegens repstege är 7,5 meter lång och kostar 2 249 kronor hos Bauhaus. Den är den bredaste stegen på sidan att faktiskt klättra i.\n\nTvå mått bär det. 80 millimeter ut från fasaden avgör om framfoten får plats när stegen ligger an mot väggen, och det är mer än någon annan stege här håller ut sig själv. 306 millimeter mellan sidorna, mot 30 centimeter på de smalaste, plus 22 fotsteg gör den stadig att kliva ut baklänges på i mörker. Krokarna tar karmar upp till 300 millimeter och tillverkaren anger 450 kilo.\n\nPriset är invändningen och det är en stor sådan. 2 249 kronor mot 1 294 för sjumetersstegen hos Brandvarnare.se är 955 kronor för en halv meter du sannolikt inte behöver, och båda ska kasseras efter en utlösning. Någon väska eller låda ingår inte heller, så du får själv hitta en plats där 6,3 kilo stege ligger framme utan att vara i vägen.\n\nKöp den om du har tre våningar, hög takhöjd och vill ha den bredaste stegen som säljs. I ett vanligt trevåningshus räcker sju meter, och då sparar du nästan tusen kronor. Vill du ändå ha just den här: köp den hos Bauhaus, för Stegfabriken tar 3 185 kronor för samma artikelnummer.",
   },
   {
     id: "skeppshult-repstege-45m",
@@ -322,35 +449,48 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Repstege 4,5 m",
     brand: "Skeppshultstegen",
     image: productImage(BRANDSTEGE.slug, "skeppshult-repstege-45m"),
-    tagline: "Samma uppgifter som sjuan, till ett pris som inte försvarar sig.",
-    scores: { rackvidd: 4, nedstigning: 4, provning: 1, passform: 3, prisvarde: 2 },
+    tagline: "305 millimeter mellan sidorna, alltså bredare att stå på än fyrametersstegarna.",
+    scores: { rackvidd: 4, nedstigning: 4, passform: 3, prisvarde: 2 },
     price: 1327,
     merchant: "Bauhaus",
     merchantUrl: "https://www.bauhaus.se/brandstege-skepphultstegen-plast-4-5m",
     priceCheckedAt: PRICE_CHECKED_SKEPPSHULT,
+    superlative: "Bredast att stå på till en andravåning",
     pros: [
-      "Avståndet ut från fasaden anges som ett mått, 80 mm",
-      "13 fotsteg och 305 mm stegbredd står utskrivet",
-      "4,5 meter räcker till en normal andravåning med marginal",
+      "305 mm mellan sidorna och 13 fotsteg, alltså bredare och tätare än fyrametersstegarna",
+      "80 mm ut från fasaden angivet som ett mått, så framfoten får plats",
+      "4,3 kilo, alltså ett kilo lättare än sjumetersstegarna att lyfta över en karm",
       "568 kronor billigare än samma artikel hos Stegfabriken",
     ],
     cons: [
       "1 327 kronor för en räckvidd som kostar 799 hos Biltema och 849 hos Kjell",
-      "Ingen maxlast alls i specifikationen",
-      "Ingen standard anges och ingen vikt anges",
+      "Konstruerad för att användas en gång, enligt tillverkarens egen text",
+      "Ingen väska eller låda ingår, till skillnad från Housegards för 478 kronor mindre",
     ],
     specs: [
       { label: "Längd", value: "4,5 m", highlight: true },
       { label: "Räcker till", value: "Två våningar", highlight: true },
-      { label: "Angiven maxlast", value: "Ej angivet", highlight: true },
+      /* Vi skrev "Ej angivet" och gjorde en nackdel av det. Tillverkarens egen
+         sida anger "Max belastning 450kg" för repstegen som produkt, och
+         listar den i tre längder: 4780, 7500 och 10500 mm. Stegfabriken
+         publicerar samma punktlista ovanför varianttabellen med art 62-45-1,
+         62-75-1 och 62-105-1. Talet gäller alltså serien, inte bara sjuan.
+         Läst 2026-08-06. */
+      { label: "Angiven maxlast", value: "450 kg", highlight: true },
       { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
-      { label: "Avstånd från fasad", value: "80 mm", highlight: true },
-      { label: "Standard som anges", value: "Ingen" },
+      /* 4,30 kg, tillverkarens varianttabell för art 62-45-1 via Stegfabriken.
+         Bauhaus publicerar ingen vikt för den här artikeln. */
+      { label: "Vikt", value: "4,3 kg", highlight: true },
+      { label: "Engångsbruk", value: "Ja, enligt tillverkaren", highlight: true },
+      { label: "Avstånd från fasad", value: "80 mm" },
+      { label: "Stegbredd", value: "305 mm" },
       { label: "Antal steg", value: "13" },
-      { label: "Artikelnummer", value: "1503512" },
+      { label: "Mått hopfälld", value: "0,24 m" },
+      { label: "Provad enligt", value: "Ingen" },
+      { label: "Artikelnummer", value: "1503512, tillverkarens 62-45-1" },
     ],
     verdict:
-      "Kortversionen av sjuan, och den som har svårast att försvara sitt pris.\n\nUppgifterna är desamma och de är hyggliga: 80 millimeter ut från fasaden angivet som ett tal, 13 fotsteg, 305 millimeters stegbredd, högst 300 millimeters karm. Ingen maxlast, ingen standard, ingen vikt.\n\nProblemet är vad grannarna på hyllan kostar. 4,5 meter räckvidd får du för 799 kronor hos Biltema och 849 hos Kjell, och Kjells är dessutom den enda produkten i kategorin där tillverkaren anger ett karmintervall i båda riktningarna. Här betalar du 1 327 kronor och får ett publicerat avståndsmått i stället. Det är en verklig uppgift, men den är inte värd 478 kronor.\n\nDet som gör den värd att känna till är butiksskillnaden. Exakt samma artikel kostar 1 895 kronor hos Stegfabriken. Samma stege, samma tillverkare, 43 procents påslag. Det mönstret gäller hela Skeppshultstegens sortiment och är den enskilt största besparingen i den här produktfamiljen.\n\nEn sak till följer med köpstället. Stegfabriken publicerar tillverkarens egen text, som säger att stegen är konstruerad för att användas en gång enbart. Bauhaus skriver bara att den är tillverkad för att användas endast vid behov. Samma produkt, samma tillverkare, och den restriktion som avgör om du får öva syns bara i den dyrare butiken.",
+      "Kortversionen av sjuan är den bredaste stegen på fyra och en halv meter, med 305 millimeter mellan sidorna.\n\nBredden är det du står på. Fyrametersstegarna ger 30 centimeter och Skeppshultstegen en halv centimeter mer, vilket låter futtigt tills man har bara tårna på en pinne i mörker. Till det 13 fotsteg i stället för 12 på en halvmeter längre stege, 80 millimeter ut från fasaden så att framfoten får plats, och 4,3 kilo att lyfta över karmen mot 6,3 för sjumetersvarianten.\n\nProblemet är vad grannarna på hyllan kostar. Samma räckvidd får du för 799 kronor hos Biltema och 849 hos Kjell, och Kjells är den enda stegen här du får öva med och den enda som anger ett karmintervall i båda riktningarna. Här betalar du 1 327 kronor, alltså 478 mer, för en halv centimeters stegbredd och ett publicerat avståndsmått.\n\nDet som ändå gör den värd att känna till är butiksskillnaden. Exakt samma artikelnummer kostar 1 895 kronor hos Stegfabriken, alltså 43 procents påslag på samma stege från samma tillverkare. Det mönstret gäller hela Skeppshultstegens sortiment och är den enskilt största besparingen i den här produktfamiljen.\n\nDen halva centimetern är inte värd 478 kronor för de flesta. Ta Housegard hos Kjell och lägg mellanskillnaden på en brandvarnare till varje sovrum.",
   },
   {
     id: "biltema-brandstege-45m",
@@ -360,36 +500,57 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Brandstege 4,5 m",
     brand: "Biltema",
     image: productImage(BRANDSTEGE.slug, "biltema-brandstege-45m"),
-    tagline: "Rätt längd till lågt pris, med tre rader specifikation totalt.",
-    scores: { rackvidd: 4, nedstigning: 2.5, provning: 1, passform: 2, prisvarde: 4.5 },
+    tagline: "Full andravåningsräckvidd för 799 kronor, att hämta i varuhuset i dag.",
+    /* nedstigning 2,5 → 4,0 och passform 2,0 → 3,0 den 2026-08-06. Båda
+       betygen var satta på uppgifter vi inte läst. Bruksanvisningen som
+       produktsidan länkar varnar för att "avståndsklossarna på stegen" kan
+       krossa fönstret under, alltså har stegen distanser, och anger maximal
+       karmtjocklek 30 cm. Vi hade skrivit att den saknade distanser och att
+       karmmåttet inte gick att få fram. nedstigning stannar på 4,0 och inte
+       4,5 eftersom varken stegbredd eller halkskydd är angivet någonstans.
+       Se lib/corrections.ts. */
+    scores: { rackvidd: 4, nedstigning: 4, passform: 3, prisvarde: 4.5 },
     price: 799,
     merchant: "Biltema",
     merchantUrl:
       "https://www.biltema.se/hem/sakerhet/brandstegar/brandstege-45-m-2000042748",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Billigast per meter räckvidd",
+    superlative: "Bäst köp att hämta samma dag",
     pros: [
-      "4,5 meter för 799 kronor, full andravåningsräckvidd till nästan lägsta pris",
+      "4,5 meter för 799 kronor, full andravåningsräckvidd till näst lägsta pris",
       "Finns i varuhus över hela landet och går att hämta samma dag",
-      "200 kilo är en återhållsam uppgift jämfört med de 400 och 450 andra anger",
+      "Avståndsklossar mot vägg, samma lösning som stegen för 495 kronor mer",
+      "Krokarna tar karmar upp till 30 cm och utrymningshöjden är angiven till 4,7 meter",
     ],
     cons: [
-      "Tekniska data består av tre rader: material, maxlast och längd",
-      "Ingen uppgift om karmtjocklek, så det går inte att kontrollera om den passar ditt fönster",
-      "Ingen uppgift om distanser mot väggen, stegbredd eller vikt",
-      "Ingen standard anges",
+      "Får bara användas en gång, så en övning kostar en ny stege",
+      "Avsedd för en person åt gången, trots att kartongen talar om 450 kilo",
+      "Får inte användas från ett fönster rakt ovanför ett annat, eftersom klossarna kan krossa rutan under",
     ],
     specs: [
       { label: "Längd", value: "4,5 m", highlight: true },
       { label: "Räcker till", value: "Två våningar", highlight: true },
-      { label: "Angiven maxlast", value: "200 kg", highlight: true },
-      { label: "Karmtjocklek", value: "Ej angivet", highlight: true },
+      { label: "Angiven maxlast", value: "200 kg, testad till 450 kg", highlight: true },
+      /* Karmtjocklek, utrymningshöjd, garanti, avståndsklossar och standard
+         står i Biltemas egen manual,
+         docs.biltema.com/v2/documents/file/sv/35787d98-…, som produktsidan
+         länkar. Det är samma OEM-manual som Housegard EL45S, med samma bilder.
+         Produktsidan anger dessutom EN 131-6:2015 i brödtexten. Vi skrev
+         "Ej angivet" och "Ingen standard anges" om båda, och att stegen
+         saknade distanser. Läst 2026-08-06, se .agent/research/brandstege.md. */
+      { label: "Karmtjocklek", value: "Högst 30 cm", highlight: true },
+      /* Varken produktsidan eller manualen anger stegens vikt. */
+      { label: "Vikt", value: "Ej angiven", highlight: true },
+      { label: "Engångsbruk", value: "Ja, enligt produktsidan", highlight: true },
+      { label: "Max utrymningshöjd", value: "4,7 m" },
+      { label: "Distanser mot vägg", value: "Ja" },
       { label: "Material", value: "Nylon och aluminium" },
-      { label: "Standard som anges", value: "Ingen" },
+      { label: "Provad enligt", value: "EN 131-6:2015" },
+      { label: "Garanti", value: "3 år" },
       { label: "Artikelnummer", value: "21-500" },
     ],
     verdict:
-      "Rätt längd, lågt pris och nästan ingen information alls.\n\nBiltemas tekniska data för den här produkten består av tre rader: material nylon och aluminium, maxlast 200 kilo, längd 4,5 meter. Det är allt. Ingen karmtjocklek, ingen vikt, ingen stegbredd, inget om distanser, ingen standard.\n\nKarmtjockleken är den som gör mest skada. Alla andra tillverkare anger ett tak på 28 till 34 centimeter, vilket betyder att det finns en gräns och att den ligger inom det spannet. Hos Biltema kan du inte veta om stegen passar ditt fönster förrän du står med den i handen. Öppet köp löser det ekonomiskt men inte praktiskt, för den som upptäcker det vid en brand upptäcker det för sent.\n\nDet den gör rätt är längden och priset. 4,5 meter är den räckvidd en normal andravåning behöver, och 799 kronor är näst lägsta priset av stegarna. Räknat i kronor per meter faktisk räckvidd är den billigast av alla. Finns dessutom att hämta i varuhus samma dag, vilket är värt något för en produkt man skjuter upp att köpa.\n\nOch 200 kilo är, av alla ironier, en av de mer trovärdiga uppgifterna i kategorin, just för att den är låg. De som anger 400 och 450 gör det utan att ange hur de kommit fram till det.",
+      "Biltemas brandstege kostar 799 kronor, når 4,5 meter och är den du kan ha hängande vid fönstret i kväll.\n\nDen finns i varuhus över hela landet och går att hämta på vägen hem. Det betyder mer än det låter för en produkt de flesta vet att de borde ha och skjuter upp i åratal, och det är den enda stegen här som inte kräver att du beställer och väntar.\n\nFör pengarna får du samma konstruktion som stegen för 495 kronor mer. Avståndsklossar håller ut stegen från fasaden så att framfoten får plats, krokarna tar karmar upp till 30 centimeter, och utrymningshöjden är angiven till 4,7 meter räknat från fönstrets underkant, alltså full räckvidd från en normal andravåning. Manualen som produktsidan länkar bär alla tre uppgifterna, plus tre års garanti.\n\nDen får bara användas en gång. En övning kostar alltså 799 kronor till, och manualen säger dessutom att stegen är avsedd för en person åt gången, oavsett de 200 och 450 kilo som står på kartongen. Den får heller inte hängas från ett fönster som sitter rakt ovanför ett annat, för då kan klossarna slå sönder rutan under.\n\nFemtio kronor skiljer den från Housegard hos Kjell, och de femtio kronorna köper en stege ni får öva med. Det är den enda anledningen att inte hämta den här på vägen hem i kväll, och den är god.",
   },
 ];
 
@@ -475,7 +636,7 @@ export const BRANDSTEGE_FAQ = [
   {
     question: "Vilken brandstege är bäst 2026?",
     answer:
-      "Det beror på hur högt fönstret sitter. Har du två våningar är Housegard EL45A hos Kjell för 849 kronor bäst köp: 4,5 meter räckvidd, karmtjocklek angiven till 15 till 34 centimeter och den enda produkten där tillverkaren över huvud taget anger en standard. Har du tre våningar finns två alternativ, och de skiljer 955 kronor: Brandvarnare.se sjumetersstege för 1 294 kronor och Skeppshultstegens 7,5-meters hos Bauhaus för 2 249. Den dyrare publicerar varken maxlast eller standard, så vi rekommenderar den billigare. Sitter fönstrets underkant mer än fem meter över marken bör du i stället titta på en fast monterad stege, eftersom det är den enda typ Boverkets byggregler räknar som utrymningsväg.",
+      "Det beror på hur högt fönstret sitter. Har du två våningar är Housegard EL45A hos Kjell för 849 kronor bäst köp, och skälet är att den är den enda stegen på sidan som får återanvändas: 4,5 meter räckvidd, avståndsklossar mot väggen, karmar mellan 15 och 30 centimeter, och en produkt hela hushållet får öva med. Har du tre våningar är Brandvarnare.se sjumetersstege för 1 294 kronor den billigaste vägen ner, 955 kronor under Skeppshultstegens 7,5-meters hos Bauhaus. Sitter fönstrets underkant mer än fem meter över marken bör du i stället titta på en fast monterad stege, eftersom det är den enda typ Boverkets byggregler räknar som utrymningsväg.",
   },
   {
     question: "Hur lång brandstege behöver jag?",
@@ -485,7 +646,12 @@ export const BRANDSTEGE_FAQ = [
   {
     question: "Är brandstegar certifierade?",
     answer:
-      "Inte mot någon standard som gäller stegtypen. Två av produkterna hänvisar till EN 131-6. SIS beskriver den standardens omfattning som lutande och stående teleskopstegar, och en stege som hänger fritt i nylonband är ingetdera. Bauhaus anger dessutom utgåvan 2015, som SIS listar som tillbakadragen och ersatt av 2019. De sex övriga anger ingen standard alls. Det är därför vårt kriterium heter dokumenterad provning och inte certifiering: vi betygsätter vad du kan kontrollera före köp.",
+      "Inte mot någon standard som gäller stegtypen. Nexa och Biltema hänvisar till EN 131-6, men SIS beskriver den standardens omfattning som lutande och stående teleskopstegar, och en stege som hänger fritt i nylonband är ingetdera. Båda anger dessutom utgåvan 2015, som SIS listar som tillbakadragen och ersatt av 2019. Housegard EL45A är provad mot EN 131-1 och EN 131-2, alltså de allmänna stegstandarderna, och CE-märkt. Vi betygsätter inte vem som har publicerat ett intyg, eftersom en stege bär det den bär oavsett vad som står i produktbladet.",
+  },
+  {
+    question: "Får man öva med en brandstege?",
+    answer:
+      "Att hänga upp den, ja. Att fälla ut den, nästan aldrig. Sex av de åtta stegarna ska enligt sin egen bruksanvisning utlösas en enda gång och kasseras efteråt, och samtliga manualer säger uttryckligen att du inte ska dra i utlösningsbandet när du övar. Undantaget är Housegard EL45A, som är byggd för att kontrolleras efter användning och hängas tillbaka. Öva därför alltid på upphängningen, som är det svåraste momentet i mörker: att få krokarna rätt över karmen med en hand och känna efter att de sitter. Vill ni öva på hela nedklättringen behöver ni antingen Housegards stege eller en extra stege att förbruka.",
   },
   {
     question: "Måste man ha brandstege enligt lag?",
@@ -495,7 +661,7 @@ export const BRANDSTEGE_FAQ = [
   {
     question: "Hur tjock fönsterkarm klarar en brandstege?",
     answer:
-      "Krokarna hakas över karmen och har en gräns. Jula anger högst 28 centimeter, Nexa, Brandvarnare.se och Skeppshultstegen högst 30, och Housegard anger som enda tillverkare ett intervall, 15 till 34 centimeter. Minimum spelar roll också: en alltför tunn karm ger krokarna för lite grepp. Biltema anger ingen uppgift alls. Mät karmen vid det fönster du tänkt använda innan du beställer, det tar en minut och är det billigaste du kan göra för din säkerhet i den här kategorin.",
+      "Högst 30 centimeter, och det gäller alla åtta. Housegard är ensam om att ange ett golv också: 15 till 30 centimeter, eftersom en alltför tunn karm ger krokarna för lite att bita i. Mät karmen vid det fönster du tänkt använda innan du beställer, det tar en minut och är det billigaste du kan göra för din säkerhet i den här kategorin. Julas stege stod länge angiven till 28 centimeter hos oss, vilket var vårt fel: bruksanvisningen anger 30.",
   },
   {
     question: "Klarar barn att använda en brandstege själva?",
@@ -505,7 +671,7 @@ export const BRANDSTEGE_FAQ = [
   {
     question: "Hur övar man med en brandstege utan att någon slår sig?",
     answer:
-      "På låg höjd, i dagsljus, med någon som håller. Öva från ett fönster på bottenvåningen eller från en altan, inte från sovrummet på övervåningen. Det du faktiskt tränar är momenten som är svåra: att få fast kroken på karmen med en hand, att förstå åt vilket håll stegen ska hänga, och att kliva ut baklänges med fötterna först. Gör det en gång om året med hela hushållet, ungefär som ni testar brandvarnaren. Låt inte barn öva ensamma, och häng aldrig upp stegen i något som inte är en riktig fönsterkarm. En stege som legat orörd i tio år är inget brandskydd, det är ett kvitto.",
+      "På låg höjd, i dagsljus, med någon som håller, och bara med en stege som tål att fällas ut. Öva från ett fönster på bottenvåningen eller från en altan, inte från sovrummet på övervåningen. Det du faktiskt tränar är momenten som är svåra: att få fast kroken på karmen med en hand, att förstå åt vilket håll stegen ska hänga, och att kliva ut baklänges med fötterna först. De två första kan du öva på med vilken stege som helst, eftersom de inte sliter på den. Det tredje kräver att stegen får utlösas mer än en gång. Gör det en gång om året med hela hushållet, ungefär som ni testar brandvarnaren. Låt inte barn öva ensamma, och häng aldrig upp stegen i något som inte är en riktig fönsterkarm. En stege som legat orörd i tio år är inget brandskydd, det är ett kvitto.",
   },
   {
     question: "Behöver jag brandstege om räddningstjänsten kan komma med stegbil?",

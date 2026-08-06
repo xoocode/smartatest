@@ -56,13 +56,37 @@ import { productImage } from "@/lib/images";
  * Spridningen står i omdömet som ett råd till köparen, av samma skäl som
  * /utrymningsstege skriver ut att samma artikelnummer skiljer 49 procent.
  *
- * ## Väderskyddet är produktens egenskap, inte tillverkarens beteende
+ * ## Väderskyddet, omgjort 2026-08-06
  *
- * Master Lock anger IP 55 och -40 till +50 °C i sitt produktblad. För övriga är
- * uppgiften okänd, och det kostar poäng på `vaderskydd` eftersom konsekvensen
- * bärs av köparen. Det förklaras en gång i viktningen och står aldrig i prosa,
- * i en för- och nackdel eller i ett omdöme som en anmärkning mot ett företag.
- * Se skillen `swedish-voice`, `references/who-you-are.md`.
+ * ⚠️ Raden betygsatte tidigare vår research. Fyra av fem skåp stod som
+ * `Ej angiven` och drog ner `vaderskydd` för det, med motiveringen att en
+ * okontrollerbar egenskap är sämre för köparen. Det är ett avdrag för vad vi
+ * inte hittat, och det får en uppgift aldrig kosta. Se `.claude/skills/fix-page`,
+ * "En saknad uppgift får aldrig sänka ett betyg".
+ *
+ * Vi hade inte letat färdigt. Samtliga fem har nu ett belagt värde ur tier A:
+ *
+ * - ABUS 787 och 707: "För väggmontering inomhus eller i ett skyddat område
+ *   utomhus", ABUS egna datablad 73481 respektive 224010, lästa 2026-08-06.
+ * - ABUS KeyGarage 787 Smart-BT: **IP 54**. Databladet heter numera
+ *   KEYGARAGE™ One 787 (222847), och ABUS skriver att namnbytet följde med
+ *   integrationen i ABUS One-appen. Samma vara: Kjell anger 82,5 x 120 x 63 mm
+ *   och 2 x AA, vilket är exakt databladets mått och batteri.
+ * - Master Lock 5441EURD: IP 55, -40 till +50 °C, salt- och korrosionsprovad,
+ *   produktbladet 5441EURD_Select-Access-SMART-Product-Sheet_EN.pdf.
+ * - Top Safe T7: väderskydd i gummi över hela huset, tillverkarens egen sida
+ *   nivextopsafe.se, som också ger vikten 0,6 kg.
+ *
+ * ## ⚠️ Locket över koden stod fel på båda ABUS-skåpen
+ *
+ * Både 787 och 707 har ett skjutbart skyddslock över kodhjulen. ABUS listar det
+ * som `Skyddslock med skjutmekanism` för 707 och som en oöversatt tysk sträng,
+ * `Schutzklappe mit Schiebemechanismus`, för 787. Monteringsanvisningen för
+ * 787/797 beskriver momentet i steg: skjut ner skyddslocket, ställ in koden,
+ * öppna, och skjut upp locket igen. Tabellen sa `Nej` för båda.
+ *
+ * Det rättades 2026-08-06 och flyttade betygen på `vaderskydd`. Se
+ * lib/corrections.ts.
  */
 
 export const PRICE_CHECKED = "2026-08-05";
@@ -86,9 +110,10 @@ const SEEDS: ProductSeed[] = [
          forcerad på 2 min 53 s med bågfil. Båda inom RC2:s tidsram, men båda
          långsammast eller näst långsammast av de fyra på sin punkt. */
       luckalas: 2.5,
-      /* Avsedd för skyddat läge utomhus. Ingen kapslingsklass går att
-         fastställa och inget temperaturspann heller. */
-      vaderskydd: 2.5,
+      /* ABUS datablad 73481: skyddat läge utomhus, och skyddslock med
+         skjutmekanism över kodhjulen. Mekaniskt lås utan ström. Ingen angiven
+         kapslingsklass, alltså steget under gummihöljet på T7. */
+      vaderskydd: 3,
       kod: 3,
       prisvarde: 4.5,
     },
@@ -103,11 +128,11 @@ const SEEDS: ProductSeed[] = [
       "Satt kvar 3 min 39 s mot skruvmejsel, längst av de fyra som bröts upp",
       "Lucka i tryckgjuten zink, och skruvarna sitter innanför den",
       "Rymmer 20 nycklar eller 14 passerkort",
-      "Fyrsiffrig kod som fungerar lika bra i februari som i juli",
+      "Skjutbart lock över kodhjulen, och en kod som aldrig behöver batteri",
     ],
     cons: [
       "Bakstycket lossnade från kroppen när skåpet bröts loss med kofot",
-      "Hur mycket väder den tål är okänt, så den vill sitta under tak",
+      "Byggd för skyddat läge utomhus, alltså under tak eller på en vägg i lä",
       "En enda kod för alla, så den som fått den kommer in tills du vrider om hjulen",
     ],
     specs: [
@@ -119,8 +144,9 @@ const SEEDS: ProductSeed[] = [
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven", highlight: true },
-      { label: "Lock över koden", value: "Nej", highlight: true },
+      // ABUS datablad 73481, swe-SE, läst 2026-08-06.
+      { label: "Väderskydd", value: "Skyddat läge utomhus", highlight: true },
+      { label: "Lock över koden", value: "Ja, skjutbart skyddslock", highlight: true },
       { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort", highlight: true },
       { label: "Yttermått", value: "80 x 120 x 45 mm" },
       { label: "Vikt", value: "683 g" },
@@ -160,9 +186,13 @@ const SEEDS: ProductSeed[] = [
     merchant: "Nordsec",
     merchantUrl:
       "https://www.nordsec.se/nyckelskap/nyckelgomma/nyckelgomma-masterlock-5441",
-    superlative: "Bäst för uthyrning",
+    /* Etiketten var `Bäst för uthyrning` fram till 2026-08-06. Den gick inte
+       att skilja från Smart-BT:ns `Bäst när gästen inte ska ha koden` sedan
+       båda visat sig ha gästkoder i app, och den avvägande läsaren står mellan
+       just de två. Den fria fasaden är den skillnad som avgör. */
+    superlative: "Bäst för en oskyddad vägg",
     pros: [
-      "IP 55 och funktion från -40 °C till +50 °C",
+      "IP 55, salt- och korrosionsprovad, och funktion från -40 °C till +50 °C",
       "Egen kod till varje gäst, och koden kan sluta gälla av sig själv",
       "Enda skåpet som klarade angreppet mot låssidan i provningen",
       "Belyst knappsats, och batteriet går att brygga utifrån med ett 9-voltsbatteri",
@@ -184,6 +214,10 @@ const SEEDS: ProductSeed[] = [
       { label: "Batteri", value: "CR123, cirka 2 år" },
       { label: "Väderskydd", value: "IP 55, -40 till +50 °C", highlight: true },
       { label: "Lock över koden", value: "Nej, belyst knappsats", highlight: true },
+      /* Master Lock anger antal nycklar ingenstans: varken produktbladet,
+         masterlock.eu/5441EURD eller instruktionsbladet har talet. Kontrollerat
+         om 2026-08-06. Innermåttet nedan är det som finns, och det står därför
+         kvar som radens svar. Cellen renderas som ett streck. */
       { label: "Nyckelkapacitet", value: "Ej angiven", highlight: true },
       { label: "Innermått", value: "89 x 64 x 44 mm" },
       { label: "Yttermått", value: "121 x 76 x 70 mm" },
@@ -194,21 +228,21 @@ const SEEDS: ProductSeed[] = [
       { label: "Tid mot lucka", value: "9 s med hammare" },
     ],
     verdict:
-      "Master Lock Select Access Smart är skåpet för dig som hyr ut, och det enda här som är byggt för att sitta ute året om. IP 55, drift från 40 minusgrader till 50 plusgrader, och en egen kod till varje gäst. 2 599 kronor.\n\nKoderna är hela poängen. Du ger en gäst tillgång på distans, låter koden sluta gälla när uthyrningen är slut och ser i appen vem som öppnade när. Antalet gästkoder är obegränsat, så du behöver aldrig återanvända en. Väderskyddet är det andra skälet: ett skåp som klarar 40 minusgrader får sitta på en fri fasad i stället för under skärmtak, och tar batteriet slut bryggar du det utifrån med ett 9-voltsbatteri.\n\nMot standardens verktyg är det starkast av de fyra, och det enda vars lucka inte gick att bryta upp vid låssidan. Sedan byttes verktyget: 8 slag med en 700 grams snickarhammare, 9 sekunder, luckan öppen. Hammaren ligger utanför metodens verktygslista och i varje garage.\n\nBetala för koderna och för väderskyddet, som du använder varje vecka. Betalar du för motstånd har du köpt fel sak, och då gör ABUS KeyGarage 787 jobbet för 490. Jämför dessutom priset innan du beställer: samma modell rör sig mellan ungefär 2 000 och 3 000 kronor beroende på butik.",
+      "Master Lock Select Access Smart är det enda skåpet här som får sitta på en vägg utan tak över sig. IP 55, drift från 40 minusgrader till 50 plusgrader, provat mot saltdimma och korrosion, och en egen kod till varje gäst. 2 599 kronor.\n\nVäderskyddet är det du betalar för. Ett skåp som klarar 40 minusgrader och saltstänk får sitta på en fri fasad eller ute vid kusten, och tar batteriet slut mitt i februari bryggar du det utifrån med ett 9-voltsbatteri. Koderna är det andra skälet: du ger en gäst tillgång på distans, låter koden sluta gälla när uthyrningen är slut och ser i appen vem som öppnade när. Antalet gästkoder är obegränsat, så du behöver aldrig återanvända en.\n\nMot standardens verktyg är det starkast av de fyra, och det enda vars lucka inte gick att bryta upp vid låssidan. Sedan byttes verktyget: 8 slag med en 700 grams snickarhammare, 9 sekunder, luckan öppen. Hammaren ligger utanför metodens verktygslista och i varje garage.\n\n700 kronor mindre köper ABUS KeyGarage 787 Smart-BT, som ger samma gästkoder i appen men vill sitta under tak. Mellanskillnaden är vad det kostar att slippa bry sig om var på huset skåpet hamnar. Jämför dessutom priset innan du beställer: samma modell rör sig mellan ungefär 2 000 och 3 000 kronor beroende på butik.",
   },
   {
     id: "top-safe-t7",
     brand: "Top Safe",
     name: "Nyckelgömma T7",
     image: productImage(NYCKELSKAP.slug, "top-safe-t7"),
-    tagline: "Gjutgods och gummiskydd över koden, byggt för att sitta ute.",
+    tagline: "Gjutgods och ett gummihölje över hela boxen, byggd för att stå ute.",
     scores: {
       infastning: 2.5,
       luckalas: 2.5,
-      /* Väderskydd i kraftigt gummi medföljer. Ett tillbehör som skyddar
-         kodhjulen är inte en kapslingsklass, men det är mer än ingenting och
-         mer än de två ABUS-skåpen har. */
-      vaderskydd: 3,
+      /* Väderskyddet i gummi träs över hela huset och inte bara över hjulen,
+         vilket tillverkarens egen bild visar. Låset är mekaniskt utan ström.
+         Steget över ABUS skjutlock, steget under en angiven kapslingsklass. */
+      vaderskydd: 3.5,
       kod: 3,
       prisvarde: 3.5,
     },
@@ -219,33 +253,41 @@ const SEEDS: ProductSeed[] = [
     superlative: "Bäst för stugan",
     pros: [
       "Kropp i aluminiumgjutgods, som spricker hellre än viker sig",
-      "Gummiskydd över kodhjulen följer med",
+      "Gummihöljet träs över hela boxen, inte bara över kodhjulen",
       "Mekanisk kod utan batteri, så den fungerar efter en vinter utan tillsyn",
       "Sex nycklar med magnetfäste, nog för stuga, förråd och bom",
     ],
     cons: [
-      "Hur länge den håller mot en kofot är okänt",
-      "Hur mycket väder den tål är okänt, trots att gummiskyddet följer med",
+      "Innerfacket är 70 x 38 x 22 mm, så en bilnyckel med fjärrkontroll får inte plats",
+      "600 gram, alltså mindre gods än både KeyGarage 787 och Master Lock",
       "125 kronor i frakt om du inte handlar mer samtidigt",
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "695 kr", highlight: true },
       { label: "Infästning", value: "Väggmontage, skruvar medföljer" },
-      { label: "Skruvar innanför luckan", value: "Ej angiven", highlight: true },
+      /* Tillverkarens egen bild på den öppna gömman visar fyra
+         infästningshål i bakväggen av nyckelfacket, alltså innanför luckan:
+         nivextopsafe.se/wp-content/uploads/2021/07/Nyckelgomma-T7-oppen-scaled.jpg,
+         läst 2026-08-06. */
+      { label: "Skruvar innanför luckan", value: "Ja", highlight: true },
       { label: "Material", value: "Aluminiumgjutgods", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "4 mekaniska kodhjul", highlight: true },
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven", highlight: true },
+      // Tillverkaren nivextopsafe.se, läst 2026-08-06: väderskydd i gummi,
+      // vikt 0,6 kg, inv. mått 70 x 38 x 22 mm.
+      { label: "Väderskydd", value: "Gummihölje över hela boxen", highlight: true },
       { label: "Lock över koden", value: "Ja, gummiskydd medföljer", highlight: true },
       { label: "Nyckelkapacitet", value: "6 nycklar", highlight: true },
-      { label: "Vikt", value: "Ej angiven" },
+      { label: "Innermått", value: "70 x 38 x 22 mm" },
+      { label: "Yttermått", value: "106 x 66 x 57 mm" },
+      { label: "Vikt", value: "600 g" },
       { label: "App", value: "Nej" },
       { label: "Provad av RISE", value: "Nej", highlight: true },
     ],
     verdict:
-      "Top Safe T7 är skåpet för sommarstugan, och gummiskyddet över kodhjulen är skälet. 695 kronor, kropp i aluminiumgjutgods och sex nyckelplatser med magnetfäste.\n\nKodhjul som står ute ett år utan att röras kärvar av väta, och ett lock över dem är skillnaden mellan att koden går att vrida i april och att den inte gör det. Låset är mekaniskt och behöver aldrig batteri, så skåpet fungerar likadant efter sex månader utan tillsyn som dagen du satte upp det. Gjutgodset beter sig dessutom annorlunda än tunn plåt under en kil: det spricker hellre än viker sig.\n\nHur länge den håller mot en kofot är okänt, och hur mycket väder den tål är det också, trots gummiskyddet. Lägg till 125 kronor i frakt om du inte handlar mer samtidigt.\n\nSka skåpet sitta framme dygnet runt vid en villa i stan är ABUS KeyGarage 787 den tryggare affären, och 205 kronor billigare. Ska det sitta på en stugvägg i Roslagen och klara vintern är T7 pengarna värd.",
+      "Top Safe T7 är gömman för stugan som står tom halva året. 695 kronor, kropp i aluminiumgjutgods och sex nyckelplatser med magnetfäste.\n\nGummihöljet är det som skiljer den från de andra mekaniska skåpen. Det träs över hela boxen och inte bara över kodhjulen, så väta kommer varken åt sifferhjulen eller springan runt luckan. Låset drar ingen ström, alltså fungerar det likadant efter sex månader utan tillsyn som dagen du satte upp det. Gjutgodset beter sig dessutom annorlunda än tunn plåt under en kil: det spricker hellre än viker sig.\n\nFacket är litet. 70 x 38 x 22 millimeter räcker till ett par cylindernycklar, men en modern bilnyckel med fjärrkontroll går inte ner i det. Lägg till 125 kronor i frakt om du inte handlar mer samtidigt.\n\nSka nyckeln till huset du bor i ligga där gör ABUS KeyGarage 787 jobbet bättre och 205 kronor billigare, med ett eget resultat från provningen bakom sig. T7 köper du till stället du lämnar över vintern.",
   },
   {
     id: "abus-keygarage-707",
@@ -258,7 +300,9 @@ const SEEDS: ProductSeed[] = [
       /* Aluminiumhölje och mindre kropp än 787:an, som är den enda i familjen
          med ett eget provresultat. Bedömd på konstruktion, aldrig lånad tid. */
       luckalas: 2,
-      vaderskydd: 2.5,
+      /* ABUS datablad 224010: skyddat läge utomhus, och skyddslock med
+         skjutmekanism över kodhjulen. Samma konstruktion som 787:an. */
+      vaderskydd: 3,
       kod: 3,
       prisvarde: 4.5,
     },
@@ -273,12 +317,12 @@ const SEEDS: ProductSeed[] = [
     pros: [
       "Billigast i jämförelsen",
       "502 gram och 88 millimeter bred, så den syns knappt bredvid dörren",
-      "Fyrsiffrig kod utan batteri",
+      "Skjutbart lock över kodhjulen, och en kod utan batteri",
       "Plats för fyra passerkort, vilket få skåp i storleken har",
     ],
     cons: [
       "Aluminiumhölje och mindre kropp än KeyGarage 787, för 141 kronor mindre",
-      "Hur länge den håller mot verktyg är okänt",
+      "502 gram, alltså minst gods av alla här att bita i med ett verktyg",
       "Sju nycklar är taket, så den räcker inte till en förening eller ett företag",
     ],
     specs: [
@@ -290,13 +334,15 @@ const SEEDS: ProductSeed[] = [
       { label: "Kodlängd", value: "4 siffror" },
       { label: "Antal kombinationer", value: "10 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven", highlight: true },
-      { label: "Lock över koden", value: "Nej", highlight: true },
+      // ABUS datablad 224010, swe-SE, läst 2026-08-06.
+      { label: "Väderskydd", value: "Skyddat läge utomhus", highlight: true },
+      { label: "Lock över koden", value: "Ja, skjutbart skyddslock", highlight: true },
       { label: "Nyckelkapacitet", value: "7 nycklar eller 4 kort", highlight: true },
       { label: "Yttermått", value: "88 x 120 x 39 mm" },
       { label: "Vikt", value: "502 g" },
       { label: "App", value: "Nej" },
       { label: "Provad av RISE", value: "Nej", highlight: true },
+      { label: "GTIN", value: "4003318685644" },
     ],
     verdict:
       "ABUS KeyGarage 707 är billigast i jämförelsen och den enklaste vägen bort från nyckeln under dörrmattan. 349 kronor, 502 gram och 88 millimeter brett.\n\nStorleken är dess argument. Ett skåp som är knappt nio centimeter brett sitter bakom stupröret utan att annonsera var huset förvarar sin nyckel, och det väger under ett halvkilo. Det tar sju nycklar plus fyra passerkort, vilket är ovanligt mycket i den storleken, och koden ställs med hjul som aldrig behöver batteri.\n\nGodset är tunnare än på storasystern. 707 är byggd i aluminium där KeyGarage 787 har lucka i tryckgjuten zink, och det är 787:an som satt kvar i 3 minuter och 39 sekunder mot skruvmejsel. Mellanskillnaden är 141 kronor.\n\nKöp 707 till trapphuset, garaget eller förrådsdörren. Ska nyckeln som går till hela huset ligga i den lägger du de 141 kronorna och tar KeyGarage 787 i stället.",
@@ -314,7 +360,10 @@ const SEEDS: ProductSeed[] = [
          Bedömd enbart på publicerad konstruktion. */
       infastning: 2.5,
       luckalas: 2.5,
-      vaderskydd: 2.5,
+      /* IP 54 ur ABUS eget datablad 222847, som numera heter KEYGARAGE One 787.
+         Angiven kapslingsklass utan temperaturspann, alltså steget under
+         Master Locks IP 55 med -40 till +50 °C. */
+      vaderskydd: 4,
       kod: 4.5,
       prisvarde: 2,
     },
@@ -326,15 +375,15 @@ const SEEDS: ProductSeed[] = [
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/sakerhetsskap/abus-keygarage-787-nyckelskap-med-bluetooth-p32327",
     superlative: "Bäst när gästen inte ska ha koden",
     pros: [
-      "Gästen får en länk i mobilen i stället för en kod att komma ihåg",
+      "Gästen öppnar med en länk i mobilen och behöver aldrig få koden",
       "Olika koder till olika personer, och de går att ta bort var för sig",
-      "Sexsiffrig kod i stället för fyrsiffrig",
-      "Samma nyckelkapacitet som den mekaniska 787:an",
+      "IP 54, alltså stänkskyddad, och belyst knappsats när det är mörkt",
+      "20 nycklar, 3 bilnycklar eller 30 passerkort i facket",
     ],
     cons: [
       "1 899 kronor, nästan fyra gånger den mekaniska 787:an",
-      "Hur länge den håller mot en kofot är okänt",
-      "Knappsats med batteri, som är det som slutar fungera först i kyla",
+      "Stänkskyddad IP 54, medan Master Lock anger IP 55 och drift ner till -40 °C",
+      "Knappsatsen går på två AA-batterier, och batterier ger upp först i kyla",
     ],
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "1 899 kr", highlight: true },
@@ -343,16 +392,23 @@ const SEEDS: ProductSeed[] = [
       { label: "Material", value: "Metallhölje", highlight: true },
       { label: "Låstyp", shortLabel: "Lås", value: "Elektronisk knappsats", highlight: true },
       { label: "Kodlängd", value: "6 siffror" },
-      { label: "Antal kombinationer", value: "Ej angiven" },
+      { label: "Antal kombinationer", value: "1 000 000" },
       { label: "Nyckelbackup", value: "Nej" },
-      { label: "Väderskydd", value: "Ej angiven", highlight: true },
-      { label: "Lock över koden", value: "Nej", highlight: true },
-      { label: "Nyckelkapacitet", value: "20 nycklar eller 14 kort", highlight: true },
+      { label: "Batteri", value: "2 x AA, byts utifrån" },
+      /* ABUS datablad 222847, swe-SE, läst 2026-08-06. Databladet heter numera
+         KEYGARAGE One 787; ABUS anger att namnbytet följde integrationen i
+         ABUS One-appen. Måtten och batteriet stämmer med Kjells artikel. */
+      { label: "Väderskydd", value: "IP 54, skyddat läge utomhus", highlight: true },
+      { label: "Lock över koden", value: "Nej, belyst knappsats", highlight: true },
+      { label: "Nyckelkapacitet", value: "20 nycklar eller 30 kort", highlight: true },
+      { label: "Yttermått", value: "82,5 x 120 x 63 mm" },
+      { label: "Vikt", value: "894 g" },
       { label: "App", value: "Ja, Bluetooth" },
       { label: "Provad av RISE", value: "Nej", highlight: true },
+      { label: "GTIN", value: "4003318638244" },
     ],
     verdict:
-      "KeyGarage 787 Smart-BT löser det kodhjulen inte kan: gästen behöver aldrig få veta någon kod. Du skickar en länk i mobilen, den börjar gälla när du säger till och slutar gälla när du säger till. 1 899 kronor.\n\nHar du hantverkare, städfirma och gäster om vartannat är det en verklig lättnad. Varje person får sin egen access som du tar bort för sig, utan att röra någon annans, och du slipper gå ut och vrida om fyra hjul mellan varje besök. Koden är sexsiffrig i stället för fyrsiffrig, och skåpet tar 20 nycklar eller 14 passerkort precis som den mekaniska 787:an.\n\nPriset är svårt att försvara. 1 899 kronor är nästan fyra gånger den mekaniska 787:an, som har samma nyckelkapacitet och samma väggmontering. Knappsatsen går dessutom på batteri, och batteri är det som slutar fungera först i kyla.\n\nHar du 700 kronor till att lägga får du IP 55 och drift ner till 40 minusgrader med Master Lock Select Access Smart, som löser samma uthyrningsproblem och tål att sitta fritt. Räcker det med en kod du byter någon gång om året är den mekaniska 787:an samma skåp för 490.",
+      "KeyGarage 787 Smart-BT löser det kodhjulen inte kan: gästen behöver aldrig få veta någon kod. Du skickar en länk i mobilen, den börjar gälla när du säger till och slutar gälla när du säger till. 1 899 kronor.\n\nHar du hantverkare, städfirma och gäster om vartannat är det en verklig lättnad. Varje person får sin egen access som du tar bort för sig, utan att röra någon annans, och du slipper gå ut och vrida om fyra hjul mellan varje besök. Facket tar 20 nycklar, 3 bilnycklar eller 30 passerkort, och stänkskyddet IP 54 räcker för en yttervägg som inte står rakt i drevet. Knappsatsen lyser, så koden går att slå in i mörker utan ficklampa.\n\nPriset är svårt att försvara. 1 899 kronor är nästan fyra gånger den mekaniska 787:an, som har samma väggmontering och plats för lika många nycklar. Knappsatsen går dessutom på två AA-batterier, och batterier är det som ger upp först i kyla. De byts utifrån utan att skåpet öppnas, vilket räddar dig den dagen det händer.\n\nHar du 700 kronor till får du IP 55, korrosions- och saltprovning och drift ner till 40 minusgrader med Master Lock Select Access Smart, som tål en fri fasad. Räcker det med en kod du byter någon gång om året är den mekaniska 787:an samma skåp för 490.",
   },
 ];
 
@@ -487,6 +543,6 @@ export const NYCKELSKAP_FAQ = [
   {
     question: "Fungerar nyckelskåp på vintern?",
     answer:
-      "Mekaniska kodhjul gör det så länge de inte har frusit fast, och det är väta som ställer till det snarare än kylan i sig. Ett lock eller gummiskydd över hjulen, som följer med Top Safes gömmor, är den enkla lösningen. Elektroniska lås är känsligare: batterier tappar kapacitet i kyla, och det är därför Master Lock Select Access Smart både anger drift ner till 40 minusgrader och går att brygga med ett 9-voltsbatteri utifrån om batteriet dött. För övriga skåp i jämförelsen är det okänt hur kalla de tål att bli.",
+      "Mekaniska kodhjul gör det så länge de inte har frusit fast, och det är väta som ställer till det snarare än kylan i sig. Ett lock över hjulen är den enkla lösningen: båda ABUS KeyGarage har ett skjutbart skyddslock, och Top Safes gömmor har ett gummihölje som träs över hela boxen. Elektroniska lås är känsligare, eftersom batterier tappar kapacitet i kyla. Master Lock Select Access Smart är byggd för svensk vinter och klarar drift ner till 40 minusgrader, och skulle batteriet ändå dö går det att brygga med ett 9-voltsbatteri utifrån. ABUS Smart-BT är stänkskyddad enligt IP 54 och hör hemma på ett skyddat ställe utomhus, alltså under tak eller på en vägg i lä.",
   },
 ];

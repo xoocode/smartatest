@@ -38,15 +38,19 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/kolmonoxidvarnare/kopguide.mdx";
 
 /*
- * ⚠️ Priser, batterityp, batteritid, angiven livslängd, ljudtryck,
- * sammankopplingsteknik, artikelnummer, kundbetyg och framför allt vilken del
- * och vilken utgåva av EN 50291 varje butik anger är riktiga, lästa på
- * butikernas egna produktsidor på PRICE_CHECKED. Kriteriebetygen är
- * redaktionell bedömning. Vi har inte utsatt någon varnare för kolmonoxid.
+ * ⚠️ Priser och kundbetyg är lästa på butikernas egna produktsidor på
+ * PRICE_CHECKED. Certifiering, sensorns livslängd, batteri, driftstemperatur,
+ * ljudtryck, mått och vikt är hämtade ur tillverkarnas egna dokument på
+ * SPECS_CHECKED. Kriteriebetygen är redaktionell bedömning. Vi har inte utsatt
+ * någon varnare för kolmonoxid.
  *
- * Sidans fynd är att EN 50291 har två delar och två generationer, och att
- * ingen svensk jämförelse nämner någotdera. Se lib/categories.ts för hur det
- * påverkar viktningen och .agent/research/kolmonoxidvarnare.md för underlaget.
+ * ⚠️ Läs inte om certifieringen ur butiksledet. Sidan gjorde det till
+ * 2026-08-06, och sex av sju kontrollerade uppgifter var fel. Detaljerna står
+ * i filkommentaren i lib/data/kolmonoxidvarnare.ts.
+ *
+ * Sidans fynd är att fyra av sex varnare är provade enligt EN 50291-2 och får
+ * sitta i fordon, och att en av dem inte fungerar under +4 °C. Ingen svensk
+ * jämförelse nämner någotdera. Se .agent/research/kolmonoxidvarnare.md.
  *
  * Tre saker som byggdes in från start, efter självgranskningen av /brandfilt:
  *
@@ -65,12 +69,12 @@ import Kopguide from "@/content/kolmonoxidvarnare/kopguide.mdx";
 
 const TEST_PAGE = KOLMONOXIDVARNARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "EN 50291 har två delar: del 1 gäller bostäder, del 2 husvagn, husbil och båt. Två av sex varnare anger dessutom en utgåva som drogs tillbaka 2021. Vi jämförde sex varnare från 399 till 1 099 kronor.",
+    "Housegard CA108 för 449,90 vinner: provad för både bostad och husvagn, tio år på sensorn och halten i klartext på displayen. Vi jämförde sex kolmonoxidvarnare från 399 till 1 099 kronor mot tillverkarnas egna dokument.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -128,14 +132,16 @@ export default async function KolmonoxidvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Standarden har två delar, och det avgör var varnaren får sitta.
-              Del 1 gäller bostäder, del 2 gäller husvagn, husbil och båt. Två av
-              de sex varnare vi jämförde anger dessutom en utgåva som drogs
-              tillbaka 2021, innan livslängdsindikering blev obligatoriskt. Priser
-              från 399 till 1 099 kronor.
+              Housegard CA108 för 449,90 kronor är den billigaste varnaren som är
+              provad för både bostaden och husvagnen. Sensorn håller tio år,
+              batterierna är två vanliga AA, och displayen visar halten i ppm
+              plus högsta uppmätta värde i sju dagar. Standardens del 2 avgör om
+              varnaren får sitta i ett fordon, och två av de sex vi jämförde är
+              inte provade för det. Priser från 399 till 1 099 kronor.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -222,7 +228,7 @@ export default async function KolmonoxidvarnarePage() {
         tone="muted"
         width="default"
         title="Del 1 eller del 2 av EN 50291"
-        description="Standarden är frivillig, så det avgörande är inte att den nämns utan vilken del och vilken utgåva butiken skriver ut."
+        description="Den ena delen gäller bostäder, den andra fordon. Skillnaden avgör var varnaren du köper får sitta."
       >
         <Prose>
           <p>
@@ -232,28 +238,29 @@ export default async function KolmonoxidvarnarePage() {
             <strong>EN 50291-2</strong> gäller husvagn, husbil och båt. Den
             lägger till provning för vibration, rörelse och temperaturväxling,
             alltså det en varnare utsätts för i ett fordon och aldrig i ett
-            vardagsrum. En varnare som bara anger del 1 är inte provad för det
-            fordon många köper den till.
+            vardagsrum. En varnare som bara är provad enligt del 1 är avsedd för
+            bostäder, inte för det fordon många köper den till.
           </p>
           <p>
-            <strong>Utgåvan spelar också roll.</strong> EN 50291-1:2018 ersatte
-            2010 års utgåva, som drogs tillbaka av BSI i september 2021. Det
-            viktigaste som tillkom är kravet på livslängdsindikering, det vill säga att
+            <strong>Fyra av de sex är provade enligt båda delarna:</strong>{" "}
+            Housegard CA108, Fireblitz CO10-RF, Netatmo och Deltronic CO7BD. De
+            får sitta både i huset och i fordonet. X-Sense XC01-M och Heiman
+            WS-720ES är provade enligt del 1 och hör hemma i en bostad.
+          </p>
+          <p>
+            <strong>Alla sex är provade mot 2018 års utgåva</strong> av del 1.
+            Den utgåvan gjorde livslängdsindikering obligatorisk, alltså att
             varnaren själv säger till med ljud och synlig signal när sensorn är
             förbrukad. Utan den hänger det till slut en död varnare på väggen som
-            ser ut precis som en fungerande.
+            ser ut precis som en fungerande, och det är kategorins värsta felläge.
           </p>
           <p>
-            Av de sex vi jämför anger två båda delarna i gällande utgåva, två
-            anger bara del 1 i gällande utgåva, och två anger båda delarna men i
-            utgåvor som inte längre gäller.
-          </p>
-          <p>
-            Vad revisionerna ändrade har vi läst hos tillverkarled och hos ett
-            oberoende uppslagsverk, tre samstämmiga källor. Vi hittade ingen
-            läsbar förhandsvisning av standardens egen text, till skillnad från
-            brandfiltsstandarden. Det står här eftersom du ska veta hur nära
-            källan vi kom.
+            Det finns en andra sak att kontrollera som ingen svensk jämförelse
+            nämner, och den avgör åt fler än man tror: <strong>vid vilken
+            temperatur varnaren fungerar.</strong> X-Sense XC01-M börjar arbeta
+            först vid +4 °C. De fem andra går ner till -10 °C. Ska varnaren sitta
+            i ett ouppvärmt garage, en carport eller en båt som ligger kvar över
+            vintern är det skillnaden mellan ett skydd och en dosa på väggen.
           </p>
         </Prose>
       </Section>
@@ -276,7 +283,7 @@ export default async function KolmonoxidvarnarePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sex"
-        description="På raden Certifiering spelar både delen och utgåvan roll. Livslängd är varnarnas verkliga kostnad."
+        description="Raden Godkänd för avgör om varnaren får sitta i ett fordon. Sensorns livslängd är kategorins verkliga kostnad, och driftstemperaturen avgör om varnaren fungerar i ett ouppvärmt utrymme."
       >
         <ComparisonTable
           products={products}
@@ -296,18 +303,26 @@ export default async function KolmonoxidvarnarePage() {
       >
         <Prose>
           <p>
-            <strong>Ingen certifiering är granskad av tredje part.</strong> Vi
-            läser vad butiken skriver i sin egen specifikation och jämför det med
-            vad standarden kräver. Vi har inte sett något provningsintyg och vi
-            har inte utsatt någon varnare för kolmonoxid. Kriteriet heter
-            Dokumenterad certifiering just därför: det mäter vad du kan
-            kontrollera innan du betalar.
+            <strong>Uppgifterna kommer från tillverkarna, inte från butikerna.</strong>{" "}
+            Certifiering, livslängd, batteri, driftstemperatur och ljudtryck är
+            hämtade ur försäkringar om överensstämmelse, specifikationsblad och
+            manualer, samt ur BSI:s och TÜV Rheinlands öppna certifikatregister.
+            Vi har inte utsatt någon varnare för kolmonoxid, och kriteriebetygen
+            är vår bedömning och inte mätvärden.
           </p>
           <p>
-            <strong>Två varnare hos Kjell rankas inte alls.</strong> Deras Luma
-            CA150 och deras eget Kolmonoxidlarm saknar publicerad specifikation,
-            och därmed all uppgift om vilken del av standarden de provats mot. De
-            ligger under Andra produkter vi övervägde, med skälet utskrivet.
+            <strong>Den ordningen är en följd av att vi haft fel.</strong> Sidan
+            byggde till den 6 augusti 2026 på butikernas specifikationsrader. Sex
+            av sju uppgifter vi sedan kontrollerade mot tillverkarleden visade
+            sig vara felaktiga, tre av dem om vilken standard varnaren är provad
+            mot, och två varnare fick lägsta betyg för en certifiering de inte
+            har. Rättelsen ligger på <a href="/rattelser">rättelsesidan</a>.
+          </p>
+          <p>
+            <strong>Två varnare hos Kjell rankas inte alls.</strong> För Luma
+            CA150 och Kjells eget Kolmonoxidlarm har vi ännu inte kunnat
+            fastställa vilken del av standarden de är provade mot. De ligger
+            under Andra produkter vi övervägde, med skälet utskrivet.
           </p>
         </Prose>
       </Section>
@@ -317,7 +332,7 @@ export default async function KolmonoxidvarnarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje varnare"
-        description="Alla sex bedöms mot samma fem kriterier. Certifieringen är angiven av butiken, inte kontrollerad av oss."
+        description="Alla sex bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -339,7 +354,7 @@ export default async function KolmonoxidvarnarePage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Fyra poster som inte hamnade i rankningen, inklusive två som säljs av Kjell utan någon publicerad specifikation."
+        description="Fyra poster som inte hamnade i rankningen, och skälet till varje."
       >
         <ConsideredList items={KOLMONOXIDVARNARE_CONSIDERED} />
       </Section>
@@ -362,7 +377,7 @@ export default async function KolmonoxidvarnarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Certifieringen väger tyngst men inte lika tungt som på vår brandfiltssida, eftersom sensorns livslängd här är en lika verklig skillnad: fem år mot tio är dubbla kostnaden över tid. Skalan för certifiering är 5,0 för del 1 och 2 i gällande utgåvor, 4,0 för enbart del 2 i gällande utgåva, 3,5 för enbart del 1 i gällande utgåva och 2,0 när båda delarna anges men i tillbakadragen utgåva. Kriteriet Livslängd bedömer enhetens livslängd och inte batteriets, eftersom det är enheten som ska kastas när sensorn löpt ut. Vi hittade inget svenskt eller nordiskt test av kategorin och lånar inte Consumer Reports omdömen, av skäl som står under Källor. Priserna är hos den butik vi länkar till."
+          footnote="Provningen och sensorns livslängd väger lika tungt, 25 vardera. Skalan för provning har två steg: 5,0 för en varnare som är provad enligt både del 1 och del 2 av EN 50291, 3,5 för en som är provad enligt del 1. Kriteriet Sensorns livslängd bedömer enhetens livslängd och inte batteriets, eftersom det är enheten som ska kastas när sensorn löpt ut, och väger in om batteriet går att byta. Vi hittade inget svenskt eller nordiskt test av kategorin och lånar inte Consumer Reports omdömen, av skäl som står under Källor. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

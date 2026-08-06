@@ -61,12 +61,17 @@ const SEEDS: ProductSeed[] = [
     name: "Nexode Pro 65 W GaN med 3 portar",
     shortName: "Nexode Pro 65 W",
     image: productImage(USB_C_LADDARE.slug, "ugreen-nexode-pro-65w"),
-    tagline: "Laddar laptopen med full fart medan telefonen sitter i bredvid.",
+    tagline: "65 W, tre portar och en 100 W-kabel i ett paket på 117 gram.",
     scores: {
-      effektdelning: 4.5,
+      /* effektdelning sänkt 4,5 → 3,0 den 2026-08-06. Betyget var satt på
+         "65 W + 30 W samtidigt", vilket är omöjligt: både Kjell och Ugreens
+         eget produktblad anger total uteffekt 65 W. De 65 och 30 watten är
+         portarnas var för sig-maxima. Fördelningen vid två enheter publiceras
+         inte, så laddaren betygsätts som Baseus GaN5 Pro, som är samma klass
+         med publicerad fördelning. Se lib/corrections.ts. */
+      effektdelning: 3,
       prisvarde: 3.5,
       storlek: 4,
-      redovisning: 5,
       protokoll: 4,
     },
     price: 599.9,
@@ -74,33 +79,40 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/mobilt/mobilladdare/usb-laddare/ugreen-nexode-pro-65-w-gan-snabbladdare-med-3-portar-p21297",
-    award: "winner",
-    superlative: "Bäst i test",
+    award: "editor",
+    superlative: "Bäst treportsladdare för väskan",
     pros: [
-      "65 W på första porten räcker till en MacBook Air i full fart",
-      "Andra USB-C-porten håller 30 W även när den första är belastad",
-      "USB-C-kabel på 100 W och 1,5 m ligger i kartongen",
+      "65 W på USB-C1 räcker till en MacBook Air i full fart",
+      "USB-C-kabel på 100 W och 1,5 m ligger i kartongen, värd 150 till 250 kronor",
+      "117 gram och 53 mm brett, tar en plats i grenuttaget",
     ],
     cons: [
+      "De 65 watten delas mellan portarna, så datorn tappar fart när telefonen sätts i",
       "9,20 kronor per watt, ungefär dubbelt mot den billigaste här",
-      "22,5 W på USB-A räcker till hörlurar och klocka, inte till en padda",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "65 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "2 × USB-C + 1 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "65 W (USB-C1)", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "65 W + 30 W", highlight: true },
-      { label: "Effekt per port angiven", value: "Ja, per port" },
+      /* ⚠️ Stod som "65 W + 30 W" till 2026-08-06 och var fel. Både Kjell och
+         Ugreens eget produktblad för SKU X753-25356 anger total uteffekt 65 W,
+         alltså kan portarna inte ge 65 och 30 samtidigt. Talen är portarnas
+         var för sig-maxima: USB-C1 65 W, USB-C2 30 W, USB-A 22,5 W. Ugreen
+         publicerar ingen fördelningstabell för artikeln. Se lib/corrections.ts. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "65 W totalt, delat", highlight: true },
       { label: "Kabel ingår", value: "Ja, 100 W 1,5 m" },
       { label: "USB PD-version", value: "USB PD" },
       { label: "PPS", value: "3,3–11 V / 4,5 A" },
       { label: "Halvledarteknik", value: "GaN" },
+      /* Mått, vikt och hela effektfördelningen bekräftade mot Ugreens eget
+         produktblad för Nexode Pro-serien, SKU X753-25356: 53×40×33 mm, 117 g,
+         USB-C1 65 W, USB-C2 30 W, USB-A 22,5 W. Läst 2026-08-06. */
       { label: "Mått", value: "53 × 40 × 33 mm" },
       { label: "Vikt", value: "117 g" },
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "Ugreen Nexode Pro 65 W är laddaren för den som bär en dator och en telefon i samma väska, och kostar 599,90 kronor. Den ger 65 W på sin första USB-C-port, vilket räcker till en MacBook Air i full hastighet, och 30 W på den andra samtidigt. Det är den kombinationen som avgör: sätter du i telefonen medan datorn laddar tappar datorn ingenting den märker, och telefonen får ändå snabbladdning. En USB-C-kabel på 100 W följer med, vilket är ovanligt nog att räknas som en del av priset. Kabeln kostar annars mellan 150 och 250 kronor. Med 117 gram och 53 millimeter på bredden tar den en plats i grenuttaget och inte två. Den kostar 9,20 kronor per watt och är alltså ingen prisvinnare. Köp den ändå. Det här är den laddare som gör vad den påstår oavsett vad du hänger i den, och det finns ingen situation i jämförelsen där något annat är ett bättre förstaval.",
+      "Ugreen Nexode Pro 65 W är en treportsladdare på 117 gram med en 100 W-kabel i kartongen, och kostar 599,90 kronor. Den är den lättaste laddaren här som både når 65 W och tar tre enheter.\n\n65 W på USB-C1 är precis vad en MacBook Air drar i full fart, och kabeln som följer med hade annars kostat mellan 150 och 250 kronor. Med 53 millimeter på bredden tar den en plats i grenuttaget och lämnar uttaget bredvid ledigt, vilket 100-wattsladdarna i jämförelsen inte gör. PPS mellan 3,3 och 11 volt vid 4,5 ampere ger dessutom en Samsung-telefon dess snabbaste laddning.\n\nDe 65 watten är ett tak för hela laddaren och inte per port. Sätter du i telefonen medan datorn laddar delas de 65 watten mellan portarna, så datorn tappar fart i samma stund. Priset stannar samtidigt på 9,20 kronor per watt, ungefär dubbelt mot den billigaste laddaren här.\n\nSka en laddare täcka dator, telefon och lurar på en resa och du vill slippa packa en kabel till är det här den smidigaste lösningen i jämförelsen. Vet du redan att två enheter ska ladda snabbt samtidigt tar du Ugreen 200 W, som håller 100 W på två portar på en gång.",
   },
   {
     id: "linocell-gan-35w",
@@ -111,10 +123,15 @@ const SEEDS: ProductSeed[] = [
     image: productImage(USB_C_LADDARE.slug, "linocell-gan-35w"),
     tagline: "50 gram och två portar, och den delar effekten utan att tappa fart.",
     scores: {
-      effektdelning: 4,
+      /* effektdelning sänkt 4,0 → 2,5 den 2026-08-06. Betyget var satt på att
+         totaltappet bara är 5 W. Bruksanvisningen för art. 29970 anger
+         fördelningen: 20 W på USB-C1 och 10 W på USB-C2 när båda används,
+         alltså tappar huvudporten nästan hälften. IKEA SJÖSS har både högre
+         toppeffekt och jämnare delning och står på 3,0, så den här hör under.
+         Se lib/corrections.ts. */
+      effektdelning: 2.5,
       prisvarde: 3,
       storlek: 5,
-      redovisning: 4.5,
       protokoll: 4,
     },
     price: 299.9,
@@ -122,33 +139,36 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/mobilt/mobilladdare/usb-laddare/linocell-gan-snabbladdare-35-w-pd-med-2-usb-c-portar-vit-p29970",
-    award: "editor",
-    superlative: "Bäst för resväskan",
+    superlative: "Bäst för dig som packar lätt",
     pros: [
       "50 gram och 34 mm, minst och lättast av laddarna i jämförelsen",
-      "Tappar bara 5 W när två enheter sitter i samtidigt",
-      "PPS ger Samsung-telefoner deras snabbaste laddning",
+      "Två USB-C-portar i ett hölje som ryms i en byxficka",
+      "PPS upp till 16 volt ger Samsung-telefoner deras snabbaste laddning",
     ],
     cons: [
+      "Med två enheter i får den första porten 20 W och den andra 10, så datorn tappar nästan hälften",
       "35 W räcker till en ultrabook som laddar långsamt, inte till en speldator",
-      "Kabeln ligger inte i kartongen",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "35 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "2 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "35 W", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "30 W totalt", highlight: true },
-      { label: "Effekt per port angiven", value: "Total, inte per port" },
+      /* Fördelningen, PPS-intervallen och tomgången står i bruksanvisningen för
+         art. 29970, som Kjells produktsida länkar under Support: USB-C1 20 W och
+         USB-C2 10 W när båda används, PPS1 5,0–11,0 V/3 A och PPS2 5,0–16,0 V/2 A,
+         tomgång ≤ 0,300 W, verkningsgrad 81,71 % vid låg last. Butikssidans eget
+         specifikationsblock har inget av det. Läst 2026-08-06. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "20 W + 10 W", highlight: true },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD 3.0" },
-      { label: "PPS", value: "Ja" },
+      { label: "PPS", value: "5–16 V / 2 A" },
       { label: "Halvledarteknik", value: "GaN" },
       { label: "Mått", value: "34 × 31 × 31 mm" },
       { label: "Vikt", value: "50 g" },
-      { label: "Tomgångsförbrukning", value: "Ej angiven" },
+      { label: "Tomgångsförbrukning", value: "≤ 0,3 W" },
     ],
     verdict:
-      "Linocell GaN 35 W är den minsta laddaren i jämförelsen och kostar 299,90 kronor. Den väger 50 gram och mäter 34 millimeter på den bredaste kanten, vilket betyder att den försvinner i en byxficka och aldrig blockerar uttaget bredvid. Två USB-C-portar ger 35 W till en enhet och 30 W delat på två, alltså en förlust på 5 W när du sätter i den andra enheten, och det är den minsta nedgången bland flerportsladdarna här. Stödet för PPS gör att en Samsung-telefon får sin snabbaste laddning och inte bara ström. Begränsningen är effekten: 35 W laddar en ultrabook medan du arbetar men fyller inte en tömd 16-tums laptop under en lunch. Köp den om laddaren ska följa med i necessären och prylarna är en telefon, ett par lurar och möjligen en lätt dator. Ska den försörja en riktig arbetsdator hemma tar du Ugreen Nexode Pro 65 W.",
+      "Linocell GaN 35 W väger 50 gram och är den minsta laddaren i jämförelsen. Den kostar 299,90 kronor.\n\nHöljet mäter 34 millimeter på den bredaste kanten, så laddaren försvinner i en byxficka och lämnar alltid uttaget bredvid ledigt. De 35 watten räcker till att snabbladda vilken telefon som helst, och PPS mellan 5 och 16 volt gör att en Samsung-telefon når sin högsta fart. Att två USB-C-portar får plats i ett hölje på 50 gram är det som skiljer den från de enportsladdare som väger lika lite.\n\nDelningen mellan portarna är däremot brant. Med båda i bruk ger första porten 20 W och den andra 10, så telefonen som redan satt i tappar nästan hälften när nästa enhet kopplas in. Räkna med en enhet i taget när du vill ha full fart.\n\nSka laddaren följa med i necessären och prylarna är en telefon, ett par lurar och möjligen en lätt dator är det här rätt köp. Ska den försörja en arbetsdator hemma är Ugreen Nexode Pro 65 W värd de 300 kronorna extra.",
   },
   {
     id: "ugreen-nexode-100w-utdragbar",
@@ -158,10 +178,13 @@ const SEEDS: ProductSeed[] = [
     image: productImage(USB_C_LADDARE.slug, "ugreen-nexode-100w-utdragbar"),
     tagline: "Kabeln sitter i laddaren och rullas in när du är klar.",
     scores: {
-      effektdelning: 4.5,
+      /* effektdelning sänkt 4,5 → 3,5 den 2026-08-06, samma fel som på Nexode
+         Pro 65 W: "100 W + 30 W samtidigt" är omöjligt när Kjell anger total
+         uteffekt 100 W. Betygsätts nu som LogiLink PA0281, som också delar
+         100 W mellan portarna. Se lib/corrections.ts. */
+      effektdelning: 3.5,
       prisvarde: 4,
       storlek: 2,
-      redovisning: 4.5,
       protokoll: 4,
     },
     price: 799,
@@ -183,8 +206,10 @@ const SEEDS: ProductSeed[] = [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "100 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "3 × USB-C + 1 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "100 W (USB-C1)", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "100 W + 30 W", highlight: true },
-      { label: "Effekt per port angiven", value: "Ja, per port" },
+      /* ⚠️ Stod som "100 W + 30 W" till 2026-08-06 och var fel. Kjell anger
+         total uteffekt 100 W, så 100 och 30 samtidigt går inte. Talen är
+         portarnas var för sig-maxima. Se lib/corrections.ts. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "100 W totalt, delat", highlight: true },
       { label: "Kabel ingår", value: "Ja, inbyggd 0,7 m" },
       { label: "USB PD-version", value: "USB PD 3.0" },
       { label: "PPS", value: "Ja" },
@@ -194,7 +219,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "Ugreen Nexode 100 W löser problemet att kabeln aldrig ligger där den ska, och kostar 799 kronor. En USB-C-kabel på 0,7 meter sitter inbyggd i höljet och rullas in igen när du är klar, vilket gör laddaren till ett självförsörjande paket att slänga i väskan. USB-C1 ger 100 W, tillräckligt för en MacBook Pro 14 tum, och 30 W finns kvar på andra porten samtidigt. Med fyra portar totalt räcker den till dator, telefon och padda från ett vägguttag. Priset är 8 kronor per watt, vilket är billigt för effekten. Nackdelen är fysisk: 280 gram och nästan 7 centimeter bred gör den till den klumpigaste laddaren i jämförelsen, och den tar två platser i ett grenuttag. Köp den om laddaren ska bo i väskan och du är trött på att leta kabel. Ska den sitta permanent bakom ett skrivbord finns det mindre klumpiga sätt att få 100 W.",
+      "Ugreen Nexode 100 W har sin USB-C-kabel inbyggd i höljet och kostar 799 kronor. Kabeln dras ut till 0,7 meter och rullas in igen när du är klar.\n\nDet gör laddaren till ett paket du slänger i väskan utan att kontrollera att sladden ligger kvar, och det är hela poängen med den. USB-C1 ger 100 W, alltså nog för en MacBook Pro 14 tum, och med fyra portar totalt försörjer den dator, telefon och padda från ett enda vägguttag. 8 kronor per watt är billigt för den effekten.\n\nStorleken är priset. 280 gram och nästan 7 centimeters bredd gör den till den klumpigaste laddaren i jämförelsen, och den tar två platser i ett grenuttag. Den inbyggda kabeln är dessutom bara 0,7 meter, så uttaget måste sitta nära det du laddar, och de 100 watten är ett tak för hela laddaren: fyller du portarna delas de.\n\nÄr du trött på att leta kabel är valet redan gjort. Ska laddaren sitta permanent bakom ett skrivbord ger LogiLink PA0281 samma 100 W i ett hölje som är 30 millimeter tjockt och 20 kronor billigare.",
   },
   {
     id: "ugreen-multiladdare-200w",
@@ -208,7 +233,6 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 5,
       prisvarde: 3.5,
       storlek: 2,
-      redovisning: 4,
       protokoll: 4.5,
     },
     price: 1699,
@@ -216,33 +240,40 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/mobilt/mobilladdare/usb-laddare/ugreen-kraftfull-multiladdare-6-portar-200-w-p22418",
-    award: "premium",
+    award: "winner",
     superlative: "Bäst för skrivbordet med sex prylar",
     pros: [
       "Två portar på 100 W var, så två laptops laddar i full fart samtidigt",
       "200 W totalt räcker till sex enheter utan att någon svälter",
-      "Löstagbar nätkabel på 2 m följer med",
+      "Löstagbar nätkabel på 2 m följer med, och går att byta mot en längre",
     ],
     cons: [
       "1 699 kronor är mer än tre av laddarna här kostar tillsammans",
-      "10 × 10 cm på skrivbordet, och den sitter inte i vägguttaget utan bredvid",
+      "517 gram och 10 × 10 cm, alltså en apparat för skrivbordet och inte för väskan",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "200 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "4 × USB-C + 2 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "100 W (C1/C2)", highlight: true },
+      /* Till skillnad från de två Ugreen-väggladdarna håller det här talet mot
+         märkeffekten: Kjell anger USB-C1 och USB-C2 till 100 W var och total
+         uteffekt 200 W, alltså räcker budgeten till båda samtidigt. C3/C4 ger
+         65 W var och USB-A 10 W var. Kontrollerat 2026-08-06. */
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "100 W + 100 W", highlight: true },
-      { label: "Effekt per port angiven", value: "Ja, per portpar" },
       { label: "Kabel ingår", value: "Ja, nätkabel 2 m" },
       { label: "USB PD-version", value: "USB PD" },
       { label: "PPS", value: "3,3–21 V" },
       { label: "Halvledarteknik", value: "GaN" },
       { label: "Mått", value: "101 × 101 × 33 mm" },
-      { label: "Vikt", value: "Ej angiven" },
+      /* Vikten står i Ugreens egen jämförelsetabell för modell 40914 på
+         ca.ugreen.com, angiven i pund: 1,14 lb, alltså 517 g. Samma rad anger
+         3,97 × 3,97 × 1,27 tum, vilket är 101 × 101 × 32 mm och stämmer med
+         Kjells mått för artikeln. Kjell anger ingen vikt. Läst 2026-08-06. */
+      { label: "Vikt", value: "517 g" },
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "Ugreen 200 W är bordsladdaren för den som har slut på uttag, och kostar 1 699 kronor. Fyra USB-C och två USB-A ger sex enheter ström samtidigt, och de två starkaste portarna håller 100 W var, så två laptops laddar i full hastighet på en gång, vilket ingen annan laddare i jämförelsen klarar. De två följande portarna ger 65 W var, så en padda och en telefon får snabbladdning ovanpå det. PPS mellan 3,3 och 21 volt täcker det mesta som säljs. Den kostar 8,50 kronor per watt, vilket är rimligt för effekten men 1 699 kronor är fortfarande mycket pengar. Den sitter dessutom inte i vägguttaget utan står på bordet med en nätkabel, och tar 10 × 10 centimeter i anspråk. Köp den om skrivbordet försörjer två datorer och en familjs telefoner. Ska en enda dator laddas räcker Ugreen Nexode Pro 65 W för en tredjedel av pengarna.",
+      "Ugreen 200 W är den enda laddaren i jämförelsen som ger två datorer full fart samtidigt, och kostar 1 699 kronor. Den märkeffekten är tre gånger den näst starkaste här.\n\nDe två starkaste portarna håller 100 W var och märkeffekten på 200 W räcker till båda på en gång, alltså två 14-tumsdatorer utan att någon stryps. De två följande USB-C-portarna ger 65 W var, så en padda och en telefon får snabbladdning ovanpå det, och med sex portar totalt ersätter den fyra laddare och ett grenuttag. PPS mellan 3,3 och 21 volt täcker det mesta som säljs, och nätkabeln är löstagbar, så en trasig eller för kort sladd är en 100-kronorsfråga och inte ett nytt köp.\n\nDen väger 517 gram och tar 10 × 10 centimeter på skrivbordet. Det här är en apparat som ställs på en yta och blir kvar där, aldrig något du packar ner.\n\nKöp den om två personer ska kunna ladda varsin dator hemma utan att förhandla om uttagen. Det är det enda den här jämförelsen har som löser det, och 8,50 kronor per watt gör den dessutom billigare räknat på effekt än nio av de tolv andra.",
   },
   {
     id: "logilink-pa0281-100w",
@@ -250,12 +281,11 @@ const SEEDS: ProductSeed[] = [
     name: "PA0281 USB-C GaN 100 W med 2 portar",
     shortName: "LogiLink PA0281",
     image: productImage(USB_C_LADDARE.slug, "logilink-pa0281-100w"),
-    tagline: "100 W ur 200 gram, och databladet säger vad den drar och tål.",
+    tagline: "100 W ur 200 gram, nog för en MacBook Pro som laddar medan du jobbar.",
     scores: {
       effektdelning: 3.5,
       prisvarde: 3.5,
       storlek: 3,
-      redovisning: 5,
       protokoll: 4,
     },
     price: 779,
@@ -263,7 +293,7 @@ const SEEDS: ProductSeed[] = [
     merchant: "Estore",
     merchantUrl:
       "https://estore.nu/sv/hem-hobby/34620-usb-laddare-1-x-usb-c-pd-1-x-usb-a-100w-gan.html",
-    superlative: "Bäst för den som vill veta allt i förväg",
+    superlative: "Bäst för en 14-tumsdator",
     pros: [
       "100 W på USB-C-porten räcker till en MacBook Pro 14 tum",
       "200 gram och 30 mm tjock, lätt för sin effekt",
@@ -278,7 +308,6 @@ const SEEDS: ProductSeed[] = [
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C + 1 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "100 W (USB-C)", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "100 W totalt, delat", highlight: true },
-      { label: "Effekt per port angiven", value: "Ja, full spänningstabell" },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD, 20 V / 5 A" },
       { label: "PPS", value: "3,3–21 V / 3 A" },
@@ -288,7 +317,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "LogiLink PA0281 ger 100 W ur ett hölje som väger 200 gram och kostar 779 kronor. Den effekten fyller en MacBook Pro 14 tum, och 30 millimeters tjocklek gör att den sitter i ett grenuttag utan att bygga ut från väggen som de flesta 100-wattsladdare gör. PPS mellan 3,3 och 21 volt betyder att både iPhone och Galaxy får sin snabbaste laddning. Den håller verkningsgradsklass Level VI och får köras ner till 10 minusgrader, vilket gör den till en av få laddare här som kan bo i ett ouppvärmt gästhus över vintern. Begränsningen är att det finns en enda USB-C-port. Sitter datorn i får telefonen nöja sig med USB-A och 30 W, och de två portarna delar dessutom på samma 100 watt, så full fart åt båda samtidigt går inte. Köp den om du laddar en kraftfull dator i taget och vill ha marginal i både effekt och kyla. Ska två moderna enheter ladda snabbt samtidigt tar du Ugreen Nexode 100 W för 20 kronor mer.",
+      "LogiLink PA0281 ger 100 W ur ett hölje som väger 200 gram och kostar 779 kronor. Det är den effekt en MacBook Pro 14 tum vill ha.\n\nHöljet är 30 millimeter tjockt, så laddaren sitter i ett grenuttag utan att bygga ut från väggen på det sätt de flesta 100-wattsladdare gör. PPS mellan 3,3 och 21 volt betyder att både iPhone och Galaxy laddar i sin högsta fart. Den är byggd för drift ner till 10 minusgrader och håller verkningsgradsklass Level VI, alltså en laddare som kan bo i ett ouppvärmt gästhus eller garage över vintern.\n\nDen har en enda USB-C-port, och de två portarna delar dessutom på samma 100 watt. Sitter datorn i får telefonen nöja sig med USB-A och 30 W, och full fart åt båda samtidigt finns inte som alternativ.\n\nLaddar du en kraftfull dator i taget och vill ha marginal i både effekt och kyla räcker den här hela vägen. Ska två moderna enheter ladda snabbt samtidigt tar du Ugreen Nexode 100 W för 20 kronor mer.",
   },
   {
     id: "linocell-premium-gan-140w",
@@ -302,7 +331,6 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 3.5,
       prisvarde: 4.5,
       storlek: 2,
-      redovisning: 2.5,
       protokoll: 5,
     },
     price: 699,
@@ -332,7 +360,6 @@ const SEEDS: ProductSeed[] = [
          som produktsidan länkar till under Support. Butikssidans eget
          specifikationsblock har dem inte, och det blocket lästes som facit. */
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "70 W + 70 W", highlight: true },
-      { label: "Effekt per port angiven", value: "Ja, per port" },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD 3.1 med AVS" },
       { label: "PPS", value: "Ja, 3,3–11 V, 5 A (55 W)" },
@@ -342,7 +369,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Tomgångsförbrukning", value: "≤ 0,3 W" },
     ],
     verdict:
-      "Linocell Premium 140 W är laddaren för den stora laptopen och kostar 699 kronor. 140 W är den effekt en MacBook Pro 16 tum vill ha, och den nivån kräver USB PD 3.1 med AVS mellan 15 och 28 volt, vilket den här har. Räknat per watt är den näst billigast i jämförelsen på 5 kronor, alltså hälften av vad de små telefonladdarna kostar per watt. Tre USB-C och en USB-A ger fyra enheter ström, och manualen redovisar hela fördelningen mellan dem: två portar ger 70 W var, medan datorporten sjunker till 100 W så snart en tredje enhet sitter i. Räkna alltså med klart mindre än 140 W till datorn i praktiken. Med 100 millimeters höjd och 230 gram är den för stor för väskans ytterfack och tar plats i ett grenuttag. Köp den om du har en 16-tums laptop och laddar den ensam. Ska flera enheter dela laddaren är Ugreen Nexode 100 W ett säkrare köp för 100 kronor mer.",
+      "Linocell Premium 140 W är den enda laddaren i jämförelsen som når 140 W på en port, alltså effekten en MacBook Pro 16 tum vill ha. Den kostar 699 kronor.\n\nDen nivån kräver USB PD 3.1 med AVS mellan 15 och 28 volt, och det har den. Räknat per watt landar den på 5 kronor, näst billigast här och ungefär hälften av vad de små telefonladdarna kostar per watt. Tre USB-C och en USB-A ger fyra enheter ström samtidigt, och två av portarna håller 70 W var när de används parvis.\n\nDe 140 watten gäller bara när datorn laddar ensam. Så snart en tredje enhet sätts i sjunker datorporten till 100 W, så räkna med klart mindre än märkeffekten i praktiken. Med 100 millimeters höjd och 230 gram är den dessutom för stor för väskans ytterfack och tar plats i ett grenuttag.\n\nHar du en 16-tums laptop och laddar den ensam är det här det billigaste sättet att ge den full fart. Ska flera enheter dela på laddaren är Ugreen Nexode 100 W ett jämnare köp för 100 kronor mer.",
   },
   {
     id: "baseus-gan5-pro-65w",
@@ -350,13 +377,12 @@ const SEEDS: ProductSeed[] = [
     name: "GaN5 Pro 65 W med 100 W-kabel",
     shortName: "Baseus GaN5 Pro",
     image: productImage(USB_C_LADDARE.slug, "baseus-gan5-pro-65w"),
-    tagline: "65 W och en 100 W-kabel för 449 kronor.",
+    tagline: "Laddare och 100 W-kabel i samma kartong, färdigt att använda direkt.",
     scores: {
       effektdelning: 3,
       prisvarde: 5,
       storlek: 3,
-      redovisning: 2.5,
-      protokoll: 3,
+      protokoll: 4.5,
     },
     price: 449,
     priceCheckedAt: PRICE_CHECKED,
@@ -371,25 +397,32 @@ const SEEDS: ProductSeed[] = [
       "65 W räcker till de flesta ultrabooks i full fart",
     ],
     cons: [
-      "Fördelningen mellan portarna är okänd, så planera inte för två enheter på full fart",
-      "Vikt och mått är okända, så den kan visa sig blockera uttaget bredvid",
+      "Andra USB-C-porten och USB-A tillsammans ger 15 W att dela på, så portvalet avgör farten",
+      "98 millimeter lång och 121 gram, alltså tung nog att hänga snett i ett slitet vägguttag",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "65 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "2 × USB-C + 1 × USB-A", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "65 W", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "Ej angiven", highlight: true },
-      { label: "Effekt per port angiven", value: "Ej angiven" },
+      /* Fördelningen står i Baseus tekniska data hos två återförsäljare.
+         Baltrade (CCGP120202) anger 45 W + 20 W och Megadron, som matchar vår
+         GTIN 6932172617523, anger 45 W + 30 W. Det senare summerar till 75 W på
+         en laddare märkt 65 W, så 45 + 20 är det tal som håller ihop. Läst
+         2026-08-06, se .agent/research/usb-c-laddare.md. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "45 W + 20 W", highlight: true },
       { label: "Kabel ingår", value: "Ja, 100 W" },
-      { label: "USB PD-version", value: "USB PD" },
-      { label: "PPS", value: "Ej angiven" },
+      { label: "USB PD-version", value: "USB PD 3.0" },
+      { label: "PPS", value: "Ja" },
       { label: "Halvledarteknik", value: "GaN" },
-      { label: "Mått", value: "Ej angiven" },
-      { label: "Vikt", value: "Ej angiven" },
+      /* Mått och vikt: Megadron på vår GTIN, 98 × 36,3 × 32 mm och 120,8 g,
+         bekräftat av Baltrade. Baseus egen EU-sida anger 107 × 36 × 32 mm för
+         syskonartikeln CCGP120201. Läst 2026-08-06. */
+      { label: "Mått", value: "98 × 36 × 32 mm" },
+      { label: "Vikt", value: "121 g" },
       { label: "GTIN", value: "6932172617523" },
     ],
     verdict:
-      "Baseus GaN5 Pro 65 W kostar 449 kronor och en USB-C-kabel på 100 W ligger i kartongen. Det gör den till det billigaste sättet att komma i mål i hela jämförelsen: 65 W räcker till en ultrabook i full fart och till snabbladdning av allt mindre än så, och kabeln du annars hade köpt för uppemot 250 kronor är redan betald. Tre portar betyder att telefon, lurar och dator kan sitta i samtidigt. Priset för det låga priset är att du köper delvis i blindo. Hur de 65 watten fördelar sig när två portar används är okänt, liksom vad laddaren väger och hur bred den är, så du får räkna med att datorn tappar fart när telefonen sätts i och att laddaren kan bli i bredaste laget för ett trångt grenuttag. Köp den om budgeten styr och du oftast laddar en sak i taget. Ska två enheter ladda samtidigt och göra det förutsägbart är Ugreen Nexode Pro 65 W värd de 150 kronorna extra.",
+      "Baseus GaN5 Pro 65 W kostar 449 kronor, och en USB-C-kabel på 100 watt ligger i kartongen. Kabeln du annars hade köpt separat för uppemot 250 kronor är alltså redan betald, och det gör den här till det billigaste sättet att komma i mål i hela jämförelsen.\n\nDe 65 watten räcker till en ultrabook i full fart, och de håller när du fyller portarna: datorn behåller 45 W när telefonen sätts i den andra USB-C-porten, som får 20 W. Tre portar betyder att dator, telefon och lurar kan sitta i samtidigt, och laddaren talar både PPS och Quick Charge, så en Samsung-telefon når sin högsta fart i stället för att nöja sig med ström.\n\nPortvalet är däremot inte likgiltigt. Andra USB-C-porten tillsammans med USB-A ger 15 watt att dela på, alltså långsammare än telefonladdaren du redan har, medan samma två enheter i första USB-C och USB-A får 45 respektive 18. Med 98 millimeter och 121 gram är den dessutom bland de längre att hänga i ett vägguttag.\n\nKöp den om budgeten styr och du vill ha laddare och kabel i samma köp. Ska du kunna sätta i vad som helst var som helst utan att tänka efter är Ugreen Nexode Pro 65 W värd de 150 kronorna extra.",
   },
   {
     id: "linocell-gan-65w",
@@ -403,19 +436,22 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 2,
       prisvarde: 4,
       storlek: 4.5,
-      redovisning: 3.5,
-      protokoll: 3.5,
+      /* protokoll höjt 3,5 → 4,5 den 2026-08-06. Betyget var satt när PPS bara
+         stod som "Ja". Bruksanvisningen för art. 22580 anger PPS2 till
+         5,0–21,0 V/3 A, och Kjells produktsida anger PD 3.2, QC 3.0 och AVS.
+         Se lib/corrections.ts. */
+      protokoll: 4.5,
     },
     price: 399.9,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/mobilt/mobilladdare/usb-laddare/linocell-gan-usb-c-laddare-med-pd-65-w-p22580",
-    superlative: "Bäst för den som bara laddar datorn",
+    superlative: "Bäst enportsladdare för pengarna",
     pros: [
       "79 gram och 36 mm, kompakt för att ge 65 W",
       "6,15 kronor per watt, billigare än de flesta här",
-      "PPS ombord, så Samsung-telefoner laddar i sin högsta fart",
+      "PPS mellan 5 och 21 volt, det bredaste spannet bland enportsladdarna här",
     ],
     cons: [
       "En enda port, så telefonen får vänta medan datorn laddar",
@@ -426,17 +462,22 @@ const SEEDS: ProductSeed[] = [
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "65 W", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "Endast en port" },
-      { label: "Effekt per port angiven", value: "Ja" },
       { label: "Kabel ingår", value: "Nej" },
-      { label: "USB PD-version", value: "USB PD" },
-      { label: "PPS", value: "Ja" },
+      /* PD-versionen och AVS står i Kjells egen punktlista på produktsidan;
+         bruksanvisningen för art. 22580 anger ingen version alls. PPS-spannen,
+         verkningsgraden och tomgången står i manualen, som är inskannad och
+         måste läsas som bild: PPS1 5,0–11,0 V/3 A, PPS2 5,0–21,0 V/3 A,
+         verkningsgrad ≥ 88,0 %, tomgång ≤ 0,21 W. Måttet 36 × 36 × 37 mm är
+         Kjells, utan stickpropp; manualen anger 73 mm med. Läst 2026-08-06. */
+      { label: "USB PD-version", value: "USB PD 3.2 med AVS" },
+      { label: "PPS", value: "5–21 V / 3 A" },
       { label: "Halvledarteknik", value: "GaN" },
       { label: "Mått", value: "36 × 36 × 37 mm" },
       { label: "Vikt", value: "79 g" },
-      { label: "Tomgångsförbrukning", value: "Ej angiven" },
+      { label: "Tomgångsförbrukning", value: "≤ 0,21 W" },
     ],
     verdict:
-      "Linocell GaN 65 W ger full laptopeffekt ur ett hölje som väger 79 gram och kostar 399,90 kronor. Kuben mäter 36 millimeter på varje sida, vilket betyder att den sitter i ett grenuttag utan att stjäla platsen bredvid, och 65 W räcker till att ladda en ultrabook medan du använder den. Stödet för PPS gör att en Samsung-telefon får sin snabbaste laddning. Räknat per watt kostar den 6,15 kronor, alltså mindre än de flesta i jämförelsen. Begränsningen är att det finns en enda port. Ska telefonen laddas samtidigt som datorn behöver du en laddare till, och då är prisfördelen borta. Köp den om laddaren har ett jobb, att försörja en dator eller en padda, och du redan har en kabel. Ska den räcka till flera prylar tar du Linocell GaN 35 W för hundra kronor mindre eller Ugreen Nexode Pro 65 W för tvåhundra mer.",
+      "Linocell GaN 65 W ger full laptopeffekt ur ett hölje som väger 79 gram, och kostar 399,90 kronor. Räknat per watt är det 6,15 kronor, alltså mindre än de flesta laddarna här.\n\nKuben mäter 36 millimeter på varje sida, så den sitter i ett grenuttag utan att stjäla platsen bredvid, och 65 W räcker till att ladda en ultrabook medan du använder den. PPS mellan 5 och 21 volt är det bredaste spannet bland enportsladdarna i jämförelsen, vilket betyder att en Galaxy eller en annan Android-telefon når sin högsta fart och inte bara får ström.\n\nDen har en enda port. Ska telefonen laddas samtidigt som datorn behöver du en laddare till, och då är prisfördelen borta. Någon kabel ligger inte i kartongen heller.\n\nHar du redan en kabel och en enda pryl att ladda är det här den billigaste vägen till 65 W. Ska laddaren räcka till flera prylar samtidigt börjar Ugreen Nexode Pro 65 W 200 kronor högre upp och löser det utan kompromiss.",
   },
   {
     id: "ikea-sjoss-45w",
@@ -450,8 +491,7 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 3,
       prisvarde: 5,
       storlek: 2.5,
-      redovisning: 2,
-      protokoll: 2.5,
+      protokoll: 4,
     },
     price: 179,
     priceCheckedAt: PRICE_CHECKED,
@@ -466,25 +506,32 @@ const SEEDS: ProductSeed[] = [
       "45 W räcker till en lätt laptop och till snabbladdning av alla telefoner",
     ],
     cons: [
-      "Vilken port som ger vad framgår inte av märkningen, så du får prova dig fram",
-      "Ingen uppgift om PPS, så en Samsung-telefon kanske inte når sin högsta fart",
+      "Två enheter i samtidigt ger 22 W var, vilket räcker till telefoner men inte till en laptop under arbete",
+      "Ingen kabel i kartongen, så lägg till en hundralapp om du inte har en USB-C-kabel över",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "45 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "2 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "45 W (3 A)", highlight: true },
-      { label: "Effekt vid två portar", shortLabel: "Delat", value: "Fördelas jämnt", highlight: true },
-      { label: "Effekt per port angiven", value: "Ej angiven" },
+      /* Hela tabellen står i IKEA:s egen bruksanvisning, AA-2416216-7-2, som
+         produktsidan länkar: en port i bruk 45,0 W, två portar 22,0 W per port.
+         Samma dokument ger PPS-intervallen, verkningsgraden och tomgången.
+         Läst 2026-08-06, se .agent/research/usb-c-laddare.md. */
+      { label: "Effekt vid två portar", shortLabel: "Delat", value: "22 W + 22 W", highlight: true },
       { label: "Kabel ingår", value: "Nej" },
-      { label: "USB PD-version", value: "USB PD" },
-      { label: "PPS", value: "Ej angiven" },
+      { label: "USB PD-version", value: "USB PD 3.0" },
+      { label: "PPS", value: "Ja, 5–16 V" },
       { label: "Halvledarteknik", value: "Ej angiven" },
-      { label: "Mått", value: "Ej angiven" },
+      { label: "Mått", value: "90 × 55 × 32 mm" },
+      /* Vikten står kvar som streck med flit. IKEA anger 0,13 kg under
+         rubriken Förpackning, alltså laddaren i kartong, och bruksanvisningens
+         tekniska data tar inte upp vikt alls. Att skriva 130 g som produktvikt
+         vore att publicera ett emballagetal som produktens. */
       { label: "Vikt", value: "Ej angiven" },
-      { label: "Tomgångsförbrukning", value: "Ej angiven" },
+      { label: "Tomgångsförbrukning", value: "< 0,075 W" },
     ],
     verdict:
-      "IKEA SJÖSS 45 W kostar 179 kronor och är den billigaste vägen till två USB-C-portar. Räknat per watt landar den på 3,98 kronor, alltså under hälften av vad de flesta laddarna i jämförelsen kostar för samma effekt, och 45 W räcker till att snabbladda vilken telefon som helst och till att hålla en lätt laptop igång. Den delar dessutom effekten jämnt mellan portarna, vilket är ovanligare än det låter: de flesta flerportsladdare låter den första porten ta merparten. Det du betalar med är förutsägbarhet. Märkningen vid portarna säger inte vilken som ger vad, och om laddaren stöder PPS är okänt, så en Samsung-telefon kan hamna på en långsammare laddning än den klarar. Storleken är inte heller publicerad. Köp den om du vill ha en andraladdare till sovrummet eller sommarstugan och priset är det som avgör. Ska laddaren vara den enda du har tar du Linocell GaN 35 W eller Ugreen Nexode Pro 65 W.",
+      "IKEA SJÖSS 45 W kostar 179 kronor och är den billigaste vägen till två USB-C-portar i hela jämförelsen. Räknat per watt landar den på 3,98 kronor, alltså under hälften av vad de flesta laddarna här kostar för samma effekt.\n\n45 W räcker till att snabbladda vilken telefon som helst och till att hålla en lätt laptop igång, och PPS mellan 5 och 16 volt gör att en Samsung-telefon når sin högsta fart i stället för att nöja sig med ström. Den delar dessutom effekten jämnt: 22 watt till vardera porten när båda används, medan de flesta flerportsladdare låter den första porten ta merparten och svälter den andra. Vilken av de två portarna du väljer spelar alltså ingen roll.\n\nTaket är samtidigt golvet. 22 watt per port räcker till telefoner och plattor, men inte till att ladda en laptop medan du använder den, så den här hör hemma på nattduksbordet snarare än på skrivbordet. Någon kabel ligger inte i kartongen heller, vilket lägger en hundralapp till priset om du inte har en USB-C-kabel över.\n\nKöp den om du vill ha en andraladdare till sovrummet eller sommarstugan och priset är det som avgör. Ska den vara den enda laddaren du har, och ska datorn ladda medan du arbetar, tar du Linocell GaN 35 W eller Ugreen Nexode Pro 65 W.",
   },
   {
     id: "anker-nano-45w",
@@ -498,7 +545,6 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 2,
       prisvarde: 2,
       storlek: 4.5,
-      redovisning: 4.5,
       protokoll: 4,
     },
     price: 449,
@@ -521,17 +567,19 @@ const SEEDS: ProductSeed[] = [
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "45 W", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "Endast en port" },
-      { label: "Effekt per port angiven", value: "Ja, plus display" },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD 3.0" },
       { label: "PPS", value: "Ja" },
       { label: "Halvledarteknik", value: "GaN" },
+      /* Mått, vikt och GaN bekräftade mot Ankers egen produktsida för A121D,
+         34 × 35,5 × 40 mm och 75 g. Samma sida publicerar ingen tomgång.
+         Läst 2026-08-06. */
       { label: "Mått", value: "34 × 35,5 × 40 mm" },
       { label: "Vikt", value: "75 g" },
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "Anker Nano 45 W har en display på sidan som visar hur mycket effekt som går ut just nu, och kostar 449 kronor. Det låter som en gimmick och är det inte: den vanligaste orsaken till att en telefon laddar långsamt är kabeln, och med ett wattal framför ögonen ser du på tre sekunder om problemet sitter i kabeln eller i laddaren. Displayen visar också temperaturen. Care Mode sänker laddtemperaturen när enheten ligger på laddning över natten, vilket skonar batteriet. Med 75 gram och 34 millimeters bredd är den bland de minsta här. Det som drar ned är räkningen: 449 kronor för en enda port blir nästan 10 kronor per watt, och kabeln får du köpa till. Köp den om du felsöker laddning ofta eller har ett gäng kablar av okänd kvalitet hemma. Vill du bara ha watt för pengarna ger Linocell GaN 65 W dig 20 W mer för 50 kronor mindre.",
+      "Anker Nano 45 W har en display på sidan som visar hur många watt som går ut just nu. Den kostar 449 kronor.\n\nDen vanligaste orsaken till att en telefon laddar långsamt sitter i kabeln, och med ett wattal framför ögonen ser du på tre sekunder om problemet är sladden eller laddaren. Displayen visar temperaturen också. Care Mode sänker laddtemperaturen när enheten ligger på laddning över natten, vilket skonar batteriet i telefonen du sover bredvid. Med 75 gram och 34 millimeters bredd är den samtidigt bland de minsta laddarna här.\n\nRäkningen är det som drar ned. 449 kronor för en enda port blir nästan 10 kronor per watt, och kabeln får du köpa till.\n\nFelsöker du laddning ofta, eller har du ett gäng kablar av okänd kvalitet hemma, betalar displayen igen sig första kvällen. Vill du bara ha watt för pengarna ger Linocell GaN 65 W dig 20 W mer för 50 kronor mindre.",
   },
   {
     id: "samsung-60w-usb-c",
@@ -545,7 +593,6 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 2,
       prisvarde: 1.5,
       storlek: 3,
-      redovisning: 5,
       protokoll: 5,
     },
     price: 649,
@@ -568,7 +615,6 @@ const SEEDS: ProductSeed[] = [
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "60 W", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "Endast en port" },
-      { label: "Effekt per port angiven", value: "Ja, PDO och PPS" },
       { label: "Kabel ingår", value: "Nej" },
       { label: "USB PD-version", value: "USB PD 3.1" },
       { label: "PPS", value: "5–20 V / 3 A" },
@@ -578,7 +624,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Tomgångsförbrukning", value: "Under 5 mW" },
     ],
     verdict:
-      "Samsung 60 W är laddaren som är byggd för en Galaxy-telefon och kostar 649 kronor. Den talar PD 3.1 och PPS mellan 5 och 20 volt, vilket är det bredaste protokollstödet bland laddarna i jämförelsen, och Super Fast Charging 2.0 tar en Galaxy S26 Ultra till 75 procent på ungefär en halvtimme. Den drar under 5 milliwatt när ingenting sitter i, alltså några öre om året. Det är ett tal värt att lägga märke till just för att så få laddare har det. Med 114 gram och 85 millimeters längd är den varken liten eller stor. Problemet är priset. 649 kronor för 60 W och en enda port blir 10,80 kronor per watt, dyrast per watt i hela jämförelsen, och kabeln tillkommer. Köp den om du har en Galaxy-telefon och vill ha tillverkarens egen snabbladdning utan frågetecken. Har du något annat märke får du samma effekt för halva pengarna av Linocell GaN 65 W.",
+      "Samsung 60 W är byggd för en Galaxy-telefon och kostar 649 kronor. Super Fast Charging 2.0 tar en Galaxy S26 Ultra till 75 procent på ungefär en halvtimme.\n\nDen talar PD 3.1 och PPS mellan 5 och 20 volt, det bredaste protokollstödet bland laddarna i jämförelsen, så den ger full fart även åt telefoner och plattor av andra märken. Den drar under 5 milliwatt när ingenting sitter i, alltså 60 gånger mindre i vila än de laddare här som ligger högst, och det märks på en laddare som sitter kvar i uttaget året om. Med 114 gram och 85 millimeters längd är den varken liten eller stor.\n\nPriset är problemet. 649 kronor för 60 W och en enda port blir 10,80 kronor per watt, dyrast per watt i hela jämförelsen, och kabeln tillkommer.\n\nHar du en Galaxy och vill ha tillverkarens egen snabbladdning utan frågetecken är det den kostnaden du betalar för säkerheten. Har du något annat märke ger Linocell GaN 65 W dig mer effekt för 250 kronor mindre.",
   },
   {
     id: "unisynk-gan-65w",
@@ -587,12 +633,16 @@ const SEEDS: ProductSeed[] = [
     name: "GaN-laddare med USB-C 65 W",
     shortName: "Unisynk 65 W",
     image: productImage(USB_C_LADDARE.slug, "unisynk-gan-65w"),
-    tagline: "65 W med en två meter lång kabel i kartongen.",
+    tagline: "Tre meter från vägguttaget till datorn, utan förlängningssladd.",
     scores: {
       effektdelning: 2,
       prisvarde: 3.5,
-      storlek: 2,
-      redovisning: 3,
+      /* storlek höjt 2,0 → 2,5 den 2026-08-06. Betyget var satt på att 80 mm
+         bredd tar plats i ett grenuttag. Laddaren sitter inte i uttaget: den är
+         ett nätaggregat med 1 m nätkabel, så den blockerar aldrig grannuttaget.
+         Vikten på 262 g står kvar som skäl att inte gå högre. Se
+         lib/corrections.ts. */
+      storlek: 2.5,
       protokoll: 4,
     },
     price: 599,
@@ -602,21 +652,25 @@ const SEEDS: ProductSeed[] = [
       "https://www.kjell.com/se/produkter/dator/laptop-tillbehor/laptop-laddare/unisynk-gan-laddare-med-usb-c-65-w-p45035",
     superlative: "Bäst när uttaget sitter långt från soffan",
     pros: [
-      "Kabel på 2 m följer med, dubbelt så lång som de flesta som säljs lösa",
-      "65 W räcker till en ultrabook i full fart",
-      "PD 3.0, Quick Charge 3.0 och PPS täcker både Apple och Android",
+      "1 m nätkabel plus 2 m fast USB-C-kabel ger 3 meters räckvidd från uttaget",
+      "Sitter inte i vägguttaget, så den blockerar aldrig uttaget bredvid",
+      "5 års garanti från Unisynk, alltså längre än konsumentköplagens reklamationsrätt",
     ],
     cons: [
       "262 gram, mer än tre gånger den lättaste laddaren här",
-      "En enda port, så bara en enhet i taget får ström",
+      "USB-C-kabeln är fast monterad, så en trasig kabel är en trasig laddare",
     ],
     specs: [
       { label: "Total märkeffekt", shortLabel: "Effekt", value: "65 W", highlight: true },
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "65 W", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "Endast en port" },
-      { label: "Effekt per port angiven", value: "Ja" },
-      { label: "Kabel ingår", value: "Ja, 2 m" },
+      /* Kartongens innehåll står ordagrant på Unisynks egen produktsida för
+         art. 10420: "1x USB-C laptopladdare 65W med 2m integrerad USB-C-kabel,
+         1x 1m AC kabel". Kjell anger bara "Kabellängd: 2 meter", och Icecat
+         anger 3 m, alltså summan av båda. Samma sida ger 5 års garanti och
+         MTBF 100 000 h. Läst 2026-08-06. */
+      { label: "Kabel ingår", value: "Ja, 2 m USB-C + 1 m nätkabel" },
       { label: "USB PD-version", value: "USB PD 3.0" },
       { label: "PPS", value: "Ja" },
       { label: "Halvledarteknik", value: "GaN" },
@@ -625,7 +679,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Tomgångsförbrukning", value: "Ej angiven" },
     ],
     verdict:
-      "Unisynk 65 W kommer med en två meter lång USB-C-kabel och kostar 599 kronor. Kabellängden är hela poängen: två meter räcker från ett vägguttag bakom soffan till knät, medan de kablar som följer med andra laddare oftast stannar på en meter. Effekten på 65 W laddar en ultrabook i full fart, och stödet för PD 3.0, Quick Charge 3.0 och PPS gör att både iPhone och Android får sin snabbaste laddning. Priset är att laddaren är tung och otymplig: 262 gram är mer än tre gånger vad den lättaste här väger, och 80 millimeters bredd tar plats i ett grenuttag. Med en enda port laddar den dessutom en sak i taget. Köp den om avståndet till uttaget är problemet du löser. Är laddaren tänkt att följa med i väskan är Linocell GaN 65 W en tredjedel så tung och 200 kronor billigare.",
+      "Unisynk 65 W är ett nätaggregat med sladd i båda ändar och kostar 599 kronor. Nätkabeln är 1 meter och USB-C-kabeln 2, alltså 3 meter mellan vägguttaget och datorn.\n\nDet löser problemet som uppstår när närmaste uttag sitter bakom en soffa eller under ett skrivbord, och det gör den utan förlängningssladd. Eftersom laddaren hänger på en sladd i stället för att sitta i uttaget blockerar den heller aldrig platsen bredvid i ett grenuttag. De 65 watten laddar en ultrabook i full fart, och stödet för PD 3.0, Quick Charge 3.0 och PPS täcker både iPhone och Android. Unisynk lämnar dessutom 5 års garanti, alltså två år längre än reklamationsrätten.\n\nDen väger 262 gram, mer än tre gånger den lättaste här, och USB-C-kabeln sitter fast i höljet. Slits kontakten ut är hela laddaren förbrukad, och med en enda port laddar den dessutom en sak i taget.\n\nÄr avståndet till uttaget problemet du löser finns det ingen annan laddare här som gör det ur kartongen. Ska laddaren följa med i väskan väger Linocell GaN 65 W en tredjedel så mycket och kostar 200 kronor mindre.",
   },
   {
     id: "linocell-pd-20w",
@@ -639,8 +693,10 @@ const SEEDS: ProductSeed[] = [
       effektdelning: 1.5,
       prisvarde: 2,
       storlek: 4.5,
-      redovisning: 3,
-      protokoll: 2.5,
+      /* protokoll höjt 2,5 → 3,5 den 2026-08-06. Betyget var satt när PPS stod
+         som ej angiven. Bruksanvisningen för art. 89300 anger PPS1
+         3,3–5,9 V/3 A och PPS2 3,3–11,0 V/1,8 A. Se lib/corrections.ts. */
+      protokoll: 3.5,
     },
     price: 199.9,
     priceCheckedAt: PRICE_CHECKED,
@@ -649,9 +705,9 @@ const SEEDS: ProductSeed[] = [
       "https://www.kjell.com/se/produkter/mobilt/mobilladdare/usb-laddare/linocell-usb-c-laddare-med-pd-20-w-vit-p89300",
     superlative: "Bäst som extraladdare vid sängen",
     pros: [
-      "32 mm på bredaste kanten, försvinner bakom en nattduksbordslampa",
+      "32 mm och 55 gram, försvinner bakom en nattduksbordslampa",
       "20 W tar en iPhone 13 eller senare till 50 % på 30 minuter",
-      "Fungerar som strömkälla till en MagSafe- eller Qi-platta",
+      "Högst 0,10 W i vila, alltså under en kilowattimme om året i uttaget",
     ],
     cons: [
       "20 W laddar ingen laptop, och en padda laddar långsamt",
@@ -662,17 +718,21 @@ const SEEDS: ProductSeed[] = [
       { label: "Portuppsättning", shortLabel: "Portar", value: "1 × USB-C", highlight: true },
       { label: "Max effekt en port", shortLabel: "Max/port", value: "20 W", highlight: true },
       { label: "Effekt vid två portar", shortLabel: "Delat", value: "Endast en port" },
-      { label: "Effekt per port angiven", value: "Ja, spänningstabell" },
       { label: "Kabel ingår", value: "Nej" },
-      { label: "USB PD-version", value: "USB PD" },
-      { label: "PPS", value: "Ej angiven" },
+      /* Fyra rader stod tomma till 2026-08-06. Samtliga står i bruksanvisningen
+         för art. 89300 och 89303, som Kjells produktsida länkar under Support:
+         PD 3.0, PPS1 3,3–5,9 V/3 A, PPS2 3,3–11,0 V/1,8 A, vikt 55 g,
+         verkningsgrad ≥ 85,48 % och tomgång ≤ 0,10 W. Måttet 32 × 29 × 29 mm är
+         Kjells, utan stickpropp; manualen anger 69 mm med. */
+      { label: "USB PD-version", value: "USB PD 3.0" },
+      { label: "PPS", value: "3,3–11 V" },
       { label: "Halvledarteknik", value: "GaN" },
       { label: "Mått", value: "32 × 29 × 29 mm" },
-      { label: "Vikt", value: "Ej angiven" },
-      { label: "Tomgångsförbrukning", value: "Ej angiven" },
+      { label: "Vikt", value: "55 g" },
+      { label: "Tomgångsförbrukning", value: "≤ 0,10 W" },
     ],
     verdict:
-      "Linocell PD 20 W kostar 199,90 kronor och är gjord för en telefon och ingenting annat. 20 W tar en iPhone 13 eller senare till 50 procent på en halvtimme, vilket är den laddhastighet Apple själva anger som telefonens snabbaste, så mer effekt hade inte gjort någon skillnad för just den enheten. Höljet mäter 32 millimeter och gömmer sig bakom en lampa på nattduksbordet. Den fungerar också som strömkälla till en MagSafe-platta. Gränsen är skarp: 20 W laddar ingen laptop och fyller en padda långsamt, och räknat per watt är den dyr, 10 kronor. Köp den som andra eller tredje laddare där en telefon ska ligga över natten. Ska en laddare räcka till mer än telefonen börjar Linocell GaN 35 W hundra kronor högre upp och löser tre gånger så mycket.",
+      "Linocell PD 20 W är gjord för en telefon och ingenting annat, och kostar 199,90 kronor. 20 W tar en iPhone 13 eller senare till 50 procent på en halvtimme.\n\nDet är den laddhastighet Apple själva anger som telefonens snabbaste, så mer effekt hade inte gjort någon skillnad för just den enheten. Höljet mäter 32 millimeter och väger 55 gram, alltså tillräckligt litet för att gömma sig bakom en lampa på nattduksbordet, och den fungerar lika bra som strömkälla till en MagSafe-platta. I vila drar den högst 0,10 watt, vilket blir under en kilowattimme på ett år för en laddare som får sitta kvar dygnet runt.\n\nGränsen är skarp. 20 W laddar ingen laptop och fyller en padda långsamt, och räknat per watt är den dyr, 10 kronor.\n\nSom andra eller tredje laddare, där en telefon ska ligga över natten, gör den precis vad den ska. Ska en laddare räcka till mer än telefonen börjar Linocell GaN 35 W hundra kronor högre upp och löser tre gånger så mycket.",
   },
 ];
 

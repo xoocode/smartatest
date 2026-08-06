@@ -33,6 +33,18 @@ import {
 } from "@/lib/tool-logic/lumen";
 import { WATT_LUMEN_ROWS, nearestWattRow } from "@/lib/tool-logic/watt-lumen";
 import {
+  BUILD_FACTORS,
+  indoorRange,
+  PUBLISHED_PAIRS,
+  reachVerdict,
+} from "@/lib/tool-logic/babyvakt-rackvidd";
+import {
+  MODES as VACUUM_MODES,
+  PUBLISHED_PAIRS as VACUUM_PAIRS,
+  areaVerdict,
+  runtimeInMode,
+} from "@/lib/tool-logic/skaftdammsugare-drifttid";
+import {
   TOLERANSER,
   tolkaAvlasning,
   type ToleransKey,
@@ -248,6 +260,96 @@ const lumenTool: AgentTool = {
       `Det motsvarar ${options}.`,
       "Fördela ljuset på flera punkter i rummet hellre än på en stark lampa i taket: ljus från flera håll ger färre hårda skuggor. Talen gäller allmänbelysning, så köksbänk och skrivbord behöver egen lampa utöver detta.",
       `Mer, och räknaren i webbläsaren: ${toolUrl("lumenraknare")}`,
+    ].join("\n\n");
+  },
+};
+
+const babyMonitorRangeTool: AgentTool = {
+  name: "rackvidd_babyvakt",
+  description:
+    "Räknar om en babyvakts angivna räckvidd i fri sikt till ungefär vad den når genom väggar i en bostad. Tillverkarna anger alltid fri sikt, alltså utomhus utan hinder, och de fyra som publicerar båda talen landar på ungefär en sjättedel inomhus.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      meter: {
+        type: "number",
+        description:
+          "Tillverkarens angivna räckvidd i meter, fri sikt. Vanliga värden är 300, 450, 460, 800 och 1 000.",
+      },
+      byggnad: {
+        type: "string",
+        enum: BUILD_FACTORS.map((b) => b.key),
+        description:
+          "Vad väggarna är gjorda av. latt = gips och trä, blandat = betongbjälklag mellan våningarna, tungt = betong, tegel eller plåtreglar. Utelämna för latt.",
+      },
+    },
+    required: ["meter"],
+  },
+  run(args) {
+    const meter = readNumber(args, "meter", 800);
+    const byggnad = typeof args?.byggnad === "string" ? args.byggnad : "latt";
+    const r = indoorRange(meter, byggnad);
+
+    if (r.indoor <= 0) {
+      return "Ange tillverkarens räckviddstal i meter, till exempel 800.";
+    }
+
+    const grund = PUBLISHED_PAIRS.map(
+      (p) =>
+        `${p.product}: ${p.indoor} m inomhus mot ${p.lineOfSight} m i fri sikt`,
+    ).join("\n");
+
+    return [
+      `${nf.format(r.lineOfSight)} meter i fri sikt motsvarar omkring ${nf.format(r.indoor)} meter genom väggar av ${r.build.label.toLowerCase()}.`,
+      reachVerdict(r.indoor),
+      `Kvoten kommer från de fyra tillverkare som publicerar båda talen:\n${grund}`,
+      "Talen är tillverkarnas egna uppgifter. Ingen oberoende provning har mätt räckvidd i svenska bostäder, och ingen tillverkare anger vilken sorts vägg de mätt genom. Använd resultatet som en storleksordning.",
+      `Mer, och räknaren i webbläsaren: ${toolUrl("rackvidd-babyvakt")}`,
+    ].join("\n\n");
+  },
+};
+
+const vacuumRuntimeTool: AgentTool = {
+  name: "drifttid_skaftdammsugare",
+  description:
+    "Räknar om en skaftdammsugares angivna drifttid till vad batteriet räcker till i det läge användaren faktiskt städar i. Minuttalet på kartongen gäller ekoläget, hos flera tillverkare dessutom ett tillbehör utan motor. De fem som publicerar båda talen landar på ungefär en fjärdedel i turboläge.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      minuter: {
+        type: "number",
+        description:
+          "Tillverkarens angivna drifttid i minuter, alltså ekoläget. Vanliga värden är 40, 45, 60, 80 och 90.",
+      },
+      lage: {
+        type: "string",
+        enum: VACUUM_MODES.map((m) => m.key),
+        description:
+          "Läget städningen sker i. eko = hårt golv och lite damm, auto = blandat underlag, turbo = matta, djurhår och damm i golvspringor. Utelämna för turbo.",
+      },
+    },
+    required: ["minuter"],
+  },
+  run(args) {
+    const minuter = readNumber(args, "minuter", 60);
+    const lage = typeof args?.lage === "string" ? args.lage : "turbo";
+    const r = runtimeInMode(minuter, lage);
+
+    if (r.minutes <= 0) {
+      return "Ange tillverkarens drifttid i minuter, till exempel 60.";
+    }
+
+    const grund = VACUUM_PAIRS.map(
+      (p) => `${p.product}: ${p.turbo} min i turboläge mot ${p.eco} min i ekoläge`,
+    ).join("\n");
+
+    return [
+      `${nf.format(r.stated)} minuter i ekoläge motsvarar omkring ${r.minutes} minuter i ${r.mode.label.toLowerCase()}, vilket räcker till omkring ${nf.format(r.area)} kvadratmeter.`,
+      areaVerdict(r.area),
+      `Kvoten kommer från de fem tillverkare som publicerar båda talen:\n${grund}`,
+      "Ytan bygger på 3,3 kvadratmeter i minuten, vilket är vad Dreame och Philips själva anger för en laddning i ekoläge.",
+      "Talen är tillverkarnas egna uppgifter. Vi har inte kört någon av maskinerna. Använd resultatet som en storleksordning inför köpet.",
+      `Mer, och räknaren i webbläsaren: ${toolUrl("drifttid-skaftdammsugare")}`,
     ].join("\n\n");
   },
 };
@@ -1373,6 +1475,8 @@ const fireKitTool: AgentTool = {
  */
 export const AGENT_TOOLS: Record<string, AgentTool[]> = {
   lumenraknare: [lumenTool],
+  "drifttid-skaftdammsugare": [vacuumRuntimeTool],
+  "rackvidd-babyvakt": [babyMonitorRangeTool],
   "watt-till-lumen": [wattLumenTool],
   fargtemperatur: [kelvinTool],
   "elkostnad-lampor": [bulbCostTool],

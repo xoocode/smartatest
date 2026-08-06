@@ -18,7 +18,7 @@
  * MDX-namn direkt paa sin komponent i staellet renderas kalkylatorn exakt som
  * foerut, ser raett ut i webblaesaren, och exponerar ingenting foer en agent paa
  * just den sidan. Verktygssidan fortsaetter fungera, eftersom
- * `/verktyg/[slug]` gaar via `ToolWidget` aendaa, saa glappet syns bara paa
+ * `/guider/[slug]` gaar via `ToolWidget` aendaa, saa glappet syns bara paa
  * kategorisidorna.
  *
  * Saa shippade det 2026-08-03 och saa laag det tills naagon raakade fraaga om
@@ -27,7 +27,7 @@
  * ## Sex kontroller
  *
  * 1. **Verktyg utan widget.** Slug i registret men inte i TOOL_WIDGETS.
- *    `/verktyg/{slug}` renderar daa ingenting.
+ *    `/guider/{slug}` renderar daa ingenting.
  * 2. **Widget utan verktyg.** Tvaertom: en komponent som ingen sida naar.
  * 3. **MDX-namn mot okaend slug.** TOOL_SLUGS pekar paa naagot registret inte
  *    kaenner till.
@@ -92,7 +92,7 @@ for (const slug of registry.keys()) {
   if (!widgets.has(slug)) {
     problems.push(
       `${WIDGETS_FILE}\n    verktyget ${slug} finns i ${TOOLS_FILE} men saknas i TOOL_WIDGETS.\n` +
-        `    /verktyg/${slug} renderar ingen widget.`,
+        `    /guider/${slug} renderar ingen widget.`,
     );
   }
 }

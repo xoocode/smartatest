@@ -62,7 +62,9 @@ ha, och de flesta som börjar med tio lampor har fel lampor i minst fyra rum.
 
 En smart lampa drar ström även när den är släckt. Radion måste vara vaken för
 att kunna ta emot kommandot att tända, och den vakenheten kostar. Talet är
-litet, ungefär tre tiondels watt per lampa, men det gäller dygnet runt året om.
+litet, mellan 0,2 och 0,5 watt per lampa, men det gäller dygnet runt året om.
+Skillnaden mellan lamporna är alltså mer än dubbel, och den syns först efter
+tjugo lampor.
 
 Det intressanta är inte kronorna utan andelen. En lampa i en garderob som lyser
 tio minuter om dagen förbrukar mer i viloläge än i drift. Samma lampa i ett
@@ -130,9 +132,22 @@ träslag får rätt ton och hudfärg ser levande ut i stället för grå.
 Skillnaden syns tydligast i kök och badrum, i de rum där du tittar på mat
 och på dig själv. I en hall spelar det mindre roll.
 
-Det här väger tyngst i vår bedömning, och det är också där de
-dyrare lamporna faktiskt tjänar sitt pris. <ProductRef id="philips-hue-color-ambiance-e27" />
-ligger överst av lamporna vi jämfört just på den här punkten.
+CRI är dock ett snitt över åtta pastellfärger, och röda toner ingår inte. Därför
+finns **R9**, det röda indexet, som avgör om kött, tegel och hudton ser levande
+ut eller gråa. En lampa kan ha CRI 90 och R9 nära noll, och det är just den
+kombinationen som gör att ett rum känns sjukhusaktigt utan att man kan säga
+varför.
+
+Det här väger tyngst i vår bedömning, och talen följer inte priset.
+<ProductRef id="nanoleaf-essentials-e27" /> anger CRI 91 och R9 52.
+<ProductRef id="ikea-kajplats-e27-farg" /> anger 90 och publicerar inget R9.
+<ProductRef id="philips-hue-color-ambiance-e27" /> och
+<ProductRef id="wiz-color-a60-e27" /> anger båda CRI 80 och **R9 0**, trots att
+den ena kostar nästan fem gånger den andra.
+
+Talen står i tillverkarnas egna registreringar i EU:s energimärkningsregister
+EPREL, som är sökbart på modellnummer. Butikernas specifikationer är en sämre
+källa: en av lamporna här hade fyra felaktiga tal i sin.
 
 ### Flimmer och dimring
 
@@ -145,13 +160,37 @@ någon punkt börjar det synas. På en billig lampa ligger den punkten runt tjug
 procent, vilket är precis där man vill ha ljuset på kvällen.
 
 De flesta ser inte flimret direkt. Man känner det i stället som att man blir
-trött i ögonen av ett rum utan att kunna säga varför. Ett enkelt test: filma
-lampan med mobilkameran och dimra ner. Blir det ränder i bilden flimrar den.
+trött i ögonen av ett rum utan att kunna säga varför. Huvudvärk hör dit, och
+för den som får migrän kan flimmer vara en utlösande faktor. IEEE:s
+rekommendation 1789-2015 räknar upp ansträngda ögon, huvudvärk, migrän och
+sämre koncentration.
 
-<ProductRef id="wiz-color-a60-e27" /> är den billigaste lampan vi jämfört, och
-det är också den där flimret rapporteras tydligast i nedre registret. Som
-komplement i en läslampa spelar det ingen roll. Som grundbelysning i ett
-vardagsrum gör det det.
+Det finns ett tal på det, och det är obligatoriskt. **PstLM** står i EU:s
+produktregister EPREL för varje lampa som säljs, och det väger in pulsens djup,
+kurvform och frekvens på en gång. Gränsen är 1,0, satt där ungefär hälften av
+alla som tittar börjar se flimret. Därför redovisar vi inte hertz separat:
+ingen tillverkare publicerar frekvensen, och PstLM innehåller den redan.
+
+| Lampa | PstLM |
+|---|---|
+| <ProductRef id="nanoleaf-essentials-e27" /> | 0,1 |
+| <ProductRef id="tp-link-tapo-l530e" /> | 0,1 |
+| <ProductRef id="philips-hue-color-ambiance-e27" /> | 1,0 |
+| <ProductRef id="wiz-color-a60-e27" /> | 1,0 |
+| <ProductRef id="ikea-kajplats-e27-farg" /> | 1,0 |
+
+Läs de tre ettorna försiktigt. Tre tillverkare som alla landar precis på
+gränsvärdet ser mer ut som en försiktig deklaration än som tre mätningar, och
+EPREL kräver inte att man skriver ut vilket som är vilket. Talet säger säkrare
+att Nanoleaf och Tapo ligger lågt än att de tre andra ligger högt.
+
+Ett enkelt test hemma: filma lampan med mobilkameran och dimra ner. Blir det
+ränder i bilden flimrar den. Som komplement i en läslampa spelar det mindre
+roll. Som grundbelysning i ett vardagsrum gör det det.
+
+Ingen lampa här är farlig. Anfall hos den som har fotosensitiv epilepsi hör
+till frekvenser mellan 3 och 70 hertz och till lampor som gått sönder, inte
+till fungerande lampor som håller EU-gränsen.
 
 ### Protokollet är det val du inte kan ångra
 
@@ -178,8 +217,11 @@ fungerar i Apple Home, Google Home, Alexa och SmartThings samtidigt. Matter går
   <ProtocolPicker />
 </ToolFrame>
 
-Har du redan en Thread border router hemma är <ProductRef id="nanoleaf-essentials-e27" />
-den lampa som utnyttjar det bäst.
+Har du redan en Thread border router hemma kör både
+<ProductRef id="ikea-kajplats-e27-farg" /> och
+<ProductRef id="nanoleaf-essentials-e27" /> Matter över Thread direkt. Har du
+ingen, och inte tänkt skaffa någon, faller båda tillbaka på Bluetooth och du
+gör bättre i att välja en Wi-Fi-lampa eller Hue med brygga.
 
 ### Färgtemperatur i praktiken
 
@@ -247,6 +289,7 @@ resten. Nästan alla ändrar åsikt om vad de faktiskt vill ha.
 | **Lumen (lm)** | Hur mycket ljus lampan ger. Talet du ska jämföra. |
 | **Kelvin (K)** | Ljusets färgton. Lågt tal är varmt, högt är kallt. |
 | **CRI** | Färgåtergivning på en skala till 100. Över 90 är bra. |
+| **R9** | Hur väl lampan återger rött. Ingår inte i CRI, och avgör hudton. |
 | **Watt (W)** | Hur mycket ström lampan drar. Säger ingenting om ljusstyrkan. |
 | **Zigbee** | Radioteknik där enheterna bildar ett eget nät. Kräver brygga. |
 | **Thread** | Nyare motsvarighet till Zigbee som talar Matter direkt. |

@@ -129,55 +129,42 @@ självförsvar och maskinvokabulär av typen "strukturerad data" eller "svarar
 404". `pnpm check:lackor` fäller de vanligaste, men den fångar formuleringar,
 inte vanan.
 
-**Och det gäller lika hårt åt andra hållet.** Vad en tillverkare, en butik eller
-en manual har eller inte har skrivit är inte heller en egenskap hos produkten.
-Det är också metaprat, bara med någon annan som subjekt, och det är svårare att
-upptäcka eftersom det ser ut som research.
+**Och det gäller lika hårt åt andra hållet.** Vad en tillverkare, en butik
+eller en manual har skrivit är inte heller en egenskap hos produkten. Det är
+metaprat med någon annan som subjekt, och det är svårare att upptäcka eftersom
+det ser ut som research.
 
 | Fel, för att subjektet är ett dokument | Rätt, för att subjektet är produkten |
 |---|---|
 | "Ecovacs anger mer än trettio minuters hålltid" | "Den sitter kvar i över 30 minuter om strömmen går" |
-| "Kärcher skriver inte ett ord om vad linan tål" | "Hur mycket linan tål är okänt" |
-| "Ingen annan tillverkare skriver ut något sådant mått" | "Minsta måttet i jämförelsen" |
 | "HOBOT förbjuder båglöst glas i sin manual" | "Den får inte användas på båglöst glas" |
 | "den enda som säger vad som gäller på båglöst glas" | "den enda som får sitta på båglöst glas" |
 
-**En okänd uppgift beskrivs som produktens egenskap, aldrig som tillverkarens
-beteende.** "Hålltiden är okänd" står kvar i texten och är ärligt. "Ecovacs
-publicerar ingen hålltid" är en anmärkning mot ett företag som läsaren varken
-kan agera på eller bryr sig om.
+### Och det du inte hittade skriver du inte om alls
 
-Det gäller också bevisläget. "Motståndet är oprövat" handlar om vad någon har
-mätt, inte om skåpet. Skriv "hur länge den håller mot en kofot är okänt".
+Fram till den 5 augusti 2026 stod här att en okänd uppgift skulle skrivas om
+till produktens egenskap: "Kärcher skriver inte vad linan tål" blev "hur mycket
+linan tål är okänt". Den regeln är borttagen, och den var sajtens dyraste.
 
-### Regeln gäller varje sträng en besökare kan se
+Omskrivningen tog bort ordet *tillverkaren* och behöll allt annat. Meningen
+handlade fortfarande om ett tomt fält, men såg nu ut som en produktegenskap, och
+gick därmed förbi varje kontroll vi hade. På `/usb-c-kabel` ägnade vinnarens
+omdöme två av fyra stycken åt att en mantel inte stod angiven. Manteln fanns.
+Kabeln fungerade. Uppgiften stod dessutom i Delocks eget datablad, TPE, och vi
+hade bara inte läst det.
 
-Den togs bort ur omdömena på `/fonsterputsrobot` den 4 augusti och var tillbaka
-på `/nyckelskap` den 5:e, flyttad till sektionernas `description`. Där stod vår
-källpolicy ordagrant ovanför recensionerna: *"Vi lånar aldrig ett provresultat
-från en systermodell, eftersom det skulle betyda att vi påstår oss veta något om
-en produkt ingen brutit upp."*
+**Skriv om det du vet.** En lucka i researchen är inget ämne. Den ligger som ett
+streck i tabellen, och stycket den skulle ha tagit ägnas åt något som hjälper
+läsaren att välja. Det finns alltid något: vad varan gör, vad den kostar, vem
+den passar, vad som skiljer den från den bredvid.
 
-Att flytta meningen är inte att följa regeln. Den gäller `title`, `description`,
-ingress, prosa, `verdict`, `tagline`, `superlative`, `pros`, `cons`,
-FAQ-`answer` och tabelltext — allt utom de två ställen nedan.
+Undantaget är litet och verkligt: **när frånvaron är något läsaren själv stöter
+på.** Ett larmpris som inte går att få utan säljarbesök hindrar hen. En mantel
+som inte står i ett datablad hindrade bara oss. Se `writing-guide.md`.
 
-**Det sanktionerade hemmet är viktningen**, alltså `methodology` i
-`lib/test-pages.ts` och `footnote` på `MethodologyBlock`. Där *ska* det stå att
-en okontrollerbar uppgift kostar poäng, en gång, med skälet. `reason` i
-övervägda produkter är också undantagen, eftersom bortvalet är dess enda ämne.
-
-`pnpm check:kallprat` läser fält och inte filer, just för att kunna fälla i
-recensionen och tiga om viktningen. Kör `--sida <slug> --strict` på den sida du
-arbetar med.
-
-Att luckorna räknas i betyget ändrar inte det. Viktningen är rätt ställe att
-förklara att en okontrollerbar uppgift kostar poäng, och den förklaringen ska
-stå där en gång. Se `rulings.md`.
-
-Skillnaden mot föregående avsnitt är värd att hålla isär: **vad vi vet och inte
-vet** hör hemma i texten. **Hur vi, eller någon annan, kom att veta det** gör
-det inte.
+Skillnaden mot föregående avsnitt är värd att hålla isär: **vad produkten är och
+gör** hör hemma i texten. **Hur vi, eller någon annan, kom att veta det** gör
+det inte, och inte heller vad vi inte kom att veta.
 
 ## Du skriver inifrån marknaden
 

@@ -7,6 +7,7 @@ import {
   HYGROMETER_FAQ,
   HYGROMETER_PRODUCTS,
   PRICE_CHECKED,
+  SPECS_CHECKED,
 } from "@/lib/data/hygrometer";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
@@ -38,21 +39,31 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/hygrometer/kopguide.mdx";
 
 /*
- * ⚠️ Priser, kundbetyg, GTIN, mätområden, batterityper och angiven noggrannhet
- * är riktiga, lästa hos Kjell, Proshop, Clas Ohlson och Hornbach eller hos
- * tillverkaren på PRICE_CHECKED. Kriteriebetygen är redaktionell bedömning.
- * Vi har inte mätt någon luftfuktighet och inte provat någon mätare.
+ * ⚠️ Priser och kundbetyg lästa hos Kjell, Proshop, Clas Ohlson och Hornbach
+ * på PRICE_CHECKED. Toleranser, mått, vikter och GTIN lästa i tillverkarens
+ * egen specifikation eller i den manual butiken länkar, på SPECS_CHECKED.
+ * Kriteriebetygen är redaktionell bedömning. Vi har inte mätt någon
+ * luftfuktighet och inte provat någon mätare.
  *
- * Sidans fynd: av tretton kartlagda produkter mellan 139,90 och 1 199 kronor
- * anger TVÅ hur många procentenheter de får visa fel. Mätområdet trycks
- * alltid, avvikelsen aldrig, och där en tolerans står gäller den ofta
- * temperaturen i stället för fukten.
+ * ⚠️⚠️ SIDANS FYND ÄR OMSKRIVET 2026-08-06. Den påstod att två av tretton
+ * mätare anger hur mycket fel de får visa. Ett gap-pass mot manualerna gav fem
+ * av de sju rankade, och tre påståenden om saknade uppgifter var falska: TFA
+ * Moxx, Rubicson Kompakt och Beurer HM 22. Se lib/corrections.ts.
  *
- * ⚠️⚠️ `Angiven noggrannhet` och `Uppmätt avvikelse` är två skilda rader och
+ * Fyndet är i stället att ± 5 procentenheter i mellanspannet och ± 8 utanför
+ * är branschstandard, att tre mätare mellan 179,90 och 269 kronor anger
+ * identiska tal, och att standarden är för vid för de gränser läsaren ska
+ * agera på. TOLERANSEN STÅR I MANUALEN, ALDRIG PÅ PRODUKTSIDAN.
+ *
+ * ⚠️⚠️ `Noggrannhet fukt` och `Uppmätt avvikelse` är två skilda rader och
  * får ALDRIG slås ihop. Det förra är tillverkarens utfästelse, det senare vad
  * Bundesverband Schimmelpilzsanierung mätte mot ett referensinstrument för
  * 1 050 euro. Båda står i ALDRIG_BEDOMD i lib/spec-schema.mjs: en gissad
  * tolerans vore en påhittad mätning.
+ *
+ * ⚠️ En tolerans vi inte hittat får inte dra ner ett betyg. Shelly publicerar
+ * ingen och får ändå samma noggrannhetsbetyg som varje annan digital mätare
+ * utan publicerat tal.
  *
  * ⚠️ 45 procent är INGET gränsvärde och INGEN hälsogräns. Allmänna råd är
  * rekommendationer och inte bindande regler, vilket författningssamlingen
@@ -67,12 +78,12 @@ import Kopguide from "@/content/hygrometer/kopguide.mdx";
 
 const TEST_PAGE = HYGROMETER;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Av tretton hygrometrar mellan 139,90 och 1 199 kronor anger två hur många procentenheter de får visa fel. Mätområdet står alltid på förpackningen, avvikelsen aldrig. Vi jämförde sju mätare på noggrannhet, avläsning och funktion.",
+    "Govee H5075 för 219 kronor håller sig inom 3 procentenheter, snävast av sju hygrometrar vi jämfört. Tre mätare mellan 179,90 och 269 kronor anger identiska ± 5, och mögelgränsen ligger bara femton enheter från den nivå du ska agera vid.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -83,7 +94,7 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
-  { id: "toleransen", label: "Talet som aldrig trycks på förpackningen" },
+  { id: "toleransen", label: "Tre priser, samma felmarginal" },
   { id: "granserna", label: "Tre gränser inom femton procentenheter" },
   { id: "jamforelse", label: "Jämför alla sju" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
@@ -130,14 +141,17 @@ export default async function HygrometerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Alla hygrometrar anger mellan vilka värden de visar något. Nästan
-              ingen anger hur mycket fel de får visa. Av tretton mätare mellan
-              139,90 och 1 199 kronor skriver två ut en tolerans i
-              procentenheter, och den dyraste är inte en av dem. Vi jämförde sju
-              mätare på den frågan, och på var du orkar läsa av dem.
+              <strong>Govee H5075 för 219 kronor</strong> håller sig inom 3
+              procentenheter, snävast av mätarna, och loggar dessutom fukten
+              över tid. Tre andra, mellan 179,90 och 269 kronor, anger
+              identiska ± 5 procentenheter, och mögelgränsen ligger femton
+              enheter från den nivå våra andra sidor ber dig agera vid. Vi
+              jämförde sju mätare på hur rätt de visar och på var du orkar
+              läsa av dem.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -182,49 +196,44 @@ export default async function HygrometerPage() {
       <Section
         id="toleransen"
         width="default"
-        title="Talet som aldrig trycks på förpackningen"
-        description="Två av tretton anger hur mycket fel de får visa. Priset förutsäger inte vilka två."
+        title="Tre mätare, tre priser, exakt samma felmarginal"
+        description="± 5 procentenheter i mellanspannet och ± 8 utanför är vad branschen anger. Två mätare slår det."
       >
         <Prose>
           <p>
             En hygrometer visar 58 procent. Vad den menar är någonstans mellan
             53 och 63, om den håller <strong>± 5 procentenheter</strong>, och
-            du vet oftast inte om den gör det.
+            det är vad de flesta håller.
           </p>
           <p>
-            <strong>Mätområdet står alltid.</strong> Rubicsons produktblad hos
-            Kjell anger 20 till 95 procent, TFA:s analoga anger 0 till 99. Det
-            är en uppgift om mellan vilka värden mätaren visar något alls, och
-            den säger ingenting om hur rätt talet är.
+            <strong>Rubicson Kompakt kostar 179,90 kronor.</strong> Beurer HM 16
+            kostar 199,90. Beurer HM 22 kostar 269. Alla tre anger ± 5
+            procentenheter mellan 40 och 80 procent och ± 8 utanför det spannet.
+            Nittio kronors prisskillnad, identisk mätning.
           </p>
           <p>
-            <strong>Där en tolerans faktiskt står gäller den fel storhet.</strong>{" "}
-            Rubicson Digital anger ± 1 grad för temperaturen och sedan
-            ingenting om fukten. Det är inte den storhet man köper en
-            hygrometer för.
+            <strong>Två mätare är snävare.</strong> TFA Moxx för 229 kronor
+            anger ± 4 mellan 30 och 80 procent, och Govee H5075 för 219 anger
+            ± 3 rakt igenom. Det är de billigaste två av de fem som anger
+            något.
           </p>
           <p>
-            <strong>Två av tretton anger något om fukten.</strong> Beurer HM 16
-            för 199,90 kronor anger ± 5 procentenheter mellan 40 och 80 procent
-            och ± 8 utanför det spannet. Govee H5075 för 219 kronor anger ± 3.
-            Beurers egen HM 22, som kostar 269, anger 8 procentenheter rakt av,
-            alltså en vidare tolerans för mer pengar.
-          </p>
-          <p>
-            <strong>Den dyraste anger ingenting.</strong> Kjells Datalogger Pro
-            kostar 1 199 kronor, åtta gånger den billigaste i vår
-            kartläggning, och publicerar ingen noggrannhet för fukt.
+            <strong>Leta i manualen, inte i spectabellen.</strong> Butikernas
+            och tillverkarnas specifikationer tar upp mätområdet, alltså mellan
+            vilka värden mätaren visar något alls. Toleransen ligger på sista
+            uppslaget i bruksanvisningen, som PDF, en länk ned från samma
+            produktsida. Det gäller varenda mätare här, och det gäller den du
+            tittar på i en annan butik också.
           </p>
           <p>
             <strong>
-              Och den mätare någon faktiskt har mätt lovar också ingenting.
+              Och den enda mätare någon utomstående mätt låg långt under sitt
+              eget löfte.
             </strong>{" "}
-            TFA Dostmanns datablad för Moxx anger mätområdet 20 till 99 procent
-            och sedan ingen tolerans. Samma modell låg högst 0,5 procentenheter
-            fel när tyska mögelsaneringsförbundet mätte den mot ett kalibrerat
-            referensinstrument. Ett utelämnat tal går alltså inte att läsa som
-            ett dåligt tal, och det är därför tabellen nedan har två skilda
-            rader: en för vad tillverkaren utfäster och en för vad någon mätt.
+            TFA Moxx anger ± 4 procentenheter och låg högst 0,5 fel när tyska
+            mögelsaneringsförbundet jämförde den mot ett kalibrerat
+            referensinstrument. En utfäst tolerans är ett tak, inte en
+            förväntan.
           </p>
         </Prose>
       </Section>
@@ -271,11 +280,12 @@ export default async function HygrometerPage() {
           </p>
           <p>
             <strong>
-              Och toleransen är oftast vidast där du helst vill mäta.
+              Och toleransen är vidast precis där du helst vill mäta.
             </strong>{" "}
-            Beurer HM 16 anger ± 5 mellan 40 och 80 procent, men ± 8 under 40
-            och över 80. En krypgrund om vintern och ett badrum efter en dusch
-            ligger båda utanför mellanspannet.
+            De tre som anger ± 5 anger alla ± 8 under 40 och över 80 procent. En
+            krypgrund om vintern och ett badrum efter en dusch ligger båda
+            utanför mellanspannet, alltså i det spann där mätaren är som sämst.
+            Govee H5075 håller sina ± 3 hela vägen från 0 till 99.
           </p>
         </Prose>
       </Section>
@@ -298,7 +308,7 @@ export default async function HygrometerPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sju"
-        description="Angiven noggrannhet är vad tillverkaren utfäster. Uppmätt avvikelse är vad någon oberoende faktiskt mätte. De är två olika saker."
+        description="Noggrannhet fukt är hur många procentenheter mätaren får visa fel. Tre av mätarna anger exakt samma tal."
       >
         <ComparisonTable
           products={products}
@@ -306,7 +316,7 @@ export default async function HygrometerPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Angiven noggrannhet är tillverkarens egen utfästelse, läst i deras datablad och inte i butikstexten. Uppmätt avvikelse finns för en enda produkt och kommer från Bundesverband Schimmelpilzsanierungs provning 2015 och 2016, inte från oss. Där en rad står som ej angiven betyder det att tillverkaren inte publicerar uppgiften, inte att egenskapen saknas. Det gäller noggrannheten för fem av de sju.",
+            `Toleranser, mått och vikter lästa ${SPECS_CHECKED} i tillverkarens egen specifikation eller i den bruksanvisning butiken länkar, aldrig i butikstexten. Ett streck betyder att vi inte hittat uppgiften publicerad, inte att egenskapen saknas, och ett streck sänker aldrig ett betyg. Uppmätt avvikelse för TFA Moxx kommer från Bundesverband Schimmelpilzsanierungs provning 2015 och 2016, inte från oss.`,
           )}
         />
       </Section>
@@ -326,8 +336,17 @@ export default async function HygrometerPage() {
             </strong>{" "}
             Varje tal om avvikelse kommer från Bundesverband
             Schimmelpilzsanierung, och varje tolerans kommer från tillverkarens
-            eget datablad. Talen om vad som är för fuktigt kommer från
-            Folkhälsomyndighetens allmänna råd och från SweSIAQ.
+            egen specifikation eller bruksanvisning. Talen om vad som är för
+            fuktigt kommer från Folkhälsomyndighetens allmänna råd och från
+            SweSIAQ.
+          </p>
+          <p>
+            <strong>Den här sidan hade fel i två dagar.</strong> Den påstod
+            mellan 4 och 6 augusti 2026 att bara två av tretton mätare anger en
+            tolerans. Ett nytt pass mot bruksanvisningarna gav fem av de sju vi
+            rankar, och tre av påståendena om att en uppgift saknades var
+            felaktiga. Tre placeringar ändrades. Det står utskrivet på{" "}
+            <a href="/rattelser">rättelsesidan</a>.
           </p>
           <p>
             <strong>Den enda provningen vi hittat är tio år gammal.</strong>{" "}
@@ -340,21 +359,25 @@ export default async function HygrometerPage() {
           </p>
           <p>
             <strong>
-              Vi rankar Shelly fyra trots att sex svenska jämförelser korar den.
+              Två mätare publicerar ingen tolerans, och det kostar dem ingenting.
             </strong>{" "}
-            Skälet är inte att vi tycker annorlunda om produkten, utan att
-            noggrannheten väger 35 av 100 här och att Shelly inte publicerar
-            någon. Vi letade på produktsidan, i dokumentationen och i deras
-            kunskapsbas. Uppkoppling och loggning är verkliga fördelar och ger
-            den på två andra punkter.
+            Shelly H&amp;T Gen 3 och Clas Ohlsons trepack anger inget tal för
+            fukten, och vi letade på produktsidan, i dokumentationen och i
+            kunskapsbasen. De får ändå samma noggrannhetsbetyg som varandra och
+            bara ett halvt steg under de mätare som anger ± 5. Skälet är att
+            mögelsaneringsförbundets provning fann samtliga åtta digitala mätare
+            inom 4,4 procentenheter, alltså inom det branschen utfäster. En
+            uppgift vi inte hittat säger något om vår research, inte om varan,
+            och den får inte dra ner ett betyg.
           </p>
           <p>
-            <strong>Fem av sju anger ingen tolerans alls.</strong> De får ändå
-            högt på noggrannhet, eftersom mögelsaneringsförbundets provning
-            visade att digitala mätare klarade sig genomgående bra oavsett pris.
-            Poängen är lägre än för dem som anger ett tal, men inte noll. En
-            analog mätare hade fått väsentligt lägre, och det är skälet till att
-            ingen sådan finns i rankningen.
+            <strong>
+              Shelly ligger trea trots att sex svenska jämförelser korar den.
+            </strong>{" "}
+            Det beror på priset och på kundbetyget, inte på tystnaden. 429
+            kronor är dyrast av mätarna, Govee loggar lika bra för hälften, och
+            hos Kjell får den 3,5 av 5 från 36 betyg. Uppkopplingen är samtidigt
+            en verklig fördel som ingen annan mätare här har.
           </p>
           <p>
             <strong>Betygstalen är inte jämförbara mellan butikerna.</strong>{" "}
@@ -419,7 +442,7 @@ export default async function HygrometerPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Noggrannhet väger 35 av 100, eftersom den avgör om avläsningen går att lita på och eftersom den är den mest undanhållna uppgiften i kategorin. Skalan är 5,0 vid angivna ± 3 procentenheter eller bättre, 4,5 när en oberoende provning mätt avvikelsen till under en procentenhet, 4,0 vid ± 5, 3,0 vid ± 8, 2,5 när ingen uppgift finns men konstruktionen är digital, och 1,5 för analog konstruktion. Att en digital mätare utan angiven tolerans får 2,5 och inte noll bygger på Bundesverband Schimmelpilzsanierungs provning, där samtliga digitala klarade sig godkänt oavsett pris. Att analogt får 1,5 bygger på samma provning, som fann upp till tolv procentenheters spridning mellan tre exemplar av en och samma analoga modell. Vi har inte mätt någon luftfuktighet och inte kontrollmätt någon hygrometer. Där en tillverkare inte publicerar en uppgift står den som ej angiven, aldrig som en nolla. Priserna är hos den butik vi länkar till."
+          footnote="Noggrannhet väger 35 av 100, eftersom den avgör om avläsningen går att lita på nära en gräns. Skalan är 5,0 när någon utomstående mätt avvikelsen till under en procentenhet, 4,5 vid ± 3, 4,0 vid ± 4 till ± 5 i det spann ett bostadsrum ligger i, 3,5 för en digital mätare utan publicerad tolerans, 3,0 vid ± 8 rakt igenom och 1,5 för analog konstruktion. Att en digital mätare utan publicerad tolerans hamnar på 3,5 bygger på Bundesverband Schimmelpilzsanierungs provning, där samtliga åtta digitala låg inom 4,4 procentenheter oavsett pris. Att analogt hamnar på 1,5 bygger på samma provning, som fann upp till tolv procentenheters spridning mellan tre exemplar av en och samma analoga modell. En uppgift vi inte hittat drar aldrig ner ett betyg: den står som ett streck i tabellen och räknas inte som en nolla. Vi har inte mätt någon luftfuktighet och inte kontrollmätt någon hygrometer. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -451,17 +474,18 @@ export default async function HygrometerPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="En oberoende provning, fyra tillverkardatablad lästa i original och två svenska normkällor."
+        description="En oberoende provning, fyra tillverkarkällor lästa i original och två svenska normkällor."
       >
         <Prose className="mb-block">
           <p>
             <strong>
-              Tillverkarnas datablad är inte utfyllnad här. De är beviset.
+              Tillverkarnas bruksanvisningar är inte utfyllnad här. De är
+              beviset.
             </strong>{" "}
-            Två av dem anger en tolerans och två anger ingen, och att kunna visa
-            båda sorterna i original är skillnaden mellan ett påstående och ett
-            fynd. Beurers tekniska data och TFA Dostmanns produktblad står som
-            två källor av just det skälet.
+            Toleranserna står inte i någon av produktsidornas spectabeller. De
+            står i manualerna, och tre av de fem tal som bär den här sidan är
+            hämtade därifrån. Beurers tekniska data och TFA Dostmanns egen
+            bruksanvisning står som två källor av just det skälet.
           </p>
           <p>
             <strong>

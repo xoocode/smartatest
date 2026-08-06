@@ -53,7 +53,15 @@ import { productImage } from "@/lib/images";
  *
  * Butiken publicerar interna artikelnummer (V30843, M243, O270) men inga
  * EAN-koder. `GTIN` är därför `Ej angiven` för samtliga tolv och renderas som
- * ett streck. Det är produktens uppgift som saknas, inte vår.
+ * ett streck.
+ *
+ * ⚠️ Formuleringen "det är produktens uppgift som saknas" stod här till
+ * 2026-08-06 och var fel. Spigen publicerar streckkoder per variant i sin egen
+ * Shopify-JSON (Rugged Armor MagFit 17 Pro: 8800283310696) och UAG anger UPC på
+ * produktsidan (Plyo 17 Pro: 840283922572). Uppgiften finns alltså, men den är
+ * **färgspecifik**, och butiken säger inte vilken kulör artikeln gäller. Att
+ * gissa vore variantfällan i §"En rad per skalmodell" en gång till. Cellen
+ * står tom tills kulören är fastställd artikel för artikel.
  *
  * ## ⚠️ Lagerstatus är inget urvalsskäl
  *
@@ -62,28 +70,46 @@ import { productImage } from "@/lib/images";
  * lagerstatus slutade vara ett skäl, och på /avfuktare. En utgången produkt
  * stryks, en slutsåld gör det inte.
  *
- * ## ⚠️ Två markerade rader ligger under 50 procent, och det är avsiktligt
+ * ## ⚠️ Raderna gjordes om 2026-08-06, efter ett gap-pass hos tillverkarna
  *
- * `pnpm check:tackning` rapporterar `Angiven fallhöjd` på 4 av 12 och
- * `Angiven militärstandard` på 5 av 12. Kontrollen frågar om raden är fel vald
- * eller om researchen behöver ett gap-pass till. Svaret är varken.
+ * Sidan bar sju rader som mätte publicering i stället för varan. Fem av dem
+ * var tomma på samtliga tolv produkter — `Angivet provunderlag`, `Angivet
+ * antal fall`, `MagSafe-certifiering`, `Angiven magnetstyrka` och `Angiven
+ * kanthöjd` — och två låg under 50 procent. Alla sju är borta.
  *
- * Gap-passet är gjort med en annan modalitet än butikssidan, alltså mot
- * tillverkarens egen sida, och det kommer tillbaka tomt: Spigen publicerar inte
- * heller någon fallhöjd eller utgåva för Rugged Armor, bara ordet militärklassad.
- * Uppgiften finns alltså inte publicerad någonstans, till skillnad från
- * adaptertabellerna på /smart-termostat som fanns men låg i ett hjälpcenter.
+ * `Angiven fallhöjd` och `Angiven militärstandard` är slagna ihop till
+ * **`Falltest enligt tillverkaren`**, som bär talet och metoden i samma cell.
+ * Skälet är sidans eget fynd: ett metertal utan metod bakom sig går inte att
+ * ställa mot ett annat, så att visa dem i skilda kolumner inbjuder till precis
+ * den jämförelse köpguiden ägnas åt att underkänna. Raden ligger på 8 av 12.
  *
- * Att fylla cellen åt den som tiger vore att radera det raderna mäter. Samma
- * konstruktion som `Angiven noggrannhet` på /hygrometer, som ligger på 3 av 7
- * och är live av exakt samma skäl.
+ * `Förhöjd kant kamera` är befordrad till markerad rad. Den är den enskilt
+ * viktigaste egenskapen i kategorin enligt sidans egen FAQ och låg ändå under
+ * jämförelsetabellen.
+ *
+ * ## ⚠️ Gap-passet fällde två publicerade påståenden
+ *
+ * Sidan skrev att UAG anger sina metertal utan att namnge någon standard. Det
+ * var fel. urbanarmorgear.com, läst 2026-08-06, skriver **"Meets 3X MIL-SPEC
+ * 810G-516.6"** för Plyo och **"Meets 5X MIL-SPEC 810G-516.6"** för Monarch Pro
+ * Kevlar. Felet låg i vår research, inte i UAG:s tystnad, och det bar en con
+ * och ett helt stycke i två omdömen. Se lib/corrections.ts.
+ *
+ * Samma pass gav Nomads kanthöjd (1,85 mm), bufferttjocklek (3,3 mm) och
+ * magnetkraft (800–1 100 gf) samt OtterBox Symmetrys vikt (31,49 g). Ingen av
+ * dem publiceras av butiken. Se .agent/research/iphone-skal.md §13.
  *
  * ## Betygen
  *
  * Kriteriepoängen är redaktionell bedömning ur publicerade specifikationer och
  * produktbilder, inte mätningar. Ingen har provat skyddsskal, och vi har inte
- * tappat en enda telefon. Konstruktionen väger 40 efter användarbeslut, just
- * för att sidan inte ska kora den tillverkare som skriver mest.
+ * tappat en enda telefon.
+ *
+ * ⚠️ Kriteriet `redovisning` togs bort 2026-08-06 och vikten fördelades
+ * proportionellt, 40/22/16 blev 51/28/21. Det betygsatte om tillverkaren
+ * skrivit ut ett tal, alltså säljarens produktblad. X2O Mag Frosted föll från
+ * tredje till sjunde plats när det gjordes, vilket är hela poängen: den låg
+ * trea för sin dokumentation och inte för sitt skal. Se lib/corrections.ts.
  */
 
 export const PRICE_CHECKED = "2026-08-05";
@@ -95,10 +121,9 @@ const SEEDS: ProductSeed[] = [
     name: "Rugged Armor MagFit",
     shortName: "Spigen Rugged Armor",
     image: productImage(IPHONE_SKAL.slug, "spigen-rugged-armor-magfit-17-pro"),
-    tagline: "Stötdämpande skum i hörnen och ett lock över hela kamerablocket.",
+    tagline: "Stötdämpande skum i hörnen och ett kamerablock som ligger under skalets yta.",
     scores: {
       konstruktion: 4.5,
-      redovisning: 2,
       prisvarde: 4,
       magnet: 4.5,
     },
@@ -111,34 +136,28 @@ const SEEDS: ProductSeed[] = [
     superlative: "Bäst för den som tappar telefonen ofta",
     pros: [
       "Stötdämpande skum utöver polykarbonat och TPU, alltså tre lager där hörnen tar smällen",
-      "Kamerablocket är helt inbyggt, så linserna tar inte i när telefonen ligger på ett bord",
+      "Kamerablocket ligger under skalets yta, så linserna aldrig tar i bordet",
       "Ett extra TPU-lager över kameraknappen, som annars är den dyraste knappen på telefonen",
     ],
     cons: [
-      "Hur högt skalet klarar är okänt, så köp det för konstruktionen och inte för ett tal",
+      "Matt och tät baksida, så telefonens färg försvinner helt bakom skalet",
       "80 kronor dyrare än Ultra Hybrid MagFit, som har samma magnet och nästan samma kant",
     ],
     specs: [
       { label: "Material", value: "Polykarbonat, TPU och stötdämpande skum", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Air Cushion, förstärkta hörn", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Militärklassad, utan utgåva", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja, kamerablocket helt inbyggt", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Militärklassat, utan metod", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja, förstärkt", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja, kamerablocket helt täckt" },
       { label: "Knappar", value: "Täckta, plus extra lager över kameraknappen" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "Spigen Rugged Armor MagFit är skalet med mest konstruktion per krona i jämförelsen, och det kostar 349 kronor. Tre material ligger på varandra: en styv polykarbonatbaksida, en mjuk TPU-ram och stötdämpande skum där hörnen möter marken.\n\n**Kamerablocket är helt inbyggt i stället för omgärdat av en ring**, vilket betyder att linserna inte tar i bordet när du lägger ner telefonen med skärmen uppåt. Det är den vanligaste repan på en iPhone 17 Pro och den dyraste att laga. Hörnen är dessutom det enda stället där skalet är tjockare än på baksidan, och det är där en telefon som faller faktiskt landar. Ovanpå kameraknappen ligger ett tunt extra TPU-lager, så knappen fungerar men träffar inte asfalten först.\n\nDet du inte får veta är hur högt skalet klarar. Ingen höjd står utskriven, bara att skyddet är militärklassat, och det säger mindre än det låter. Vill du kunna kontrollera talet innan du betalar ska du ta X2O Mag Frosted för 259 kronor i stället.\n\nKöp det här om du vill sluta tänka på saken. Magnetringen sitter i, laddaren fastnar, och skalet gör det ett skal ska göra utan att telefonen blir dubbelt så tjock.",
+      "Spigen Rugged Armor MagFit kostar 349 kronor och lägger tre material på varandra: en styv polykarbonatbaksida, en mjuk TPU-ram och stötdämpande skum där hörnen möter marken.\n\n**Kamerablocket ligger under skalets yta i stället för innanför en ring.** Linserna når därför aldrig bordet när du lägger ner telefonen med skärmen uppåt, och det är den vanligaste repan på en iPhone 17 Pro och den dyraste att laga. Hörnen är det enda stället där skalet är tjockare än på baksidan, alltså precis där en telefon som faller landar. Över kameraknappen ligger ett tunt extra TPU-lager, så knappen fungerar men träffar inte asfalten först.\n\nBaksidan är matt och tät. Har du köpt telefonen i Cosmic Orange ser du ingenting av den så länge skalet sitter på.\n\nKöp det här och sluta tänka på saken. Magnetringen sitter i, laddaren fastnar, och skalet gör det ett skal ska göra utan att telefonen blir dubbelt så tjock.",
   },
   {
     id: "nomad-rugged-case-17-pro",
@@ -146,10 +165,9 @@ const SEEDS: ProductSeed[] = [
     name: "Rugged Case",
     shortName: "Nomad Rugged",
     image: productImage(IPHONE_SKAL.slug, "nomad-rugged-case-17-pro"),
-    tagline: "Qi2 utskrivet, aluminiumknappar och hörn som lyfter kameran från bordet.",
+    tagline: "Laddar i Qi2-fart och håller magnetplånboken kvar i en trång ficka.",
     scores: {
       konstruktion: 4.5,
-      redovisning: 2.5,
       prisvarde: 3,
       magnet: 5,
     },
@@ -161,35 +179,32 @@ const SEEDS: ProductSeed[] = [
     award: "editor",
     superlative: "Bäst för den som laddar trådlöst",
     pros: [
-      "Qi2 står utskrivet, vilket ingen annan här gör, så laddhastigheten är inte en gissning",
-      "TPU-buffertar i hörnen på en styv polykarbonatram, alltså mjukt där det behövs och styvt där det inte gör det",
-      "Knapparna är i anodiserad aluminium och kameraknappen i glas, så känslan i telefonen är kvar",
+      "Qi2 utskrivet, alltså 25 watt trådlöst i stället för 15",
+      "Magneterna håller 800 till 1 100 gram, så plånboken följer med ur en trång ficka",
+      "1,85 millimeters kant över skärmen och 3,3 millimeters buffert i hörnen",
     ],
     cons: [
       "Garantin är 1 år mot 2 hos Spigen, OtterBox och UAG",
       "100 kronor dyrare än vinnaren utan att skydda mer",
     ],
     specs: [
+      /* Kanthöjd, bufferttjocklek och magnetkraft lästa på nomadgoods.com
+         2026-08-06, produktsidan för Rugged Case iPhone 17 Pro. Butiken
+         publicerar ingen av dem. */
       { label: "Material", value: "Polykarbonatram, TPU-hörn och PET-baksida", highlight: true },
-      { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Förstärkta TPU-buffertar", highlight: true },
-      { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "4,5 m", highlight: true },
-      { label: "Magnetring", shortLabel: "Magnet", value: "Ja, neodym", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja, hörnbuffertarna lyfter kameran från underlaget" },
+      { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Förstärkta TPU-buffertar, 3,3 mm", highlight: true },
+      { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja, 1,85 mm", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja, hörnbuffertarna lyfter kameran från underlaget", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "4,5 m", highlight: true },
+      { label: "Magnetring", shortLabel: "Magnet", value: "Ja, neodym, 800–1 100 gf", highlight: true },
       { label: "Knappar", value: "Anodiserad aluminium, kameraknapp i glas" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja, Qi2 utskrivet" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "1 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "Nomad Rugged Case kostar 449 kronor och är det enda skalet här där Qi2 står utskrivet. Konstruktionen är en styv polykarbonatram med mjuka TPU-buffertar i hörnen och en matt PET-baksida.\n\n**Qi2 betyder 25 watt i stället för 15 på en iPhone 17**, alltså ungefär halva laddtiden från tomt till hälften, och det är skillnaden mellan att ladda över natten och att ladda medan du duschar. Hörnbuffertarna sticker dessutom ut en aning mer än resten av skalet, vilket lyfter kameran från bordet när telefonen ligger platt. Knapparna är i anodiserad aluminium och kameraknappen i glas, så telefonen känns som en telefon och inte som ett gummiblock.\n\nGarantin är 1 år, medan Spigen, OtterBox och UAG ger 2 på skal som kostar mindre. På en produkt som ska sitta i två år är det en verklig skillnad.\n\nLaddar du med sladd finns ingen anledning att betala 100 kronor mer än vinnaren. Laddar du trådlöst varje natt är det här skalet som gör det snabbt.",
+      "Nomad Rugged Case kostar 449 kronor och är det enda skalet här med Qi2. Konstruktionen är en styv polykarbonatram med mjuka TPU-buffertar i hörnen och en matt PET-baksida.\n\n**Qi2 betyder 25 watt i stället för 15 på en iPhone 17**, alltså ungefär halva laddtiden från tomt till hälften, och skillnaden mellan att ladda över natten och att ladda medan du duschar. Magneterna håller mellan 800 och 1 100 gram, vilket är nog för att en magnetplånbok ska följa med upp när du drar telefonen ur en trång ficka i stället för att stanna kvar i den. Kanten står 1,85 millimeter över skärmen och hörnbuffertarna är 3,3 millimeter tjocka, så varken glaset eller kameran når underlaget. Knapparna är i anodiserad aluminium och kameraknappen i glas.\n\nGarantin är 1 år, medan Spigen, OtterBox och UAG ger 2 på skal som kostar mindre. På en produkt som ska sitta i två år är det en verklig skillnad.\n\nLaddar du med sladd finns ingen anledning att betala 100 kronor mer än vinnaren. Laddar du trådlöst varje natt är det här skalet som gör det snabbt.",
   },
   {
     id: "x2o-mag-frosted-17-pro",
@@ -197,10 +212,9 @@ const SEEDS: ProductSeed[] = [
     name: "Mag Frosted",
     shortName: "X2O Mag Frosted",
     image: productImage(IPHONE_SKAL.slug, "x2o-mag-frosted-17-pro"),
-    tagline: "Frostad yta som inte tar fingeravtryck, och en fallhöjd du kan slå upp.",
+    tagline: "Frostad yta som varken tar fingeravtryck eller glider ur handen.",
     scores: {
       konstruktion: 3.5,
-      redovisning: 4,
       prisvarde: 4,
       magnet: 4,
     },
@@ -209,37 +223,31 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/x2o-mag-frosted-iphone-17-pro-59050.html",
-    superlative: "Bäst för den som läser det finstilta",
+    superlative: "Bäst för den som tröttnat på fingeravtryck",
     pros: [
-      "3 meter angivet mot en namngiven metod med nummer, vilket går att slå upp och läsa själv",
-      "Förstärkt kamerating och förhöjd kant runt hela skalet",
       "Frostad yta som varken blir blank av fingrar eller hal i handen",
+      "Förhöjd kant runt hela skalet och en förstärkt ring runt kameran",
+      "Magnetring för 259 kronor, alltså 90 kronor mindre än vinnaren",
     ],
     cons: [
       "2 till 6 veckors leveranstid, så den passar inte den som knäckt skärmen i dag",
-      "Varken hörnkonstruktion eller stötdämpande skikt anges, till skillnad från vinnaren",
+      "Spigen Ultra Hybrid MagFit kostar 10 kronor mer och har Air Cushion i hörnen",
     ],
     specs: [
       { label: "Material", value: "Polykarbonat och TPU", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja, runt hela skalet", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "MIL-STD-810G 516.7", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "3 m", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja, förstärkt kamerating", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "3 m, MIL-STD-810G 516.7", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja, förstärkt kamerating" },
       { label: "Knappar", value: "Täckta" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "X2O Mag Frosted kostar 259 kronor och anger 3 meters fallskydd mot metod 516.7. Det är ett hybridskal i polykarbonat och TPU med magnetring och frostad yta.\n\n**Metodnumret är det som skiljer det här skalet från resten av hyllan.** Ett tal med en metod bakom sig går att slå upp och läsa, och du kan själv se vad de 26 fallen innebär, från vilken höjd och mot vilket underlag. Ett skal som bara säger militärklassat lämnar dig utan den möjligheten. Konstruktionen i övrigt är gedigen för priset: förhöjd kant runt hela skalet och en förstärkt ring runt kameran, alltså de två ställen där glas möter bord. Den frostade ytan gör dessutom att skalet varken blir blankt av fingrar eller halt i handen, vilket är den vanligaste orsaken till att en telefon glider ur handen från början.\n\nLeveranstiden är 2 till 6 veckor. Har du precis knäckt skärmen och behöver ett skal i veckan är det ett avgörande argument emot.\n\nKan du vänta får du kategorins mest kontrollerbara skydd för 90 kronor mindre än vinnaren. Behöver du något i morgon tar du OtterBox React för 229.",
+      "X2O Mag Frosted kostar 259 kronor och är det billigaste hybridskalet här med magnetring. Polykarbonat mot TPU, med frostad yta.\n\n**Den frostade ytan är skälet att välja det.** Den blir varken blank av fingrar eller hal i handen, och en telefon som glider ur handen är där skadan börjar långt före själva fallet. Kanten är förhöjd runt hela skalet och kameran sitter innanför en förstärkt ring, alltså skydd på de två ställen där glas möter bord. Magnetringen sitter i, så laddaren och plånboken fäster.\n\nLeveranstiden var 2 till 6 veckor när priset kontrollerades den 5 augusti 2026. Har du precis knäckt skärmen är det ett avgörande argument emot.\n\nKan du vänta får du magnetring och förhöjda kanter för 90 kronor mindre än vinnaren. Vill du ha förstärkta hörn också kostar Spigen Ultra Hybrid MagFit 10 kronor mer.",
   },
   {
     id: "spigen-ultra-hybrid-magfit-17-pro",
@@ -250,7 +258,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Genomskinlig baksida som står emot gulnande, med magnetring i.",
     scores: {
       konstruktion: 4,
-      redovisning: 2,
       prisvarde: 4.5,
       magnet: 4.5,
     },
@@ -266,30 +273,24 @@ const SEEDS: ProductSeed[] = [
       "Magnetring för 269 kronor, alltså 180 kronor mindre än närmaste genomskinliga skal med magnet",
     ],
     cons: [
-      "Genomskinlig plast gulnar med tiden, och hur länge den håller emot står inte",
-      "Ingen fallhöjd angiven, så skyddet får bedömas på konstruktionen",
+      "Genomskinlig plast gulnar av sol och handfett, så räkna med att byta skalet",
+      "Två material mot vinnarens tre, alltså inget stötdämpande skum i hörnen",
     ],
     specs: [
       { label: "Material", value: "TPU-ram och polykarbonatbaksida", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Air Cushion", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Militärklassad, utan utgåva", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Militärklassat, utan metod", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja" },
       { label: "Knappar", value: "Täckta" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "Spigen Ultra Hybrid MagFit kostar 269 kronor och är det billigaste genomskinliga skalet här med magnetring. Baksidan är styv polykarbonat, ramen mjuk TPU.\n\n**Att kanten är förhöjd vid både skärmen och kameran är ovanligare än det borde vara**, och det är de två ytor som kostar mest att byta. Air Cushion i hörnen betyder att materialet är tjockare just där, trots att skalet i övrigt är tunt nog att du ser vilken färg telefonen har. För den som köpt en iPhone 17 Pro i Cosmic Orange och inte vill dölja den är det hela poängen.\n\nGenomskinlig plast gulnar. Spigen skriver att skalet står emot det, men inte hur länge, och ett gulnat skal är det vanligaste skälet till att ett genomskinligt skal byts ut efter ett år. UAG Plyo anger uttryckligen skydd mot gulnande om det bekymrar dig.\n\nVill du behålla telefonens utseende är det här skalet att köpa. Vill du ha maximalt skydd lägger du 80 kronor till på Rugged Armor och släpper färgen.",
+      "Spigen Ultra Hybrid MagFit kostar 269 kronor och är det billigaste genomskinliga skalet här med magnetring. Baksidan är styv polykarbonat, ramen mjuk TPU.\n\n**Kanten är förhöjd vid både skärmen och kameran**, alltså de två ytor som kostar mest att byta, och flera skal för dubbla priset klarar bara den ena. Air Cushion i hörnen betyder att materialet är tjockare just där, trots att skalet i övrigt är tunt nog att du ser vilken färg telefonen har. Har du köpt en iPhone 17 Pro i Cosmic Orange är det hela poängen med skalet. Magnetringen sitter i, så laddaren och plånboken fäster utan att du behöver lägga 449 kronor.\n\nGenomskinlig plast gulnar av sol och handfett. Ett gult skal är det vanligaste skälet till att ett genomskinligt skal byts ut, och du kommer att byta det här.\n\nVill du behålla telefonens utseende är det här skalet att köpa. Ska det fortfarande vara klart om två år lägger du 230 kronor till på UAG Plyo.",
   },
   {
     id: "otterbox-react-magsafe-17-pro",
@@ -297,10 +298,9 @@ const SEEDS: ProductSeed[] = [
     name: "React med MagSafe",
     shortName: "OtterBox React",
     image: productImage(IPHONE_SKAL.slug, "otterbox-react-magsafe-17-pro"),
-    tagline: "OtterBox med magneter och namngiven metod för 229 kronor.",
+    tagline: "Ett enda stycke material, förhöjda kanter och magnetring för 229 kronor.",
     scores: {
       konstruktion: 3.5,
-      redovisning: 3,
       prisvarde: 4.5,
       magnet: 4,
     },
@@ -313,35 +313,29 @@ const SEEDS: ProductSeed[] = [
     award: "budget",
     superlative: "Bäst under 250 kronor",
     pros: [
-      "Billigast här med både magnetring och en standard som är angiven med metodnummer",
-      "Förhöjd kant vid både skärm och kamera",
       "Ett enda stycke material, så det finns ingen skarv som glappar efter ett halvår",
+      "Förhöjd kant vid både skärm och kamera",
+      "Magnetring och 2 års garanti för 229 kronor",
     ],
     cons: [
-      "Tunt och utan förstärkta hörn, alltså mindre marginal än vinnaren när telefonen landar på ett hörn",
-      "Ingen fallhöjd angiven, bara en standard",
+      "Vinnaren lägger stötdämpande skum i hörnen för 120 kronor mer",
+      "Priset är nedsatt från 299 kronor, så räkna med att det går upp igen",
     ],
     specs: [
       { label: "Material", value: "Enstycke, mjuka kanter", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "MIL-STD-810G 516.6", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "MIL-STD-810G 516.6", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja" },
       { label: "Knappar", value: "Täckta, fri åtkomst till kameraknappen" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "OtterBox React med MagSafe kostar 229 kronor, nedsatt från 299, och är billigast här av de skal som både har magnetring och anger en standard med metodnummer. Det är gjort i ett enda stycke med mjuka kanter.\n\n**Enstyckskonstruktionen är dess bästa egenskap på lång sikt.** Ett skal i två delar glappar där delarna möts när plasten åldrats ett halvår, och det är då smuts börjar samlas mot telefonens ram. Här finns ingen skarv. Kanten är dessutom förhöjd vid både skärmen och kameran, alltså samma grundskydd som skal för dubbla priset ger.\n\nDet är tunt och saknar förstärkta hörn. En telefon som faller landar oftast på ett hörn, och där har det här skalet mindre marginal än vinnaren för 120 kronor mer.\n\nSka du lägga under 250 kronor är det här skalet att ta. Tappar du telefonen på betong regelbundet är det för lite skal.",
+      "OtterBox React med MagSafe kostar 229 kronor, nedsatt från 299, och är billigast här av skalen med både magnetring och 2 års garanti. Det är gjort i ett enda stycke med mjuka kanter.\n\n**Enstyckskonstruktionen är dess bästa egenskap på lång sikt.** Ett skal i två delar glappar där delarna möts när plasten åldrats ett halvår, och i den springan samlas smuts mot telefonens ram. Här finns ingen skarv alls. Kanten är förhöjd vid både skärmen och kameran, alltså samma grundskydd som skal för dubbla priset ger, och kameraknappen ligger fri så du når den utan att trycka genom plast.\n\nDet är ett tunt skal. En telefon som faller landar oftast på ett hörn, och där lägger vinnaren stötdämpande skum för 120 kronor mer.\n\nSka du lägga under 250 kronor är det här skalet att ta. Tappar du telefonen på betong varje månad är det för lite skal.",
   },
   {
     id: "otterbox-symmetry-clear-magsafe-17-pro",
@@ -349,10 +343,9 @@ const SEEDS: ProductSeed[] = [
     name: "Symmetry Clear MagSafe",
     shortName: "OtterBox Symmetry",
     image: productImage(IPHONE_SKAL.slug, "otterbox-symmetry-clear-magsafe-17-pro"),
-    tagline: "Genomskinligt skal med förhöjda kanter och tre gånger standardens fall.",
+    tagline: "Fästpunkter för rem på ett genomskinligt skal som väger 31 gram.",
     scores: {
       konstruktion: 4,
-      redovisning: 3.5,
       prisvarde: 3,
       magnet: 4,
     },
@@ -361,37 +354,33 @@ const SEEDS: ProductSeed[] = [
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/otterbox-symmetry-clear-magsafe-iphone-17-pro-57280.html",
-    superlative: "Bäst genomskinligt med fästpunkter",
+    superlative: "Bäst för den som vill hänga telefonen i en rem",
     pros: [
-      "Både utgåva, metodnummer och en multipel angivna, vilket är mest av alla här",
-      "Förhöjda kanter vid både kamera och skärm på ett skal som ändå är genomskinligt",
       "Fästpunkter för band och remmar, så telefonen kan hänga i stället för att tappas",
+      "31 gram, alltså knappt märkbart i fickan trots förhöjda kanter",
+      "Minst 40 procent återvunnet material",
     ],
     cons: [
-      "180 kronor dyrare än Spigen Ultra Hybrid MagFit, som har samma sorts skydd",
-      "Multipeln bygger på ett prov vars underlag inte anges, så talet går inte att jämföra med andras",
+      "180 kronor dyrare än Spigen Ultra Hybrid MagFit, som dessutom har Air Cushion i hörnen",
+      "Genomskinligt TPE gulnar, och UAG Plyo anger skydd mot det för 50 kronor mer",
     ],
     specs: [
+      /* Vikt och materialandel lästa på otterbox.eu 2026-08-06, sidan för
+         Symmetry Series iPhone 17 Pro. Butiken publicerar ingen vikt. */
       { label: "Material", value: "TPE och polykarbonat", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "MIL-STD-810G 516.6, 3X", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "MIL-STD-810G 516.6, 3X", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja" },
       { label: "Knappar", value: "Täckta, inbyggd kameraknapp" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "OtterBox Symmetry Clear MagSafe kostar 449 kronor och är det genomskinliga skalet med mest utskrivet om sitt skydd. Materialet är TPE mot en polykarbonatbaksida.\n\n**Fästpunkterna för band är det praktiska argumentet.** En telefon som hänger i en rem runt handleden tappas inte alls, och det skyddar bättre än något material gör. Kanterna är förhöjda vid både skärmen och kameran, och skalet är ändå tunt nog att telefonens färg syns igenom. Ytan är dessutom behandlad för att hålla sig klar längre, vilket är den egenskap ett genomskinligt skal står och faller med.\n\nPriset är problemet. Spigen Ultra Hybrid MagFit kostar 269 kronor och ger förhöjd kant på samma två ställen, magnetring och Air Cushion i hörnen, alltså mer konstruktion för 180 kronor mindre.\n\nVill du ha remfästena är de värda mellanskillnaden. Vill du bara ha ett genomskinligt skal med magnet tar du Spigen.",
+      "OtterBox Symmetry Clear MagSafe kostar 449 kronor och väger 31 gram. TPE mot en polykarbonatbaksida, med magnetring och förhöjda kanter.\n\n**Fästpunkterna för band är det praktiska argumentet.** En telefon som hänger i en rem runt handleden tappas inte alls, och det skyddar bättre än något material gör. De 31 grammen är mindre än en sjättedel av telefonens vikt, så skalet märks knappt i fickan trots att kanten är förhöjd vid både skärmen och kameran. Kameraknappen är inbyggd, och minst 40 procent av materialet är återvunnet.\n\nPriset är problemet. Spigen Ultra Hybrid MagFit kostar 269 kronor och ger förhöjd kant på samma två ställen, magnetring och Air Cushion i hörnen, alltså mer konstruktion för 180 kronor mindre.\n\nVill du bära telefonen i en rem är fästpunkterna värda mellanskillnaden. Vill du bara ha ett genomskinligt skal med magnet tar du Spigen.",
   },
   {
     id: "uag-plyo-magsafe-17-pro",
@@ -402,7 +391,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Genomskinligt skal byggt för att inte gulna, med förstärkta hörn.",
     scores: {
       konstruktion: 4.5,
-      redovisning: 2.5,
       prisvarde: 3,
       magnet: 4,
     },
@@ -414,34 +402,31 @@ const SEEDS: ProductSeed[] = [
     superlative: "Bäst genomskinligt som ska hålla länge",
     pros: [
       "Uttalat skydd mot gulnande, vilket är det som annars gör genomskinliga skal förbrukade",
-      "Förstärkta hörn på ett skal som ändå släpper igenom telefonens färg",
-      "Fästpunkter för handledsrem ingår i konstruktionen",
+      "Mjuka förstärkta hörn på ett skal som ändå släpper igenom telefonens färg",
+      "Räfflad kant runt hela skalet och fästpunkter för handledsrem",
     ],
     cons: [
-      "4,8 meter är angivet utan att någon standard namnges, så talet går inte att jämföra",
       "230 kronor dyrare än Spigen Ultra Hybrid MagFit för samma sorts genomskinliga skydd",
+      "Ett genomskinligt skal förblir en förbrukningsvara, även med skydd mot gulnande",
     ],
     specs: [
+      /* Falltest och metod lästa på urbanarmorgear.com 2026-08-06: "Meets 3X
+         MIL-SPEC 810G-516.6". Sidan bar tidigare "Ej angiven" på metoden,
+         vilket var vår research och inte UAG:s tystnad. Se corrections.ts. */
       { label: "Material", value: "TPU-ram och hård polykarbonatbaksida", highlight: true },
-      { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Förstärkta hörn", highlight: true },
+      { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Förstärkta, mjuka hörn", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "4,8 m", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ej angiven", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "4,8 m, 3X MIL-STD-810G 516.6", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ej angiven" },
       { label: "Knappar", value: "Täckta, upphöjda" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "UAG Plyo med MagSafe kostar 499 kronor och är det genomskinliga skalet som är byggt för att åldras. TPU-ram, hård polykarbonatbaksida och förstärkta hörn.\n\n**Skyddet mot gulnande är skälet att välja det.** Ett genomskinligt skal byts sällan ut för att det gått sönder, utan för att baksidan blivit gul och telefonen ser skabbig ut. Ett skal som håller sig klart i två år kostar därför mindre per år än ett billigare som byts varje höst. Hörnen är förstärkta, vilket flera genomskinliga skal saknar helt, och fästpunkter för en handledsrem sitter inbyggda.\n\nDe 4,8 meterna står utan att någon standard namnges. Talet går därför inte att ställa mot något annat skal, och du får ta det på förtroende.\n\nSka det genomskinliga skalet sitta kvar om två år är det här värt sina 499 kronor. Byter du skal varje år tar du Spigen Ultra Hybrid MagFit och sparar 230.",
+      "UAG Plyo med MagSafe kostar 499 kronor och är det genomskinliga skalet byggt för att åldras. TPU-ram, hård polykarbonatbaksida och mjuka förstärkta hörn.\n\n**Skyddet mot gulnande är skälet att välja det.** Ett genomskinligt skal byts sällan ut för att det gått sönder, utan för att baksidan blivit gul och telefonen ser skabbig ut, och ett skal som håller sig klart i två år kostar därför mindre per år än ett billigare som byts varje höst. Kanten runt skalet är räfflad så att telefonen sitter kvar i handen i stället för att glida ur den, och fästpunkter för en handledsrem sitter inbyggda.\n\nEtt genomskinligt skal är ändå en förbrukningsvara. Skyddet mot gulnande skjuter upp bytet, det avskaffar det inte.\n\nSka det genomskinliga skalet sitta kvar om två år är det här värt sina 499 kronor. Byter du skal varje år tar du Spigen Ultra Hybrid MagFit och sparar 230.",
   },
   {
     id: "uag-monarch-pro-kevlar-magsafe-17-pro",
@@ -452,7 +437,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Fem lager med kevlar ytterst, byggt för att tåla en byggarbetsplats.",
     scores: {
       konstruktion: 5,
-      redovisning: 2.5,
       prisvarde: 1.5,
       magnet: 4.5,
     },
@@ -473,26 +457,23 @@ const SEEDS: ProductSeed[] = [
       "Skalet är kraftigt och gör telefonen märkbart större i fickan",
     ],
     specs: [
+      /* Falltest och metod lästa på urbanarmorgear.com 2026-08-06: "Meets 5X
+         MIL-SPEC 810G-516.6", 25 ft (7,6 m). Metoden stod tidigare som
+         "Ej angiven" här. Se corrections.ts. */
       { label: "Material", value: "Kevlar, polykarbonat och gummikant, fem lager", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Stötupptagande kärna i fem lager", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ja", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "7,6 m", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "7,6 m, 5X MIL-STD-810G 516.6", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja" },
       { label: "Knappar", value: "Täckta, förhöjda med tydligt tryck" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "UAG Monarch Pro Kevlar kostar 1 099 kronor och har mer konstruktion än något annat skal här. Fem lager: kevlarförstärkt ram, stötupptagande kärna, polykarbonatplatta och gummikant.\n\n**Lagren gör olika saker, och det är därför de är fem.** Gummikanten tar den första stöten, kärnan sprider kraften vidare, och den styva plattan hindrar att telefonen böjs. Ett tjockt skal i ett enda material gör bara det första av de tre. Fästpunkterna för nyckelband betyder dessutom att telefonen kan sitta fast i overallen i stället för att ligga löst i ett bröstfickfack, vilket är det som faktiskt räddar telefoner på en byggarbetsplats.\n\nDe 7,6 meterna står utan standard, och det är sex gånger den höjd militärstandarden föreskriver. Ett tal utan metod bakom sig går inte att ställa mot något annat skal här.\n\nArbetar du med telefonen i handen utomhus är skalet värt pengarna. Bär du den i en jacka mellan kontoret och tunnelbanan lägger du 349 kronor på Rugged Armor och 750 på något annat.",
+      "UAG Monarch Pro Kevlar kostar 1 099 kronor och har mer konstruktion än något annat skal här. Fem lager: kevlarförstärkt ram, stötupptagande kärna, polykarbonatplatta och gummikant.\n\n**Lagren gör olika saker, och det är därför de är fem.** Gummikanten tar den första stöten, kärnan sprider kraften vidare, och den styva plattan hindrar att telefonen böjs. Ett tjockt skal i ett enda material gör bara det första av de tre. Fästpunkterna för nyckelband betyder dessutom att telefonen kan sitta fast i overallen i stället för att ligga löst i ett bröstfickfack, vilket är det som faktiskt räddar telefoner på en byggarbetsplats.\n\nFem lager tar plats. Telefonen blir märkbart tjockare, och bär du den i en jeansficka märks varje millimeter av det.\n\nArbetar du med telefonen i handen utomhus är skalet värt pengarna. Bär du den i en jacka mellan kontoret och tunnelbanan lägger du 349 kronor på Rugged Armor och 750 på något annat.",
   },
   {
     id: "trolsk-stottaligt-kameraskydd-stativ-17-pro",
@@ -503,7 +484,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Skjutbart lock över kameran och ett stativ som fälls ut ur baksidan.",
     scores: {
       konstruktion: 3.5,
-      redovisning: 1,
       prisvarde: 3.5,
       magnet: 2,
     },
@@ -520,24 +500,18 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Metallplattan sitter fast på en bilhållare men laddar inte, så en MagSafe-laddare faller av",
-      "Hur hårt skalet tål att falla är okänt, så köp det för stativet och inte för fallskyddet",
+      "1 års garanti mot 2 hos Spigen, OtterBox och UAG",
     ],
     specs: [
       { label: "Material", value: "TPU och polykarbonat", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ej angiven", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja, skjutbart lock över linserna", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Ej angivet", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Nej, metallplatta för bilhållare", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja, skjutbart lock över linserna" },
       { label: "Knappar", value: "Täckta" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "1 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
@@ -553,7 +527,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Air Cushion i hörnen för 199 kronor, om du laddar med sladd.",
     scores: {
       konstruktion: 3.5,
-      redovisning: 1.5,
       prisvarde: 3.5,
       magnet: 1,
     },
@@ -576,18 +549,12 @@ const SEEDS: ProductSeed[] = [
       { label: "Material", value: "Polykarbonatbaksida och TPU-ram", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Air Cushion", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ej angiven", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ja", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Ej angivet", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Nej", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ja" },
       { label: "Knappar", value: "Täckta" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja, utan magnetfäste" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "2 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
@@ -603,7 +570,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Fullnarvigt läder som mörknar med åren, med magnet under.",
     scores: {
       konstruktion: 2,
-      redovisning: 1,
       prisvarde: 2,
       magnet: 4,
     },
@@ -619,30 +585,24 @@ const SEEDS: ProductSeed[] = [
       "Tunt, så telefonen behåller sin form i fickan",
     ],
     cons: [
-      "Varken förstärkta hörn eller förhöjda kanter, alltså minst fallskydd av alla skal här med magnet",
+      "Fullnarvigt läder rakt igenom, alltså ingen styv baksida som sprider kraften vidare",
       "399 kronor för ett skal som skyddar mot repor snarare än mot fall",
     ],
     specs: [
       { label: "Material", value: "Fullnarvigt läder", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ej angiven", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ej angiven", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Ej angivet", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Ja", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ej angiven" },
       { label: "Knappar", value: "Ej angivet" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "1 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
     verdict:
-      "dbramante1928 Roskilde kostar 399 kronor och är jämförelsens läderskal, med magnetring under skinnet. Materialet är fullnarvigt läder, alltså den kvalitet som utvecklar patina.\n\n**Fullnarvigt läder blir vackrare av att användas.** Det mörknar där handen håller och får en yta som är telefonens egen efter ett år, medan ett plastskal bara blir repigt. Magnetringen sitter under lädret, så laddaren och en magnetplånbok fäster ändå.\n\nSkyddet är det svagaste av alla skal här som har magnet. Varken förstärkta hörn eller förhöjda kanter anges, och ett tunt läderskal dämpar lite av det som händer när en telefon landar på ett hörn mot betong.\n\nVill du ha ett vackert skal och lever ett liv där telefonen sällan hamnar på marken är det här rätt köp. Ska skalet skydda mot fall är nästan alla andra här bättre, och flera billigare.",
+      "dbramante1928 Roskilde kostar 399 kronor och är jämförelsens läderskal, med magnetring under skinnet. Materialet är fullnarvigt läder, alltså den kvalitet som utvecklar patina.\n\n**Fullnarvigt läder blir vackrare av att användas.** Det mörknar där handen håller och får en yta som är telefonens egen efter ett år, medan ett plastskal bara blir repigt. Magnetringen sitter under lädret, så laddaren och en magnetplånbok fäster ändå, och skalet är tunt nog att telefonen behåller sin form i fickan.\n\nLäder rakt igenom betyder att ingen styv baksida sprider kraften vidare. Ett mjukt skal följer med i stöten i stället för att fördela den, och det märks när en telefon landar på ett hörn mot betong.\n\nVill du ha ett vackert skal och lever ett liv där telefonen sällan hamnar på marken är det här rätt köp. Ska skalet skydda mot fall är nästan alla andra här bättre, och flera billigare.",
   },
   {
     id: "trolsk-mobilskal-matt-17-pro",
@@ -653,7 +613,6 @@ const SEEDS: ProductSeed[] = [
     tagline: "Matt yta som inte tar fingeravtryck, för 99 kronor.",
     scores: {
       konstruktion: 1.5,
-      redovisning: 1,
       prisvarde: 4,
       magnet: 1,
     },
@@ -676,18 +635,12 @@ const SEEDS: ProductSeed[] = [
       { label: "Material", value: "Polykarbonat", highlight: true },
       { label: "Hörnkonstruktion", shortLabel: "Hörn", value: "Ej angiven", highlight: true },
       { label: "Förhöjd kant skärm", shortLabel: "Kant skärm", value: "Ej angiven", highlight: true },
-      { label: "Angiven militärstandard", shortLabel: "Standard", value: "Ej angiven", highlight: true },
-      { label: "Angiven fallhöjd", shortLabel: "Fallhöjd", value: "Ej angiven", highlight: true },
+      { label: "Förhöjd kant kamera", shortLabel: "Kant kamera", value: "Ej angiven", highlight: true },
+      { label: "Falltest enligt tillverkaren", shortLabel: "Falltest", value: "Ej angivet", highlight: true },
       { label: "Magnetring", shortLabel: "Magnet", value: "Nej", highlight: true },
-      { label: "Förhöjd kant kamera", value: "Ej angiven" },
       { label: "Knappar", value: "Täckta" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
       { label: "Trådlös laddning genom skalet", value: "Ja, utan magnetfäste" },
-      { label: "Angivet provunderlag", value: "Ej angivet" },
-      { label: "Angivet antal fall", value: "Ej angivet" },
-      { label: "MagSafe-certifiering", value: "Ej angiven" },
-      { label: "Angiven magnetstyrka", value: "Ej angiven" },
-      { label: "Angiven kanthöjd", value: "Ej angiven" },
       { label: "Garanti", value: "1 år" },
       { label: "GTIN", value: "Ej angiven" },
     ],
@@ -708,7 +661,7 @@ const CONSIDERED: ConsideredProduct[] = [
     brand: "X2O",
     name: "Mag Clear",
     reason:
-      "Samma märke, samma pris och samma utlovade 3 meter som skalet på tredje plats, men i genomskinligt utförande och med kortare leveranstid. Den ligger utanför rankningen av ett enda skäl, och det är ett upplysande: där Mag Frosted anger metod 516.7 står här bara att fallskyddet är certifierat, utan att säga av vem eller mot vad. Ingen certifierar mobilskal. Två artiklar från samma tillverkare, till samma pris, med samma påstådda skydd, där bara den ena går att kontrollera.",
+      "Samma märke, samma pris och samma utlovade 3 meter som Mag Frosted, men i genomskinligt utförande och med kortare leveranstid. Den ligger utanför rankningen för att den är samma skal med en annan yta, och den frostade ytan är hela skälet att välja Mag Frosted: den blir varken blank av fingrar eller hal i handen. Vill du se telefonens färg är det här varianten att beställa i stället.",
     approxPrice: 259,
     merchant: "iPhonebutiken",
     merchantUrl:
@@ -728,7 +681,7 @@ const CONSIDERED: ConsideredProduct[] = [
     brand: "Pitaka",
     name: "Ultra-Slim Case",
     reason:
-      "Ett aramidskal för 899 kronor som är byggt för att vara tunt snarare än för att skydda: det saknar den mjuka ram och de förstärkta hörn som är hela poängen med kriteriet som väger 40 här. Produkten är utmärkt på det den gör, alltså att knappt märkas, men den konkurrerar med tunna skal för en tredjedel av priset och inte med skydd.",
+      "Ett aramidskal för 899 kronor som är byggt för att vara tunt snarare än för att skydda: det har varken mjuk ram eller förstärkta hörn, alltså det som väger tyngst här. Produkten är utmärkt på det den gör, alltså att knappt märkas, men den konkurrerar med tunna skal för en tredjedel av priset och inte med skydd.",
     approxPrice: 899,
     merchant: "iPhonebutiken",
     merchantUrl:
@@ -856,7 +809,7 @@ export const IPHONE_SKAL_FAQ = [
   {
     question: "Laddar telefonen långsammare genom ett skal?",
     answer:
-      "Med sladd, nej. Trådlöst beror det på magneterna och på tjockleken. En iPhone 17 stöder Qi2 med upp till 25 watt, men det kräver att laddaren sitter centrerad över spolen, och det är precis vad magnetringen är till för. Ett skal utan ring gör att laddaren hamnar snett eller glider, och effekten faller. Ett mycket tjockt skal ökar dessutom avståndet mellan spolarna, vilket sänker effekten och ger mer värme. I den här jämförelsen är Nomad Rugged Case det enda skal där Qi2 står utskrivet, medan övriga bara anger att trådlös laddning fungerar.",
+      "Med sladd, nej. Trådlöst beror det på magneterna och på tjockleken. En iPhone 17 stöder Qi2 med upp till 25 watt, men det kräver att laddaren sitter centrerad över spolen, och det är precis vad magnetringen är till för. Ett skal utan ring gör att laddaren hamnar snett eller glider, och effekten faller. Ett mycket tjockt skal ökar dessutom avståndet mellan spolarna, vilket sänker effekten och ger mer värme. Nomad Rugged Case är det enda skalet i jämförelsen med Qi2, och magneterna där håller 800 till 1 100 gram.",
   },
   {
     question: "Skyddar ett skal kameran?",

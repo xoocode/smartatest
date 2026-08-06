@@ -19,7 +19,7 @@ export function ConsentReopen({ className }: { className?: string }) {
 
   return (
     <button type="button" onClick={openConsent} className={className}>
-      Kakor
+      Cookies
     </button>
   );
 }

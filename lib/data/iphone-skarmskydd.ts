@@ -73,7 +73,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Glas.tR EZ Fit",
     image: productImage(IPHONE_SKARMSKYDD.slug, "spigen-glastr-ez-fit-17-pro"),
     tagline: "Två glas och en bygel som lägger dem rakt första gången.",
-    scores: { skydd: 4.5, redovisning: 3.5, montering: 5, prisvarde: 5 },
+    scores: { skydd: 4.5, montering: 5, prisvarde: 5 },
     price: 249,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -87,7 +87,7 @@ const SEEDS: ProductSeed[] = [
       "Täcker även frontkameran och sensorerna ovanför skärmen, alltså ytan som möter bordsskivan",
     ],
     cons: [
-      "Tjockleken står inte angiven, så hur mycket som byggs på skärmen är okänt",
+      "Skalvänlig passform lämnar en fri remsa vid kanten, alltså mindre täckning än de heltäckande glasen här",
       "Ingen svart ram, så limfogen syns mot en ljus bakgrund",
     ],
     specs: [
@@ -103,16 +103,17 @@ const SEEDS: ProductSeed[] = [
       { label: "Skalvänlig", value: "Ja" },
       { label: "Kantutförande", value: "Genomskinlig kant" },
       { label: "Tjocklek", value: "Ej angiven" },
-      { label: "Glastyp", value: "Ej angiven" },
+      /* AluminaCore: "Made from High Alumina Silicate Tempered Glass",
+         spigen.com produktsida för iPhone 17-serien, läst 2026-08-06. */
+      { label: "Glastyp", value: "Aluminosilikatglas (AluminaCore)" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      /* Garantitiden står på butikens egen produktsida för samtliga femton
+         artiklar, läst 2026-08-06. Spannet är 6 månader till livstid. */
+      { label: "Garanti", value: "2 år", highlight: true },
     ],
     verdict:
-      "Spigen Glas.tR EZ Fit kostar 249 kronor för två glas, alltså 124,50 per skydd, och är det enda skyddet här som också lägger sig över frontkameran och sensorerna ovanför skärmen.\n\n**Bygeln är skälet att det här skyddet vinner.** Telefonen läggs i en plastram och glaset sänks ner genom den, vilket gör att det inte kan hamna snett. Det låter litet tills man vet att ett skärmskydd inte går att lyfta och lägga om: hamnar det två millimeter fel är pengarna borta. Rengöringskitet i asken tar dammkornet som annars blir en bubbla mitt i bilden. Och skulle det ändå gå fel ligger ett andra glas kvar i förpackningen, vilket gör att det här är det enda skyddet i jämförelsen där ett misslyckat försök inte kostar ett nytt köp. Att sensorytan ovanför skärmen också täcks är den detalj som märks efter ett år: det är den remsan som repas mot bordsskivor och bilhållare.\n\nHur tjockt glaset är står inte, och det är den enda uppgift man verkligen saknar när man ska välja mellan det här och ett heltäckande glas. Vill du ha en svart ram som döljer limfogen finns den inte heller.\n\nKöp det här. Det är billigast per skydd av allt utom ett tvåpack, det är det enda som skyddar sensorerna, och det är det enda som ger dig två försök. Vill du att ingen ska kunna läsa skärmen på pendeltåget tar du Spigens sekretessversion i stället, och betalar 25 kronor mer per glas.",
+      "Spigen Glas.tR EZ Fit kostar 249 kronor för två glas, alltså 124,50 per skydd, och är det enda skyddet här som också lägger sig över frontkameran och sensorerna ovanför skärmen.\n\n**Bygeln är skälet att det här skyddet vinner.** Telefonen läggs i en plastram och glaset sänks ner genom den, vilket gör att det inte kan hamna snett. Det låter litet tills man vet att ett skärmskydd inte går att lyfta och lägga om: hamnar det två millimeter fel är pengarna borta. Rengöringskitet i asken tar dammkornet som annars blir en bubbla mitt i bilden. Och skulle det ändå gå fel ligger ett andra glas kvar i förpackningen, vilket gör att det här är det enda skyddet i jämförelsen där ett misslyckat försök inte kostar ett nytt köp. Att sensorytan ovanför skärmen också täcks är den detalj som märks efter ett år: det är den remsan som repas mot bordsskivor och bilhållare.\n\nSkyddet är skalvänligt, vilket betyder att glaset stannar innanför kanten och lämnar en fri remsa. Det är priset för att vilket skal som helst ska få plats bredvid, och det är mindre täckning än de heltäckande glasen ger. Någon svart ram som döljer limfogen finns inte heller, så fogen syns mot en ljus bakgrund.\n\nKöp det här. Det är billigast per skydd av allt utom ett tvåpack, det är det enda som skyddar sensorerna, och det är det enda som ger dig två försök. Vill du att ingen ska kunna läsa skärmen på pendeltåget tar du Spigens sekretessversion i stället, och betalar 25 kronor mer per glas.",
   },
   {
     id: "spigen-glastr-ez-fit-privacy-17-pro",
@@ -121,13 +122,13 @@ const SEEDS: ProductSeed[] = [
     shortName: "EZ Fit Privacy",
     image: productImage(IPHONE_SKARMSKYDD.slug, "spigen-glastr-ez-fit-privacy-17-pro"),
     tagline: "Insynsskydd i tvåpack, till halva priset per glas.",
-    scores: { skydd: 4, redovisning: 3, montering: 5, prisvarde: 4.5 },
+    scores: { skydd: 4, montering: 5, prisvarde: 4.5 },
     price: 299,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/spigen-glastr-ez-fit-privacy-iphone-16-pro1717-pro-55740.html",
-    superlative: "Billigast insynsskydd",
+    superlative: "Billigast insynsskydd per glas",
     pros: [
       "149,50 kronor per glas, alltså under halva priset mot det andra sekretessglaset här",
       "Monteringsram och två glas, samma försäkring mot ett snett försök som vinnaren",
@@ -135,7 +136,7 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Sekretessfiltret gör skärmen mörkare rakt framifrån, vilket märks utomhus i solljus",
-      "Varken tjocklek eller täckning står angiven, så hur nära kanten glaset går är okänt",
+      "Sekretess du inte behöver är bortkastade pengar, och 50 kronor mer per glas än vanliga EZ Fit",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "149,50 kr", highlight: true },
@@ -150,16 +151,15 @@ const SEEDS: ProductSeed[] = [
       { label: "Skalvänlig", value: "Ja" },
       { label: "Kantutförande", value: "Ej angivet" },
       { label: "Tjocklek", value: "Ej angiven" },
-      { label: "Glastyp", value: "Ej angiven" },
+      /* Samma glas som vinnaren enligt spigen.com: "AluminaCore … Silicate
+         Tempered Glass", produktsidan för Privacy-varianten, läst 2026-08-06. */
+      { label: "Glastyp", value: "Aluminosilikatglas (AluminaCore)" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "2 år", highlight: true },
     ],
     verdict:
-      "Spigen Glas.tR EZ Fit Privacy kostar 299 kronor för två glas med inbyggt sekretessfilter, alltså 149,50 per skydd. Det är det billigaste sättet att göra skärmen svart för den som sitter bredvid.\n\n**Filtret är hela produkten, och det gör exakt en sak.** Ljuset släpps rakt fram och stryps åt sidorna, så personen i sätet bredvid ser en mörk yta medan du läser som vanligt. Det är värt något om du hanterar patientuppgifter, avtal eller din egen bankapp i kollektivtrafik, och ingenting alls om du inte gör det. Att det kommer två glas i asken och en monteringsram med dem betyder att du får samma försäkring mot ett snett försök som vinnaren ger, vilket är ovanligt i den här delen av prislistan. Glaset uppges dessutom fungera med de flesta skal, så det behöver inte bytas den dagen skalet gör det.\n\nPriset betalas i ljusstyrka. Ett sekretessfilter tar bort en del av ljuset även rakt framifrån, och det märks utomhus en solig dag när du redan ligger på högsta nivån.\n\nKöp det här om du regelbundet läser något på skärmen som andra inte ska se, och vill ha två glas för priset av ett annat märkes ena. Behöver du inte insynsskydd är det bortkastade pengar och en mörkare skärm, och då tar du vanliga Glas.tR EZ Fit för 50 kronor mindre.",
+      "Spigen Glas.tR EZ Fit Privacy kostar 299 kronor för två glas med inbyggt sekretessfilter, alltså 149,50 per skydd. Det är det billigaste sättet att göra skärmen svart för den som sitter bredvid.\n\n**Filtret är hela produkten, och det gör exakt en sak.** Ljuset släpps rakt fram och stryps åt sidorna, så personen i sätet bredvid ser en mörk yta medan du läser som vanligt. Det är värt något om du hanterar patientuppgifter, avtal eller din egen bankapp i kollektivtrafik, och ingenting alls om du inte gör det. Att det kommer två glas i asken och en monteringsram med dem betyder att du får samma försäkring mot ett snett försök som vinnaren ger, vilket är ovanligt i den här delen av prislistan. Glaset fungerar dessutom med de flesta skal, så det behöver inte bytas den dagen skalet gör det.\n\nPriset betalas i ljusstyrka. Ett sekretessfilter tar bort en del av ljuset även rakt framifrån, och det märks utomhus en solig dag när du redan ligger på högsta nivån.\n\nKöp det här om du regelbundet läser något på skärmen som andra inte ska se, och vill ha två glas för priset av ett annat märkes ena. Behöver du inte insynsskydd är det bortkastade pengar och en mörkare skärm, och då tar du vanliga Glas.tR EZ Fit för 50 kronor mindre.",
   },
   {
     id: "devia-full-glass-assist-tool-17-pro",
@@ -168,7 +168,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Devia Full Glass",
     image: productImage(IPHONE_SKARMSKYDD.slug, "devia-full-glass-assist-tool-17-pro"),
     tagline: "Heltäckande glas med monteringsram i enpack.",
-    scores: { skydd: 4.5, redovisning: 3, montering: 4.5, prisvarde: 3 },
+    scores: { skydd: 4.5, montering: 4.5, prisvarde: 3 },
     price: 209,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -183,7 +183,7 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Ett glas i asken, så ett misslyckat försök kostar ett nytt köp",
-      "Tjockleken står inte angiven, och heltäckande glas bygger mer än standardglas",
+      "Heltäckande glas går ända ut i kanten, så ett skal med hög kant kan lyfta hörnen",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "209 kr", highlight: true },
@@ -200,11 +200,8 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "1 år", highlight: true },
     ],
     verdict:
       "Devia Full Glass with Assist Tool kostar 209 kronor och är det billigaste heltäckande glaset som levereras med en monteringsram.\n\n**Kombinationen är ovanligare än den låter.** Heltäckande glas är svårast av alla att sätta rakt, eftersom felmarginalen är noll när kanten ska möta kanten, och det är just de skydden som oftast säljs utan hjälpmedel. Här läggs telefonen i en ram och glaset sänks ner genom den. Att glaset går ända ut betyder också att den yta som faktiskt tar smällen ligger skyddad: en telefon som tappas landar sällan platt, den landar på ett hörn eller en kant, och där slutar ett standardglas en bit innan. Devia täcker den delen.\n\nDet ligger ett glas i asken. Går monteringen fel finns ingen andra chans, och det är den verkliga skillnaden mot vinnaren som ger dig två för 40 kronor mer.\n\nTa det här om du vill ha ett heltäckande glas och bara behöver ett. Vill du ha två försök, eller skydd även över sensorerna, är Spigens tvåpack både billigare per glas och mer förlåtande.",
@@ -216,7 +213,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "PanzerGlass Privacy",
     image: productImage(IPHONE_SKARMSKYDD.slug, "panzerglass-privacy-2-way-17-pro"),
     tagline: "Insynsskydd över hela framsidan, med stötdämpande kant.",
-    scores: { skydd: 4.5, redovisning: 3.5, montering: 4.5, prisvarde: 1.5 },
+    scores: { skydd: 4.5, montering: 4.5, prisvarde: 1.5 },
     price: 399,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -244,18 +241,17 @@ const SEEDS: ProductSeed[] = [
       { label: "Ingår i förpackningen", value: "Glas, EasyAligner, monteringsanvisning" },
       { label: "Skyddar framsensorer", value: "Ej angivet" },
       { label: "Skalvänlig", value: "Ja" },
-      { label: "Kantutförande", value: "Stötdämpande kant" },
+      /* Butiken namnger dämpningen: "Air Cushion-stötdämpning", produktsidan
+         läst 2026-08-06. */
+      { label: "Kantutförande", value: "Air Cushion-stötdämpning i kanten" },
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "60 % återvunnet glas" },
       { label: "Ytbehandling", value: "Smutsavvisande" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "6 månader", highlight: true },
     ],
     verdict:
-      "PanzerGlass Privacy Screen Protector 2-way kostar 399 kronor och är det dyraste skyddet i jämförelsen. Det täcker hela framsidan och gör skärmen mörk för den som sitter vid sidan.\n\n**Det du betalar för är att båda sakerna finns i samma glas.** Sekretessfilter säljs oftast som ett standardglas som slutar innanför kanten, och då ligger telefonens mest utsatta yta bar. Här går glaset ut över hela framsidan och lämnar ändå en remsa fri så att ett skal får plats bredvid, vilket är skillnaden mellan att kunna behålla skalet och att få välja. Kanten är dessutom stötdämpande, och det är kanten som möter golvet först när en telefon landar. Monteringen sköts av en EasyAligner i asken, alltså en bygel som telefonen läggs i, och den behövs verkligen på ett glas som ska möta kanten på millimetern. Glaset uppges bestå till 60 procent av återvunnet material.\n\nPriset är det som gör valet svårt. Ett annat sekretessglas i jämförelsen kostar 149,50 per styck och kommer i tvåpack, alltså under hälften för samma grundfunktion.\n\nKöp det här om du vill ha insynsskydd utan att ge upp den heltäckande formen, och om du hellre monterar en gång än två. Är det bara filtret du är ute efter gör Spigens tvåpack samma jobb för mindre än halva priset per glas.",
+      "PanzerGlass Privacy Screen Protector 2-way kostar 399 kronor och är det dyraste skyddet i jämförelsen. Det täcker hela framsidan och gör skärmen mörk för den som sitter vid sidan.\n\n**Det du betalar för är att båda sakerna finns i samma glas.** Sekretessfilter säljs oftast som ett standardglas som slutar innanför kanten, och då ligger telefonens mest utsatta yta bar. Här går glaset ut över hela framsidan och lämnar ändå en remsa fri så att ett skal får plats bredvid, vilket är skillnaden mellan att kunna behålla skalet och att få välja. Kanten är dessutom stötdämpande, och det är kanten som möter golvet först när en telefon landar. Monteringen sköts av en EasyAligner i asken, alltså en bygel som telefonen läggs i, och den behövs verkligen på ett glas som ska möta kanten på millimetern. Glaset består till 60 procent av återvunnet material.\n\nPriset är det som gör valet svårt. Ett annat sekretessglas i jämförelsen kostar 149,50 per styck och kommer i tvåpack, alltså under hälften för samma grundfunktion.\n\nKöp det här om du vill ha insynsskydd utan att ge upp den heltäckande formen, och om du hellre monterar en gång än två. Är det bara filtret du är ute efter gör Spigens tvåpack samma jobb för mindre än halva priset per glas.",
   },
   {
     id: "panzerglass-standard-fit-17-pro",
@@ -264,7 +260,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "PanzerGlass Standard",
     image: productImage(IPHONE_SKARMSKYDD.slug, "panzerglass-standard-fit-17-pro"),
     tagline: "Täcker den aktiva ytan och lämnar plats åt skalet.",
-    scores: { skydd: 3.5, redovisning: 3, montering: 4.5, prisvarde: 2 },
+    scores: { skydd: 3.5, montering: 4.5, prisvarde: 2 },
     price: 299,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -295,11 +291,8 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Anti-fingeravtryck" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "6 månader", highlight: true },
     ],
     verdict:
       "PanzerGlass Standard Fit kostar 299 kronor och är byggt för att sluta innan skalet börjar. Formen är ett val och inte en besparing.\n\n**Den formen löser ett problem som gör att glas lossnar.** Ett heltäckande glas möter skalets innerkant, och möts de på fel ställe lyfter skalet glaset lite i taget tills en kant släpper och smuts kryper in under. Standardformen slutar innanför den zonen, så glaset och skalet rör aldrig varandra. Har du ett tjockt skal med hög kant runt skärmen är det här skillnaden mellan ett glas som sitter kvar i två år och ett som börjar bubbla i hörnet efter en månad. EasyAligner ligger i asken, och beläggningen mot fingeravtryck gör att ytan går att torka ren på en gång i stället för att smeta.\n\nDet du inte får är skydd i kanten. Den yta som träffar golvet först när telefonen landar på högkant ligger bar, och det är den vanligaste vägen till en spricka.\n\nTa det här om du kör med ett kraftigt skal och är trött på glas som lossnar i kanten. Är skalet tunt eller obefintligt får du mer skydd för mindre pengar av Devias heltäckande glas.",
@@ -311,7 +304,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Enkay 2-pack",
     image: productImage(IPHONE_SKARMSKYDD.slug, "enkay-tempered-glass-2-pack-17-pro"),
     tagline: "Två glas för 199 kronor, tunnast i jämförelsen.",
-    scores: { skydd: 2.5, redovisning: 3.5, montering: 3, prisvarde: 5 },
+    scores: { skydd: 2.5, montering: 3, prisvarde: 5 },
     price: 199,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -343,14 +336,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "0,26 mm" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "6 månader", highlight: true },
     ],
     verdict:
-      "Enkays tvåpack kostar 199 kronor för två glas, alltså 99,50 per skydd. Det är billigast i jämförelsen, och med 0,26 millimeter också tunnast.\n\n**Tvåpacket är det som gör priset intressant.** Ett skärmskydd är en engångsmontering: går det snett kan du inte lyfta glaset och lägga om det, utan då är det ett nytt köp. Att det ligger ett andra glas i asken betyder att första försöket får misslyckas utan att det kostar något, och det är värt mer i praktiken än de flesta egenskaper som står i produkttexten. Tjockleken är också angiven, vilket bara tre andra skydd här är, och 0,26 millimeter känns i fingret: svepningar från kanten går utan att man känner ett steg upp i glaset. De rundade kanterna hör ihop med det och gör att tummen inte fastnar mot en skarp övergång.\n\nDet följer ingen ram med. Två glas på frihand är fortfarande två chanser, men det är två chanser att göra samma fel, och dammkornet under limmet syns lika mycket båda gångerna.\n\nTa det här om du vill ha ett fungerande glas till lägsta möjliga pris och har satt ett skärmskydd förut. Har du inte det är Spigens tvåpack 25 kronor dyrare per glas och kommer med bygeln som gör att du slipper öva.",
+      "Enkays tvåpack kostar 199 kronor för två glas, alltså 99,50 per skydd. Det är billigast i jämförelsen, och med 0,26 millimeter också tunnast.\n\n**Tvåpacket är det som gör priset intressant.** Ett skärmskydd är en engångsmontering: går det snett kan du inte lyfta glaset och lägga om det, utan då är det ett nytt köp. Att det ligger ett andra glas i asken betyder att första försöket får misslyckas utan att det kostar något, och i praktiken är det värt mer än någon egenskap hos själva glaset. 0,26 millimeter känns dessutom i fingret: svepningar från kanten går utan att man känner ett steg upp i glaset. De rundade kanterna hör ihop med det och gör att tummen inte fastnar mot en skarp övergång.\n\nDet följer ingen ram med. Två glas på frihand är fortfarande två chanser, men det är två chanser att göra samma fel, och dammkornet under limmet syns lika mycket båda gångerna.\n\nTa det här om du vill ha ett fungerande glas till lägsta möjliga pris och har satt ett skärmskydd förut. Har du inte det är Spigens tvåpack 25 kronor dyrare per glas och kommer med bygeln som gör att du slipper öva.",
   },
   {
     id: "celly-full-glass-17-pro",
@@ -359,17 +349,16 @@ const SEEDS: ProductSeed[] = [
     shortName: "Celly Full Glass",
     image: productImage(IPHONE_SKARMSKYDD.slug, "celly-full-glass-17-pro"),
     tagline: "Heltäckande glas på 0,3 millimeter.",
-    scores: { skydd: 4, redovisning: 3.5, montering: 2, prisvarde: 2.5 },
+    scores: { skydd: 4, montering: 2, prisvarde: 2.5 },
     price: 219,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/celly-full-glass-iphone-16-pro1717-pro-55220.html",
-    superlative: "Bäst angivna mått för pengarna",
+    superlative: "Heltäckande skydd på 0,3 millimeter",
     pros: [
       "Skyddar hela skärmen, alltså också kanten där en tappad telefon landar",
-      "0,3 millimeter angivet, så du vet vad som byggs på innan asken är öppnad",
-      "Uppges inte påverka vare sig upplösning eller pekkänslighet",
+      "0,3 millimeter tunt, så kanten under fingret knappt känns",
     ],
     cons: [
       "Ingen monteringsram, och heltäckande glas är svårast av alla att lägga rakt",
@@ -390,14 +379,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "0,3 mm" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "2 år", highlight: true },
     ],
     verdict:
-      "Celly Full Glass kostar 219 kronor, täcker hela skärmen och är 0,3 millimeter tjockt.\n\n**Det är ett av fyra skydd här där du vet hur mycket som läggs på skärmen innan du köper.** Tre tiondels millimeter är mitten i kategorin: tunt nog att fingret inte känner en tröskel vid kanten, tjockt nog att glaset spricker i stället för att spricka igenom. Heltäckningen är den andra halvan av argumentet, och den betyder något konkret: en telefon som tappas landar nästan aldrig platt, den landar på en kant eller ett hörn, och där tar ett heltäckande glas smällen medan ett standardglas slutar en bit innan. Pekkänsligheten och upplösningen uppges vara oförändrade, vilket är det man vill höra om ett glas som ska ligga över en högupplöst skärm hela dagen.\n\nDet ligger ingen ram i asken. Heltäckande glas har noll felmarginal eftersom kanten ska möta kanten, och att lägga ett sådant på frihand är kategorins svåraste moment.\n\nTa det här om du vill ha heltäckande skydd, litar på din egen hand och gärna vill veta måtten i förväg. Är du minsta osäker på monteringen ger Devia dig samma täckning med en ram, och 10 kronor billigare.",
+      "Celly Full Glass kostar 219 kronor, täcker hela skärmen och är 0,3 millimeter tjockt.\n\n**Tre tiondels millimeter är mitten i kategorin:** tunt nog att fingret inte känner en tröskel vid kanten, tjockt nog att glaset spricker i stället för att spricka igenom. Heltäckningen är den andra halvan av argumentet, och den betyder något konkret: en telefon som tappas landar nästan aldrig platt, den landar på en kant eller ett hörn, och där tar ett heltäckande glas smällen medan ett standardglas slutar en bit innan.\n\nDet ligger ingen ram i asken. Heltäckande glas har noll felmarginal eftersom kanten ska möta kanten, och att lägga ett sådant på frihand är kategorins svåraste moment.\n\nTa det här om du vill ha heltäckande skydd och litar på din egen hand. Är du minsta osäker på monteringen ger Devia dig samma täckning med en ram, och 10 kronor billigare.",
   },
   {
     id: "trolsk-full-cover-glas-17-pro",
@@ -406,7 +392,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Trolsk Full Cover",
     image: productImage(IPHONE_SKARMSKYDD.slug, "trolsk-full-cover-glas-17-pro"),
     tagline: "Svart ram runt kanten som döljer limfogen.",
-    scores: { skydd: 4, redovisning: 2.5, montering: 1.5, prisvarde: 3.5 },
+    scores: { skydd: 4, montering: 1.5, prisvarde: 3.5 },
     price: 149,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -420,7 +406,7 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Ingen ram och inget rengöringskit, så hela monteringen ligger på dig",
-      "Vare sig tjocklek eller ytbehandlingens typ står angiven",
+      "Ett glas i asken, alltså inget andra försök om det första hamnar snett",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "149 kr", highlight: true },
@@ -437,11 +423,8 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Behandlad mot fingeravtryck" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro, iPhone 18 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "1 år", highlight: true },
     ],
     verdict:
       "Trolsk Skärmskydd Full Cover kostar 149 kronor och är det billigaste glaset i jämförelsen som går ända ut i kanten.\n\n**Den svarta ramen är mer än en färg.** Ett heltäckande glas limmas bara i kanten, eftersom mitten måste ligga fritt mot skärmen, och den limzonen syns som en ljusare rand mot en vit webbsida på varje klart glas som saknar ram. Här ligger en svart tryckt kant över fogen, så övergången försvinner. Att glaset dessutom når hela vägen ut betyder att kanten skyddas, alltså den del av telefonen som möter golvet först vid ett fall på högkant. Ytan är behandlad så att fingeravtryck syns mindre, vilket på en svart ram märks mer än på ett klart glas.\n\nDu får ett glas och ingenting annat. Ingen bygel, ingen trasa, ingen dammlapp, och heltäckande glas är den svåraste sorten att lägga rakt eftersom kanten ska möta kanten på millimetern.\n\nTa det här om du vill ha heltäckande skydd billigast möjligt och har satt ett skärmskydd förut. Har du inte det bränner du 149 kronor på ett försök, och då är Devias glas med ram 60 kronor bättre använda.",
@@ -453,21 +436,20 @@ const SEEDS: ProductSeed[] = [
     shortName: "Trolsk Härdat Glas",
     image: productImage(IPHONE_SKARMSKYDD.slug, "trolsk-hardat-glas-17-pro"),
     tagline: "0,33 millimeter glas för 129 kronor.",
-    scores: { skydd: 3, redovisning: 3.5, montering: 1.5, prisvarde: 4 },
+    scores: { skydd: 3, montering: 1.5, prisvarde: 4 },
     price: 129,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/trolsk-skarmskydd-hardat-glas-iphone-16-pro1717-pro18-pro-55392.html",
-    superlative: "Billigaste glaset med angiven tjocklek",
+    superlative: "Billigaste enpacket i härdat glas",
     pros: [
       "129 kronor, billigast av alla enpack i härdat glas",
-      "0,33 millimeter angivet, alltså tjockast av de fyra som anger måttet",
-      "Uppges lämna både pekkänslighet och färgåtergivning orörda",
+      "0,33 millimeter glas, alltså mer material att spricka i stället för skärmen",
     ],
     cons: [
-      "Standardform utan angiven täckning, så hur nära kanten glaset går är okänt",
-      "Ingen ram, inget rengöringskit och bara ett glas i asken",
+      "Varken ram eller rengöringskit, och bara ett glas i asken, så första försöket måste sitta",
+      "129 kronor för ett glas, mot 99,50 per glas i det billigaste tvåpacket",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "129 kr", highlight: true },
@@ -479,19 +461,18 @@ const SEEDS: ProductSeed[] = [
       { label: "Antal i förpackningen", value: "1 st" },
       { label: "Ingår i förpackningen", value: "Glas" },
       { label: "Skyddar framsensorer", value: "Nej" },
-      { label: "Skalvänlig", value: "Ej angivet" },
+      /* Stod som "Ej angivet" fram till 2026-08-06. Butikens egen produkttext
+         säger "Du kan använda det med de flesta skal och fodral". */
+      { label: "Skalvänlig", value: "Ja" },
       { label: "Kantutförande", value: "Ej angivet" },
       { label: "Tjocklek", value: "0,33 mm" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro, iPhone 18 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "1 år", highlight: true },
     ],
     verdict:
-      "Trolsk Skärmskydd Härdat Glas kostar 129 kronor och är det billigaste enpacket i härdat glas här. Tjockleken är 0,33 millimeter.\n\n**Det är kategorins tjockaste angivna glas, och det spelar åt två håll.** En tredjedels millimeter är mer material mellan skärmen och golvet, alltså mer som kan ta upp en stöt innan den når displayen. Samtidigt är det också det du känner under fingret vid kanten, och skillnaden mot det tunnaste glaset i jämförelsen är sju hundradelar. Att måttet över huvud taget står är värt något i sig: bara fyra av femton skydd låter dig veta det innan asken är öppnad. Pekkänsligheten och färgåtergivningen uppges vara oförändrade, vilket är det som avgör om ett billigt glas känns billigt i vardagen.\n\nHur långt ut mot kanten glaset går står inte. Det betyder att du inte vet om den mest utsatta ytan ligger skyddad eller bar, och på ett standardglas är svaret oftast det senare.\n\nTa det här om du vill ha ett riktigt glas, inte en film, till lägsta möjliga styckpris och struntar i tillbehören. Vill du ha kanten skyddad kostar Trolsks heltäckande 20 kronor mer.",
+      "Trolsk Skärmskydd Härdat Glas kostar 129 kronor och är det billigaste enpacket i härdat glas här. Tjockleken är 0,33 millimeter.\n\n**Tjockleken spelar åt två håll.** En tredjedels millimeter är mer material mellan skärmen och golvet, alltså mer som kan ta upp en stöt innan den når displayen. Samtidigt är det också det du känner under fingret vid kanten, och skillnaden mot det tunnaste glaset i jämförelsen är sju hundradelar av en millimeter, alltså inget du hittar utan att leta.\n\nDet är ett standardglas, och ett standardglas slutar en bit innanför den böjda kanten. Där ligger den yta som möter golvet först, och för 129 kronor följer varken ram, rengöringskit eller ett andra glas med.\n\nTa det här om du vill ha ett riktigt glas, inte en film, till lägsta möjliga styckpris och struntar i tillbehören. Vill du ha kanten skyddad kostar Trolsks heltäckande 20 kronor mer.",
   },
   {
     id: "celly-easy-glass-17-pro",
@@ -499,18 +480,18 @@ const SEEDS: ProductSeed[] = [
     name: "Easy Glass",
     shortName: "Celly Easy Glass",
     image: productImage(IPHONE_SKARMSKYDD.slug, "celly-easy-glass-17-pro"),
-    tagline: "Rengöringskit i asken och måtten utskrivna.",
-    scores: { skydd: 2.5, redovisning: 4, montering: 2.5, prisvarde: 3 },
+    tagline: "Rengöringskit i asken, alltså det som avgör om glaset hamnar bubbelfritt.",
+    scores: { skydd: 2.5, montering: 2.5, prisvarde: 3 },
     price: 159,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/celly-easy-glass-iphone-16-pro1717-pro-55225.html",
-    superlative: "Bäst för dig som vill veta allt i förväg",
+    superlative: "Bäst för dig som vill ha rengöringskit i asken",
     pros: [
-      "Enda skyddet här vars produkttext säger att glaset inte når hela vägen ut i kanten",
       "Rengöringskit ingår, alltså det som tar dammet som annars blir en bubbla",
-      "0,3 millimeter angivet, så tjockleken är känd innan köpet",
+      "0,3 millimeter tunt, så det knappt känns under fingret",
+      "Standardform som lämnar kanten fri, alltså plats för ett skal med hög kant",
     ],
     cons: [
       "Glaset slutar innanför kanten, och det är kanten som möter golvet först",
@@ -531,14 +512,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "0,3 mm" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "2 år", highlight: true },
     ],
     verdict:
-      "Celly Easy Glass kostar 159 kronor, är 0,3 millimeter tjockt och kommer med rengöringskit.\n\n**Det är det enda skyddet i jämförelsen som talar om vad det inte gör.** Produkttexten säger rakt ut att glaset inte går hela vägen ut i kanten, och den meningen är mer användbar för en köpare än allt annat i samma ruta. Alla standardglas slutar innanför kanten, men det här är det enda där du får veta det innan asken öppnas i stället för när glaset redan ligger på skärmen. Rengöringskitet är det andra som skiljer: dammet på displayen är den vanligaste orsaken till en bubbla, och en trasa och en klisterlapp för damm avgör oftare än glaskvaliteten om monteringen lyckas. Måtten står utskrivna, vilket bara tre andra skydd här gör.\n\nDet du får veta är alltså också en svaghet. En bar kant är den vanligaste vägen till en spricka, eftersom en tappad telefon landar på kanten och inte på mitten.\n\nTa det här om skalet du har ändå täcker kanten och du vill ha ett glas med rengöringskit från ett märke som skriver ut sina begränsningar. Ska glaset göra jobbet ensamt tar du Trolsks heltäckande, som täcker mer och kostar 10 kronor mindre.",
+      "Celly Easy Glass kostar 159 kronor, är 0,3 millimeter tjockt och kommer med rengöringskit.\n\n**Rengöringskitet är skälet att välja det.** Dammet på displayen är den vanligaste orsaken till en bubbla, och en trasa plus en klisterlapp för damm avgör oftare än glaskvaliteten om monteringen lyckas. Glaset är dessutom skalvänligt och stannar innanför skalkanten, så vilket skal som helst får plats bredvid utan att lyfta hörnen. 0,3 millimeter gör att fingret inte känner någon tröskel där glaset slutar.\n\nTäckningen är vad du betalar med. Glaset går inte hela vägen ut, och det är kanten en tappad telefon landar på, inte mitten. En bar kant är den vanligaste vägen till en spricka.\n\nTa det här om skalet du redan har täcker kanten och du vill ha rengöringskitet på köpet. Ska glaset göra jobbet ensamt tar du Trolsks heltäckande, som täcker mer och kostar 10 kronor mindre.",
   },
   {
     id: "trolsk-privacy-glas-17-pro",
@@ -547,21 +525,21 @@ const SEEDS: ProductSeed[] = [
     shortName: "Trolsk Privacy",
     image: productImage(IPHONE_SKARMSKYDD.slug, "trolsk-privacy-glas-17-pro"),
     tagline: "Svart skärm för alla utom dig, för 179 kronor.",
-    scores: { skydd: 4, redovisning: 1.5, montering: 1.5, prisvarde: 3.5 },
+    scores: { skydd: 4, montering: 1.5, prisvarde: 3.5 },
     price: 179,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/trolsk-skarmskydd-privacy-hardat-glas-iphone-16-pro1717-pro-55396.html",
-    superlative: "Billigast sekretess i enpack",
+    superlative: "Bäst för dig som vill dölja skärmen ända ut i kanten",
     pros: [
       "179 kronor för ett sekretessglas, mot 399 för det dyraste i jämförelsen",
       "Heltäckande, så insynsskyddet slutar inte innanför kanten som de flesta gör",
       "Den som sitter bredvid ser en svart yta i stället för din skärm",
     ],
     cons: [
-      "Varken tjocklek, ytbehandling eller innehåll står angivet",
       "Ingen ram till ett heltäckande glas, alltså kategorins svåraste montering på frihand",
+      "Sekretessfiltret sitter på hela tiden, så skärmen är mörkare även när du sitter ensam",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "179 kr", highlight: true },
@@ -578,14 +556,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 16 Pro, iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "1 år", highlight: true },
     ],
     verdict:
-      "Trolsk Skärmskydd Privacy kostar 179 kronor och är det billigaste sättet i jämförelsen att göra skärmen svart för den som sitter bredvid.\n\n**Att filtret sitter i ett heltäckande glas är det ovanliga.** Sekretessglas säljs oftast i standardform, alltså slutande en bit innanför kanten, och då finns en remsa längs sidan där skärmen fortfarande syns snett uppifrån. Här går glaset ända ut, så det som ska vara mörkt är mörkt hela vägen. Det gör också att kanten skyddas, alltså den yta som möter golvet först när telefonen tappas på högkant. För 179 kronor får du båda sakerna, och nästa heltäckande sekretessglas i listan kostar 220 kronor mer.\n\nUtöver att glaset är härdat och heltäckande får du veta nästan ingenting. Tjockleken, ytbehandlingen och vad som ligger i asken är okända, och till ett heltäckande glas som ska läggas rakt på frihand är det sista den uppgift man helst vill ha.\n\nTa det här om du vill ha insynsskydd över hela skärmen och priset avgör. Monterar du helst med en bygel, eller vill ha två glas för säkerhets skull, är Spigens sekretesspack rätt val trots att det kostar 120 kronor mer.",
+      "Trolsk Skärmskydd Privacy kostar 179 kronor och är det billigaste sättet i jämförelsen att göra skärmen svart för den som sitter bredvid.\n\n**Att filtret sitter i ett heltäckande glas är det ovanliga.** Sekretessglas säljs oftast i standardform, alltså slutande en bit innanför kanten, och då finns en remsa längs sidan där skärmen fortfarande syns snett uppifrån. Här går glaset ända ut, så det som ska vara mörkt är mörkt hela vägen. Det gör också att kanten skyddas, alltså den yta som möter golvet först när telefonen tappas på högkant. För 179 kronor får du båda sakerna, och nästa heltäckande sekretessglas i listan kostar 220 kronor mer.\n\nMonteringen är helt din ensak. Ingen bygel, inget rengöringskit och ett enda glas i asken, och ett heltäckande glas är det svåraste av alla att lägga rakt eftersom det inte finns någon fri kant att rätta mot.\n\nTa det här om du vill ha insynsskydd över hela skärmen och priset avgör. Monterar du helst med en bygel, eller vill ha två glas för säkerhets skull, är Spigens sekretesspack rätt val trots att det kostar 120 kronor mer.",
   },
   {
     id: "copter-exoglass-17-pro",
@@ -593,8 +568,11 @@ const SEEDS: ProductSeed[] = [
     name: "Exoglass",
     shortName: "Copter Exoglass",
     image: productImage(IPHONE_SKARMSKYDD.slug, "copter-exoglass-17-pro"),
-    tagline: "Oleofobisk yta som håller fingeravtrycken borta.",
-    scores: { skydd: 3.5, redovisning: 2, montering: 2, prisvarde: 2.5 },
+    tagline: "Fettavvisande yta som torkas ren i ett drag.",
+    /* Montering 2,0 → 2,5 den 2026-08-06: Copters appliceringsanvisning visar
+       att våtservett, torkduk och dammdekal ligger i asken, alltså samma
+       rengöringskit som Celly Easy Glass redan fick 2,5 för. */
+    scores: { skydd: 3.5, montering: 2.5, prisvarde: 2.5 },
     price: 199,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -602,37 +580,41 @@ const SEEDS: ProductSeed[] = [
       "https://www.iphonebutiken.se/copter-exoglass-iphone-1717-pro-57334.html",
     superlative: "Bäst yta mot fett och fingeravtryck",
     pros: [
-      "Oleofobisk beläggning som gör att fett torkas bort i ett drag i stället för att smetas ut",
-      "Uppges absorbera stötar och inte bara stå emot repor",
-      "Tunn form som behåller pekskärmens känslighet",
+      "Fettavvisande nanobeläggning som gör att fett torkas bort i ett drag i stället för att smetas ut",
+      "Dubbelhärdat glas som tar upp stötar och inte bara står emot repor",
+      "Våtservett, torkduk och dammdekal i asken, alltså det som avgör om monteringen blir bubbelfri",
     ],
     cons: [
-      "Varken tjocklek, täckning eller innehåll står angivet",
+      "Ingen monteringsram, och glaset ska riktas in på frihand mot skärmens kanter",
       "199 kronor för ett glas, mot 99,50 per glas för det billigaste tvåpacket",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "199 kr", highlight: true },
       { label: "Material", value: "Härdat glas", highlight: true },
       { label: "Täckning", value: "Ej angiven", highlight: true },
-      { label: "Monteringsram", shortLabel: "Ram", value: "Ej angiven", highlight: true },
-      { label: "Angiven hårdhet", shortLabel: "Hårdhet", value: "Ej angiven", highlight: true },
+      /* Copters egen appliceringsanvisning (art.nr 9927, PDF länkad från
+         copter.com) beskriver frihandsmontering steg för steg: glaset riktas
+         in centralt på skärmen. Ingen bygel ingår. Läst 2026-08-06. */
+      { label: "Monteringsram", shortLabel: "Ram", value: "Nej", highlight: true },
+      /* Stod som "Ej angiven" fram till 2026-08-06. copter.com anger
+         "Double-tempered ionized glass with 9H hardness". */
+      { label: "Angiven hårdhet", shortLabel: "Hårdhet", value: "9H", highlight: true },
       { label: "Sekretessfilter", shortLabel: "Sekretess", value: "Nej", highlight: true },
       { label: "Antal i förpackningen", value: "1 st" },
-      { label: "Ingår i förpackningen", value: "Ej angivet" },
+      /* Innehållet står i appliceringsanvisningen ovan: våt pappersduk,
+         torr pappersduk och dammdekal används i tur och ordning. */
+      { label: "Ingår i förpackningen", value: "Glas, våtservett, torkduk, dammdekal" },
       { label: "Skyddar framsensorer", value: "Nej" },
       { label: "Skalvänlig", value: "Ej angivet" },
       { label: "Kantutförande", value: "Ej angivet" },
       { label: "Tjocklek", value: "Ej angiven" },
-      { label: "Glastyp", value: "Ej angiven" },
-      { label: "Ytbehandling", value: "Oleofobisk beläggning" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
+      { label: "Glastyp", value: "Dubbelhärdat joniserat glas" },
+      { label: "Ytbehandling", value: "Olje- och vattenavvisande nanobeläggning" },
       { label: "Passar modeller", value: "iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "Livstid", highlight: true },
     ],
     verdict:
-      "Copter Exoglass kostar 199 kronor och säljs på sin yta snarare än på sina mått: beläggningen är oleofobisk, alltså fettavvisande.\n\n**Den beläggningen är den egenskap man märker varje dag.** Ett skärmskydd utan den samlar hudfett i ett grått lager som smetas ut när man torkar, och det syns värst på en mörk skärm i motljus. En oleofobisk yta släpper fettet i stället, så en torkning på byxbenet räcker. Glaset uppges också absorbera stötar och inte bara stå emot repor, vilket är skillnaden mellan ett glas som spricker i ditt ställe och ett som bara håller nycklar borta. Formen är tunn nog att pekkänsligheten uppges vara oförändrad.\n\nDet står inte hur tjockt glaset är, hur långt ut det går eller vad som ligger i asken. För 199 kronor är det tre frågor för mycket i en kategori där ett par av de billigare svarar på alla tre.\n\nTa det här om du är trött på flottiga skärmar och vill ha en yta som går att torka ren. Är det skyddet och inte ytan du köper får du både täckningen och måtten utskrivna av Celly Full Glass för 20 kronor mer.",
+      "Copter Exoglass kostar 199 kronor och säljs på sin yta: en nanobeläggning som stöter bort både fett och vatten.\n\n**Den beläggningen är den egenskap man märker varje dag.** Ett skärmskydd utan den samlar hudfett i ett grått lager som smetas ut när man torkar, och det syns värst på en mörk skärm i motljus. Den här ytan släpper fettet i stället, så en torkning på byxbenet räcker. Glaset under är dubbelhärdat och joniserat, alltså två härdningar i stället för en, och det spricker i ditt ställe i stället för att bara hålla nycklar borta. I asken ligger också en våtservett, en torkduk och en dammdekal, vilket är de tre sakerna som avgör om glaset hamnar bubbelfritt.\n\nNågon bygel finns däremot inte. Glaset ska riktas in mot skärmens kanter på frihand, och det är ett moment som bara går att göra en gång.\n\nTa det här om du är trött på flottiga skärmar och vill ha en yta som går att torka ren på byxbenet. Är det täckningen och inte ytan du köper går Celly Full Glass ända ut i kanten för 20 kronor mer.",
   },
   {
     id: "uag-glass-shield-17-pro",
@@ -640,8 +622,11 @@ const SEEDS: ProductSeed[] = [
     name: "Glass Shield",
     shortName: "UAG Glass Shield",
     image: productImage(IPHONE_SKARMSKYDD.slug, "uag-glass-shield-17-pro"),
-    tagline: "Dubbelförstärkt glas med förstärkta kanter.",
-    scores: { skydd: 4, redovisning: 2, montering: 2, prisvarde: 1.5 },
+    tagline: "Förstärkta kanter, alltså mer glas där skydd normalt spricker.",
+    /* Montering 2,0 → 4,5 och prisvärde 1,5 → 2,0 den 2026-08-06. Skyddet har
+       monteringsapplikator, mikrofiberduk, våtservett och dammdekal, alltså
+       kriteriets högsta steg plus rengöringskit. Se lib/corrections.ts. */
+    scores: { skydd: 4, montering: 4.5, prisvarde: 2 },
     price: 399,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -650,36 +635,42 @@ const SEEDS: ProductSeed[] = [
     superlative: "Bäst för dig som spräckt ett glas i kanten",
     pros: [
       "Förstärkta kanter, alltså mer material just där glas normalt börjar spricka",
-      "Dubbelförstärkt härdat glas som uppges tåla både repor och stötar",
-      "Anti-fingeravtrycksbeläggning som håller ytan ren mellan torkningarna",
+      "Klarar en stålkula släppt från 1,8 meter, den enda fallhöjd som finns för något skydd här",
+      "Applikator, mikrofiberduk, våtservett och dammdekal i asken, alltså kategorins mest kompletta monteringssats",
     ],
     cons: [
       "399 kronor för ett glas, dyrast per skydd tillsammans med sekretessglaset",
-      "Varken tjocklek, täckning eller innehåll står angivet till det priset",
+      "Ett glas i asken, så en misslyckad montering kostar 399 kronor till",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "399 kr", highlight: true },
       { label: "Material", value: "Dubbelförstärkt härdat glas", highlight: true },
-      { label: "Täckning", value: "Ej angiven", highlight: true },
-      { label: "Monteringsram", shortLabel: "Ram", value: "Ej angiven", highlight: true },
+      /* ⚠️ RÄTTELSE 2026-08-06. Fyra celler stod som "Ej angiven" och två av
+         dem var fel. Både butikens egen produktsida — den URL som redan låg i
+         merchantUrl — och urbanarmorgear.com beskriver installationspaketet
+         ordagrant: "Paketet innehåller en applikator för en snabb, bubbelfri
+         montering, tillsammans med en mikrofiberduk, våtservett och
+         klistermärke för dammavlägsnande" respektive "Each kit comes with an
+         installation frame, microfiber cloth, wet wipe, and dust removal
+         sticker". Betyget för montering var satt till 2,0 på en produkt som
+         har kategorins mest kompletta monteringssats. Se lib/corrections.ts. */
+      { label: "Täckning", value: "Skalvänlig passform med svart kant", highlight: true },
+      { label: "Monteringsram", shortLabel: "Ram", value: "Ja, applikator", highlight: true },
       { label: "Angiven hårdhet", shortLabel: "Hårdhet", value: "9H", highlight: true },
       { label: "Sekretessfilter", shortLabel: "Sekretess", value: "Nej", highlight: true },
       { label: "Antal i förpackningen", value: "1 st" },
-      { label: "Ingår i förpackningen", value: "Ej angivet" },
+      { label: "Ingår i förpackningen", value: "Glas, applikator, mikrofiberduk, våtservett, dammdekal" },
       { label: "Skyddar framsensorer", value: "Nej" },
-      { label: "Skalvänlig", value: "Ej angivet" },
-      { label: "Kantutförande", value: "Förstärkta kanter" },
+      { label: "Skalvänlig", value: "Ja, anpassat för UAG:s egna skal" },
+      { label: "Kantutförande", value: "Förstärkta kanter, svart ram" },
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej angiven" },
       { label: "Ytbehandling", value: "Anti-fingeravtryck" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "2 år", highlight: true },
     ],
     verdict:
-      "UAG Glass Shield kostar 399 kronor och lägger materialet där glas normalt går sönder: i kanterna.\n\n**Kanten är rätt ställe att förstärka.** Ett skärmskydd spricker sällan i mitten. Det spricker när telefonen landar på en kant eller ett hörn och kraften går in i glaset från sidan, och där är ett vanligt glas som tunnast. UAG bygger upp just den zonen och lägger dessutom två härdade lager i stället för ett, vilket är samma tanke som deras skal bygger på. Ytan har en beläggning mot fingeravtryck, så det man ser genom glaset är skärmen och inte gårdagens tumavtryck. Har du spräckt ett skärmskydd i kanten förut är det här det enda skyddet i jämförelsen som är byggt mot precis det.\n\nTill 399 kronor får du färre uppgifter än till 129. Tjockleken, hur långt ut glaset går och vad som ligger i asken står inte, och det är svårt att motivera på kategorins dyraste enpack.\n\nTa det här om du har sprucket glas i kanten bakom dig och vill lägga pengar på att slippa det igen. För alla andra gör Devias heltäckande glas med monteringsram samma arbete för nästan halva priset.",
+      "UAG Glass Shield kostar 399 kronor och lägger materialet där glas normalt går sönder: i kanterna.\n\n**Kanten är rätt ställe att förstärka.** Ett skärmskydd spricker sällan i mitten. Det spricker när telefonen landar på en kant eller ett hörn och kraften går in i glaset från sidan, och där är ett vanligt glas som tunnast. UAG bygger upp just den zonen och lägger dessutom två härdade lager i stället för ett. Glaset klarar en stålkula släppt från 1,8 meter, vilket är den enda fallhöjd som finns för något skydd i jämförelsen och ungefär den höjd en telefon lämnar en ficka på. Asken innehåller dessutom en applikator, en mikrofiberduk, en våtservett och en dammdekal, alltså både bygeln som lägger glaset rakt och de tre sakerna som avgör om det blir bubbelfritt. Ingen annan tillverkare här packar allt fyra.\n\nDet ligger ett glas i asken. Går monteringen fel trots applikatorn kostar nästa försök 399 kronor, och det är tre gånger vad Trolsks glas kostar.\n\nKöp det här om du spräckt ett skärmskydd i kanten förut och vill lägga pengar på att slippa det igen. Är kanten inte ditt problem gör Devias heltäckande glas med ram samma monteringsjobb för nästan halva priset.",
   },
   {
     id: "copter-screen-protector-17-pro",
@@ -688,13 +679,13 @@ const SEEDS: ProductSeed[] = [
     shortName: "Copter Displayfilm",
     image: productImage(IPHONE_SKARMSKYDD.slug, "copter-screen-protector-17-pro"),
     tagline: "Byts kostnadsfritt om den slutar fungera.",
-    scores: { skydd: 2, redovisning: 3, montering: 2, prisvarde: 3 },
+    scores: { skydd: 2, montering: 2, prisvarde: 3 },
     price: 199,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
     merchantUrl:
       "https://www.iphonebutiken.se/copter-screen-protector-iphone-1717-pro-57369.html",
-    superlative: "Bäst garanti i kategorin",
+    superlative: "Bäst för dig som inte vill ha glas på skärmen",
     pros: [
       "Livstidsgaranti med kostnadsfritt utbyte, och villkoren står utskrivna",
       "Mjuk film som inte spricker, alltså inget glas att plocka bort från skärmen",
@@ -719,14 +710,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej tillämpligt, film" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17, iPhone 17 Pro" },
-      { label: "Garanti", value: "Livstid, med undantag" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "Livstid, med undantag", highlight: true },
     ],
     verdict:
-      "Copter Screen Protector kostar 199 kronor, är en mjuk displayfilm och kommer med livstidsgaranti. Slutar den fungera byts den kostnadsfritt.\n\n**Garantivillkoren är det enda i kategorin som är utskrivna i detalj**, och de är värda att läsa innan man köper på löftet. Utbytet gäller inte slitage, inte felaktig montering, inte olyckshändelser och inte film som utsatts för extrem kyla eller hetta. Kvar blir att filmen slutar fungera av sig själv, alltså att limmet eller materialet ger upp utan att du gjort något. Det är en verklig garanti, men den täcker inte de tre vanligaste skälen till att ett skärmskydd byts. Filmen i sig har en fördel glas saknar: den spricker inte. Ett sprucket glas ska plockas bort i skärvor, medan en repad film bara sitter kvar tills du drar av den.\n\nSkyddet mot fall är det svaga. En mjuk film tar upp bråkdelen av vad ett härdat glas gör, och det är därför den ligger så långt ner här.\n\nTa det här om skärmen mest ska klara nycklar och sand i fickan och du hellre byter en film några gånger än plockar glasskärvor en gång. Ska skyddet klara ett fall behöver du glas, och då är Trolsks för 129 kronor både billigare och rätt sorts produkt.",
+      "Copter Screen Protector kostar 199 kronor, är en mjuk displayfilm och kommer med livstidsgaranti. Slutar den fungera byts den kostnadsfritt.\n\n**Garantin är smalare än ordet livstid låter.** Utbytet gäller inte slitage, inte felaktig montering, inte olyckshändelser och inte film som utsatts för extrem kyla eller hetta. Kvar blir att filmen slutar fungera av sig själv, alltså att limmet eller materialet ger upp utan att du gjort något. Det är en verklig garanti, men den täcker inte de tre vanligaste skälen till att ett skärmskydd byts. Filmen i sig har en fördel glas saknar: den spricker inte. Ett sprucket glas ska plockas bort i skärvor, medan en repad film bara sitter kvar tills du drar av den.\n\nSkyddet mot fall är det svaga. En mjuk film tar upp bråkdelen av vad ett härdat glas gör, och det är därför den ligger så långt ner här.\n\nTa det här om skärmen mest ska klara nycklar och sand i fickan och du hellre byter en film några gånger än plockar glasskärvor en gång. Ska skyddet klara ett fall behöver du glas, och då är Trolsks för 129 kronor både billigare och rätt sorts produkt.",
   },
   {
     id: "trolsk-film-tunn-17-pro",
@@ -735,7 +723,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Trolsk Film",
     image: productImage(IPHONE_SKARMSKYDD.slug, "trolsk-film-tunn-17-pro"),
     tagline: "Mjuk PET-film för 69 kronor.",
-    scores: { skydd: 1.5, redovisning: 1.5, montering: 2, prisvarde: 3.5 },
+    scores: { skydd: 1.5, montering: 2, prisvarde: 3.5 },
     price: 69,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "iPhonebutiken",
@@ -744,12 +732,12 @@ const SEEDS: ProductSeed[] = [
     superlative: "Billigast av alla",
     pros: [
       "69 kronor, alltså under halva priset mot billigaste glaset",
-      "PET-film som uppges lämna bildkvaliteten orörd",
+      "PET-film som lämnar bildkvaliteten orörd",
       "Så tunn att den inte bygger någon kant mot fingret",
     ],
     cons: [
       "Mjuk film skyddar mot repor och damm men knappt alls mot ett fall",
-      "Materialet är det enda som står angivet, alltså varken tjocklek eller täckning",
+      "En repa i filmen sitter kvar tills du drar av hela skyddet och sätter ett nytt",
     ],
     specs: [
       { label: "Pris per skydd", shortLabel: "Per skydd", value: "69 kr", highlight: true },
@@ -766,14 +754,11 @@ const SEEDS: ProductSeed[] = [
       { label: "Tjocklek", value: "Ej angiven" },
       { label: "Glastyp", value: "Ej tillämpligt, film" },
       { label: "Ytbehandling", value: "Ej angiven" },
-      { label: "Angiven hårdhetsstandard", value: "Ej angiven" },
-      { label: "Angiven provlast", value: "Ej angiven" },
       { label: "Passar modeller", value: "iPhone 17 Pro, iPhone 18 Pro" },
-      { label: "Garanti", value: "Ej angiven" },
-      { label: "GTIN", value: "Ej angiven" },
+      { label: "Garanti", value: "1 år", highlight: true },
     ],
     verdict:
-      "Trolsk Skärmskydd Film Tunn kostar 69 kronor och är en mjuk PET-film, alltså plast och inte glas.\n\n**Den gör en sak och den gör den billigt.** En film hindrar repor från nycklar, mynt och sand, och den är så tunn att fingret inte känner någon övergång vid kanten. Bildkvaliteten uppges vara orörd, vilket på en film är värt att kontrollera själv i solljus. För 69 kronor är det den lägsta tröskeln in i kategorin, och för en telefon som ändå ska säljas vidare om ett halvår kan det räcka.\n\nMot ett fall gör den nästan ingenting. Ett härdat glas offrar sig och spricker i skärmens ställe, medan en mjuk film följer med rörelsen och låter kraften gå rakt igenom. Det är hela skillnaden mellan de två produkttyperna, och den märks en enda gång, i asfalten.\n\nKöp inte det här om skärmen ska klara ett tapp. För 60 kronor mer får du Trolsks härdade glas, som är rätt sorts produkt för det jobbet. Filmen är för dig som bär telefonen med nycklar och bara vill hålla repor borta.",
+      "Trolsk Skärmskydd Film Tunn kostar 69 kronor och är en mjuk PET-film, alltså plast och inte glas.\n\n**Den gör en sak och den gör den billigt.** En film hindrar repor från nycklar, mynt och sand, och den är så tunn att fingret inte känner någon övergång vid kanten. PET-materialet lämnar bilden orörd, så du ser samma skärm som utan skydd. För 69 kronor är det den lägsta tröskeln in i kategorin, och för en telefon som ändå ska säljas vidare om ett halvår kan det räcka.\n\nMot ett fall gör den nästan ingenting. Ett härdat glas offrar sig och spricker i skärmens ställe, medan en mjuk film följer med rörelsen och låter kraften gå rakt igenom. Det är hela skillnaden mellan de två produkttyperna, och den märks en enda gång, i asfalten.\n\nKöp inte det här om skärmen ska klara ett tapp. För 60 kronor mer får du Trolsks härdade glas, som är rätt sorts produkt för det jobbet. Filmen är för dig som bär telefonen med nycklar och bara vill hålla repor borta.",
   },
 ];
 
@@ -875,7 +860,7 @@ export const IPHONE_SKARMSKYDD_FAQ = [
   {
     question: "Behöver jag en monteringsram?",
     answer:
-      "Om du inte satt ett skärmskydd förut är den värd mer än nästan allt annat i förpackningen. Ett skärmskydd är en engångsmontering: limmet fäster direkt och glaset går inte att lyfta och lägga om utan att både damm och luft kommer in. En monteringsram är en plastbygel som telefonen läggs i, så att glaset bara kan hamna rätt. Fem av de femton skydd vi jämför har en, och tillverkarna kallar den olika saker. Har du ingen ram är det andra bästa ett tvåpack, eftersom det andra glaset är din andra chans, och det tredje bästa ett rengöringskit: det är dammet på skärmen som blir en bubbla, inte din hand.",
+      "Om du inte satt ett skärmskydd förut är den värd mer än nästan allt annat i förpackningen. Ett skärmskydd är en engångsmontering: limmet fäster direkt och glaset går inte att lyfta och lägga om utan att både damm och luft kommer in. En monteringsram är en plastbygel som telefonen läggs i, så att glaset bara kan hamna rätt. Sex av de femton skydd vi jämför har en, och tillverkarna kallar den olika saker: installationsbricka, Assist Tool, EasyAligner, applikator. Har du ingen ram är det andra bästa ett tvåpack, eftersom det andra glaset är din andra chans, och det tredje bästa ett rengöringskit: det är dammet på skärmen som blir en bubbla, inte din hand.",
   },
   {
     question: "Hur får jag bort bubblor under skärmskyddet?",

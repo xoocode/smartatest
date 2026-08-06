@@ -66,15 +66,21 @@ import Kopguide from "@/content/smart-termostat/kopguide.mdx";
  * provresultat per modell, och ett betyg på ett påstående mäter butikens
  * copywriting. Samma resonemang som igelkotten på /robotgrasklippare.
  *
- * ⚠️ ANDRA FYNDET: adaptertabellerna finns, men inte där man köper. tado och
- * Netatmo publicerar fullständiga listor i sina hjälpcenter medan butikstexten
- * säger "en mängd olika tillverkare". Aqara lägger listan på produktsidan, och
- * E1 är ensam om att namnge vad som INTE fungerar: manuella ventiler, RTL och
- * enrörssystem.
+ * ⚠️ ANDRA FYNDET: spannet i passform är femfaldigt. Netatmo når tio
+ * fattningar, Danfoss Ally RA når två, och ingen av uppgifterna står på sidan
+ * där man lägger produkten i korgen. De ligger i bruksanvisningar,
+ * produktregister och kompatibilitetsguider.
  *
- * ⚠️ DANFOSS TVÅ ARTIKELNUMMER, lästa hos Danfoss egen butik: 014G2460 täcker
- * RAV, RA, RAVL och M30 för 760 kr; 014G2420 täcker RA och M30 för 890. Den
- * dyrare passar färre ventiler.
+ * ⚠️ RÄTTAT 2026-08-06: kriteriet hette Angiven ventilpassning och betygsatte
+ * om tillverkaren publicerat en lista. Det rankade dokumentationen i stället
+ * för varan, och gjorde tre fel: SONOFF (2,5 → 4,0, publicerar en guide över 41
+ * ventilmärken), Fibaro (1,5 → 3,0, tre fattningar i manualens första sida) och
+ * Danfoss Eco (3,5 → 4,0, fyra fattningar i Danfoss produktregister). Se
+ * lib/corrections.ts.
+ *
+ * ⚠️ DANFOSS TVÅ ARTIKELNUMMER, lästa i Danfoss produktregister: 014G2460
+ * täcker M30, RA, RAV och RAVL för 760 kr; 014G2420 täcker M30 och RA för 890.
+ * Den dyrare passar färre ventiler.
  *
  * ⚠️ Warentest fann att en av elva föll på frostskyddsprovet. Vilken ligger
  * bakom betalvägg och får aldrig gissas.
@@ -84,12 +90,12 @@ import Kopguide from "@/content/smart-termostat/kopguide.mdx";
 
 const TEST_PAGE = SMART_TERMOSTAT;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Fibaro anger 42 procent, Netatmo 37, Danfoss 30 och tado 28. De två redaktioner som haft termostaterna i handen anger ingen siffra alls. Vi jämförde elva radiatortermostater till vattenburna element på det som faktiskt går att kontrollera före köpet.",
+    "SONOFF TRVZB vinner: 361 kronor, billigast av elva, och sju ventilfattningar med adaptrarna i lådan. Vi jämförde elva radiatortermostater till vattenburna element på passform, dold kostnad och vad tre rum landar på.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -102,7 +108,7 @@ const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "procenten", label: "Procentsatsen ingen som provat vill ange" },
   { id: "fraunhofer", label: "Vi läste grundkällan bakom 28 procent" },
-  { id: "ventilen", label: "Ventilen avgör om köpet fungerar" },
+  { id: "ventilen", label: "Från 2 till 10 fattningar: ventilen avgör" },
   { id: "jamforelse", label: "Jämför alla elva" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "recensioner", label: "Recensioner av varje termostat" },
@@ -148,15 +154,17 @@ export default async function SmartTermostatPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Fibaro anger 42 procent, Netatmo 37, Danfoss 30 och tado 28. De två
-              redaktioner som faktiskt haft termostaterna i handen anger ingen
-              siffra alls, och den ena skriver ut varför. Vi jämförde elva
-              radiatortermostater till vattenburna element, där en enskild
-              termostat kostar mellan 361 och 1 229 kronor, på det som går att
-              kontrollera före köpet.
+              SONOFF TRVZB vinner. Den kostar 361 kronor, billigast av alla
+              elva, och går ändå på sju ventilfattningar med adaptrarna i lådan,
+              lika många som termostater för tre gånger pengarna. Ska den sitta
+              i ett sovrum tar du Aqara W600 för 559 i stället, som håller sig
+              under 30 dB. Vi jämförde elva radiatortermostater till vattenburna
+              element, där styckpriset spänner från 361 till 1 229 kronor och
+              hubben nästan alltid är den dolda kostnaden.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -239,6 +247,14 @@ export default async function SmartTermostatPage() {
             metod, ingen länk.
           </p>
           <p>
+            <strong>Netatmos 37 procent gäller en annan produkt.</strong> Talet
+            kommer ur Netatmos egen utbildningsbok för återförsäljare och vilar
+            där på en studie från Centrale-Supélec på en standardlägenhet. Men
+            samma bok skriver ut att de 37 procenten avser deras
+            rumstermostat i hus med egen panna eller värmepump, inte
+            radiatorventilerna. Butiken sätter ändå talet på ventilen.
+          </p>
+          <p>
             <strong>
               Två svenska jämförelsesajter anger 30 respektive 31 procent,
             </strong>{" "}
@@ -300,45 +316,61 @@ export default async function SmartTermostatPage() {
       <Section
         id="ventilen"
         width="default"
-        title="Adaptertabellerna finns, men aldrig där du köper"
-        description="Ventilen avgör om termostaten går att montera, och uppgiften publiceras extremt ojämnt."
+        title="Från 2 till 10 fattningar, och butiken skriver aldrig vilken"
+        description="Ventilen avgör om termostaten går att montera, och skillnaden mellan modellerna är femfaldig."
       >
         <Prose>
           <p>
-            <strong>Aqara lägger listan på produktsidan.</strong> W600 namnger
-            sex adaptrar: RA, RAV, RAVL, Giacomini, M28x1,5 och Caleffi, utöver
-            den egna M30x1,5-fattningen.
+            <strong>
+              Netatmo når tio fattningar, Danfoss Ally RA når två.
+            </strong>{" "}
+            Det är samma sorts produkt, i samma prisklass, monterad på samma sorts
+            element. Emellan ligger Aqara W600, tado X och SONOFF TRVZB på sju,
+            fem modeller på fyra och Fibaro på tre.
           </p>
           <p>
-            <strong>tado och Netatmo publicerar mer, men gömmer det.</strong>{" "}
-            tados hjälpcenter listar sex adaptrar som ingår och fyra som inte
-            gör det. Netatmo skiljer likadant och förklarar dessutom hur du mäter
-            gängan med en linjal. Butikstexten för tado säger i stället att
+            <strong>Fyra är den nivå som räcker i de flesta svenska hem.</strong>{" "}
+            Den täcker gängan M30x1,5 plus Danfoss RA, RAV och RAVL, alltså de
+            klämfattningar som sitter på en stor del av beståndet. Är alla dina
+            element från samma årtionde behöver du sällan mer.
+          </p>
+          <p>
+            <strong>Sju behövs när elementen är från olika årtionden.</strong>{" "}
+            Då dyker M28x1,5 och de italienska klämfattningarna Caleffi och
+            Giacomini upp, och de klarar bara Aqara W600, tado X och SONOFF. Ett
+            enda element med fel ventil betyder annars ett andra köp av ett annat
+            märke.
+          </p>
+          <p>
+            <strong>
+              Danfoss säljer samma termostat under två artikelnummer, och det
+              dyrare passar färre ventiler.
+            </strong>{" "}
+            014G2460 tar M30, RA, RAV och RAVL och kostar 760 kronor. 014G2420 tar
+            M30 och RA och kostar 890. Butiken saluför den senare under namnet
+            Radiator Thermostat RA, vilket är precis vad man söker efter med en
+            RA-ventil.
+          </p>
+          <p>
+            <strong>
+              Ingen av de här uppgifterna står på sidan där du lägger produkten i
+              korgen.
+            </strong>{" "}
+            De ligger i en bruksanvisning, ett hjälpcenter, ett produktregister
+            eller en kompatibilitetsguide, medan butikstexten nöjer sig med att
             termostaten passar termostatventiler från en mängd olika tillverkare.
+            Det är också det enda skälet till att verktyget längre ner på sidan
+            finns.
           </p>
           <p>
             <strong>
-              Aqara E1 är den som skriver ut vad som inte fungerar.
+              Två sorters värmesystem stoppar köpet innan fattningen ens är
+              aktuell.
             </strong>{" "}
-            Manuella ventiler, returtemperaturbegränsare och enrörssystem stöds
-            inte. Enrörssystem är vanligt i svenska flerbostadshus från 1960- och
-            70-talen, och ingen annan tillverkare i vår jämförelse nämner det.
-          </p>
-          <p>
-            <strong>Fibaro ersätter listan med ett procenttal.</strong>{" "}
-            Termostaten uppges passa 98 procent av alla element. Vilka de
-            återstående två procenten är står ingenstans, och det går alltså inte
-            att kontrollera passformen före köp.
-          </p>
-          <p>
-            <strong>
-              Danfoss löser samma sak med två artikelnummer, och det dyrare
-              passar färre ventiler.
-            </strong>{" "}
-            Hos Danfoss egen butik heter 014G2460 adaptertyp RAV, RA, RAVL och
-            M30 och kostar 760 kronor. 014G2420 heter adaptertyp RA och M30 och
-            kostar 890. Butiken saluför den senare under namnet Radiator
-            Thermostat RA, vilket är precis vad man söker efter med en RA-ventil.
+            En manuell kran har inget stift att trycka på, och i ett enrörssystem
+            påverkar en strypt radiator flödet till alla som ligger efter i
+            slingan. Enrörssystem är vanligt i flerbostadshus från 1960- och
+            70-talen. Aqara E1 är den enda som anger det innan du beställer.
           </p>
           <p>
             <strong>Den varning som väger tyngst kommer från en testare.</strong>{" "}
@@ -377,7 +409,7 @@ export default async function SmartTermostatPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Raden Angivna ventiler återger tillverkarens egen uppgift, hämtad från produktsidan eller hjälpcentret, aldrig från butikens rubrik. Raden Angiven besparing är tillverkarens påstående och ingenting annat: den påverkar inget betyg, och där den står som ej angiven publicerar tillverkaren ingen siffra, vilket gäller fyra av de elva. Vi fyller aldrig i ett tal åt någon och lånar aldrig ett från en systermodell.",
+            "Raden Ventilfattningar räknar de fattningar termostaten monteras på med adaptrarna som följer med, hämtat ur tillverkarens bruksanvisning, produktregister eller hjälpcenter och aldrig ur butikens rubrik. Raden Angiven besparing är tillverkarens påstående och ingenting annat: den påverkar inget betyg, och där den står som ej angiven publicerar tillverkaren ingen siffra, vilket gäller fyra av de elva. Vi fyller aldrig i ett tal åt någon och lånar aldrig ett från en systermodell.",
           )}
         />
       </Section>
@@ -406,6 +438,16 @@ export default async function SmartTermostatPage() {
             säger något om produkten. Att betygsätta ett påstående vore att mäta
             butikens copywriting, och det förkastade vi redan när
             brandsläckarsidan byggdes.
+          </p>
+          <p>
+            <strong>
+              Viktningen räknades om den 6 augusti 2026, och vi hade fel innan.
+            </strong>{" "}
+            Kriteriet som väger 25 mätte tidigare om tillverkaren publicerat en
+            adapterlista, alltså kvaliteten på ett produktblad snarare än på en
+            termostat. Tre produkter var felbetygsatta av det skälet, och
+            SONOFF TRVZB gick från fjärde till andra plats när det rättades.
+            Ändringarna står på /rattelser.
           </p>
           <p>
             <strong>Warentests betyg per modell återges inte.</strong> Deras
@@ -483,7 +525,9 @@ export default async function SmartTermostatPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Krävs utöver termostaten och Angiven ventilpassning väger 25 var, tillsammans halva betyget, eftersom de tillsammans avgör om köpet fungerar och vad det slutar kosta. Ventilen är det som kan göra hela köpet meningslöst, och den går inte att se på en produktbild. En produkt som varken behöver hubb eller går att nå hemifrån får ändå inte full poäng på den första raden: den har tagit bort funktionen och inte kostnaden. Oberoende väger 20 och mäter vad som fortsätter fungera när appen stängs eller avgiften höjs. Omdöme i publicerade provningar väger 15 därför att täckningen är tunn: Ljud & Bild har provat fyra av modellerna och Stiftung Warentest har labbprovat flera till, men med betygen bakom betalvägg. En modell ingen provat får ingen poäng på den raden, och vikten fördelas om. Besparingsprocenten påverkar ingenting alls. Vi har inte skruvat på någon termostat, inte mätt någon förbrukning och inte jämfört någon elräkning. Priserna är hos den butik vi länkar till."
+          footnote={
+            "Krävs utöver termostaten och Ventilpassning väger 25 var, tillsammans halva betyget: den ena avgör om köpet fungerar, den andra vad det slutar kosta.\n\nVentilpassning räknar fattningar termostaten monteras på med adaptrarna som följer med. Sju eller fler ger 5,0, fyra ger 4,0, två ger 2,0. En produkt som varken behöver hubb eller går att nå hemifrån får inte full poäng på den första raden: den har tagit bort funktionen och inte kostnaden.\n\nOberoende väger 20 och mäter vad som fortsätter fungera när appen stängs eller avgiften höjs. Omdöme i publicerade provningar väger 15 därför att täckningen är tunn, och en modell ingen provat får ingen poäng på raden med vikten omfördelad.\n\n**Besparingsprocenten påverkar ingenting alls.** Vi har inte skruvat på någon termostat, inte mätt någon förbrukning och inte jämfört någon elräkning. Priserna är hos den butik vi länkar till.\n\nViktningen räknades om 2026-08-06 sedan kriteriet slutat betygsätta om tillverkaren publicerat en adapterlista och börjat räkna hur många ventiler termostaten faktiskt passar på. Tre produkter flyttade sig, och rättelserna står på /rattelser."
+          }
         />
       </Section>
 

@@ -76,6 +76,24 @@ const tomt = (v) => TOMMA.has(v.trim().toLowerCase());
 
 const rader = [];
 const ojamna = [];
+/* Etiketter som bara finns paa naagra faa produkter. En tabell daer varje rad
+   gaeller en tredjedel av faeltet aer inte en jaemfoerelse, den aer en lista
+   med haal. /brandstege hade 18 etiketter paa 8 produkter, de flesta paa en
+   till tre, plus `Max utrymningshoejd` och `Max evakueringshoejd` som skilda
+   rader foer samma maatt. Hittat 2026-08-06. */
+const fragment = [];
+const dubbletter = [];
+
+/** Ordmaengd utan boejning, saa att omkastade etiketter matchar varandra. */
+const nyckel = (label) =>
+  label
+    .toLowerCase()
+    .replace(/[^a-zåäö\s]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w.replace(/(en|et|ad|d|t|a)$/, ""))
+    .sort()
+    .join(" ");
 
 for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
   const src = fs.readFileSync(path.join(DIR, fil), "utf8");
@@ -102,9 +120,20 @@ for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
   /** label -> { fyllda, totalt } bland de etiketter som faktiskt blir rader. */
   const perRad = new Map();
   const specs = [];
+  /** Varje etikett paa sidan, oavsett markering, foer fragmenteringen. */
+  const alla = new Map();
 
   for (const produkt of produkter) {
     for (const [, label, rawValue, svans] of produkt.block.matchAll(SPEC)) {
+      /* ⚠️ Bara etiketter som aer MARKERADE naagonstans raeknas som paaboerjade
+         jaemfoerelserader. En omarkerad etikett paa faa produkter aer en
+         produktegenhet i den produktens egen speclista, och den hoer hemma
+         daer. Foersta versionen raeknade alla etiketter, och det kostade
+         riktig data: bygget av /babyvakt 2026-08-06 hade `Standbytid` 4/11,
+         `Garanti` 4/11, `Laddning` 3/11 och `Moerkerseende` 2/11, alla
+         tier A ur tillverkarnas manualer, och raderade alla fyra foer att faa
+         kontrollen groen. Kontrollen gjorde sidan saemre. */
+      if (/highlight:\s*true/.test(svans)) alla.set(label, (alla.get(label) ?? 0) + 1);
       const markerad = /highlight:\s*true/.test(svans);
       if (markerad && !forsta.has(label)) {
         ojamna.push({ slug, id: produkt.id, label });
@@ -125,6 +154,27 @@ for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
   }
   if (!specs.length) continue;
 
+  /* Fragmentering och namnkrockar, baada per sida. */
+  const antal = produkter.length;
+  if (antal >= 4) {
+    /* En etikett paa exakt en produkt aer en produktegenhet och hoer hemma i
+       den produktens egen speclista. Det aer etiketterna paa tva till haelften
+       som aer paaboerjade jaemfoerelserader som ingen fyllde i. */
+    const glesa = [...alla.entries()].filter(([, n]) => n >= 2 && n <= antal / 2);
+    if (glesa.length >= 4) {
+      fragment.push({ slug, antal, glesa: glesa.sort((a, b) => a[1] - b[1]) });
+    }
+    const perNyckel = new Map();
+    for (const label of alla.keys()) {
+      const k = nyckel(label);
+      if (!perNyckel.has(k)) perNyckel.set(k, []);
+      perNyckel.get(k).push(label);
+    }
+    for (const namn of perNyckel.values()) {
+      if (namn.length > 1) dubbletter.push({ slug, namn });
+    }
+  }
+
   for (const [label, { fyllda, totalt }] of perRad) {
     /* Pris och Butik bygger tabellen egna rader av ur andra faelt. */
     if (label === "Pris" || label === "Butik") continue;
@@ -137,6 +187,35 @@ for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
 }
 
 rader.sort((a, b) => a.kvot - b.kvot);
+
+if (dubbletter.length) {
+  console.log(`\n  ${dubbletter.length} etikettpar som ser ut som samma egenskap:\n`);
+  for (const d of dubbletter) {
+    console.log(`    ${d.slug} · ${d.namn.join("  /  ")}`);
+  }
+  console.log(
+    `\n  En egenskap, en etikett. Tva namn ger tva halvfyllda rader i staellet\n` +
+      `  foer en hel, och laesaren ser ingen av dem.\n`,
+  );
+}
+
+if (fragment.length) {
+  console.log(`\n  ${fragment.length} tabeller aer fragmenterade:\n`);
+  for (const f of fragment.sort((a, b) => b.glesa.length - a.glesa.length)) {
+    console.log(
+      `    ${f.slug}  (${f.antal} produkter, ${f.glesa.length} etiketter paa haelften eller faerre)`,
+    );
+    for (const [label, n] of f.glesa.slice(0, 4)) {
+      console.log(`        ${String(n).padStart(2)}/${f.antal}  ${label}`);
+    }
+    if (f.glesa.length > 4) console.log(`        ... och ${f.glesa.length - 4} till`);
+  }
+  console.log(
+    `\n  En rad som gaeller en tredjedel av faeltet jaemfoer ingenting. Kor ett\n` +
+      `  gap-pass och fyll dem hos alla, eller byt raden mot en egenskap som gaar\n` +
+      `  att faa fram. Se .claude/references/spec-sourcing.md och fix-page steg 6.\n`,
+  );
+}
 
 if (ojamna.length) {
   console.log(`\n  ${ojamna.length} markerade specar som aldrig blir en rad:\n`);

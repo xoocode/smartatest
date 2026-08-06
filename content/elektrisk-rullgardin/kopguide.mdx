@@ -26,7 +26,11 @@ alls.
 Så titta uppåt först. Ett runt rör där gardinen hänger i ringar eller öglor är
 en gardinstång. En profil skruvad i tak eller vägg, där gardinen löper i
 glidare inuti, är en skena. Är profilen öppen nedåt som ett upp och nedvänt U
-är det en U-skena, den vanligaste i svenska hem.
+är det en U-skena, den vanligaste i svenska hem. Har du i stället en I-skena, med
+spår på båda sidor om en mittdel, är valet redan gjort:
+<ProductRef id="aqara-curtain-driver-e1-track" /> är den enda motorn här som får
+sitta på en, och kräver att skenans underkant är slät och bredare än 10
+millimeter.
 
 <ToolFrame tool="monteringsvaljare-gardin">
   <CurtainMountPicker />
@@ -63,21 +67,21 @@ som <ProductRef id="aqara-roller-shade-e1" /> gör.
 
 En gardinmotor sitter oftast i ett sovrum, och det första den gör varje dag är
 att gå igång medan du sover. Det gör ljudnivån till den egenskap som avgör om
-du blir nöjd, och den är samtidigt den enda som nästan ingen anger.
+du blir nöjd.
 
-SwitchBot publicerar sina siffror: 25 decibel i det tysta läget och 42 i
-normalläge. De två ligger ungefär som en viskning mot ett vanligt samtal, och det
-märks direkt.
+Spannet är 25 till 45 decibel. <ProductRef id="switchbot-curtain-3-u" /> går ner
+till 25 i sitt QuietDrift-läge och ligger på 45 i normalläge, alltså mellan en
+viskning och ett tyst kontorsrum. <ProductRef id="switchbot-roller-shade" />
+klarar 30 i tyst läge, <ProductRef id="switchbot-blind-tilt" /> går på 40.
 
-Aqara anger ingen siffra alls. Inte på produktsidan hos Kjell, och inte i sin
-egen tekniska specifikation, som nöjer sig med vridmoment och hastighet. Nedis
-anger heller ingenting. Vi har inte mätt något själva och tänker inte hitta på
-en siffra åt en tillverkare som valt att inte publicera någon, men de
-recensenter som ställt SwitchBot och Aqara bredvid varandra är eniga om vilken
-som hörs mest.
+Aqaras gardinmotorer hör du. Det är den enda punkten där testarna som ställt dem
+bredvid SwitchBot är eniga om att Aqara är sämre, och det gäller både
+skenversionen och stångversionen. Deras kedjemotor för rullgardin är tvärtom
+tyst: SmartHomeScene beskriver den som mycket tystgående och HomeKit News som
+betydligt tystare än föregångaren.
 
-Att en tillverkare skyltar med sitt värde medan konkurrenten tiger är i sig
-information. Den som har ett bra tal brukar berätta det.
+Ta skillnaden på allvar. 25 decibel väcker ingen. 45 väcker den som sover lätt,
+och i juni går gardinen strax efter klockan fyra.
 
 ### Batteritiden skiljer sex gånger
 
@@ -94,9 +98,10 @@ eller i ett rum du sällan går in i, avgör det om du fortsätter använda prod
 den.
 
 Solpanel ändrar bilden helt. Till <ProductRef id="switchbot-blind-tilt" />
-ingår den i förpackningen, vilket i praktiken gör laddningen till ett
-icke-problem. Till Curtain 3 säljs den separat, och är värd att räkna in i
-priset om produkten ska sitta svåråtkomligt.
+ingår den i förpackningen, som ensam håller omkring tio månader, vilket i
+praktiken gör laddningen till ett icke-problem. Till Curtain 3 säljs den
+separat, och är värd att räkna in i priset om produkten ska sitta
+svåråtkomligt.
 
 ### Hubben ingen räknar med
 
@@ -122,8 +127,8 @@ SwitchBot billigast att börja med, eftersom du kan skjuta upp hubbköpet.
 ### Friktion stoppar fler motorer än vikt
 
 Tillverkarna anger maxvikt: 16 kilo för SwitchBots skenvariant, 15 för
-stångvarianten, 12 kilo för Aqara enligt Kjell. Siffrorna är inte oviktiga, men
-de är sällan det som gör att en motor inte orkar.
+stångvarianten och 12 kilo för Aqaras Curtain Driver E1. Siffrorna spelar roll,
+men de är sällan det som gör att en motor inte orkar.
 
 Det som stoppar en gardinmotor i verkligheten är friktion. En skena som aldrig
 rengjorts, glidare som kärvar, en gardin som skaver mot fönsterbrädan eller en
@@ -140,10 +145,9 @@ trögheten först, köp motorn sedan.
 För rullgardiner finns två helt olika lösningar, och de kostar väldigt olika.
 
 Den billiga vägen är en motor som hakar i kedjan och rullar gardinen du redan
-har. Den kostar från runt sjuhundrafemtio kronor, kräver ingen som helst
-förändring av fönstret och går att flytta med om du byter bostad. Priset
-betalar du i batteritid, eftersom motorn måste kämpa mot en mekanism som inte
-är byggd för den.
+har. Den kostar från 599 kronor, kräver ingen som helst förändring av fönstret
+och går att flytta med om du byter bostad. Priset betalar du i batteritid,
+eftersom motorn måste kämpa mot en mekanism som inte är byggd för den.
 
 Den dyra vägen är en komplett motoriserad rullgardin där motorn sitter i
 rullen. Den kostar ungefär tre gånger så mycket, du måste mäta fönstret rätt

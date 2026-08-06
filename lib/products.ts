@@ -236,6 +236,27 @@ function round1(value: number): number {
  * so a partially-scored product still produces a sensible number instead of
  * being silently dragged toward zero.
  *
+ * ## `redistributeMissing: false`
+ *
+ * Omfördelningen har en baksida som bara syns när ett kriterium väger tungt och
+ * saknas hos flera produkter samtidigt: den delar ut kriteriets vikt gratis. En
+ * produkt som ingen testat bedöms på de kriterier den är bra på, medan en
+ * testad produkt bär hela skalan och betalar för sina svagheter.
+ *
+ * På `/smart-belysning` vände det sidan. `Omdöme i oberoende tester` väger 15,
+ * tre av fem lampor saknade det, och de två billigaste passerade Råd & Röns
+ * testvinnare utan att ha vunnit ett enda kriterium de faktiskt mätts på.
+ * IKEA KAJPLATS landade på 4,48 mot Philips Hues 4,09 med 85 viktpoäng mot 100.
+ *
+ * Skickar sidan `redistributeMissing: false` räknas summan mot kriteriernas
+ * fulla vikt i stället, alltså som noll för det som saknas. Betygsraden står
+ * kvar som `Ej testat`, eftersom vi inte påstår att lampan är dålig på något vi
+ * inte vet, men den får inte heller poäng för det. Sidan som väljer det måste
+ * skriva ut det i sin metodruta.
+ *
+ * Skicka `total` till `CriteriaScores` på en sådan sida. Komponenten räknar
+ * annars om summan med förvalet och visar ett annat tal än produktkortet.
+ *
  * ⚠️ **Avrunda inte här.** Fram till 2026-08-03 returnerade funktionen
  * `round1(...)`, och `score` räknades sedan som `rating * 2`. Det gav bara två
  * decimalers upplösning i tiogradiga betyget, alltså steg om 0,2, och det
@@ -253,9 +274,13 @@ function round1(value: number): number {
 export function weightedRating(
   scores: Record<string, number>,
   criteria: Criterion[],
+  options: { redistributeMissing?: boolean } = {},
 ): number {
+  const { redistributeMissing = true } = options;
   const scored = criteria.filter((c) => typeof scores[c.key] === "number");
-  const totalWeight = scored.reduce((sum, c) => sum + c.weight, 0);
+  const totalWeight = redistributeMissing
+    ? scored.reduce((sum, c) => sum + c.weight, 0)
+    : criteriaWeightTotal(criteria);
   if (!totalWeight) return 0;
 
   const weighted = scored.reduce(
@@ -272,12 +297,14 @@ export function weightedRating(
 export function resolveProducts(
   testPage: TestPage,
   seeds: ProductSeed[],
-  options: { sort?: boolean } = {},
+  options: { sort?: boolean; redistributeMissing?: boolean } = {},
 ): Product[] {
   const resolved = seeds.map((seed) => {
     /* Båda talen räknas ur samma oavrundade summa. Avrundas rating först ärver
        score felet, se varningen i weightedRating. */
-    const raw = weightedRating(seed.scores, testPage.criteria);
+    const raw = weightedRating(seed.scores, testPage.criteria, {
+      redistributeMissing: options.redistributeMissing,
+    });
     return { ...seed, rating: round1(raw), score: round1(raw * 2) };
   });
 

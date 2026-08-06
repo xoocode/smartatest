@@ -61,12 +61,12 @@ import Kopguide from "@/content/slackspray/kopguide.mdx";
 
 const TEST_PAGE = SLACKSPRAY;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Släcksprayer klassas enligt samma standard som brandsläckare, och klassen står på burken. De som anger den ligger på 5A och 3A. För hemmet rekommenderas 43A. Vi rankar fem sprayer på klass, användning, pris och tömningstid.",
+    "Housegard FireStopper vinner för 299 kronor: 5A 21B 5F är det största testbål någon spray här är provad mot, och 600 ml räcker i 30 sekunder. Vill du bara ha en burk i bilen kostar Biltemas 99,90. Fem sprayer jämförda på klass, släckmedel, kastlängd och tömningstid.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -121,13 +121,15 @@ export default async function SlacksprayPage() {
               burken
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Släcksprayer klassas enligt samma standard som handbrandsläckare,
-              och koden på burken går att jämföra rakt av. De sprayer som anger
-              den ligger på 5A och 3A. För hemmet rekommenderas 43A, alltså ett
-              testbål ungefär åtta gånger större.
+              Housegard FireStopper är den kraftigaste sprayen här och kostar
+              299 kronor: 5A 21B 5F på burken, 600 ml och 30 sekunders insats.
+              Ska den bara ligga i bilen räcker Biltemas för 99,90. Men läs 43A
+              först, för det är klassen som rekommenderas till hemmet, och dit
+              når ingen spray.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -184,7 +186,7 @@ export default async function SlacksprayPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla fem"
-        description="Samma kriterier och samma viktning för alla fem sprayerna. Raden att läsa först är effektivitetsklassen: den säger hur stor brand produkten är provad mot, och två av fem anger den inte."
+        description="Samma kriterier och samma viktning för alla fem sprayerna. Raden att läsa först är effektivitetsklassen, som säger hur stor brand produkten är provad mot. Den andra att läsa är kastlängden: skumsprayerna når 3 till 4 meter, litiumsprayen 2."
       >
         <ComparisonTable
           products={products}
@@ -249,7 +251,7 @@ export default async function SlacksprayPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Angiven släckeffekt väger 30 därför att det är den enda uppgift som gör sprayerna jämförbara med varandra och med en brandsläckare. Sidan har fyra kriterier och inte fem: ett femte hade behövt fyllas med uppgifter som bara en eller två av produkterna publicerar, och en kolumn med streck är sämre än färre kriterier. Där en tillverkare inte anger klass, släckmedel eller temperaturområde räknas det som en brist och inte som ett neutralt tomrum, eftersom en produkt du inte kan jämföra är sämre för dig än en du kan."
+          footnote="Släckförmåga väger 30 därför att effektivitetsklassen är den enda uppgift som gör sprayerna jämförbara med varandra och med en brandsläckare. Sidan har fyra kriterier och inte fem: ett femte hade behövt fyllas med uppgifter som bara en eller två av produkterna publicerar, och en kolumn med streck är sämre än färre kriterier."
         />
       </Section>
 

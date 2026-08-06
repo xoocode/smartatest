@@ -52,7 +52,7 @@ import Kopguide from "@/content/nyckelskap/kopguide.mdx";
 
 const TEST_PAGE = NYCKELSKAP;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
@@ -289,7 +289,7 @@ export default async function NyckelskapPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Infästningen väger 30 därför att den gav vika på samtliga provade skåp, och lucka och lås 25 därför att spridningen mellan modellerna är störst där. Där en uppgift som kapslingsklass eller temperaturspann inte gått att fastställa räknas det som en brist under Väderskydd, eftersom ett skåp du inte kan kontrollera mot vintern där du bor är sämre för dig än ett du kan. Master Lock Select Access Smart är det enda skåpet med båda uppgifterna angivna och får därför full poäng på den raden."
+          footnote="Infästningen väger 30 därför att den gav vika på samtliga provade skåp, och lucka och lås 25 därför att spridningen mellan modellerna är störst där. Väderskyddet betygsätts på vad skåpet är byggt för: Master Lock Select Access Smart är ensam om både kapslingsklass och temperaturspann och får full poäng, ABUS Smart-BT har kapslingsklassen men inget spann, och de tre mekaniska skåpen har ett lock över kodhjulen och ett lås som aldrig behöver ström. En uppgift vi inte fått fram sänker aldrig ett betyg."
         />
       </Section>
 

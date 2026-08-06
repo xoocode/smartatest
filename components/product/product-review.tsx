@@ -111,6 +111,7 @@ export function ProductReview({
               productId={product.id}
               productName={fullName(product)}
               placement="product-review"
+              position={rank}
               size="lg"
               block
             />
@@ -166,6 +167,7 @@ export function ProductReview({
                 productId={product.id}
                 productName={fullName(product)}
                 placement="product-review-compact"
+                position={rank}
                 size="lg"
               />
             </div>

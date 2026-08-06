@@ -16,8 +16,9 @@ import { UpdatedStamp } from "@/components/site/updated-stamp";
  * ## Vad den beskriver
  *
  * Det läge sajten har vid lansering: Google Ads igång och affiliatelänkar
- * aktiva. Båda kakorna nedan sätts först efter samtycke, så texten stämmer
- * även innan annonseringen dragit igång.
+ * aktiva. Klick-id:t sätts oavsett svar, se `captureRequiresConsent` i
+ * lib/track-config.ts, medan Googles egna annonscookies kräver ett ja.
+ * Skillnaden mellan de två är hela poängen med texten nedan.
  *
  * ## Två saker att hålla ögonen på
  *
@@ -27,8 +28,10 @@ import { UpdatedStamp } from "@/components/site/updated-stamp";
  * 2. Underbiträdena nedan måste stämma med verkligheten. Läggs ett mätverktyg
  *    till någon gång är det den här filen som ska ändras först, inte sist.
  *
- * Formuleringen "vi mäter inte ditt besök" är alltså ett löfte i kod, inte
- * bara i text.
+ * "Ingen besöksstatistik och inga pixlar" är alltså ett löfte i kod, inte bara
+ * i text. Den tidigare formuleringen "vi mäter inte ditt besök" togs bort med
+ * flit: vi fångar klick-id:t och räknar varje klick vidare till en butik, och
+ * påståendet gick därför inte att låta stå.
  */
 
 const PAGE_URL = "/integritetspolicy";
@@ -37,7 +40,7 @@ const UPDATED = "2026-08-03";
 export const metadata: Metadata = {
   title: "Integritetspolicy",
   description:
-    "Vi har varken besöksstatistik, pixlar eller nyhetsbrev. Det som lagras är två kakor och det du själv skickar via kontaktformuläret.",
+    "Vi har varken besöksstatistik, pixlar eller nyhetsbrev. Det som lagras är två cookies och det du själv skickar via kontaktformuläret.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Integritetspolicy",
@@ -83,7 +86,7 @@ export default function IntegritetspolicyPage() {
             nyhetsbrev som samlar in adresser.
           </p>
           <p>
-            Kvar blir två kakor, och båda handlar om hur sajten betalar sig. Vi
+            Kvar blir två cookies, och båda handlar om hur sajten betalar sig. Vi
             går igenom dem nedan, och vad som händer med uppgifterna om du
             skriver till oss.
           </p>
@@ -96,11 +99,11 @@ export default function IntegritetspolicyPage() {
             <Link href="/kontakt">kontaktsidan</Link>.
           </p>
 
-          <h2>Kakorna vi sätter</h2>
+          <h2>Cookies vi sätter</h2>
 
-          <h3>Ditt svar i samtyckesrutan</h3>
+          <h3>Ditt svar om cookies</h3>
           <p>
-            När du svarar i rutan sparar vi svaret i en kaka som heter{" "}
+            Ditt svar sparas i en cookie som heter{" "}
             <code>st_consent</code>. Den innehåller tre saker och ingenting
             annat: vilken version av den här texten svaret gällde, om du sa ja
             eller nej, och när du svarade. Tidpunkten finns där för att vi ska
@@ -108,58 +111,60 @@ export default function IntegritetspolicyPage() {
             oss som annonsör.
           </p>
           <p>
-            Kakan lever i sex månader. Ändrar vi vilka mottagare som är
+            Den lever i sex månader. Ändrar vi vilka mottagare som är
             inblandade höjer vi versionen, och då blir ditt tidigare svar
-            ogiltigt och rutan kommer tillbaka. Ett ja till en uppsättning
+            ogiltigt och vi frågar igen. Ett ja till en uppsättning
             mottagare är inte ett ja till en annan.
           </p>
           <p>
-            Utan kakan skulle rutan dyka upp vid varje sidladdning, så den är
+            Utan den skulle vi fråga vid varje sidladdning, så den är
             nödvändig för att sajten ska fungera som du bett om, och kräver
             därför inget samtycke. Vill du ändra dig finns länken{" "}
-            <em>Kakor</em> längst ned på varje sida.
+            <em>Cookies</em> längst ned på varje sida.
           </p>
 
           <h3>Google Ads och klick-id:t gclid</h3>
           <p>
             Vi annonserar på Google. Klickar du på en av våra annonser följer en
             parameter med i adressen, <code>gclid</code>, som talar om vilken
-            annons klicket kom från. Vi använder den för att se vilka annonser
-            som leder till köp, och därmed om pengarna vi lägger på annonsering går
-            till något.
+            annons klicket kom från. Den sparas i en cookie i upp till 90 dagar
+            och följer med när du klickar dig vidare till en butik, så att
+            butiken kan knyta ett köp till besöket.
           </p>
           <p>
             Parametern pekar inte ut dig vid namn, men den identifierar ett
             enskilt klick, och flera dataskyddsmyndigheter räknar den därför som
-            en personuppgift. Vi behandlar den som en. Den lagras i upp till 90
-            dagar, och den sätts bara om du godkänt marknadsföringskakor. Väljer
-            du <em>endast nödvändiga</em> sker ingen sådan mätning.
+            en personuppgift. Vi behandlar den som en.
           </p>
           <p>
-            Rättslig grund är ditt samtycke enligt artikel 6.1 a i
-            dataskyddsförordningen. Säger du nej skickas inga identifierare
-            till Google, och annonsmätningen sker då på uppskattade siffror i
-            stället för uppmätta. Det är sämre för oss och märks inte för dig.
+            Klick-id:t sparas oavsett ditt svar ovan. Sajten har ingen
+            annan intäkt än provision från butikerna, och utan id:t kan
+            nätverket inte knyta ett köp till besöket. Vi har därför bedömt
+            behandlingen som nödvändig för den tjänst du använder. Rättslig
+            grund är berättigat intresse enligt artikel 6.1 f i
+            dataskyddsförordningen, och du har rätt att invända mot den.
+            Kontaktuppgifter finns längst ned på sidan.
+          </p>
+          <p>
+            Ditt svar gäller i stället Googles egna annonscookies: om vi får
+            dela uppgifter med Google och låta annonser anpassas efter dig.
+            Säger du nej sätts inga sådana cookies och inga signaler skickas,
+            och Googles mätning sker då på uppskattade siffror i stället för
+            uppmätta. Det är sämre för oss och märks inte för dig.
           </p>
 
-          <h3>Affiliatenätverkets kaka</h3>
+          <h3>Butikslänkarna</h3>
           <p>
-            Klickar du vidare till en butik via en av våra länkar sätter
-            affiliatenätverket Adtraction en kaka hos dig, så att butiken vet
-            att köpet kom härifrån och vi får vår provision. Utan den kakan
-            tjänar sajten ingenting på ditt köp, men du betalar inte heller
-            något extra för den.
+            Klickar du dig vidare till en butik lämnar du sajten. Butiken sätter
+            sina egna cookies och är personuppgiftsansvarig för dem, vilket
+            omfattas av butikens policy och inte av ditt svar här.
           </p>
           <p>
-            Den kakan sätts av Adtraction och butiken, på deras egna domäner och
-            efter att du lämnat oss. De är personuppgiftsansvariga för den och
-            den omfattas av deras policyer, inte av vårt samtycke. Därför
-            fungerar butikslänkarna likadant vare sig du sagt ja eller nej här.
+            Vi registrerar att klicket skedde, vilken produkt det gällde och var
+            på sidan du klickade.
           </p>
           <p>
-            Det vi själva avstår från om du säger nej är att koppla ihop ditt
-            klick med den annons du kom från. Klicket räknas fortfarande, men
-            anonymt. Hur pengarna fungerar beskriver vi öppet på{" "}
+            Hur sajten finansieras står på{" "}
             <Link href="/annonsmarkning">sidan om annonsmärkning</Link>.
           </p>
 

@@ -13,9 +13,8 @@ That count is generated, not maintained: `pnpm brandbook` recounts it into
 held 90, which is what a hand-kept number does.
 
 **Stack:** Next.js 16 App Router, React 19, TypeScript, Tailwind 4, MDX for
-buying guides, Vercel. `AGENTS.md` carries a standing warning that this Next.js
-version differs from training data; read `node_modules/next/dist/docs/` before
-writing framework code.
+buying guides, Vercel. The rule about reading the version-matched Next.js docs
+before writing framework code lives in `AGENTS.md`, which `CLAUDE.md` imports.
 
 Writing component code: the traps that cost us time are in
 `.claude/context/traps.md`. Page section order and the reasoning behind it:

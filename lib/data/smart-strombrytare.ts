@@ -84,7 +84,7 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/fjarrstrombrytare/fjarrstrombrytare-for-inbyggnad/shelly-1-gen4-smart-strombrytarmodul-p52995",
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för hela huset",
     pros: [
       "Fyra protokoll i en modul: wifi, Bluetooth, Zigbee och Matter",
       "Ingen hubb eller brygga behövs, och den styrs lokalt utan molnkonto",
@@ -106,12 +106,16 @@ const SEEDS: ProductSeed[] = [
         highlight: true,
       },
       { label: "Hubb krävs", shortLabel: "Hubb", value: "Nej", highlight: true },
+      /* Kjells egen specifikationstabell, läst renderad 2026-08-06:
+         "Mått (B × H × D): 42 × 38 × 17 mm". Samma körning gav
+         "Effektmätning: Nej", som ligger bakom Tapos energimätningsnackdel. */
+      { label: "Mått", value: "42 × 38 × 17 mm", highlight: true },
       { label: "Dimring", value: "Nej, separat Shelly Dimmer Gen4" },
       { label: "Energimätning", value: "Nej, finns i 1PM Gen4" },
       { label: "Installation", value: "Behörig elektriker enligt Kjell" },
     ],
     verdict:
-      "Shelly 1 Gen4 kostar 269 kronor och talar fyra protokoll i samma modul. Det betyder att den passar in i nästan vilket system som helst, och till skillnad från de flesta konkurrenter fungerar den lokalt: ligger internet nere tänds lampan ändå, och läggs en molntjänst ner om fem år står modulen kvar.\n\nPriset gör resten. Elinstallatören har räknat på en normalstor villa med arton belysningsgrupper och landar på 11 883 kronor för Shelly mot 13 758 för Plejd, nästan två tusen i skillnad på material innan någon dragit ett enda kabelstycke.\n\nMen läs kritiken innan du beställer. Testet som finns är i grunden positivt men har konkreta invändningar: Zigbee-parningen gick inte att göra med knappen, en virtuell brytare gick inte att ställa om, och eco-läget gav fördröjningar som fick stängas av.\n\nDet viktigaste förbehållet är ändå ett annat, och det är inte produktens fel: den kräver nolledare i dosan. Har du inte det är den här modulen inte ett alternativ, oavsett hur bra den är, och då är Aqara svaret i stället.",
+      "Shelly 1 Gen4 kostar 269 kronor och talar wifi, Bluetooth, Zigbee och Matter i samma modul. Ingen annan modul här talar mer än tre, och det betyder att den passar in i det du redan har hemma, vad det än råkar vara.\n\nStyrningen är lokal och kräver inget molnkonto. Ligger internet nere tänds lampan ändå, och den dag en tillverkares molntjänst stängs av sitter modulen kvar i väggen och gör sitt jobb. 16 A räcker dessutom till mer än belysning, så samma modul kan sitta bakom en handdukstork eller en pump. Priset gör resten: Elinstallatören räknade på en normalstor villa med arton belysningsgrupper och landade på 11 883 kronor för Shelly mot 13 758 för Plejd, alltså nästan två tusen kronor i skillnad på material innan någon dragit ett enda kabelstycke.\n\nDen kräver nolledare i dosan, och Kjell skriver att installationen kräver behörig elektriker. Räkna också med en kvart av trassel vid uppstarten: Zigbee-delen är ny, och testet som finns fick den inte att para ihop sig med knappen och behövde stänga av eco-läget för att bli av med fördröjningar.\n\n**Ska du styra belysningen i ett helt hus är det här modulen du ska köpa.** Den är billigast per punkt av allt som talar Matter, den låser dig inte till ett märke, och den fungerar utan uppkoppling. Bara en sak kan stoppa dig, och den sitter i väggen och inte i produkten: saknar dosan nolledare tar du Aqara H1.",
   },
   {
     id: "aqara-h1-utan-nolla",
@@ -156,12 +160,16 @@ const SEEDS: ProductSeed[] = [
       { label: "Maxlast", value: "2 000 W", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Zigbee 3.0", highlight: true },
       { label: "Hubb krävs", shortLabel: "Hubb", value: "Ja", highlight: true },
+      /* Kjells specifikationstabell, läst renderad 2026-08-06: "Mått:
+         85,8x86x37,55 mm", modellnr WS-EUK01. Talet gäller hela brytaren och
+         inte en modul som göms i dosan, vilket värdet säger ut. */
+      { label: "Mått", value: "85,8 × 86 × 37,55 mm, hela brytaren", highlight: true },
       { label: "Dimring", value: "Nej" },
       { label: "Energimätning", value: "Nej" },
       { label: "Installation", value: "Brytarbyte, se Elsäkerhetsverket" },
     ],
     verdict:
-      "Aqara H1 fungerar utan nolledare i brytardosan. Saknas nolledare i brytardosan faller Shelly, Plejd, Tapo och Philips bort på en gång, och då återstår i praktiken den här.\n\nAtt dra fram en nolla är inte en helgeftermiddag utan en förändring av den fasta installationen, vilket kräver registrerat elinstallationsföretag. Att byta brytaren mot den här är däremot ett brytarbyte, och det står uttryckligen på Elsäkerhetsverkets lista över vad du får göra själv om du vet hur du ska göra. Skillnaden i pengar är större än de nittio kronor extra som versionen utan nolledare kostar.\n\nDen kräver en hubb eller någon annan Zigbee-controller, vilket är ett extra köp och ett extra fel som kan uppstå, och den är låst till av och på: vill du dimra måste du lösa det med lamporna i stället.\n\nDe brittiska testarna, vars hus har samma nolledarproblem som våra äldre, är samstämmigt positiva och lyfter särskilt att knapparna fått nya mikrobrytare med tydlig känsla. Det är den delen du tar på flera gånger om dagen i tio år.",
+      "Aqara H1 kostar 369 kronor och är den enda produkten här som fungerar i en dosa utan nolledare. Saknas nolledaren bakom knappen faller Shelly, Plejd, Tapo, Nexa och Philips bort på en gång.\n\nDen ersätter dessutom brytaren i stället för att gömmas bakom den, och det är skillnaden mellan ett jobb du får göra själv och ett du måste beställa. Ett brytarbyte står uttryckligen på Elsäkerhetsverkets lista över tillåtet egenarbete, medan en framdragen nolledare är en förändring av den fasta installationen och kräver ett registrerat elinstallationsföretag. Den skillnaden i pengar är mycket större än de nittio kronor extra som versionen utan nolledare kostar. Zigbee 3.0 gör den heller inte låst till Aqaras eget system, och knapparna har fått nya mikrobrytare med tydligt tryck, vilket är den del av produkten du faktiskt tar på flera gånger om dagen i tio år.\n\nDen kräver en Aqara Hub eller någon annan Zigbee-controller. Det är ett köp till, och en sak till som kan sluta fungera en tisdagskväll när bara lampan i hallen skulle tändas.\n\nSaknar dosan nolledare är valet redan gjort. Har du nolla är den här brytaren 100 kronor dyrare än Shelly 1 Gen4 och kräver en hubb till, och då finns det ingen anledning att välja den.",
   },
   {
     id: "plejd-ctr-01",
@@ -197,7 +205,7 @@ const SEEDS: ProductSeed[] = [
     cons: [
       "Dyrast av reläerna, och hela systemet kostar mer än Shelly",
       "Eget Bluetooth-nät utan Matter eller Zigbee, så det står för sig självt",
-      "Ingen oberoende part har testat just den här modulen",
+      "Kräver nolledare i dosan, alltså inget alternativ i ett äldre hus utan nolla",
     ],
     specs: [
       { label: "Typ", value: "Relämodul bakom brytaren", highlight: true },
@@ -214,12 +222,15 @@ const SEEDS: ProductSeed[] = [
         highlight: true,
       },
       { label: "Hubb krävs", shortLabel: "Hubb", value: "Nej", highlight: true },
+      /* 46 × 46 × 18 mm står i Plejds egen tekniska data på
+         plejd.com/sv-se/produkter/ctr-01, kontrollerat 2026-08-06. Samma sida
+         anger standbyeffekt < 0,5 W och ingen energimätning. */
+      { label: "Mått", value: "46 × 46 × 18 mm", highlight: true },
       { label: "Dimring", value: "Nej, separat DIM-01 i samma app" },
-      { label: "Mått", value: "46 × 46 × 18 mm" },
       { label: "Installation", value: "Behörig elektriker" },
     ],
     verdict:
-      "Plejd är det system svenska elektriker installerar när kunden ber om belysningsstyrning, och det märks på allt utom priset. Modulen är gjord för svenska förhållanden på ett sätt ingen av de andra är: den klarar 3 500 W, den fungerar med både vanliga och återfjädrande brytare, och den styr transformatorer med 1-10 V som annars kräver en extra pryl. Bluetooth-nätet är dessutom helt lokalt, utan hubb och utan internet, vilket är en av de starkaste egenskaperna någon modul här har.\n\nButiksbetyget är vårt högsta i hela projektet: fem av fem från 101 personer, och Plejd säljs dessutom mest genom elektriker, så butikens siffra underskattar spridningen snarare än tvärtom.\n\nPriset först: 599 kronor styck, och Elinstallatören räknar hem hela Plejd-systemet på 13 758 kronor mot Shellys 11 883 för samma villa. Sedan slutenheten. Bluetooth-nätet är Plejds eget, utan Matter och utan Zigbee, så du köper ett helt system snarare än en modul.\n\nÄr det systemet du vill ha är det här rätt produkt. Vill du kunna byta ut en del i taget är det inte det.",
+      "Plejd CTR-01 kostar 599 kronor och tar 3 500 W, den högsta maxlasten här. Det är också det system svenska elektriker installerar när kunden ber om belysningsstyrning, vilket märks på allt utom priset.\n\nModulen är byggd för svenska förhållanden på ett sätt ingen annan här är. Den fungerar med både vanliga och återfjädrande väggbrytare, alltså med den knapp som redan sitter i väggen oavsett vilken sort det är, och den styr transformatorer med 1-10 V som annars kräver en pryl till. Bluetooth-nätet går mellan enheterna själva, utan hubb och utan internet, så belysningen i huset är oberoende av både router och molnkonto. Och 101 kunder har satt fem av fem, vilket är det bredaste omdömet någon produkt i hela vårt urval har fått. Plejd säljs dessutom mest genom elektriker, så butikens siffra underskattar spridningen snarare än tvärtom.\n\nDu köper ett system och inte en modul. Bluetooth-nätet är Plejds eget, utan Matter och utan Zigbee, och det betyder att den dag du vill byta ut en del byter du hela. Räknat på arton belysningsgrupper landar Elinstallatören på 13 758 kronor för Plejd mot 11 883 för Shelly.\n\nHar elektrikern redan satt Plejd i huset ska nästa punkt också bli Plejd, och 3 500 W tar laster ingen annan modul här klarar. Bygger du från noll och vill kunna byta märke en enhet i taget kostar Shelly 1 Gen4 330 kronor mindre och låser dig inte.",
   },
   {
     id: "tapo-s110e",
@@ -256,10 +267,15 @@ const SEEDS: ProductSeed[] = [
       "Energimätning inbyggd, vilket ingen av de andra reläerna har",
       "Matter utan hubb, så den syns direkt i Apple Home, Google Home och Alexa",
     ],
+    /* Dimmernackdelen sa tidigare att ingen dimmermodul finns i Tapos
+       inbyggnadssortiment. TP-Links egen produktsida för Tapo S200D,
+       kontrollerad 2026-08-06, visar vad som faktiskt finns: en batteridriven
+       vridknapp på 86 × 86 × 23,7 mm som kräver Tapo Hub och dimrar smarta
+       lampor. Nackdelen säger nu det köparen råkar ut för. */
     cons: [
       "Bara 150 W LED, den lägsta lasten för belysning i jämförelsen",
       "Tapo-appens egna funktioner förutsätter molnkonto",
-      "Ingen dimmermodul finns i Tapos inbyggnadssortiment",
+      "Dimrar inte kretsen, och Tapos dimmer är en batteriknapp som kräver Tapo Hub och styr smarta lampor",
     ],
     specs: [
       { label: "Typ", value: "Relämodul bakom brytaren", highlight: true },
@@ -276,12 +292,12 @@ const SEEDS: ProductSeed[] = [
         highlight: true,
       },
       { label: "Hubb krävs", shortLabel: "Hubb", value: "Nej", highlight: true },
+      { label: "Mått", value: "44,7 × 33,9 × 16,1 mm", highlight: true },
       { label: "Dimring", value: "Nej" },
       { label: "Energimätning", value: "Ja" },
-      { label: "Mått", value: "44,7 × 33,9 × 16,1 mm" },
     ],
     verdict:
-      "Tapo S110E mäter 44,7 × 33,9 × 16,1 millimeter och är den minsta modulen av de sex, och i en gammal grund dosa bakom en brytare med tjocka ledare är det skillnaden mellan att locket går igen och att det inte gör det. Att TP-Link dessutom lagt in energimätning, som ingen av de andra reläerna har, till 239 kronor är svårt att klaga på.\n\nSedan kommer siffran som avgör om den passar dig: 150 W LED. Det räcker gott till en taklampa eller ett par spottar, men en hel belysningsgrupp i ett vardagsrum kan ligga över, och då är det fel produkt. Jämför med Plejds 800 W LED.\n\nDet andra förbehållet är molnet. Matter ger lokal styrning, men Tapo-appens egna scheman och automatiseringar hänger på TP-Links moln, och det är TP-Links moln som styr när funktionerna får finnas kvar.\n\nIngen oberoende testare har heller granskat modulen. Det som finns är tillverkarens egna sidor och en nyhetsnotis, så kriteriet står tomt och vikten fördelas på de övriga.",
+      "Tapo S110E kostar 239 kronor och mäter 44,7 × 33,9 × 16,1 millimeter, minst av modulerna här. I en gammal grund dosa bakom en brytare med grova ledare är det skillnaden mellan att locket går igen och att det inte gör det.\n\nDen räknar dessutom kilowattimmar, vilket ingen av de andra reläerna gör, så du kan se vad golvvärmen i badrummet faktiskt drar i stället för att gissa. Matter sitter i modulen och kräver ingen hubb: den dyker upp direkt i Apple Home, Google Home och Alexa, och den styrs lokalt därifrån.\n\nSedan kommer talet som avgör om den passar dig, och det är 150 W LED. Det räcker gott till en taklampa eller ett par spottar. En hel belysningsgrupp med infälld spotbelysning i ett vardagsrum ligger över, och Plejd tar 800 W på samma rad. Tapo-appens egna scheman förutsätter dessutom ett konto hos TP-Link, även om grundstyrningen via Matter är lokal.\n\nSitter det en taklampa eller ett par spottar bakom en trång dosa är den här både minst och billigast, och energimätningen får du på köpet. Ska den ta hela vardagsrummets belysning räcker den inte, och då är Shelly 1 Gen4 för 269 kronor rätt modul.",
   },
   {
     id: "nexa-infalld-2000w",
@@ -289,7 +305,8 @@ const SEEDS: ProductSeed[] = [
     name: "Infälld fjärrströmbrytare 2 000 W",
     shortName: "Nexa infälld",
     image: productImage(SMART_STROMBRYTARE.slug, "nexa-infalld-2000w"),
-    tagline: "Halva priset på näst billigaste, och ingen app om du inte köper en hubb.",
+    tagline:
+      "149,90 kronor mot 239 för nästa modul, och den lyder en fjärrkontroll utan router, konto eller app.",
     /* Kom in i rankningen 2026-08-03. Den låg bland de övervägda med
        lagerstatus som skäl, och efter användarbeslut samma dag rankas
        slutsålda produkter ändå. */
@@ -307,34 +324,47 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/fjarrstrombrytare/fjarrstrombrytare-for-inbyggnad/nexa-infalld-fjarrstrombrytare-2000-w-p65194",
     userRating: { value: 4.5, count: 47, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "149,90 kr, billigast på sidan",
+    award: "budget",
+    superlative: "Bäst för stugan",
     pros: [
       "149,90 kronor, alltså under två tredjedelar av näst billigaste modul",
       "Fungerar med en Nexa-fjärrkontroll helt utan hubb, konto och internet",
       "32 minnesplatser, så flera brytare och fjärrkontroller kan styra samma last",
-      "2 000 W, alltså mer än dubbelt Tapos 150 W för belysning",
-      "47 kundbetyg på 4,5, näst bredaste underlaget bland reläerna",
+      "2 000 W resistiv last, alltså marginal för en pump eller en värmare",
+      "47 kundbetyg på 4,5, det bredaste underlaget efter Plejd",
     ],
+    /* Ekosystemnackdelen sa tidigare "Varken Matter, Google, Alexa eller
+       HomeKit anges av butiken". Ett påstående om vad en produkt klarar går
+       inte att fastställa hos återförsäljaren, och Nexas egen sida
+       nexa.se/nexa-bridge-x/roststyrning, läst 2026-08-06, visar Google
+       Assistant genom bryggan med lokal styrning över nätverket. Matter,
+       Alexa och HomeKit nämns inte där. Betyget för ekosystem står kvar på
+       2,0: Google kräver ett bryggköp och de tre andra saknas.
+
+       Maxlasten står som resistiv last hos Nexa. Den jämfördes tidigare med
+       Tapos 150 W LED, vilket är två olika mått. */
     cons: [
       "Kräver både fas och nolla i dosan, som de flesta här utom Aqara",
-      "Ingen app och ingen automation utan Nexa Smart Hub eller Bridge X",
-      "Varken Matter, Google, Alexa eller HomeKit anges av butiken",
+      "Ingen app och ingen automation utan en Nexa Bridge, som kostar extra",
+      "Google Assistant fungerar genom bryggan, men Nexa anger varken Matter, Alexa eller HomeKit",
       "Bara av och på, ingen dimring",
-      "Ingen oberoende part har testat den",
     ],
     specs: [
       { label: "Typ", value: "Relämodul i tak- eller apparatdosa", highlight: true },
       { label: "Nolledare", shortLabel: "Nolla", value: "Krävs", highlight: true },
-      { label: "Maxlast", value: "2 000 W", highlight: true },
+      { label: "Maxlast", value: "2 000 W resistiv last", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Nexa självlärande radio", highlight: true },
       { label: "Hubb krävs", shortLabel: "Hubb", value: "Nej för fjärrkontroll, ja för app", highlight: true },
+      /* 48 × 48 × 25 mm står både i Nexas produktdata för MCMR-2000 och i
+         manualens tekniska tabell, kontrollerat 2026-08-06. Manualen anger
+         också egenförbrukning < 1 W och ingen separat LED-last. */
+      { label: "Mått", value: "48 × 48 × 25 mm", highlight: true },
       { label: "Dimring", value: "Nej" },
       { label: "Minnesplatser", value: "32" },
       { label: "Energimätning", value: "Nej" },
-      { label: "Mått", value: "48 × 48 × 25 mm" },
     ],
     verdict:
-      "Nexa infälld kostar 149,90 kronor och är den enda modulen som fungerar helt utan konto.\n\n149,90 kronor. Nästa modul kostar 239 och den dyraste 639. För pengarna får du ett självlärande relä som du parar mot en Nexa-fjärrkontroll genom att hålla in en knapp, och sedan fungerar det. Ingen app, ingen inloggning, ingen molntjänst som kan läggas ner, och ingen router som behöver vara igång. I ett sommarhus med dålig uppkoppling är det inte en nödlösning utan rätt svar.\n\nDen tar 2 000 watt, alltså mer än tio gånger Tapo S110E:s 150 watt för belysning, och har 32 minnesplatser så att flera brytare och fjärrkontroller kan styra samma lampa. 47 kundbetyg på 4,5 är näst bredaste underlaget bland reläerna här.\n\nSedan kommer det som håller den nere. **Vill du ha en app behöver du köpa en Nexa Smart Hub eller Bridge X**, och då är prisfördelen borta. Butiken anger varken Matter, Google, Alexa eller HomeKit, vilket betyder att modulen inte talar med resten av ett blandat smart hem. Den dimrar inte. Och den kräver nolla i dosan, vilket i ett hus byggt före 1994 ofta betyder att den inte går att använda i väggbrytaren alls.\n\nKöp den om du vill fjärrstyra en lampa eller en pump och inte bryr dig om appen. Vill du ha automation, ta Shelly 1 Gen4 för 269 kronor, som är ett annat slags produkt för hundranitton kronor mer.",
+      "Nexa infälld kostar 149,90 kronor. Nästa modul här kostar 239 och den dyraste 639, och för de pengarna får du ett relä som fungerar utan konto, utan app och utan router.\n\nDu parar den mot en Nexa-fjärrkontroll genom att hålla in en knapp, och sedan gör den sitt jobb. Ingen inloggning som ska förnyas, ingen molntjänst som kan läggas ner, ingenting som slutar fungera för att bredbandet ligger nere. I ett sommarhus med skral uppkoppling är det rätt svar och inte en nödlösning. 32 minnesplatser gör att flera knappar och fjärrkontroller kan styra samma lampa, och 2 000 W resistiv last ger marginal för en pump eller en frostvakt. 47 kunder har satt 4,5, vilket är det bredaste omdömet efter Plejd.\n\n**Vill du ha app och automation behöver du en Nexa Bridge, och då är prisfördelen borta.** Nexa uppger Google Assistant genom bryggan, men varken Matter, Alexa eller HomeKit, så modulen håller sig för sig själv i ett blandat smart hem. Den dimrar inte, och den kräver både fas och nolla i dosan.\n\nKöp den till stugan, förrådet eller pumpen, alltså dit en knapp i handen räcker och nätet ändå inte når. Ska lampan gå på schema och tala med resten av huset kostar Shelly 1 Gen4 hundranitton kronor mer och är ett annat slags produkt.",
   },
   {
     id: "hue-inbyggnadsrela",
@@ -381,12 +411,18 @@ const SEEDS: ProductSeed[] = [
         value: "Hue Bridge rekommenderas",
         highlight: true,
       },
+      /* 41 × 37,3 × 16,8 mm och 20 g står i Signifys egen produktdata för
+         8721103111753, kontrollerad 2026-08-06, och samma tal står i Kjells
+         specifikationstabell. Manualen som Kjell länkar anger 16 A och
+         220-240 V för hela modulen; 400 W är LED-talet, som är det som gäller
+         för belysning. */
+      { label: "Mått", value: "41 × 37,3 × 16,8 mm", highlight: true },
       { label: "Dimring", value: "Nej, dimra med Hue-lampor i stället" },
       { label: "Energimätning", value: "Nej" },
       { label: "Installation", value: "Behörig elektriker enligt Kjell" },
     ],
     verdict:
-      "Hue inbyggnadsrelä är inte för dig som ska köpa din första smarta brytare. Den är för dig som redan har Hue i halva huset och står inför de armaturer som inte går att göra smarta med en lampa: badrumsbelysningen, köksbänken, den infällda taklösningen från förra ägaren. Att få två separata ljuskretsar in i samma system från en modul löser det problemet snyggt, och Hue Bridge kör lokalt så knappen på väggen fungerar även när internet inte gör det.\n\nPriset är svårare. 639 kronor är dyrast i jämförelsen och du får 400 W LED, alltså under Plejds 800 W. Saknar du Hue Bridge tillkommer den. Räknar man ihop det blir en modul som ska ersätta en femtiolapps strömbrytare plötsligt en investering på över tusen kronor, och då ska man vilja ha just Hue.\n\nProdukten är dessutom märkt som nyhet hos Kjell och ingen har hunnit testa den, så kriteriet står tomt.\n\nHar du redan systemet är det ett rimligt köp. Har du det inte finns det ingen anledning att börja här.",
+      "Philips Hue inbyggnadsrelä kostar 639 kronor och tar in två separata ljuskretsar i Hue-systemet från en enda modul. Det är dyrast här, och det är också den enda modulen som gör två kretsar samtidigt.\n\nDen löser ett problem smarta lampor inte kommer åt: badrumsarmaturen, köksbänken, den infällda taklösningen förra ägaren monterade. Sådant går inte att skruva en Hue-lampa i, och med reläet blir de ändå en del av samma system, med samma scener och samma app som resten av huset. Hue Bridge kör dessutom lokalt, så knappen på väggen och scenerna fungerar när bredbandet ligger nere. Med 41 × 37,3 × 16,8 millimeter är den näst minst av modulerna, alltså inget problem att få ner i dosan.\n\n400 W LED är hälften av vad Plejd tar, och saknar du Hue Bridge tillkommer den. Då blir en modul som ska ersätta en strömbrytare för femtio kronor plötsligt en investering på över tusen.\n\nHar du redan Hue i halva huset är det här sättet att ta med resten, och två kretsar för 639 kronor är billigare än två moduler. Har du inget Hue gör Shelly 1 Gen4 samma jobb för 269 kronor, och då finns det ingen anledning att börja här.",
   },
 ];
 
@@ -416,6 +452,12 @@ export const SMART_STROMBRYTARE_CAPABILITIES: SwitchCapability[] = [
   { id: "aqara-h1-utan-nolla", kind: "brytare", needsNeutral: false },
   { id: "plejd-ctr-01", kind: "rela", needsNeutral: true },
   { id: "tapo-s110e", kind: "rela", needsNeutral: true },
+  /* Saknades här från 2026-08-03, då Nexa flyttade in i rankningen, till
+     2026-08-06. Listan är verktygets hela urval, så sidans billigaste modul
+     gick inte att få som svar i installationsguiden trots att den låg i
+     tabellen. Nexas manual för MCMR-2000: "Mottagaren behöver både fas och
+     nolla." Lägg alltid till en rad här när en produkt tillkommer. */
+  { id: "nexa-infalld-2000w", kind: "rela", needsNeutral: true },
   { id: "hue-inbyggnadsrela", kind: "rela", needsNeutral: true },
 ];
 

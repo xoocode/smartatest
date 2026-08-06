@@ -39,35 +39,36 @@ import Kopguide from "@/content/smart-hem-hubb/kopguide.mdx";
 
 /*
  * ⚠️ Priser, kundbetyg, artikelnummer och radiouppsättningar är riktiga, lästa
- * 2026-08-04 hos Kjell eller på tillverkarens egen sida. Kriteriebetygen är
- * redaktionell bedömning. Vi har inte kopplat in någon hubb och inte dragit ur
- * någon internetkabel.
+ * 2026-08-04 hos Kjell eller på tillverkarens egen sida och kontrollerade om
+ * 2026-08-06. Kriteriebetygen är redaktionell bedömning. Vi har inte kopplat in
+ * någon hubb och inte dragit ur någon internetkabel.
  *
  * SIDANS FYND: ordet hubb täcker tre olika produkter på samma hylla, 329 till
  * 4 999 kronor.
  *   Märkesbrygga: Plejd Gateway styr enbart Plejd, enligt Plejd själva.
- *   Matter-controller: Aqara M3 är ensam om att skriva ut att den styr
- *     tredjepartsprodukter.
+ *   Matter-controller: Aqara M100 är både bridge och controller för 329 kr.
  *   Universell hubb: Homey Pro talar åtta radior och kör lokalt.
  *
- * ⚠️⚠️ PHILIPS SÄGER VARKEN JA ELLER NEJ om Hue Bridge kan lägga till andra
- * tillverkares Matter-enheter. Butikstexten antyder att den kan; Philips egen
- * Matter-sida beskriver bara riktningen utåt. Skriv att uppgiften saknas,
- * aldrig att bryggan inte kan.
+ * ⚠️⚠️ RESEARCHPASSET 2026-08-06 REV FYRA PÅSTÅENDEN om saknade uppgifter, tre
+ * av dem belagda på den butikssida vi redan länkade. Aqara M3 har en 360°
+ * IR-blaster och kör som edge-hubb lokalt; Aqara M100 är Matter Controller;
+ * Philips publicerar "Local control (offline)" för Hue Bridge. Två fel åt andra
+ * hållet: HA Green har inga inbyggda radior alls och Homey Pro mini saknar även
+ * Z-Wave och BLE. Detaljerna står i lib/data/smart-hem-hubb.ts.
  *
- * ⚠️ LÅNA ALDRIG EN SORT MELLAN MODELLER. Aqara M3 säger rakt ut att den styr
- * tredjepart; M100 gör det inte, och den raden ska spegla vad som står.
+ * ⚠️ KVAR SOM KONFLIKT: Kjell skriver att Hue Bridge kan lägga till produkter
+ * från flera tillverkare. Philips två egna dokument beskriver bara riktningen
+ * utåt. Vi följer tillverkaren och skriver vad bryggan gör, inte vad som saknas.
  *
- * ⚠️ Andra axeln: fungerar den utan internet? Homey Pro, Home Assistant Green
- * och Aqara M100 säger uttryckligen ja. Resten säger ingenting, vilket inte är
- * ett nej.
+ * ⚠️ LÅNA ALDRIG EN SORT MELLAN MODELLER. Varje cell har ett eget belägg på
+ * produktens egen sida.
  *
  * ⚠️ Byggd av intern efterfrågan: hubb, gateway, brygga och bridge förekommer
  * 285 gånger över 16 kategorier, och det fanns inget länkmål.
  *
  * ⚠️ Ingen oberoende provning finns. Källorna är tillverkarnas egna sidor.
  *
- * ⚠️ Alla sju länkar går till Kjell, som har hela sortimentet och ligger på
+ * ⚠️ Sju av åtta länkar går till Kjell, som har hela sortimentet och ligger på
  * 5 % / 30 d. Koncentrationen står utskriven på sidan.
  *
  * AFFILIATE-SWAP — LINK_MODE styr formen på länkarna. Se lib/links.ts.
@@ -75,12 +76,12 @@ import Kopguide from "@/content/smart-hem-hubb/kopguide.mdx";
 
 const TEST_PAGE = SMART_HEM_HUBB;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ordet hubb täcker tre olika produkter på samma hylla, från 329 till 4 999 kronor. En brygga talar bara med sitt eget märke, en Matter-controller når andra tillverkares enheter, och en universell hubb talar varje radio. Vi jämförde sju.",
+    "Homey Pro talar åtta radior och kör allt lokalt, men kostar 4 999 kronor. Aqara Hub M3 når nästan lika långt för 1 729, och en Matter-controller för 329 samlar fler märken än en brygga för 899. Vi jämförde åtta hubbar på vad de faktiskt når.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -93,7 +94,7 @@ const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "tre-sorter", label: "Tre olika produkter under samma ord" },
   { id: "utan-internet", label: "Vad som händer när internet ligger nere" },
-  { id: "jamforelse", label: "Jämför alla sju" },
+  { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "recensioner", label: "Recensioner av varje hubb" },
   { id: "andra-hubbar", label: "Andra produkter vi övervägde" },
@@ -138,14 +139,16 @@ export default async function SmartHemHubbPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Butikens hubbhylla rymmer tre olika produkter under samma ord, från
-              329 till 4 999 kronor. En brygga talar bara med sitt eget märke, en
-              Matter-controller når andra tillverkares enheter, och en universell
-              hubb talar varje radio och kör utan internet. Priset skiljer dem
-              inte åt. Vi jämförde sju hubbar på vad de faktiskt når.
+              Athom Homey Pro samlar hela hemmet: åtta radior i samma låda,
+              inklusive infraröd och 433 MHz som når utrustningen du redan äger,
+              och all automation körs lokalt. Den kostar 4 999 kronor. Behöver
+              du inte Z-Wave når Aqara Hub M3 nästan lika långt för 1 729, och
+              en Matter-controller för 329 kronor samlar fler märken än en
+              brygga för 899. Vi jämförde åtta hubbar på vad de faktiskt når.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -203,9 +206,10 @@ export default async function SmartHemHubbPage() {
           </p>
           <p>
             <strong>Matter-controllern når andra tillverkares enheter.</strong>{" "}
-            Aqara Hub M3 säger det med sju ord som ingen annan tillverkare i
-            jämförelsen använder: Matter-controller, kan styra
-            tredjepartsprodukter. Aqaras billigaste kostar 329 kronor.
+            Aqara M100 kostar 329 kronor och är både Matter bridge och Matter
+            controller, alltså en hubb som både lämnar sina egna enheter vidare
+            och tar in andras. Den är billigast på hela sidan och samlar ändå
+            fler märken än bryggan som kostar nästan tre gånger så mycket.
           </p>
           <p>
             <strong>Den universella hubben talar varje radio.</strong> Homey Pro
@@ -217,19 +221,16 @@ export default async function SmartHemHubbPage() {
           <p>
             <strong>Ordet Matter avgör mindre än man tror,</strong> eftersom det
             täcker två motsatta roller. En controller lägger till andra
-            tillverkares enheter. En bridge exponerar sina egna för andra system.
-            Båda skriver Matter på lådan.
+            tillverkares enheter. En bridge lämnar sina egna vidare till andra
+            system. Båda skriver Matter på lådan.
           </p>
           <p>
-            <strong>
-              Philips är exemplet, och där stannar beskedet halvvägs.
-            </strong>{" "}
-            Butikstexten för Hue Bridge säger att den kan kopplas till enheter
-            från flera tillverkare. Philips egen Matter-sida beskriver bara hur
-            Hue ansluts till Alexa, Apple Home och Google Assistant. Om bryggan
-            kan lägga till en annan tillverkares Matter-lås står ingenstans, och
-            det står inte heller att den inte kan. Vi skriver att uppgiften
-            saknas, eftersom det är vad den gör.
+            <strong>Hue Bridge Pro visar vad skillnaden kostar.</strong> Den gör
+            Hue tillgängligt i Apple Home, Google och Alexa och är enklast av
+            alla att komma igång med, men den tar inte in andra tillverkares
+            Matter-enheter. 899 kronor köper alltså ett enda märke på fler
+            skärmar. Aqara M100 för 329 samlar flera märken i stället, och de
+            två står bredvid varandra i samma hylla.
           </p>
         </Prose>
       </Section>
@@ -239,28 +240,34 @@ export default async function SmartHemHubbPage() {
         id="utan-internet"
         tone="muted"
         width="default"
-        title="Tre av sju säger att hemmet fungerar utan internet"
+        title="Sju av åtta fungerar utan internet, och den åttonde är en brygga"
         description="Hubben är navet. Slutar den fungera slutar allt som hänger på den att fungera."
       >
         <Prose>
           <p>
-            <strong>Athom</strong> skriver att Homey Pro bearbetar lokalt och
-            fungerar även utan internet, och att grundfunktionerna inte kräver
-            abonnemang. <strong>Nabu Casa</strong> skriver att Home Assistant
-            körs lokalt, att du äger din data och att hemmet går att styra även
-            när nätet ligger nere. <strong>Aqara</strong> anger att M100 kör
-            lokala automationer utan internet.
+            <strong>Fem av dem bearbetar automationerna i själva lådan.</strong>{" "}
+            Homey Pro och Homey Pro mini kör allt lokalt, Home Assistant körs i
+            ditt eget nätverk, Aqara M3 hanterar automationerna i hubben i
+            stället för i molnet, och Aqara M100 fortsätter köra sina lokala
+            rutiner. Går uppkopplingen ner tänds hallampan av rörelsevakten
+            ändå.
           </p>
           <p>
-            <strong>De övriga säger ingenting om saken.</strong> Det betyder inte
-            att de kräver moln, men det betyder att du inte kan ta reda på det
-            innan du står med lådan hemma.
+            <strong>Hue Bridge styr lamporna lokalt över nätverket,</strong> så
+            ljuset lyder dig även när nätet inte fungerar. Det du förlorar är
+            fjärrstyrningen och rösttjänsterna, inte belysningen i huset.
+          </p>
+          <p>
+            <strong>Plejd Gateway är undantaget, och det är avsiktligt.</strong>{" "}
+            Dess enda uppgift är att koppla Plejd-meshen till internet.
+            Försvinner uppkopplingen försvinner fjärrstyrningen med den, medan
+            strömbrytarna på väggen fungerar precis som förut.
           </p>
           <p>
             <strong>Frågan är större här än på våra andra sidor.</strong> Slutar
-            en lampa fungera är det irriterande. Slutar navet fungera slutar allt
-            som hänger på det, och då spelar det roll om intelligensen sitter i
-            lådan på hyllan eller på en server någon annan äger.
+            en lampa fungera är det irriterande. Slutar navet fungera slutar
+            allt som hänger på det, och då spelar det roll om intelligensen
+            sitter i lådan på hyllan eller på en server någon annan äger.
           </p>
           <p>
             Öppna plattformar står stadigast där. Home Assistant är gratis och
@@ -268,7 +275,7 @@ export default async function SmartHemHubbPage() {
             vilket är ett annat slags trygghet än en garantitid.
           </p>
           <p>
-            <strong>Kontrollera abonnemanget separat.</strong> Ingen av de sju
+            <strong>Kontrollera abonnemanget separat.</strong> Ingen av de åtta
             kräver ett för grundfunktionerna, men en avgift för fjärrstyrning är
             i praktiken en avgift för att hubben ska vara användbar när du inte
             är hemma.
@@ -293,7 +300,7 @@ export default async function SmartHemHubbPage() {
       <Section
         id="jamforelse"
         width="wide"
-        title="Jämför alla sju"
+        title="Jämför alla åtta"
         description="Raden Sort är vår klassificering ur tillverkarens egen beskrivning, och den avgör mer än priset."
       >
         <ComparisonTable
@@ -302,7 +309,7 @@ export default async function SmartHemHubbPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Raden Sort är vår klassificering ur tillverkarens egen beskrivning, inte butikens rubrik. Radior och uppgifter om lokal drift är tillverkarens och butikens egna. Där en rad står som ej angiven publicerar tillverkaren ingen uppgift, vilket gäller frågan om lokal drift för fyra av de sju och frågan om andra märken för tre. Vi fyller aldrig i en uppgift från en systermodell: att Aqara M3 skriver ut att den styr tredjepart säger ingenting om M100, som inte gör det.",
+            "Raden Sort är vår klassificering ur tillverkarens egen beskrivning, inte butikens rubrik. Radior, anslutning och uppgifter om lokal drift är tillverkarens och butikens egna. Raden Radior gäller vad som sitter i lådan: Home Assistant Green och Homey Pro mini når fler protokoll än så, men först sedan du köpt till en dongel respektive en Homey Bridge, och det står utskrivet i cellen. Vi fyller aldrig i en uppgift från en systermodell, utan varje cell har ett belägg på produktens egen sida.",
           )}
         />
       </Section>
@@ -326,33 +333,47 @@ export default async function SmartHemHubbPage() {
           </p>
           <p>
             <strong>Raden Sort är vår slutsats, inte en uppgift.</strong> Vi har
-            klassificerat varje produkt som märkesbrygga, Matter-controller eller
-            universell hubb utifrån vad tillverkaren själv beskriver att den når.
-            Butikens rubrik säger hubb om allihop, och den klassificeringen hade
-            gjort tabellen oanvändbar. Där tillverkaren inte beskriver räckvidden
-            har produkten inte rankats.
+            klassificerat varje produkt som märkesbrygga, Matter-controller
+            eller universell hubb utifrån vad tillverkaren själv beskriver att
+            den når. Butikens rubrik säger hubb om allihop, och den
+            klassificeringen hade gjort tabellen oanvändbar.
           </p>
           <p>
-            <strong>Det finns ingen oberoende provning att luta sig mot.</strong>{" "}
+            <strong>
+              Det finns ingen oberoende provning att luta sig mot.
+            </strong>{" "}
             Vi hittade ingen provning av smarta hem-hubbar hos Råd & Rön,
             Stiftung Warentest eller någon annan redaktion vi normalt läser.
-            Därför väger vi vad tillverkarna publicerar, och en produkt som
-            skriver ut sina begränsningar får kredit för det även när
-            begränsningen i sig är en nackdel.
+            Uppgifterna kommer därför från tillverkarnas egna datablad och
+            produktsidor, och de är kontrollerade mot varandra där de
+            överlappar.
           </p>
           <p>
-            <strong>Alla sju länkar går till samma butik.</strong> Kjell är den
-            enda svenska butik vi hittat med en egen hubbkategori, 33 artiklar,
-            och de har hela urvalet. Att en sida vilar på en källa är en svaghet
-            oavsett hur bra den källan är, och den står här i stället för att
-            döljas.
+            <strong>Fyra celler i tabellen stod fel till den 6 augusti.</strong>{" "}
+            Vi hade skrivit att fyra uppgifter inte gick att få tag i, och tre
+            av dem stod på den butikssida vi redan länkade till. Aqara M3 har en
+            infraröd sändare vi angav som saknad, Aqara M100 är en fullvärdig
+            Matter-controller, och både M3 och Hue Bridge kör lokalt. Samtidigt
+            fann vi två fel åt andra hållet: Home Assistant Green och Homey Pro
+            mini stod med radior de inte har. Rättelsen står på{" "}
+            <a href="/rattelser">Rättelser</a> och den flyttade fyra
+            placeringar.
           </p>
           <p>
-            <strong>IKEA Dirigera saknas, och det är ett aktivt val.</strong> Den
-            är sannolikt landets mest sålda hubb, men IKEA publicerar varken om
-            den styr andra tillverkares Matter-enheter eller om automationer
-            fungerar utan internet. De två uppgifterna avgör placeringen för alla
-            andra här, så vi rankar den inte på gissningar.
+            <strong>Sju av åtta länkar går till samma butik.</strong> Kjell är
+            den enda svenska butik vi hittat med en egen hubbkategori, 33
+            artiklar, och de har hela urvalet utom ett. Att en sida vilar på en
+            källa är en svaghet oavsett hur bra den källan är, och den står här
+            i stället för att döljas. IKEA Dirigera är undantaget och länkar
+            till IKEA.
+          </p>
+          <p>
+            <strong>IKEA Dirigera togs in i rankningen den 6 augusti.</strong>{" "}
+            Den stod tidigare bland produkterna vi övervägde, med motiveringen
+            att IKEA inte publicerar om den styr andra märken eller kör utan
+            internet. Båda uppgifterna står på IKEA:s egna svenska sidor, så
+            motiveringen höll inte. Den är nu bedömd mot samma fem kriterier som
+            de övriga och hamnar på femte plats.
           </p>
         </Prose>
       </Section>
@@ -362,7 +383,7 @@ export default async function SmartHemHubbPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje hubb"
-        description="Alla sju bedöms mot samma fem kriterier. Uppgifterna är tillverkarens och butikens egna, inte kontrollerade av oss."
+        description="Alla åtta bedöms mot samma fem kriterier, med räckvidd och lokal drift tyngst."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -387,7 +408,7 @@ export default async function SmartHemHubbPage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex poster som inte hamnade i rankningen, två av dem för att de är radior till en dator snarare än hubbar."
+        description="Fem poster som inte hamnade i rankningen, två av dem för att de är radior till en dator snarare än hubbar."
       >
         <ConsideredList items={SMART_HEM_HUBB_CONSIDERED} />
       </Section>
@@ -410,7 +431,7 @@ export default async function SmartHemHubbPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Räckvidd och protokoll väger 30 av 100 eftersom det ensamt avgör om hubben löser problemet du köpte den för. En brygga för 899 kronor når ett märke och en Matter-controller för 329 når flera, så priset duger inte som vägvisare. Oberoende väger 25 och mäter två saker som hänger ihop: om hemmet fungerar när internet ligger nere, och vem som bestämmer hur länge produkten lever. Tre tillverkare anger uttryckligen att automationer körs lokalt; de övriga säger ingenting, och tystnad ger lägre poäng utan att räknas som ett nej. Upprättande väger 20 eftersom spannet är extremt, från tre minuter till en kväll, och en hubb som står halvinstallerad i en byrålåda är sämre än ingen alls. Där en tillverkare inte publicerar en uppgift står den som ej angiven, aldrig som en nolla, och vi fyller aldrig i en uppgift från en systermodell. Vi har inte kopplat in någon hubb, inte dragit ur någon internetkabel och inte mätt någon räckvidd. Priserna är hos den butik vi länkar till."
+          footnote="Räckvidd och protokoll väger 30 av 100 eftersom det ensamt avgör om hubben löser problemet du köpte den för. En brygga för 899 kronor når ett märke och en Matter-controller för 329 når flera, så priset duger inte som vägvisare. Radion måste dessutom sitta i lådan för att räknas fullt ut: Home Assistant Green och Homey Pro mini når fler protokoll först sedan du köpt till en dongel respektive en Homey Bridge, och det drar ner poängen. Oberoende väger 25 och mäter var automationen körs och vem som bestämmer hur länge produkten lever. Sju av åtta fortsätter fungera utan internet; Plejd Gateway gör det inte, eftersom dess enda uppgift är att koppla meshen till nätet. Upprättande väger 20 eftersom spannet är extremt, från tre minuter till en kväll, och en hubb som står halvinstallerad i en byrålåda är sämre än ingen alls. Vi fyller aldrig i en uppgift från en systermodell, utan varje cell har ett belägg på produktens egen sida. Vi har inte kopplat in någon hubb, inte dragit ur någon internetkabel och inte mätt någon räckvidd. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -442,15 +463,17 @@ export default async function SmartHemHubbPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Fem tillverkarsidor, lästa i original."
+        description="Elva källor: tillverkarnas och butikernas egna sidor, plus en teknisk genomgång."
       >
         <Prose className="mb-block">
           <p>
-            <strong>Hue Bridge är den som är svårast att placera.</strong> Den
-            kopplar ihop sig med Alexa, Apple Home och Google, men om den kan ta
-            emot en Matter-enhet från en annan tillverkare är okänt. Har du
-            tänkt bygga vidare med annat än Hue är det den frågan du behöver
-            svar på innan du köper.
+            <strong>Hue Bridge är den som är svårast att placera.</strong> Kjell
+            skriver att du med Matter kan lägga till produkter från flera
+            tillverkare. Philips två egna dokument beskriver bara den motsatta
+            riktningen, och varje Matter-controller de namnger är någon annans
+            nav: HomePod mini, Nest Hub, Echo. Vi följer tillverkaren före
+            butiken och räknar bryggan som enkelriktad. Ska du bygga vidare med
+            annat än Hue är det den skillnaden som avgör köpet.
           </p>
         </Prose>
         <SourceList sources={SMART_HEM_HUBB_SOURCES} title={null} />

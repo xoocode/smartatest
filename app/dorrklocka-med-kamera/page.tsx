@@ -51,7 +51,7 @@ import Kopguide from "@/content/dorrklocka-med-kamera/kopguide.mdx";
  *    lägenhetsdörr faller utanför privatundantaget. Det ligger först eftersom
  *    det för en stor del av läsarna ändrar hela beslutet, inte bara valet av
  *    produkt.
- * 2. #ringklockan — fyra av åtta levereras utan signalenhet. Eget kriterium på
+ * 2. #ringklockan — tre av åtta levereras utan signalenhet. Eget kriterium på
  *    tjugo procent, vilket ingen konkurrent har, eftersom en dörrklocka som
  *    bara ringer i telefonen inte är en dörrklocka.
  * 3. #synfaltet — det vertikala måttet avgör om paketet syns, och det är det
@@ -68,12 +68,12 @@ import Kopguide from "@/content/dorrklocka-med-kamera/kopguide.mdx";
 
 const TEST_PAGE = DORRKLOCKA_MED_KAMERA;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "IMY har ett eget exempel som säger att en dörrkamera på en lägenhetsdörr faller utanför privatundantaget. Vi jämförde åtta dörrklockor med kamera från 990 till 1 990 kronor, och fyra av dem levereras utan ringklocka.",
+    "Reolink D340W för 1 199 kronor är billigast av åtta och den enda som har både ringklocka och strömadapter i lådan. Den döljer också grannens dörr i inspelningen, vilket avgör var du får sätta upp den: IMY:s eget exempel säger att privatundantaget inte gäller på en lägenhetsdörr.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -132,16 +132,17 @@ export default async function DorrklockaPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Integritetsskyddsmyndigheten har ett färdigt exempel om
-              dörrkameror på lägenhetsdörrar, och för den som bor i lägenhet
-              betyder det att
-              privatundantaget inte gäller. Bor du i villa avgörs valet i
-              stället av två saker som inget produktblad framhäver: om det
-              ringer inne i bostaden, och hur mycket kameran ser i höjdled. Vi
-              jämförde åtta dörrklockor från 990 till 1 990 kronor.
+              Reolink D340W kostar 1 199 kronor, är billigast av de åtta och
+              den enda där både ringklockan och strömadaptern redan ligger i
+              lådan. Den svartar dessutom ut grannens dörr i inspelningen, och
+              det avgör mer än man tror: Integritetsskyddsmyndigheten har ett
+              färdigt exempel som säger att privatundantaget inte gäller för en
+              dörrkamera på en lägenhetsdörr. Vi jämförde åtta dörrklockor från
+              990 till 1 990 kronor.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -241,21 +242,23 @@ export default async function DorrklockaPage() {
         tone="muted"
         width="default"
         title="Ringer det inne eller bara i telefonen?"
-        description="Fyra av åtta levereras utan signalenhet, och för en fjärde anger butiken ingenting alls."
+        description="Tre av åtta levereras utan signalenhet, och det är den skillnad som märks varje dag efter köpet."
       >
         <Prose>
           <p>
             <strong>Aqara G410</strong> levereras med en chime-hubb och sex
             AA-batterier. <strong>Tapo D235</strong> och{" "}
             <strong>Tapo D230S1</strong> levereras med en signalenhet som sätts
-            i ett eluttag inomhus.
+            i ett eluttag inomhus. <strong>Reolink D340W</strong> har en
+            ringklocka på 433 MHz i lådan tillsammans med strömadaptern, och{" "}
+            <strong>Imou 2S</strong> har en som dessutom håller minneskortet och
+            förstärker wifi vid dörren.
           </p>
           <p>
             <strong>Ring Battery Video Doorbell</strong> levereras med
             dörrklocka, laddkabel, monteringssats, ett demonteringsverktyg och
             en snabbstartsguide. Ingen signalenhet. Arlo och Google gör likadant
-            och säljer sina ringklockor som separata artiklar. För Reolink anger
-            butiken ingen, och Reolink säljer en Chime 230V för sig.
+            och säljer sina ringklockor som separata artiklar.
           </p>
           <p>
             En dörrklocka vars enda signal är en notis fungerar inte när mobilen
@@ -296,7 +299,7 @@ export default async function DorrklockaPage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om sekretesszoner är lästa i respektive tillverkares egen dokumentation och inte i butiken. Vi anger ingen abonnemangskostnad i kronor, eftersom vi inte kunnat läsa någon prislista hos Arlo, Ring, Yale eller Google.`)}
+          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om zoner är lästa i respektive tillverkares egen dokumentation och inte i butiken. Abonnemangspriserna är hämtade på Arlos, Rings och Googles egna svenska plansidor 2026-08-06, och Ring prissätter sina svenska planer i euro.`)}
         />
       </Section>
 
@@ -317,28 +320,31 @@ export default async function DorrklockaPage() {
             billigare någon annanstans är det den affären du ska göra.
           </p>
           <p>
-            <strong>
-              Två av åtta placeringar går till samma fabrikat, och det är
-              viktningens fel.
-            </strong>{" "}
-            TP-Link tar första och fjärde platsen, framför allt för att de är
-            två av tre som lägger en signalenhet i lådan. Väger du signalen
-            lägre än vi gör ser listan annorlunda ut, och då stiger Reolink.
+            <strong>Vinnaren bytte plats den 7 augusti 2026.</strong>{" "}
+            Vi skrev tidigare att Reolink D340W saknar signalenhet och kräver en
+            befintlig ringklockledning. Båda uppgifterna var fel, och båda
+            svaren stod i Kjells egen specifikation på den sida vi redan
+            länkade: rutan &quot;I paketet&quot; listar både ringklocka och
+            strömadapter. Felet låg i vår research, och det kostade produkten
+            två kriterier och två placeringar. Se{" "}
+            <a href="/rattelser">rättelser</a>.
           </p>
           <p>
-            <strong>Vi anger ingen abonnemangskostnad.</strong> Arlo, Ring,
-            Yale och Google publicerar inget pris på sina svenska plansidor. Vi
-            kan belägga att abonnemanget krävs, både hos butiken och hos
-            tillverkaren, men inte vad det kostar. Då skriver vi inget pris, och
-            vi bedömer beroendet i stället.
+            <strong>Abonnemangspriserna stod öppet hela tiden.</strong>{" "}
+            Sidan skrev till den 7 augusti 2026 att ingen av tillverkarna
+            publicerar vad planerna kostar i Sverige. Alla tre gör det: Arlo på
+            sin svenska plansida, Ring på sin, och Google på Nest Aware-sidan,
+            som numera heter Google Home Premium. Priserna står nu i tabellen
+            och i varje omdöme, eftersom en dörrklocka utan lokal lagring
+            kostar sitt hyllpris plus en avgift så länge du äger den.
           </p>
           <p>
-            <strong>Google Nest får lägsta betyg på ett kriterium av en
-            frånvaro, inte av ett fel.</strong>{" "}
-            Vi har inte hittat någon dokumentation som säger att produkten har
-            sekretesszoner. Det betyder inte att funktionen saknas. Det betyder
-            att en köpare inte kan ta reda på det i förväg, och vi bedömer
-            uttryckligen vad som går att kontrollera före köp.
+            <strong>En lucka i vår research sänker inget betyg.</strong>{" "}
+            Kriteriet för maskering betygsätter vilken sorts zon produkten har,
+            inte hur lätt uppgiften var att hitta. Google Nest och Imou ligger
+            lägst för att den zon tillverkarna dokumenterar för respektive
+            modell styr notiser i stället för bilden, vilket Google skriver ut
+            själva: en aktivitetszon ändrar inte vad kameran spelar in.
           </p>
         </Prose>
       </Section>
@@ -429,7 +435,7 @@ export default async function DorrklockaPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Integritet och bild väger 25 vardera, och ringklockan 20. Skälet till att signalen väger så tungt är att en dörrklocka vars enda signal går till en telefon inte löser den uppgift man köper den för, och att fyra av åtta levereras utan. Skalan för integritet är 5,0 när sekretesszonen gäller modellen och inget i tillverkarens dokumentation urholkar den, 4,0 när brasklappen bara slår in vid något du kan låta bli, 2,5 när zonen förskjuts eller försvinner vid normal användning, 1,5 när tillverkaren reserverar sig, och 1,0 när modellen inte står i tillverkarens lista eller när ingen dokumentation går att hitta. Kriteriet kostnad efter köp väger vad som slutar fungera utan abonnemang och inte kronor per månad, eftersom vi inte kunnat läsa någon prislista hos Arlo, Ring, Yale eller Google. Bildbedömningen bygger på publicerade mått och inte på bilder vi tagit. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
+          footnote="Integritet och bild väger 25 vardera, och ringklockan 20. Skälet till att signalen väger så tungt är att en dörrklocka vars enda signal går till en telefon inte löser den uppgift man köper den för, och att tre av åtta levereras utan. Skalan för integritet mäter vilken sorts zon produkten har: 5,0 för en sekretesszon som svartar ut området i inspelningen utan förbehåll som rör en fast monterad dörrklocka, 4,0 med ett förbehåll som bara slår in om enheten flyttas eller vrids, 3,0 när rörelsedetektorn känner av området ändå eller zonerna raderas när du justerar bilden, och 1,5 när zonen är en aktivitets- eller detekteringszon, som inte ändrar vad kameran spelar in. En uppgift vi inte lyckats få fram sänker inget betyg. Kriteriet kostnad efter köp väger både vad som slutar fungera utan abonnemang och vad abonnemanget kostar: Arlo Secure 99 kronor i månaden för en enhet eller 1 089 om året, Ring Basic 3,99 euro i månaden eller 39,99 om året, och Google Home Premium, som Nest Aware numera heter, 100 kronor i månaden eller 1 000 om året. Bildbedömningen bygger på publicerade mått och inte på bilder vi tagit. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -461,7 +467,7 @@ export default async function DorrklockaPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Myndighetens eget exempel om lägenhetsdörren, fyra tillverkares dokumentation, och butiken som bär priserna."
+        description="Myndighetens eget exempel om lägenhetsdörren, tillverkarnas egen dokumentation av zonerna, och butiken som bär priserna."
       >
         <Prose className="mb-block">
           <p>
@@ -473,10 +479,10 @@ export default async function DorrklockaPage() {
           <p>
             <strong>Primärkällorna är av ett annat slag.</strong> I stället för
             provningsrapporter är det en myndighetstext med ett färdigt exempel
-            om just den här produkten, plus fyra tillverkares egen dokumentation
-            av den funktion som avgör om produkten går att använda lagligt. Alla
-            är lästa i original och citerade ordagrant, i stället för att
-            refereras via en tredje part.
+            om just den här produkten, plus tillverkarnas egen dokumentation av
+            den funktion som avgör om produkten går att använda lagligt. Alla är
+            lästa i original och citerade ordagrant, i stället för att refereras
+            via en tredje part.
           </p>
         </Prose>
         <SourceList sources={DORRKLOCKA_SOURCES} title={null} />

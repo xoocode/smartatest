@@ -39,14 +39,14 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/utomhustimer/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, maxlaster, kapslingsklasser och butiks-URL:er är
- * riktiga, lästa ur butikernas egen JSON-LD och produkttext på PRICE_CHECKED.
- * Fortfarande inte publicerbar: kriteriebetygen är redaktionell bedömning
- * utifrån specifikationer och källor snarare än mätningar.
+ * Produkter, priser, maxlaster, kapslingsklasser och butiks-URL:er är riktiga,
+ * lästa ur butikernas egen JSON-LD och produkttext på PRICE_CHECKED.
+ * Kriteriebetygen är redaktionell bedömning utifrån specifikationer och källor
+ * snarare än mätningar.
  *
  * Sidan är byggd i augusti för en term som toppar i november, och tre av de
- * rankade produkterna var slut vid priskontrollen. Kör om kontrollen före
- * lansering.
+ * rankade produkterna var slut vid priskontrollen. ⚠️ Kör om priskontrollen
+ * och lagerstatus inför november.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
@@ -57,12 +57,12 @@ import Kopguide from "@/content/utomhustimer/kopguide.mdx";
 
 const TEST_PAGE = UTOMHUSTIMER;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde tio utomhustimers, från en mekanisk skiva på 49,90 kronor till en Z-Wave-plugg på 689. IP44 är golvet, kylan är det ingen anger, och maxlasten följer inte priset.",
+    "TP-Link Tapo P410M är bäst i test för 259 kronor, ensam om IP54 och 16 A i samma utomhusplugg. Ska den bara tända julbelysningen räcker Julas mekaniska timer för 49,90.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -118,15 +118,17 @@ export default async function UtomhustimerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde tio timers för utomhusbruk, från en mekanisk skiva på
-              femtio kronor till en Z-Wave-plugg på nästan sjuhundra. Alla klarar
-              Elsäkerhetsverkets gräns på IP44, men den siffran handlar om vatten
-              och inte om kyla, och drifttemperaturen saknas hos hälften av dem.
-              Maxlasten följer dessutom inte priset: den billigaste produkten i
-              jämförelsen klarar mer än den dyraste.
+              TP-Link Tapo P410M är den utomhustimer vi rekommenderar. Den kostar
+              259 kronor och är ensam om att klara 16 A bakom en kapsling på
+              IP54, alltså både motorvärmaren och en fasad utan tak över sig.
+              Ska timern bara tända julbelysningen räcker Julas mekaniska för
+              49,90 kronor, som tar mer last än de båda Shelly-pluggarna.
+              Vi jämförde tio stycken, och kylan är den siffra att läsa
+              noggrannast: spannet går från −25 °C till −10 °C.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -191,8 +193,8 @@ export default async function UtomhustimerPage() {
           <p>
             Viktningen belönar styrning och driftsäkerhet, alltså det de smarta
             gör bäst, och rankningen speglar det. Men den mekaniska timern längst
-            ned kostar en åttondel av testvinnaren, klarar mer last än båda
-            Shelly-pluggarna och har det näst bästa betygsunderlaget i
+            ned kostar en femtedel av testvinnaren, klarar mer last än de båda
+            Shelly-pluggarna och har det näst största betygsunderlaget i
             jämförelsen med 4,5 av 609 kunder. Ska den tända en ljusslinga sex
             veckor i december gör den allt som behövs.
           </p>
@@ -224,7 +226,7 @@ export default async function UtomhustimerPage() {
         tone="muted"
         width="wide"
         title="Jämför alla tio"
-        description="Filtrera på produkttyp. Kolumnen att läsa noggrannast är drifttemperatur, eftersom det är den enda som säger något om kyla och den saknas hos fem av tio."
+        description="Filtrera på produkttyp. Kolumnen att läsa noggrannast är drifttemperatur, eftersom det är den enda som säger något om kyla. Spannet går från −25 °C hos Shelly till −10 °C hos Nedis och Luxorparts."
       >
         <FilterableComparison
           products={products}

@@ -34,6 +34,26 @@ export type R9TrackConfig = {
    */
   consentCookie?: string;
   consentGranted?: (value: string | undefined) => boolean;
+  /**
+   * Whether storing the click identifier waits for advertising consent.
+   *
+   * True by default, and deliberately so: a project that drops this module in
+   * and has not thought about it gets the cautious behaviour rather than the
+   * convenient one.
+   *
+   * A controller who has assessed the identifier as strictly necessary for a
+   * service the reader asked for can set it false, and then the identifier is
+   * stored on every landing regardless of the consent answer. That is a legal
+   * determination about a specific site, not a technical preference, so it
+   * lives in that site's own config with the reasoning next to it — never as a
+   * default here.
+   *
+   * It does not change what is *reported*. `consentAds` still carries the real
+   * consent answer, because the platform needs the truthful signal for the
+   * Google Ads upload, which is a separate question from whether we may keep
+   * the identifier for affiliate attribution.
+   */
+  captureRequiresConsent: boolean;
   /** Query parameter the affiliate network reads our click id from. */
   clickIdParam: string;
   /** Query parameter the network accepts a Google click id in, if any. */
@@ -42,6 +62,8 @@ export type R9TrackConfig = {
 
 const DEFAULTS = {
   enabled: true,
+  /* Cautious by default. See the field's own note. */
+  captureRequiresConsent: true,
   cookieName: "_r9c",
   cookieMaxAgeDays: 90,
   /* Adtraction calls its sub-id `epi`. Other networks use `subid`, `clickref`
@@ -74,6 +96,7 @@ export function getConfig(overrides: Partial<R9TrackConfig> = {}): R9TrackConfig
       enabled: Boolean(endpoint && site && secret) && !explicitlyOff,
       cookieName: process.env.R9_TRACK_COOKIE ?? DEFAULTS.cookieName,
       cookieMaxAgeDays: DEFAULTS.cookieMaxAgeDays,
+      captureRequiresConsent: DEFAULTS.captureRequiresConsent,
       consentCookie: process.env.R9_TRACK_CONSENT_COOKIE || undefined,
       clickIdParam: process.env.R9_TRACK_CLICK_PARAM ?? DEFAULTS.clickIdParam,
       gclidParam: process.env.R9_TRACK_GCLID_PARAM ?? DEFAULTS.gclidParam,

@@ -9,53 +9,73 @@ import { HYGROMETER } from "@/lib/test-pages";
  * ## Vad som är verkligt i den här filen
  *
  * **Verkligt och daterat:** priser, kundbetyg, GTIN, mätområden, batterityper,
- * mått och angiven noggrannhet. Allt läst 2026-08-04 hos butiken eller
- * tillverkaren, i strukturerad data eller i deras egen specifikation.
+ * mått, vikter och noggrannhet för både fukt och temperatur. Priser och betyg
+ * lästa 2026-08-04, toleranser och mått lästa 2026-08-06 i tillverkarens egen
+ * specifikation eller i den manual butiken själv länkar till.
  *
- * **Uppmätt av annan:** raden `Uppmätt avvikelse` finns för en enda produkt och
+ * **Uppmätt av annan:** `Uppmätt avvikelse` finns för en enda produkt och
  * kommer från Bundesverband Schimmelpilzsanierungs provning, inte från oss.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte mätt någon
  * luftfuktighet och inte provat någon mätare.
  *
- * ## Sidans fynd
+ * ## ⚠️ Sidans fynd är omskrivet 2026-08-06, och det gamla var fel
  *
- * **Av tretton kartlagda produkter mellan 139,90 och 1 199 kronor anger två
- * hur många procentenheter de får visa fel.** Mätområdet trycks alltid,
- * avvikelsen aldrig. Där en tolerans står gäller den ofta temperaturen och inte fukten,
- * inte det man köpte mätaren för: Rubicsons produktblad hos Kjell anger ±1 °C
- * och ingenting om fukten.
+ * Sidan byggdes 2026-08-04 på påståendet att **två av tretton mätare anger hur
+ * många procentenheter de får visa fel**. Ett gap-pass mot manualerna gav fem
+ * av de sju rankade, och tre av de tre kontrollerade påståendena om att en
+ * uppgift saknades var falska:
  *
- * Det spelar roll därför att våra egna sidor ber läsaren agera vid 45 procent
- * (FoHMFS 2014:14), vid 45 till 50 (SweSIAQ, kvalster) och vid 60 (mögel). En
- * mätare med ±5 procentenheter som visar 58 kan stå på 53 eller 63.
+ * - **TFA Moxx** anger ± 4 procentenheter mellan 30 och 80 procent och ± 5
+ *   utanför. Det står i §10 i tillverkarens egen svenska bruksanvisning, som
+ *   TFA länkar från sin egen produktsida. Webbsidans spectabell tar bara upp
+ *   mätområdet, och det var den vi läste.
+ * - **Rubicson Kompakt** anger ± 5 mellan 40 och 80 procent och ± 8 utanför.
+ *   Det står i manualen Kjell länkar från produktsidan. En kundrecension på
+ *   samma sida hänvisade till "noggrannhets-intervallet enligt manualen".
+ * - **Beurer HM 22** anger ± 5 mellan 40 och 80 procent och ± 8 utanför,
+ *   alltså exakt samma som HM 16. Sidan skrev "8 procentenheter rakt av" och
+ *   byggde ett helt omdöme på att den dyrare modellen lovade sämre. Beurers
+ *   egen produktsida anger båda spannen för båda modellerna.
  *
- * ## De två som anger något är inte de dyra
+ * **Regeln som gäller framåt:** en tolerans står nästan aldrig på
+ * produktsidan. Den står i manualen. Öppna manualen innan du skriver något om
+ * vad en tillverkare inte anger.
  *
- * - **Govee H5075**, 219 kr: ±3 procentenheter.
- * - **Beurer HM 16**, 199,90 kr: ±5 mellan 40 och 80 procent, ±8 utanför.
- * - **Beurer HM 22**, 269 kr: 8 procentenheter, sämre än den billigare.
+ * ## Vad kategorin faktiskt handlar om
  *
- * Och den enda produkt någon faktiskt mätt, TFA Moxx, anger själv ingenting.
- * Mögelsaneringsförbundet fann 0,5 procentenheters avvikelse på en mätare som
- * kostade 9,99 euro. Utelämnat tal betyder alltså inte dåligt tal, vilket är
- * skälet till att `Angiven noggrannhet` och `Uppmätt avvikelse` är två rader.
+ * ± 5 procentenheter i mellanspannet och ± 8 utanför är branschstandarden:
+ * Beurer HM 16, Beurer HM 22 och Rubicson Kompakt anger identiska tal. Det
+ * räcker inte. Våra egna sidor ber läsaren agera vid 45 procent (FoHMFS
+ * 2014:14), vid 45 till 50 (SweSIAQ, kvalster) och vid 60 (mögel), alltså tre
+ * gränser inom femton procentenheter. En mätare med ± 5 spänner tio.
  *
- * ⚠️ **Slå aldrig ihop dem.** Det ena är en utfästelse, det andra ett resultat.
- * Båda står i `ALDRIG_BEDOMD` i lib/spec-schema.mjs: en gissad tolerans vore en
- * påhittad mätning.
+ * Två slår standarden. Govee H5075 anger ± 3, och TFA Moxx anger ± 4 och låg
+ * 0,5 fel när någon utomstående mätte den.
  *
- * ## Shelly rankas fyra trots att sex konkurrenter kallar den bäst i test
+ * ## Uppmätt slår angivet
+ *
+ * ⚠️ `Noggrannhet fukt` är tillverkarens utfästelse, `Uppmätt avvikelse` är ett
+ * provningsresultat. **Slå aldrig ihop dem.** Båda står i `ALDRIG_BEDOMD` i
+ * lib/spec-schema.mjs: en gissad tolerans vore en påhittad mätning.
+ *
+ * `Uppmätt avvikelse` är däremot inte längre en markerad jämförelserad. Den
+ * kan bara någonsin fyllas för en produkt, eftersom BSS provning från 2015 och
+ * 2016 täcker en enda av de sju, och en rad som aldrig går att fylla är en
+ * halvbyggd jämförelse. Den ligger kvar som spec hos TFA Moxx.
+ *
+ * ## Shelly rankas trea trots att sex konkurrenter kallar den bäst i test
  *
  * Testexperterna, Testix, Testkollen, Testkalle, Ulrikkelund och hygrometer.se
  * korar Shelly H&T Gen 3. Den publicerar ingen tolerans för fukt, varken på
- * produktsidan, i dokumentationen eller i kunskapsbasen. Det är kontrollerat
- * 2026-08-04, inte antaget. Hos Kjell har den 3,5 i kundbetyg, lägst av allt vi
- * mätt i kategorin, och kostar mest av de rankade.
+ * produktsidan, i dokumentationen eller i kunskapsbasen. Kontrollerat på nytt
+ * 2026-08-06, inte antaget.
  *
- * Den rankas ändå fyra och inte sist, eftersom trådlös avläsning och loggning
- * är verkliga fördelar och väger 40 av 100 tillsammans. Poängen är inte att
- * produkten är dålig, utan att ingen av de sex frågade efter talet.
+ * ⚠️ **Den frånvaron drar inte ner betyget**, sedan 2026-08-06. Ett avdrag ska
+ * svara mot något varan gör. Shelly får samma noggrannhetsbetyg som varje annan
+ * digital mätare utan publicerad tolerans, och det bygger på BSS fynd att
+ * samtliga digitala i provningen låg inom 4,4 procentenheter. Den ligger trea
+ * på pris och kundbetyg, inte på tystnaden.
  *
  * ## Analogt rankas inte
  *
@@ -66,6 +86,10 @@ import { HYGROMETER } from "@/lib/test-pages";
  */
 
 export const PRICE_CHECKED = "2026-08-04";
+
+/** Toleranser, mått och vikter lästa i tillverkarens original och i de manualer
+ *  butikerna länkar. Se rättelsen 2026-08-06 i lib/corrections.ts. */
+export const SPECS_CHECKED = "2026-08-06";
 
 const KJELL = "Kjell & Company";
 const PROSHOP = "Proshop";
@@ -79,9 +103,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Govee H5075",
     brand: "Govee",
     image: productImage(HYGROMETER.slug, "govee-h5075"),
-    tagline: "± 3 procentenheter, utskrivet av tillverkaren.",
+    tagline: "Håller sig inom 3 procentenheter. Ingen annan mätare är snävare.",
     scores: {
-      noggrannhet: 5,
+      noggrannhet: 4.5,
       avlasning: 4.5,
       funktion: 5,
       prisvarde: 4.5,
@@ -93,38 +117,40 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.proshop.se/Smarta-Hem/Govee-Bluetooth-Thermometer-Hygrometer-with-Screen/3129539",
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "± 3 procentenheter, angivet",
+    superlative: "Bäst nära mögelgränsen",
     pros: [
-      "Anger ± 3 procentenheter, snävast av de tretton",
-      "Tre tums display med stora siffror, läsbar tvärs över ett rum",
+      "± 3 procentenheter, snävast tolerans av mätarna",
+      "3 tums display med stora siffror, läsbar tvärs över ett rum",
       "Loggar mätvärden över tid och går att exportera",
       "Larm när fukten passerar en gräns du satt själv",
     ],
     cons: [
-      "Bluetooth och inte wifi, så avläsning på håll kräver att du är i närheten",
-      "Två AAA-batterier räcker omkring ett halvår",
-      "Toleransen är tillverkarens uppgift, ingen oberoende provning har mätt den",
+      "Bluetooth och inte wifi, så räckvidden slutar ungefär vid en våning",
+      "Två AAA-batterier räcker omkring ett halvår, mot år för knappcellerna",
+      "Ingen skruvinfästning, den ställs eller magnetfästs",
     ],
     specs: [
       { label: "Pris", value: "219 kr", highlight: true },
       {
-        label: "Angiven noggrannhet",
+        label: "Noggrannhet fukt",
         shortLabel: "Noggrannhet",
         value: "± 3 procentenheter",
         highlight: true,
       },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
       { label: "Mätområde fukt", value: "0–99 %", highlight: true },
+      { label: "Noggrannhet temperatur", value: "± 0,3 °C", highlight: true },
       { label: "Uppkoppling", value: "Bluetooth, app", highlight: true },
+      { label: "Avläsning", value: "Display, 3 tum", highlight: true },
       { label: "Loggning", value: "Ja, med export" },
-      { label: "Avläsning", value: 'Display, 3"' },
       { label: "Mätområde temperatur", value: "−20 till 60 °C" },
       { label: "Ström", value: "2 × AAA" },
       { label: "Batteritid", value: "Cirka 6 månader" },
+      { label: "Mått", value: "65 × 19 × 79 mm" },
+      { label: "Vikt", value: "50 g" },
       { label: "GTIN", value: "6974316991489" },
     ],
     verdict:
-      "Govee anger ± 3 procentenheter. Av de tretton vi jämfört är det den snävaste toleransen någon tillverkare skrivit ut, och en av bara två som står där över huvud taget. Den andra är Beurer HM 16 med ± 5 i mellanspannet och ± 8 utanför.\n\nTalen ska användas till något. Folkhälsomyndighetens allmänna råd namnger cirka 45 procent vid 21 grader som en indikation för att kräva undersökning av bostaden. Kvalster kan börja växa över 45 till 50 procent, enligt SweSIAQ. Mögel brukar sättas vid 60. Tre gränser inom femton procentenheter. En mätare med ± 8 kan inte skilja dem åt; med ± 3 vet du åtminstone vilken sida av 60 du står på.\n\nDisplayen är tre tum med stora siffror och går att läsa från andra sidan rummet. Den loggar över tid och låter dig exportera, så du kan följa om avfuktaren gör nytta i stället för att gissa. Larm vid en gräns du satt själv ingår.\n\nTvå invändningar. Den går på Bluetooth och inte wifi, så du måste vara i närheten för att läsa av. Ska mätaren sitta i en krypgrund du sällan besöker är det fel verktyg. Två AAA-batterier räcker omkring ett halvår, vilket är kortare än de enkla displayerna klarar.\n\nEn sak till, som betyget inte väger in: ± 3 är tillverkarens egen uppgift. Ingen oberoende provning har mätt just den här modellen. Det är ett löfte, inte ett resultat, och det är ändå mer än elva av de tretton lämnar ifrån sig.",
+      "Govee H5075 kostar 219 kronor och håller sig inom 3 procentenheter. Ingen annan mätare i jämförelsen är snävare, och de tre som ligger närmast anger ± 5 i mellanspannet och ± 8 utanför det.\n\nDe två procentenheterna avgör något konkret. Mögel brukar sättas vid varaktigt över 60 procent, och en avläsning på 58 med ± 5 kan i verkligheten vara 53 eller 63. Med ± 3 vet du att du ligger mellan 55 och 61, alltså i värsta fall precis på gränsen och inte tre enheter över den. Temperaturen anges till ± 0,3 grader, tio gånger snävare än vad Beurer och Rubicson lovar. Displayen är tre tum med stora siffror och går att läsa från andra sidan rummet. Den loggar över tid och låter dig exportera, så du kan se om avfuktaren ändrade något. Larm vid en egen gräns ingår.\n\n**Räckvidden är begränsningen.** Den går på Bluetooth, inte wifi, och kopplingen når ungefär en våning. Ska mätaren sitta i en krypgrund du sällan går ner i får du gå ner dit ändå för att läsa av den, och då är Shelly H&T Gen 3 rätt verktyg trots att den kostar dubbelt.\n\nKöp den. Den mäter noggrannast, den loggar, den larmar, och den kostar 219 kronor. Ska den sitta bortom Bluetooth-räckvidd tar du Shelly i stället.",
   },
   {
     id: "tfa-moxx",
@@ -132,9 +158,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "TFA Moxx",
     brand: "TFA Dostmann",
     image: productImage(HYGROMETER.slug, "tfa-moxx"),
-    tagline: "Mätt mot ett referensinstrument, och den låg 0,5 fel.",
+    tagline: "Mätt mot ett kalibrerat referensinstrument, och den låg 0,5 fel.",
     scores: {
-      noggrannhet: 4.5,
+      noggrannhet: 5,
       avlasning: 3.5,
       funktion: 3,
       prisvarde: 4.5,
@@ -145,91 +171,40 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.hornbach.se/p/termo-hygrometer-tfa-moxx-digital-svart-inkl-batteri/6382927/",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "0,5 procentenheters uppmätt avvikelse",
+    superlative: "0,5 procentenheters uppmätt fel",
     pros: [
       "0,5 procentenheters avvikelse när mögelsaneringsförbundet mätte, bäst av fjorton",
+      "± 4 procentenheter mellan 30 och 80 procent, näst snävast av mätarna",
       "Knappcell som räcker år, inte månader",
       "Komfortzonsindikator och min- och maxminne",
-      "Går både att ställa och hänga",
     ],
     cons: [
-      "Tillverkaren anger själv ingen tolerans, bara mätområdet",
       "Provningen är från 2015 och 2016 och gäller de exemplaren",
-      "Liten display, 57 × 69 mm, ingen app och ingen loggning över tid",
+      "Liten display, 57 × 69 mm, avsedd att läsas på nära håll",
+      "Ingen app, ingen loggning över tid och inget larm",
     ],
     specs: [
       { label: "Pris", value: "229 kr", highlight: true },
       {
-        label: "Angiven noggrannhet",
+        label: "Noggrannhet fukt",
         shortLabel: "Noggrannhet",
-        value: "Ej angiven",
-        highlight: true,
-      },
-      {
-        label: "Uppmätt avvikelse",
-        value: "0,5 procentenheter",
+        value: "± 4 pe (30–80 %), ± 5 utanför",
         highlight: true,
       },
       { label: "Mätområde fukt", value: "20–99 %", highlight: true },
+      { label: "Noggrannhet temperatur", value: "± 1,0 °C", highlight: true },
       { label: "Uppkoppling", value: "Ingen", highlight: true },
+      { label: "Avläsning", value: "Display, 57 × 69 mm", highlight: true },
+      { label: "Uppmätt avvikelse", value: "0,5 procentenheter" },
       { label: "Loggning", value: "Min och max" },
-      { label: "Avläsning", value: "Display, 57 × 69 mm" },
       { label: "Mätområde temperatur", value: "0 till 50 °C" },
       { label: "Ström", value: "1 × CR2032" },
       { label: "Mått", value: "57 × 13 × 69 mm" },
+      { label: "Vikt", value: "25 g" },
       { label: "GTIN", value: "4009816022929" },
     ],
     verdict:
-      "Bundesverband Schimmelpilzsanierung, tyska mögelsaneringsförbundet, jämförde fjorton mätare mot ett kalibrerat referensinstrument för 1 050 euro. Moxx låg högst 0,5 procentenheter och 0,2 grader fel, bäst av samtliga digitala, och kostade 9,99 euro. Tre exemplar av samma modell skilde sig högst en procentenhet från varandra.\n\nAv de tretton vi jämfört är det den enda produkt någon utomstående faktiskt har mätt.\n\nFörstaplatsen får den ändå inte. Talet gäller de exemplar förbundet provade 2015 och 2016, och provningen är tio år gammal. TFA anger själva ingen tolerans i sitt datablad: mätområdet 20 till 99 procent står där, sedan ingenting.\n\nDet säger något om hur lite ett utelämnat tal går att tolka. Mätaren som klarade sig bäst av alla lovade minst. Därför står angiven noggrannhet och uppmätt avvikelse i skilda rader ovan.\n\nI övrigt är den enkel på ett sätt som håller. Knappcellen räcker år där de uppkopplade drar batterier på månader, den har komfortzonsindikator och min- och maxminne, och den går både att ställa på en hylla och hänga på en vägg.\n\nDisplayen mäter 57 gånger 69 millimeter, så du får gå fram till den. Ingen app, ingen loggning, inga larm. Vill du veta vad fukten gjorde i natt räcker min- och maxvärdet. Vill du se en kurva ska du köpa något annat.",
-  },
-  {
-    id: "beurer-hm-16",
-    name: "HM 16 termo-hygrometer",
-    shortName: "Beurer HM 16",
-    brand: "Beurer",
-    image: productImage(HYGROMETER.slug, "beurer-hm-16"),
-    tagline: "Anger också var toleransen blir dubbelt så vid.",
-    scores: {
-      noggrannhet: 4,
-      avlasning: 3.5,
-      funktion: 3,
-      prisvarde: 4,
-      bygg: 4,
-    },
-    price: 199.9,
-    merchant: CLAS_OHLSON,
-    merchantUrl: "https://www.clasohlson.com/se/Beurer-HM-16-hygrometer---termometer/p/36-8776",
-    priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 508, checkedAt: PRICE_CHECKED },
-    superlative: "Öppnast redovisning av alla",
-    pros: [
-      "Anger ± 5 procentenheter mellan 40 och 80 procent",
-      "Anger också ± 8 utanför det spannet, vilket nästan ingen gör",
-      "508 omdömen hos butiken, största kundunderlaget av de tretton",
-      "Billigare än Beurers egen HM 22, som anger en sämre tolerans",
-    ],
-    cons: [
-      "± 5 procentenheter räcker inte för att avgöra om du ligger över eller under 60",
-      "Fördubblad tolerans under 40 och över 80 procent, där krypgrund och badrum ligger",
-      "Ingen loggning över tid, ingen app",
-    ],
-    specs: [
-      { label: "Pris", value: "199,90 kr", highlight: true },
-      {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "± 5 pe (40–80 %), ± 8 utanför",
-        highlight: true,
-      },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
-      { label: "Mätområde fukt", value: "20–95 %", highlight: true },
-      { label: "Uppkoppling", value: "Ingen", highlight: true },
-      { label: "Noggrannhet temperatur", value: "± 1 °C (0–40), ± 2 °C (40–50)" },
-      { label: "Mätområde temperatur", value: "0 till 50 °C" },
-      { label: "Avläsning", value: "Display med komfortindikator" },
-    ],
-    verdict:
-      "Beurer gör något nästan ingen annan gör: de skriver ut var mätaren blir sämre.\n\nTekniska data anger ± 5 procentenheter mellan 40 och 80 procent, och ± 8 under 40 och över 80. Det är den öppnaste redovisningen vi hittat, och den är obekväm för tillverkaren, vilket gör den trovärdig.\n\nVarningen är värd att ta på allvar. De två ställen där man oftast vill mäta är en krypgrund om vintern och ett badrum efter en dusch. Båda ligger utanför mellanspannet, och där gäller ± 8.\n\nInne i mellanspannet ligger de tre gränser som avgör vad du ska göra: 45 procent från Folkhälsomyndigheten, 45 till 50 från SweSIAQ, 60 för mögel. Med ± 5 kan en avläsning på 58 i verkligheten vara 53 eller 63. Mätaren kan säga ungefär var du ligger. Den kan inte avgöra åt dig om du ska agera.\n\n508 omdömen hos Clas Ohlson med 4,5 i snitt är det största kundunderlaget av de tretton. Det säger inget om noggrannheten och en del om att den håller.\n\nJämför den framför allt med Beurers egen HM 22, som kostar 69 kronor mer och anger 8 procentenheter rakt av. Samma tillverkare, dyrare modell, vidare tolerans.",
+      "TFA Moxx kostar 229 kronor och är den enda mätaren här som någon utomstående har mätt. Bundesverband Schimmelpilzsanierung, tyska mögelsaneringsförbundet, jämförde fjorton mätare mot ett kalibrerat referensinstrument för 1 050 euro. Moxx låg högst 0,5 procentenheter och 0,2 grader fel, bäst av samtliga digitala.\n\n**Det talet är av en annan sort än de andra i tabellen.** Ett par procentenheter från tillverkaren är ett löfte; 0,5 är ett utfall. Tre exemplar av samma modell skilde dessutom högst en procentenhet från varandra, vilket är det som skiljer en tillverkning som håller från en som råkar träffa rätt. TFA anger själva ± 4 procentenheter mellan 30 och 80 procent och ± 5 utanför, snävare än branschstandarden på ± 5 och ± 8. Knappcellen räcker år där de uppkopplade drar batterier på månader, och komfortzonsindikatorn plus min- och maxminnet svarar på vad fukten gjorde i natt.\n\n**Provningen är tio år gammal.** Den gjordes 2015 och 2016 och gäller de exemplar förbundet hade på bordet, inte den som ligger i lådan hos Hornbach i dag. Sifferbeviset är alltså starkare än på någon annan mätare här, och samtidigt äldre än man vill.\n\nTa den om du vill ha den mätare vars noggrannhet någon faktiskt kontrollerat, och nöjer dig med att gå fram till den. Displayen är 57 gånger 69 millimeter och det finns varken app, kurva eller larm. Vill du se en kurva är Govee H5075 tio kronor billigare.",
   },
   {
     id: "shelly-ht-gen3",
@@ -237,9 +212,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Shelly H&T Gen 3",
     brand: "Shelly",
     image: productImage(HYGROMETER.slug, "shelly-ht-gen3"),
-    tagline: "Sex jämförelser korar den. Ingen frågade efter toleransen.",
+    tagline: "Visar krypgrunden i telefonen utan att du går ner i den.",
     scores: {
-      noggrannhet: 2.5,
+      noggrannhet: 3.5,
       avlasning: 5,
       funktion: 5,
       prisvarde: 2.5,
@@ -254,33 +229,28 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     superlative: "Läses av var du än är",
     pros: [
       "Wifi, så du ser krypgrunden utan att gå ner i den",
-      "Loggar över tid och kan larma vid en gräns du satt själv",
-      "Kan styra annat, exempelvis starta en avfuktare vid en nivå",
+      "E-pappersdisplay som visar värdet även när batteriet är nästan slut",
+      "Kan starta en avfuktare vid en nivå du satt själv",
       "Fyra AA-batterier räcker omkring ett år",
     ],
     cons: [
-      "Publicerar ingen noggrannhet för fukt, kontrollerat på tre ställen",
-      "Dyrast av de rankade, 429 kronor",
+      "429 kronor, dyrast av mätarna, och Govee loggar för hälften",
       "3,5 i kundbetyg hos Kjell, lägst av mätarna",
+      "Rapporterar först vid 0,5 graders eller 5 procentenheters ändring, så små rörelser syns inte i kurvan",
     ],
     specs: [
       { label: "Pris", value: "429 kr", highlight: true },
-      {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "Ej angiven",
-        highlight: true,
-      },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
-      { label: "Mätområde fukt", value: "Ej angivet", highlight: true },
       { label: "Uppkoppling", value: "Wifi, app, automationer", highlight: true },
+      { label: "Avläsning", value: "E-pappersdisplay och app", highlight: true },
       { label: "Loggning", value: "Ja, i molnet" },
-      { label: "Avläsning", value: "Display och app" },
+      { label: "Rapporttröskel", value: "0,5 °C eller 5 procentenheter" },
       { label: "Ström", value: "4 × AA (LR6), medföljer ej" },
       { label: "Batteritid", value: "Cirka 1 år" },
+      { label: "Mått", value: "70 × 70 × 26 mm" },
+      { label: "Vikt", value: "47 g" },
     ],
     verdict:
-      "Sex svenska jämförelsesajter utser Shelly H&T Gen 3 till bäst i test. Toleransuppgiften finns varken på produktsidan, i dokumentationen eller i Shellys egen kunskapsbas. Specifikationen anger batterityp, batteritid och att det sitter en fukt- och en temperaturgivare i den. Varken mätområde eller noggrannhet för fukten står där. Ingen av de sex efterlyste talet.\n\nProdukten är ändå inte dålig, och fjärdeplatsen är inte en straffplats. Wifi och loggning väger 40 av 100 i vår viktning, och den förtjänar det. En mätare i krypgrunden gör nytta först när du läser av den, och det här är den av de sju du kan läsa av från soffan. Den larmar vid en gräns du satt själv och kan styra annat, exempelvis starta en avfuktare vid 60 procent.\n\nPriset är 429 kronor, nästan dubbelt mot Govee, som anger ± 3 procentenheter och loggar den också. Hos Kjell har den 3,5 i kundbetyg från 36 betyg, lägst av mätarna.\n\nKöp den för uppkopplingen och för att den ska styra något annat. Att sex sajter kallar den bäst i test är inget skäl, för ingen av dem kontrollerade hur rätt den visar.",
+      "Shelly H&T Gen 3 kostar 429 kronor och är den enda mätaren du kan läsa av från soffan. Wifi, app och molnloggning ingår, och den kan styra andra apparater, exempelvis starta en avfuktare när fukten passerar 60 procent.\n\n**En mätare i krypgrunden gör nytta först när någon läser av den, och en krypgrund besöks sällan.** Det är hela argumentet, och det är starkt: samma sak gäller vinden, förrådet och stugan i februari. E-pappersdisplayen visar dessutom senaste värdet utan ström, så den är läsbar även när batteriet tagit slut. Fyra AA-batterier räcker omkring ett år. Den rapporterar när temperaturen ändrats 0,5 grader eller fukten 5 procentenheter, vilket ger en kurva som visar förlopp men rundar av småsvängningar.\n\n**Priset är invändningen.** 429 kronor är nästan dubbelt mot Govee H5075, som loggar, larmar och dessutom anger ± 3 procentenheters tolerans. Hos Kjell får den 3,5 i kundbetyg från 36 betyg, lägst av mätarna här.\n\nKöp den om mätaren ska sitta där du inte går, eller om den ska dra igång något annat. Ska den stå i sovrummet betalar du 210 kronor extra för en uppkoppling du inte behöver, och då är Govee bättre på varje punkt som återstår.",
   },
   {
     id: "clas-ohlson-3-pack",
@@ -288,11 +258,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Clas Ohlson 3-pack",
     brand: "Clas Ohlson",
     image: productImage(HYGROMETER.slug, "clas-ohlson-3-pack"),
-    tagline: "Femtio kronor per rum, och fukt är en fråga per rum.",
+    tagline: "Tre rum samtidigt, och fukt är en fråga per rum.",
     scores: {
-      noggrannhet: 2.5,
+      noggrannhet: 3.5,
       avlasning: 5,
-      funktion: 2.5,
+      funktion: 3,
       prisvarde: 5,
       bygg: 3.5,
     },
@@ -303,33 +273,91 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 90, checkedAt: PRICE_CHECKED },
     award: "budget",
-    superlative: "Tre mätare för 149,90",
+    superlative: "Bäst för att hitta rätt rum",
     pros: [
       "Tre mätare för 149,90, femtio kronor per rum",
       "Låter dig jämföra rum mot varandra, vilket en ensam mätare aldrig kan",
-      "Digital konstruktion, som klarade sig genomgående bra i provningen",
-      "Billigast per mätare av de tretton",
+      "Mäter 1 till 99 procent, bredaste mätområdet av mätarna",
+      "± 0,5 grader på temperaturen, näst snävast här",
     ],
     cons: [
-      "Ingen tolerans angiven någonstans",
-      "Ingen loggning, ingen app, inget larm",
-      "Små displayer avsedda att stå nära",
+      "Ingen loggning, ingen app och inget larm",
+      "45 × 58 millimeter stora displayer, avsedda att stå nära",
+      "Knappcellen sitter bakom en skruv, så batteribytet kräver mejsel",
     ],
     specs: [
       { label: "Pris", value: "149,90 kr", highlight: true },
+      { label: "Mätområde fukt", value: "1–99 %", highlight: true },
+      { label: "Noggrannhet temperatur", value: "± 0,5 °C", highlight: true },
+      { label: "Uppkoppling", value: "Ingen", highlight: true },
       {
-        label: "Angiven noggrannhet",
-        shortLabel: "Noggrannhet",
-        value: "Ej angiven",
+        label: "Avläsning",
+        value: "Tre fristående displayer, 45 × 58 mm",
         highlight: true,
       },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
-      { label: "Uppkoppling", value: "Ingen", highlight: true },
-      { label: "Avläsning", value: "Tre fristående displayer", highlight: true },
+      { label: "Mätområde temperatur", value: "−10 till 50 °C" },
       { label: "Placering", value: "Tre rum samtidigt" },
+      { label: "Ström", value: "1 × CR2032 per mätare, medföljer" },
+      { label: "Mått", value: "45 × 58 × 15 mm" },
+      { label: "Vikt", value: "31 g" },
     ],
     verdict:
-      "Clas Ohlsons trepack kostar 149,90 kronor och låter dig mäta tre rum samtidigt. Fukt är en egenskap hos ett rum och inte hos en bostad. Sovrummet bakom garderoben, badrummet efter duschen, källartrappan och krypgrunden ger fyra olika svar, och en ensam mätare i vardagsrummet ger inget av dem. Tre mätare för 149,90 kronor låter dig jämföra rummen mot varandra, och det är jämförelsen som pekar ut var problemet sitter.\n\nDen som ställer en mätare för 429 kronor i vardagsrummet vet mindre om sin bostad än den som sprider ut tre för 150.\n\nInvändningen är verklig: ingen tolerans anges någonstans, så vi vet inte hur rätt de visar. Det som talar för dem är mögelsaneringsförbundets provning, där de billiga digitala mätarna klarade sig genomgående bra. Även den sämsta digitala låg 4,4 procentenheter fel och godkändes ändå. Det som föll igenom var analogt, inte billigt.\n\nVarken loggning, app eller larm ingår, och displayerna är små och avsedda att stå nära. Betrakta dem som tre termometrar som också visar fukt.\n\nKöp de här om du vill veta var i bostaden problemet finns. Vet du redan var det sitter och vill följa det över tid är någon av de andra bättre.",
+      "Clas Ohlsons trepack kostar 149,90 kronor och ger tre mätare, alltså femtio kronor per rum. Mätområdet är 1 till 99 procent, bredare än de 20 till 95 som är standard i kategorin, och temperaturen anges till ± 0,5 grader.\n\n**Fukt är en egenskap hos ett rum och inte hos en bostad.** Sovrummet bakom garderoben, badrummet efter duschen, källartrappan och krypgrunden ger fyra olika svar, och en ensam mätare i vardagsrummet ger inget av dem. Tre mätare låter dig jämföra rummen mot varandra, och det är jämförelsen som pekar ut var problemet sitter: 55 i vardagsrummet betyder något helt annat när sovrummet visar 68. Det breda mätområdet spelar roll i en kall krypgrund om vintern, där mätare som slutar vid 95 slår i taket. Displayerna är 45 gånger 58 millimeter och går att både hänga och ställa.\n\n**De visar bara.** Ingen loggning, ingen app, inget larm och inget min- och maxminne, så du får läsa av dem själv med jämna mellanrum. Knappcellen sitter dessutom bakom en skruv.\n\nKöp de här först, innan du köper något annat i luftklustret. De talar om vilket rum problemet sitter i, och det är den frågan du behöver svar på innan en avfuktare för fyra tusen kronor är ett rimligt köp. Vet du redan vilket rum det gäller och vill följa det över tid ska du ta Govee H5075.",
+  },
+  {
+    id: "beurer-hm-16",
+    name: "HM 16 termo-hygrometer",
+    shortName: "Beurer HM 16",
+    brand: "Beurer",
+    image: productImage(HYGROMETER.slug, "beurer-hm-16"),
+    tagline: "± 5 procentenheter i det spann ett vardagsrum ligger i.",
+    scores: {
+      noggrannhet: 4,
+      avlasning: 3.5,
+      funktion: 3,
+      prisvarde: 4,
+      bygg: 4,
+    },
+    price: 199.9,
+    merchant: CLAS_OHLSON,
+    merchantUrl: "https://www.clasohlson.com/se/Beurer-HM-16-hygrometer---termometer/p/36-8776",
+    priceCheckedAt: PRICE_CHECKED,
+    userRating: { value: 4.5, count: 508, checkedAt: PRICE_CHECKED },
+    superlative: "Bäst för sovrum och vardagsrum",
+    pros: [
+      "± 5 procentenheter mellan 40 och 80 procent, alltså i normalt inomhusklimat",
+      "± 1 grad på temperaturen mellan 0 och 40",
+      "508 omdömen hos butiken, största kundunderlaget av mätarna",
+      "Sjuttio gram och elva millimeter tjock, ligger platt mot väggen",
+    ],
+    cons: [
+      "± 8 procentenheter under 40 och över 80, alltså i krypgrunden och badrummet",
+      "± 5 räcker inte för att avgöra om du ligger över eller under 60",
+      "Ingen loggning, ingen app och inget larm",
+    ],
+    specs: [
+      { label: "Pris", value: "199,90 kr", highlight: true },
+      {
+        label: "Noggrannhet fukt",
+        shortLabel: "Noggrannhet",
+        value: "± 5 pe (40–80 %), ± 8 utanför",
+        highlight: true,
+      },
+      { label: "Mätområde fukt", value: "20–95 %", highlight: true },
+      {
+        label: "Noggrannhet temperatur",
+        value: "± 1 °C (0–40), ± 2 °C (40–50)",
+        highlight: true,
+      },
+      { label: "Uppkoppling", value: "Ingen", highlight: true },
+      { label: "Avläsning", value: "Display med komfortindikator", highlight: true },
+      { label: "Mätområde temperatur", value: "0 till 50 °C" },
+      { label: "Mått", value: "99 × 11 × 81 mm" },
+      { label: "Vikt", value: "70 g" },
+      { label: "GTIN", value: "4211125679156" },
+    ],
+    verdict:
+      "Beurer HM 16 kostar 199,90 kronor och håller ± 5 procentenheter mellan 40 och 80 procent. Utanför det spannet, alltså under 40 och över 80, blir toleransen ± 8. Temperaturen ligger på ± 1 grad upp till 40.\n\n**Fördubblingen faller på fel ställen.** De två platser man oftast vill mäta är en krypgrund om vintern och ett badrum efter en dusch, och båda ligger utanför mellanspannet. Inne i spannet ligger däremot de tre gränser som avgör vad du ska göra: 45 procent från Folkhälsomyndigheten, 45 till 50 från SweSIAQ och 60 för mögel. Där håller ± 5, vilket betyder att en avläsning på 58 kan vara 53 eller 63. Mätaren kan tala om ungefär var du ligger. Om du ska agera avgör den inte åt dig.\n\n**Det är samma tolerans som Beurers egen HM 22 och som Rubicson Kompakt.** Tre mätare mellan 179,90 och 269 kronor med identiska tal, vilket gör noggrannheten till en icke-fråga mellan dem och priset till hela skillnaden. HM 16 är billigast av de tre.\n\nTa den om mätaren ska stå i ett bostadsrum och du vill ha en stor, platt display på väggen utan app. Ska den ner i krypgrunden gäller ± 8 och då är Govee H5075 för tjugo kronor mer ett bättre köp på varje punkt.",
   },
   {
     id: "beurer-hm-22",
@@ -337,11 +365,11 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Beurer HM 22",
     brand: "Beurer",
     image: productImage(HYGROMETER.slug, "beurer-hm-22"),
-    tagline: "Kostar mer än HM 16 och anger en vidare tolerans än den.",
+    tagline: "Klocka, timer och fuktmätare i samma display.",
     scores: {
-      noggrannhet: 3,
+      noggrannhet: 4,
       avlasning: 3.5,
-      funktion: 3,
+      funktion: 3.5,
       prisvarde: 2.5,
       bygg: 4,
     },
@@ -350,34 +378,37 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://www.clasohlson.com/se/Beurer-HM-22-hygrometer---termometer/p/36-8777",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 82, checkedAt: PRICE_CHECKED },
-    superlative: "Visar också datum och tid",
+    superlative: "Bäst för den som vill ha klockan också",
     pros: [
-      "Anger sin tolerans, vilket elva av de tretton låter bli",
       "Visar datum, tid och har timerfunktion",
+      "± 5 procentenheter mellan 40 och 80 procent, samma som HM 16",
+      "Mäter från −10 grader, alltså även i ett kallt utrymme",
       "4,5 i kundbetyg hos butiken",
     ],
     cons: [
-      "8 procentenheter, sämre än den billigare HM 16",
-      "69 kronor dyrare än HM 16 från samma tillverkare",
-      "Temperaturområdet börjar först vid 10 °C, så inte för krypgrunden",
+      "69 kronor dyrare än HM 16, som mäter exakt lika noga",
+      "160 gram och 29 millimeter djup, klumpigast av mätarna",
+      "Ingen loggning över tid och ingen app",
     ],
     specs: [
       { label: "Pris", value: "269 kr", highlight: true },
       {
-        label: "Angiven noggrannhet",
+        label: "Noggrannhet fukt",
         shortLabel: "Noggrannhet",
-        value: "8 procentenheter",
+        value: "± 5 pe (40–80 %), ± 8 utanför",
         highlight: true,
       },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
       { label: "Mätområde fukt", value: "20–95 %", highlight: true },
+      { label: "Noggrannhet temperatur", value: "± 1 °C (0–40)", highlight: true },
       { label: "Uppkoppling", value: "Ingen", highlight: true },
-      { label: "Noggrannhet temperatur", value: "2 °C" },
-      { label: "Mätområde temperatur", value: "10 till 50 °C" },
-      { label: "Avläsning", value: "Display med datum och tid" },
+      { label: "Avläsning", value: "Display med datum och tid", highlight: true },
+      { label: "Mätområde temperatur", value: "−10 till 50 °C" },
+      { label: "Mått", value: "106 × 29 × 109 mm" },
+      { label: "Vikt", value: "160 g" },
+      { label: "GTIN", value: "4211125678043" },
     ],
     verdict:
-      "HM 22 kostar 269 kronor och anger 8 procentenheters noggrannhet. HM 16, från samma tillverkare, kostar 199,90 och anger ± 5 i mellanspannet. Du betalar 69 kronor extra för en vidare tolerans.\n\nDet du får för pengarna är datum, tid och en timerfunktion. Rimliga saker att vilja ha, utan koppling till fuktmätning, och noggrannheten väger 35 av 100 i vår viktning.\n\n8 procentenheter är mycket i sammanhanget. En avläsning på 55 kan i verkligheten vara 47 eller 63. De tre gränser som avgör vad du ska göra ligger på 45, 50 och 60, och alla tre ryms inom felmarginalen från det talet. Mätaren kan tala om att det är fuktigt. Om du ska göra något åt det får du veta någon annanstans ifrån.\n\nTemperaturområdet börjar först vid 10 grader, vilket gör den olämplig i just de kalla utrymmen där fukt oftast blir ett problem.\n\nDen får ändå kredit för att den anger ett tal. Elva av de tretton anger inget alls, och en vid tolerans som står utskriven är mer användbar än en snäv som hemlighålls.",
+      "Beurer HM 22 kostar 269 kronor och mäter precis lika noga som HM 16 för 199,90: ± 5 procentenheter mellan 40 och 80 procent, ± 8 utanför, ± 1 grad upp till 40. De 69 kronorna köper alltså inte en bättre mätning.\n\n**Vad de köper är en klocka.** Datum, tid och timer i samma display, och ett mätområde som börjar vid −10 grader mot HM 16:s noll, vilket gör den användbar i ett ouppvärmt förråd. Det är rimliga saker att vilja ha på ett nattduksbord eller i ett kök, där du ändå vill ha en klocka och lika gärna kan låta den visa fukten också.\n\n**Den är stor.** 106 gånger 109 millimeter och 29 millimeter djup, 160 gram, alltså mer än dubbelt så tung som HM 16 och tre gånger så tjock. Den står på en bänk snarare än sitter på en vägg, och den tar plats där.\n\nKöp den bara om du vill ha klockan och timern. Är det fukten du är ute efter mäter HM 16 identiskt för 69 kronor mindre, och Govee H5075 mäter snävare för 50 kronor mindre.",
   },
   {
     id: "rubicson-kompakt-digital",
@@ -385,9 +416,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Rubicson Kompakt",
     brand: "Rubicson",
     image: productImage(HYGROMETER.slug, "rubicson-kompakt-digital"),
-    tagline: "473 betyg, och inte ett ord om noggrannhet.",
+    tagline: "Samma tolerans som Beurer, i en mätare stor som en tändsticksask.",
     scores: {
-      noggrannhet: 2.5,
+      noggrannhet: 4,
       avlasning: 3,
       funktion: 2.5,
       prisvarde: 3.5,
@@ -399,34 +430,37 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/hem-fritid/termometrar-hygrometrar/hygrometrar/rubicson-kompakt-digital-hygrometer-p48599",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 473, checkedAt: PRICE_CHECKED },
-    superlative: "473 betyg, flest av de tretton",
+    superlative: "Minst av allihop, 66 × 43 mm",
     pros: [
-      "473 betyg hos Kjell, störst kundunderlag av de tretton",
-      "Liten nog att ställa var som helst, 66 × 43 × 26 mm",
-      "Knappcell som medföljer",
+      "± 5 procentenheter mellan 40 och 80 procent, samma som båda Beurer",
+      "66 × 43 millimeter och 31 gram, ryms var som helst",
+      "473 betyg hos Kjell, störst kundunderlag av mätarna",
+      "Knappcellen medföljer och sitter i en hållare utan skruv",
     ],
     cons: [
-      "Ingen noggrannhet angiven för vare sig fukt eller temperatur",
-      "Mätområdet börjar vid 20 procent och slutar vid 95",
-      "Ingen loggning, inget min- och maxminne angivet",
+      "± 8 procentenheter under 40 och över 80 procent",
+      "Inget min- och maxminne, så du ser bara läget just nu",
+      "Mätområdet slutar vid 95 procent, så en blöt krypgrund slår i taket",
     ],
     specs: [
       { label: "Pris", value: "179,90 kr", highlight: true },
       {
-        label: "Angiven noggrannhet",
+        label: "Noggrannhet fukt",
         shortLabel: "Noggrannhet",
-        value: "Ej angiven",
+        value: "± 5 pe (40–80 %), ± 8 utanför",
         highlight: true,
       },
-      { label: "Uppmätt avvikelse", value: "Ej provad", highlight: true },
       { label: "Mätområde fukt", value: "20–95 %", highlight: true },
+      { label: "Noggrannhet temperatur", value: "± 1 °C (0–40)", highlight: true },
       { label: "Uppkoppling", value: "Ingen", highlight: true },
+      { label: "Avläsning", value: "Display, 66 × 43 mm", highlight: true },
       { label: "Mätområde temperatur", value: "−10 till 50 °C" },
       { label: "Ström", value: "1 × CR2032, medföljer" },
       { label: "Mått", value: "66 × 43 × 26 mm" },
+      { label: "Vikt", value: "31 g" },
     ],
     verdict:
-      "Rubicson Kompakt har 473 betyg hos Kjell med 4,0 i snitt, det största kundunderlaget av mätarna, och det säger en del: den håller, den visar något, folk är nöjda. Vad det inte säger är om den visar rätt. Det kan en köpare inte avgöra utan ett referensinstrument.\n\nKjells produktblad anger mätområdet 20 till 95 procent och −10 till 50 grader. Ingenting om hur mycket fel den får visa. Systermodellen Rubicson Digital, 249,90 kronor, anger ± 1 grad för temperaturen och fortfarande ingenting för fukten. Toleransen skrivs ut för det du inte köpte mätaren för.\n\nStorleken och priset talar för den. 66 gånger 43 millimeter går att ställa var som helst, knappcellen medföljer, och 179,90 är billigt för en ensam mätare.\n\nEmot talar att trettio kronor mindre ger dig tre mätare hos Clas Ohlson, och fyrtio kronor mer ger dig en Govee med ± 3 procentenheter och loggning över tid. Sist av de rankade hamnar den för att den blivit omsprungen åt båda hållen.",
+      "Rubicson Kompakt kostar 179,90 kronor och mäter ± 5 procentenheter mellan 40 och 80 procent, ± 8 utanför. Det är samma tolerans som Beurer HM 16 för 199,90 och Beurer HM 22 för 269, i en mätare som är 66 gånger 43 millimeter och väger 31 gram.\n\n**Storleken är hela argumentet mot de andra tre.** Den ryms på en fönsterbräda bakom en kruka, i en garderob, i ett skåp under diskbänken eller i en husvagn, alltså på ställen där en display på tio centimeter inte får plats eller är i vägen. Knappcellen medföljer och sitter i en hållare utan skruv. 473 betyg hos Kjell med 4,0 i snitt är det största kundunderlaget av mätarna här, vilket säger att den håller.\n\n**Den kommer inte ihåg något.** Inget min- och maxminne, ingen loggning, alltså bara läget i det ögonblick du tittar. Luftfuktigheten varierar över dygnet och med om någon nyss duschat, så en enskild avläsning säger mindre än man tror, och här får du inget annat.\n\nTa den när mätaren ska in på ett trångt ställe, eller när du vill ha flera och Clas Ohlsons trepack är för stort. Ska du följa fukten över tid är min- och maxminnet på TFA Moxx femtio kronor extra värt.",
   },
 ];
 
@@ -438,13 +472,19 @@ export const HYGROMETER_PRODUCTS: Product[] = resolveProducts(HYGROMETER, SEEDS)
  * Den analoga ligger här av ett mätbart skäl och inte av smak, se filhuvudet.
  * De två sista är givare till andra apparater och inte fristående mätare, så de
  * hade inte gått att jämföra på kategorins kriterier.
+ *
+ * ⚠️ Clas Ohlsons trådlösa anger "Noggrannhet: Temperatur ± 0,5 ºC,
+ * Luftfuktighet 1 % (RH)" både på produktsidan och i manualen. En procentenhets
+ * noggrannhet på en hygrometer för 299 kronor är labbklass och orimlig, och
+ * butikens egen kundfråga besvarar samma tal som displayens steg. Vi återger
+ * det därför inte som en tolerans. Se .agent/research/hygrometer.md.
  */
 export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
   {
     brand: "TFA",
     name: "Analog Hygrometer",
     reason:
-      "Billigast av de tretton, 139,90 kronor, men analog. Mögelsaneringsförbundet fann upp till tolv procentenheters spridning mellan tre exemplar av en och samma analoga modell, mellan enskilda urtavlor av samma vara. Det går inte att kalibrera bort och det syns inte på mätaren. Deras rekommendation efter provningen var digitalt rakt av. Mätområdet anges dessutom till 0 till 99 procent, vilket är hela skalan och därför ingen upplysning.",
+      "Billigast av det vi kartlagt, 139,90 kronor, men analog. Mögelsaneringsförbundet fann upp till tolv procentenheters spridning mellan tre exemplar av en och samma analoga modell, mellan enskilda urtavlor av samma vara. Det går inte att kalibrera bort och det syns inte på mätaren. Deras rekommendation efter provningen var digitalt rakt av. Mätområdet är dessutom 0 till 99 procent, alltså hela skalan, vilket inte utesluter något.",
     approxPrice: 139.9,
     merchant: KJELL,
     merchantUrl:
@@ -454,7 +494,7 @@ export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
     brand: "Rubicson",
     name: "Digital hygrometer",
     reason:
-      "249,90 kronor, 70 kronor mer än systermodellen Rubicson Kompakt, för en större display och ett min- och maxminne. Den anger ± 1 grad för temperaturen och ingenting för fukten, vilket gör den till det tydligaste exemplet på att toleransen skrivs ut för fel storhet. Rankas inte eftersom Kompakt-modellen ger samma besked billigare.",
+      "249,90 kronor, 70 kronor mer än systermodellen Rubicson Kompakt, för en display på 99 × 81 millimeter och ett min- och maxminne. Manualen anger ± 0,1 grad för temperaturen och ingen tolerans för fukten, medan den mindre och billigare Kompakt-modellen anger ± 5 procentenheter mellan 40 och 80. Den som vill ha minnet får alltså ge upp den enda uppgift som avgör om avläsningen går att lita på.",
     approxPrice: 249.9,
     merchant: KJELL,
     merchantUrl:
@@ -464,7 +504,7 @@ export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
     brand: "Clas Ohlson",
     name: "Trådlös hygrometer/termometer",
     reason:
-      "299 kronor för en inomhusdel och en trådlös givare, och därmed rätt tanke för en krypgrund eller källare du inte vill gå ner i. Ingen noggrannhet anges, och för trettio kronor mindre ger Govee både en angiven tolerans på ± 3 procentenheter och loggning över tid. Den hade rankats om toleransen stått någonstans.",
+      "299 kronor för en inomhusdel och en trådlös givare, och därmed rätt tanke för en krypgrund eller källare du inte vill gå ner i. Givaren mäter 20 till 95 procent och sänder var sextionde sekund. För trettio kronor mindre ger Govee H5075 en angiven tolerans på ± 3 procentenheter, loggning över tid och larm, och för hundratrettio kronor mer ger Shelly H&T Gen 3 samma räckvidd över wifi i stället för på 433 megahertz.",
     approxPrice: 299,
     merchant: CLAS_OHLSON,
     merchantUrl: "https://www.clasohlson.com/se/Tradlos-hygrometer-termometer/p/36-6725",
@@ -473,7 +513,7 @@ export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
     brand: "Nexa",
     name: "WTH-103 trådlös termometer/hygrometer",
     reason:
-      "199,90 kronor och tänkt att ingå i Nexas system snarare än att stå för sig själv. Ingen noggrannhet anges. Den som redan har Nexa hemma har ett skäl att välja den som vi inte kan väga in i en rankning som ska gälla alla.",
+      "199,90 kronor och byggd för att ingå i Nexas system snarare än att stå för sig själv. Den som redan har Nexa hemma har ett skäl att välja den som inte går att väga in i en rankning som ska gälla alla.",
     approxPrice: 199.9,
     merchant: CLAS_OHLSON,
     merchantUrl: "https://www.clasohlson.com/se/Nexa-WTH-103-tradlos-termometer---hygrometer/p/36-8988",
@@ -482,7 +522,7 @@ export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
     brand: "Schneider",
     name: "Wiser sensor temperatur och luftfuktighet",
     reason:
-      "489 kronor, Zigbee 3.0, och därmed dyrast av det vi övervägt utom Kjells datalogger. Ingen noggrannhet anges. Den kräver dessutom en Wiser-hubb för att göra nytta, vilket gör den till en systemkomponent och inte en hygrometer man köper för att mäta fukt.",
+      "489 kronor och Zigbee 3.0, alltså dyrast av det vi övervägt utom Kjells datalogger. Den kräver en Wiser-hubb för att göra någon nytta alls, vilket gör den till en systemkomponent och inte en hygrometer man köper för att mäta fukt.",
     approxPrice: 489,
     merchant: CLAS_OHLSON,
     merchantUrl: "https://www.clasohlson.com/se/Schneider-Wiser-sensor-temperatur-och-luftfuktighet/p/36-9675",
@@ -491,7 +531,7 @@ export const HYGROMETER_CONSIDERED: ConsideredProduct[] = [
     brand: "Kjell & Company",
     name: "Datalogger Pro",
     reason:
-      "1 199 kronor och dyrast av de tretton, avsedd att logga över långa perioder. Den anger ingen noggrannhet för fukt, och det är den mest talande uppgiften vi hittat: den dyraste av dem lovar inte mer om sin mätning än den för 139,90. Fyra betyg hos butiken.",
+      "1 199 kronor och dyrast av det vi kartlagt, byggd för att logga över långa perioder och läsas ut i efterhand. Den riktar sig till den som ska dokumentera ett förlopp, exempelvis inför en fuktutredning, snarare än till den som vill veta hur det står till i sovrummet. Fyra betyg hos butiken.",
     approxPrice: 1199,
     merchant: KJELL,
   },
@@ -509,7 +549,7 @@ export const HYGROMETER_FAQ = [
   {
     question: "Vilken hygrometer är bäst 2026?",
     answer:
-      "Govee H5075 för 219 kronor hos Proshop. Den anger ± 3 procentenheter, vilket är den snävaste noggrannhet någon tillverkare i vår jämförelse skriver ut, och bara två av tretton anger något alls. Den loggar dessutom mätvärden över tid, går att exportera och larmar vid en gräns du satt själv, och displayen är tre tum med stora siffror. Tvåa är TFA Moxx för 229 kronor hos Hornbach, som är den enda mätaren någon oberoende faktiskt har mätt: tyska mögelsaneringsförbundet fann högst 0,5 procentenheters avvikelse mot ett kalibrerat referensinstrument. TFA anger själva ingen tolerans.",
+      "Govee H5075 för 219 kronor hos Proshop. Den håller sig inom 3 procentenheter, vilket är snävast av mätarna vi jämfört och två enheter bättre än de ± 5 som är branschstandard. Den loggar mätvärden över tid, går att exportera och larmar vid en gräns du satt själv, och displayen är 3 tum med stora siffror. Tvåa är TFA Moxx för 229 kronor hos Hornbach, som är den enda mätaren någon oberoende har mätt: tyska mögelsaneringsförbundet fann högst 0,5 procentenheters avvikelse mot ett kalibrerat referensinstrument. Ska mätaren sitta i en krypgrund du inte går ner i är Shelly H&T Gen 3 för 429 kronor den enda med wifi.",
   },
   {
     question: "Vad ska luftfuktigheten vara inomhus?",
@@ -517,14 +557,19 @@ export const HYGROMETER_FAQ = [
       "30 till 45 procent är vanligt i ett uppvärmt svenskt hem under eldningssäsongen, och det finns inget svenskt riktvärde som säger att det är för torrt. Folkhälsomyndighetens allmänna råd FoHMFS 2014:14 innehåller ingen nedre gräns och inget råd om att fukta. Åt andra hållet anger de 7 gram vatten per kilo torr luft under eldningssäsongen, vilket motsvarar cirka 45 procent vid 21 grader, som en indikation som kan få tillsynsmyndigheten att kräva undersökning av byggnaden. SweSIAQ anger att kvalster kan börja växa över 45 till 50 procent, och mögel brukar sättas vid varaktigt över 60. Observera att allmänna råd är rekommendationer och inte bindande regler, och att 45 procent är en indikation och inget gränsvärde.",
   },
   {
-    question: "Varför anger nästan ingen hygrometer sin noggrannhet?",
+    question: "Hur mycket fel får en hygrometer visa?",
     answer:
-      "Vi vet inte varför, men vi har kontrollerat att det är så. Av de tretton mätarna mellan 139,90 och 1 199 kronor anger två hur många procentenheter de får visa fel. Alla anger mätområdet, alltså mellan vilka värden de visar något alls, vilket är en annan uppgift och inte säger något om hur rätt de visar. Där en tolerans faktiskt står gäller den ofta temperaturen i stället för fukten: Rubicsons produktblad hos Kjell anger ± 1 grad och sedan ingenting. Även TFA Dostmann, vars Moxx mätte bäst av fjorton i en oberoende provning, anger bara mätområdet i sitt eget datablad.",
+      "± 5 procentenheter mellan 40 och 80 procent, och ± 8 utanför det spannet, är vad de flesta tillverkare anger. Beurer HM 16, Beurer HM 22 och Rubicson Kompakt anger exakt samma tal trots att de kostar 179,90, 199,90 och 269 kronor. Två mätare är snävare: TFA Moxx anger ± 4 mellan 30 och 80 procent, och Govee H5075 anger ± 3 rakt av. Talet står nästan aldrig på produktsidan utan i bruksanvisningen, och den ligger som PDF på tillverkarens eller butikens egen sida.",
+  },
+  {
+    question: "Räcker ± 5 procentenheter?",
+    answer:
+      "Inte nära en gräns. De tre nivåer där det är rimligt att göra något ligger på 45 procent (Folkhälsomyndigheten), 45 till 50 (SweSIAQ, kvalster) och 60 (mögel), alltså tre gränser inom femton procentenheter. En mätare med ± 5 spänner tio procentenheter, så en avläsning på 58 kan i verkligheten vara 53 eller 63, på båda sidor om mögelgränsen. Med ± 8 täcker felmarginalen alla tre gränserna samtidigt. Det betyder inte att en sådan mätare är oanvändbar, men den svarar på om det är fuktigt, inte på om du ska agera. Mät hellre upprepat under två veckor än en gång med hög precision.",
   },
   {
     question: "Är en dyr hygrometer noggrannare än en billig?",
     answer:
-      "Inte enligt den enda mätning vi hittat. När tyska mögelsaneringsförbundet jämförde fjorton mätare mot ett kalibrerat referensinstrument för 1 050 euro var den mest träffsäkra digitala en modell för 9,99 euro, som låg inom 0,5 procentenheter. Den sämsta digitala kostade 5,99 euro och låg 4,4 procentenheter fel, alltså fortfarande godkänt. Samma mönster syns i priserna här: den dyraste mätaren i vår jämförelse kostar 1 199 kronor och anger ingen tolerans alls, medan en för 219 anger ± 3 procentenheter. Det priset köper är display, loggning och uppkoppling, inte noggrannhet.",
+      "Inte enligt den enda mätning vi hittat, och inte enligt tillverkarnas egna tal. När tyska mögelsaneringsförbundet jämförde fjorton mätare mot ett kalibrerat referensinstrument för 1 050 euro var den mest träffsäkra digitala en modell för 9,99 euro, som låg inom 0,5 procentenheter. Den sämsta digitala kostade 5,99 euro och låg 4,4 procentenheter fel, alltså fortfarande godkänt. Samma mönster syns här: Rubicson Kompakt för 179,90 anger samma tolerans som Beurer HM 22 för 269, och den snävaste av allihop kostar 219. Det priset köper är display, loggning och uppkoppling, inte noggrannhet.",
   },
   {
     question: "Är analoga hygrometrar sämre än digitala?",

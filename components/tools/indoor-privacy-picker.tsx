@@ -87,14 +87,14 @@ const PILES: Record<
   { title: string; tone: "strong" | "plain"; note: string }
 > = {
   auto: {
-    title: "Motoriserat skydd som stängs automatiskt",
+    title: "Avstängning som kan ske automatiskt",
     tone: "strong",
-    note: "Linsen täcks när kameran avlarmas, utan att någon behöver komma ihåg det. Det är den enda avstängning som fungerar även när du inte tänker på den.",
+    note: "Kameran vänder bort objektivet utan att någon behöver komma ihåg det. Arlo gör det av sig självt när systemet står i standby eller hemmaläge, Aqara när du lagt det i en egen regel. Det är den enda sortens avstängning som fungerar även när du inte tänker på den.",
   },
   fysiskt: {
     title: "Fysiskt skydd du styr själv",
     tone: "strong",
-    note: "Ett skydd som täcker eller vrider bort linsen. Syns tvärs över rummet, men kräver att någon trycker på knappen eller sätter dit skyddet.",
+    note: "Ett skydd som täcker eller vrider bort linsen. Syns tvärs över rummet, men kräver att någon trycker på knappen eller sätter dit skyddet varje gång.",
   },
   app: {
     title: "Bara ett läge i appen",

@@ -56,6 +56,7 @@ import {
 } from "@/components/tools/co-need-picker";
 import { AirAppliancePicker } from "@/components/tools/air-appliance-picker";
 import { CableNeedPicker } from "@/components/tools/cable-need-picker";
+import { PowerstationSizer } from "@/components/tools/powerstation-sizer";
 import { CoLevelScale } from "@/components/tools/co-level-scale";
 import { BRANDSTEGE_PRODUCTS } from "@/lib/data/brandstege";
 import {
@@ -141,6 +142,8 @@ import { LumenCalculator } from "@/components/tools/lumen-calculator";
 import { ProtocolPicker } from "@/components/tools/protocol-picker";
 import { RunningCostCalculator } from "@/components/tools/running-cost-calculator";
 import { WattLumenTable } from "@/components/tools/watt-lumen-table";
+import { BabyMonitorRange } from "@/components/tools/baby-monitor-range";
+import { VacuumRuntime } from "@/components/tools/vacuum-runtime";
 
 /**
  * Samma räknare som för lampor, med smart plug-förutsättningar.
@@ -547,6 +550,10 @@ export function CableNeedPickerTool() {
   return <CableNeedPicker />;
 }
 
+export function PowerstationSizerTool() {
+  return <PowerstationSizer />;
+}
+
 export function CoAlarmNeedPicker() {
   return <CoNeedPicker products={coPickerProducts()} />;
 }
@@ -801,15 +808,31 @@ export function DoorbellHomeTool() {
  * ingetdera är samma sak som ett läge i en app. Skillnaden är hela sidans
  * ärende, så den ska synas i sorteringen.
  */
+/*
+ * Kategorin per produkt, skriven ut i stället för gissad ur specsträngen.
+ *
+ * Fram till 2026-08-08 lästes den med `/automatisk/i` och `/fysisk|skydd/i`
+ * mot cellen Avstängning. Så fort formuleringen skrevs om hamnade vinnaren,
+ * vars cell då löd "Knapp på kameran, vrider bort linsen", i högen för dem som
+ * bara har ett läge i appen. Ett verktyg vars sortering beror på ordvalet i en
+ * tabellcell går sönder tyst nästa gång någon förbättrar en mening.
+ */
+const INDOOR_SHIELD: Record<string, IndoorCameraOption["shield"]> = {
+  "arlo-essential-3-ptz-indoor": "auto",
+  "aqara-g3": "auto",
+  "tapo-c225": "fysiskt",
+  "ring-pan-tilt-indoor": "fysiskt",
+  "ring-indoor-cam-plus": "fysiskt",
+  "tapo-c220": "app",
+  "tapo-c100": "app",
+};
+
 function indoorCameraOptions(): IndoorCameraOption[] {
   return INOMHUSKAMERA_PRODUCTS.map((product) => {
     const spec = (label: string) =>
       product.specs.find((s) => s.label === label)?.value ?? "";
     const off = spec("Avstängning");
-
-    let shield: IndoorCameraOption["shield"] = "app";
-    if (/automatisk/i.test(off)) shield = "auto";
-    else if (/fysisk|skydd/i.test(off)) shield = "fysiskt";
+    const shield = INDOOR_SHIELD[product.id] ?? "app";
 
     return {
       id: product.id,
@@ -821,7 +844,7 @@ function indoorCameraOptions(): IndoorCameraOption[] {
       href: `/${INOMHUSKAMERA.slug}#${product.id}`,
       shield,
       shieldNote: off + ".",
-      localStorage: /^nej/i.test(spec("Kräver abonnemang")),
+      localStorage: /^behövs inte/i.test(spec("Abonnemang")),
     };
   });
 }
@@ -1009,6 +1032,8 @@ export function VentilpassningTool() {
  * dedicated route 404s on a missing widget rather than shipping an empty page.
  */
 export const TOOL_WIDGETS: Record<string, ComponentType> = {
+  "drifttid-skaftdammsugare": VacuumRuntime,
+  "rackvidd-babyvakt": BabyMonitorRange,
   lumenraknare: LumenCalculator,
   "elkostnad-lampor": RunningCostCalculator,
   "protokollvaljare-smart-hem": ProtocolPicker,
@@ -1040,6 +1065,7 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "klarar-roboten-troskeln": RobotThresholdTool,
   "vad-betyder-talet-pa-hygrometern": FuktavlasningTool,
   "vilken-termostat-passar-min-ventil": VentilpassningTool,
+  "hur-stor-powerstation": PowerstationSizerTool,
 };
 
 export function hasToolWidget(slug: string): boolean {

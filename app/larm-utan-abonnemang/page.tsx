@@ -64,12 +64,12 @@ import Kopguide from "@/content/larm-utan-abonnemang/kopguide.mdx";
 
 const TEST_PAGE = LARM_UTAN_ABONNEMANG;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Två av fem larm utan abonnemang säljer 4G-backup som en prenumeration, och två har ingen reservuppkoppling alls. Vi jämförde fem larmpaket från 629 till 8 259 kronor mot SSF 140 och butikernas egna specifikationer.",
+    "Ajax Hub 2 Plus för 8 259 kronor är enda larmet där reservuppkopplingen ingår i priset, men Ring Alarm för 2 899 är köpet för de flesta. Vi jämförde fem larmpaket från 629 till 8 259 kronor mot SSF 140 och tillverkarnas egna specifikationer.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -128,15 +128,17 @@ export default async function LarmUtanAbonnemangPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Det enklaste sättet att slå ut ett uppkopplat larm är att klippa
-              uppkopplingen. Två av fem larm säljer skyddet mot det som en
-              prenumeration, och två har inget skydd alls. Vi jämförde fem
-              larmpaket från 629 till 8 259 kronor mot butikernas egna
-              specifikationsrader och mot den svenska norm som avgör om ett larm
-              räknas i försäkringssammanhang.
+              Ajax Hub 2 Plus-paket för 8 259 kronor är det enda larmet här som
+              fortfarande når dig när någon klipper uppkopplingen. Ska det bara
+              skydda ett hem med stabilt bredband räcker Ring Alarm för 2 899,
+              med den högsta sirenen och det längsta reservbatteriet av alla
+              fem. Vi jämförde fem larmpaket från 629 till 8 259 kronor mot
+              tillverkarnas egna specifikationer och mot den svenska norm som
+              avgör om ett larm räknas i försäkringssammanhang.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -225,12 +227,20 @@ export default async function LarmUtanAbonnemangPage() {
             med automatisk växling. Den kostar 8 259 kronor.
           </p>
           <p>
-            Vi skiljer medvetet på det här och på videohistorik eller
-            professionell bevakning. De två sista är tilläggstjänster och rimliga
-            att ta betalt för, och de drar inte ner något betyg. En
-            reservuppkoppling hör inte dit. Den är larmets skydd mot det
-            enklaste angreppet, och därför sitter avdraget på de två tyngsta
-            kriterierna.
+            <strong>Strömmen är den andra halvan av samma fråga.</strong> Ring
+            håller 24 timmar på basstationens eget batteri, Ajax 15 och Yale 12,
+            eller omkring 6 när systemet körs över wifi. eufy och Tapo har inget
+            reservbatteri: TP-Links dokumentation för H200 känner bara till
+            nätadaptern, och det batteri eufy sålde till HomeBase 2 var ett
+            tillbehör som har utgått. De två larm som saknar reservkanal är
+            alltså också de två som slocknar när säkringen går.
+          </p>
+          <p>
+            Det är värt att skilja det här från videohistorik och professionell
+            bevakning. De två sista är tilläggstjänster, och att de kostar
+            pengar är rimligt. En reservuppkoppling är något annat: den är
+            larmets skydd mot det enklaste angreppet, och betalar du inte för
+            den står du oskyddad just den kvart då larmet skulle ha gjort nytta.
           </p>
         </Prose>
       </Section>
@@ -314,7 +324,7 @@ export default async function LarmUtanAbonnemangPage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om reservkanal, reservbatteri och ljudnivå är butikens eller tillverkarens egna. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, inte att egenskapen saknas. Det gäller sirenens ljudnivå och hubbens reservbatteri för både eufy och Tapo.`)}
+          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om reservkanal, reservbatteri, ljudnivå och antal enheter är butikens eller tillverkarens egna. Batteritiderna är hämtade ur tillverkarnas egen dokumentation, och för eufy och Tapo står det där att något reservbatteri inte finns.`)}
         />
       </Section>
 
@@ -450,7 +460,7 @@ export default async function LarmUtanAbonnemangPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Uppkoppling och abonnemangsfrihet väger tillsammans 50 av 100, eftersom det är där kategorin skiljer sig från sig själv: alla fem larmar, men bara ett av dem överlever att uppkopplingen klipps. En reservkanal som kräver en prenumeration räknas inte som ingående, den räknas som en lucka i löftet. Att videohistorik eller professionell bevakning kostar extra drar inte ner något betyg. Vi har inget kriterium för oberoende test, eftersom de fyra svenska tester som finns alla handlar om samma märke och ett sådant kriterium då bara blir en bonus till en produkt. Där en butik inte publicerar en uppgift står den som saknad, aldrig som en nolla: det gäller sirenens ljudnivå och hubbens reservbatteri för eufy och Tapo. Priserna är hos den butik vi länkar till."
+          footnote="Uppkoppling och abonnemangsfrihet väger tillsammans 50 av 100, eftersom det är där kategorin skiljer sig från sig själv: alla fem larmar, men bara ett av dem överlever att uppkopplingen klipps. En reservkanal som kräver en prenumeration räknas inte som ingående, den räknas som en lucka i löftet. Att videohistorik eller professionell bevakning kostar extra drar inte ner något betyg. Vi har inget kriterium för oberoende test, eftersom de fyra svenska tester som finns alla handlar om samma märke och ett sådant kriterium då bara blir en bonus till en produkt. Ett betyg sätts bara på det som är belagt hos tillverkaren eller butiken, och en uppgift vi inte fått fram sänker aldrig ett betyg. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

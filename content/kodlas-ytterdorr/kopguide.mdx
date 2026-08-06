@@ -9,33 +9,41 @@
 
 ### Certifikatet gäller en konfiguration, inte en produkt
 
-Svensk Brand- och Säkerhetscertifiering har utfärdat certifikat **21-537** för
-Yale Doorman L3 tillsammans med Yale Home. Klass S3 enligt SSF 3523, giltigt
-till den 27 november 2027.
+Ett SBSC-certifikat slutar med ett fält som heter *Övrigt*, eller *Additional*
+i den engelska versionen. Där står vad godkännandet faktiskt omfattar, och
+**alla fem certifierade lås i jämförelsen har något skrivet där.**
 
-I certifikatets fält *Additional* står vad godkännandet omfattar:
+| Lås | Vad certifikatet kräver |
+|---|---|
+| Yale Doorman L3 + Yale Home, S3 | bortasäkert läge, **blockerade användarkoder** |
+| Nimly Code Pro, klass 3 | minst 4 siffror, **kamouflagefunktionen avstängd**, tvåfaktor på |
+| Nimly Code, klass 2A | samma villkor |
+| Yale Doorman Classic, klass 2A | integritetsswitch hög, automatisk låsning på |
+| Yale Linus L2, klass 2A | gäller tillsammans med Yale Dot |
 
-> "Gäller bortasäkert läge med **blockerade användarkoder** och låsöppning med
-> nyckelbricka eller med appen Yale Home."
+Två av dem tar bort en funktion produkten säljs på. Yales digitala godkännande
+gäller med koderna blockerade, i en kategori som heter kodlås. Nimlys
+godkännande räknar koden men kräver att kamouflagefunktionen är av, alltså den
+som omger koden med slumpsiffror så att den inte går att läsa av över axeln.
 
-Läs den meningen en gång till. Den certifierade konfigurationen har koderna
-blockerade, på den produkt som ensam bär 27 100 sökningar i månaden, i en
-kategori som heter kodlås.
+Skilj samtidigt på Yales två certifikat. Det mekaniska, **20-172** i klass 3,
+bär inga villkor om öppningssätt alls. Det är det digitala, **21-537** i klass
+S3, som är prövat med knappsatsen avstängd.
 
-Det är inte en märklighet hos just Yale. Det är Stöldskyddsföreningens
+Det är inte en märklighet hos ett enskilt märke. Det är Stöldskyddsföreningens
 allmänna regel gjord konkret, och de skriver den själva två gånger på sin egen
 sida: *det finns begränsningar i vilka funktioner som får aktiveras för att
 uppfylla kraven för godkänd låsenhet, vilket betyder att låsenheten är
 certifierad med vissa, men inte alla, inställningar aktiverade.*
 
 **Vad det betyder ska sägas försiktigt.** Certifikatet säger vad godkännandet
-omfattar. Det säger inte att låset blir osäkert av en kod, och det säger
-ingenting om vad just ditt försäkringsbolag accepterar. Vad det säger är att
-den provade konfigurationen inte är den de flesta använder.
+omfattar. Det säger inte att låset blir osäkert för att du slår på en funktion,
+och det säger ingenting om vad just ditt försäkringsbolag accepterar. Vad det
+säger är att den provade konfigurationen sällan är den som säljs in.
 
-Ring försäkringsbolaget och fråga specifikt om kodöppning. Det är ett samtal på
-fem minuter, och det är betydligt enklare att ta före köpet än efter en
-inbrottsanmälan.
+Ring försäkringsbolaget och fråga specifikt om den öppningsmetod du tänkt
+använda. Det är ett samtal på fem minuter, och det är betydligt enklare att ta
+före köpet än efter en inbrottsanmälan.
 
 <ToolFrame tool="godkant-las-till-ytterdorr">
   <LockApprovalTool />
@@ -53,7 +61,13 @@ klass 3 enligt SSF 3522, eller klass S3 enligt SSF 3523 för digitala enheter.
 Det betyder två saker för dig som köper ett smart lås.
 
 För det första: ett godkänt lås i en dörr utan säkerhetsslutbleck ger ingen
-godkänd låsenhet. Delarna räknas tillsammans.
+godkänd låsenhet. Delarna räknas tillsammans, och svagast länk avgör.
+
+<ProductRef id="nimly-code" /> är exemplet som gör regeln konkret. Låset bär tre
+certifikat: låshuset är klass 3, slutblecket är klass 3, och
+mekatronikcylindern är klass 2A. Eftersom varje del ska nå klass 3 var för sig
+blir hela enheten 2A, och det är cylindern som avgör.
+<ProductRef id="nimly-code-pro" /> har klass 3 på alla tre.
 
 För det andra, och det är SSF:s egen varning i fetstil: **kontrollera alltid
 vad försäkringsbolaget kräver innan du förändrar något.** Byter du ut en del av
@@ -73,8 +87,10 @@ utsida är detsamma som för klass 3, men manövreringen från insidan underordn
 utgång och utrymning. SSF:s eget exempel på när 2A används är lägenheter utan
 annan entréväg, och de skriver i samma mening: kontrollera försäkringskrav.
 
-<ProductRef id="nimly-code" /> anges av butiken som klass 2A. Det är ovanligt
-öppet redovisat och förtjänar beröm, men det är inte en godkänd låsenhet.
+Tre av de sex låsen är certifierade i 2A: <ProductRef id="nimly-code" />,
+<ProductRef id="yale-doorman-classic-home" /> och <ProductRef id="yale-linus-l2" />.
+För en lägenhet där utrymning väger tyngre än inbrottsskydd inifrån kan det vara
+precis rätt nivå. För ett försäkringskrav på godkänd låsenhet räcker det inte.
 
 ### Ett digitalt certifikat provar mer än metallen
 
@@ -108,9 +124,9 @@ oberoende organ har kontrollerat att provningen skett korrekt och med godkänt
 resultat. SSF skriver att man alltid ska leta efter certifikatsmärket som visar
 vilken klass låsenheten uppfyller.
 
-<ProductRef id="nimly-code-pro" /> anger låsklass 3 men redovisar certifiering
-som CE-godkänd. Det är två olika saker, och frågan till butiken är enkel:
-finns det ett certifikatnummer?
+Nimly anger både CE och SBSC-certifiering för sina lås, vilket är två skilda
+saker i samma mening. Det är den andra som betyder något: leta efter ett
+certifikatnummer och en klass, inte efter CE-märket.
 
 ### Passar låset en svensk ytterdörr?
 
@@ -122,9 +138,10 @@ Tre arkitekturer finns i handeln:
 
 **Byter hela låset.** <ProductRef id="yale-doorman-l3s-flex" />,
 <ProductRef id="yale-doorman-classic-home" /> och Nimlys lås är byggda för det
-svenska uttaget. Doorman klarar dörrtjocklekar från 40 till 88 millimeter utan
-anpassning, Nimly Code Pro 50 till 90 millimeter men bara på dörrar från 1985
-eller senare.
+svenska uttaget. Spannen skiljer sig mer än man tror: Doorman Classic klarar
+**32 till 100 millimeter**, L3S Flex 40 till 88 och Nimlys lås 45 till 90, de
+senare bara på dörrar från 1985 eller senare. Har du en ovanligt tjock eller
+tunn dörr är Classic den som passar.
 
 **Monteras på låscylindern.** <ProductRef id="aqara-u200" /> använder ett
 adapterkit för cylindern, den europeiska vägen. På en svensk ytterdörr
@@ -132,7 +149,7 @@ med tillhållarlåshus är det inte självklart att den passar alls.
 
 **Monteras utanpå insidans vred.** <ProductRef id="yale-linus-l2" /> och
 Danalock rör inte låset i dörren över huvud taget. Det är den enda arkitekturen
-där en befintlig godkänd låsenhet i princip står kvar orörd.
+där en befintlig godkänd låsenhet står kvar orörd.
 
 Mät dörrtjockleken och titta efter vilken låshustyp du har innan du beställer.
 
@@ -146,10 +163,10 @@ Att byta ut låsenheten kan därför kräva tillstånd även när du betalar fö
 själv. Fråga innan, inte efter.
 
 Ett lås som monteras utanpå insidans vred rör inte den befintliga enheten och
-brukar vara enklare att få igenom. Vi säger *brukar* därför att vi inte hittat
-något skriftligt besked från SSF om hur ett motoriserat vred påverkar
-bedömningen av låsenheten. Det är en rimlig slutsats av hur normen definierar
-enheten, men en slutsats är inte ett citat.
+brukar vara enklare att få igenom. <ProductRef id="yale-linus-l2" /> är
+dessutom certifierat i egen rätt, klass 2A enligt SSF 3522, vilket gör frågan
+till styrelsen kortare: låset i dörren sitter kvar och tillägget har ett eget
+nummer att hänvisa till.
 
 ### Hur många koder behöver du?
 
@@ -182,8 +199,8 @@ delar, och slutblecket är den som oftast saknas.
 
 **Att läsa CE som ett godkännande.** Det är tillverkarens egen försäkran.
 
-**Att köpa efter kodfunktionen utan att kontrollera vad certifikatet omfattar.**
-Det är hela skälet att läsa vidare.
+**Att läsa klassen och hoppa över villkorsfältet.** Alla fem certifierade lås
+här har ett, och två av dem stänger av en funktion du betalat för.
 
 **Att köpa ett internationellt lås till en svensk dörr utan att mäta.**
 Skandinaviskt låsuttag är inte samma sak som europrofil.

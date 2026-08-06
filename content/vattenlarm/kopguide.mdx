@@ -8,7 +8,7 @@ Det här är hela kategorin i en fråga, och den avgör mer än pris, märke och
 batteritid tillsammans.
 
 Ungefär hälften av larmen på svenska hyllor har bara en siren. De tjuter
-kraftigt, ofta över 100 decibel, men bara i rummet de ligger i.
+kraftigt, 85 till 110 decibel, men bara i rummet de ligger i.
 <ProductRef id="numens-204" /> och <ProductRef id="housegard-vattenlarm" />
 fungerar så, och det gör <ProductRef id="x-sense-sws51" /> också om du köper den
 utan basstation.
@@ -30,8 +30,8 @@ Det är i det tidsfönstret skillnaden mellan larmtyperna uppstår.
 
 Tre av larmen vi rankar kan inte nå din telefon utan hjälp.
 
-<ProductRef id="tp-link-tapo-t300" /> kör 868/922 MHz och inte wifi, så den kan
-den inte tala med din router. Den behöver en Tapo-hubb H100 eller H200. TP-Link
+<ProductRef id="tp-link-tapo-t300" /> kör 868 MHz och inte wifi, så den kan
+inte tala med din router. Den behöver en Tapo-hubb H100 eller H200. TP-Link
 är själva helt öppna med det, deras egen butik har orden "Hub Required" i
 produktnamnet, men den svenska butiksrubriken säger bara "läckagedetektor".
 
@@ -55,15 +55,15 @@ bättre köp, eftersom den klarar sig på routern.
 lärorika produkt. Den ansluter till wifi utan hubb, den har den bästa
 sensorlösningen av alla larm, och den skickar ingen notis.
 
-Kjell har varit hederliga nog att klistra in det ur tillverkarens manual rakt på
-produktsidan: detektorn skickar ingen notifiering när den känner vatten, och du
-måste själv skapa en automation i appen som gör det. Meningen står på engelska
-mitt i den svenska texten, sist i beskrivningen.
+Detektorn skickar ingen notifiering när den känner vatten. Du måste själv skapa
+en automation i appen som gör det, och tills du har gjort det händer ingenting i
+telefonen. Sirenen den har kvar ligger på 50 decibel, ungefär en normal
+samtalston och svagast i jämförelsen.
 
 Ett uppkopplat vattenlarm som är tyst i mobilen tills det konfigurerats är i
 praktiken ett lokalt larm för alla som köper det, sätter dit det och ställer
-undan kartongen. Det är enda skälet till att en produkt med den bästa
-sensorlösning inte ligger högre i vår rankning.
+undan kartongen. Och som lokalt larm är det svagt: sirenen ligger på 50
+decibel, vilket är ungefär en normal samtalston och lägst av alla nio.
 
 Kontrollera det här på vilket wifi-larm du än köper. Sätt ut det, häll en
 matsked vatten på sonden och se om telefonen säger till. Gör den inte det har du
@@ -82,12 +82,17 @@ Spannet i vår jämförelse är fem gånger:
 | Numens 204 | 9 V litium | över 5 år |
 | X-Sense SWS51 och SWS54 | 2 × AAA | över 3 år |
 | Housegard, Nedis, Fibaro, Aqara | 9 V respektive CR123A och CR2032 | upp till 2 år |
-| SQ400B | CR123A | över 1 år |
-| Tapo T300 | 2 × AAA | upp till 1 år |
+| Tapo T300 | 2 × AAA | 1,5 år mot hubben |
+| SQ400B | CR123A | 1 år |
 
-Titta efter två saker till utöver siffran. Varnar larmet när batteriet börjar ta
-slut? Housegard gör det uttryckligen. Och medföljer batteriet? Det gjorde det
-inte till Shelly Flood, som därför kostade mer än prislappen sa.
+Tapo T300 har två tal och det är värt att veta vilket som gäller dig. TP-Link
+anger ett och ett halvt år när sensorn arbetar mot en Tapo-hubb, och över två år
+när den står ensam. Eftersom den behöver hubben för att göra annat än att tjuta
+är det den kortare siffran du ska räkna med.
+
+Titta efter två saker till utöver tiden. Varnar larmet när batteriet börjar ta
+slut? Housegard, Numens och Aqara gör det uttryckligen. Och medföljer batteriet?
+Det gjorde det inte till Shelly Flood, som därför kostade mer än prislappen sa.
 
 ### Var läckan faktiskt börjar
 
@@ -98,9 +103,11 @@ ligga, inte mitt på badrumsgolvet där det får plats.
 Och där uppstår ett praktiskt problem som nästan ingen jämförelse tar upp: bakom
 en inbyggd maskin kommer du inte in med en rund dosa. Två produkter löser det.
 <ProductRef id="nedis-smartlife-lackagedetektor" /> har 115 centimeters kabel
-mellan enheten och sensorn, så själva larmet sitter synligt på väggen medan
-sonden ligger där vattnet kommer. <ProductRef id="numens-204" /> har löstagbara
-sensorbläck som kommer en bit på samma väg.
+mellan enheten och sensorn, och sonden är bara 6 millimeter tjock, så den glider
+ner i springan medan larmet sitter synligt på väggen.
+<ProductRef id="numens-204" /> har en löstagbar sensorplatta som får sitta ännu
+längre bort, upp till 1,5 meter enligt tillverkarens manual, men plattan är
+klumpigare och passar bättre under en beredare än i en smal springa.
 
 Lägg larmet på den lägsta punkten i utrymmet. Vatten söker sig dit först, och
 några centimeter fel höjd är skillnaden mellan att larmet går efter en minut
@@ -108,25 +115,35 @@ eller efter en timme.
 
 ### Utrymmen som är för varma eller för kalla
 
-De flesta larm är godkända för 0 till 40 grader. Det låter generöst tills du
-tänker på var du faktiskt vill ha dem.
+Arbetstemperaturen är den specifikation som oftast fäller en placering, och den
+står nästan aldrig i butiksrubriken. Så här ser spannen ut i vår jämförelse:
 
-Intill en varmvattenberedare blir det varmare än fyrtio grader.
-<ProductRef id="aqara-water-leak-sensor-t1" /> är godkänd till 55 och den enda i
-jämförelsen som uttryckligen klarar den placeringen. Den är dessutom bara 15
-millimeter hög, vilket gör att den kommer in under maskiner där de andra inte
-får plats.
+| Larm | Godkänd temperatur |
+|---|---|
+| Numens 204 | −10 till +50 °C |
+| Housegard WA201S | +1 till +60 °C |
+| Aqara T1 | 0 till +55 °C |
+| X-Sense SWS51 och SWS54, SQ400B | 0 till +50 °C |
+| Nedis, Tapo T300, Fibaro | 0 till +40 °C |
+
+Intill en varmvattenberedare blir det varmare än fyrtio grader, och där faller
+tre av nio bort direkt. <ProductRef id="housegard-vattenlarm" /> tål mest med
+sina 60 grader, och <ProductRef id="aqara-water-leak-sensor-t1" /> klarar 55 och
+är dessutom bara 15 millimeter hög, vilket gör att den kommer in under maskiner
+där de andra inte får plats.
 
 Åt andra hållet gäller ouppvärmt garage, krypgrund och sommarstuga på vintern.
-Där tar nollgradersgränsen slut redan i oktober. Ett larm i ett ouppvärmt
-utrymme är också ett larm som ska klara att sitta ensamt utan wifi, och då är
-<ProductRef id="numens-204" /> med sitt femårsbatteri ofta det enda rimliga.
+Där tar nollgradersgränsen slut redan i oktober, och åtta av nio larm är
+godkända först från noll eller plus en grad. <ProductRef id="numens-204" /> är
+den enda som tillverkaren anger ner till −10 grader, och den behöver dessutom
+varken wifi eller ström. I ett kallt utrymme är den i praktiken utan
+konkurrenter här.
 
 ### Lönar det sig?
 
 Ja, och det är ovanligt lätt att visa.
 
-Ett vattenlarm kostar 190 till 900 kronor. Självrisken vid en vattenskada ligger
+Ett vattenlarm kostar 179 till 876 kronor. Självrisken vid en vattenskada ligger
 enligt Vattenskadecentrum på mellan 3 440 och 10 000 kronor, och till det kommer
 åldersavdrag på 9 700 till 26 100. Även den billigaste undvikna skadan betalar
 alltså larmet sjutton gånger om.
@@ -157,15 +174,14 @@ typgodkänt, och där sitter haken.
 Produkterna ska vara typgodkända enligt CR 139, som är certifieringsregeln för
 läckagebrytare, vattenbrytare och vattenlarm. Den kom in med 2026:1 och är ny.
 
-Av tillverkarna bakom larmen på den här sidan är det en enda som skriver ut ett
-certifikatnummer: Tollco anger C901472 för sina vattenlarm, och det omfattar
-både den batteridrivna och den nätanslutna modellen samt löpande kontroll av
+Tollco anger C901472 för sina vattenlarm, och det numret omfattar både den
+batteridrivna och den nätanslutna modellen samt löpande kontroll av
 tillverkningen.
 
-De övriga anger inget nummer. Det är inte samma sak som att de saknar
-godkännande, och vi påstår ingenting om det. Men det betyder att du inte kan
-läsa dig till svaret i butiken. Gäller kravet ditt bygge, be om
-certifikatnumret och nöj dig inte med ordet godkänd.
+Gäller kravet ditt bygge är det certifikatnumret du ska begära, eftersom det är
+numret din VVS-installatör kan kontrollera mot RISE register. Ordet godkänd på
+en förpackning räcker inte, och en säljare som inte kan lämna ett nummer har
+inte svarat på frågan.
 
 Tre saker är värda att hålla isär innan du drar en slutsats av det här:
 
@@ -222,9 +238,9 @@ uppkopplade. Räknat per skyddad plats, med appen inräknad, är den billigare �
 tre lösa larm som var för sig behöver en hubb.
 
 Det näst vanligaste missköpet är att köpa <ProductRef id="x-sense-sws51" />
-ensam i tron att den är den billiga vägen in i X-Sense-systemet. Butiken skriver
-själv att den då bara ger lokal ljudsignal, och att den inte ens går att
-sammankoppla med andra X-Sense-larm utan basstationen SBS50.
+ensam i tron att den är den billiga vägen in i X-Sense-systemet. Fristående ger
+den bara en lokal ljudsignal, och den går inte ens att sammankoppla med andra
+X-Sense-larm utan basstationen SBS50.
 
 ### Vattenlarm eller vattenvarnare?
 
@@ -248,7 +264,8 @@ telefonen säger till. Gör det samma dag du sätter dit larmet, inte den dag de
 behövs.
 
 **Att glömma bort det.** Sätt en påminnelse i kalendern på batteribyte redan när
-du packar upp. Ett år för SQ400B och Tapo, tre för X-Sense, fem för Numens.
+du packar upp. Ett år för SQ400B, ett och ett halvt för Tapo mot hubben, två för
+Housegard, Nedis, Fibaro och Aqara, tre för X-Sense, fem för Numens.
 
 **Att tro att larmet stoppar läckan.** Det gör det inte. Det säger till. Vill du
 att vattnet faktiskt stängs av behöver du en avstängningsventil eller en
@@ -264,7 +281,9 @@ vattenfelsbrytare, och det är en annan och betydligt dyrare produkt.
 | Hubb | Ruta som översätter mellan sensorernas radio och ditt nätverk. Krävs för Zigbee och Z-Wave. |
 | Zigbee | Radioprotokoll som bygger eget nät mellan enheter. Belastar inte wifi, men kräver hubb. |
 | Z-Wave | Motsvarande protokoll på annan frekvens, vanligt i proffsinstallationer. Kräver styrenhet. |
+| IP-klass | Två siffror: damm först, vatten sedan. I tabellen går vattensiffran från 0 hos Fibaro till 7 hos Tapo och Aqara. |
 | IP67 | Tål damm helt och nedsänkning i vatten en halvmeter i trettio minuter. |
+| IP20 | Ingen tätning alls mot vatten. Fibaro Flood Sensor är märkt för inomhusbruk. |
 | Sond | Den del som känner vatten, ibland löstagbar eller på kabel. |
 | Självrisk | Det du betalar själv vid en skada, 3 440 till 10 000 kronor enligt Vattenskadecentrum. |
 | Åldersavdrag | Ytterligare avdrag försäkringen gör för att det skadade var begagnat. |

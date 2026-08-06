@@ -121,10 +121,10 @@ export function decideMount(
       needsWindow: "gardin",
       needsMount: "i-skena",
       quietFirst,
-      headline: "I-skena, kontrollera artikeln extra noga",
-      why: "För I-skena finns egna artikelnummer. SwitchBot säljer en uttalad I-skenevariant, och Kjell säljer Aqaras skenversion som avsedd för både U- och I-skena.",
+      headline: "I-skena, och då är det Aqaras skenversion",
+      why: "Aqara Curtain Driver E1 i skenversion är den enda motorn vi rankar som får sitta på en I-skena. SwitchBot säljer en egen I-skenevariant, men den finns inte hos någon butik vi länkar till.",
       warning:
-        "Här går uppgifterna isär. Kjell anger att Aqaras skenversion passar I-skena, medan flera engelskspråkiga jämförelser skriver att den inte gör det. Vi har inte kunnat avgöra vem som har rätt, så kontrollera mot butikens uppgift innan du beställer och behåll returrätten.",
+        "Mät skenan innan du beställer. Aqara kräver att I-skenans underkant är slät och bredare än 10 millimeter, och produkten kräver dessutom en Aqara-hubb för att fungera alls.",
     };
   }
 

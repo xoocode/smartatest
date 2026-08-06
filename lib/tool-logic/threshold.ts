@@ -16,19 +16,29 @@
  * siffran vi hittat för kategorin som helhet, och den är därför bandgränsen
  * och inte en gissning.
  *
- * Gränserna över den kommer från de två högsta passerhöjder någon tillverkare
- * i vår jämförelse anger: 40 mm och 88 mm.
+ * Gränserna över den kommer från de passerhöjder tillverkarna i jämförelsen
+ * anger: 40 mm och 88 mm.
  *
  * ## ⚠️ Talen är uppgifter, inte mätvärden
  *
- * Ingen tillverkare anger vid vilken metod passerhöjden är uppmätt, och ingen
- * oberoende provning publicerar siffran. Verktyget säger därför aldrig att en
- * robot *klarar* en tröskel, bara vad tillverkaren *anger*. Skillnaden är hela
- * skälet till att sidan finns, eftersom samma slarv gäller sugkraften i
- * pascal.
+ * Tillverkarna anger att de mätt i eget labb, ingen använder en gemensam
+ * provmetod, och ingen oberoende provning publicerar siffran. Verktyget säger
+ * därför aldrig att en robot *klarar* en tröskel, bara vad tillverkaren
+ * *anger*. Skillnaden är hela skälet till att sidan finns, eftersom samma
+ * slarv gäller sugkraften i pascal.
  *
- * Tystnad passerar inte som ett ja: en robot utan angiven passerhöjd hamnar i
- * en egen hög med skälet utskrivet, i stället för att glida igenom.
+ * ## ⚠️⚠️ Rättat 2026-08-06: räkna på enkelsteget
+ *
+ * Verktyget byggdes på att bara en av sju rankade robotar publicerar en
+ * passerhöjd. Fyra gör det, och svaren låg på butikssidorna vi redan länkade
+ * till. Se rättelsen i lib/corrections.ts.
+ *
+ * Viktigare för den som mäter: tillverkarna publicerar två tal, och skyltar
+ * med det högre. Det gäller en tröskel med **två steg**, till exempel en
+ * skjutdörrsskena, där roboten tar stödet i två omgångar. Det lägre gäller en
+ * vanlig list i ett steg, och det är det verktyget räknar mot, eftersom det är
+ * den sortens tröskel läsaren håller tumstocken mot. Dreame L50s Pro Ultra
+ * säljs på 40 mm och klarar 22 över en list.
  */
 
 /** Vad de flesta robotar klarar, enligt Ljud & Bilds köpguide. */
@@ -94,7 +104,7 @@ export function decideThreshold(
   if (band === "1020") {
     return {
       headline: "Precis i gränslandet",
-      body: `Ungefär här går gränsen för vad de flesta robotar klarar enligt Ljud & Bild, alltså ${TYPICAL_MIN_MM} till ${TYPICAL_MAX_MM} millimeter. Det betyder att en del tar sig över och en del inte gör det, och att skillnaden ofta ligger i hur chassit är byggt snarare än i hur mycket roboten suger. Välj hellre en modell som publicerar en passerhöjd i millimeter än en som bara påstår sig vara bra på trösklar.`,
+      body: `Ungefär här går gränsen för vad de flesta robotar klarar enligt Ljud & Bild, alltså ${TYPICAL_MIN_MM} till ${TYPICAL_MAX_MM} millimeter. Det betyder att en del tar sig över och en del inte gör det, och att skillnaden ligger i hur chassit är byggt snarare än i hur mycket roboten suger. Ett chassi som lyfter sig över listen tar mer än hjul som bara rullar på.`,
       needsStatedHeight: true,
       suggestRamp: true,
       requiredMm: 20,
@@ -103,8 +113,8 @@ export function decideThreshold(
 
   if (band === "2040") {
     return {
-      headline: "Du behöver en angiven passerhöjd",
-      body: "Över två centimeter räcker det inte att roboten marknadsförs för trösklar. Här ska du ha en modell där tillverkaren skriver ut en höjd i millimeter, så att du kan hålla en tumstock mot samma tal. I den här jämförelsen är det en enda av de sju rankade som gör det.",
+      headline: "Du behöver ett chassi som lyfter sig",
+      body: "Över två centimeter räcker det inte att roboten marknadsförs för trösklar. Här ska du ha en modell som lyfter sig över listen och har en höjd i millimeter du kan hålla en tumstock mot. Bland de sju rankade tar sig två robotar hela vägen upp till fyra centimeter över en list i ett steg. Läs bara talet rätt: skyltar tillverkaren med en höjd som förutsätter en tröskel med två steg gäller den inte din dörrlist.",
       needsStatedHeight: true,
       suggestRamp: true,
       requiredMm: 40,
@@ -115,7 +125,7 @@ export function decideThreshold(
 
   return {
     headline: "Ramp eller ett annat upplägg",
-    body: `Över fyra centimeter är du utanför vad de flesta robotar anger, och den högsta passerhöjd någon tillverkare i jämförelsen uppger är ${HIGHEST_STATED_MM} millimeter. Det finns tre vägar: en tröskelramp i de dörrar det gäller, en robot per våningsplan eller rumsavsnitt, eller att acceptera att bära roboten över.`,
+    body: `Över fyra centimeter är du utanför vad de flesta robotar tar sig över. Två av de rankade anger drygt 4,2 respektive 4,5 centimeter över en list i ett steg, och ${HIGHEST_STATED_MM} millimeter som mest över en tröskel med två steg, alltså en skjutdörrsskena. Har du en enkel list högre än så finns tre vägar: en tröskelramp i de dörrar det gäller, en robot per våningsplan eller rumsavsnitt, eller att acceptera att bära roboten över.`,
     needsStatedHeight: true,
     suggestRamp: true,
     requiredMm: HIGHEST_STATED_MM,

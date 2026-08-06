@@ -62,12 +62,12 @@ import Kopguide from "@/content/iphone-skarmskydd/kopguide.mdx";
 
 const TEST_PAGE = IPHONE_SKARMSKYDD;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Spigen Glas.tR EZ Fit för 249 kr vinner: två glas, en monteringsbygel och skydd även över sensorerna. Vi jämför femton skärmskydd till iPhone 17 Pro från 69 till 399 kronor på skydd, redovisning och montering.",
+    "Spigen Glas.tR EZ Fit för 249 kr vinner: två glas, en monteringsbygel och skydd även över sensorerna. Vi jämför femton skärmskydd till iPhone 17 Pro från 69 till 399 kronor på täckning, montering och pris per skydd.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -214,8 +214,9 @@ export default async function IphoneSkarmskyddPage() {
           <p>
             Därför betygsätter vi ingen hårdhet här. Det som går att jämföra är
             hur mycket av skärmen glaset täcker, vad som ligger i asken och vad
-            ett skydd faktiskt kostar. Priset förutsäger inte heller det: skyddet
-            för 399 kronor anger färre uppgifter om sig självt än det för 129.
+            ett skydd faktiskt kostar. Priset avgör inte heller det: det
+            billigaste tvåpacket kostar 99,50 kronor per glas och är tunnare än
+            skyddet för 399.
           </p>
         </Prose>
       </Section>
@@ -253,7 +254,7 @@ export default async function IphoneSkarmskyddPage() {
         tone="muted"
         width="wide"
         title="Recensioner av varje skydd"
-        description="Femton skydd mellan 69 och 399 kronor, bedömda på hur mycket av skärmen de täcker, hur mycket du får veta före köpet och hur troligt det är att de hamnar rakt."
+        description="Femton skydd mellan 69 och 399 kronor, bedömda på hur mycket av skärmen de täcker, hur troligt det är att de hamnar rakt vid första försöket och vad ett skydd på skärmen kostar."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -302,7 +303,9 @@ export default async function IphoneSkarmskyddPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Skydd och täckning väger 35 därför att det är det köparen betalar för, och därför att det är det enda i kategorin som går att bedöma på något annat än ett påstående. Sidan har inget kriterium för testomdöme: Råd & Rön och Testfakta har ingen provning av skärmskydd, och den enda riktiga labbprovning vi hittat är från 2014, gäller folier och innehåller ingen av produkterna här. Hårdhetstalet 9H betygsätts inte som ett mätvärde. Det är taket på pennskalan i ASTM D3363 och ISO 15184, alltså standarder för färg och lack, ISO skriver i sitt eget abstract att metoden inte duger till att jämföra olika beläggningar, och utfallet avgörs av en provlast som inte finns angiven för något skydd i handeln. Talet väger i stället in under öppen redovisning, som mäter hur mycket av köpbeslutet du får ta själv innan asken är öppnad. Där kostar det poäng att lämna köparen utan tjocklek, täckning och innehåll, och där ger det poäng att skriva ut även det som talar mot produkten. Ytbehandling prövades som femte kriterium och ströks före insamlingen, eftersom bara fyra av femton skydd anger något om ytan och kolumnen därmed hade blivit streck snarare än jämförelse. Lagerstatus väger inte in, efter användarbeslut."
+          footnote={
+            "Skydd och täckning väger 47 därför att det är det köparen betalar för, och därför att det är det enda i kategorin som går att bedöma på något annat än ett påstående.\n\nSidan har inget kriterium för testomdöme. Råd & Rön och Testfakta har ingen provning av skärmskydd, och den enda riktiga labbprovning vi hittat är från 2014, gäller folier och innehåller ingen av produkterna här.\n\nHårdhetstalet 9H betygsätts inte alls. Det är taket på pennskalan i ASTM D3363 och ISO 15184, alltså standarder för färg och lack, ISO skriver i sitt eget abstract att metoden inte duger till att jämföra olika beläggningar, och utfallet avgörs av en provlast som inte anges för något skydd i handeln. Talet står kvar i tabellen därför att köparen letar efter det, men det påverkar ingen placering.\n\nGarantitiden står i tabellen av samma skäl och väger inte heller in. Spannet går från 6 månader till livstid och är värt att läsa på ett skydd som byts oftare än telefonen, men vad butiken lovar efteråt är något annat än vad glaset gör på skärmen. Lagerstatus väger inte in, efter användarbeslut."
+          }
         />
       </Section>
 

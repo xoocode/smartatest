@@ -38,22 +38,29 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/inomhuskamera/kopguide.mdx";
 
 /*
- * ⚠️ Priser, upplösning, panorering, lagring, kundbetyg och innehåll i
- * förpackningen är riktiga, lästa på Kjells egen sida på PRICE_CHECKED.
- * Uppgifterna om linsskydd och avstängning är lästa i tillverkarens egen
- * dokumentation, se lib/sources.ts. Kriteriebetygen är redaktionell
- * bedömning. Vi har inte monterat eller filmat med någon kamera.
+ * ⚠️ Priser och kundbetyg är lästa på Kjells egen sida på PRICE_CHECKED.
+ * Upplösning, synfält, rörelseomfång, lagring och avstängning är hämtade ur
+ * tillverkarens egen specifikation, manual eller produktblad, se
+ * lib/sources.ts. Abonnemangspriserna står på Arlos och Rings planssidor.
+ * Kriteriebetygen är redaktionell bedömning. Vi har inte monterat eller
+ * filmat med någon kamera.
  *
  * Sidans fynd, i den ordning de står:
  *
  * 1. #hemtjansten — IMY säger att inomhus oftast är tillåtet, men gör
  *    undantag för den som regelbundet får besök av hemtjänst. Det träffar
  *    precis den köpare kategorin marknadsförs mot.
- * 2. #linsskyddet — ett fysiskt skydd är den enda integritetskontroll som går
- *    att se. Tre nivåer finns i handeln, och Arlos automatiska skydd står
- *    öppet om du köper kontinuerlig inspelning, vilket de skriver själva.
+ * 2. #linsskyddet — en fysisk avstängning är den enda integritetskontroll som
+ *    går att se. Fyra mekanismer finns i handeln, och priset följer inte
+ *    mekaniken: den bästa sitter varken på den dyraste eller den billigaste.
  * 3. #lagringen — inomhusbilder är det känsligaste ett hem producerar, och
  *    frågan var de hamnar är inte bara ekonomisk.
+ *
+ * ⚠️ RÄTTAT 2026-08-06. Sidan gav Arlo ett motoriserat linsskydd som den inte
+ * har på panoreringsmodellen, och Aqara ingen fysisk avstängning trots att
+ * tillverkaren dokumenterar en. Se lib/corrections.ts. Skriv inte tillbaka
+ * Arlos CVR-brasklapp: den gäller Privacy Shield på den fasta Essential
+ * Indoor, inte den PTZ-modell den här sidan rankar.
  *
  * ⚠️ Sökvolymen för `inomhuskamera` är inte mätt i Keyword Planner. Sidan
  * bygger på ett antagande om intention inom `övervakningskamera`. Det är
@@ -68,12 +75,12 @@ import Kopguide from "@/content/inomhuskamera/kopguide.mdx";
 
 const TEST_PAGE = INOMHUSKAMERA;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Inomhus är kamerabevakning oftast tillåten, men inte om du regelbundet får besök av hemtjänst. Vi jämförde sju inomhuskameror från 279 till 1 299 kronor, och bara fyra har ett linsskydd du kan se.",
+    "Vi jämförde sju inomhuskameror från 279 till 1 299 kronor. Tapo C225 vinner: 599 kronor, en knapp som vrider bort objektivet, hela rummet i 2K och inget abonnemang.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -85,7 +92,7 @@ export const metadata: Metadata = {
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "hemtjansten", label: "Regeln om någon arbetar i ditt hem" },
-  { id: "linsskyddet", label: "Linsskyddet du kan se med egna ögon" },
+  { id: "linsskyddet", label: "Avstängningen du kan se med egna ögon" },
   { id: "jamforelse", label: "Jämför alla sju" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "lagringen", label: "Var bilderna hamnar" },
@@ -136,11 +143,14 @@ export default async function InomhuskameraPage() {
               larmcentral. Men får du regelbundet besök av hemtjänst gäller
               inte privatundantaget, eftersom personalen bevakas under sin
               arbetstid. Då räcker det inte att kameran går att stänga av. Den
-              måste gå att stänga av på ett sätt som syns. Vi jämförde sju
-              kameror från 279 till 1 299 kronor.
+              måste gå att stänga av på ett sätt som syns, och det klarar fem
+              av de sju kameror vi jämförde. Bäst är TP-Link Tapo C225 för 599
+              kronor: en knapp på höljet vrider bort objektivet, den täcker
+              hela rummet i 2K och ingenting kräver abonnemang.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -239,45 +249,49 @@ export default async function InomhuskameraPage() {
         id="linsskyddet"
         tone="muted"
         width="default"
-        title="Linsskyddet du kan se med egna ögon"
-        description="Ett läge i en app är ett löfte om programvara. Ett skydd över linsen är en mekanism."
+        title="Avstängningen du kan se med egna ögon"
+        description="Ett läge i en app är ett löfte om programvara. Ett objektiv som pekar i golvet är en mekanism."
       >
         <Prose>
           <p>
-            Tre nivåer finns i handeln, och de kostar inte det man tror.
+            Fyra mekanismer finns i handeln, och de kostar inte det man tror.
           </p>
           <p>
-            <strong>Motoriserat skydd.</strong> Arlos Essential Indoor täcker
-            enligt tillverkaren automatiskt linsen när kameran avlarmas och
-            öppnar den när den larmas på. Rörelsedetektering, ljuddetektering
-            och mikrofonen stängs av samtidigt. Det är den enda avstängningen i
-            kategorin som fungerar utan att någon behöver komma ihåg den.
+            <strong>Kameran vänder bort linsen av sig själv.</strong> Arlo
+            Essential 3 PTZ lutar ner tills objektivet ligger mot foten så snart
+            systemet står i standby eller hemmaläge, och stänger av
+            rörelsedetektering och mikrofon i samma rörelse. Ingen behöver komma
+            ihåg någonting, vilket är hela skillnaden mot en knapp.
           </p>
           <p>
-            <strong>Fysisk knapp.</strong> TP-Link skriver att Tapo C125 och
-            C225 har en fysisk integritetsknapp som fäller ner ett skydd över
-            linsen eller vrider bort linsen helt.
+            <strong>Kameran vänder bort linsen när du säger till.</strong> Aqara
+            G3 vrider bort linsenheten och visar ett sovande ansikte i stället.
+            Det går att göra för hand, och det går att lägga i en egen regel:
+            att kameran somnar när ytterdörren öppnas, till exempel. Skillnaden
+            mot Arlo är att du bygger regeln själv i stället för att få den ur
+            lådan.
           </p>
           <p>
-            <strong>Löst linsskydd.</strong> Ring lägger ett linsskydd i lådan
-            till Indoor Camera Plus, och ett sekretesskydd fäst på kameran till
-            Pan-Tilt-modellen.
+            <strong>En knapp på höljet.</strong> Tapo C225 och C125 har en knapp
+            som fäller ner ett skydd över linsen eller vrider bort den helt. Ett
+            tryck, synligt resultat, men du måste komma ihåg trycket.
           </p>
           <p>
-            <strong>Resten har bara programläget.</strong> TP-Links läge stänger
-            enligt tillverkaren av både bild och ljud, vilket är mer än många
-            erbjuder, men objektivet pekar fortfarande in i rummet och ingen som
-            står framför kameran kan se om läget är på.
+            <strong>Ett linsskydd.</strong> Ring Pan-Tilt har ett inbyggt i
+            kameran, Indoor Camera Plus ett löst i förpackningen. Det inbyggda
+            är den bättre lösningen av enkla skäl: det som ligger i en låda
+            stannar ofta i lådan.
           </p>
           <p>
-            <strong>Och så Arlos brasklapp, i deras egna ord:</strong>{" "}
-            <em>
-              &quot;If continuous video recording (CVR) is enabled, the Privacy
-              Shield stays open, and your camera continues recording.&quot;
-            </em>{" "}
-            Kontinuerlig inspelning är en abonnemangsfunktion. Kategorins bästa
-            integritetslösning slutar alltså fungera precis när du köper den
-            dyraste nivån.
+            <strong>Resten har bara programläget.</strong> Tapo C220 och C100
+            stänger av både bild och ljud och inte bara inspelningen, vilket är
+            mer än många erbjuder. Men objektivet pekar fortfarande in i rummet,
+            och ingen som står framför kameran kan se om läget är på.
+          </p>
+          <p>
+            Priset följer inte mekaniken. Den billigaste kameran med en fysisk
+            avstängning kostar 599 kronor, den dyraste 1 299, och den kamera
+            som gör det bäst av alla är varken den ena eller den andra.
           </p>
         </Prose>
       </Section>
@@ -300,13 +314,13 @@ export default async function InomhuskameraPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sju"
-        description="Kolumnen Avstängning visar om skyddet syns med blotta ögat. Kräver abonnemang visar var bilderna hamnar."
+        description="Avstängning visar vad som händer med objektivet. Rörelseomfång är hur långt kameran vrider sig, synfält hur brett den ser när den står still, och de två ska inte förväxlas."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om linsskydd och avstängning är lästa i tillverkarens egen dokumentation och i butikens innehållsförteckning. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, vilket gäller flera rader för Tapo C100 trots att den är kategorins mest sålda produkt.`)}
+          caption={priceCaption(PRICE_CHECKED, `Synfältet anges horisontellt där tillverkaren publicerar det och diagonalt i övrigt, eftersom ett diagonalmått alltid är det största av de tre. Abonnemangspriserna är hämtade ur Arlos och Rings egna planssidor.`)}
         />
       </Section>
 
@@ -321,20 +335,29 @@ export default async function InomhuskameraPage() {
         <Prose>
           <p>
             <strong>
-              Vinnaren har inte kategorins bästa integritetslösning.
+              Vinnaren har inte kategorins bästa avstängning.
             </strong>{" "}
-            Arlos motoriserade skydd är bättre än Tapos knapp, och det får också
-            högsta betyg på det kriteriet. Att Tapo C225 ändå vinner beror på
-            att Arlo inte sparar någonting utan abonnemang, bara ger 1080p och
-            kostar mer än dubbelt så mycket. Väger du integriteten ensam är Arlo
-            svaret, och det står i deras recension.
+            Arlo lutar ner linsen av sig själv och Aqara kan läras att göra det,
+            medan Tapo C225 kräver att någon trycker på en knapp. Båda får också
+            högre betyg än vinnaren på det kriteriet. Att C225 ändå vinner beror
+            på att Arlo inte sparar någonting utan abonnemang och att Aqara
+            kostar 700 kronor mer. Väger du avstängningen ensam är Arlo svaret,
+            och det står i deras recension.
           </p>
           <p>
-            <strong>Två av sju placeringar går till samma fabrikat.</strong>{" "}
-            TP-Link tar första och andra platsen. Det beror på att de är ensamma
-            om att kombinera fysiskt skydd, lokal lagring och låga priser, inte
-            på att vi föredrar dem. Kategorins två mest omdömda produkter råkar
-            dessutom vara deras.
+            <strong>Vi hade fel om två av kamerorna.</strong> Fram till den 8
+            augusti 2026 stod det här att Arlo har ett motoriserat linsskydd och
+            att Aqara saknar fysisk avstängning helt. Båda uppgifterna var fel,
+            båda svaren fanns hos tillverkarna, och rättelsen flyttade Aqara
+            från tredje till andra plats. Vad som ändrades och varför står på{" "}
+            <a href="/rattelser">rättelsesidan</a>.
+          </p>
+          <p>
+            <strong>Tre av sju placeringar går till samma fabrikat.</strong>{" "}
+            TP-Link tar första, tredje och femte platsen. Det beror på att de är
+            ensamma om att kombinera fysisk avstängning, lokal lagring och låga
+            priser, inte på att vi föredrar dem. Kategorins två mest omdömda
+            produkter råkar dessutom vara deras.
           </p>
           <p>
             <strong>Alla sju länkar går till Kjell.</strong> De är den enda
@@ -389,7 +412,7 @@ export default async function InomhuskameraPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje kamera"
-        description="Alla sju bedöms mot samma fem kriterier. Måtten är butikens egna, och uppgifterna om linsskydd är tillverkarens."
+        description="Alla sju bedöms mot samma fem kriterier, där avstängningen väger tyngst."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -411,7 +434,7 @@ export default async function InomhuskameraPage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex poster som inte hamnade i rankningen, inklusive två som saknar specifikation helt."
+        description="Sex poster som inte hamnade i rankningen, och skälet till var och en."
       >
         <ConsideredList items={INOMHUSKAMERA_CONSIDERED} />
       </Section>
@@ -434,7 +457,7 @@ export default async function InomhuskameraPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Avstängningen väger tyngst eftersom den är den enda egenskapen som avgör om kameran går att använda i ett hem där någon annan rör sig, och eftersom skillnaderna är dokumenterade av tillverkarna själva. Skalan är 5,0 för ett fysiskt skydd som stängs automatiskt när larmet slås av, 4,0 för ett fysiskt skydd du styr själv, 2,5 för enbart ett programläge som stänger av både bild och ljud, 1,5 för enbart pausad inspelning där kameran fortfarande ser, och 1,0 när ingen avstängning alls dokumenteras. Kriteriet kostnad efter köp poängsätter vad som slutar fungera utan abonnemang och inte kronor per månad, eftersom vi inte kunnat läsa någon prislista hos Arlo, Ring eller Google. Bildbetyget bygger på publicerade mått, och för Tapo C100 publicerar butiken inga alls, vilket sänker betyget även om produkten kan vara bättre än så. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
+          footnote="Avstängningen väger tyngst eftersom den avgör om kameran går att använda i ett hem där någon annan rör sig. Skalan graderar mekanismen: 5,0 för ett fysiskt skydd som går på av sig självt när kameran avlarmas, 4,5 för ett fysiskt skydd som sitter i kameran och går att automatisera med en egen regel, 4,0 för ett fysiskt skydd som sitter i kameran och styrs för hand, 3,5 för ett löst linsskydd du sätter på plats själv, och 2,5 för ett programläge som stänger av både bild och ljud. Kostnad efter köp räknar både beroendet och kronorna: Arlo Secure kostar 99 kronor i månaden för en kamera och 149 för flera, Ring Basic 3,99 euro i månaden för en. Bildbetyget väger täckning tyngre än upplösning, eftersom avstånden inomhus är korta. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -466,7 +489,7 @@ export default async function InomhuskameraPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Myndighetens eget exempel om hemtjänst, två tillverkares dokumentation av linsskydd, och butiken som bär priserna."
+        description="Myndighetens eget exempel om hemtjänst, fyra tillverkares egen dokumentation av hur kamerorna stängs av, och butiken som bär priserna."
       >
         <Prose className="mb-block">
           <p>

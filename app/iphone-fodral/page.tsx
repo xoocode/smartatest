@@ -59,7 +59,7 @@ import Kopguide from "@/content/iphone-fodral/kopguide.mdx";
 
 const TEST_PAGE = IPHONE_FODRAL;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
@@ -216,7 +216,7 @@ export default async function IphoneFodralPage() {
         width="wide"
         eyebrow="Alla testvinnare"
         title={`De ${products.length} bästa plånboksfodralen 2026`}
-        description="Varje fodral fick en egen utmärkelse. Klicka på ett namn för den fullständiga recensionen."
+        description="Varje fodral har en egen etikett som säger vem det passar. Klicka på ett namn för den fullständiga recensionen."
       >
         <WinnerGrid products={products} variant="grid" columns={3} />
       </Section>
@@ -290,7 +290,7 @@ export default async function IphoneFodralPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Kortkapacitet och konstruktion väger 25 var, eftersom ett plånboksfodral köps för att bära kort men samtidigt är telefonens enda skydd. Sidan har inget kriterium för testomdöme: ingen har provat plånboksfodral, varken i Sverige eller internationellt. RFID-skydd betygsätts inte heller, och det är ett eget beslut med tre skäl. Ingen tillverkare anger dämpning, frekvens eller standard. Uppgiften skiljer inte produkterna åt, eftersom både det billigaste och det dyraste fodralet anger den. Och den enda oberoende utvärdering som gjorts av RFID-blockerande produkter kringgick 8 av 11 blockeringskort men uteslöt uttryckligen de skärmande korten, alltså just den mekanism ett fodral använder. Att låna det resultatet hit vore ett provresultat från en annan produkt. Ett fodral bär dessutom en strålningsdämpande membranuppgift som varken återges eller bemöts här, eftersom ett hälsopåstående kräver en myndighetskälla vi inte läst i original. Där en uppgift som sedelfack eller foder inte publiceras räknas det som en brist under respektive kriterium, eftersom det är du som får leva med att fodralet inte gör det du trodde."
+          footnote="Kortkapacitet och konstruktion väger 25 var, eftersom ett plånboksfodral köps för att bära kort men samtidigt är telefonens enda skydd. Sidan har inget kriterium för testomdöme: ingen har provat plånboksfodral, varken i Sverige eller internationellt. RFID-skydd betygsätts inte heller, och det är ett eget beslut med tre skäl. Ingen tillverkare anger dämpning, frekvens eller standard. Uppgiften skiljer inte produkterna åt, eftersom både det billigaste och det dyraste fodralet anger den. Och den enda oberoende utvärdering som gjorts av RFID-blockerande produkter kringgick 8 av 11 blockeringskort men uteslöt uttryckligen de skärmande korten, alltså just den mekanism ett fodral använder. Att låna det resultatet hit vore ett provresultat från en annan produkt. Ett fodral bär dessutom en strålningsdämpande membranuppgift som varken återges eller bemöts här, eftersom ett hälsopåstående kräver en myndighetskälla vi inte läst i original. En uppgift vi inte har fått fram drar aldrig av på ett betyg: fodralet är vad det är oavsett vad vi hann läsa, och den tomma rutan står som ett streck i tabellen i stället."
         />
       </Section>
 

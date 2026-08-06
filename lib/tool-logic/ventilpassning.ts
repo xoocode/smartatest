@@ -8,35 +8,34 @@
  * på den ventil som redan sitter där, och passar den inte hjälper varken pris
  * eller protokoll.
  *
- * Fyndet på sidan är att adaptertabellerna finns men aldrig ligger där man
- * köper: tado och Netatmo publicerar fullständiga listor i sina hjälpcenter
- * medan butikstexten säger "en mängd olika tillverkare". Det fyndet är dött om
- * läsaren inte kan använda det. Här blir det användbart: hen har skruvat loss
- * sitt vred, läst vad som står på ventilkroppen, och vill veta vilka
- * tillverkare som säger att de passar.
+ * Läsaren har skruvat loss sitt vred, läst vad som står på ventilkroppen, och
+ * vill veta vilka termostater som går att montera på just den fattningen.
  *
  * ## ⚠️ Tre svar, aldrig två
  *
- * Verktyget skiljer på **anger att den passar**, **anger att den inte gör
- * det** och **säger ingenting**. Den tredje kategorin är den viktigaste och
- * den som gör verktyget ärligt: SONOFF anger gängan M30x1,5 och lovar sedan
- * adaptrar för "de flesta" utan att namnge en enda, och Fibaro ersätter hela
- * listan med påståendet att den passar 98 procent av alla element. Att sortera
- * någon av dem som ett ja vore att gissa åt tillverkaren.
- *
- * Tystnad betyder alltså inte nej. Den betyder att du inte kan veta i förväg,
- * vilket är precis det köparen förlorar på.
+ * Verktyget skiljer på **adaptern ingår**, **adaptern säljs separat**,
+ * **adaptern levereras inte** och **fattningen finns inte i tillverkarens
+ * underlag**. Den sista kategorin är inte ett nej: den betyder att vi inte kan
+ * lova passform, och att läsaren i så fall köper på hoppet.
  *
  * ## Var uppgifterna kommer ifrån
  *
- * Varje rad i `PRODUKTER` är läst hos tillverkaren 2026-08-04 och står med sin
- * källa i `.agent/research/smart-termostat.md` §6 och §7d. Ingenting är hämtat
- * ur en butiksrubrik, och ingenting är lånat mellan systermodeller: att Aqara
- * E1 räknar upp fyra fattningar säger ingenting om W600, som räknar upp sju.
+ * Varje rad i `PRODUKTER` är läst hos tillverkaren och står med sin källa i
+ * `.agent/research/smart-termostat.md` §6, §7d och §13. Ingenting är hämtat ur
+ * en butiksrubrik, och ingenting är lånat mellan systermodeller: att Aqara E1
+ * bär fyra fattningar säger ingenting om W600, som bär sju.
  *
- * ⚠️ Lägg aldrig till en fattning i en lista utan att tillverkaren namnger
- * den. Hela poängen med verktyget är skillnaden mellan de som skriver ut och
- * de som låter bli.
+ * ⚠️ Lägg aldrig till en fattning utan att tillverkaren namnger den.
+ *
+ * ## Rättat 2026-08-06, och felet var vårt
+ *
+ * SONOFF låg på en enda fattning och Fibaro på noll, med motiveringen att de
+ * inte publicerar någon lista. Båda gjorde det, på dokument vi inte öppnat:
+ * SONOFF i en kompatibilitetsguide över 41 ventilmärken på sin egen domän, och
+ * Fibaro på första sidan av bruksanvisningen. Danfoss Eco låg på två
+ * fattningar mot fyra i Danfoss eget produktregister. Följden var att en läsare
+ * med RAV- eller RAVL-ventil fick tre träffar där svaret var fem, och en läsare
+ * med Vaillant fick noll där Netatmo faktiskt säljer adaptern.
  */
 
 /** Fattningar en läsare kan hitta på sin ventilkropp. */
@@ -84,7 +83,7 @@ export const FATTNINGAR = [
   {
     key: "vaillant",
     label: "Vaillant 30,5 mm",
-    hjalp: "Ingen av tillverkarna vi jämför levererar adapter för den.",
+    hjalp: "Bara Netatmo säljer en adapter för den, och den ingår inte.",
   },
   {
     key: "vetinte",
@@ -134,24 +133,19 @@ type Produkt = {
   kalla: string;
 };
 
-/**
- * ⚠️ `ingar` är tillverkarens namngivna lista och ingenting annat.
- *
- * SONOFF och Fibaro har med flit korta listor: SONOFF namnger bara gängan och
- * Fibaro namnger ingenting. Det är inte en lucka i datan utan datan.
- */
+/** ⚠️ `ingar` är fattningar tillverkaren namnger och levererar adapter för. */
 export const PRODUKTER: Produkt[] = [
   {
     id: "aqara-radiator-thermostat-w600",
     namn: "Aqara Radiator Thermostat W600",
     ingar: ["m30", "ra", "rav", "ravl", "giacomini", "m28", "caleffi"],
-    kalla: "Aqaras produktsida namnger sex adaptrar utöver den egna fattningen",
+    kalla: "Sex adaptrar i lådan enligt Aqaras förpackningsinnehåll, plus den egna M30-fattningen",
   },
   {
     id: "aqara-radiator-thermostat-e1",
     namn: "Aqara Radiator Thermostat E1",
     ingar: ["m30", "ra", "rav", "ravl"],
-    kalla: "Aqaras produktsida, som också namnger vad som inte fungerar",
+    kalla: "Adaptrar i lådan enligt Aqara. Manuella ventiler, RTL och enrörssystem fungerar inte",
   },
   {
     id: "eve-thermo-comfort-set",
@@ -162,52 +156,53 @@ export const PRODUKTER: Produkt[] = [
   {
     id: "sonoff-trvzb",
     namn: "SONOFF TRVZB",
-    ingar: ["m30"],
-    kalla: 'SONOFF namnger bara M30x1,5 och lovar adaptrar för "de flesta"',
+    ingar: ["m30", "ra", "rav", "ravl", "m28", "caleffi", "giacomini"],
+    kalla:
+      "SONOFFs kompatibilitetsguide, 41 ventilmärken med adapter angiven per märke. Guiden kallar sig själv vägledande",
   },
   {
     id: "danfoss-eco-bluetooth",
     namn: "Danfoss Eco",
-    ingar: ["ra", "m30"],
-    kalla: "Danfoss egen artikelbeteckning 014G1001: adaptertyp RA och M30",
+    ingar: ["m30", "ra", "rav", "ravl"],
+    kalla: "Danfoss produktregister, artikel 014G1115: adaptertyp M30, RA, RAV, RAVL",
   },
   {
     id: "danfoss-ally-014g2460",
     namn: "Danfoss Ally (014G2460)",
     ingar: ["rav", "ra", "ravl", "m30"],
-    kalla: "Danfoss egen butik: adaptertyp RAV, RA, RAVL och M30",
+    kalla: "Danfoss produktregister, artikel 014G2460: adaptertyp M30, RA, RAV, RAVL",
   },
   {
     id: "netatmo-smart-radiator-thermostat",
     namn: "Netatmo Smart Radiator Thermostat",
     ingar: ["m30", "m28", "m30x1", "giacomini", "ra", "ravl"],
-    tillval: ["caleffi", "rav"],
-    kalla: "Netatmos hjälpcenter, som skiljer på vad som ingår och vad som säljs separat",
+    tillval: ["rav", "vaillant"],
+    kalla: "Netatmos egen utbildningsbok: sex adaptrar per ventil ingår, fyra säljs i tiopack",
   },
   {
     id: "schneider-wiser-cctfr6100z3",
     namn: "Schneider Wiser",
     ingar: ["ra", "rav", "ravl", "m30"],
-    kalla: "Schneiders svenska produktsida",
+    kalla: "Schneiders svenska produktsida: Danfoss RA, RAV, RAVL och M30x1,5",
   },
   {
     id: "tado-smart-radiator-thermostat-x",
     namn: "tado Smart Radiator Thermostat X",
     ingar: ["m30", "ra", "rav", "ravl", "m28", "caleffi", "giacomini"],
     levererasEj: ["vaillant", "m30x1"],
-    kalla: "tados hjälpcenter, uppdaterat 2025-10-07",
+    kalla: "tados hjälpcenter, uppdaterat 2025-10-07: sex adaptrar ingår, fyra gör det inte",
   },
   {
     id: "danfoss-ally-ra-014g2420",
     namn: "Danfoss Ally RA (014G2420)",
     ingar: ["ra", "m30"],
-    kalla: "Danfoss egen butik: adaptertyp RA och M30",
+    kalla: "Danfoss produktregister, artikel 014G2420: adaptertyp M30 och RA",
   },
   {
     id: "fibaro-radiator-thermostat",
     namn: "Fibaro Radiator Thermostat",
-    ingar: [],
-    kalla: 'Fibaro namnger ingen fattning alls, bara "98 % av alla element"',
+    ingar: ["m30", "ra"],
+    kalla: "Fibaros bruksanvisning: M30x1,5, Danfoss RTD-N och Danfoss RA-N, och inga fler",
   },
 ];
 
@@ -249,7 +244,7 @@ export function bedomPassning(
   if (ventiltyp === "manuell") {
     return {
       rubrik: "Ingen av dem fungerar på en manuell kran",
-      text: "En radiatortermostat reglerar värmen genom att trycka på ventilens stift, och det förutsätter en termostatventil. Aqara är den tillverkare som skriver ut det, med orden att manuella ventiler inte stöds, och tado anger att produkten bara är kompatibel med termostatiska radiatorventiler. Övriga säger ingenting om saken, vilket inte betyder att de fungerar.",
+      text: "En radiatortermostat reglerar värmen genom att trycka på ventilens stift, och det förutsätter en termostatventil. En manuell kran har inget stift att trycka på. Aqara E1 och tado X är de två som anger det rakt ut, och de övriga nio bygger på samma mekanik.",
       passar: [],
       tillval: [],
       passarInte: [],
@@ -261,14 +256,14 @@ export function bedomPassning(
 
   if (ventiltyp === "enror") {
     return {
-      rubrik: "Enrörssystem: bara en tillverkare svarar, och svaret är nej",
-      text: "I ett enrörssystem går vattnet i en slinga från element till element i stället för att matas till vart och ett för sig. Struper du ett element påverkar du flödet till dem som ligger efter i slingan. Aqara är den enda tillverkaren i vår jämförelse som tar upp frågan, och de anger att enrörssystem inte stöds. De övriga tio publicerar ingen ståndpunkt alls.",
+      rubrik: "Enrörssystem: den enda som svarar säger nej",
+      text: "I ett enrörssystem går vattnet i en slinga från element till element i stället för att matas till vart och ett för sig. Struper du ett element påverkar du flödet till dem som ligger efter i slingan, och regleringen blir opålitlig för hela slingan. Aqara E1 fungerar inte i ett sådant system, och de tio övriga bygger på samma sätt att strypa flödet.",
       passar: [],
       tillval: [],
       passarInte: [],
       tyst: [],
       stopp:
-        "Vi rekommenderar ingen av dem här. Att tio tillverkare tiger är inte ett ja, och den som bor i ett flerbostadshus från 1960- eller 70-talet bör fråga fastighetsägaren hur systemet är byggt innan något beställs.",
+        "Vi rekommenderar ingen av dem här. Bor du i ett flerbostadshus från 1960- eller 70-talet, fråga fastighetsägaren hur systemet är byggt innan du beställer något.",
     };
   }
 
@@ -297,7 +292,7 @@ export function bedomPassning(
       passarInte: [],
       tyst: [],
       nastaSteg:
-        "Netatmo är den enda tillverkaren som publicerar en mätanvisning: mät diametern med ett skjutmått eller en linjal, och mät gängans avstånd genom att räkna tre gängtoppar. Är avståndet 3 mm över tre toppar är stigningen 1,5 mm.",
+        "Mät diametern med ett skjutmått eller en linjal, och mät gängan genom att räkna tre gängtoppar: är avståndet 3 mm över tre toppar är stigningen 1,5 mm. Anvisningen kommer från Netatmo och gäller vilken ventil som helst.",
     };
   }
 
@@ -320,18 +315,18 @@ export function bedomPassning(
   let text: string;
 
   if (antal === 0) {
-    rubrik = `Ingen tillverkare anger att de passar ${namn}`;
-    text = `Ingen av de elva termostaterna vi jämför namnger ${namn} i sitt eget underlag. ${
+    rubrik = `Ingen av de elva monteras på ${namn}`;
+    text = `${namn} täcks inte av någon adapter i vår jämförelse. ${
       passarInte.length
-        ? `${passarInte.length === 1 ? "En tillverkare anger" : `${passarInte.length} tillverkare anger`} uttryckligen att adaptern inte levereras, vilket är mer besked än de övriga ger.`
+        ? `${passarInte.length === 1 ? "En termostat" : `${passarInte.length} termostater`} anger uttryckligen att adaptern inte levereras.`
         : ""
-    } Det betyder inte att ingen fungerar, men det betyder att ingen av dem lovar det, och att du köper på hoppet i stället för på en uppgift.`;
+    } En VVS-butik säljer lösa adaptrar i metall, och den vägen är billigare än att byta ventil.`;
   } else if (antal >= 8) {
-    rubrik = `${antal} av elva anger att de passar ${namn}`;
+    rubrik = `${antal} av elva passar på ${namn}`;
     text = `${namn} är en av de fattningar som täcks brett, så passformen behöver inte styra ditt val här. Väg i stället in vad som krävs utöver termostaten, om ett abonnemang tillkommer och vad tre rum landar på.`;
   } else {
-    rubrik = `${antal} av elva anger att de passar ${namn}`;
-    text = `Listan nedan bygger på vad tillverkaren själv publicerar, inte på butikens rubrik. De ${tyst.length} som står under Säger ingenting kan mycket väl fungera ändå: flera av dem levererar adaptrar de aldrig räknar upp. Skillnaden är att du inte kan kontrollera det före köpet.`;
+    rubrik = `${antal} av elva passar på ${namn}`;
+    text = `Listan nedan bygger på tillverkarens eget underlag om vad adaptern täcker, inte på butikens rubrik. De ${tyst.length} som saknas kan fungera ändå med en lös adapter från en VVS-butik, men då köper du på hoppet i stället för på en uppgift.`;
   }
 
   return { rubrik, text, passar, tillval, passarInte, tyst };

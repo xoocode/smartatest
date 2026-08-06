@@ -66,7 +66,9 @@ export function SiteSearch({
   }
 
   const field = (
-    <div className="relative">
+    /* `shrink-0` so the field keeps its height when the panel is capped and
+       the list below it is the thing that gives. */
+    <div className="relative shrink-0">
       <Search
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
@@ -92,7 +94,11 @@ export function SiteSearch({
   const resultList =
     query.trim().length >= 2 ? (
       results.length ? (
-        <ul className="mt-2 flex flex-col">
+        /* `min-h-0` is what lets this be shorter than its content: a flex
+           child defaults to `min-height: auto` and refuses to shrink, so
+           `overflow-y-auto` would be handed a box already grown to fit
+           everything and would have nothing to scroll. */
+        <ul className="mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto">
           {results.map((doc, i) => (
             <li key={doc.href}>
               <Link
@@ -152,9 +158,43 @@ export function SiteSearch({
 
       {open ? (
         <div
-          /* Anchored to the trigger on desktop, full width on mobile so the
-             field never overflows the viewport. */
-          className="themed-border absolute top-11 right-0 z-40 w-[min(22rem,calc(100vw-2rem))] rounded-lg bg-card pad-card shadow-raised"
+          /* On a phone the panel is a sheet under the header, not something
+           * hung off the button.
+           *
+           * It used to be `absolute right-0` with the width clamped to
+           * `min(22rem, 100vw-2rem)`. Clamping the width without moving the
+           * anchor does not keep a panel on the screen: the trigger sits
+           * inboard of the hamburger, so the panel grew leftward from a point
+           * about 24px in from the right edge and ran off the other side.
+           * Measured before the change: -24..264 at 320px, -24..304 at 360px,
+           * -18..334 at 390px, with the document no wider than the window, so
+           * the missing strip was clipped rather than scrollable. It came
+           * right only at 430px and up, which is why it looks fine on a
+           * desktop and on most tablets.
+           *
+           * `inset-x-4` sets both edges instead of one, so the width follows
+           * from the screen and there is no anchor left to overflow. Above md
+           * the old anchored panel is restored exactly.
+           *
+           * The header carries `backdrop-blur-sm`, and a backdrop-filter makes
+           * an element a containing block for fixed descendants, so this is
+           * positioned against the header rather than the viewport. That is
+           * harmless here only because the header is full-width and stuck to
+           * the top, which makes the two equivalent — checked at several
+           * widths and scroll positions rather than assumed. */
+          className={cn(
+            "themed-border z-40 flex flex-col rounded-lg bg-card pad-card shadow-raised",
+            /* Capped, because the list underneath has no natural limit. Six
+             * hits already made the panel 862px tall with its bottom at 934px,
+             * so on a 780px screen the last result sat 154px below the fold and
+             * on a 420px one, 514px below it, with nothing able to scroll. The
+             * cap leaves the 72px top offset plus a matching margin at the
+             * bottom. `dvh` rather than `vh`: on a phone `vh` is the height
+             * with the browser chrome retracted, so a panel sized in `vh`
+             * hides its own last row under the address bar. */
+            "fixed inset-x-4 top-[4.5rem] max-h-[calc(100dvh-5.5rem)]",
+            "md:absolute md:inset-x-auto md:top-11 md:right-0 md:w-[22rem] md:max-h-[70dvh]",
+          )}
         >
           {field}
           {resultList}

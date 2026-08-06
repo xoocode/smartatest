@@ -18,6 +18,14 @@ export type CriteriaScoresProps = {
   /** Append the weighted total as a final emphasised row. */
   showTotal?: boolean;
   totalLabel?: string;
+  /**
+   * Summan att visa, 0–5. Utelämnad räknar komponenten fram den själv.
+   *
+   * Finns för sidor som räknar med `redistributeMissing: false`. Komponenten
+   * kan inte veta det, så utan den här skulle totalraden visa ett annat betyg
+   * än produktkortet bredvid. Skicka `product.rating`.
+   */
+  total?: number;
   /** Render each criterion's weight, e.g. "25 %". */
   showWeights?: boolean;
   className?: string;
@@ -38,10 +46,12 @@ export function CriteriaScores({
   showTotal = true,
   totalLabel = "Vårt betyg",
   showWeights = false,
+  total: totalProp,
   className,
 }: CriteriaScoresProps) {
   /* weightedRating är oavrundad sedan 2026-08-03, så den avrundas här. */
-  const total = Math.round(weightedRating(scores, criteria) * 10) / 10;
+  const total =
+    totalProp ?? Math.round(weightedRating(scores, criteria) * 10) / 10;
   const textSize = size === "sm" ? "text-sm" : "";
 
   const value = (score: number) => (

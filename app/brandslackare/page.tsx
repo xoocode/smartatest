@@ -8,6 +8,7 @@ import {
   BRANDSLACKARE_FILTERS,
   BRANDSLACKARE_PRODUCTS,
   PRICE_CHECKED,
+  SPECS_CHECKED,
 } from "@/lib/data/brandslackare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
@@ -39,8 +40,9 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/brandslackare/kopguide.mdx";
 
 /*
- * ⚠️ Priser, effektklasser, mått, temperaturområden, artikelnummer och
- * kundbetyg är riktiga, lästa på butikernas egna produktsidor på PRICE_CHECKED.
+ * ⚠️ Priser är lästa på butikernas egna sidor på PRICE_CHECKED. Effektklasser,
+ * certifieringar, mått, vikter, temperaturområden och artikelnummer kommer från
+ * tillverkarnas och importörernas egna specifikationer på SPECS_CHECKED.
  * Kriteriebetygen är redaktionell bedömning utifrån de uppgifterna. Vi har inte
  * tänt eld på något, och det står på sidan.
  *
@@ -49,9 +51,11 @@ import Kopguide from "@/content/brandslackare/kopguide.mdx";
  * jämföra släckeffekt utan eget labb, till skillnad från i våra andra
  * kategorier.
  *
- * Viktningen ändrades 2026-08-02 efter att kriteriet för certifiering visat sig
- * mäta butikens produkttext i stället för produkten. Släckeffekt väger nu 40 och
- * tillförlitlighet 15. Se lib/data/brandslackare.ts.
+ * Viktningen ändrades 2026-08-06. Kriteriet `tillforlitlighet` betygsatte om
+ * butiken skrivit ut sitt typgodkännande, och researchen visade att sex av sju
+ * gör det. De 15 poängen ligger nu på `placeringsfrihet`: SS-EN 3-7 kräver röd
+ * färg, så en vit släckare får bara sitta i en privatbostad. Se
+ * lib/data/brandslackare.ts och lib/corrections.ts.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
@@ -62,12 +66,12 @@ import Kopguide from "@/content/brandslackare/kopguide.mdx";
 
 const TEST_PAGE = BRANDSLACKARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Räddningstjänsten säger sex kilo pulver, men två sexkilos som ser identiska ut kan skilja 28 procent i släckeffekt. Vi jämförde sju släckare från 349 till 699 kronor och läste koden på varje etikett.",
+    "Housegards röda sexkilos har högsta effektklassen 55A, är godkänd för utomhusbruk och kostar 699 kronor. Samma klass i vitt kostar 579, men får inte hänga i trapphuset. Sju släckare jämförda, 349 till 699 kronor.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -123,15 +127,16 @@ export default async function BrandslackarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              På varje brandsläckare står en kod: 55A 233B C. Den är det enda
-              måttet på hur mycket eld släckaren faktiskt klarar, den är
-              framtagen genom provning, och ingen svensk jämförelse förklarar
-              den. Vi jämförde sju släckare från 349 till 699 kronor. Två
-              sexkilos som ser identiska ut i hyllan skiljer 28 procent i
-              släckyta, och priset följer inte skillnaden.
+              Housegards röda sexkilos klarar högsta effektklassen 55A, är den
+              enda som är godkänd för utomhusbruk och kostar 699 kronor. Samma
+              släckeffekt finns i vitt för 579, men färgen avgör var släckaren
+              får sitta: standarden kräver rött, och en vit släckare får bara
+              hänga innanför din egen dörr. Vi jämförde sju släckare från 349
+              till 699 kronor.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -183,7 +188,7 @@ export default async function BrandslackarePage() {
         id="effektklassen"
         width="default"
         title="Vilken som klarar mest brand"
-        description="Koden på etiketten är släckarnas enda prestandamått, och den är framtagen genom provning enligt EN 3. Här är vad den betyder."
+        description="Koden på etiketten är släckarnas enda prestandamått, och den är framtagen genom provning enligt EN 3. Här är vad den betyder, och varför färgen hör ihop med den."
       >
         <Prose>
           <p>
@@ -198,15 +203,22 @@ export default async function BrandslackarePage() {
             även klarar gasbränder.
           </p>
           <p>
-            Skillnaden mellan 55A och 43A är alltså tjugoåtta procent släckyta,
-            på två sexkilos som ser identiska ut i hyllan. I vår jämförelse
-            kostar en 55A 579 kronor och en 43A 529, medan den dyraste släckaren
-            på 699 kronor inte är den med högst klass.
+            Skillnaden mellan 55A och 43A är alltså 28 procent släckyta, på två
+            sexkilos som ser identiska ut i hyllan. I jämförelsen kostar en 55A
+            579 kronor och en 43A 529, medan den dyraste släckaren på 699 kronor
+            inte är den med högst klass.
           </p>
           <p>
-            Det är därför kriteriet väger trettio procent, och det är därför
-            sidan finns. Siffran står på varje förpackning och nämns inte i en
-            enda svensk jämförelse vi läst.
+            Det är därför kriteriet väger 40 procent. Siffran står på varje
+            förpackning, den är framprovad mot standardiserade provbål, och den
+            nämns inte i en enda svensk jämförelse vi läst.
+          </p>
+          <p>
+            <strong>Färgen hör ihop med klassen.</strong> SS-EN 3-7 kräver röd
+            färg i punkt 16.1, så en vit släckare kan inte vara certifierad mot
+            standarden hur högt A-tal den än har. Två av de sju här är vita, och
+            båda säljarna skriver ut följden: de får bara sitta i en
+            privatbostad där de boende vet var släckaren hänger.
           </p>
         </Prose>
       </Section>
@@ -230,15 +242,18 @@ export default async function BrandslackarePage() {
         tone="muted"
         width="wide"
         title="Jämför alla sju"
-        description="Raden att läsa först är Effektklass. Därefter Typgodkännande, som bara en av sju butiker skriver ut och en skriver ut motsatsen till."
+        description="Raden att läsa först är Effektklass. Därefter Får placeras, som avgör om släckaren duger i trapphuset eller bara innanför din egen dörr."
       >
         <FilterableComparison
           products={products}
           filters={BRANDSLACKARE_FILTERS}
-          legend="Filtrera på storlek, klass och godkännande"
+          legend="Filtrera på storlek, klass och placering"
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `${NOT_STATED} En av släckarna var slut vid kontrollen.`)}
+          caption={priceCaption(
+            PRICE_CHECKED,
+            `Specifikationer från tillverkarnas egna underlag, lästa ${SPECS_CHECKED}. ${NOT_STATED}`,
+          )}
         />
       </Section>
 
@@ -292,7 +307,7 @@ export default async function BrandslackarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Den här kategorin skiljer sig från våra övriga på en punkt: effektklassen enligt EN 3 är ett prestandamått som provats fram av ett certifieringsorgan och står på varje etikett. Vi behöver alltså inte tända eld på något för att kunna jämföra släckeffekt, och gör det inte heller. Kriteriet för certifiering mäter vad butiken faktiskt skriver ut. En butik som anger typgodkännande får full poäng, en som inte nämner standarden får mittbetyg, eftersom en utelämnad uppgift inte bevisar att godkännandet saknas, och bara den som uttryckligen skriver att släckaren inte är klassad får bottenbetyg. Utan den regeln hade kriteriet straffat butiker för dålig produkttext i stället för att belöna dokumenterat godkännande. Priserna är hos den butik vi länkar till."
+          footnote={`Den här kategorin skiljer sig från våra övriga på en punkt: effektklassen enligt EN 3 provas fram av ett certifieringsorgan och står på varje etikett. Vi behöver alltså inte tända eld på något för att kunna jämföra släckeffekt, och gör det inte heller.\n\nViktningen räknades om ${SPECS_CHECKED}. Sidan bar tidigare ett kriterium som gav poäng för att butiken skrivit ut sitt typgodkännande. Det mätte vår egen research och inte produkten, och de 15 poängen ligger nu på var släckaren får sitta, vilket är en egenskap hos varan.\n\nPriserna är hos den butik vi länkar till.`}
         />
       </Section>
 

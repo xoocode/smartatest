@@ -42,15 +42,22 @@ import { productImage } from "@/lib/images";
  * och det står i specen på varje berörd produkt. ⚠️ Kör om priskontrollen före
  * lansering.
  *
- * ## Rättelse till /smart-plug
+ * ## ⚠️ Rättelsen till /smart-plug var själv fel
  *
- * `SMART_PLUG_CONSIDERED` påstår att Cleverio GP120 har drifttemperatur ner
- * till −20 °C. Kjells produktsida anger 2026-08-01 ingen drifttemperatur alls
- * för den produkten, varken i specifikationen eller i produkttexten. Uppgiften
- * går inte att verifiera och ska tas bort därifrån.
+ * Här stod till 2026-08-06 att Kjells produktsida inte anger någon
+ * drifttemperatur för Cleverio GP120, och den slutsatsen fick uppgiften
+ * −20 °C struken ur `SMART_PLUG_CONSIDERED` den 1 augusti och en publicerad
+ * rättelse den 6 augusti. Kjell anger den. Den står i produkttexten på
+ * artikel 52191, inte i specifikationsrutan: "Lägsta drifttemperatur: -20 °C".
+ * Läst med både jina och playwright 2026-08-06.
  *
- * ⚠️ ÄNNU INTE PUBLICERBAR. Kriteriebetygen är redaktionell bedömning utifrån
- * specifikationer och källorna i lib/sources.ts, inte mätningar. Priser rör sig, kör om kontrollen före lansering.
+ * /utomhustimer bär nu siffran och betyget är höjt. Sidan /smart-plug och dess
+ * rättelse i lib/corrections.ts är fortfarande fel och rörs inte här, dels
+ * för att det är en annan sidas reparation, dels för att båda filerna har
+ * en annan sessions oavslutade arbete i sig. Se .agent/research/utomhustimer.md.
+ *
+ * Kriteriebetygen är redaktionell bedömning utifrån specifikationer och
+ * källorna i lib/sources.ts, inte mätningar. Sidan är live sedan 2026-08-03.
  *
  * AFFILIATE-SWAP — `merchantUrl` är det som ligger i href i dag: direkt,
  * ospårat, dofollow. Inget `affiliateUrl` någonstans ännu. Se lib/links.ts.
@@ -85,14 +92,14 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/fjarrstrombrytare/fjarrstrombrytare-for-utomhusbruk/tp-link-tapo-p410m-smart-fjarrstrombrytare-med-energimatning-3680-w-p60083",
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för oskyddad fasad",
     pros: [
       "IP54, ett steg bättre skydd än allt annat i jämförelsen",
       "3 680 W och 16 A, räcker till motorvärmare med kupévärmare",
       "Matter-certifierad och fungerar i alla fyra ekosystemen samtidigt",
     ],
     cons: [
-      "Nästan åtta gånger dyrare än Julas mekaniska timer",
+      "Fem gånger dyrare än Julas mekaniska timer",
       "Drifttemperaturen stannar vid −20 °C, mot Shellys −25 °C",
       "Fjärrstyrning kräver att Tapos molntjänst svarar",
     ],
@@ -107,7 +114,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Mått", value: "93,3 × 83 × 48,2 mm" },
     ],
     verdict:
-      "Tapo P410M är ensam om att kombinera IP54 med 16 A. IP54 i stället för IP44 betyder att den tål vatten från alla håll och inte bara stänk, vilket spelar roll på en fasad utan tak över sig. Och 16 A gör att den räcker till motorvärmaren med kupévärmaren på samma uttag, vilket ingen av de billigare digitala timrarna gör.\n\nMatter-certifieringen är det som gör att den inte bara fungerar i dag utan sannolikt även när Tapo-appen en dag byter skepnad: pluggen går att lägga i Apple Home, Google Home, Alexa och SmartThings utan tillverkarens app.\n\nPriset är 259 kronor, fem gånger Julas mekaniska timer, och för en enkel julgransslinga i trädgården är det fortfarande svårt att motivera. Drifttemperaturen stannar dessutom vid −20 °C, vilket är fem grader sämre än Shellys och i tunnaste laget norr om Dalarna.",
+      "Tapo P410M är den enda timern här som klarar 16 A bakom en kapsling på IP54, och den kostar 259 kronor.\n\nIP54 tål vatten som sprutar från alla riktningar, ett steg över det stänkskydd resten av fältet har, och det spelar roll på en fasad utan tak över sig. 16 A och 3 680 W räcker till motorvärmaren med kupévärmaren på samma uttag, vilket ingen av de billigare digitala timrarna gör. Matter-certifieringen gör att pluggen går att lägga i Apple Home, Google Home, Alexa och SmartThings utan tillverkarens app, alltså även den dag Tapo-appen byter skepnad.\n\nKylan är begränsningen. Drifttemperaturen bottnar på −20 °C, fem grader sämre än Shelly Outdoor Plug S Gen3, och det är i tunnaste laget norr om Dalarna.\n\nKöp den. Den tar mer last än de båda Shelly-pluggarna, sitter kvar på en vägg utan tak över sig, och fungerar i ditt hem även den dag du byter app.",
   },
   {
     id: "shelly-outdoor-plug-s-gen3",
@@ -137,8 +144,8 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "2 500 W och 12 A, för lite för motorvärmare med kupévärmare",
-      "IP44 och inte IP54 som testvinnaren",
-      "Ingen av butikerna vi hittat den hos publicerar något kundbetyg",
+      "IP44, ett steg under testvinnarens IP54",
+      "Wifi räcker sällan ut till ett uthus, där Wave-modellen tar över",
     ],
     specs: [
       { label: "Typ", value: "Smart plugg", highlight: true },
@@ -151,7 +158,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Mått", value: "56 × 56 × 103 mm" },
     ],
     verdict:
-      "Shelly Outdoor Plug S Gen3 är timern att välja om den ska sitta ute hela vintern där det blir riktigt kallt. Shelly anger −25 till 51 °C, vilket är sex grader mer marginal i botten än testvinnaren och femton grader mer än Nedis. Den andra styrkan är att den inte behöver någon annan: schemat ligger i pluggen, den talar både Matter och MQTT, och den går att styra från det lokala nätet utan att ett moln är inblandat. Ligger internet nere fortsätter julbelysningen tändas ändå.\n\nDet som håller den från förstaplatsen är maxlasten. 2 500 W räcker gott till belysning, men inte till en motorvärmare med kupévärmare på samma uttag, och det är en av de två stora anledningarna att köpa något av det här slaget i Sverige.\n\nVi länkar till Proshop, som hade den för 297 kronor mot Kjells 399. Inet hade den för 349 kronor med betyget 4,6 av tio kunder, vilket är det enda kundbetyg vi hittat på produkten.",
+      "Shelly Outdoor Plug S Gen3 är timern för den vägg där det blir riktigt kallt, och den kostar 297 kronor.\n\n−25 till 51 °C ger sex graders större marginal i botten än testvinnaren och femton grader mer än Nedis, alltså hela den svenska vintern med råge. Schemat ligger dessutom i pluggen och inte i en molntjänst: den talar både Matter och MQTT och lyder från det lokala nätet, så julbelysningen tänds även den kväll internet ligger nere.\n\nMaxlasten är det som håller den från förstaplatsen. 2 500 W räcker gott till belysning men inte till en motorvärmare med kupévärmare på samma uttag, och det är den andra stora svenska anledningen att köpa något av det här slaget.\n\nDen kostar 38 kronor mer än testvinnaren och ger sex graders större marginal i botten, mot 1 180 W mindre last. För belysning som ska stå ute hela vintern långt norrut är det en bra affär.",
   },
   {
     id: "smartline-utomhuskontakt",
@@ -181,8 +188,8 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Bluetooth med 15 meters räckvidd, så ingen styrning hemifrån jobbet",
-      "Ingen drifttemperatur anges av vare sig butiken eller tillverkaren",
-      "Bara fyra kundbetyg, ett tunt underlag",
+      "Varken Matter eller wifi, så den blir aldrig en del av resten av hemmet",
+      "245 kronor, dubbla priset mot Cleverio GP120 som går att nå på avstånd",
     ],
     specs: [
       { label: "Typ", value: "Smart plugg", highlight: true },
@@ -192,10 +199,13 @@ const SEEDS: ProductSeed[] = [
       { label: "Styrning", value: "Bluetooth-app, astro och veckoschema", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "Räckvidd", value: "Cirka 15 m" },
+      /* SmartaSakers engelska produktsida för artikel 13377: längd 10,5 cm,
+         bredd 5,5 cm, och 6 cm som sticker ut ur uttaget. Läst 2026-08-06. */
+      { label: "Mått", value: "105 × 55 mm, 60 mm ut ur uttaget" },
       { label: "App", value: "Smartline Flow" },
     ],
     verdict:
-      "Nedis Utomhuskontakt löser det svåraste problemet billigare än någon annan smart timer här: astrofunktionen gör att belysningen tänds när solen faktiskt går ner och inte klockan fyra hela vintern.\n\nAtt den gör det över Bluetooth och inte wifi är både styrkan och svagheten. Styrkan är att det inte finns något konto, ingen hubb, ingen molntjänst som kan stängas, och att schemat ligger kvar i uttaget oavsett vad som händer med nätet. Svagheten är räckvidden på cirka femton meter: du kan inte tända lamporna hemifrån jobbet, bara programmera om dem när du står på gården. Den klarar dessutom 16 A, mer last än både Shelly-pluggarna.\n\nDet som drar ner betyget är att ingen anger drifttemperatur, vilket för en produkt som ska stå ute i februari är en uppgift vi hade velat ha, och att fyra kundbetyg är för tunt för att säga något om hållbarheten.",
+      "Smartline utomhuskontakt är den billigaste vägen till en astrofunktion utan konto, och den kostar 245 kronor.\n\nAstrofunktionen gör att belysningen tänds när solen faktiskt går ner och inte klockan fyra hela vintern, och uttaget räknar ut tiden själv. Allt ligger i produkten: inget konto, ingen hubb, ingen molntjänst som kan stängas, och schemat står kvar oavsett vad som händer med nätet. Med 16 A och 3 680 W tar den dessutom mer last än de båda Shelly-pluggarna.\n\nRäckvidden är priset för det. Bluetooth når omkring 15 meter, så du programmerar om den när du står på gården men kan inte tända lamporna på väg hem från jobbet.\n\nHar du inget smart hem och tänker inte skaffa något är valet redan gjort här. Alla andra får mer för pengarna hos Cleverio GP120, som kostar hälften och går att nå hemifrån.",
   },
   {
     id: "cleverio-gp120",
@@ -207,7 +217,13 @@ const SEEDS: ProductSeed[] = [
     tagline:
       "Kategorins bäst betygsatta produkt av 750 kunder, till en tredjedel av testvinnarens pris.",
     scores: {
-      vaderskydd: 3,
+      /* 4,0 och inte 3,0: drifttemperaturen var satt som okänd, men Kjells
+         produktsida för artikel 52191 skriver ut "Lägsta drifttemperatur:
+         -20 °C" i produkttexten. Läst 2026-08-06. Med IP44 och −20 °C ligger
+         den ett steg under de båda Shelly-pluggarna, som har IP44 och −25 °C
+         och får 5,0. ⚠️ Samma uppgift togs bort ur /smart-plug den 1 augusti
+         som obelagd. Den rättelsen var fel. Se .agent/research/utomhustimer.md. */
+      vaderskydd: 4,
       styrning: 3.5,
       maxlast: 5,
       driftsakerhet: 2.5,
@@ -221,12 +237,12 @@ const SEEDS: ProductSeed[] = [
     award: "budget",
     superlative: "Billigast med app",
     pros: [
-      "150 kronor för 16 A, app och schema",
+      "119 kronor för 16 A, app och schema",
       "Betyget 4,5 av 750 kunder, det överlägset största underlaget av timrarna",
-      "Anger sin egen viloförbrukning frivilligt, under 0,5 W",
+      "Viloförbrukning under 0,5 W",
     ],
     cons: [
-      "Ingen drifttemperatur anges, trots att produkten säljs för utomhusbruk",
+      "−20 °C som botten, fem grader sämre än de båda Shelly-pluggarna",
       "Inget Matter, så den är beroende av att Smart Life-appen finns kvar",
       "Ingen astrofunktion, du ställer klockslag",
     ],
@@ -234,14 +250,16 @@ const SEEDS: ProductSeed[] = [
       { label: "Typ", value: "Smart plugg", highlight: true },
       { label: "Maxlast", value: "3 680 W (16 A)", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
-      { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven", highlight: true },
+      /* Kjells produktsida, artikel 52191, skriver "Lägsta drifttemperatur:
+         -20 °C" i produkttexten. Läst 2026-08-06. Ingen övre gräns anges. */
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "Från −20 °C", highlight: true },
       { label: "Styrning", value: "App och schema, inget astro", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "Viloförbrukning", value: "Under 0,5 W" },
       { label: "Mått", value: "80 × 58 × 93 mm" },
     ],
     verdict:
-      "Cleverio GP120 kostar 119 kronor och har 750 kundbetyg på 4,5, fler än någon annan timer här. För pengarna får du 16 A, app och schemaläggning, det mesta av vad testvinnaren gör för 399.\n\nTvå saker gör att den ändå hamnar mitt i fältet. Kjell anger ingen drifttemperatur, varken i specifikationen eller i produkttexten, vilket är anmärkningsvärt för en produkt som säljs uttryckligen för utomhusbruk och som konkurrenterna specar ner till −25 °C. Vi sätter hellre ett medelbetyg på väderskyddet än gissar en siffra. Och den saknar både Matter och astrofunktion, vilket betyder att du dels ställer fasta klockslag som blir fel när solnedgången flyttar sig, dels är beroende av att Smart Life fortsätter finnas.\n\nÄr det julbelysning som ska tändas och du redan tänkt använda en app är det ändå det billigaste rimliga köpet här.",
+      "Cleverio GP120 kostar 119 kronor och är med god marginal den billigaste smarta pluggen här.\n\nFör pengarna får du 16 A och 3 680 W, alltså motorvärmaren med kupévärmaren på samma uttag, plus app och schemaläggning. Drifttemperaturen bottnar på −20 °C, vilket räcker för en normal vinter söder om fjällkedjan. 750 kunder har satt betyget 4,5, det överlägset största underlaget bland timrarna.\n\nDet den inte har är en astrofunktion. Du ställer fasta klockslag, och de blir fel några veckor efter att du satt dem, vilket märks direkt på belysning som ska gå året om. Utan Matter är den dessutom beroende av att Smart Life-appen finns kvar.\n\nSka julbelysningen eller motorvärmaren styras från mobilen och du ändå tänkt ha en app i telefonen är det här det billigaste rimliga köpet. Ska belysningen följa solnedgången året runt lägger du 126 kronor till på Smartline utomhuskontakt.",
   },
   {
     id: "shelly-wave-outdoor-plug-s-lr",
@@ -291,7 +309,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Räckvidd", value: "Upp till 1 km utomhus" },
     ],
     verdict:
-      "Shelly Wave Outdoor Plug S LR är byggd för avstånd, och löser ett problem de flesta inte har. Z-Wave Long Range, och tillverkaren anger upp till en kilometer utomhus, vilket gör den till det enda rimliga valet om uttaget sitter i ett uthus eller vid en grind långt från huset där wifi aldrig når. Köldtåligheten är densamma som hos Outdoor Plug S Gen3, och S2-autentiseringen betyder att styrningen är krypterad och lokal utan att något moln är inblandat.\n\nSedan kommer förbehållen, och de är stora. Utan en Z-Wave-hubb är produkten ett dyrt förlängningsuttag: det finns ingen app att ladda ner och ingen knapp som ger dig ett schema. Priset är 689 kronor, alltså mer än fyra av produkterna här tillsammans. Och maxlasten är samma 2 500 W som lillasystern.\n\nHar du redan Z-Wave hemma är det här en självklarhet till uthuset. Har du inte det ska du inte börja här.",
+      "Shelly Wave Outdoor Plug S LR är byggd för avstånd, och kostar 689 kronor.\n\nZ-Wave Long Range når upp till en kilometer utomhus, vilket gör den till det enda rimliga valet när uttaget sitter i ett uthus eller vid en grind dit wifi aldrig når. Köldtåligheten är densamma som hos Outdoor Plug S Gen3, −25 till 51 °C, och S2-autentiseringen betyder att styrningen är krypterad och sker lokalt utan att något moln är inblandat.\n\nFörbehållen är stora. Utan en Z-Wave-hubb är produkten ett dyrt förlängningsuttag: det finns ingen app att ladda ner och ingen knapp som ger dig ett schema. Priset är mer än de fem billigaste produkterna här kostar tillsammans, och maxlasten stannar på samma 2 500 W som lillasystern.\n\nDe flesta ska inte köpa den här. Sitter uttaget så långt från huset att wifi aldrig når dit, och har du redan en Z-Wave-hubb, är den däremot det enda som faktiskt fungerar.",
   },
   {
     id: "nedis-zigbee-utomhus",
@@ -328,7 +346,8 @@ const SEEDS: ProductSeed[] = [
     ],
     cons: [
       "Drifttemperatur −10 till 40 °C, vilket är för lite för svensk vinter",
-      "Kräver en Zigbee-hubb för att fungera",
+      "Kräver en Zigbee-hubb för att fungera alls",
+      "Ingen astrofunktion, du ställer fasta klockslag",
     ],
     specs: [
       { label: "Typ", value: "Smart plugg", highlight: true },
@@ -340,7 +359,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Energimätning", value: "Ja" },
     ],
     verdict:
-      "Zigbee utomhus kostar 199 kronor och är billig, kapabel och fel årstid. På papperet är 199 kronor för 16 A, Zigbee och energimätning ett av jämförelsens bättre erbjudanden, och Zigbee betyder att den styrs lokalt via hubben utan att belasta wifi-nätet.\n\nProblemet står i specifikationen och är svårt att förbise: drifttemperaturen är −10 till 40 °C. Det är den sämsta siffran i hela jämförelsen och den är inte marginellt sämre, den är femton grader sämre än Shellys. En produkt som ska styra julbelysningen i december i Sverige kommer att arbeta utanför sin specifikation flera veckor om året, och det är hela skälet till att den hamnar näst sist trots goda betyg i övrigt. Lägg till att den kräver en Zigbee-hubb och att den var slut hos Kjell när vi kontrollerade.\n\nVill du ha Zigbee ute och bor söder om Skåne kan den fungera. I övriga Sverige ska du välja något annat.",
+      "Nedis Zigbee utomhus kostar 199 kronor och är den billigaste vägen in i ett Zigbee-hem.\n\n16 A, 3 680 W och energimätning för under tvåhundra kronor är ett av jämförelsens bättre papper, och Zigbee betyder att pluggen styrs lokalt via hubben utan att belasta wifi-nätet.\n\nSedan står problemet i specifikationen. Drifttemperaturen är −10 till 40 °C, femton grader sämre i botten än Shellys. En plugg som ska styra julbelysningen i december arbetar utanför sitt spann flera veckor om året, och då lovar tillverkaren ingenting om att den fungerar. Lägg till att den kräver en Zigbee-hubb.\n\nBor du längst i söder och redan har Zigbee kan den göra jobbet. I resten av landet tar du Shelly Outdoor Plug S Gen3, som är specad ner till −25 °C.",
   },
   {
     id: "luxorparts-digital-7-dygn",
@@ -352,7 +371,14 @@ const SEEDS: ProductSeed[] = [
     tagline:
       "Backupbatteri som håller hundra timmar, alltså den enda timern utan app som överlever ett strömavbrott.",
     scores: {
-      vaderskydd: 3,
+      /* 1,5 och inte 3,0: drifttemperaturen var satt som okänd. Luxorparts egen
+         bruksanvisning för artikel 40711, daterad 2022-01-31, anger
+         "Temperatur −10 °C till 40 °C" i specifikationstabellen på svenska,
+         norska och engelska. Läst 2026-08-06. Det är samma spann som Nedis
+         Zigbee, som får 1,5 för samma IP-klass och samma siffra. Betyget följer
+         alltså den produkt den nu bevisligen är likvärdig med. Sänkningen
+         flyttar den från sjätte till åttonde plats. */
+      vaderskydd: 1.5,
       styrning: 2.5,
       maxlast: 4.5,
       driftsakerhet: 4.5,
@@ -363,29 +389,35 @@ const SEEDS: ProductSeed[] = [
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/el-verktyg/starkstrom/timers-klockstrombrytare/luxorparts-digital-timer-7-dygn-for-utomhusbruk-p40711",
-    superlative: "Bäst utan app",
+    superlative: "Håller tiden genom strömavbrottet",
     pros: [
       "Uppladdningsbart backupbatteri som håller upp till 100 timmar",
       "Tio programmerbara till- och frånslag, ner till en minuts steg",
       "Slumpmässig förlängning på 2 till 30 minuter, som ser bebott ut",
     ],
     cons: [
+      "−10 till 40 °C, alltså utanför sitt spann flera veckor varje vinter",
       "280 kronor, alltså dyrare än två av de smarta pluggarna",
       "Fast klockslag, ingen astrofunktion",
-      "Ingen drifttemperatur anges",
     ],
     specs: [
       { label: "Typ", value: "Digital timer", highlight: true },
-      { label: "Maxlast", value: "3 600 W", highlight: true },
+      /* Bruksanvisningen för artikel 40711 anger "Kapacitet 16 A, 3600 W".
+         Kjells produkttext anger bara 3 600 W. Läst 2026-08-06. */
+      { label: "Maxlast", value: "3 600 W (16 A)", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
-      { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven", highlight: true },
+      /* Luxorparts bruksanvisning för artikel 40711, daterad 2022-01-31,
+         specifikationstabellen: "Temperatur −10 °C till 40 °C". Samma tal i den
+         svenska, norska och engelska spalten. Läst 2026-08-06. */
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−10 till 40 °C", highlight: true },
       { label: "Styrning", value: "Display, 10 program per vecka", highlight: true },
-      { label: "Backupbatteri", value: "Ja, upp till 100 h" },
+      { label: "Matter", value: "Nej" },
+      { label: "Backupbatteri", value: "NiMH, upp till 100 h" },
       { label: "Kortaste steg", value: "1 minut" },
       { label: "Slumpfunktion", value: "2 till 30 minuter" },
     ],
     verdict:
-      "Digital timer 7 dygn är valet om du inte vill ha en app. Backupbatteriet är skälet: hundra timmars gångreserv betyder att ett strömavbrott i december inte gör att timern går fel resten av säsongen, vilket är exakt vad som händer med en mekanisk. Tio program i veckan och steg ner till en minut räcker till allt en villaägare behöver, och slumpfunktionen på två till trettio minuter finns för att belysningen ska se bebodd ut när ni är bortresta.\n\nDet som drar ner den är priset. 280 kronor är mer än både Cleverio och Shelly kostar, och för de pengarna får du hos dem både app och astrofunktion. Här ställer du fortfarande fasta klockslag, och de blir fel några veckor efter att du satt dem. Kjell anger inte heller någon drifttemperatur.\n\nKöp den om du bestämt dig för att inte ha ännu en app i telefonen, inte för att den är billigare.",
+      "Luxorparts Digital timer 7 dygn är timern för den som vill ha ett veckoschema utan app, och den kostar 280 kronor.\n\nBackupbatteriet är skälet att välja den. 100 timmars gångreserv betyder att ett strömavbrott i december inte gör att timern går fel resten av säsongen, vilket är precis vad som händer med en mekanisk skiva. Tio program i veckan, steg ner till en minut och 16 A räcker till både ljusslingorna och kupévärmaren, och slumpfunktionen på 2 till 30 minuter finns för att belysningen ska se bebodd ut när ni är bortresta.\n\nKylan är svagheten, och den är allvarlig för något som ska sitta ute i december. Drifttemperaturen är −10 till 40 °C, samma smala spann som Nedis Zigbee, alltså utanför specifikationen flera veckor varje normal svensk vinter.\n\nSka timern sitta under tak eller i en carport och du vill slippa ännu en app är den värd sina 280 kronor. Ska den sitta oskyddad hela vintern tar du Shelly Outdoor Plug S Gen3 för 17 kronor mer.",
   },
   {
     id: "anslut-skymningsrela",
@@ -415,22 +447,29 @@ const SEEDS: ProductSeed[] = [
       "Betyget 4,6, det högsta i hela jämförelsen",
     ],
     cons: [
-      "Bara 1 000 W, alltså jämförelsens överlägset lägsta maxlast",
-      "Ingen fjärrstyrning och inget veckoschema",
-      "Ljussensorn kan luras av gatubelysning eller en snötäckt sensor",
+      "Bara 1 000 W och 5 A, den överlägset lägsta maxlasten här",
+      "Bruksanvisningen förbjuder värmare helt, så motorvärmaren är utesluten",
+      "Ljussensorn luras av gatubelysning och av snö som lägger sig över den",
     ],
     specs: [
       { label: "Typ", value: "Skymningsrelä", highlight: true },
-      { label: "Maxlast", value: "1 000 W", highlight: true },
+      /* Julas bruksanvisning för artikel 006053 anger "Max load 1000 W,
+         Amperage Max 5 A" i den engelska och tyska tekniska datan. Julas
+         produktsida anger varken effekt eller ström. Läst 2026-08-06. */
+      { label: "Maxlast", value: "1 000 W (5 A)", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
+      /* Bruksanvisningen och produktsidan anger båda kapslingsklass och
+         märkeffekt men ingen drifttemperatur. Kontrollerat 2026-08-06. */
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven", highlight: true },
       { label: "Styrning", value: "Ljussensor plus nedräkning", highlight: true },
       { label: "Matter", value: "Nej" },
+      { label: "Ljuskänslighet", value: "5 till 75 lux" },
       { label: "Backupbatteri", value: "Behövs inte, ingen klocka" },
-      { label: "Butik", value: "Jula" },
+      /* Julas specifikation för 006053, läst 2026-08-06. */
+      { label: "Mått", value: "93 × 90 × 210 mm" },
     ],
     verdict:
-      "Skymningsrelät löser astroproblemet på det enklaste tänkbara sättet: i stället för att räkna ut när solen går ner tittar det på hur ljust det är. Belysningen tänds i skymningen året om utan att du ställer om något, och eftersom det inte finns någon klocka i produkten finns det heller ingenting som kan gå fel efter ett strömavbrott. Nedräkningsfunktionen ovanpå gör att den kan släcka efter ett antal timmar i stället för att lysa till gryningen. Kunderna ger den 4,6 av 236 röster, vilket är det högsta kundbetyget av timrarna.\n\nDen faller på en enda siffra. 1 000 W är en fjärdedel av vad de bästa här klarar, och det utesluter motorvärmare, terrassvärmare och de flesta pumpar helt. Till ljusslingor och en fasadbelysning i LED är det gott om marginal, och det är också precis vad den ska användas till.\n\nPlaceringen av sensorn spelar dessutom roll: sitter den där gatubelysningen lyser på den tänder den aldrig.",
+      "Anslut Skymningsrelä sköter tändningstiden med en ljussensor, och kostar 129 kronor.\n\nDen tänder när ljuset omkring sensorn faller under skymningsnivån, någonstans mellan 5 och 75 lux, alltså i takt med årstiden utan att du någonsin ställer om något. Det finns ingen klocka i produkten, så ett strömavbrott lämnar ingenting fel efter sig. Nedräkningen ovanpå släcker efter 2, 4, 6 eller 8 timmar, så belysningen behöver inte lysa till gryningen. 236 kunder har satt 4,6, det högsta kundbetyget bland timrarna.\n\nDen faller på en enda siffra. 1 000 W och 5 A är en fjärdedel av vad de bästa här klarar, och bruksanvisningen förbjuder dessutom värmare helt, vilket utesluter motorvärmare och terrassvärmare oavsett effekt.\n\nTill ljusslingor och LED-fasadbelysning året om finns ingen enklare produkt, och ingen billigare som följer solen. Värme kopplar du någon annanstans.",
   },
   {
     id: "anslut-digital-utomhustimer",
@@ -440,7 +479,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Digital utomhustimer",
     image: productImage(UTOMHUSTIMER.slug, "anslut-digital-utomhustimer"),
     tagline:
-      "Jämförelsens sämst betygsatta produkt, och den enda där kunderna sätter lägre betyg än på den mekaniska halva priset.",
+      "Veckoschema och backupbatteri för under hundra kronor, med steg ner till en minut.",
     scores: {
       vaderskydd: 3,
       styrning: 2.5,
@@ -460,22 +499,30 @@ const SEEDS: ProductSeed[] = [
       "Hundra kronor, vilket är en tredjedel av Luxorparts digitala",
     ],
     cons: [
-      "1 800 W, ungefär halva vad den mekaniska timern för halva priset klarar",
+      "1 800 W och 8 A, ungefär hälften av vad den mekaniska systern klarar",
       "Betyget 3,7, det lägsta i jämförelsen",
-      "Fast klockslag, ingen astrofunktion",
+      "Måste sitta lodrätt för att IP44 ska gälla",
     ],
     specs: [
       { label: "Typ", value: "Digital timer", highlight: true },
-      { label: "Maxlast", value: "1 800 W", highlight: true },
+      /* Julas bruksanvisning för artikel 006248 anger "Max load 1800 W,
+         Amperage Max 8 A". Produktsidan anger ingen ström. Läst 2026-08-06. */
+      { label: "Maxlast", value: "1 800 W (8 A)", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
+      /* Bruksanvisningens tekniska data ger effekt, ström och kapslingsklass,
+         men ingen drifttemperatur. Kontrollerat 2026-08-06. */
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven", highlight: true },
       { label: "Styrning", value: "Display, 140 slag per vecka", highlight: true },
       { label: "Matter", value: "Nej" },
-      { label: "Backupbatteri", value: "Ja" },
-      { label: "Butik", value: "Jula" },
+      { label: "Backupbatteri", value: "Ja, fulladdat efter 2 h i uttaget" },
+      /* "Timern måste placeras i vertikalt läge för att kapslingsklass IP44
+         ska bibehållas", bruksanvisningen för 006248. Läst 2026-08-06. */
+      { label: "Montering", value: "Lodrätt läge krävs för IP44" },
+      /* Julas specifikation för 006248, läst 2026-08-06. */
+      { label: "Mått", value: "100 × 90 × 213 mm" },
     ],
     verdict:
-      "Den här är instruktiv snarare än rekommenderad, och det är värt att förklara varför. Den kostar dubbelt så mycket som den mekaniska timern i samma serie och klarar ungefär halva lasten: 1 800 W mot 3 500. Det är tvärtemot vad de flesta antar, nämligen att en dyrare och mer avancerad produkt också tål mer.\n\nKunderna märker det: 3,7 av 167 röster är jämförelsens lägsta betyg, och den mekaniska systern för halva priset får 4,5 av 609.\n\nDet den faktiskt gör bättre är att den har ett backupbatteri, alltså att den inte tappar tiden vid ett strömavbrott, och att den kan ställas i minutsteg i stället för halvtimmar.\n\nBehöver du fler än ett par kopplingar om dygnet och vill hålla dig under hundralappen är den ett rimligt köp till en ljusslinga. Ska något med värme i kopplas in ska du inte köpa den.",
+      "Anslut Digital utomhustimer kostar 99,90 kronor och ger ett veckoschema med backupbatteri för under hundralappen.\n\n140 till- och frånslag i veckan är långt fler än någon behöver, och batteriet gör att tiden står kvar efter ett strömavbrott, vilket den mekaniska systern inte klarar. Stegen ställs dessutom i minuter, inte i halvtimmar.\n\nLasten går åt fel håll. 1 800 W och 8 A är ungefär hälften av vad den mekaniska timern i samma serie klarar för halva priset, och 167 kunder har satt 3,7, det lägsta betyget bland timrarna. Den måste också sitta lodrätt för att kapslingsklassen ska hålla, vilket utesluter en del uttag under tak.\n\nBehöver du fler än ett par kopplingar om dygnet till en ljusslinga och vill hålla dig under hundralappen är den ett rimligt köp. Ska något med värme i kopplas in tar du den mekaniska timern för 49,90, som klarar nästan dubbelt så mycket.",
   },
   {
     id: "anslut-utomhustimer",
@@ -501,8 +548,8 @@ const SEEDS: ProductSeed[] = [
     award: "editor",
     superlative: "Redaktionens val till julbelysningen",
     pros: [
-      "49,90 kronor, en åttondel av testvinnaren",
-      "3 500 W och 16 A, alltså mer last än båda Shelly-pluggarna",
+      "49,90 kronor, en femtedel av testvinnaren",
+      "3 500 W, alltså mer last än de båda Shelly-pluggarna",
       "Ingen app, inget konto och ingenting som kan sluta stödjas",
     ],
     cons: [
@@ -512,16 +559,23 @@ const SEEDS: ProductSeed[] = [
     ],
     specs: [
       { label: "Typ", value: "Mekanisk timer", highlight: true },
-      { label: "Maxlast", value: "3 500 W (16 A)", highlight: true },
+      /* Bruksanvisningen för artikel 406-065 anger 230 V / 50 Hz, maxeffekt
+         3 500 W och IP44, men ingen märkström. Den tidigare uppgiften "16 A"
+         var uträknad ur effekten och inte hämtad någonstans, och är borttagen.
+         Läst 2026-08-06. */
+      { label: "Maxlast", value: "3 500 W", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
+      /* Varken bruksanvisningen eller produktsidan anger drifttemperatur.
+         Kontrollerat 2026-08-06. */
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven", highlight: true },
       { label: "Styrning", value: "Segment om 30 min, 24 h", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "Backupbatteri", value: "Nej" },
-      { label: "Butik", value: "Jula" },
+      /* Julas specifikation för 406065, läst 2026-08-06. */
+      { label: "Mått", value: "100 × 72 × 190 mm" },
     ],
     verdict:
-      "Den hamnar sist i tabellen och är ändå den vi rekommenderar till de flesta som letar en utomhustimer, vilket kräver en förklaring. Viktningen belönar styrning och driftsäkerhet, och där har en mekanisk skiva ingenting att komma med: samma schema varje dygn, halvtimmessegment, och vid ett strömavbrott tappar den tiden och går fel tills någon ställer om den. Det är verkliga brister.\n\nMen läs vad som står bredvid. 3 500 W är mer last än både Shelly-pluggarna klarar. 4,5 av 609 kunder är det näst största och näst bästa betygsunderlaget i hela jämförelsen. Och den kostar 49,90 kronor. Ska den tända en ljusslinga i en buske mellan fyra och elva under sex veckor i december finns det ingenting den gör sämre än en plugg för 399, utom att du inte kan ändra tiden från soffan.\n\nKöp den smarta när du har en anledning: motorvärmaren som ska starta olika tider, uthuset som wifi inte når, eller att du faktiskt vill kunna släcka hemifrån. Köp den här när du bara vill att lamporna ska tändas.",
+      "Anslut Utomhustimer kostar 49,90 kronor och är den billigaste vägen till att julbelysningen tänds och släcks av sig själv.\n\n3 500 W är mer last än de båda Shelly-pluggarna klarar, alltså gott om marginal till en motorvärmare, och 609 kunder har satt 4,5, det näst största betygsunderlaget bland timrarna. Det finns ingen app, inget konto och ingen molntjänst som kan stängas.\n\nBristerna är verkliga och de sitter i schemat. Samma tider gäller varje dygn, segmenten är om 30 minuter, och vid ett strömavbrott stannar skivan och går sedan fel med exakt avbrottets längd tills någon ställer om den.\n\nSka den tända en ljusslinga i en buske mellan fyra och elva under sex veckor i december gör den allt som behövs, och då finns det ingen anledning att lägga 259 kronor på Tapo P410M. Köp den smarta när du har ett skäl: motorvärmaren som ska starta olika tider, uthuset som wifi inte når, eller att du vill kunna släcka hemifrån.",
   },
 ];
 
@@ -675,7 +729,7 @@ export const UTOMHUSTIMER_FAQ = [
   {
     question: "Fungerar en utomhustimer i minusgrader?",
     answer:
-      "Det beror helt på produkten, och uppgiften är den som oftast saknas. IP-klassen säger ingenting om kyla, bara om vatten och damm. Av produkterna i den här jämförelsen anger Shelly −25 till 51 °C, TP-Link −20 till 50 °C och Nedis bara −10 till 40 °C. Fem av tio anger ingen drifttemperatur alls, vilket inkluderar samtliga mekaniska och digitala timers. En produkt som används utanför sitt temperaturspann behöver inte gå sönder, men tillverkaren lovar ingenting om att den fungerar, och en mekanisk kopplingsskiva blir trög när smörjmedlet stelnar.",
+      "Det beror helt på produkten, och spannet är stort. IP-klassen säger ingenting om kyla, bara om vatten och damm. Av produkterna i den här jämförelsen går de båda Shelly-pluggarna ner till −25 °C, TP-Link Tapo P410M och Cleverio GP120 till −20 °C, medan Nedis Zigbee och Luxorparts digitala timer stannar redan vid −10 °C. Fyra av tio anger ingen drifttemperatur alls: Smartline utomhuskontakt och Julas tre timers. En produkt som används utanför sitt temperaturspann behöver inte gå sönder, men tillverkaren lovar ingenting om att den fungerar, och en mekanisk kopplingsskiva blir trög när smörjmedlet stelnar.",
   },
   {
     question: "Vad är skillnaden mellan mekanisk och digital utomhustimer?",
@@ -685,7 +739,7 @@ export const UTOMHUSTIMER_FAQ = [
   {
     question: "Vilken timer klarar en motorvärmare?",
     answer:
-      "En som är märkt för minst 16 A, alltså runt 3 680 W, om kupévärmaren sitter på samma uttag. Själva motorvärmaren ligger ofta mellan 400 och 1 000 W, men kupévärmaren kan ensam dra 1 500 W eller mer, och det är summan som räknas. Av produkterna i den här jämförelsen klarar TP-Link Tapo P410M, Smartline utomhuskontakt, Cleverio GP120, Nedis Zigbee och Anslut mekaniska timer den lasten. Skymningsreläet på 1 000 W och den digitala Anslut-timern på 1 800 W gör det inte. Räkna ihop båda värmarnas effekt och lägg på tjugo procent innan du väljer.",
+      "En som är märkt för minst 16 A, alltså runt 3 680 W, om kupévärmaren sitter på samma uttag. Själva motorvärmaren ligger ofta mellan 400 och 1 000 W, men kupévärmaren kan ensam dra 1 500 W eller mer, och det är summan som räknas. Av produkterna i den här jämförelsen klarar TP-Link Tapo P410M, Smartline utomhuskontakt, Cleverio GP120, Nedis Zigbee och Luxorparts digitala timer 16 A, och Julas mekaniska timer är märkt 3 500 W. Skymningsreläet på 1 000 W och den digitala Anslut-timern på 1 800 W räcker inte, och skymningsreläets bruksanvisning förbjuder dessutom värmare helt. Räkna ihop båda värmarnas effekt och lägg på tjugo procent innan du väljer.",
   },
   {
     question: "Vad är en astrotimer och behöver jag en?",

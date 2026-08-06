@@ -48,6 +48,13 @@ export function ServicePrice({
 }: ServicePriceProps) {
   const s = sizeMap[size];
   const hasMonthly = typeof terms.monthlyFee === "number";
+  const hasAnnual = typeof terms.annualFee === "number";
+  /* Ett bolag utan månadsavgift kan ändå ha en publicerad löpande kostnad.
+     Visa den i huvudtalets position i stället för "Publiceras inte", som var
+     falskt för Garda Alarm i tre dygn. Finns båda, som hos Safeland där
+     larmcentralen är en egen årsavgift, står månadsavgiften stort och
+     årsavgiften som en egen rad under. */
+  const annualLeads = !hasMonthly && hasAnnual;
 
   return (
     <div
@@ -59,15 +66,32 @@ export function ServicePrice({
           className={cn(
             "font-heading leading-none tabular-nums",
             s.fee,
-            hasMonthly ? "text-brand" : "text-muted-foreground",
+            hasMonthly || hasAnnual ? "text-brand" : "text-muted-foreground",
           )}
         >
-          {formatFee(terms.monthlyFee)}
+          {annualLeads
+            ? formatFee(terms.annualFee)
+            : formatFee(terms.monthlyFee)}
         </span>
         {hasMonthly ? (
           <span className={cn("text-muted-foreground", s.unit)}>/mån</span>
         ) : null}
+        {annualLeads ? (
+          <span className={cn("text-muted-foreground", s.unit)}>/år</span>
+        ) : null}
       </div>
+      {hasAnnual ? (
+        <p className={cn("text-muted-foreground", s.meta)}>
+          {annualLeads ? (
+            terms.annualFeeLabel
+          ) : (
+            <>
+              &#43; {formatFee(terms.annualFee)}/år
+              {terms.annualFeeLabel ? ` för ${terms.annualFeeLabel}` : null}
+            </>
+          )}
+        </p>
+      ) : null}
 
       <p className={cn("text-muted-foreground", s.meta)}>
         {terms.startFeeLabel ?? "Startavgift"}: {formatFee(terms.startFee)}

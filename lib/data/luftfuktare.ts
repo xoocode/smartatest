@@ -10,8 +10,9 @@ import { LUFTFUKTARE } from "@/lib/test-pages";
  *
  * **Verkligt och daterat:** priser, kundbetyg, GTIN, teknik, kapacitet i
  * ml/h, tankvolym, rekommenderad yta, ljudnivå, effekt och om målfukten går
- * att ställa. Allt läst 2026-08-03 på butikens egen produktsida, i deras
- * strukturerade data eller i produktbeskrivningen.
+ * att ställa. Priser lästa 2026-08-03 på butikens egen produktsida. Specarna
+ * kompletterade 2026-08-06 ur tillverkarnas manualer och hemmamarknadssidor,
+ * se `## Manualpasset` nedan.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte mätt luftfuktighet,
  * inte odlat bakterier och inte provat någon apparat.
@@ -28,13 +29,43 @@ import { LUFTFUKTARE } from "@/lib/test-pages";
  * gränsvärde, och allmänna råd är rekommendationer och inte bindande regler.
  * Filen påstår aldrig att en luftfuktare är olaglig eller att 46 % är farligt.
  *
+ * ## Manualpasset 2026-08-06, som flyttade två produkter
+ *
+ * Sidan publicerades med tolv påståenden om att en uppgift inte gick att få
+ * tag på. Sju av dem var falska, och fem av de sju låg i ett dokument butiken
+ * själv länkade till under supportfliken.
+ *
+ * - **Wilfa Dew TX450** rankades sist därför att Kjells specifikationstabell
+ *   bara listar "Inställningar: luftfuktning, nattläge, timer" och ingen
+ *   rumsyta. Brödtexten på **samma sida** anger inbyggd hygrostat, målnivå
+ *   35–75 % i steg om 5 %, 70 m² (störst av de tolv), UV-funktion och
+ *   keramiskt filter. Fyra betyg omräknade, produkten gick från tolfte till
+ *   sjätte plats. ⚠️ Läs brödtexten, inte bara spectabellen.
+ * - **Xiaomi Smart Humidifier Pro:** målfukten ställs 40–70 % RH i Xiaomi
+ *   Home, vilket står i klartext i Kjells produkttext. Vi hade skrivit
+ *   "Anges inte". Fuktreglering 3,5 → 4,5.
+ * - **Cleverio AM300:** 105 W står i Kjells länkade manual, liksom målnivå
+ *   40–80 %. Autoläget siktar på 55–68 %, alltså över myndighetens 45.
+ * - **Rubicson 2,5 L:** 150 ml/h och 13 h står på produktsidan, 25 W i
+ *   manualen. Vi hade skrivit att fyra uppgifter saknades. Bara ljudnivån
+ *   saknas verkligen.
+ * - **Philips 5000:** 8 W, lägst av alla tolv, står i Ljud & Bilds
+ *   specifikationsruta återgiven på Clas Ohlsons produktsida.
+ * - **Beurer LB 300 Plus (26 W) och LB 45 (25 W)** ur Beurers egna
+ *   manualer på pim.beurer.com.
+ * - **Wilfa Lotus:** kontrollerad mot Wilfas egen produktsida. Ingen
+ *   hygrostat, ingen display, ingen målnivå. Påståendet höll.
+ *
+ * Kvar som verklig lucka: Vicks Sweet Dreams effekt och ångkapacitet, samt
+ * Rubicsons ljudnivå. Sökvägar i .agent/research/luftfuktare.md §9.
+ *
  * ## Teknikuppgiften avgjorde rankningen, och den stod i butikstexten
  *
  * Två produkter hamnade långt från där produktnamnet antydde, för att
  * beskrivningen sa något annat än specifikationstabellen:
  *
  * - **Xiaomi Smart Humidifier Pro** heter varken evaporativ eller förångning, men Kjell skriver "fuktar luften genom naturlig avdunstning – utan synlig dimma eller vattenånga". Den finfördelar alltså inte tankinnehållet, och tvättbart filter betyder ingen förbrukningsdel. Den gick från botten till andra plats.
- * - **Wilfa Dew TX450** kostar 1 999 kr, lika mycket som testvinnaren, men Kjell skriver "en modern ultrasonisk luftfuktare". Den gick från mitten till sist.
+ * - **Wilfa Dew TX450** kostar 1 999 kr, lika mycket som testvinnaren, men Kjell skriver "en modern ultrasonisk luftfuktare". Tekniken drog ner hygienbetyget. Rumsytan och hygrostaten lyfte den ändå till sjätte plats, se manualpasset ovan.
  *
  * Ingen av uppgifterna går att gissa ur namnet. Båda står i klartext hos
  * butiken, och ingen av de sju svenska jämförelser vi läste nämner dem.
@@ -78,7 +109,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       fuktreglering: 5,
       hygien: 5,
       kapacitet: 5,
-      drift: 3,
+      /* 3,0 → 3,5 2026-08-06. Ljud & Bilds specifikationsruta, återgiven på
+         Clas Ohlsons produktsida, anger 8 W, vilket är lägst av de tolv.
+         Förbrukningsfiltret håller den från högre. */
+      drift: 3.5,
       prisvarde: 3.5,
     },
     price: 1999,
@@ -92,13 +126,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     pros: [
       "Målfukten går att ställa från 30 till 70 procent i steg om fem",
       "Förångning, som inte finfördelar tankens innehåll ut i rummet",
-      "56 m² och 400 ml/h är den största kapaciteten någon av de tolv anger",
+      "56 m² och 400 ml/h, näst största kapaciteten av de tolv",
+      "8 W, lägst effekt av alla tolv och en trettiondel av Levoits 280",
       "12 till 34 dB, tystast av alla tolv på lägsta läget",
     ],
     cons: [
       "Dyrast av de tolv apparaterna, tillsammans med Wilfa Dew",
-      "Filtret är en förbrukningsdel som måste bytas",
-      'Butiken kallar den "Bäst i test" utan att testet utsett någon vinnare',
+      "Filtret är en förbrukningsdel som måste bytas varje år",
+      "Wilfa Dew fuktar 70 m² mot 56, till samma pris",
     ],
     specs: [
       { label: "Pris", value: "1 999 kr", highlight: true },
@@ -106,13 +141,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Teknik", value: "Förångning, NanoCloud", highlight: true },
       { label: "Kapacitet", value: "400 ml/h", highlight: true },
       { label: "Rumsyta", value: "Upp till 56 m²", highlight: true },
-      { label: "Tank", value: "4,5 liter" },
+      { label: "Tank", value: "4,5 liter", highlight: true },
+      { label: "Effekt", value: "8 W", highlight: true },
       { label: "Drifttid", value: "Upp till 37 h" },
       { label: "Ljudnivå", value: "12–34 dB" },
+      { label: "Vikt", value: "2,125 kg" },
       { label: "App", value: "Air+" },
     ],
     verdict:
-      "Du kan ställa målfukten mellan 30 och 70 procent i steg om fem. Ingen annan här kommer i närheten.\n\nTvå av tolv har ingen fuktreglering alls, fyra har effektlägen utan målnivå, och Beurers båda förångare kan bara välja mellan 40, 50 och 60 procent. Här kan du ställa 40 och stanna där, vilket spelar roll när Folkhälsomyndigheten namnger 45 procent vid 21 grader som en indikation för att kräva undersökning av bostaden.\n\nTekniken är den andra halvan. Philips kallar den NanoCloud, men det den gör är förångning: luft blåses genom ett fuktigt filter och vattnet avdunstar. Mineraler och mikrober stannar kvar i filtret i stället för att skickas ut i rummet. Den skillnaden mätte ÖKO-TEST när fem av åtta apparater spred mellan 400 000 och 60 miljoner kolonibildande enheter i timmen, och ultraljuden var de utpekade.\n\nKapaciteten är störst av apparaterna i jämförelsen: 56 kvadratmeter och 400 milliliter i timmen, med 37 timmars drifttid på en tank. Ljudnivån börjar på 12 decibel, lägst av alla här.\n\nPriset är det högsta av de tolv apparaterna tillsammans med Wilfa Dew, och filtret är en förbrukningsdel: Stiftung Warentest räknade fram 13 till 247 euro om året för åtta apparater och det är just filter och vekar som gör skillnaden.\n\nOch en sak som inte påverkar betyget men som du bör veta. Clas Ohlsons produktsida inleds med orden Bäst i test och hänvisar till Ljud & Bild i februari 2025. Testet finns, datumet stämmer och Philips är med i det. Men testet utser ingen vinnare och sätter inga betyg alls. Philips omdöme där är rubricerat Funktion före stil, med Utseendet som enda minus.",
+      "Philips 5000 är apparaten där du sätter en målfuktighet på själva apparaten och sedan går därifrån. 1 999 kronor hos Clas Ohlson, dyrast här tillsammans med Wilfa Dew.\n\nDu ställer 30 till 70 procent i steg om fem, alltså kan du lägga dig på 40 och stanna där, under de 45 procent Folkhälsomyndigheten namnger som indikation för att kräva undersökning av bostaden. Bara Wilfa Dew går lika lågt i steg, och den börjar först vid 35. Tekniken är förångning: luft blåses genom ett fuktigt filter och vattnet avdunstar, så kalk och mikrober stannar i filtret i stället för att följa med ut i rummet. Det var precis den skillnaden ÖKO-TEST mätte när fem av åtta apparater spred mellan 400 000 och 60 miljoner kolonibildande enheter i timmen, och ultraljuden var de utpekade. **8 watt** är dessutom lägst av alla tolv, en trettiondel av Levoits 280, och den går ner till 12 decibel.\n\nFiltret är en förbrukningsdel, och det är där pengarna tar vägen. Stiftung Warentest räknade fram 13 till 247 euro om året för åtta apparater, grovt 150 till 2 800 kronor, och skillnaden ligger nästan helt i filter och vekar. Räkna med den kostnaden varje år ovanpå inköpspriset.\n\nKöp den. Den fuktar 56 kvadratmeter, håller 37 timmar på en tank och är den enda här som låter dig ställa exakt den nivå du mätt att du behöver utan att först ta upp mobilen.",
   },
   {
     id: "xiaomi-humidifier-pro",
@@ -120,9 +157,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Xiaomi Pro",
     brand: "Xiaomi",
     image: productImage(LUFTFUKTARE.slug, "xiaomi-humidifier-pro"),
-    tagline: "Avdunstning, tvättbart filter och 13 watt. Billigast att äga.",
+    tagline: "600 ml i timmen, mest av alla, och inget filter att köpa.",
     scores: {
-      fuktreglering: 3.5,
+      /* 3,5 → 4,5 2026-08-06. Kjells egen produkttext anger att önskad
+         luftfuktighet ställs mellan 40 och 70 % RH i Xiaomi Home. Målnivån
+         finns alltså; att den bara går att nå via appen och att golvet ligger
+         på 40 och inte 30 skiljer den från Philips. */
+      fuktreglering: 4.5,
       hygien: 5,
       kapacitet: 4,
       drift: 5,
@@ -136,30 +177,33 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
        den mätte 234 px mot QuickPickPanels 222 och klipptes mitt i ordet. */
     superlative: "Tvättbart filter, inget att köpa",
     pros: [
-      "Naturlig avdunstning utan synlig dimma, enligt butikens egen text",
-      "Tvättbart filter med antibakteriell behandling, inget att köpa",
-      "13 W är lägsta effekten av apparaterna i jämförelsen, en tjugondel av Levoits 280",
+      "Avdunstar vattnet utan synlig dimma, så ingen kalk lägger sig på möblerna",
+      "Tvättbart filter som håller 6 till 12 månader, alltså inget att köpa",
       "600 ml/h är högst av alla tolv, och tanken rymmer 5 liter",
+      "Målfukten ställs mellan 40 och 70 procent i Xiaomi Home",
+      "Silverjonbehandlad tank som hämmar bakterietillväxt i vattnet",
     ],
     cons: [
-      "Butiken anger ingen ställbar målfuktighet, bara appstyrning",
-      "20 till 30 m² är mindre än Philips 56",
-      "Inga kundomdömen alls hos butiken vi länkar till",
-      "Kräver Xiaomi Home-appen för att styras",
+      "Målfukten går bara att ställa i appen, inte på apparaten",
+      "Lägsta nivån du kan välja är 40 procent, mot Philips 30",
+      "20 till 30 m² är mindre än Philips 56 och Wilfa Dews 70",
+      "Kräver Xiaomi Home-appen och 2,4 GHz-wifi",
     ],
     specs: [
       { label: "Pris", value: "1 499 kr", highlight: true },
-      { label: "Ställbar fukt", value: "Anges inte", highlight: true },
+      { label: "Ställbar fukt", value: "40–70 % i appen", highlight: true },
       { label: "Teknik", value: "Avdunstning", highlight: true },
       { label: "Kapacitet", value: "600 ml/h", highlight: true },
       { label: "Rumsyta", value: "20–30 m²", highlight: true },
-      { label: "Tank", value: "5 liter" },
+      { label: "Tank", value: "5 liter", highlight: true },
+      { label: "Effekt", value: "13 W", highlight: true },
       { label: "Drifttid", value: "Upp till 20 h i sovläge" },
       { label: "Ljudnivå", value: "30,7 dB sovläge, ≤55 dB max" },
-      { label: "Effekt", value: "13 W" },
+      { label: "Vikt", value: "2,7 kg" },
+      { label: "App", value: "Xiaomi Home" },
     ],
     verdict:
-      "Kjell skriver att den fuktar luften genom naturlig avdunstning, utan synlig dimma eller vattenånga. Det är skälet till andraplatsen.\n\nDet är ingen marknadsföring utan en teknikuppgift. En apparat som låter vattnet avdunsta skickar inte ut tankens innehåll i rummet, och det var det ÖKO-TEST mätte hos ultraljuden. Ingen av de sju jämförelser vi läst nämner skillnaden.\n\nDen andra halvan är driftkostnaden, och där är den ensam bäst. **13 watt.** Levoit drar 280, mer än tjugo gånger så mycket. Och filtret är tvättbart med antibakteriell behandling, vilket betyder att det inte finns någon förbrukningsdel att köpa. Stiftung Warentest hittade 13 till 247 euro om året för åtta apparater, och skillnaden ligger nästan helt i just filter och vekar. Den här ligger i botten av det spannet.\n\n600 milliliter i timmen är högst av alla tolv, med en femlitertank.\n\nDet som håller den från förstaplatsen är regleringen. Kjell anger ingen ställbar målfuktighet, bara att den styrs via Xiaomi Home. Appen kan mycket väl ha ett målvärde, men vi skriver bara det butiken skriver, och en uppgift du inte kan kontrollera före köp får inte full poäng här. Ytan är också mindre: 20 till 30 kvadratmeter mot Philips 56.\n\nNoll kundomdömen hos Kjell, vilket är värt att väga mot Rubicsons 561.",
+      "Xiaomi Smart Humidifier Pro avdunstar vattnet i stället för att spruta ut det, och kostar 1 499 kronor hos Kjell. Det är 500 kronor under vinnaren.\n\nAtt den avdunstar är hela poängen. Vattnet går genom ett 3D-filter och lämnar kalken och mikroberna kvar, så du får ingen vit hinna på tv-bänken och inget av det ÖKO-TEST mätte upp ur ultraljuden. **600 milliliter i timmen är mest av alla tolv**, med en femlitertank som räcker natten. Filtret tvättas för hand eller i maskin och håller 6 till 12 månader, alltså finns det ingen förbrukningsdel att köpa, och det är förbrukningsdelarna, inte elen, som gör att Stiftung Warentest landade på mellan 13 och 247 euro om året för åtta apparater. Tanken är dessutom silverjonbehandlad, och 13 watt är näst lägst här.\n\nMålfuktigheten ställs mellan 40 och 70 procent, men bara i Xiaomi Home. Står apparaten i ett sovrum utan mobilen inom räckhåll finns ingen ratt att vrida på, och golvet på 40 procent gör att du inte kan sikta lika lågt som med Philips 30.\n\nTa den här om rummet är under 30 kvadratmeter och du ändå har telefonen i handen. Ska apparaten skötas av någon som inte vill installera en app är Philips 5000 de 500 kronorna värd.",
   },
   {
     id: "beurer-lb-300-plus",
@@ -167,7 +211,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Beurer LB 300 Plus",
     brand: "Beurer",
     image: productImage(LUFTFUKTARE.slug, "beurer-lb-300-plus"),
-    tagline: "Den enda i rankningen som en riktig labbprovning tittat på.",
+    tagline: "Torkar filtret själv efter passet, så inget möglar i skåpet.",
     scores: {
       fuktreglering: 4,
       hygien: 5,
@@ -179,33 +223,37 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: APOTEA,
     merchantUrl: `${APOTEA_BASE}/beurer-lb-300-plus-luftfuktare`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Med i Stiftung Warentests provning",
+    superlative: "Bäst för 45 kvadratmeter utan dimma",
     pros: [
-      "Kall förångning, utan finfördelning av tankinnehållet",
+      "Kall förångning, så kalken stannar i filtret i stället för på möblerna",
       "Automatiskt läge som mäter fukten och håller 40, 50 eller 60 procent",
-      "45 m² och 360-gradersdesign för jämn spridning",
-      "Enda produkten i rankningen som ingick i Stiftung Warentests provning",
+      "45 m² och 360-gradersdesign som sprider fukten åt alla håll",
+      "Torkar filtret efter användning, så det inte står fuktigt mellan passen",
+      "26 W, i den snålare halvan av de tolv",
     ],
     cons: [
       "Målfukten går bara att välja i tre fasta steg, inte fritt",
       "Lägsta valbara nivå är 40 procent, näst lägsta 50",
-      "Filter eller veke är en förbrukningsdel",
-      "Inga kundomdömen hos butiken vi länkar till",
+      "Filtret är en förbrukningsdel som måste bytas",
+      "3 liters tank, minst av förångarna här",
     ],
     specs: [
       { label: "Pris", value: "1 599 kr", highlight: true },
       { label: "Ställbar fukt", value: "40, 50 eller 60 %", highlight: true },
       { label: "Teknik", value: "Kall förångning", highlight: true },
       { label: "Rumsyta", value: "Upp till 45 m²", highlight: true },
+      { label: "Kapacitet", value: "Upp till 300 ml/h", highlight: true },
+      { label: "Tank", value: "3 liter", highlight: true },
+      { label: "Effekt", value: "26 W", highlight: true },
       { label: "Fläktlägen", value: "Tre hastigheter" },
       { label: "Reglering", value: "Automatiskt läge med fuktmätning" },
       { label: "GTIN", value: "4211125100674" },
       { label: "Garanti", value: "3 år" },
       { label: "Vikt", value: "2,92 kg" },
-      { label: "Kapacitet", value: "Upp till 300 ml/h" },
+      { label: "App", value: "Nej" },
     ],
     verdict:
-      "Stiftung Warentest har haft den här i händerna. Ingen annan av luftfuktarna i jämförelsen.\n\nStiftung Warentest provade åtta luftfuktare i september 2025 under rubriken Nein zur Keimschleuder, alltså nej till bakteriespridaren. Fem var förångare och tre var ultraljud. LB 300 Plus var en av de åtta. Vi publicerar inte deras betyg, eftersom det ligger bakom betalvägg och vi inte har läst det i original, men att den ingick är i sig mer än de övriga elva kan säga.\n\nTekniken är kall förångning. Apotea beskriver det som ett intelligent automatiskt läge som mäter luftfuktigheten och justerar effekten till den önskade nivån, med tre fläkthastigheter och en 360-gradersdesign som fördelar fukten jämnt. Upp till 45 kvadratmeter.\n\nHaken är regleringen, och det är därför den inte vinner. Du kan välja 40, 50 eller 60 procent. Tre knappar, inget däremellan. Folkhälsomyndighetens indikation ligger på 45 vid 21 grader, vilket betyder att du i praktiken har ett val: 40 och ligga under, eller 50 och ligga över. Philips låter dig ställa 45 exakt, eller 30, eller vad du nu mätt att du behöver.\n\nApotea publicerar riktiga GTIN-koder, vilket Kjell inte gör. Det är ingen produktegenskap, men det gör produkten lättare att prisjämföra hos andra butiker.",
+      "Beurer LB 300 Plus är förångaren för den som glömmer bort apparaten mellan säsongerna. 1 599 kronor hos Apotea.\n\nDen torkar sitt eget filter efter användning. Det låter litet och är det inte: ett fuktigt filter som ställs undan i april är precis den odlingsplats både ÖKO-TEST och Stiftung Warentest skriver om, och den här löser det utan att du behöver komma ihåg något. I övrigt kall förångning, alltså ingen dimma och ingen kalk ut i rummet, med ett automatläge som mäter fukten och justerar effekten själv. 45 kvadratmeter, tre fläkthastigheter och en 360-gradersdesign som sprider åt alla håll i stället för åt ett. 26 watt.\n\nRegleringen är grovhuggen, och det är därför den inte vinner. Du väljer 40, 50 eller 60 procent. Tre knappar, inget däremellan. Folkhälsomyndighetens indikation ligger på 45, så du har i praktiken ett val: 40 och ligga under, eller 50 och ligga över.\n\nDen passar dig som vill ha ett stort rum fuktat utan att tänka på apparaten. Vill du sikta på en nivå du själv mätt fram, och inte på 40 eller 50, ska du lägga 400 kronor till på Philips 5000.",
   },
   {
     id: "beurer-lb-200",
@@ -225,34 +273,34 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: APOTEA,
     merchantUrl: `${APOTEA_BASE}/beurer-lb-200-luftfuktare`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "17 watt, näst lägst av tolv",
+    superlative: "Bäst för sovrummet under 30 kvadrat",
     pros: [
       "Kall förångning, samma princip som den dyrare LB 300 Plus",
       "Automatiskt läge som håller 40, 50 eller 60 procent",
-      "17 W, näst lägst effekt av alla apparaterna",
+      "17 W, tredje lägst av de tolv och en sextondel av Levoits 280",
       "Särskilt tyst nattläge och digital fuktighetsindikator",
     ],
     cons: [
-      "30 m² mot LB 300 Plus 45, för 40 kronor mindre",
+      "30 m² mot LB 300 Plus 45, för bara 40 kronor mindre",
       "Samma begränsning till tre fasta nivåer",
       "Utbytbart filter som är en förbrukningsdel",
-      "Inga kundomdömen hos butiken vi länkar till",
+      "200 ml/h, en tredjedel av Xiaomis 600",
     ],
     specs: [
       { label: "Pris", value: "1 559 kr", highlight: true },
       { label: "Ställbar fukt", value: "40, 50 eller 60 %", highlight: true },
       { label: "Teknik", value: "Kall förångning", highlight: true },
       { label: "Rumsyta", value: "Upp till 30 m²", highlight: true },
+      { label: "Kapacitet", value: "Upp till 200 ml/h", highlight: true },
+      { label: "Tank", value: "3 liter", highlight: true },
       { label: "Effekt", value: "17 W", highlight: true },
       { label: "Lägen", value: "Tre nivåer plus nattläge" },
       { label: "GTIN", value: "4211125100698" },
       { label: "Garanti", value: "3 år" },
       { label: "Vikt", value: "2,87 kg" },
-      { label: "Tank", value: "3 liter" },
-      { label: "Kapacitet", value: "Upp till 200 ml/h" },
     ],
     verdict:
-      "Skillnaden mot LB 300 Plus är mindre än prislappen antyder.\n\nSamma teknik: kall förångning, utan finfördelning av tankens innehåll. Samma reglering: intelligent automatiskt läge som mäter fukten och håller 40, 50 eller 60 procent. Samma tysta nattläge och digital fuktighetsindikator.\n\nSkillnaden är ytan. 30 kvadratmeter mot 45. För det betalar du 40 kronor mindre, vilket är en dålig affär om rummet är stort och en helt rimlig affär om det inte är det. Har du ett sovrum eller ett vardagsrum under 30 kvadrat är det här samma apparat till nästan samma pris med kapacitet du ändå inte skulle använda.\n\nEffekten är värd en rad för sig: 17 watt. Bara Xiaomis 13 är lägre, och Levoit drar 280. Över en vinter med kontinuerlig drift är det skillnaden mellan 30 kronor och 500.\n\nSamma invändning som mot systern gäller här. Tre fasta nivåer betyder att du väljer mellan 40 och 50, och Folkhälsomyndighetens indikation ligger på 45. Du kan alltså inte sikta på den.",
+      "Beurer LB 200 är den mindre systern till LB 300 Plus, och skillnaden är mindre än prislappen antyder. 1 559 kronor, alltså 40 kronor billigare.\n\nSamma kalla förångning, alltså ingen dimma och ingen kalk ut i rummet. Samma automatläge som mäter fukten och håller 40, 50 eller 60 procent. Samma tysta nattläge och samma digitala fuktindikator. **17 watt** är tredje lägst av de tolv: går den hela eldningssäsongen kostar elen ett fyrtiotal kronor, mot Levoits femhundra.\n\nDet du betalar mindre för är ytan, 30 kvadratmeter mot 45, och kapaciteten, 200 milliliter i timmen mot 300. Fyrtio kronor är en löjligt liten rabatt för en tredjedel mindre apparat.\n\nDen är därför bara rätt köp om rummet verkligen är litet: ett sovrum eller ett arbetsrum där de extra kvadratmetrarna ändå står oanvända. Har du ett vardagsrum ska du lägga de 40 kronorna på LB 300 Plus i stället.",
   },
   {
     id: "cleverio-am300",
@@ -265,7 +313,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       fuktreglering: 4.5,
       hygien: 4.5,
       kapacitet: 3.5,
-      drift: 2.5,
+      /* 2,5 → 3,0 2026-08-06. Kjells länkade manual anger 105 W, alltså näst
+         högsta effekten men knappt en tredjedel av Levoits 280. Det gamla
+         betyget vilade på att talet inte gick att räkna på. */
+      drift: 3,
       prisvarde: 4.5,
     },
     price: 999,
@@ -275,29 +326,31 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     userRating: { value: 4, count: 154 },
     superlative: "Stänger av sig vid önskad nivå",
     pros: [
-      "Stänger av sig automatiskt när önskad luftfuktighet är uppnådd",
-      "Varm ånga innebär kokat vatten, utan kall dimma från tanken",
-      "Anger rummet i kubikmeter, vilket är ärligare än en yta",
+      "Målfukten ställs mellan 40 och 80 procent, och apparaten stänger av sig där",
+      "Varm ånga innebär kokat vatten, alltså inga mikrober ut med dimman",
+      "Inbyggd hygrometer som visar rummets fukt och temperatur på displayen",
       "999 kr med 154 kundomdömen och 4,0 i snitt",
     ],
     cons: [
-      "Kokande vatten drar mer el, och Kjell anger ingen effekt alls",
+      "105 W, näst mest av de tolv, eftersom vattnet kokas",
+      "Autoläget siktar på 55 till 68 procent, alltså långt över myndighetens 45",
       "30 till 40 m³ motsvarar bara omkring 12 till 16 m² golvyta",
-      "Kräver appen Smart Life för fjärrstyrning",
       "Varm ånga är het och bör inte stå åtkomligt för små barn",
     ],
     specs: [
       { label: "Pris", value: "999 kr", highlight: true },
-      { label: "Ställbar fukt", value: "Ja, med avstängning", highlight: true },
+      { label: "Ställbar fukt", value: "40–80 %, stänger av sig", highlight: true },
       { label: "Teknik", value: "Varm eller kall ånga", highlight: true },
       { label: "Kapacitet", value: "400 ml/h varm, 300 kall", highlight: true },
       { label: "Rumsyta", value: "30–40 m³", highlight: true },
-      { label: "Tank", value: "4 liter, räcker 10–40 h" },
+      { label: "Tank", value: "4 liter, räcker 10–40 h", highlight: true },
+      { label: "Effekt", value: "105 W", highlight: true },
       { label: "Ljudnivå", value: "Under 25 dB" },
-      { label: "Effekt", value: "Anges inte" },
+      { label: "Vikt", value: "2,25 kg" },
+      { label: "App", value: "Smart Life" },
     ],
     verdict:
-      "**Den anger rummet i kubikmeter.** Ingen av de elva andra gör det.\n\n30 till 40 kubikmeter. Alla andra skriver kvadratmeter, vilket förutsätter en takhöjd som aldrig skrivs ut. Med 2,5 meter i tak motsvarar Cleverios tal ungefär 12 till 16 kvadratmeter golvyta, vilket är ett sovrum. Det är mindre än det låter, och det är just därför de andras kvadratmeter är svåra att lita på.\n\nBara Philips reglerar bättre. Kjell skriver: automatisk avstängning när önskad luftfuktighet är uppnådd, och tydlig display för inställningar samt önskad luftfuktighet. Du sätter alltså ett mål och apparaten slutar när den nått det, vilket är precis vad man vill ha när risken ligger i att fukta för mycket.\n\nVarm ånga betyder kokat vatten. Mikroberna i tanken dör av värmen på vägen ut, vilket gör den hygieniskt bättre än varje ultraljudsmodell här. Kall ånga finns också som läge, och då gäller inte det.\n\nPriset är rätt: 999 kronor med 154 omdömen och 4,0 i snitt, det näst bästa kundunderlaget av alla apparaterna.\n\nDet som drar ner är driften. Att koka vatten kostar el, och Kjell anger ingen effekt över huvud taget, vilket gör att du inte kan räkna på det före köp. Och het ånga är het, vilket är värt att tänka på i ett barnrum.",
+      "Cleverio AM300 kokar vattnet och stänger av sig när rummet nått den fukt du valt. 999 kronor hos Kjell, alltså den billigaste apparaten här som kan sluta fukta av sig själv.\n\nDu sätter ett mål mellan 40 och 80 procent och apparaten stannar där. Bara Philips och Wilfa Dew reglerar finare, och båda kostar dubbelt. Att ångan är kokt betyder samtidigt att mikroberna i tanken dör på vägen ut, vilket gör den hygieniskt bättre än varje ultraljudsmodell i listan. Kall ånga finns som läge, och då gäller inte det. En inbyggd hygrometer visar fukten och temperaturen på displayen, så du ser rummet utan att köpa en mätare till. **Och den anger rummet i kubikmeter i stället för kvadrat**, 30 till 40 m³, vilket med 2,5 meter i tak blir ungefär 12 till 16 kvadratmeter golv. Ärligare, och mindre än det låter.\n\nAtt koka vatten kostar el: 105 watt, näst mest av de tolv. Går den en hel eldningssäsong hamnar du på ett par hundra kronor mot Philips tjugo. Ställ också om autoläget direkt, eftersom fabriksinställningen siktar på 55 till 68 procent, alltså långt över de 45 myndigheten namnger.\n\nTa den till ett sovrum eller ett arbetsrum om du vill ha en hygrostat under tusenlappen. Ska den stå i ett barnrum ska du veta att ångan är het, och då är Beurer LB 300 Plus det tryggare köpet.",
   },
   {
     id: "levoit-oasismist-450s",
@@ -325,10 +378,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Under 26 dB på lägsta kalla läget",
     ],
     cons: [
-      "280 W är den högsta effekten av de tolv, tjugo gånger Xiaomis 13",
+      "280 W är den högsta effekten av de tolv, trettiofem gånger Philips 8",
       "Kall dimma innebär att tankens innehåll finfördelas ut i rummet",
+      "Ingen angiven åtgärd mot bakterier i vattnet, till skillnad från Wilfa Dew",
       "Ljud och kapacitet i toppklass bara på det varma läget, som drar mest",
-      "Inga kundomdömen hos butiken vi länkar till",
     ],
     specs: [
       { label: "Pris", value: "1 590 kr", highlight: true },
@@ -336,12 +389,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Teknik", value: "Varm och kall dimma", highlight: true },
       { label: "Kapacitet", value: "550 ml/h varm, 300 kall", highlight: true },
       { label: "Rumsyta", value: "20–40 m²", highlight: true },
-      { label: "Tank", value: "4,5 liter, upp till 45 h" },
+      { label: "Tank", value: "4,5 liter, upp till 45 h", highlight: true },
+      { label: "Effekt", value: "280 W", highlight: true },
       { label: "Ljudnivå", value: "<26 dB kall, <41 dB varm" },
-      { label: "Effekt", value: "280 W" },
+      { label: "App", value: "Ja, med schemaläggning" },
     ],
     verdict:
-      "Den bästa regleringen av apparaterna i jämförelsen sitter i den apparat som är dyrast att äga.\n\nKjell skriver att den inbyggda fuktsensorn mäter rummets luftfuktighet och att du i appen kan ställa in önskad luftfuktighet efter rum och säsong, samt skapa scheman. Det är precis rätt funktion för den här kategorin, och bara Philips gör det bättre genom att låta dig göra det på apparaten själv.\n\nSedan kommer effekten. **280 watt.** Xiaomi drar 13, Beurer LB 200 drar 17. Går den kontinuerligt under en eldningssäsong är skillnaden mot Xiaomi i storleksordningen ett par tusen kronor. Levoit anger visserligen 280 som toppeffekt och den siffran gäller det varma läget, men det är också det läget som ger den kapacitet de marknadsför.\n\nDet andra problemet är tekniken. Kall dimma är ultraljud, metoden som slår sönder vattnet och skickar med allt som finns i det. Det var de apparaterna ÖKO-TEST mätte upp till 60 miljoner kolonibildande enheter i timmen från. Varmt läge kokar och är bättre, men då är du tillbaka på 280 watt.\n\nDen som vill ha den här ska veta vad köpet innebär: en välreglerad, tyst och rymlig apparat med den högsta driftkostnaden av apparaterna i jämförelsen och en teknik som kräver att du faktiskt byter vatten dagligen.",
+      "Levoit OasisMist 450S är den dyraste apparaten här att ha igång. 1 590 kronor att köpa, och sedan börjar det.\n\nDen gör mycket rätt. En inbyggd fuktsensor läser rummet, du sätter målnivån per rum och säsong i appen och lägger scheman ovanpå. Både varm och kall dimma, 550 respektive 300 milliliter i timmen, en fyrahalvlitertank som fylls uppifrån och under 26 decibel på lägsta kalla läget. 20 till 40 kvadratmeter.\n\nSedan kommer talet: **280 watt.** Philips klarar samma jobb på 8, Beurer LB 200 på 17. Går den kontinuerligt genom en eldningssäsong är det skillnaden mellan tjugo kronor och femhundra, och det är innan man räknar filtren. Toppeffekten gäller det varma läget, men det är också det läget som ger kapaciteten som säljer den. Tekniken är dessutom ultraljud på kallt läge, alltså den metod ÖKO-TEST mätte upp till 60 miljoner kolonibildande enheter i timmen ur, och här utan silverstav, UV eller något annat i vattnet.\n\nDet finns bättre köp i båda riktningarna. Vill du ha appstyrd målfukt tar du Xiaomi Pro för hundra kronor mindre och sjuttonde delen av elräkningen. Vill du ha varm ånga och en hygrostat räcker Cleverio AM300 på 999.",
   },
   {
     id: "beurer-lb-45",
@@ -365,15 +419,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     superlative: "546 kr för 30 m² och fyra liter",
     pros: [
       "546 kronor för 30 m², mest kapacitet per krona av de tolv",
-      "Fyra liters tank med synlig vattennivå",
-      "Justerbar ångmängd och uttalat tyst för sovrum",
-      "Publicerat GTIN gör den lätt att prisjämföra",
+      "Fyra liters tank med synlig vattennivå, störst i prisklassen",
+      "Steglöst justerbar ångmängd, inte bara fasta lägen",
+      "Silverstav i tanken som hämmar bakterietillväxt",
     ],
     cons: [
       "Ultraljud, som finfördelar tankens innehåll ut i rummet",
       "Ingen ställbar målfuktighet, bara ångmängd",
       "Utan hygrostat kan du inte se när du passerat 45 procent",
-      "Inga kundomdömen hos butiken vi länkar till",
+      "Kräver att du byter vatten varje dag för att vara vettig",
     ],
     specs: [
       { label: "Pris", value: "546 kr", highlight: true },
@@ -381,13 +435,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Teknik", value: "Ultraljud", highlight: true },
       { label: "Kapacitet", value: "300 ml/h", highlight: true },
       { label: "Rumsyta", value: "Upp till 30 m²", highlight: true },
-      { label: "Tank", value: "4 liter med synlig nivå" },
+      { label: "Tank", value: "4 liter med synlig nivå", highlight: true },
+      { label: "Effekt", value: "25 W", highlight: true },
       { label: "GTIN", value: "4211125681074" },
       { label: "Garanti", value: "3 år" },
       { label: "Vikt", value: "1,54 kg" },
+      { label: "App", value: "Nej" },
     ],
     verdict:
-      "Ska du lägga under 600 kronor är det här apparaten.\n\nFör 546 kronor får du fyra liters tank, 300 milliliter i timmen och 30 kvadratmeter. Levoit tar 1 590 för 20 till 40 kvadrat. Ren kapacitet per krona är det här det bästa köpet av apparaterna i jämförelsen, med god marginal, och Apotea publicerar dessutom GTIN så du kan kontrollera priset någon annanstans.\n\nInvändningarna är samma som mot alla billiga luftfuktare, och de är verkliga.\n\nTekniken är ultraljud. Vattnet slås sönder till dimma och allt som finns i tanken följer med ut. ÖKO-TEST mätte fem av åtta apparater till mellan 400 000 och drygt 60 miljoner kolonibildande enheter i timmen, mot 100 till 500 per kubikmeter i normal inomhusluft, och det var ultraljuden som pekades ut. Beurer har en silverstav som motåtgärd, vilket är mer än de flesta i prisklassen gör, men det är inte samma sak som att inte finfördela vattnet alls.\n\nDen andra är regleringen. Du kan ställa ångmängden men inte en målfuktighet. Apparaten vet inte hur fuktigt rummet är och stannar aldrig av sig själv. Vill du hålla dig under 45 procent behöver du en egen hygrometer och en klocka.\n\nKöp den här om du sköter den. Byt vatten dagligen, torka tanken, och skaffa en hygrometer för hundra kronor. Gör du inte det är en apparat som står ostädad sämre än ingen apparat alls.",
+      "Beurer LB 45 är apparaten för den som ska lägga under 600 kronor. 546 hos Apotea.\n\nFör de pengarna får du fyra liters tank med synlig nivå, 300 milliliter i timmen och 30 kvadratmeter. Levoit tar 1 590 för 20 till 40 kvadrat och drar elva gånger så mycket ström. Ren kapacitet per krona är det här det bästa köpet i listan med god marginal, ångmängden är steglöst justerbar i stället för låst till tre lägen, och den väger 1,54 kilo, alltså lätt att flytta mellan rummen. 25 watt.\n\nSedan kommer det som skiljer en femhundring från en tusenlapp. Tekniken är ultraljud: vattnet slås sönder till dimma och allt som finns i tanken följer med ut i luften. ÖKO-TEST mätte fem av åtta apparater till mellan 400 000 och drygt 60 miljoner kolonibildande enheter i timmen, mot 100 till 500 per kubikmeter i normal inomhusluft, och det var ultraljuden som pekades ut. Silverstaven i tanken är mer än de flesta i prisklassen har, men den ersätter inte en apparat som aldrig finfördelar vattnet. Och utan hygrostat stannar den aldrig av sig själv, så du får hålla reda på procenten.\n\nKöp den om du faktiskt sköter den: byt vatten varje dag, torka tanken, och lägg hundra kronor på en hygrometer. Vet du redan att du inte kommer att göra det ska du lägga 453 kronor till på Cleverio AM300, som kokar vattnet och stänger av sig själv.",
   },
   {
     id: "beurer-lb-37",
@@ -407,18 +463,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: APOTEA,
     merchantUrl: `${APOTEA_BASE}/beurer-luftfuktare-lb-37`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Lägst pris med publicerat GTIN",
+    superlative: "Bäst för rum under 20 kvadrat",
     pros: [
-      "519 kronor, lägsta priset på en apparat med publicerad specifikation",
       "20 W och automatisk avstängning när tanken är tom",
       "Rengöringsborste ingår, vilket få i prisklassen skickar med",
+      "Silverstav i tanken, samma motåtgärd som den dyrare LB 45",
       "Nattläge för sovrum",
     ],
     cons: [
       "Tvålitertank och 200 ml/h, halva LB 45 för 27 kronor mindre",
       "Bara 20 m², minsta ytan i hela rankningen",
       "Ultraljud utan hygrostat, samma två problem som LB 45",
-      "Inga kundomdömen hos butiken vi länkar till",
+      "Tanken räcker inte en hel natt på högsta läget",
     ],
     specs: [
       { label: "Pris", value: "519 kr", highlight: true },
@@ -426,13 +482,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Teknik", value: "Ultraljud", highlight: true },
       { label: "Kapacitet", value: "200 ml/h", highlight: true },
       { label: "Rumsyta", value: "Upp till 20 m²", highlight: true },
-      { label: "Tank", value: "2 liter" },
-      { label: "Effekt", value: "20 W" },
+      { label: "Tank", value: "2 liter", highlight: true },
+      { label: "Effekt", value: "20 W", highlight: true },
       { label: "GTIN", value: "4211125681135" },
       { label: "Garanti", value: "3 år" },
     ],
     verdict:
-      "**27 kronor är fel ställe att spara.**\n\nLB 37 kostar 519 kronor, LB 45 kostar 546. För de 27 kronorna får du dubbla tanken, 4 liter mot 2, halva kapaciteten till, 300 milliliter i timmen mot 200, och ett 50 procent större rum, 30 kvadratmeter mot 20. Det är samma tillverkare, samma teknik och samma silverstav.\n\nDet enda LB 37 gör bättre är att den skickar med en rengöringsborste, vilket är mer relevant än det låter, och att 20 watt är marginellt mindre än systerns.\n\nI övrigt gäller allt som står under LB 45. Ultraljud betyder att tankens innehåll finfördelas ut i rummet, och utan hygrostat vet apparaten inte hur fuktigt det är och stannar aldrig själv.\n\nKöp den bara om rummet verkligen är litet och du vet att du aldrig kommer flytta apparaten.",
+      "**27 kronor är fel ställe att spara.** LB 37 kostar 519, LB 45 kostar 546.\n\nFör de 27 kronorna får du hos systern dubbla tanken, 4 liter mot 2, femtio procent mer kapacitet, 300 milliliter i timmen mot 200, och ett rum som är halva gången större, 30 kvadratmeter mot 20. Samma tillverkare, samma ultraljud, samma silverstav i vattnet.\n\nDet LB 37 gör bättre är två småsaker: en rengöringsborste följer med, vilket är mer värt än det låter på en apparat som måste torkas ur varje vecka, och 20 watt är fem mindre än systerns 25. Tvålitertanken betyder samtidigt att den inte räcker natten på högsta läget.\n\nI övrigt gäller allt som står under LB 45: ultraljudet skickar ut tankens innehåll i rummet, och utan hygrostat stannar den aldrig av sig själv. Köp den bara om rummet är ett riktigt litet sovrum och apparaten aldrig ska flyttas. Ska den kunna följa med till vardagsrummet är LB 45 nästan gratis uppgradering.",
   },
   {
     id: "wilfa-lotus-hu4-4w",
@@ -457,14 +513,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Fem års garanti, vilket är längre än någon annan här anger",
       "20 W, i nivå med de snålaste här",
       "30 m² på 549 kronor, samma yta som Beurer LB 45",
-      "Publicerat GTIN gör den lätt att prisjämföra",
+      "Droppformad högglansdesign som tar liten plats på nattduksbordet",
     ],
     cons: [
-      "Ultraljud utan silverstav eller annan angiven motåtgärd",
-      'Apotea skriver "justerbar fuktighetsnivå" men anger varken hygrostat, målvärde i procent eller display',
+      "Ultraljud utan silverstav, UV eller annan åtgärd mot bakterier i vattnet",
+      "Ingen hygrostat och ingen display, du justerar bara hur mycket dimma den ger",
       "Tvålitertank och 200 ml/h, halva Beurer LB 45 för 3 kronor mer",
       "Doftfunktion, ytterligare något att låta stå i vattnet",
-      "Inga kundomdömen hos butiken vi länkar till",
     ],
     specs: [
       { label: "Pris", value: "549 kr", highlight: true },
@@ -472,13 +527,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Teknik", value: "Ultraljud, kall ånga", highlight: true },
       { label: "Kapacitet", value: "200 ml/h", highlight: true },
       { label: "Rumsyta", value: "Upp till 30 m²", highlight: true },
-      { label: "Tank", value: "2 liter, räcker cirka 10 h" },
-      { label: "Effekt", value: "20 W" },
+      { label: "Tank", value: "2 liter, räcker cirka 10 h", highlight: true },
+      { label: "Effekt", value: "20 W", highlight: true },
       { label: "Garanti", value: "5 år" },
       { label: "GTIN", value: "7044876012234" },
+      { label: "App", value: "Nej" },
     ],
     verdict:
-      "Fem års garanti, längst av alla. Den ligger ändå långt ner, och skälet är 3 kronor.\n\nBeurer LB 45 kostar 546 kronor. Den här kostar 549. För den skillnaden får du hos Beurer dubbla tanken, fyra liter mot två, och femtio procent mer kapacitet, 300 milliliter i timmen mot 200. Ytan är densamma, 30 kvadratmeter. Tekniken är densamma, ultraljud. Effekten är i praktiken densamma, 20 watt mot Beurers likaledes låga. Det finns alltså ingen egenskap där den här är den bättre affären, förutom garantin.\n\nOch garantin är verkligen ett argument. Fem år är längre än någon annan tillverkare här anger, och Apotea skriver ut det. På en produkt för 500 kronor är det ovanligt.\n\nRegleringen är den svaga punkten och kräver en förklaring, eftersom Apotea listar \"justerbar fuktighetsnivå\" bland egenskaperna. Det låter som en hygrostat. Men ingenstans på produktsidan finns ett målvärde i procent, en fuktsensor eller en display, och utan något av det kan apparaten inte veta hur fuktigt rummet är. Det som går att justera är alltså hur mycket dimma den avger, inte vilken nivå den håller. Vi betygsätter det butiken skriver, och här skriver butiken inte det som krävs.\n\nHygienen är den vanliga invändningen mot billiga ultraljudsmodeller: tankens innehåll slås sönder och skickas ut i rummet. Beurer har åtminstone en silverstav. Här anges ingen motåtgärd alls. Att den dessutom har en doftfunktion, en plats där du häller i olja, betyder en sak till som står och blir gammal i vattnet.\n\nVill du ha en liten fuktare till ett sovrum för under 600 kronor, ta Beurer LB 45. Vill du ha fem års garanti och tycker att formen är snyggare, är det här ett fullt rimligt köp, men byt vatten varje dag.",
+      "Wilfa Lotus har fem års garanti, längre än någon annan apparat här. Den ligger ändå långt ner, och skälet är tre kronor.\n\nGarantin är ett riktigt argument. Fem år på en produkt för 549 kronor är ovanligt, och det är dubbelt mot Beurers tre. Den är dessutom liten och droppformad i högblank vit, alltså byggd för att stå framme på ett nattduksbord snarare än att gömmas bakom en fåtölj, och 20 watt gör den billig att låta gå.\n\nProblemet är att Beurer LB 45 kostar 546. För tre kronor mindre får du dubbla tanken, fyra liter mot två, och femtio procent mer kapacitet, 300 milliliter i timmen mot 200. Ytan är densamma, tekniken är densamma och strömmen är i praktiken densamma. Lotus reglerar inte heller fukten: du justerar hur mycket dimma den ger, men den mäter inget och stannar aldrig av sig själv. Och där Beurer har en silverstav i vattnet har den här ingenting, plus en doftfunktion, alltså ännu en sak som står och blir gammal i tanken.\n\nSka du ha en liten fuktare till ett sovrum för under 600 kronor tar du Beurer LB 45. Väger fem års garanti och formen tyngre än en tank som räcker natten är det här ett rimligt köp, men byt vatten varje dag.",
   },
   {
     id: "vicks-sweet-dreams",
@@ -507,13 +563,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "3,8 liters tank som räcker upp till 24 timmar på lägsta läget",
       "Max 40 dB och angiven för sovrum upp till 35 m²",
       "Fungerar som nattlampa med tre motiv i taket",
-      "Publicerat GTIN gör den lätt att prisjämföra",
+      "Tyst nog för ett sovrum, max 40 dB",
     ],
     cons: [
-      "Ultraljud utan silverstav eller annan angiven motåtgärd",
+      "Ultraljud utan silverstav, UV eller annan åtgärd mot bakterier i vattnet",
       "Ingen fuktreglering alls, den går tills du stänger av den",
       "Marknadsförs för barnrum, där skötseln oftast glöms",
       "829 kronor är dyrare än Beurer LB 45 med sämre reglering",
+      "Projektorn står tänd hela natten, alltså den apparat som glöms bort vid rengöring",
     ],
     specs: [
       { label: "Pris", value: "829 kr", highlight: true },
@@ -524,9 +581,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Ljudnivå", value: "Max 40 dB" },
       { label: "Extra", value: "Projicerar tre motiv i taket" },
       { label: "GTIN", value: "4022167005755" },
+      { label: "App", value: "Nej" },
     ],
     verdict:
-      "En luftfuktare med projektor, marknadsförd för barnrummet. Kombinationen är den vi är mest tveksamma till.\n\nProdukten i sig är inte dålig. 3,8 liters tank, upp till 24 timmar, max 40 decibel, angiven för rum upp till 35 kvadratmeter. Apotea skriver att den kan lindra vid förkylning, torra slemhinnor och hosta, vilket är den vanligaste anledningen att någon köper en luftfuktare till ett barn.\n\nProblemet är att två brister förstärker varandra.\n\nDen har ingen fuktreglering. Ingen sensor, inget målvärde, ingen avstängning vid uppnådd nivå. Den kör tills du stänger av den eller tanken tar slut, vilket kan vara ett helt dygn. I ett stängt barnrum är det så man passerar 45 procent utan att märka det.\n\nOch den är ultraljud utan angiven motåtgärd. Beurer har åtminstone en silverstav. ÖKO-TEST mätte att fem av åtta apparater spred bakterier, ultraljuden var de utpekade, och en apparat som står tänd hela natten i ett barnrum är den plats där man minst vill ha det.\n\nDet finns dessutom en praktisk sak. En apparat som också är nattlampa står tänd varje natt, och den apparat som används mest är den som oftast glöms bort vid rengöring.\n\nVill du fukta ett barnrum är Beurer LB 45 billigare, och Cleverio AM300 för 999 kronor stänger av sig själv vid rätt nivå.",
+      "Vicks Sweet Dreams är en luftfuktare som också är en takprojektor, byggd för barnrummet och prissatt till 829 kronor. Kombinationen är den vi är mest tveksamma till på hela sidan.\n\nApparaten i sig gör sitt. 3,8 liters tank som räcker upp till 24 timmar på lägsta läget, max 40 decibel, och tre motiv som lyser i taket när barnet ska somna. Det är rätt sorts produkt för den som köper en fuktare mot torra slemhinnor och nattlig hosta.\n\nMen två brister förstärker varandra. Den har ingen fuktreglering alls: ingen sensor, inget målvärde, ingen avstängning vid uppnådd nivå. Den går tills du stänger av den eller tanken tar slut, alltså potentiellt ett helt dygn, och i ett stängt barnrum är det så man passerar 45 procent utan att märka det. Samtidigt är den ultraljud, med varken silverstav, UV-lampa eller keramiskt filter i vattnet. ÖKO-TEST mätte upp till 60 miljoner kolonibildande enheter i timmen ur just den sortens apparat, och ett barnrum där maskinen står tänd varje natt är den sämsta tänkbara platsen för det.\n\nSka du fukta ett barnrum: ta Cleverio AM300 för 999 kronor, som kokar vattnet och stänger av sig vid rätt nivå. Är projektorn hela poängen köper du en separat nattlampa för tvåhundra och Beurer LB 45 för 546, och får både bättre fuktare och bättre lampa för mindre pengar.",
   },
   {
     id: "rubicson-25l",
@@ -534,7 +592,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Rubicson 2,5 L",
     brand: "Rubicson",
     image: productImage(LUFTFUKTARE.slug, "rubicson-25l"),
-    tagline: "561 kundomdömen och nästan ingen specifikation.",
+    tagline: "399,90 kronor, och 561 köpare som ger den 4,5.",
     scores: {
       fuktreglering: 1,
       hygien: 2,
@@ -549,29 +607,32 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     userRating: { value: 4.5, count: 561 },
     superlative: "Lägst pris, flest omdömen",
     pros: [
-      "399,90 kronor, lägsta priset av alla tolv",
+      "399,90 kronor, lägsta priset av alla tolv med 120 kronor",
       "4,5 i snitt på 561 kundomdömen, största kundunderlaget av alla tolv",
-      "Ultraljud är energisnålt och tyst",
-      "Justerbar belysning och timer",
+      "25 W, alltså billig att låta gå en hel eldningssäsong",
+      "Justerbar stämningsbelysning och timer på 2, 4 eller 8 timmar",
     ],
     cons: [
-      "Butiken anger varken kapacitet, ljudnivå, effekt eller drifttid",
+      "150 ml/h är lägsta kapaciteten av de tolv, en fjärdedel av Xiaomis 600",
       "Ingen fuktreglering, bara timer",
-      "Ultraljud utan angiven motåtgärd mot bakterier",
-      "Kjell hänvisar till en uppdaterad rengöringsmanual under supportfliken",
+      "Ultraljud utan silverstav, UV eller annan åtgärd mot bakterier i vattnet",
+      "Tillverkaren vill att tanken rengörs var tredje dag, inte varje vecka",
     ],
     specs: [
       { label: "Pris", value: "399,90 kr", highlight: true },
       { label: "Ställbar fukt", value: "Nej, bara timer", highlight: true },
       { label: "Teknik", value: "Ultraljud", highlight: true },
       { label: "Rumsyta", value: "Upp till 20 m²", highlight: true },
+      { label: "Kapacitet", value: "150 ml/h (± 25 %)", highlight: true },
       { label: "Tank", value: "2,5 liter", highlight: true },
-      { label: "Kapacitet", value: "Anges inte" },
-      { label: "Ljudnivå", value: "Anges inte" },
-      { label: "Effekt", value: "Anges inte" },
+      { label: "Effekt", value: "25 W", highlight: true },
+      { label: "Drifttid", value: "Upp till 13 h" },
+      { label: "Timer", value: "2, 4 eller 8 h" },
+      { label: "Mått", value: "Ø180 × 258 mm" },
+      { label: "App", value: "Nej" },
     ],
     verdict:
-      "Mest köpt av de tolv apparaterna, och sämst beskriven.\n\n561 kundomdömen med 4,5 i snitt. Det är fler omdömen än alla de övriga tillsammans, och det säger något verkligt: folk köper den, och de flesta blir nöjda. För 399,90 kronor får du en tyst ultraljudsfuktare med timer och stämningsbelysning som gör vad den ska.\n\nMen titta på vad Kjell inte skriver. Ingen kapacitet i milliliter per timme. Ingen ljudnivå. Ingen effekt. Ingen drifttid. Fyra av de uppgifter varje annan produkt här anger saknas, och kvar står tankvolym, yta och att den är energisnål.\n\nDet betyder att du inte kan jämföra den med något. Du kan inte räkna ut om 2,5 liter räcker natten, du kan inte veta om den passar sovrummet, och du kan inte uppskatta driftkostnaden.\n\nRegleringen är den svagaste av apparaterna i jämförelsen. En timer är inte en hygrostat. Timern stänger av apparaten efter en tid, oavsett hur fuktigt rummet blivit, vilket är fel storhet: risken ligger i procenten, inte i minuterna.\n\nEn detalj till, som Kjell själva lägger in i produkttexten: en uppdaterad manual för rengöring finns under supportfliken. Att en tillverkare behöver uppdatera rengöringsanvisningen för en luftfuktare är ingen anklagelse, men det är värt att läsa innan du köper.\n\nKöp den om du vet att du ska ha den i ett litet rum, byter vatten dagligen och skaffar en egen hygrometer. Då är det 400 välanvända kronor.",
+      "Rubicson 2,5 L kostar 399,90 kronor, alltså 120 kronor mindre än näst billigaste apparaten här, och 561 personer har gett den 4,5 i snitt.\n\nDet kundunderlaget är fler omdömen än alla de övriga elva tillsammans och säger något verkligt: folk köper den, och de flesta blir nöjda. Du får en tyst ultraljudsfuktare med stämningsbelysning som byter färg, en timer på 2, 4 eller 8 timmar och 25 watt, alltså några tior för en hel eldningssäsong. Tanken räcker 13 timmar, vilket är natten och morgonen efter.\n\nMen kapaciteten är kategorins lägsta: **150 milliliter i timmen**, en fjärdedel av Xiaomis 600 och hälften av Beurer LB 45. I ett rum på 20 kvadratmeter räcker det till att lyfta fukten några procentenheter, inte till att rädda en torr vinter. Regleringen är också den svagaste här. En timer räknar minuter, och risken mäts i procent, så apparaten stänger av sig utan att veta hur fuktigt det blivit. Ultraljudet skickar ut tankens innehåll i rummet utan silverstav eller UV, och tillverkaren skriver själv att tanken ska rengöras var tredje dag, inte varje vecka.\n\nKöp den till ett litet sovrum om du byter vatten dagligen och lägger hundra kronor på en hygrometer. Då är det 400 välanvända kronor. Ska den fukta ett vardagsrum är den för svag, och Beurer LB 45 gör dubbla jobbet för 146 kronor mer.",
   },
   {
     id: "wilfa-dew-tx450",
@@ -579,17 +640,23 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wilfa Dew TX450",
     brand: "Wilfa",
     image: productImage(LUFTFUKTARE.slug, "wilfa-dew-tx450"),
-    tagline: "Kostar lika mycket som vinnaren, och gör nästan inget av det den gör.",
+    tagline: "70 kvadratmeter, och den håller nivån du ställt in.",
     scores: {
-      fuktreglering: 2.5,
-      hygien: 2,
-      kapacitet: 3,
+      /* Fyra betyg omräknade 2026-08-06. Kjells specifikationstabell listar
+         bara "Inställningar: luftfuktning, nattläge, timer", men brödtexten på
+         samma sida anger inbyggd hygrostat, målnivå 35–75 % i steg om 5 %,
+         70 m², UV-funktion och keramiskt filter. Vi läste tabellen och inte
+         texten, och rankade produkten sist på det. Se .agent/research. */
+      fuktreglering: 5,
+      /* 2,0 → 2,5: ultraljud med UV-funktion och keramiskt filter i vattnet,
+         alltså en åtgärd i skalans mening. */
+      hygien: 2.5,
+      /* 3,0 → 4,5: 70 m² är största ytan av de tolv, 450 ml/h näst högsta. */
+      kapacitet: 4.5,
       drift: 3,
-      /* 1,5 och inte 2,0: den kostar lika mycket som testvinnaren och saknar
-         varje egenskap denna har, och Beurer LB 45 gör mer för 546 kronor.
-         Sänkt 2026-08-03 efter avläsning av den renderade tabellen, där 2,0
-         gav samma betyg som Rubicson på 399,90 kronor. */
-      prisvarde: 1.5,
+      /* 1,5 → 3,0: den gamla motiveringen var att den saknade varje egenskap
+         vinnaren har. Den har dem. */
+      prisvarde: 3,
     },
     price: 1999,
     merchant: KJELL,
@@ -598,32 +665,34 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${KJELL_BASE}/wilfa-dew-tx450-luftfuktare-p66651`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 5 },
-    superlative: "Dyrast per angiven uppgift",
+    superlative: "Bäst för rum upp till 70 kvadrat",
     pros: [
-      "450 ml/h och 4,3 liters tank, god kapacitet",
+      "70 m² är största ytan av de tolv, 14 mer än testvinnaren",
+      "Hygrostat med målnivå 35 till 75 procent i steg om 5",
+      "450 ml/h och 4,3 liters tank, näst högsta kapaciteten här",
+      "UV-funktion och keramiskt filter som renar vattnet före ångan",
       "Wifi, app och stöd för både Google Assistant och Alexa",
-      "Textilklädd design som smälter in bättre än plasten i klassen",
-      "Digital kontrollpanel med tre hastighetslägen",
     ],
     cons: [
-      "Ultraljud, enligt butikens egen beskrivning",
-      "Inställningarna är luftfuktning, nattläge och timer, men ingen målnivå",
-      "Kjell anger ingen rumsyta alls, vilket ingen annan produkt här saknar",
+      "Ultraljud, alltså finfördelas tankens innehåll ut i rummet",
       "1 999 kronor, samma pris som testvinnaren",
+      "Upp till 110 W på varmt läge, mot Philips 8",
+      "Aromafunktion, ytterligare något att låta stå i vattnet",
     ],
     specs: [
       { label: "Pris", value: "1 999 kr", highlight: true },
-      { label: "Ställbar fukt", value: "Nej", highlight: true },
+      { label: "Ställbar fukt", value: "35–75 %, steg om 5", highlight: true },
       { label: "Teknik", value: "Ultraljud, varm och kall", highlight: true },
       { label: "Kapacitet", value: "450 ml/h", highlight: true },
-      { label: "Rumsyta", value: "Anges inte", highlight: true },
-      { label: "Tank", value: "4,3 liter" },
-      { label: "Effekt", value: "30–110 W" },
-      { label: "App", value: "Ja, med Google och Alexa" },
+      { label: "Rumsyta", value: "Upp till 70 m²", highlight: true },
+      { label: "Tank", value: "4,3 liter", highlight: true },
+      { label: "Effekt", value: "30–110 W", highlight: true },
+      { label: "Rening", value: "UV-funktion och keramiskt filter" },
+      { label: "App", value: "WiLife, Google och Alexa" },
       { label: "Garanti", value: "5 år" },
     ],
     verdict:
-      "Sist av de tolv, till exakt samma pris som vinnaren.\n\n1 999 kronor är samma pris som Philips 5000. För de pengarna får du hos Philips förångning, ställbar målfukt mellan 30 och 70 procent i femsteg, 56 kvadratmeter och 12 decibel som lägsta ljudnivå.\n\nHär får du en apparat som Kjell själva beskriver som en modern ultrasonisk luftfuktare. Ultraljud är den teknik ÖKO-TEST pekade ut när fem av åtta spred bakterier, och den kräver att du byter vatten varje dag.\n\nInställningarna listas som luftfuktning, nattläge och timer. Ingen målfuktighet, trots wifi, app och röststyrning. Du kan alltså be Alexa slå på den, men inte be den hålla 45 procent.\n\nOch en sak som är ovanlig: **Kjell anger ingen rumsyta över huvud taget.** Varje annan produkt här har ett tal för hur stort rum den passar, även Rubicson för 399 kronor. Här står bara ångkapaciteten. Du kan alltså inte avgöra före köp om den räcker till rummet du tänkt.\n\nDet finns bra saker. 450 milliliter i timmen är god kapacitet, textilklädseln är snyggare än plasten i klassen, och 4,3 liter räcker länge. Fem kundomdömen med 4,5 i snitt är ett för tunt underlag att dra slutsatser ur, men de som köpt den verkar nöjda.\n\nVi kan ändå inte rekommendera den. Inte för att den är dålig, utan för att samma pengar hos en annan butik ger dig varje egenskap den här saknar.",
+      "Wilfa Dew TX450 fuktar det största rummet av alla tolv och kostar 1 999 kronor, exakt lika mycket som testvinnaren.\n\n**70 kvadratmeter**, alltså 14 mer än Philips och mer än dubbelt mot Beurer LB 300 Plus. Har du ett öppet plan där kök, matplats och vardagsrum hänger ihop är det här den enda apparaten i listan som är byggd för det. Hygrostaten låter dig sätta målet mellan 35 och 75 procent i steg om fem och håller sedan nivån själv, alltså samma finkorniga reglering som vinnaren, och du kan lägga dig på 40 och stanna under myndighetens 45. Ovanpå det 450 milliliter i timmen, en 4,3 liters tank som fylls direkt från kranen, tre hastigheter, nattläge som dämpar displayen och styrning via app, Google och Alexa.\n\nTekniken är ändå ultraljud, och det är vad som skiljer den från Philips. Vattnet slås sönder till dimma och det som finns i tanken följer med ut i rummet, alltså den metod ÖKO-TEST pekade ut när fem av åtta apparater spred mellan 400 000 och 60 miljoner kolonibildande enheter i timmen. Wilfa möter det med en UV-funktion och ett keramiskt filter som renar vattnet på vägen, vilket är mer än de flesta ultraljudsmodeller har, men det är inte samma sak som att aldrig finfördela vattnet. Varma läget drar dessutom upp till 110 watt mot Philips 8.\n\nKöp den om rummet är stort och du byter vatten varje dag. Är rummet under 56 kvadratmeter får du samma reglering, tystare drift och en teknik som inte skickar ut tankens innehåll för samma pengar hos Philips 5000.",
   },
 ];
 
@@ -671,7 +740,7 @@ export const LUFTFUKTARE_FAQ = [
   {
     question: "Vilken luftfuktare är bäst 2026?",
     answer:
-      "Philips 5000 Series HU5710/00 för 1 999 kronor hos Clas Ohlson. Den är den enda i vår jämförelse där du kan ställa målfuktigheten fritt, 30 till 70 procent i steg om fem, vilket är avgörande eftersom hela risken i kategorin ligger i att fukta för mycket. Den använder dessutom förångning i stället för ultraljud, så den finfördelar inte tankens innehåll ut i rummet, och den har den största kapaciteten av alla tolv, 56 kvadratmeter och 400 milliliter i timmen. Näst bäst är Xiaomi Smart Humidifier Pro för 1 499 kronor hos Kjell: samma avdunstningsprincip, tvättbart filter utan förbrukningskostnad och lägsta effekten av alla apparaterna, 13 watt.",
+      "Philips 5000 Series HU5710/00 för 1 999 kronor hos Clas Ohlson. Den är den enda i vår jämförelse där du kan ställa målfuktigheten fritt på apparaten själv, 30 till 70 procent i steg om fem, vilket är avgörande eftersom hela risken i kategorin ligger i att fukta för mycket. Den använder dessutom förångning i stället för ultraljud, så den finfördelar inte tankens innehåll ut i rummet, den fuktar 56 kvadratmeter och drar 8 watt, lägst av alla tolv. Näst bäst är Xiaomi Smart Humidifier Pro för 1 499 kronor hos Kjell: samma avdunstningsprincip, tvättbart filter utan förbrukningskostnad och kategorins högsta kapacitet, 600 milliliter i timmen. Har du ett öppet plan över 56 kvadratmeter är Wilfa Dew TX450 den enda som räcker till, 70 kvadratmeter, men den är ultraljud.",
   },
   {
     question: "Är luftfuktare farliga?",
@@ -711,7 +780,7 @@ export const LUFTFUKTARE_FAQ = [
   {
     question: "Vad kostar en luftfuktare i drift?",
     answer:
-      "Det är förbrukningsdelarna och inte elen som avgör. Stiftung Warentest räknade fram mellan 13 och 247 euro om året för åtta apparater, grovt 150 till 2 800 kronor, och skillnaden ligger nästan helt i filter och vekar som måste bytas. Elen skiljer också mycket: Xiaomi anger 13 watt och Levoit 280, en faktor tjugo, vilket vid kontinuerlig drift under en eldningssäsong blir en verklig summa. Xiaomi Smart Humidifier Pro sticker ut genom att ha ett tvättbart filter, utan förbrukningsdel alls. Räkna alltid filterkostnaden innan du jämför två inköpspris.",
+      "Det är förbrukningsdelarna och inte elen som avgör. Stiftung Warentest räknade fram mellan 13 och 247 euro om året för åtta apparater, grovt 150 till 2 800 kronor, och skillnaden ligger nästan helt i filter och vekar som måste bytas. Elen skiljer också mycket: Philips 5000 drar 8 watt och Levoit OasisMist 450S 280, alltså trettiofem gånger, vilket vid kontinuerlig drift under en eldningssäsong blir en verklig summa. Xiaomi Smart Humidifier Pro sticker ut genom att ha ett tvättbart filter, utan förbrukningsdel alls. Räkna alltid filterkostnaden innan du jämför två inköpspris.",
   },
   {
     question: "Ska jag fylla luftfuktaren med kranvatten eller destillerat vatten?",

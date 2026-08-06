@@ -59,12 +59,12 @@ import Kopguide from "@/content/usb-c-laddare/kopguide.mdx";
 
 const TEST_PAGE = USB_C_LADDARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "EU:s krav på USB-C gäller telefonen och datorn, inte laddaren du köper till dem. Vi rankar tretton väggladdare från 179 till 1 699 kronor på effekt per port, pris per watt och plats i uttaget.",
+    "Ugreen 200 W vinner: två datorer på 100 W var samtidigt, sex portar, 1 699 kr. Billigast per watt är IKEA SJÖSS för 179. Vi rankar tretton väggladdare på effekt per port, pris per watt och plats i uttaget.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -122,10 +122,12 @@ export default async function UsbCLaddarePage() {
               1&nbsp;699 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Wattalet på kartongen är nästan alltid summan över alla portar,
-              inte vad din dator får. I den labbprovning vi bygger på gav den
-              andra porten som mest 48 W, hur stark laddaren än var märkt. Vi
-              har därför vägt effekten per port tyngst av allt.
+              Ugreen 200&nbsp;W vinner för 1&nbsp;699 kronor: två portar på
+              100&nbsp;W var räcker till två datorer på full fart samtidigt, och
+              ingen annan här klarar det. Ska du bara ladda en telefon kostar
+              IKEA SJÖSS 179 kronor och är billigast per watt. Wattalet på en
+              kartong är nämligen nästan alltid summan över alla portar, inte
+              vad din enhet får.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -250,7 +252,7 @@ export default async function UsbCLaddarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Effekten per port väger 30 därför att den avgör vad du faktiskt får ut, och pris per watt 25 därför att rankningen är en enda lista över allt från 20 till 200 W: utan den normaliseringen hade den största laddaren vunnit på storlek snarare än på förtjänst. Sidan har inget kriterium för testomdöme. Den enda labbprovningen i kategorin är Testaankoops, och ingen av de modeller de namnger med poäng säljs av butikerna här, så en betygskolumn hade blivit tom för varenda laddare. Där en uppgift som effektfördelning eller vikt inte gått att fastställa räknas det som en brist under öppen redovisning, eftersom en laddare du inte kan planera in i ditt grenuttag är sämre för dig än en du kan."
+          footnote="Effekten per port väger 35 därför att den avgör vad du faktiskt får ut, och pris per watt 29 därför att rankningen är en enda lista över allt från 20 till 200 W: utan den normaliseringen hade den största laddaren vunnit på storlek snarare än på förtjänst. Sidan har inget kriterium för testomdöme. Den enda labbprovningen i kategorin är Testaankoops, och ingen av de modeller de namnger med poäng säljs av butikerna här, så en betygskolumn hade blivit tom för varenda laddare."
         />
       </Section>
 

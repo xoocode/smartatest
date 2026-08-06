@@ -75,15 +75,26 @@ lagda.
 En sådan här modul flyttar en dörr till ditt hus ut på internet. Den som kommer
 åt ditt konto kommer in i garaget, och därifrån ofta in i huset.
 
-Det viktigaste skyddet heter **tvåstegsverifiering**: utöver lösenordet måste en
-kod från e-post eller sms bekräftas, så att ett läckt lösenord inte räcker.
-<ProductRef id="yale-smart-opener" /> anger både tvåstegsverifiering och att
-trafiken skyddas med AES- och TLS-kryptering. För övriga moduler i jämförelsen
-är uppgiften okänd.
+Det viktigaste skyddet heter **tvåstegsverifiering**: utöver lösenordet krävs en
+engångskod, så att ett läckt lösenord inte räcker. Men alla engångskoder är inte
+lika mycket värda, och skillnaden avgör vilken modul som är säkrast.
 
-Att uppgiften är okänd betyder inte att skyddet saknas. Det betyder att du inte
-kan kontrollera det innan du betalar, och att konsekvensen av att den saknas
-bärs av dig.
+**En kod ur en autentiseringsapp är starkare än en kod till e-posten.** En kod
+som skickas till din e-post eller ditt telefonnummer är bara så säker som de
+kontona är, och båda går att ta över: e-post genom ett läckt lösenord, telefonen
+genom att någon beställer ett nytt sim-kort i ditt namn. En kod som genereras i
+appen i din egen telefon skickas ingenstans och går därför inte att fånga.
+<ProductRef id="meross-msg100" /> gör det senare och tar dessutom emot en fysisk
+säkerhetsnyckel. <ProductRef id="yale-smart-opener" /> och
+<ProductRef id="switchbot-garageportsoppnare" /> gör det förra. Yale är ensam om
+att också ange att trafiken skyddas med AES- och TLS-kryptering.
+
+**<ProductRef id="ismartgate-lite" /> löser det från andra hållet.** Där ligger
+användarlista, inställningar och historik i enheten i ditt garage i stället för
+i en molntjänst, och servrarna däremellan kopplar bara ihop telefonen med
+enheten utan att spara något. Blir en molnplattform i den här branschen hackad
+exponeras alla dess användare på en gång. Här finns ingen sådan hög, och porten
+går dessutom att nå över hemmets wifi när internet ligger nere.
 
 Tre saker du kan göra oavsett vilken modul du väljer:
 
@@ -98,17 +109,20 @@ och Amazon. En modul som inte pratar med rätt system blir en app till bland all
 andra, och den appen öppnas aldrig.
 
 **Apple är det som oftast fattas.** <ProductRef id="yale-smart-opener" /> stöder
-inte HomeKit alls. Meross säljer HomeKit-stödet som en egen artikel med eget
-artikelnummer, vilket betyder att två lådor som ser likadana ut kan skilja sig
-på just den punkten, och att du kan upptäcka det först när modulen sitter uppe.
+inte HomeKit alls, och det gör inte heller de två 230-voltsmodulerna i Tuyas
+Smart Life. Tre av sidans sex moduler stänger alltså ute en tredjedel av
+köparna, och den dyraste är en av dem.
 
-<ProductRef id="switchbot-garageportsoppnare" /> löser det annorlunda genom att
-stödja **Matter**, alltså den gemensamma standarden som Apple Home, Google,
-Alexa och Samsung alla talar. En Matter-enhet fungerar i alla fyra utan att
-tillverkaren behöver bygga och underhålla stöd för vart och ett.
+<ProductRef id="meross-msg100" /> och <ProductRef id="ismartgate-lite" /> har
+inbyggt HomeKit-stöd, alltså rösten och Hem-appen utan omvägar.
+<ProductRef id="switchbot-garageportsoppnare" /> tar en annan väg och stöder
+**Matter**, den gemensamma standarden som Apple Home, Google, Alexa och Samsung
+alla talar. Skillnaden märks först om några år: ett inbyggt HomeKit-stöd finns
+kvar så länge tillverkaren underhåller det, medan en Matter-enhet fungerar i
+alla fyra systemen utan att någon behöver underhålla något alls.
 
-Kör du Apple: leta efter Matter i första hand och kontrollera artikelnumret i
-andra hand.
+Kör du Apple räcker båda vägarna i dag. Vill du att modulen ska hänga med när
+du byter system om fem år väljer du Matter.
 
 ## Varför röststyrningen kräver en kod
 

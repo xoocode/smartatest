@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { criteriaWeightTotal, type Criterion } from "@/lib/products";
+import { VerdictText } from "@/components/product/verdict-text";
 
 export type MethodologyBlockProps = {
   criteria: Criterion[];
@@ -37,7 +38,15 @@ export function MethodologyBlock({
 
   return (
     <div data-slot="methodology-block" className={className}>
-      {intro ? <p className="mb-block max-w-2xl">{intro}</p> : null}
+      {/* Stycken, inte en textmassa. Metodtexterna hade median 977 tecken och
+          inte en enda styckebrytning den 6 augusti 2026, vilket gjorde
+          "Så gjorde vi testet" till en vägg. En sträng utan tomrad renderas
+          precis som förut, alltså är ändringen bakåtkompatibel. */}
+      {typeof intro === "string" ? (
+        <VerdictText text={intro} className="mb-block max-w-2xl" />
+      ) : intro ? (
+        <p className="mb-block max-w-2xl">{intro}</p>
+      ) : null}
 
       <div
         className={cn(
@@ -61,9 +70,10 @@ export function MethodologyBlock({
               <h3 className="font-semibold">{criterion.label}</h3>
             </div>
             {criterion.description ? (
-              <p className="mt-1 text-sm text-muted-foreground">
-                {criterion.description}
-              </p>
+              <VerdictText
+                text={criterion.description}
+                className="mt-1 text-sm text-muted-foreground"
+              />
             ) : null}
           </div>
         ))}
@@ -78,7 +88,12 @@ export function MethodologyBlock({
         </p>
       ) : null}
 
-      {footnote ? (
+      {typeof footnote === "string" ? (
+        <VerdictText
+          text={footnote}
+          className="mt-block max-w-2xl text-sm text-muted-foreground"
+        />
+      ) : footnote ? (
         <p className="mt-block max-w-2xl text-sm text-muted-foreground">
           {footnote}
         </p>

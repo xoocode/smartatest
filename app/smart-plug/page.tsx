@@ -52,12 +52,12 @@ import Kopguide from "@/content/smart-plug/kopguide.mdx";
 
 const TEST_PAGE = SMART_PLUG;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde fem smarta uttag på maxeffekt, energimätning och vad de själva drar i viloläge. Skillnaden i viloförbrukning är fem gånger, och den mest rekommenderade pluggen klarar inte ett element.",
+    "Cleverio IP200 kostar 99 kronor och är det enda uttaget som både driver ett element och visar vad elementet kostar. Ska uttaget sitta i garaget är Shelly det enda av de fem som är godkänt för kyla.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -112,15 +112,16 @@ export default async function SmartPlugPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde fem smarta uttag, eller smart plug som de oftast kallas
-              i butikerna, på maxeffekt, energimätning och anslutning. Appen och
-              röststyrningen skiljer förvånansvärt lite mellan dem. Skillnaden
-              syns i stället i två siffror nästan ingen skriver ut: hur mycket
-              uttaget orkar släppa igenom, och hur mycket det självt drar dygnet
-              runt.
+              Cleverio IP200 kostar 99 kronor och är det enda av fem smarta
+              uttag som både är märkt för 16 A och mäter förbrukningen. Det
+              betyder att den får driva ett element eller ett torkskåp och
+              samtidigt visa vad de kostar, vilket är hela skälet att köpa ett
+              smart uttag i Sverige. Ska uttaget sitta i ett ouppvärmt garage
+              är Shelly Plug S Gen3 det enda här som är godkänt för kylan.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -186,13 +187,13 @@ export default async function SmartPlugPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla fem"
-        description="Samma kriterier och samma viktning för alla fem uttagen."
+        description="Maxlasten avgör vad uttaget får driva, drifttemperaturen var det får sitta. Två uttag klarar 16 A, ett klarar kyla."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `"Ej angiven" betyder att tillverkaren inte publicerar uppgiften, inte att vi låtit bli att leta.`)}
+          caption={priceCaption(PRICE_CHECKED)}
         />
       </Section>
 
@@ -202,7 +203,7 @@ export default async function SmartPlugPage() {
         tone="muted"
         width="wide"
         title="Recensioner av varje uttag"
-        description="Saknas ett kriteriebetyg står det Ej testat på raden. Vi sätter hellre ingenting än ett påhittat betyg, och vikten fördelas då på de övriga kriterierna."
+        description="Vad varje uttag är byggt för, vad det klarar och vem som blir nöjd med det."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -248,7 +249,7 @@ export default async function SmartPlugPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Cleverio IP200 saknar oberoende test och bedöms därför på 60 av 100 viktpoäng, vilket står i dess recension."
+          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Cleverio IP200 är Kjells eget märke och har inte testats av någon oberoende part, och bedöms därför på 70 av 100 viktpoäng."
         />
       </Section>
 

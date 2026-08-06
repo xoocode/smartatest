@@ -53,6 +53,42 @@ That makes it the one source keyed on a field we hold. When a retailer's spec
 tab is richer than the manufacturer's own page, this is usually why, and going
 to the catalogue directly beats scraping the tab.
 
+```bash
+node scripts/fetch.mjs --gtin <gtin>
+```
+
+**Try it on every GTIN, and expect it to miss four times in five.** Measured on
+our own catalogue: **18 % open, 53 % behind Icecat's paid tier, 18 % not in the
+database.** Icecat's free tier covers brands that sponsor their listing, so the
+coverage follows marketing budgets rather than product categories — which is why
+a Netatmo thermostat answers and a Spigen screen protector does not.
+
+Two failure messages, and **neither is evidence about the manufacturer**:
+
+- `You are not allowed to have Full Icecat access` — the data exists, we cannot
+  see it. Nothing follows about what the manufacturer publishes.
+- `The requested XML data-sheet is not present in the Icecat database` — Icecat
+  has not catalogued it. Same.
+
+The script prints that reminder itself. A hit is **tier B**, not the
+manufacturer, and is labelled so; a safety-shaped number still needs tier A or a
+second agreeing source.
+
+⏳ **The 53 % is temporary. Full Icecat has been applied for and the answer is
+pending, as of 2026-08-06.**
+
+You will know it landed when `You are not allowed to have Full Icecat access`
+stops appearing and a previously locked GTIN answers — `0190074000324` is locked
+today and makes a good probe. When that happens the hit rate goes from roughly
+one in five to roughly seven in ten, which changes how much of a gap pass is
+manual work.
+
+If you are the agent who notices it: swap the token in
+`C:/code/credentials/icecat/credentials.json` if Icecat issues a new one, re-run
+the measurement across the catalogue's GTINs, and update the 18/53/18 figures in
+all four places they appear — here, `scripts/fetch.mjs`, both skills' gap pass,
+and `.agent/nattpass-runbook.md`.
+
 ### 4. Regulatory filings
 
 How you find a battery spec nobody publishes.

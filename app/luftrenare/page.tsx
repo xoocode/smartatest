@@ -64,12 +64,12 @@ import Kopguide from "@/content/luftrenare/kopguide.mdx";
 
 const TEST_PAGE = LUFTRENARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Kemikalieinspektionen och Elsäkerhetsverket granskade tjugo luftrenare i januari 2026. Fyra klarade inte gränsvärdet för ozon. Vi jämförde åtta luftrenare från 599 till 2 999 kronor på reningsteknik och filterklass enligt EN 1822.",
+    "Levoit Core 600S renar 147 kvadratmeter för 2 990 kronor och är bäst i test. Vi jämförde åtta luftrenare från 599 till 2 999 kronor på vad filtret fångar, hur mycket luft de orkar med, ljudnivån och vad ett utbytesfilter kostar.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -127,15 +127,19 @@ export default async function LuftrenarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Två myndigheter köpte in tjugo luftrenare och mätte vad de släpper
-              ut. Fyra klarade inte gränsvärdet för ozon, tre av dem låg långt
-              över, och majoriteten hade någon form av brist. Ingen av de sex
-              svenska jämförelser vi läst nämner det med ett ord. Vi jämförde
-              åtta luftrenare från 599 till 2 999 kronor på vilken teknik de
-              renar med, och på vad filterklassen faktiskt säger.
+              Levoit Core 600S renar 147 kvadratmeter med ett H13-filter och
+              kostar 2 990 kronor, alltså nio kronor mindre än den halvt så
+              starka modellen i samma serie. Ska apparaten stå i ett sovrum är
+              Core 300S Pro för 1 590 kronor tystare och räcker ändå till 50
+              kvadratmeter. Vi jämförde åtta luftrenare från 599 till 2 999
+              kronor på vad filtret fångar, hur mycket luft de orkar med och vad
+              de tillför luften på vägen. Det sista är ingen självklarhet: när
+              två myndigheter mätte tjugo luftrenare klarade fyra inte
+              gränsvärdet för ozon.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -236,11 +240,13 @@ export default async function LuftrenarePage() {
             <strong>
               Rapporten namnger inte de fyra produkter som föll.
             </strong>{" "}
-            Vi vet alltså inte vilka de var och antyder det aldrig. Vad vi
-            däremot kan göra är att läsa vad butiken själv skriver om varje
-            apparat vi rankar, och två av dem har ett aktivt steg: Kjell anger
-            att Rubicsons jonisator producerar ozon vid användning, och att
-            Xiaomi Mijia 6 har en inbyggd UVC-modul.
+            Vi vet alltså inte vilka de var och antyder det aldrig. Två av
+            apparaterna vi rankar har däremot ett aktivt steg, och i båda fallen
+            har tillverkaren själv satt ord på ozonet. Rubicsons manual anger att
+            jonisatorn avger högst 0,05 ppm, alltså precis gränsvärdet.
+            Xiaomi Mijia 6 har både en UVC-lampa och en jongenerator, och Xiaomi
+            svarar i sin egen support att jongeneratorn bildar ozon, men kallar
+            mängden extremt låg utan att ange ett tal.
           </p>
         </Prose>
       </Section>
@@ -266,18 +272,20 @@ export default async function LuftrenarePage() {
             på kartongen.
           </p>
           <p>
-            <strong>Av de åtta apparaterna här finns tre nivåer.</strong> De tre
-            Levoit-modellerna anger H13 i specifikationstabellen, där uppgiften
-            går att kontrollera. Shark, Xiaomi Smart Pet Care och
-            Cleverio skriver HEPA utan klass eller anger klassen bara i
-            säljtexten. Xiaomi Mijia 6 anger ingen klass alls trots priset, och
-            Rubicsons jonisator har inget HEPA-filter över huvud taget, bara ett
-            elektrostatiskt filter och ett VOC-filter.
+            <strong>Titta då på vad filtret fångar, och vid vilken storlek.</strong>{" "}
+            Ett H13 är provat vid den svåraste partikelstorleken, kring 0,1 till
+            0,2 mikrometer. Ett tal som gäller vid 0,3 mikrometer är ett
+            betydligt lättare prov, och 99,97 procent vid 0,3 säger därför
+            mindre än samma tal vid 0,1.
           </p>
           <p>
-            Vårt kriterium mäter det steget. Inte vad filtret gör i ett
-            laboratorium, som vi inte har, utan vad du kan ta reda på innan du
-            betalar.
+            <strong>Fyra nivåer bland apparaterna här.</strong> De tre
+            Levoit-modellerna och Cleverio har ett H13. Shark och Xiaomi Smart
+            Pet Care har ingen klass men anger 99,97 respektive 99,99 procent
+            vid 0,1 till 0,3 mikrometer, alltså mätt där det är svårt. Xiaomi
+            Mijia 6 anger 99,98 procent, men bara vid 0,3. Och Rubicsons
+            jonisator har inget HEPA-filter över huvud taget, bara ett
+            elektrostatiskt filter och ett VOC-filter.
           </p>
         </Prose>
       </Section>
@@ -300,13 +308,13 @@ export default async function LuftrenarePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla åtta"
-        description="Börja med Reningsteknik, som visar om apparaten lägger till något. Gå sedan till Filterklass, som visar vad den fångar."
+        description="Börja med Reningsteknik, som visar om apparaten lägger till något utöver filtret. Gå sedan till Angiven avskiljning, och läs partikelstorleken lika noga som procenten."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Filterklass, CADR, ytor, ljudnivåer och reningsteknik är butikens egna uppgifter. Där en uppgift står som ej angiven betyder det att butiken inte publicerar den, inte att egenskapen saknas. Det gäller CADR och ljudnivå för flera av apparaterna, och filterklass för två av dem.`)}
+          caption={priceCaption(PRICE_CHECKED, `Uppgifterna kommer från tillverkarnas specifikationer, manualer och supportsvar samt butikens produktsidor, och specarna är kompletterade 2026-08-06. Ett streck betyder att uppgiften inte finns publicerad någonstans vi hittat, inte att egenskapen saknas.`)}
         />
       </Section>
 
@@ -328,10 +336,10 @@ export default async function LuftrenarePage() {
           </p>
           <p>
             <strong>Tre av åtta är samma fabrikat.</strong> Levoit tar plats
-            ett, två och tre. Det beror på att de är ensamma om att skriva ut
-            H13 i specifikationstabellen och samtidigt rena med filter enbart,
-            alltså exakt vad de två tyngsta kriterierna mäter. Det är inte en
-            preferens för märket.
+            ett, två och fyra. Det beror på att de har ett angivet H13 och
+            samtidigt renar med filter enbart, alltså exakt vad de två tyngsta
+            kriterierna mäter. Cleverio gör samma sak för en tredjedel av
+            priset och ligger trea. Det är inte en preferens för märket.
           </p>
           <p>
             <strong>Vi har inget kriterium för oberoende test.</strong> Det såg
@@ -363,7 +371,7 @@ export default async function LuftrenarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje luftrenare"
-        description="Alla åtta bedöms mot samma fem kriterier. Uppgifterna är butikens egna, inte kontrollerade av oss."
+        description="Alla åtta bedöms mot samma fem kriterier. Talen kommer från tillverkarnas specifikationer och manualer, inte från mätningar vi gjort."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -408,7 +416,7 @@ export default async function LuftrenarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Reningsteknik och filterklass väger tillsammans 50 av 100, eftersom de svarar på var sin halva av samma fråga: vad apparaten lägger till utöver filtret, och vad filtret faktiskt fångar. Båda går att kontrollera i butikens egen text före köp, i stället för att gissa. Reningsteknik ger 1,0 när butiken själv skriver att produkten avger ozon, 2,5 när ett aktivt steg finns men biprodukter inte nämns, och 5,0 för filter enbart. Vi har inte mätt ozon och rapporten namnger inte de produkter som föll, så kriteriet mäter teknikens art och den upplysning du får, inte ett mätvärde. Filterklass ger 5,0 när klassen står i specifikationstabellen, 3,5 när den bara står i säljtexten, 2,0 för HEPA utan klass och 1,0 när ingen klass anges. Där en butik inte publicerar en uppgift står den som saknad, aldrig som en nolla. Priserna är hos den butik vi länkar till."
+          footnote={`De två första kriterierna väger tillsammans 50 av 100, eftersom de svarar på var sin halva av samma fråga: vad apparaten lägger till utöver filtret, och vad filtret fångar.\n\nVi har inte mätt ozon, och rapporten namnger inte de produkter som föll. Reningsteknik betygsätter därför vilken teknik apparaten använder, inte ett mätvärde vi tagit fram. Där en uppgift inte finns publicerad står den som saknad, aldrig som en nolla. Priserna är hos den butik vi länkar till.`}
         />
       </Section>
 

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { KODLAS_YTTERDORR, testPageTrail } from "@/lib/test-pages";
 import { KODLAS_SOURCES } from "@/lib/sources";
 import {
+  CERTS_CHECKED,
   KODLAS_CONSIDERED,
   KODLAS_FAQ,
   KODLAS_PRODUCTS,
@@ -38,28 +39,31 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/kodlas-ytterdorr/kopguide.mdx";
 
 /*
- * ⚠️ Priser, upplåsningsmetoder, antal koder och brickor, dörrtjocklek,
- * batterityp, IP-klass, kundbetyg och vilken låsklass butiken anger är
- * riktiga, lästa på Kjells egen sida på PRICE_CHECKED. Certifikatuppgiften är
- * läst i SBSC:s eget certifikat 21-537. Normtexten är läst hos
- * Stöldskyddsföreningen. Kriteriebetygen är redaktionell bedömning. Vi har
- * inte monterat, dyrkat eller provat något lås.
+ * ⚠️ Priser, upplåsningsmetoder, antal koder och brickor, batterityp, IP-klass
+ * och kundbetyg är lästa på Kjells egen sida på PRICE_CHECKED. Samtliga elva
+ * certifikat är lästa ett i taget hos SBSC på CERTS_CHECKED. Dörrtjockleken
+ * för Doorman Classic är läst i Yales egen installationsguide. Normtexten är
+ * läst hos Stöldskyddsföreningen. Kriteriebetygen är redaktionell bedömning.
+ * Vi har inte monterat, dyrkat eller provat något lås.
  *
  * Sidans fynd, i den ordning de står:
  *
- * 1. #certifikatet — SBSC-certifikat 21-537 för Yale Doorman L3 gäller enligt
- *    sitt eget fält Additional "bortasäkert läge med blockerade
- *    användarkoder". Kategorin heter kodlås. Formuleras försiktigt: vad
- *    certifikatet omfattar, inte vad försäkringen gör.
+ * 1. #certifikatet — samtliga fem certifierade lås bär ett villkorsfält, och
+ *    två av dem stänger av den funktion produkten säljs på: Yale Doorman L3
+ *    kräver blockerade användarkoder för sitt S3-godkännande, Nimly kräver att
+ *    kamouflagefunktionen är avstängd. Formuleras försiktigt: vad certifikatet
+ *    omfattar, aldrig vad försäkringen gör.
  * 2. #lasenheten — godkänd låsenhet är fyra delar och varje del måste nå
- *    klass 3. Klass 2A ser nära ut och är det inte.
+ *    klass 3. Nimly Code är exemplet: klass 3-låshus och klass 3-slutbleck,
+ *    men en cylinder i 2A som kapar hela enheten.
  * 3. #vad-som-provas — ett digitalt certifikat i klass S3 provar mekaniskt
  *    skydd, hantering av digitala nycklar enligt SSF 1075 och elektroniskt
  *    angrepp enligt prEN 16867. Tre axlar, inte en.
  *
- * ⚠️ SBSC:s register renderas i JavaScript och deras REST-API svarar 403. Vi
- * kan inte räkna upp registret och påstår därför aldrig att ett märke saknar
- * certifikat. Kriteriet mäter vad butik och tillverkare själva anger.
+ * ⚠️ Registret ÄR sökbart, tvärtemot vad den här sidan påstod till 2026-08-06.
+ * Varje certifikat ligger på en egen URL under sbsc.se/produktcertifikat/, och
+ * varje innehavare har en sida som räknar upp sina. Se rättelsen i
+ * lib/corrections.ts och .agent/research/kodlas-ytterdorr.md §6.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
@@ -68,12 +72,12 @@ import Kopguide from "@/content/kodlas-ytterdorr/kopguide.mdx";
  */
 const TEST_PAGE = KODLAS_YTTERDORR;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SBSC-certifikatet för Yale Doorman gäller med blockerade användarkoder, på en produkt som säljs som kodlås. Vi jämförde sex kodlås till ytterdörr från 1 990 till 5 488 kronor mot vad som faktiskt är certifierat.",
+    "Yale Doorman L3S Flex för 5 488 kronor vinner: enda låset certifierat i både klass 3 och S3, alltså även prövat på hur appen hanterar nycklarna. Nimly Code Pro tar 999 koder för 4 490. Sex kodlås till ytterdörr, elva certifikat lästa i original.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -84,7 +88,7 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilket ska du köpa?" },
-  { id: "certifikatet", label: "Certifikatet gäller inte koden" },
+  { id: "certifikatet", label: "Varje certifikat har ett villkor" },
   { id: "lasenheten", label: "Godkänd låsenhet är fyra delar" },
   { id: "jamforelse", label: "Jämför alla sex" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
@@ -132,15 +136,17 @@ export default async function KodlasPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Certifikatet för marknadens ledande kodlås gäller enligt SBSC
-              bortasäkert läge med blockerade användarkoder. Kategorin heter
-              kodlås, och den funktion som gett den namnet ligger utanför den
-              provade konfigurationen. Vi läste normen, certifikatet och sex
-              produkters låsklass, och jämförde lås från 1 990 till 5 488
-              kronor mot vad som faktiskt går att kontrollera före köp.
+              Yale Doorman L3S Flex vinner för 5 488 kronor, som enda låset
+              certifierat i två normer och därmed prövat även på hur appen
+              hanterar dina nycklar. Men varje certifikat kommer med villkor:
+              Yales digitala godkännande gäller med användarkoderna blockerade,
+              och Nimlys klass 3 kräver att kamouflagefunktionen är avstängd.
+              Vi läste normen och samtliga elva certifikat i original, och
+              jämförde sex lås från 1 990 till 5 488 kronor.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -190,47 +196,66 @@ export default async function KodlasPage() {
       <Section
         id="certifikatet"
         width="default"
-        title="Certifikatet gäller inte koden"
-        description="Ett nummer, en klass och ett datum, utfärdat av någon annan än tillverkaren. Läs sedan vad det omfattar."
+        title="Varje certifikat har ett villkor"
+        description="Fem av sex lås är certifierade. Alla fem godkännandena gäller bara i ett bestämt läge, och det står i ett fält längst ned."
       >
         <Prose>
           <p>
-            Svensk Brand- och Säkerhetscertifiering har utfärdat certifikat{" "}
-            <strong>21-537</strong> för Yale Doorman L3 tillsammans med Yale
-            Home. Klass S3 enligt SSF 3523, giltigt till den 27 november 2027.
+            Ett SBSC-certifikat ger dig ett nummer, en klass och ett datum,
+            utfärdat av någon annan än tillverkaren. Längst ned står ett fält
+            som heter <em>Övrigt</em>, eller <em>Additional</em> i den engelska
+            versionen, och där står vad godkännandet faktiskt omfattar.
           </p>
           <p>
-            I certifikatets fält <em>Additional</em> står vad godkännandet
-            omfattar:{" "}
+            <strong>Samtliga fem certifierade lås här har ett sådant villkor.</strong>{" "}
+            Två av dem stänger av en funktion produkten säljs på.
+          </p>
+          <p>
+            <strong>Yale Doorman L3.</strong> Certifikat 21-537, klass S3 enligt
+            SSF 3523:{" "}
             <em>
               &quot;Gäller bortasäkert läge med blockerade användarkoder och
               låsöppning med nyckelbricka eller med appen Yale Home.&quot;
-            </em>
+            </em>{" "}
+            Den digitalt prövade konfigurationen har alltså koderna blockerade,
+            i en kategori som heter kodlås. Låsets mekaniska godkännande,
+            certifikat 20-172 i klass 3, bär inga sådana villkor och gäller
+            oavsett hur du öppnar.
           </p>
           <p>
-            <strong>Den certifierade konfigurationen har koderna blockerade.</strong>{" "}
-            Produkten säljs i en kategori som heter kodlås, 5 400 svenskar i
-            månaden söker på just koden, och den funktionen ligger utanför det
-            provade läget.
+            <strong>Nimly Code Pro och Nimly Code.</strong> Koderna ska ha minst
+            fyra siffror, anti-inbrottsfunktionen ska vara på, bortasäkert läge
+            ska vara på, tvåfaktorsinloggning ska vara på, och{" "}
+            <strong>kamouflagefunktionen ska vara avstängd</strong>. Det är
+            funktionen som låter dig omge koden med slumpsiffror så att den inte
+            går att läsa av över axeln. Här är det alltså koden som räknas och
+            skyddet runt den som ska bort.
           </p>
           <p>
-            Det är ingen märklighet hos just Yale. Stöldskyddsföreningen skriver
-            samma sak i allmän form, två gånger på sin egen sida: det finns
-            begränsningar i vilka funktioner som får aktiveras för att uppfylla
-            kraven för godkänd låsenhet, vilket betyder att låsenheten är
-            certifierad med vissa, men inte alla, inställningar aktiverade.
+            <strong>Yale Doorman Classic.</strong> Certifikat 20-19 gäller med
+            integritetsswitchen i läge hög, automatisk låsning påslagen och
+            upplåsning med nyckelbricka eller nyckelbricka plus kod.{" "}
+            <strong>Yale Linus L2.</strong> Certifikat 24-365 gäller tillsammans
+            med Yale Dot, NFC-taggen som ligger i lådan.
+          </p>
+          <p>
+            Det är ingen märklighet hos ett enskilt märke. Stöldskyddsföreningen
+            skriver samma sak i allmän form, två gånger på sin egen sida: det
+            finns begränsningar i vilka funktioner som får aktiveras för att
+            uppfylla kraven för godkänd låsenhet, vilket betyder att låsenheten
+            är certifierad med vissa, men inte alla, inställningar aktiverade.
           </p>
           <p>
             <strong>Vad det betyder ska sägas försiktigt.</strong> Certifikatet
             säger vad godkännandet omfattar. Det säger inte att låset blir
-            osäkert av en kod, och det säger ingenting om vad just ditt
-            försäkringsbolag accepterar. Vad det säger är att den provade
-            konfigurationen inte är den de flesta använder.
+            osäkert för att du slår på en funktion, och det säger ingenting om
+            vad just ditt försäkringsbolag accepterar. Vad det säger är att den
+            provade konfigurationen sällan är den som säljs in.
           </p>
           <p>
-            Ring försäkringsbolaget och fråga specifikt om kodöppning. Det tar
-            fem minuter, och det är enklare före köpet än efter en
-            inbrottsanmälan.
+            Ring försäkringsbolaget och fråga specifikt om den öppningsmetod du
+            tänkt använda. Det tar fem minuter, och det är enklare före köpet än
+            efter en inbrottsanmälan.
           </p>
         </Prose>
       </Section>
@@ -259,12 +284,19 @@ export default async function KodlasPage() {
             svagast länk avgör.
           </p>
           <p>
+            <strong>Nimly Code visar exakt hur det slår.</strong> Låset bär tre
+            SBSC-certifikat. Låshuset är klass 3, slutblecket är klass 3, och
+            mekatronikcylindern är klass 2A. Eftersom varje ingående del ska nå
+            klass 3 var för sig blir hela enheten 2A, och det är cylindern som
+            avgör det. Storebrodern Nimly Code Pro har klass 3 på alla tre.
+          </p>
+          <p>
             <strong>Klass 2A ser nära ut och är det inte.</strong> Kravet på
             inbrottsskydd från dörrens utsida är detsamma som för klass 3, men
             manövreringen från insidan underordnas utgång och utrymning. SSF:s
             eget exempel är lägenheter utan annan entréväg, och de skriver i
-            samma mening: kontrollera försäkringskrav. Ett av låsen i vår
-            jämförelse anges av butiken som klass 2A.
+            samma mening: kontrollera försäkringskrav. Tre av de sex låsen här
+            är certifierade i 2A.
           </p>
           <p>
             <strong>CE-märkning är inte ett godkännande.</strong> CE är
@@ -301,13 +333,13 @@ export default async function KodlasPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sex"
-        description="Under Godkännande står det som är belagt. Under Certifikatet gäller står vad godkännandet omfattar."
+        description="Under Godkännande står klassen låset är certifierat i. Under Villkor i certifikatet står vad godkännandet kräver av dig."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Raden Godkännande återger vad butiken eller certifikatet anger, ordagrant. Där ingen klass anges betyder det att butiken inte publicerar någon, inte att låset saknar godkännande: vi kan inte slå upp varje enskilt lås i SBSC:s register, så vi kan varken bekräfta eller utesluta ett certifikat vi inte sett.`)}
+          caption={priceCaption(PRICE_CHECKED, `Klass, certifikatnummer, villkor och giltighetstid är hämtade ur SBSC:s certifikat, ett i taget, den ${CERTS_CHECKED}. Nimly Code står som klass 2A därför att dess mekatronikcylinder är certifierad i 2A, trots att låshus och slutbleck är klass 3: en godkänd låsenhet kräver klass 3 av varje del var för sig.`)}
         />
       </Section>
 
@@ -321,35 +353,40 @@ export default async function KodlasPage() {
       >
         <Prose>
           <p>
-            <strong>Certifikatregistret går inte att slå i.</strong> SBSC har
-            ett register över godkända lås, men det går inte att söka fritt i.
-            Vi kan därför aldrig påstå att ett märke saknar certifikat. Det vi
-            betygsätter är vad butiken och tillverkaren själva anger, vilket
-            också är det enda du kan kontrollera innan du betalar. Att
-            registret är så svårt att komma åt är i sig värt att veta.
+            <strong>Varje certifikat är läst i original.</strong> Elva stycken,
+            ett i taget, hos SBSC: klass, nummer, giltighetstid och villkorsfält
+            för varje lås som har ett. Klasserna är dessutom bekräftade en andra
+            gång på tillverkarens egen sida, och de stämmer överens överallt
+            utom på en punkt som förtjänar sin egen rad nedan.
+          </p>
+          <p>
+            <strong>Nimly Code är svårare att klassa än den ser ut.</strong>{" "}
+            Certifikaten ger klass 3 på låshus och slutbleck men 2A på
+            cylindern. Vi väger enheten som 2A, eftersom normen kräver klass 3
+            av varje del var för sig, och det är också vad Nimly själva skriver.
+            Anser ditt försäkringsbolag något annat är det deras bedömning som
+            gäller.
           </p>
           <p>
             <strong>Vinnaren är dyrast, och det följer av viktningen.</strong>{" "}
-            Godkänd låsenhet väger trettio procent, och Yale Doorman L3S är det
-            enda låset där vi läst ett certifikat. Väger du vardagen tyngre än
-            vi gör är Nimly Code Pro starkare: 999 koder mot 30, fingerläsare,
-            och drift ner till 35 minusgrader.
+            Godkänd låsenhet väger trettio procent, och Yale Doorman L3S är
+            ensam om att vara prövad enligt den digitala normen. Väger du
+            vardagen tyngre än vi gör är Nimly Code Pro det bättre köpet: 999
+            koder mot 30, fingerläsare, drift ner till 35 minusgrader och 1 000
+            kronor mindre.
           </p>
           <p>
-            <strong>
-              Ett lågt betyg på godkännande är inte en dom över låset.
-            </strong>{" "}
-            Yale Doorman Classic Home får 1,5 därför att butiken inte anger
-            någon klass, inte därför att vi vet något negativt. Yales
-            Doorman-familj har historiskt varit försäkringsgodkänd. Betrakta
-            placeringen som en uppmaning att fråga efter certifikatnumret.
+            <strong>Vi har inte provat något lås.</strong> Vi har inte monterat,
+            dyrkat eller köldprovat något av dem, och skriver därför ingenting
+            om hur de känns, låter eller står sig efter tre vintrar. Det som
+            står här är normen, certifikaten och tillverkarens egna mått.
           </p>
           <p>
             <strong>Alla sex länkar går till Kjell.</strong> De är den enda
-            svenska butik vi hittat som redovisar låsklass per produkt i sin
-            specifikation, och den enda som skriver ut det negativa när ett lås
-            inte är godkänt. Vi skriver hellre samma butiksnamn sex gånger än
-            hittar på ett pris vi inte läst.
+            svenska butik vi gått igenom som redovisar låsklass per produkt i
+            sin specifikation, och den enda som skriver ut det negativa när ett
+            lås inte är godkänt. Vi skriver hellre samma butiksnamn sex gånger
+            än hittar på ett pris vi inte läst.
           </p>
         </Prose>
       </Section>
@@ -445,7 +482,7 @@ export default async function KodlasPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Godkänd låsenhet väger tyngst eftersom det är den enda egenskapen som avgör om låset duger till det många köper det för, och eftersom skillnaderna är dokumenterade av normgivaren och certifieringsorganet. Skalan är 5,0 när vi läst ett certifikat hos SBSC med nummer, klass och giltighetstid, 4,0 när butik eller tillverkare anger klass 3 eller S3 men vi inte hittat certifikatet, 2,5 när en klass anges men lägre än 3, 1,5 när ingen klass anges alls, och 1,0 när butiken uttryckligen skriver att låset inte är godkänt. Vi påstår aldrig att ett märke saknar certifikat, eftersom vi inte kan slå upp varje lås i registret. Kriteriet Dörren och installationen väger 25 eftersom svenska ytterdörrar har ett eget låsuttag som internationella lås sällan matchar, och eftersom arkitekturen avgör om en befintlig godkänd låsenhet kan stå kvar orörd. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
+          footnote="Godkänd låsenhet väger tyngst eftersom det är den egenskap som avgör om låset duger till det många köper det för, och eftersom skillnaderna är dokumenterade av normgivaren och certifieringsorganet. Skalan är 5,0 för klass 3 eller S3 på varje certifierad del och prövning även enligt den digitala normen SSF 3523, 4,5 för klass 3 på varje certifierad del men bara enligt den mekaniska normen, 2,5 för certifiering i klass 2A, och 1,0 när låset anges vara icke godkänt. Ett villkor i certifikatet sänker inte betyget, eftersom det är köparen som avgör om villkoret spelar roll för hen; villkoren står i stället i tabellen och i varje omdöme. Kriteriet Dörren och installationen väger 25 eftersom svenska ytterdörrar har ett eget låsuttag som internationella lås sällan matchar, och eftersom arkitekturen avgör om en befintlig godkänd låsenhet kan stå kvar orörd. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -487,7 +524,7 @@ export default async function KodlasPage() {
             Varken Råd &amp; Rön eller Testfakta har testat kategorin.
           </p>
           <p>
-            <strong>Men primärkällorna är starkare här än i någon annan kategori vi byggt.</strong>{" "} I stället för ett test finns en svensk norm, ett certifieringsorgan och ett certifikat med nummer, klass och giltighetstid. Alla fyra källor är lästa i original och citerade ordagrant, i stället för att refereras via en tredje part.
+            <strong>Men primärkällorna är starkare här än i någon annan kategori vi byggt.</strong>{" "} I stället för ett test finns en svensk norm, ett certifieringsorgan och elva certifikat med nummer, klass, giltighetstid och villkor. Samtliga är lästa i original och citerade ordagrant, i stället för att refereras via en tredje part.
           </p>
         </Prose>
         <SourceList sources={KODLAS_SOURCES} title={null} />

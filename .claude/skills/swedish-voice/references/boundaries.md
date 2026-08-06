@@ -51,11 +51,22 @@ någon språkgranskning:
 
 - "Vi har inte tänt eld på något."
 - "Kriteriebetygen är vår bedömning, inte mätvärden."
-- Att en källa saknar provning, standard eller mätvärde.
-- Att vi inte kunnat verifiera ett pris, uttryckt som vad butiken inte skriver.
 
-Skillnaden mot läckorna: det här är **vad vi vet och inte vet**. Läckorna
-handlar om **hur vi tog reda på det**.
+Båda handlar om **oss**, och båda hör hemma där metoden förklaras: i
+viktningen, en gång.
+
+De här två raderna stod här till 2026-08-05 och togs bort med flit:
+
+> ~~Att en källa saknar provning, standard eller mätvärde.~~
+> ~~Att vi inte kunnat verifiera ett pris, uttryckt som vad butiken inte skriver.~~
+
+De läste som ett uppdrag att skriva om dokumentationen i säljande text, och det
+gjorde vi: 92 gånger i 22 datafiler. Läsaren som ska välja kabel har ingen nytta
+av vad ett datablad nämner. Skriv om varan, med det vi vet. Se
+`writing-guide.md`, avsnittet om vad ett omdöme är till för.
+
+Undantaget, som är verkligt och litet, står i samma fil: när själva frånvaron är
+det köparen stöter på, som ett larmpris som inte går att få utan säljarbesök.
 
 ## Inga em-streck i läsartext
 

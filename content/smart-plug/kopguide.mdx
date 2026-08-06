@@ -70,10 +70,16 @@ förbrukar när den faktiskt lyser.
   <PlugRunningCostCalculator />
 </ToolFrame>
 
-Notera att flera tillverkare inte anger siffran alls. Varken Shelly, Philips
-eller Cleverio publicerar en viloförbrukning, vare sig i butiken eller i
-databladet. Vi gissar inte åt dem, men det säger något om hur lite kategorin är
-van vid att bli granskad på den punkten.
+Siffran står sällan i butiken men nästan alltid i manualen eller i tillverkarens
+egen specifikation. Cleverio och Shelly anger båda under 1 watt, Plejd 0,3 och
+TP-Link 1,48.
+
+Det är också värt att veta att uttagets egen förbrukning kan äta upp mätningen
+det utför. Energimyndigheten mätte åtta smarta uttag med energimätning och fann
+att inget av dem kunde mäta en last på 0,3 watt över huvud taget, och att flera
+visade noll även vid 1,5 watt. Först vid 30 watt och uppåt låg felet under 3,5
+procent. Ett uttag med energimätning svarar alltså bra på frågan vad frysen
+drar, och inte alls på frågan vad laddaren i hallen drar.
 
 ### Energimätning är det som gör att uttaget kan betala sig
 
@@ -103,16 +109,24 @@ stänkande vatten och damm. Den siffran brukar stå tydligt. **Drifttemperaturen
 ska täcka det kallaste platsen blir, och den siffran står nästan aldrig i en
 jämförelse.
 
-Där brister de flesta produkter. Ett vanligt inomhusuttag är inte sällan specat
-ner till noll grader, vilket gör det opålitligt i ett ouppvärmt garage från
-november till mars. Bland utomhusmodellerna skiljer det också: Shelly Outdoor
-Plug S Gen3 anger −25 till 51 °C, medan Cleverio GP120 stannar vid −20 °C. I
-Norrland är det en meningsfull skillnad.
+Där brister de flesta produkter, och det gäller fyra av de fem uttag vi
+jämfört. <ProductRef id="cleverio-ip200" />, <ProductRef id="plejd-spr-01" />,
+<ProductRef id="philips-hue-smart-plug" /> och
+<ProductRef id="tp-link-tapo-p100" /> är allihop specade 0 till 35 °C av sina
+tillverkare. Ett svenskt garage ligger under noll från november till mars, och
+då är uttaget utanför sitt godkända område hela vintern.
 
-Ett inomhusuttag i en fuktig krypgrund är dessutom inte bara ett
-funktionsproblem utan en brandrisk. Ett uttag utomhus ska sitta i en krets med
-jordfelsbrytare, och en ytterdosa runt en inomhusprodukt är inte samma sak som
-en produkt byggd för att sitta ute.
+<ProductRef id="shelly-plug-s-gen3" /> är undantaget och anger −20 till 40 °C.
+Den är därmed det enda uttaget i jämförelsen du kan sätta i ett ouppvärmt
+garage, ett förråd eller ett soputrymme. Fukt är däremot en annan sak: Shelly
+anger 30 till 70 procent luftfuktighet, så en krypgrund ligger utanför även för
+den. Ska uttaget tåla stänk krävs en utomhusmodell med IP44, och Shelly Outdoor
+Plug S Gen3 anger −25 till 51 °C.
+
+Ett inomhusuttag i en fuktig krypgrund är dessutom en brandrisk och inte bara
+ett funktionsproblem. Ett uttag utomhus ska sitta i en krets med
+jordfelsbrytare, och en ytterdosa runt en inomhusprodukt ger varken
+kapslingsklassen eller drifttemperaturen hos något byggt för att sitta ute.
 
 ### Motorvärmaren, och varför den är ett specialfall
 
@@ -226,7 +240,11 @@ att låta.
 farlig. Kontrollera märkningen innan, inte efter.
 
 **Att glömma att motorer räknas annorlunda.** En pump på 400 watt kan dra över
-1 500 watt i startögonblicket, och den toppen står inte på apparaten.
+1 500 watt i startögonblicket, och den toppen står inte på apparaten. Uttagen
+har därför två tak, och det lägre står sällan i produktnamnet:
+<ProductRef id="cleverio-ip200" /> är märkt 3 680 watt resistivt men bara 1 150
+watt induktivt. Ska du styra en pump, en byggfläkt eller en kompressor är det
+den senare siffran som gäller.
 
 **Att sätta ett inomhusuttag i garaget.** Fungerar tills det blir kallt eller
 fuktigt, och då slutar det fungera vid precis det tillfälle du behövde det.

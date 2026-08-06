@@ -54,14 +54,14 @@ import Kopguide from "@/content/overvakningskamera/kopguide.mdx";
  *    fyra egna exempel där undantaget inte gäller. Dörrkameran på en
  *    lägenhetsdörr är det som förvånar mest och det påverkar den planerade
  *    sidan /dorrklocka-med-kamera.
- * 3. #abonnemanget — vad som slutar fungera utan att betala. Eget avsnitt
- *    eftersom kriteriet väger tjugo procent men fyndet är binärt och
- *    försvinner som ett par tiondelar i ett betyg.
+ * 3. #abonnemanget — vad som slutar fungera utan att betala, och vad det
+ *    kostar. Eget avsnitt eftersom kriteriet väger tjugo procent men fyndet
+ *    är binärt och försvinner som ett par tiondelar i ett betyg.
  *
- * ⚠️ Vi publicerar inga abonnemangspriser. Arlos plansidor svarar 403 och 404
- * mot curl och TP-Link renderar sin pristabell i JavaScript, så vi har inte
- * läst något pris. Kriteriet mäter beroendet, inte kronorna, och det står i
- * metodfotnoten.
+ * Abonnemangspriserna är lästa 2026-08-06 hos Arlo (arlo.com/sv_se/serviceplans,
+ * curl-steget svarar 200 och bär tabellen i JSON) och hos Ring
+ * (ring.com/se/sv/plans, prissatt i euro). Detta rättar noteringen från 08-03
+ * om att inget pris gick att läsa. Se lib/data/overvakningskamera.ts.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
@@ -72,12 +72,12 @@ import Kopguide from "@/content/overvakningskamera/kopguide.mdx";
 
 const TEST_PAGE = OVERVAKNINGSKAMERA;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "IMY pekar ut digital maskering som lösningen när kameran råkar få med grannens tomt. Varje tillverkare publicerar en brasklapp som urholkar just den funktionen. Vi jämförde sju utomhuskameror från 999 till 2 099 kronor.",
+    "Reolink W330 4K vinner för 999 kronor: 4K dygnet runt på minneskort, inget abonnemang, och en mask som ligger kvar där du ritade den. Vi jämförde sju utomhuskameror från 999 till 2 099 kronor mot det som avgör om kameran får sitta där du tänkt.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -136,14 +136,16 @@ export default async function OvervakningskameraPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Integritetsskyddsmyndigheten pekar ut digital maskering som
-              åtgärden när kameran råkar få med grannens tomt. Funktionen finns
-              hos alla fabrikat, och alla publicerar samtidigt en brasklapp som
-              urholkar den. Vi jämförde sju utomhuskameror från 999 till 2 099
-              kronor mot det som avgör om kameran alls får sitta där du tänkt.
+              Reolink W330 4K kostar 999 kronor, spelar in i 4K dygnet runt på
+              ett kort i kameran och kräver inget abonnemang. Framför allt
+              ligger maskeringen kvar när kameran används, vilket den inte gör
+              på de roterande kamerorna. Vi jämförde sju utomhuskameror från
+              999 till 2 099 kronor mot det som avgör om kameran alls får sitta
+              där du tänkt.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -194,7 +196,7 @@ export default async function OvervakningskameraPage() {
         id="maskeringen"
         width="default"
         title="Maskeringen som försvinner"
-        description="Alla fem fabrikat har sekretesszoner. Alla fem publicerar också något som urholkar dem, och det pekar åt samma håll."
+        description="Alla fem fabrikat har sekretesszoner. På fyra av dem släpper masken så fort kameran rör sig, och det avgör vilken kamera som är rätt köp."
       >
         <Prose>
           <p>
@@ -204,9 +206,9 @@ export default async function OvervakningskameraPage() {
             pekar rakt på en produktfunktion.
           </p>
           <p>
-            Funktionen finns. Vi läste varje tillverkares egen dokumentation, och
-            samtliga fem har sekretesszoner. Samtliga fem publicerar också en
-            begränsning, och den handlar i alla fem fallen om samma sak:{" "}
+            Funktionen finns hos alla fem fabrikaten. Men den fungerar bara så
+            länge kameran står still, och det gäller i olika grad hos var och
+            en:{" "}
             <strong>
               så fort kameran rör sig slutar masken täcka det den ritades över.
             </strong>
@@ -231,10 +233,10 @@ export default async function OvervakningskameraPage() {
           </p>
           <p>
             <strong>Ring</strong> har två zoner, och rörelsedetektorn känner av
-            området ändå. <strong>eufy</strong> skriver den mest
-            uppseendeväckande meningen av alla: att aktivitet i sekretesszonerna
-            kanske inte helt kan undvikas från att spelas in. Deras modellista
-            omfattar dessutom inte de kameror som säljs här.
+            området ändå, så larmen fortsätter komma från ytan du svartat ut.{" "}
+            <strong>eufy</strong> går längst av alla och anger att aktivitet i
+            en sekretesszon kanske inte helt kan undvikas från att spelas in.
+            Alltså att masken inte säkert hindrar inspelningen.
           </p>
           <p>
             Det är därför en fast kamera för 999 kronor slår en roterande för
@@ -315,7 +317,7 @@ export default async function OvervakningskameraPage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om sekretesszoner är lästa i respektive tillverkares egen supportdokumentation och inte i butiken, eftersom butikerna sällan skiljer på detekteringszon och sekretesszon. Vi anger ingen abonnemangskostnad i kronor, eftersom vi inte kunnat läsa någon prislista hos vare sig Arlo eller TP-Link.`)}
+          caption={priceCaption(PRICE_CHECKED, `Uppgifterna om sekretesszoner kommer från respektive tillverkare och inte från butiken, eftersom butikerna sällan skiljer på detekteringszon och sekretesszon. Abonnemangspriserna är lästa hos Arlo och Ring 2026-08-06.`)}
         />
       </Section>
 
@@ -345,11 +347,12 @@ export default async function OvervakningskameraPage() {
             i köpguiden gör om den åt dig.
           </p>
           <p>
-            <strong>Vi anger ingen abonnemangskostnad.</strong> Varken Arlo
-            eller TP-Link publicerar sina svenska abonnemangspriser så att de
-            går att läsa och datera. Vi kan belägga att abonnemanget krävs, både
-            hos butiken och hos tillverkaren, men inte vad det kostar. Då
-            skriver vi inget pris. Kriteriet mäter beroendet.
+            <strong>Abonnemangspriserna är tillverkarens egna listpriser.</strong>{" "}
+            Arlo Secure och Ring Basic är lästa på respektive plansida
+            2026-08-06, och treårskostnaderna är räknade på årspriset utan
+            kampanjrabatt. Betalar du månadsvis blir det dyrare. Tapo Care visar
+            TP-Link bara i appen, men eftersom Tapo-kamerorna spelar in på kort
+            utan abonnemang ändrar det ingenting i rankningen.
           </p>
           <p>
             <strong>Vi har inte filmat med någon kamera.</strong> Bildbetyget
@@ -380,13 +383,24 @@ export default async function OvervakningskameraPage() {
           <p>
             <strong>Ring</strong> spelar inte in någonting utan abonnemang. Du
             får notiser och direktbild, men ingenting sparas, vilket är den enda
-            funktion man egentligen köper en övervakningskamera för.
+            funktion man egentligen köper en övervakningskamera för. Ring Basic
+            täcker en kamera för <strong>3,99 euro i månaden</strong> eller
+            39,99 euro om året.
           </p>
           <p>
             <strong>Arlo</strong> kräver Arlo Secure både för molninspelning och
-            för igenkänningen av personer, fordon och paket. Det står i Kjells
-            egen specifikation, med asterisk. Utan abonnemang är två
-            Arlo-kameror i praktiken två dyra rörelsevakter med direktbild.
+            för igenkänningen av personer, fordon och paket. Utan abonnemang är
+            två Arlo-kameror i praktiken två dyra rörelsevakter med direktbild.
+            Priset är <strong>99 kronor i månaden för en kamera</strong> och 149
+            kronor för upp till fyra, eller 1 089 respektive 1 639 kronor om
+            året.
+          </p>
+          <p>
+            Räknat över tre år betyder det att ett Arlo-paket till 1 490 kronor
+            landar på <strong>6 407 kronor</strong>, alltså mer än fyra gånger
+            hyllpriset. Två Reolink W330 kostar 1 998 kronor och sedan
+            ingenting. Det är den skillnaden som avgör kriteriet kostnad efter
+            köp, och den syns inte i prislappen.
           </p>
           <p>
             Det är samma fråga som gjorde Google Nest Protect till en varning på
@@ -453,7 +467,7 @@ export default async function OvervakningskameraPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Integritet väger tyngst eftersom den avgör om kameran alls får användas som köparen tänkt, och eftersom skillnaderna där är dokumenterade av tillverkarna själva. Skalan är 5,0 när funktionen gäller modellen och inget i tillverkarens dokumentation urholkar den, 4,0 när brasklappen bara slår in vid något du kan låta bli, 2,5 när zonen förskjuts eller försvinner vid normal användning av modellens huvudfunktion, 1,5 när tillverkaren själv skriver att maskeringen inte säkert hindrar inspelning, och 1,0 när modellen inte står i tillverkarens egen lista. Kriteriet kostnad efter köp poängsätter vad som slutar fungera utan abonnemang och inte kronor per månad: varken Arlo eller TP-Link skriver ut vad abonnemanget kostar i kronor på sina svenska sidor, så vi publicerar inga månadspriser. Bildbetyget bygger på publicerade mått och inte på bilder vi tagit, eftersom vi inte filmat med någon kamera. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
+          footnote="Integritet väger tyngst eftersom den avgör om kameran alls får sitta där köparen tänkt. Skalan mäter vad masken gör: 5,0 när den ligger kvar under normal användning, 4,0 när den bara släpper vid en funktion du kan låta bli att slå på, 2,5 när den förskjuts eller raderas så fort modellens huvudfunktion används, och 1,5 när tillverkaren anger att maskeringen inte hindrar inspelning. En uppgift vi inte fått fram sänker aldrig ett betyg. Kostnad efter köp räknar abonnemangets listpris över tre år tillsammans med vad som slutar fungera utan det. Bildbetyget bygger på publicerade mått och inte på bilder vi tagit, eftersom vi inte filmat med någon kamera. Vi hittade inget svenskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

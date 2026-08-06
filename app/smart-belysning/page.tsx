@@ -49,15 +49,15 @@ import Kopguide from "@/content/smart-belysning/kopguide.mdx";
 
 const TEST_PAGE = SMART_BELYSNING;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-/* Uppdaterat 2026-08-01: kriteriet Omdöme i oberoende tester infördes
-   retroaktivt och viktningen räknades om, så datumet motsvarar en verklig
-   ändring av betygen och inte bara en priskontroll. */
-const UPDATED = "2026-08-03";
+/* Uppdaterat 2026-08-06: färgåtergivning hämtad för samtliga fem lampor, IKEA
+   TRÅDFRI utbytt mot KAJPLATS, och kriteriet Omdöme i oberoende tester räknas
+   inte längre om vid saknat betyg. Rankningen ändrades. Se lib/corrections.ts. */
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och anslutning. Philips Hue vann, men billigare alternativ räcker längre än du tror.",
+    "Philips Hue Color Ambiance vinner på dimring och stabilitet och kostar 599 kronor. IKEA KAJPLATS ger bättre färgåtergivning för 99. Fem E27-lampor jämförda.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -114,14 +114,22 @@ export default async function SmartBelysningPage() {
           <div className="flex flex-col gap-row">
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde fem smarta E27-lampor på färgåtergivning, dimring och
-              hur stabil anslutningen håller över tid. Ljusstyrkan skiljer
-              förvånansvärt lite mellan dem. Skillnaden syns i stället när du
-              dimrar ner, där de billigare lamporna börjar flimra en bit under
-              tjugo procent.
+              Philips Hue Color Ambiance vinner för 599 kronor, på att den
+              dimras hela vägen ner utan att blinka och håller uppkopplingen
+              när lamporna blir trettio. Men färgerna återger den sämre än
+              IKEA KAJPLATS, som kostar 99 och ger mer ljus i varmt läge.
+              Färgåtergivningen följer inte priset i den här kategorin.
+            </p>
+            <p className="max-w-2xl text-lg text-muted-foreground">
+              Vi har också hämtat flimmermåttet ur EU:s produktregister för alla
+              fem. Nanoleaf och Tapo deklarerar en tiondel av det tillåtna,
+              medan Hue, WiZ och IKEA ligger på gränsvärdet. Det är där du
+              hittar förklaringen till att ögonen blir trötta av ett rum utan
+              att du kan säga varför.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -209,15 +217,19 @@ export default async function SmartBelysningPage() {
         tone="muted"
         width="wide"
         title="Recensioner av varje lampa"
-        description="Tre av fem lampor saknar ett publicerat omdöme om just den modellen och får då Ej testat på den raden. I två av fallen finns ett test av märket men av en annan produkt, vilket inte är samma sak. Vi sätter hellre ingenting än ett påhittat betyg, och vikten fördelas då på de övriga kriterierna."
+        description="Vad varje lampa gör bra, var den går sönder i argumentet, och vem som ska köpa den."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
             <ProductReview key={product.id} product={product} rank={i + 1}>
               <VerdictText text={product.verdict} className="text-muted-foreground" />
+              {/* `total` måste skickas: sidan räknar utan omfördelning av
+                  saknade kriterier, och komponenten skulle annars visa ett
+                  annat betyg än produktkortet. Se lib/products.ts. */}
               <CriteriaScores
                 criteria={TEST_PAGE.criteria}
                 scores={product.scores}
+                total={product.rating}
                 size="sm"
                 className="mt-1"
               />
@@ -255,7 +267,7 @@ export default async function SmartBelysningPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Saknas ett kriteriebetyg för en lampa fördelas det kriteriets vikt på de övriga. Nanoleaf Essentials, TP-Link Tapo L530E och IKEA TRÅDFRI saknar ett publicerat omdöme om just den modellen och bedöms därför på 85 av 100 viktpoäng, vilket står i deras recensioner. Omdöme i oberoende tester väger 15 här, satt efter hur mycket underlag kategorin faktiskt har."
+          footnote="Nanoleaf Essentials, IKEA KAJPLATS och TP-Link Tapo L530E saknar ett publicerat omdöme om just den modellen. Raden står som Ej testat och kriteriet ger noll poäng, alltså bedöms alla fem mot samma 100 viktpoäng. Övriga kategorier på sajten fördelar i stället om vikten. Här gjorde det att lampor ingen mätt gick om Råd & Röns testvinnare, vilket är ett resultat av räknesättet och inte av lamporna."
         />
       </Section>
 
@@ -287,7 +299,7 @@ export default async function SmartBelysningPage() {
         tone="muted"
         width="default"
         title="Källor och andra tester"
-        description="Betygen bygger på specifikationer och på de här oberoende testerna. Datumen är värda att läsa: två av källorna är från 2017 och 2019 och gäller produkter som sedan dess bytt generation, vilket är skälet till att de inte räknas som omdöme för lamporna vi rankar i dag."
+        description="Betygen bygger på specifikationer och på de här oberoende testerna."
       >
         <SourceList sources={SMART_BELYSNING_SOURCES} title={null} />
       </Section>

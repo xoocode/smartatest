@@ -24,17 +24,18 @@ import { cn } from "@/lib/utils";
  * meter över marken krävs enligt byggreglerna en fast monterad stege, och då
  * hjälper ingen hängande stege oavsett längd.
  *
- * **Karmtjocklek** avgör om krokarna alls hakar fast. Jula anger högst 28 cm,
- * Nexa och Brandvarnare.se högst 30, Housegard 15 till 34, och Biltema anger
- * ingenting. Housegard är ensam om att ange ett minimum, och det spelar roll:
- * en för tunn karm ger krokarna för lite grepp.
+ * **Karmtjocklek** avgör om krokarna alls hakar fast. Efter att manualerna
+ * lästs 2026-08-06 anger samtliga åtta stegar samma tak, 30 cm, och Housegard
+ * är ensam om att ange ett golv: 15 cm. Det spelar roll åt båda hållen, för en
+ * för tunn karm ger krokarna för lite grepp.
  *
  * ## Marginalregeln
  *
  * En stege godkänns när **längden är minst höjden plus en halv meter**. Vi
- * räknar inte fram någon egen nyttolängd per produkt, eftersom bara en av sex
- * butiker publicerar en evakueringshöjd skild från stegens längd. Regeln står
- * utskriven i verktyget så att läsaren kan räkna om den själv.
+ * räknar inte fram någon egen nyttolängd per produkt, eftersom bara tre av
+ * stegarna publicerar en evakueringshöjd skild från längden, och två av dem
+ * gör det bara i bruksanvisningen. Regeln står utskriven i verktyget så att
+ * läsaren kan räkna om den själv.
  */
 
 const HEIGHTS = [
@@ -46,12 +47,14 @@ const HEIGHTS = [
   { key: "o8", label: "Över 8 m", top: 99 },
 ] as const;
 
+/* Banden följer de publicerade gränserna, som efter manualläsningen 2026-08-06
+   är desamma för alla åtta stegar: tak 30 cm, och ett enda publicerat golv på
+   15 cm. Banden hette tidigare 15–28, 28–30, 30–34 och över 34, vilket erbjöd
+   läsaren tre val där ingen stege skiljer sig från en annan. */
 const FRAMES = [
   { key: "u15", label: "Under 15 cm", cm: 14 },
-  { key: "1528", label: "15 till 28 cm", cm: 28 },
-  { key: "2830", label: "28 till 30 cm", cm: 30 },
-  { key: "3034", label: "30 till 34 cm", cm: 34 },
-  { key: "o34", label: "Över 34 cm", cm: 40 },
+  { key: "1530", label: "15 till 30 cm", cm: 30 },
+  { key: "o30", label: "Över 30 cm", cm: 31 },
 ] as const;
 
 type HeightKey = (typeof HEIGHTS)[number]["key"];

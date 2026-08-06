@@ -422,7 +422,7 @@ export default function SaTestarViPage() {
           <p>
             <strong>Provisionen.</strong> Vad en butik betalar oss syns inte i
             kriterierna, av det enkla skälet att det inte finns något kriterium
-            att lägga den i. Hur pengarna fungerar står på{" "}
+            att lägga den i. Hur sajten finansieras står på{" "}
             <Link href="/annonsmarkning">sidan om annonsmärkning</Link>.
           </p>
           <p>

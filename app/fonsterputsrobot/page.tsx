@@ -38,43 +38,47 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/fonsterputsrobot/kopguide.mdx";
 
 /*
- * ⚠️ Priser, GTIN, hålltider, linans hållfasthet och glasregler är riktiga,
- * lästa 2026-08-04 hos butiken vi länkar till eller i tillverkarens egen
- * manual. Kriteriebetygen är redaktionell bedömning. Vi har inte hängt någon
- * robot i något fönster och inte belastat någon lina.
+ * ⚠️ Priser och GTIN lästa 2026-08-04 hos butiken vi länkar till. Mått, vikter,
+ * hålltider, linans data och glasregler lästa 2026-08-06 i tillverkarnas egna
+ * specifikationstabeller och manualer. Kriteriebetygen är redaktionell
+ * bedömning. Vi har inte hängt någon robot i något fönster.
  *
  * SIDANS SVAR: Kärcher RCW 2 är billigast (2 190 kr) och sitter kvar längst
- * (40 min). Har du båglöst glas är Ecovacs W1 Pro det enda alternativet.
- *   Linans hållfasthet: HOBOT-388 200 kg. Övriga okänt.
- *   Hålltid vid strömavbrott: Kärcher 40 min (0,65 Ah / 14,8 V), Ecovacs W2/W3
- *     "mer än 30", HOBOT-388 20 min, W1 Pro / Mini / 2S okänt.
- *   Båglöst glas: HOBOT förbjuder, Ecovacs W1 Pro tillåter med 10 cm marginal.
+ * (40 min). Är rutan mindre än 35 × 35 cm är Winbot Mini den enda som kommer
+ * upp på den, ner till 22 × 25.
+ *   Hålltid: Kärcher 40 min (0,65 Ah / 14,8 V), W2 Pro 30, Mini 30, W2 Omni
+ *     "mer än 30", HOBOT-388 och 2S 20 var, W1 Pro ej angiven.
+ *   Minsta ruta: Mini 22 × 25, W2-serien och W1 Pro 30 × 40, Kärcher 35 × 35,
+ *     HOBOT-2S 40 × 40, HOBOT-388 ej angiven.
+ *   Båglöst glas: fyra Ecovacs godkända, HOBOT-388 förbjuder, Kärcher kräver
+ *     båge enligt sin manual, HOBOT-2S ej angivet.
+ *   Lina: HOBOT 4,5 m / 200 kg, W2 6 m (Omni 100 kg), Kärcher 4 m, Mini 3,3 m,
+ *     W1 Pro 1,5 m.
+ *
+ * ⚠️ TRE PÅSTÅENDEN SOM VAR FEL TILL 2026-08-06, alla våra egna: att W1 Pro var
+ * ensam om båglöst glas, att W2 Pro var sladdlös (6,7 m nätkabel), och att
+ * W2 Pro var ensam om att spreja framför duken (Kärcher har två
+ * ultraljudsmunstycken). Se rättelsen och kommentarerna i lib/data.
  *
  * ⚠️ VAD SOM SAKNAS ÄR INTE SIDANS ÄMNE. Läsartexten säljer produkten. Det som
- * saknas står som "-" i tabellen och förklaras i viktningen under testmetod.
- * Ingen rubrik, ingress, omdöme, tagline, pro/con eller FAQ-svar får handla om
- * vad en tillverkare har eller inte har publicerat.
+ * saknas står som "-" i tabellen och ingen annanstans, och sänker inget betyg.
  *
- * ⚠️⚠️ LÅNA ALDRIG ETT SÄKERHETSTAL MELLAN MODELLER. Att fylla i W2:s siffra
- * för W1 Pro vore att lova en marginal vi inte vet finns.
+ * ⚠️⚠️ LÅNA ALDRIG ETT SÄKERHETSTAL MELLAN MODELLER. W2 Pro Omni är en fjärde
+ * apparat och dess tal gäller inte W2 Pro eller W2 Omni.
  *
- * ⚠️ Den svenska frågan är spröjsen: Kärcher anger minsta fönster 35 × 35 cm,
- * och mindre rutor är vanliga i äldre svenska hus.
- *
- * ⚠️ Ingen oberoende provning finns. Källorna är tillverkarnas egna manualer,
- * och det står på sidan.
+ * ⚠️ Den svenska frågan är spröjsen, och spannet är 22 × 25 till 40 × 40 cm.
  *
  * AFFILIATE-SWAP — LINK_MODE styr formen på länkarna. Se lib/links.ts.
  */
 
 const TEST_PAGE = FONSTERPUTSROBOT;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Kärcher RCW 2 vinner för 2 190 kronor: billigast av sju robotar och den som sitter kvar längst när strömmen går, 40 minuter. Har du båglösa rutor tar du Ecovacs Winbot W1 Pro. Vi jämförde sju fönsterputsrobotar från 2 190 till 6 026 kronor.",
+    "Kärcher RCW 2 vinner för 2 190 kronor: billigast av sju robotar och den som sitter kvar längst när strömmen går, 40 minuter. Är dina rutor mindre än 35 × 35 cm tar du Ecovacs Winbot Mini för 3 299 kronor, som kommer upp på 22 × 25. Vi jämförde sju fönsterputsrobotar från 2 190 till 6 026 kronor.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -86,7 +90,7 @@ export const metadata: Metadata = {
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "sakerhetstalen", label: "40 minuter, 200 kilo: vad som håller den uppe" },
-  { id: "sprojsen", label: "35 × 35 cm avgör om den passar dina fönster" },
+  { id: "sprojsen", label: "22 × 25 eller 40 × 40: mät rutan innan du väljer" },
   { id: "jamforelse", label: "Jämför alla sju" },
   { id: "recensioner", label: "Recensioner av varje robot" },
   { id: "andra-robotar", label: "Andra produkter vi övervägde" },
@@ -132,15 +136,16 @@ export default async function FonsterputsrobotPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Kärcher RCW 2. Den är billigast av de sju robotarna vi jämfört
-              och sitter ändå kvar längst när strömmen går: 40 minuter på
-              reservbatteriet, och rutor ner till 35 × 35 centimeter. Har du
-              båglösa fönster eller en glasad balkongdörr är Ecovacs Winbot W1
-              Pro den enda som får sitta där. Nedan står varför, och vad de
-              andra fem kostar.
+              Köp Kärcher RCW 2 för 2 190 kronor. Den är billigast av de sju
+              robotarna vi jämfört och sitter ändå kvar längst när strömmen går:
+              40 minuter på reservbatteriet, mot 20 för HOBOT-388. Är din minsta
+              ruta mindre än 35 × 35 centimeter kommer den inte upp på den, och
+              då är Ecovacs Winbot Mini för 3 299 kronor den enda som klarar
+              22 × 25. Nedan står varför, och vad de andra fem kostar.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -193,27 +198,36 @@ export default async function FonsterputsrobotPage() {
             <strong>Hur länge den sitter kvar om strömmen går.</strong> Ett
             reservbatteri håller sugkoppen igång när säkringen löser ut.{" "}
             <strong>Kärcher RCW 2 klarar 40 minuter</strong> på ett
-            litiumjonbatteri om 0,65 amperetimmar och 14,8 volt. Ecovacs W2 Pro
-            och W2 Omni klarar över 30 minuter, HOBOT-388 klarar 20. Sitter
-            roboten på ett sovrumsfönster två våningar upp är det marginalen du
-            har på dig att komma hem och lyfta ner den.
+            litiumjonbatteri om 0,65 amperetimmar och 14,8 volt. Ecovacs Winbot
+            W2 Pro och Winbot Mini klarar 30, W2 Omni mer än 30, och de båda
+            HOBOT-modellerna 20 var. Sitter roboten på ett sovrumsfönster två
+            våningar upp är det marginalen du har på dig att komma hem och lyfta
+            ner den.
           </p>
           <p>
-            <strong>Vad säkerhetslinan tål.</strong> Linan knyts fast inne i
-            rummet och fångar roboten om sugkoppen släpper.{" "}
-            <strong>HOBOT-388 har den kraftigaste, 200 kilo stötkraft.</strong>{" "}
-            Det låter överdrivet för en apparat som väger ett par kilo, men i det
-            ögonblick linan tar emot ett fall blir kraften mångdubbelt större än
-            vikten, så 200 kilo är ungefär vad uppgiften kräver.
+            <strong>Vad linan tål, och hur långt det räcker.</strong> Linan knyts
+            fast inne i rummet och fångar roboten om sugkoppen släpper.{" "}
+            <strong>HOBOT-388 och HOBOT-2S tål 200 kilo dragkraft</strong> på 4,5
+            meter, W2 Omni 100 kilo på 6. Det låter överdrivet för en apparat på
+            ett par kilo, men i det ögonblick linan tar emot ett fall blir
+            kraften mångdubbelt större än vikten. Längden avgör var du får knyta:{" "}
+            <strong>Winbot W1 Pro har 1,5 meter</strong>, vilket räcker till
+            fönsterhandtaget men inte till något stadigt längre in i rummet.
           </p>
           <p>
-            <strong>Vilket glas den får sitta på.</strong> Här skiljer sig
-            robotarna åt helt.{" "}
-            <strong>Ecovacs Winbot W1 Pro får sitta på båglöst glas</strong> med
-            10 centimeters marginal till kanten, och är ensam om det.{" "}
-            <strong>HOBOT-388 får inte användas på båglöst glas alls.</strong>{" "}
-            Har du en glasad balkongdörr eller ett stort skjutparti avgör det
-            valet åt dig innan priset hinner göra det.
+            <strong>Vilket glas den får sitta på.</strong> Här går den skarpaste
+            skiljelinjen.{" "}
+            <strong>
+              HOBOT-388 får inte användas på båglöst glas alls
+            </strong>
+            , och Kärcher RCW 2 är enligt sin manual gjord för inramade
+            glasytor.{" "}
+            <strong>
+              Ecovacs fyra modeller är godkända för rutor utan båge
+            </strong>
+            , W1 Pro med kravet att du håller 10 centimeter till kanten. Har du
+            en glasad balkongdörr eller ett skjutparti avgör det valet åt dig
+            innan priset hinner göra det.
           </p>
         </Prose>
       </Section>
@@ -223,25 +237,31 @@ export default async function FonsterputsrobotPage() {
         id="sprojsen"
         tone="muted"
         width="default"
-        title="35 × 35 cm avgör om den passar dina fönster"
+        title="22 × 25 eller 40 × 40: mät rutan innan du väljer"
         description="Den vanligaste orsaken till att ett köp inte fungerar. Ta måttbandet innan du läser något annat."
       >
         <Prose>
           <p>
-            <strong>
-              Kärcher RCW 2 klarar rutor ner till 35 × 35 centimeter.
-            </strong>{" "}
-            Är din minsta ruta mindre än så fungerar ingen robot i jämförelsen:
-            den får inte fäste, och även om den gjorde det finns ingen yta att
-            köra på. Äldre svenska hus är fulla av spröjsade fönster med just
-            sådana rutor, och det tar två minuter att mäta.
+            <strong>Spannet är större än priset antyder.</strong> Ecovacs Winbot
+            Mini kommer upp på en ruta som är 22 × 25 centimeter. Kärcher RCW 2
+            behöver 35 × 35, de tre större Winbot-modellerna 30 × 40 och
+            HOBOT-2S hela 40 × 40, alltså nästan tre gånger Minis yta. Är rutan
+            mindre än vad modellen kräver får roboten varken fäste eller yta att
+            köra på, oavsett vad den kostar.
           </p>
           <p>
-            <strong>Ecovacs Winbot W1 Pro ställer krav på glaset i stället.</strong>{" "}
-            Bågen ska vara minst 5 millimeter bred, glaset minst 3 millimeter
-            tjockt och speglar minst 4. Har du gamla enkelglasfönster som är
-            tunnare än så är HOBOT-388 den enda som går på vilken tjocklek som
-            helst.
+            <strong>Det är spröjsen som avgör i svenska hus.</strong> Ett
+            korspostfönster från trettiotalet har ofta rutor kring 30 × 40
+            centimeter och ett franskt fönster mindre än så. Mät den minsta ruta
+            du vill ha putsad först, och läs listan ovan sedan: måttet stryker
+            ofta fyra av de sju innan priset hunnit spela roll.
+          </p>
+          <p>
+            <strong>Sedan kommer glaset.</strong> Ecovacs kräver minst 3
+            millimeter glas och 4 på speglar genom hela serien, och en båge på
+            minst 5 millimeter där det finns en. Har du gamla enkelglasfönster
+            som är tunnare än så går HOBOT-388 och HOBOT-2S på vilken tjocklek
+            som helst.
           </p>
           <p>
             <strong>Kanterna blir aldrig klara, oavsett modell.</strong> Duken
@@ -271,7 +291,7 @@ export default async function FonsterputsrobotPage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sju"
-        description="Hålltid, lina och glas är raderna som avgör om roboten är rimlig att hänga utanför ett fönster."
+        description="Minsta ruta avgör vilka modeller som är möjliga. Hålltid och glas avgör vilken av dem du ska ta."
       >
         <ComparisonTable
           products={products}
@@ -279,7 +299,7 @@ export default async function FonsterputsrobotPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Ett streck betyder att uppgiften inte går att få fram för modellen. Vi fyller aldrig i ett tal från en systermodell. Priserna skiljer ovanligt mycket mellan svenska butiker i den här produktgruppen, så kolla minst två innan du köper.",
+            "Vikt utan tillbehör och nätkabel. Priserna skiljer ovanligt mycket mellan svenska butiker i den här produktgruppen, så kolla minst två innan du köper.",
           )}
         />
       </Section>
@@ -314,7 +334,7 @@ export default async function FonsterputsrobotPage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex poster som inte hamnade i rankningen, en av dem för att ingen uppgift om säkerheten gick att hitta."
+        description="Sex poster som inte hamnade i rankningen: två utgångna, en osäljbar i Sverige, en dubblett och en handhållen fönstertvätt."
       >
         <ConsideredList items={FONSTERPUTSROBOT_CONSIDERED} />
       </Section>
@@ -353,10 +373,11 @@ export default async function FonsterputsrobotPage() {
             står under <a href="#testmetod">Så gjorde vi testet</a>.
           </p>
           <p>
-            <strong>Sex av de sju är Ecovacs, HOBOT eller Kärcher</strong>,
-            eftersom det svenska sortimentet är litet. Xiaomi Hutt DDC55 är
-            billigast av allt vi sett men ligger bland de övervägda: vi hittade
-            ingenting alls om lina, reservbatteri eller glas för den.
+            <strong>Alla sju är Ecovacs, HOBOT eller Kärcher</strong>, eftersom
+            det svenska sortimentet är litet: Prisjakt listar femton robotar och
+            nio av dem är Ecovacs. Xiaomi Hutt DDC55 är billigast av allt vi sett
+            men ligger bland de övervägda, eftersom den inte går att ställa mot
+            de andra på rep, reservkraft och glas.
           </p>
         </Prose>
       </Section>
@@ -371,7 +392,7 @@ export default async function FonsterputsrobotPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Säkerhet på höjd väger 30 av 100 eftersom produkten sitter på utsidan av ett fönster och faller om den lossnar. Kriteriet belönar att uppgiften går att kontrollera i förväg minst lika mycket som att talet är imponerande: en robot vars hålltid vi kan läsa oss till får kredit för det, en vars hålltid inte går att få fram får avdrag, även om den senare mycket väl kan vara den säkrare av de två. Vi kan bara väga det som går att veta innan köpet. Fönstertyp och mått väger 25 eftersom det är den fråga som oftast gör att köpet inte fungerar, och eftersom robotarna skiljer sig så mycket att en modell inte får användas på båglöst glas medan en annan är godkänd för det. Rengöring väger 20 och bedöms ur hur vattnet fördelas, inte ur sugkraften i pascal, som är vidhäftning. En uppgift vi inte fått fram står som ett streck, aldrig som en nolla, och vi fyller aldrig i ett tal från en systermodell. Vi har inte hängt någon robot i något fönster, inte belastat någon lina och inte mätt någon rengöring. Priserna är hos den butik vi länkar till."
+          footnote="Säkerhet på höjd väger 30 av 100 eftersom produkten sitter på utsidan av ett fönster och faller om den lossnar. Kriteriet betygsätter hålltiden vid strömavbrott och linans längd, alltså vad roboten gör, aldrig hur lätt en uppgift var att hitta. Fönstertyp och mått väger 25 eftersom det är den fråga som oftast gör att köpet inte fungerar: minsta ruta spänner från 22 × 25 till 40 × 40 centimeter, och en modell är förbjuden på båglöst glas medan fyra är godkända för det. Rengöring väger 20 och bedöms ur hur vattnet fördelas och hur nära hörnen chassit når, inte ur sugkraften i pascal, som är vidhäftning. En uppgift vi inte fått fram står som ett streck och sänker inget betyg; en produkt som inte går att bedöma alls hamnar bland de övervägda i stället. Vi fyller aldrig i ett tal från en systermodell. Vi har inte hängt någon robot i något fönster, inte belastat någon lina och inte mätt någon rengöring. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -403,13 +424,14 @@ export default async function FonsterputsrobotPage() {
         id="kallor"
         width="default"
         title="Källor"
-        description="Fyra tillverkarmanualer och produktsidor, lästa i original."
+        description="Nio tillverkarmanualer, specifikationsblad och produktsidor, lästa i original."
       >
         <Prose className="mb-block">
           <p>
             <strong>Läs manualen före produktbladet.</strong> Förbudet mot
-            båglöst glas hos HOBOT och kravet på 10 centimeters marginal hos
-            Ecovacs står båda i manualen och i inget av produktbladen.
+            båglöst glas hos HOBOT, kravet på 10 centimeters marginal hos Ecovacs
+            och beskedet att Kärcher RCW 2 är gjord för inramade glasytor står
+            alla tre i manualen och i inget av produktbladen.
           </p>
         </Prose>
         <SourceList sources={FONSTERPUTSROBOT_SOURCES} title={null} />

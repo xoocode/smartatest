@@ -9,8 +9,9 @@ import { SMART_TERMOSTAT } from "@/lib/test-pages";
  * ## Vad som är verkligt i den här filen
  *
  * **Verkligt och daterat:** priser, kundbetyg, artikelnummer, GTIN,
- * adapterlistor, frostskyddsuppgifter och tillverkarnas besparingspåståenden.
- * Allt läst 2026-08-04 hos Kjell, hos Proshop eller på tillverkarens egen sida.
+ * adapterlistor, batteri- och frostskyddsuppgifter och tillverkarnas
+ * besparingspåståenden. Läst hos Kjell, hos Proshop eller på tillverkarens egen
+ * sida, daterat per uppgift i kommentarerna nedan.
  *
  * **Citat:** Ljud & Bilds och Stiftung Warentests omdömen är återgivna med
  * deras egna ord och länkade i lib/sources.ts.
@@ -32,7 +33,7 @@ import { SMART_TERMOSTAT } from "@/lib/test-pages";
  * | Ljud & Bild, tre modeller | ja | inget, av princip |
  * | Stiftung Warentest, elva i labb | ja | bakom betalvägg |
  * | Fibaro | nej | 42 %, fotnot "research by Fibar Group S.A." |
- * | Netatmo | nej | 37 %, bara i butikstexten |
+ * | Netatmo | nej | 37 %, egen utbildningsbok, studie av Centrale-Supélec |
  * | Danfoss | nej | 30 % egen sida, 23 % i butiken |
  * | tado | nej | 28 %, och 22 % som eget användarsnitt |
  * | Aqara, Eve, SONOFF, Schneider | nej | inget tal |
@@ -45,17 +46,28 @@ import { SMART_TERMOSTAT } from "@/lib/test-pages";
  * skäl som igelkotten på /robotgrasklippare: det finns inga provresultat per
  * modell, och ett betyg på ett påstående mäter butikens copywriting.
  *
- * ## Fynd två: adaptertabellerna finns, men inte där man köper
+ * ## Ventilfattningarna, och den dyra läxan 2026-08-06
  *
- * tado publicerar sex adaptrar som ingår och fyra som inte gör det, i sitt
- * hjälpcenter. Netatmo skiljer likadant, också i hjälpcentret. Aqara lägger
- * listan på produktsidan, och E1 är ensam om att namnge vad som inte fungerar:
- * manuella ventiler, RTL och enrörssystem. Butikstexterna säger "en mängd
- * olika tillverkare" och "de flesta".
+ * Kriteriet hette `Angiven ventilpassning` och betygsatte om tillverkaren
+ * publicerade en adapterlista. Det rankade säljarens dokumentation, inte varan,
+ * och det gjorde tre fel som stod i tabellen i två dygn:
  *
- * ⚠️ **Danfoss två artikelnummer**, lästa hos Danfoss egen butik: 014G2460
- * täcker RAV, RA, RAVL och M30 för 760 kr, medan 014G2420 täcker RA och M30
- * för 890. Den dyrare passar färre ventiler.
+ * - **SONOFF** låg på "adaptrar för de flesta, ingen lista" och betyg 2,5.
+ *   SONOFF publicerar en kompatibilitetsguide över **41 ventilmärken** på sin
+ *   egen domän, med adaptern angiven per märke: M28, CAL, GIA, RA, RAV, RAVL
+ *   plus 20 märken som går direkt på M30x1,5.
+ * - **Fibaro** låg på "anger inga ventiler alls" och betyg 1,5. Sidan 3 i
+ *   Fibaros egen bruksanvisning: "to be installed on three types of valves:
+ *   M30 x 1.5, Danfoss RTD-N and Danfoss RA-N".
+ * - **Danfoss Eco** låg på "RA och M30". Danfoss eget produktregister för
+ *   artikel 014G1115 anger **M30, RA, RAV, RAVL**.
+ *
+ * Alla tre gick att hämta ur ett dokument som butiken eller tillverkaren redan
+ * länkade. Kriteriet räknar nu fattningar, se `ventil` i lib/test-pages.ts.
+ *
+ * ⚠️ **Danfoss två artikelnummer**, lästa i Danfoss produktregister 2026-08-06:
+ * 014G2460 täcker M30, RA, RAV och RAVL för 760 kr, medan 014G2420 täcker M30
+ * och RA för 890. Den dyrare passar färre ventiler.
  *
  * ⚠️ **Warentest fann att en av elva föll på frostskyddsprovet.** Vilken ligger
  * bakom betalvägg. Skriv aldrig ett namn där.
@@ -73,10 +85,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Aqara W600",
     brand: "Aqara",
     image: productImage(SMART_TERMOSTAT.slug, "aqara-radiator-thermostat-w600"),
-    tagline: "Sex adaptrar namngivna på produktsidan, och den arbetar ljudlöst.",
+    tagline: "Passar sju ventilfattningar direkt ur lådan, och hörs inte.",
     scores: {
       kravs: 3.5,
-      ventil: 4.5,
+      /* 7 fattningar, sex adaptrar i lådan. Aqara, förpackningsinnehåll,
+         läst 2026-08-06. Var 4,5 när kriteriet mätte publicering. */
+      ventil: 5,
       oberoende: 4,
       provning: 4.5,
       prisvarde: 4,
@@ -86,26 +100,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/temperaturstyrning/aqara-termostatventil-w600-vit-p56576",
     priceCheckedAt: PRICE_CHECKED,
-    award: "winner",
-    superlative: "Bäst passform och tystast",
+    superlative: "Bäst för sovrum och barnrum",
     pros: [
-      "Sex adaptrar namngivna på produktsidan: RA, RAV, RAVL, Giacomini, M28x1,5 och Caleffi",
-      "Ljud & Bild: gör sitt jobb helt ljudlöst, och tillverkaren anger under 30 dB",
-      "Talar både Thread och Zigbee, så den fungerar med de flesta Matter-hem",
-      "Inget abonnemang och ingen månadskostnad",
-      "Två års batteritid på två AA-celler",
+      "Går på sju fattningar med adaptrarna i lådan: M30x1,5 plus RA, RAV, RAVL, Caleffi, Giacomini och M28x1,5",
+      "Under 30 dB, och Ljud & Bild kallade gången helt ljudlös",
+      "Slår på värmen under 5 grader och släpper vid 8, så rören klarar en kall vecka i ett tomt hus",
+      "Talar både Thread och Zigbee, så den fungerar i de flesta Matter-hem",
+      "Två års batteritid på två AA-celler, som följer med",
     ],
     cons: [
       "Kräver en Matter Border Router eller en Aqara-hubb, som inte ingår",
-      "Öppet fönster kräver en separat dörr- och fönstersensor, inte bara termostaten",
-      "Ljud & Bild: styrning från både Aqaras app och Google Home samtidigt fungerar inte över Thread",
+      "Känner inte av ett öppet fönster själv, utan behöver en separat fönstersensor",
+      "Går inte att styra från Aqaras app och Google Home samtidigt över Thread, enligt Ljud & Bild",
     ],
     specs: [
       { label: "Pris", value: "559 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "M30x1,5 plus RA, RAV, RAVL, Giacomini, M28x1,5, Caleffi",
+        value: "7: M30x1,5 plus RA, RAV, RAVL, Caleffi, Giacomini, M28x1,5",
         highlight: true,
       },
       {
@@ -115,18 +128,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Thread och Zigbee", highlight: true },
-      { label: "Matter", value: "Ja" },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Batteri", value: "2 x AA, medföljer", highlight: true },
       { label: "Angiven besparing", value: "Ej angiven", highlight: true },
-      { label: "Frostskydd", value: "Ja, värmer under 5 °C, återgår vid 8 °C" },
+      { label: "Matter", value: "Ja" },
+      { label: "Frostskydd", value: "Ja, värmer under 5 °C, släpper vid 8 °C" },
       { label: "Öppet fönster", value: "Ja, men kräver separat fönstersensor" },
-      { label: "Batteri", value: "2 x AA" },
       { label: "Batteritid", value: "Upp till 2 år" },
-      { label: "Ljud", value: "Under 30 dB enligt tillverkaren" },
+      { label: "Ljud", value: "Under 30 dB" },
       { label: "Artikelnummer", value: "56576" },
     ],
     verdict:
-      "Aqara W600 vinner på att svara på frågan alla andra hoppar över. Produktsidan namnger sex adaptrar rakt av, RA, RAV, RAVL, Giacomini, M28x1,5 och Caleffi, utöver den egna M30x1,5-fattningen. Det låter torrt tills man inser att det är den uppgift som avgör om termostaten går att montera på elementet du faktiskt har, och att tado och Netatmo gömmer samma tabell i ett hjälpcenter medan butiken skriver att den passar en mängd olika tillverkare.\n\nLjud & Bild provade den i februari 2026 och lyfte fram att den arbetar helt ljudlöst. Det är ingen liten sak i ett sovrum: Netatmos termostat i samma test hörs när motorn justerar, och en apparat som väsnas klockan fyra på morgonen skruvas ner för hand och slutar vara smart. Aqara anger under 30 dB.\n\nFrostskyddet är beskrivet med tal i stället för med ord. Värmen slås på när temperaturen faller under fem grader och återgår vid åtta. Det är värt att veta i ett land där Stiftung Warentest hittade en termostat som inte klarade sitt frostskyddsprov och skrev att det vid minusgrader kan spricka rör.\n\nTvå saker drar ner den. Den behöver en Matter Border Router eller en Aqara-hubb, och har du ingen kostar termostaten mer än 559 kronor. Och funktionen för öppet fönster kräver en separat sensor, medan de flesta konkurrenter känner av temperaturfallet själva.\n\nKöp den om du har ett Matter- eller Zigbee-hem sedan tidigare och vill kunna kontrollera passformen innan du beställer. Har du ingen hubb alls blir slutnotan högre än prislappen antyder.",
+      "Aqara W600 går på sju ventilfattningar och kostar 559 kronor. Sex adaptrar ligger i lådan, RA, RAV, RAVL, Caleffi, Giacomini och M28x1,5, utöver den egna M30x1,5-gängan.\n\nBredden gör att du kan beställa innan du krupit bakom elementet med ett skjutmått. Har huset blandade ventiler, vilket det ofta har när radiatorer bytts vid olika tillfällen, är W600 den enda här som täcker både den nordiska Danfoss-familjen och de italienska klämfattningarna ur en och samma förpackning.\n\n**Den går under 30 dB.** Ljud & Bild provade den i februari 2026 och kallade gången helt ljudlös, medan Netatmos termostat i samma test hörs när motorn justerar. En apparat som väcker någon klockan fyra på morgonen skruvas ner för hand och slutar vara smart. Frostskyddet slår på värmen under 5 grader och släpper vid 8, vilket är precis den funktion Stiftung Warentest såg en av elva modeller missa, med spruckna rör som följd.\n\nTvå saker kostar. Den behöver en Matter Border Router eller en Aqara-hubb, så har du ingen sådan hemma är 559 kronor inte hela notan. Och den känner inte av ett öppet fönster själv utan vill ha en separat sensor, medan de flesta konkurrenterna märker temperaturfallet på egen hand.\n\nKöp den. Har du redan en HomePod, en Apple TV, en Nest-högtalare eller en Aqara-hubb i huset finns ingen anledning att titta vidare. Saknar du hubb helt är SONOFF TRVZB för 361 kronor plus en Zigbee-sticka den billigare vägen till nästan samma sak.",
   },
   {
     id: "aqara-radiator-thermostat-e1",
@@ -134,10 +147,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Aqara E1",
     brand: "Aqara",
     image: productImage(SMART_TERMOSTAT.slug, "aqara-radiator-thermostat-e1"),
-    tagline: "Ensam om att skriva ut vilka värmesystem den inte fungerar på.",
+    tagline: "Klarar hela Danfoss-familjen för 549 kronor.",
     scores: {
       kravs: 3,
-      ventil: 5,
+      /* 4 fattningar: M30x1,5 plus RA, RAV, RAVL. Aqara, förpackningsinnehåll,
+         läst 2026-08-06. Var 5,0 när kriteriet mätte publicering. */
+      ventil: 4,
       oberoende: 3.5,
       prisvarde: 4,
     },
@@ -147,26 +162,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/smarta-hem/temperaturstyrning/aqara-e1-smart-termostat-for-element-p52051",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 9, checkedAt: PRICE_CHECKED },
-    award: "editor",
-    superlative: "Bäst besked före köp",
+    superlative: "Billigaste vägen in i Aqara",
     pros: [
-      "Namnger både adaptrarna och undantagen: manuella ventiler, RTL och enrörssystem stöds inte",
-      "Enrörssystem är vanligt i svenska hus från 1960- och 70-talen, och ingen annan nämner det",
-      "Adaptrar för M30x1,5 samt Danfoss RA, RAV och RAVL ingår",
-      "Upp till ett års batteritid",
+      "Adaptrar för M30x1,5 samt Danfoss RA, RAV och RAVL ligger i lådan, alltså de fattningar de flesta svenska element har",
+      "Fungerar inte på enrörssystem, och är den enda som säger det innan du beställer fyra stycken",
       "549 kronor, näst billigast av dem vi rankar",
+      "Upp till ett års batteritid",
+      "Ingen molntjänst och ingen månadskostnad",
     ],
     cons: [
       "Kräver en Aqara-hubb för fjärrstyrning, som inte ingår",
       "För automatisk värmejustering krävs dessutom separata Aqara-sensorer",
-      "Ingen redaktion har provat just den här modellen",
+      "Tre fattningar färre än Aqara W600, som kostar 10 kronor mer",
     ],
     specs: [
       { label: "Pris", value: "549 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "M30x1,5 plus RA, RAV, RAVL. Ej manuella, RTL eller enrörssystem",
+        value: "4: M30x1,5 plus RA, RAV, RAVL. Ej manuella, RTL eller enrörssystem",
         highlight: true,
       },
       {
@@ -176,16 +190,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Zigbee 3.0", highlight: true },
-      { label: "Matter", value: "Via uppdatering av Aqaras hubbar" },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Batteri", value: "2 x AA", highlight: true },
       { label: "Angiven besparing", value: "Ej angiven", highlight: true },
+      { label: "Matter", value: "Via uppdatering av Aqaras hubbar" },
       { label: "Frostskydd", value: "Ja, via inställd lägstatemperatur" },
       { label: "Öppet fönster", value: "Ja" },
       { label: "Batteritid", value: "Upp till 1 år" },
       { label: "Artikelnummer", value: "52051" },
     ],
     verdict:
-      "Aqara E1 gör något ingen annan tillverkare i kategorin gör: den talar om vad den inte klarar. Produktsidan listar adaptrarna för M30x1,5 och Danfoss RA, RAV och RAVL, och fortsätter sedan med att manuella ventiler, returtemperaturbegränsare och enrörssystem inte stöds.\n\nDen sista är den som betyder mest i Sverige. Enrörssystem sitter i en stor del av flerbostadsbeståndet från 1960- och 70-talen, och den som bor i ett sådant hus kan köpa fyra termostater innan någon berättar att de aldrig kommer att fungera. Att det står på produktsidan i stället för i ett supportforum är hela skälet till att den får Redaktionens val.\n\nDen kostar 549 kronor och behöver en Aqara-hubb för att nås utifrån. Kjell länkar själva till hubben på produktsidan, vilket är hederligt av en butik, men det betyder att tre rum inte kostar 1 647 kronor utan mer. Vill du dessutom att den ska justera värmen automatiskt efter rummet krävs separata Aqara-sensorer.\n\nIngen redaktion har provat just den här modellen. Ljud & Bild testade W600 och inte E1, och vi lånar aldrig ett omdöme mellan syskonmodeller. Raden står därför tom, och betyget vilar på de fyra kriterier vi kan fylla.\n\nKöp den om du redan har Aqara hemma, eller om du misstänker att dina ventiler är udda och vill ha svaret innan paketet är öppnat.",
+      "Aqara E1 kostar 549 kronor och kommer med adaptrar för M30x1,5 samt Danfoss RA, RAV och RAVL. Fyra fattningar, alltså hela den familj som sitter på de allra flesta svenska element, för tio kronor mindre än storasystern.\n\n**Den fungerar inte på manuella ventiler, returtemperaturbegränsare eller enrörssystem**, och det är den enda produkten på sidan där du får veta det innan paketet är öppnat. Enrörssystem sitter i en stor del av flerbostadsbeståndet från 1960- och 70-talen, och där kostar en felbeställning fyra termostater i stället för en.\n\nDen behöver en Aqara-hubb för att nås utifrån, så tre rum landar över 1 647 kronor. Vill du dessutom att den ska justera värmen automatiskt efter rummets temperatur krävs separata Aqara-sensorer, och då börjar en färdig W600 se billigare ut än den ser ut på hyllan.\n\nHar du redan Aqara hemma är E1 rätt val och tio kronor billigare än W600. Har du inte det: lägg de tio kronorna, ta W600 och få tre fattningar till, tystare gång och ett frostskydd med tal i.",
   },
   {
     id: "eve-thermo-comfort-set",
@@ -193,7 +208,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Eve Thermo",
     brand: "Eve Systems",
     image: productImage(SMART_TERMOSTAT.slug, "eve-thermo-comfort-set"),
-    tagline: "Inget konto, inget moln, inget abonnemang. Tillverkarens egna ord.",
+    tagline: "Värmen styrs utan konto, moln eller abonnemang.",
     scores: {
       kravs: 3.5,
       ventil: 4,
@@ -207,25 +222,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.proshop.se/Smarta-Hem/Eve-Thermo-Comfort-Set-Matter/3297390",
     priceCheckedAt: PRICE_CHECKED,
     award: "premium",
-    superlative: "Bäst för den som vill slippa konto",
+    superlative: "Bäst utan konto och moln",
     pros: [
-      "Tillverkaren anger varken konto, registrering, molntjänst eller abonnemang",
+      "Varken konto, registrering, molntjänst eller abonnemang, så den fungerar lika bra den dag Eve slutar finnas",
       "Ljud & Bild: smidig och tyst hantering, full integritet",
-      "Adaptrar för Danfoss RA, RAV och RAVL ingår i lådan",
-      "Frostskydd finns och är namngivet som Valve Protection",
+      "Adaptrar för Danfoss RA, RAV och RAVL ligger i lådan, plus den egna M30-gängan",
+      "Valve Protection håller ventilen öppen mot frost och motar kalkbeläggning",
       "Thread och Matter, så den fungerar över plattformsgränserna",
     ],
     cons: [
       "1 890 kronor för två termostater, alltså 945 kronor styck",
       "Kräver en Matter-controller och en Thread Border Router som inte ingår",
-      "Säljs inte styckvis i svensk handel, så tre rum blir två paket",
+      "Säljs inte styckvis i svensk handel, så tre rum blir två paket och fyra termostater",
     ],
     specs: [
       { label: "Pris", value: "1 890 kr för 2 st", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "Adaptrar för Danfoss RA, RAV och RAVL ingår",
+        value: "4: M30x1,5 plus Danfoss RA, RAV och RAVL",
         highlight: true,
       },
       {
@@ -235,15 +250,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Thread", highlight: true },
-      { label: "Matter", value: "Ja" },
-      { label: "Abonnemang", value: "Nej, uttryckligen inget" },
+      { label: "Abonnemang", value: "Nej, uttryckligen inget", highlight: true },
+      { label: "Batteri", value: "2 x AA, utbytbara", highlight: true },
       { label: "Angiven besparing", value: "Ej angiven", highlight: true },
+      { label: "Matter", value: "Ja" },
       { label: "Frostskydd", value: "Ja, Valve Protection" },
       { label: "Öppet fönster", value: "Ja" },
       { label: "GTIN", value: "4260195392618" },
     ],
     verdict:
-      "Eve Thermo är den produkt där tillverkaren gör oberoendet till själva säljargumentet i stället för till en fotnot. På Eves egen sida står fyra rader efter varandra: inget abonnemang, ingen registrering, inget Eve-moln, hundra procent integritet. I en kategori där en konkurrent flyttat sina automatiska funktioner till en årsavgift är det ett konkret löfte och inte en känsla.\n\nLjud & Bild provade den i februari 2026 och beskrev hanteringen som smidig och tyst, med full integritet eftersom varken registrering, abonnemang eller molntjänst finns. De noterade samma invändning som vi: den kräver en Matter-controller och en Thread Border Router. Har du en HomePod, en Apple TV, en Nest-högtalare eller en Home Assistant hemma är den redan där. Har du inte det ska den kostnaden med i kalkylen.\n\nAdaptrarna anges i förpackningsinnehållet, Danfoss RA, RAV och RAVL. Det är mindre komplett än Aqaras sex och tados tio, men det är en lista och inte ett löfte. Frostskyddet heter Valve Protection och finns.\n\nPriset är det som håller den från toppen. 1 890 kronor för Comfort Set betyder 945 kronor per termostat, nästan dubbelt mot Aqaras 559, och den säljs inte styckvis i svensk handel. Tre rum blir alltså två paket och fyra termostater.\n\nKöp den om du vill äga din värmestyrning utan att ha ett konto hos någon, och redan har en Matter-hubb. Räknar du kronor per rum finns billigare vägar till nästan samma sak.",
+      "Eve Thermo styr värmen utan konto, utan registrering och utan molntjänst, och kostar 1 890 kronor för två. Den talar Thread och Matter, alltså samma språk som resten av ditt hem oavsett vem som byggt det.\n\nDet oberoendet är inte en känsla utan en konsekvens: ingenting i den här termostaten slutar fungera den dag Eve läggs ner, byter affärsmodell eller flyttar en funktion bakom en avgift. En konkurrent på den här sidan har redan gjort det sista. Ljud & Bild provade Eve i februari 2026 och beskrev hanteringen som smidig och tyst, med full integritet.\n\nAdaptrarna i lådan täcker Danfoss RA, RAV och RAVL utöver M30-gängan, alltså fyra fattningar. **Valve Protection öppnar ventilen med jämna mellanrum**, vilket både håller frosten borta och hindrar kalken från att låsa fast spindeln, och det senare är skälet till att gamla termostatventiler kärvar efter en sommar.\n\nPriset håller den från toppen. 945 kronor per termostat är nästan dubbelt mot Aqaras 559, den säljs inte styckvis i svensk handel, och en Matter-controller plus en Thread Border Router måste finnas i huset. Tre rum blir två paket, fyra termostater och 3 780 kronor.\n\nHar du en HomePod, en Apple TV eller en Home Assistant och tänker äga din värmestyrning utan att ha konto hos någon: köp den. Räknar du kronor per rum gör Aqara W600 samma jobb för 559.",
   },
   {
     id: "sonoff-trvzb",
@@ -251,11 +267,28 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "SONOFF TRVZB",
     brand: "SONOFF",
     image: productImage(SMART_TERMOSTAT.slug, "sonoff-trvzb"),
-    tagline: "361 kronor, och den listar vilka andras hubbar den fungerar med.",
+    tagline: "Billigast här, och passar lika många ventiler som de dyraste.",
     scores: {
       kravs: 4,
-      ventil: 2.5,
-      oberoende: 4.5,
+      /* 7 fattningar: M30x1,5 direkt plus adaptrarna RA, RAV, RAVL, CAL, GIA
+         och M28. SONOFFs kompatibilitetsguide över 41 ventilmärken namnger
+         adaptrarna, sonoff.tech, läst 2026-08-06.
+
+         Att de ligger i lådan är bekräftat 2026-08-06 i tillverkarens egen
+         listningstext på Amazon.se: "(Adaptrar RA/RAV/RAVL/CAL/GIA/M28 ingår)",
+         och hos expert4house: "Include gli adattatori RA/RAV/RAVL/CAL/GIA/M28".
+         Samma sex adaptrar som guiden namnger, alltså samma sju fattningar som
+         Aqara W600 och tado X.
+
+         ⚠️ Stod på 4,0 fram till 2026-08-06 med motiveringen att
+         förpackningsinnehållet inte gick att belägga. Det var ett avdrag för
+         vad vi inte visste, inte för vad termostaten gör, och sidans egen
+         brödtext räknade redan SONOFF till de tre som klarar sju. Se
+         lib/corrections.ts. */
+      ventil: 5,
+      /* 4,5 → 4,0: Philips, IKEA och Fritzbox gateways stöds inte, trots
+         Zigbee 3.0. SONOFFs egen dokumentation, läst 2026-08-06. */
+      oberoende: 4,
       prisvarde: 5,
     },
     price: 361,
@@ -263,43 +296,45 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Sonoff-Intelligent-TRVZB-Zigbee-30-Thermostatic-Head/3277532",
     priceCheckedAt: PRICE_CHECKED,
-    award: "budget",
-    superlative: "Billigast, och minst inlåst",
+    award: "winner",
+    superlative: "Bäst för hela huset på en gång",
     pros: [
-      "361 kronor, billigast av dem vi rankar",
-      "Fungerar med vilken Zigbee 3.0-hubb som helst, inte bara tillverkarens egen",
-      "Tillverkaren räknar upp konkurrenternas hubbar vid namn",
-      "Frostskydd anges uttryckligen mot frusna och spruckna rör",
-      "Detektering av öppet fönster ingår",
+      "361 kronor, billigast av dem vi rankar, så fem element kostar mindre än två tado",
+      "Går på sju fattningar: M30x1,5 plus M28x1,5, Caleffi, Giacomini och Danfoss RA, RAV och RAVL",
+      "Vilken Zigbee 3.0-hubb som helst duger, även en USB-sticka för ett par hundralappar",
+      "Frostläge med en tröskel du sätter själv, mot rör som fryser och spricker",
+      "Känner av öppet fönster utan extra sensor",
     ],
     cons: [
-      "Anger bara gängan M30x1,5 och lovar adaptrar för de flesta, utan lista",
-      "Ingen redaktion har provat den",
+      "Philips, IKEA och Fritzbox gateways fungerar inte, trots Zigbee 3.0",
+      "Går på tre AA-celler, och de ligger inte i lådan",
       "Kräver en Zigbee-hubb eller en USB-sticka som inte ingår",
     ],
     specs: [
       { label: "Pris", value: "361 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "M30x1,5. Adaptrar för de flesta, ingen lista",
+        value: "7: M30x1,5 plus RA, RAV, RAVL, Caleffi, Giacomini, M28x1,5",
         highlight: true,
       },
       {
         label: "Krävs utöver termostaten",
         shortLabel: "Krävs till",
-        value: "Valfri Zigbee 3.0-hubb",
+        value: "Zigbee 3.0-hubb, dock ej Philips, IKEA eller Fritzbox",
         highlight: true,
       },
       { label: "Protokoll", value: "Zigbee 3.0", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej, Zigbee via hubb" },
+      { label: "Batteri", value: "3 x AA, medföljer ej", highlight: true },
       { label: "Angiven besparing", value: "Ej angiven", highlight: true },
-      { label: "Frostskydd", value: "Ja" },
+      { label: "Frostskydd", value: "Ja, med tröskel du ställer själv" },
       { label: "Öppet fönster", value: "Ja" },
       { label: "GTIN", value: "6920075740950" },
     ],
     verdict:
-      "SONOFF TRVZB kostar 361 kronor och är kategorins motsats till en märkesbunden brygga. Tillverkarens dokumentation räknar upp vilka hubbar den fungerar med, och listan innehåller både deras egna och formuleringen att vilken Zigbee 3.0-kompatibel hubb som helst duger. Det är ovanligt hederligt av ett företag som också säljer hubbar, och det är skälet till att den får högt betyg på oberoende.\n\nI praktiken betyder det att den fungerar i Home Assistant, i SmartThings och bakom en USB-sticka för ett par hundralappar. Slutar SONOFF finnas fortsätter termostaten att vara en Zigbee-enhet.\n\nDen tappar poäng på ventilen. Dokumentationen anger gängan M30x1,5 och skriver att adaptrar för de flesta värmesystem och tillverkare följer med, men namnger dem inte. Har du en Danfoss RA-ventil, vilket många svenska hus har, får du köpa och hoppas i stället för att läsa och veta. Frostskyddet är däremot utskrivet, och formuleringen om frusna och spruckna rör är ovanligt rak.\n\nIngen redaktion har provat den, varken Ljud & Bild eller Stiftung Warentest, så raden för provning står tom.\n\nKöp den om du redan kör Zigbee och vill sätta termostater på fem element utan att priset skenar. Är du osäker på vilken ventil du har är Aqara ett tryggare köp för tvåhundra kronor mer.",
+      "SONOFF TRVZB kostar 361 kronor och går på sju ventilfattningar. Det är kategorins lägsta pris med samma passform som termostater för tre gånger pengarna.\n\nAdaptrarna täcker M28x1,5, Caleffi, Giacomini och hela Danfoss-familjen utöver M30-gängan, tillsammans 41 ventilmärken från Boss och Comap till Heimeier och Oventrop. **Ska du göra fler än två element är det här den enda vägen under 2 000 kronor**, och skillnaden mot tado är fem termostater i stället för en och en halv.\n\nDen är också minst inlåst av allihop. Den talar ren Zigbee 3.0 och fungerar i Home Assistant, i SmartThings eller bakom en USB-sticka för ett par hundralappar, så den fortsätter vara en fungerande termostat även om SONOFF slutar finnas. Frostläget har en tröskel du sätter själv, och öppet fönster känner den av utan extra sensor.\n\nTre saker drar ner. Philips, IKEA och Fritzbox gateways fungerar inte trots Zigbee 3.0, så en Dirigera i hallen hjälper dig inte här. Den går på tre AA-celler som inte ligger i lådan. Och ingen redaktion har provat den, så den saknar det yttre omdöme fyra av modellerna här har.\n\nKör du redan Zigbee och ska sätta termostater på fyra eller fem element: köp den, och lägg mellanskillnaden på en extra. Ska du bara göra sovrummet och vill ha ett provat köp är Aqara W600 värd sina 200 kronor mer.",
   },
   {
     id: "danfoss-eco-bluetooth",
@@ -307,10 +342,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Danfoss Eco",
     brand: "Danfoss",
     image: productImage(SMART_TERMOSTAT.slug, "danfoss-eco-bluetooth"),
-    tagline: "Behöver ingenting extra, och når dig inte heller när du är borta.",
+    tagline: "Enda termostaten som inte kräver något köpt utöver sig själv.",
     scores: {
       kravs: 2,
-      ventil: 3.5,
+      /* 4 fattningar: M30, RA, RAV, RAVL. Danfoss produktregister, artikel
+         014G1115, EAN 5702425245329, läst 2026-08-06. Var 3,5 på en tidigare
+         läsning som bara fann RA och M30. */
+      ventil: 4,
       oberoende: 4.5,
       prisvarde: 4.5,
     },
@@ -319,25 +357,26 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Danfoss-Eco-Electronic-Radiator-Thermostat/2898649",
     priceCheckedAt: PRICE_CHECKED,
+    award: "editor",
     superlative: "Bäst utan hubb, sämst på avstånd",
     pros: [
-      "Kräver varken hubb, brygga eller konto, bara telefonen i samma rum",
-      "428 kronor, och inga dolda tillägg",
-      "Danfoss anger adaptertyp RA och M30 i sin egen butik",
-      "Fem års garanti enligt tillverkaren",
-      "30 dB och ett handvred för manuell justering",
+      "Kräver varken hubb, brygga eller konto, så 428 kronor är hela notan även för det första rummet",
+      "Går på fyra fattningar: M30 plus Danfoss RA, RAV och RAVL",
+      "Under 30 dB och ett handvred som fungerar även när batteriet dör",
+      "Två AA-celler räcker 2,5 år, längst batteritid av dem som går på engångsbatterier",
+      "Känner av öppet fönster utan extra sensor",
     ],
     cons: [
       "Bluetooth, så den går inte att nå när du inte är hemma",
       "Ingen integration med Matter, Google, Alexa eller Home Assistant",
-      "Danfoss anger upp till 30 procents besparing utan att redovisa något underlag",
+      "Vill du styra värmen från tåget är Danfoss Ally samma märke med Zigbee, för 332 kronor mer",
     ],
     specs: [
       { label: "Pris", value: "428 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "RA och M30, enligt Danfoss artikelbeteckning",
+        value: "4: M30 plus Danfoss RA, RAV och RAVL",
         highlight: true,
       },
       {
@@ -347,15 +386,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Bluetooth", highlight: true },
-      { label: "Matter", value: "Nej" },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Batteri", value: "2 x AA", highlight: true },
       { label: "Angiven besparing", value: "Upp till 30 %", highlight: true },
-      { label: "Ljud", value: "30 dB" },
-      { label: "Garanti", value: "5 år" },
+      { label: "Matter", value: "Nej" },
+      { label: "Öppet fönster", value: "Ja" },
+      { label: "Batteritid", value: "2,5 år" },
+      { label: "Ljud", value: "Under 30 dB" },
       { label: "GTIN", value: "5702425245329" },
     ],
     verdict:
-      "Danfoss Eco är den ärligaste produkten i jämförelsen och samtidigt den som svarar sämst mot vad ordet smart brukar utlova. Den talar Bluetooth och ingenting annat. Du styr den från telefonen när du står i rummet, du lägger scheman som körs i termostaten, och sedan är det slut. Ingen hubb, ingen brygga, inget konto och ingen molntjänst.\n\nFör en del hushåll är det precis rätt. Vill du bara att sovrummet ska vara sextonn grader mellan åtta och fyra behöver ingenting av det du inte får här. Fem års garanti, ett handvred som fungerar när batteriet dör och 30 dB i drift är dessutom sådant som märks i tio år.\n\nProblemet är resan hem. Hela argumentet för en smart termostat är att du ska kunna höja värmen från tåget, eller att den ska sänka sig själv när huset står tomt längre än planerat. Den funktionen finns inte, och den går inte att köpa till. Vi ger den därför lågt betyg på raden för vad som krävs utöver termostaten, trots att svaret är ingenting: den har inte tagit bort kostnaden utan funktionen.\n\nDanfoss anger upp till 30 procents besparing också för den här modellen, utan att redovisa vad talet vilar på. Adaptrarna framgår däremot av artikelbeteckningen i deras egen butik, RA och M30, vilket är mer än de flesta ger.\n\nKöp den till ett gästrum, en källare eller ett fritidshus där schemat sköter sig självt. Ska du styra värmen på distans är den fel produkt oavsett pris.",
+      "Danfoss Eco kostar 428 kronor och är den enda termostaten här som inte kräver något köpt utöver sig själv. Ingen hubb, ingen brygga, inget konto och ingen molntjänst: du styr den från telefonen när du står i rummet, lägger ett schema som sedan körs inne i termostaten, och sedan är det klart.\n\nDet gör den till det billigaste första rummet i hela jämförelsen. En SONOFF för 361 kronor kostar 361 plus en Zigbee-sticka; den här kostar 428 och punkt. **Adaptrarna täcker M30 plus Danfoss RA, RAV och RAVL**, alltså lika många fattningar som Eve för en femtedel av priset, och Danfoss har tillverkat radiatorventiler i nästan hundra år, så deras egna sitter i en stor del av det svenska beståndet.\n\nDen är också byggd för att stå kvar. Två AA-celler räcker 2,5 år, den går under 30 dB, och handvredet fungerar även när batteriet dött. Det sista låter litet tills man har stått i ett kallt gästrum en söndagkväll i januari.\n\nBluetooth är gränsen. Du kan inte höja värmen från tåget, och huset sänker sig inte självt när resan blir tre dagar längre. Den funktionen går inte heller att köpa till, och den är hela skälet till att många köper en smart termostat över huvud taget.\n\nRedaktionens val till gästrummet, källaren och fritidshuset, alltså rum där ett schema räcker och ingen ska nås utifrån. Ska du styra värmen på distans är Danfoss Ally samma märke med Zigbee, för 332 kronor mer.",
   },
   {
     id: "danfoss-ally-014g2460",
@@ -366,7 +407,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     tagline: "Den billigare av Danfoss två artiklar, och den passar fler ventiler.",
     scores: {
       kravs: 2.5,
-      ventil: 4.5,
+      /* 4 fattningar: M30, RA, RAV, RAVL. Danfoss produktregister, artikel
+         014G2460, EAN 5702425245015, läst 2026-08-06. */
+      ventil: 4,
       oberoende: 3.5,
       provning: 3.5,
       prisvarde: 3,
@@ -376,25 +419,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Danfoss-ally-radiator-thermostat/2884327",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst av Danfoss två artikelnummer",
+    superlative: "Bäst för hus med Danfoss-ventiler",
     pros: [
-      "Danfoss egen artikelbeteckning anger adaptertyp RAV, RA, RAVL och M30",
-      "130 kronor billigare än syskonartikeln som passar färre ventiler",
+      "Går på fyra fattningar: M30 plus Danfoss RA, RAV och RAVL",
+      "130 kronor billigare än syskonartikeln, som passar två ventiltyper färre",
       "Labbprovad av Stiftung Warentest bland elva modeller",
       "Zigbee 3.0-certifierad, så den kan anslutas till andra hubbar än Danfoss egen",
-      "Ett sekel av ventiltillverkning bakom sig, och Danfoss-ventiler sitter i svenska hus",
+      "Under 30 dB, och två AA-celler räcker 2,5 år",
     ],
     cons: [
       "Kräver Danfoss Ally Gateway för fjärrstyrning, som inte ingår",
-      "Warentests betyg ligger bakom betalvägg, så vi vet inte hur den klarade sig",
-      "Danfoss anger 30 procent på sin egen sida och 23 i butikstexten för samma system",
+      "760 kronor styck, alltså mer än dubbelt mot SONOFF med samma Zigbee och fler fattningar",
+      "Bär två olika besparingstal, 30 procent på Danfoss egen sida och 23 i butikstexten",
     ],
     specs: [
       { label: "Pris", value: "760 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "RAV, RA, RAVL och M30",
+        value: "4: M30 plus Danfoss RA, RAV och RAVL",
         highlight: true,
       },
       {
@@ -404,14 +447,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Zigbee 3.0", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej, Zigbee via hubb" },
+      { label: "Batteri", value: "2 x AA", highlight: true },
       { label: "Angiven besparing", value: "Upp till 30 %", highlight: true },
       { label: "Öppet fönster", value: "Ja" },
+      { label: "Batteritid", value: "2,5 år" },
+      { label: "Ljud", value: "Under 30 dB" },
       { label: "GTIN", value: "5702425245015" },
       { label: "Artikelnummer", value: "014G2460" },
     ],
     verdict:
-      "Danfoss Ally är den termostat vi rekommenderar av Danfoss två, och skälet är ett artikelnummer. Hos Danfoss egen butik heter den här 014G2460 och bär adaptertyp RAV, RA, RAVL och M30. Syskonet 014G2420 heter bara RA och M30, kostar 130 kronor mer och passar alltså färre ventiler. Butiken saluför den dyrare under namnet Radiator Thermostat RA, vilket är precis vad du söker efter om du har en RA-ventil, och precis fel svar.\n\nDanfoss har tillverkat radiatorventiler i nästan hundra år och deras ventiler sitter i en stor del av det svenska beståndet, vilket gör passformen till märkets starkaste kort. Den är Zigbee 3.0-certifierad, så den behöver inte vara inlåst i Danfoss egen app för alltid.\n\nStiftung Warentest hade den i labbet när de provade elva radiatortermostater. Betyget ligger bakom betalvägg och vi återger det inte, så poängen på den raden krediterar enbart att den genomgått en oberoende labbprovning.\n\nDet som drar ner är gatewayen. För att nå termostaten hemifrån behövs Danfoss Ally Gateway, och den ingår inte i lösnumret. Tre rum kostar 2 280 kronor plus brygga.\n\nOch en detalj som säger något om hela kategorin: Danfoss anger upp till 30 procents besparing på sin egen sida och 23 procent i butikens produkttext för samma system. Två tal, samma tillverkare, samma produkt.\n\nKöp den om du har Danfoss-ventiler och vill ha ett märke som funnits längre än standarden. Kontrollera bara att det står 014G2460 på kartongen.",
+      "Danfoss Ally kostar 760 kronor och går på fyra fattningar: M30 plus Danfoss RA, RAV och RAVL. Det är den av Danfoss två artiklar du ska ha, och skillnaden mot den andra är 130 kronor och två ventiltyper.\n\nSkälet att välja märket alls är att ventilen under termostaten ofta redan är en Danfoss. De har tillverkat radiatorventiler i nästan hundra år och sitter i en stor del av det svenska beståndet, vilket gör passformen till deras starkaste kort. Den är Zigbee 3.0-certifierad, så den är inte inlåst i Danfoss egen app för alltid, och Stiftung Warentest hade den i labbet bland elva modeller.\n\nGatewayen är vad som drar ner. **För att nå termostaten hemifrån krävs Danfoss Ally Gateway, som inte följer med lösnumret.** Tre rum kostar 2 280 kronor plus brygga, vilket är mer än dubbelt mot tre SONOFF med en USB-sticka, och SONOFF bär dessutom tre fattningar till.\n\nHar du Danfoss-ventiler på elementen och vill ha ett märke som funnits längre än standarden är den ett hederligt köp. Kontrollera bara att det står 014G2460 på kartongen, och räknar du kronor per rum gör SONOFF samma jobb för hälften.",
   },
   {
     id: "netatmo-smart-radiator-thermostat",
@@ -422,10 +469,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       SMART_TERMOSTAT.slug,
       "netatmo-smart-radiator-thermostat",
     ),
-    tagline: "Bäst adapterlista i branschen, och kategorins näst högsta löfte.",
+    tagline: "Tio ventilfattningar, fler än någon annan här klarar.",
     scores: {
       kravs: 2,
-      ventil: 5,
+      /* 6 fattningar i lådan, 4 till i tiopack. Netatmos egen utbildningsbok
+         för återförsäljare, läst 2026-08-06. Var 5,0 när kriteriet mätte
+         publicering; 4,5 nu eftersom fyra av tio kostar extra. */
+      ventil: 4.5,
       oberoende: 2.5,
       provning: 4,
       prisvarde: 3,
@@ -435,27 +485,27 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Netatmo-Additional-Smart-Radiator-Thermostat/2574967",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst dokumenterad passform",
+    superlative: "Bäst för ovanliga ventiler",
     pros: [
-      "Skiljer på sex adaptrar som ingår och fyra som säljs separat i tiopack",
-      "Enda tillverkaren som beskriver hur du mäter gängan med en linjal",
+      "Sex adaptrar i lådan: M30x1,5, M30x1, M28x1,5, Giacomini, Danfoss RA och RAVL",
+      "Fyra fattningar till finns att köpa, bland dem Vaillant, som ingen annan här når över huvud taget",
       "Ljud & Bild: fungerar precis som tänkt, informativ och lättnavigerad app",
-      "Ingen månadskostnad enligt Ljud & Bild",
+      "Två AA-celler följer med och räcker omkring 2 år",
       "Labbprovad av Stiftung Warentest",
     ],
     cons: [
-      "Butikerna anger 37 procents besparing utan att Netatmo publicerar underlaget",
-      "Ljud & Bild: elmotorn hörs när temperaturen justeras",
+      "Ljud & Bild: elmotorn hörs när temperaturen justeras, så den passar sämre i ett sovrum",
       "Ljud & Bild: två appar till samma produkt gör installationen omständlig",
-      "Kräver Netatmos relä, som bara ingår i startpaketet",
+      "Kräver Netatmos relä, som bara ingår i startpaketet, och hela systemet vilar på Netatmos konto",
+      "De fyra extra adaptrarna säljs i tiopack, så en enda udda ventil kostar tio",
     ],
     specs: [
       { label: "Pris", value: "887 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
         value:
-          "Ingår: M30x1,5, M28x1,5, M30x1, Giacomini, RA23, RAVL. Extra: M28x1, Caleffi, RAV34, Pettinaroli",
+          "10, varav 6 i lådan: M30x1,5, M30x1, M28x1,5, Giacomini, RA, RAVL. Extra: RAV, Vaillant, M28x1, Pettinaroli",
         highlight: true,
       },
       {
@@ -465,13 +515,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Radio till relä, relä via wifi", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
-      { label: "Angiven besparing", value: "37 %, enligt butikstexten", highlight: true },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej" },
+      { label: "Batteri", value: "2 x AA, medföljer", highlight: true },
+      { label: "Angiven besparing", value: "37 %", highlight: true },
+      { label: "Frostskydd", value: "Ja, Frost-Guard, 7 °C som standard" },
       { label: "Öppet fönster", value: "Ja" },
+      { label: "Batteritid", value: "Cirka 2 år" },
       { label: "GTIN", value: "3700730501958" },
     ],
     verdict:
-      "Netatmo publicerar den bästa adapterdokumentationen i hela kategorin, och den ligger på ett ställe nästan ingen köpare hittar. I hjälpcentret finns två listor: sex adaptrar som följer med, bland dem Danfoss RA23 och RAVL, och fyra som säljs separat i tiopack, bland dem Danfoss RAV34 och Caleffi. Artikeln beskriver dessutom hur du mäter gängan med en vanlig linjal. Ingen annan tillverkare kommer i närheten, och ingenting av det står i butiken.\n\nSamma butik skriver däremot ut något annat: spara 37 procent av din energiförbrukning. Talet står hos både Proshop och Inet, och Netatmos egna sidor gick inte att nå för att kontrollera var det kommer ifrån. Det är kategorins näst högsta löfte och vi har inte hittat något underlag för det alls.\n\nLjud & Bild provade den i februari 2026 och var övervägande positiva. Den fungerar precis som tänkt, appen är informativ och lättnavigerad, och det finns ingen månadskostnad. Två invändningar tog de upp: elmotorn hörs när temperaturen justeras, och det finns två appar till samma produkt, vilket gör installationen omständlig. Den var också med bland Stiftung Warentests elva.\n\nDen låga poängen på oberoende beror på reläet. Termostaten talar inte wifi själv utan går via Netatmos relä, som bara ingår i startpaketet, och hela systemet vilar på Netatmos konto och molntjänst.\n\nKöp den om du har en ovanlig ventil och vill kunna slå upp exakt vilken adapter som gäller innan du beställer. Bortse från procentsatsen.",
+      "Netatmo når tio ventilfattningar, fler än någon annan termostat på sidan. Sex adaptrar ligger i lådan och fyra går att köpa till, och en av dem är Vaillant, som ingen annan här kommer åt över huvud taget.\n\nDet är hela argumentet för att betala 887 kronor. Har elementen bytts i omgångar, eller sitter det något italienskt eller tyskt i ett rum, är Netatmo den termostat som täcker huset i stället för fyra femtedelar av det. De extra adaptrarna säljs dock i tiopack, så en enda udda ventil kostar tio.\n\nLjud & Bild provade den i februari 2026 och var övervägande positiva: den fungerar precis som tänkt, appen är informativ och lättnavigerad, och det finns ingen månadskostnad. **Elmotorn hörs däremot när temperaturen justeras**, vilket Aqara W600 inte gör, så den passar sämre i ett sovrum än i ett vardagsrum. Två appar till samma produkt gör dessutom installationen omständlig.\n\nDet som håller den nere är reläet. Termostaten talar inte wifi själv utan går via Netatmos relä, som bara följer med startpaketet, och hela systemet vilar på ett Netatmo-konto och deras molntjänst. Slutar den tjänsten finnas är termostaten ett handvred.\n\n328 kronor av prisskillnaden mot Aqara W600 går till fattningar de flesta svenska hem aldrig kommer att använda. Har du en av dem är de värda varenda krona, och då finns inget alternativ på den här sidan.",
   },
   {
     id: "schneider-wiser-cctfr6100z3",
@@ -479,10 +533,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wiser",
     brand: "Schneider Electric",
     image: productImage(SMART_TERMOSTAT.slug, "schneider-wiser-cctfr6100z3"),
-    tagline: "Enda tillverkaren som anger passformen på svenska.",
+    tagline: "Hela Danfoss-familjen för under 500 kronor.",
     scores: {
       kravs: 2,
-      ventil: 4.5,
+      /* 4 fattningar: M30x1,5 plus Danfoss RA, RAV, RAVL. Schneiders svenska
+         produktsida för CCTFR6100Z3, läst 2026-08-06. */
+      ventil: 4,
       oberoende: 3,
       prisvarde: 3.5,
     },
@@ -491,25 +547,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/LK-Wiser-Radiatortermostat-White/3111975",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Bäst besked på svenska",
+    superlative: "Bäst i ett Wiser-hem",
     pros: [
-      "Anger passformen på svenska: Danfoss RA, RAV, RAVL och M30x1,5",
+      "Går på fyra fattningar: M30x1,5 plus Danfoss RA, RAV och RAVL",
       "499 kronor, tredje billigast av dem vi rankar",
       "Zigbee, och upp till 32 enheter i 16 rum i samma system",
-      "Ingen besparingsprocent utlovas någonstans",
+      "IP30, alltså tätare mot damm än de flesta här",
     ],
     cons: [
       "Kräver Wiser-hubb och Wiser-appen, som inte ingår",
-      "Tillverkarens egen sida anger batteriet på två sätt, 2 x AA och 3V LR03 AAA",
+      "Bunden till Schneiders eget system, till skillnad från SONOFF som duger till vilken Zigbee-hubb som helst",
       "Säljs hos Proshop under märket LK, vilket gör den svår att söka fram",
-      "Ingen redaktion har provat den",
+      "138 kronor dyrare än SONOFF, som bär tre fattningar till och duger till vilken Zigbee-hubb som helst",
     ],
     specs: [
       { label: "Pris", value: "499 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "Danfoss RA, RAV, RAVL och M30x1,5",
+        value: "4: M30x1,5 plus Danfoss RA, RAV och RAVL",
         highlight: true,
       },
       {
@@ -519,14 +575,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Zigbee 3.0", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej, Zigbee via hubb" },
+      { label: "Batteri", value: "2 x AA, ej laddbara", highlight: true },
       { label: "Angiven besparing", value: "Ej angiven", highlight: true },
-      { label: "Batteri", value: "Anges som 2 x AA och som 3V LR03 AAA" },
       { label: "GTIN", value: "3606482072589" },
       { label: "Artikelnummer", value: "CCTFR6100Z3" },
     ],
     verdict:
-      "Schneiders Wiser-termostat är den som talar svenska. På tillverkarens svenska produktsida står det rakt av att den är kompatibel med Danfoss RA, RAV, RAVL och M30x1,5-ventiler. Det låter som en självklarhet tills man har läst de andra tio och upptäckt att uppgiften antingen saknas, ligger på engelska i ett hjälpcenter eller har ersatts av ett procenttal.\n\nDen är också en av fyra produkter här som inte utlovar någon besparing alls. I den här kategorin är tystnad en dygd, eftersom talen som finns spänner från 23 till 42 procent utan att någon som provat produkterna vill skriva under på ett enda av dem.\n\n499 kronor är lågt, och systemet skalar till 32 enheter i 16 rum. Men den kräver Wiser-hubben och Wiser-appen, och där tar öppenheten slut. Till skillnad från SONOFF, som räknar upp konkurrenternas hubbar, är den här tänkt att leva i Schneiders eget system.\n\nTvå saker att veta innan du beställer. Proshop säljer den under märket LK, medan artikelnumret 3606482072589 är Schneiders eget och leder till CCTFR6100Z3. Och tillverkarens egen sida anger batteriet på två sätt i samma text, både två AA-celler och 3V LR03 AAA. Vi återger båda i stället för att välja åt dig.\n\nKöp den om du bygger med Wiser, eller om du vill ha ett svenskt besked om ventilen till under femhundra kronor.",
+      "Schneider Wiser kostar 499 kronor och går på fyra fattningar: M30x1,5 plus Danfoss RA, RAV och RAVL. Det räcker till nästan varje svenskt element, och det är den billigaste vägen till den täckningen om du redan har en Wiser-hubb i huset.\n\nSystemet skalar till 32 enheter i 16 rum, vilket är gott om utrymme för ett helt hus, och kapslingen IP30 är tätare mot damm än vad de flesta här anger. Två AA-celler driver den, och Schneider är uttrycklig med att de ska vara vanliga alkaliska: laddbara celler ger för låg spänning för att motorn ska orka.\n\nDen är också en av fyra här som inte utlovar någon besparing alls, vilket i den här kategorin är en dygd snarare än en lucka.\n\n**Öppenheten tar slut vid hubben.** Den talar visserligen Zigbee 3.0, men är byggd för att leva i Wiser-appen och Wisers eget nav. Har du inte redan det är SONOFF 138 kronor billigare, bär tre fattningar till och fungerar bakom vilken Zigbee-hubb som helst.\n\nBygger du med Wiser är den ett självklart val och prisvärd. Gör du inte det finns ingen anledning att börja här. Och letar du efter den i butik: Proshop säljer den under märket LK, medan artikelnumret 3606482072589 leder till Schneiders eget CCTFR6100Z3.",
   },
   {
     id: "tado-smart-radiator-thermostat-x",
@@ -537,7 +594,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       SMART_TERMOSTAT.slug,
       "tado-smart-radiator-thermostat-x",
     ),
-    tagline: "Tio adaptrar dokumenterade, och en årsavgift för det som säljer den.",
+    tagline: "Sju fattningar ur lådan, och ett laddbart batteri i stället för celler.",
     scores: {
       kravs: 3,
       ventil: 5,
@@ -551,26 +608,26 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/smarta-hem/temperaturstyrning/tado-smart-radiator-thermostat-x-1-pack-p52260",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 9, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst dokumenterad, dyrast att äga",
+    superlative: "Bäst för nybörjaren",
     pros: [
-      "Sex adaptrar som ingår och fyra som inte gör det, alla namngivna av tillverkaren",
+      "Går på sju fattningar ur lådan: M30 plus RA, RAV, RAVL, M28x1,5, Caleffi och Giacomini",
       "Fungerar med tredjepartshubbar, bland dem IKEA Dirigera, HomePod och Home Assistant",
-      "Uppladdningsbart batteri som byts och laddas med USB-C",
+      "Uppladdningsbart batteri som laddas med USB-C, så du slipper köpa celler i tio år",
       "Ljud & Bild rekommenderar den starkt till den som inte redan har smarta termostater",
     ],
     cons: [
       "Ljud & Bild: de medföljande plastadaptrarna har lossnat så att termostater fallit av med värmen uppskruvad",
-      "Ljud & Bild: de smarta funktionerna ligger numera delvis bakom årsavgiften Auto-Assist",
+      "Delar av automatiken ligger bakom årsavgiften Auto-Assist, som Ljud & Bilds testare kallar en riktig bromskloss",
       "1 229 kronor styck, dyrast av dem vi rankar, plus brygga",
       "Fungerar inte tillsammans med tidigare tado-generationer",
     ],
     specs: [
       { label: "Pris", value: "1 229 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
         value:
-          "Ingår: RA, RAV, RAVL, M28x1,5, Caleffi, Giacomini. Ingår ej: Vaillant, Oventrop, Ista, Orkli",
+          "7 i lådan: M30, RA, RAV, RAVL, M28x1,5, Caleffi, Giacomini. Ej Vaillant, Oventrop, Ista, Orkli",
         highlight: true,
       },
       {
@@ -580,19 +637,23 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Thread och Matter", highlight: true },
-      { label: "Matter", value: "Ja" },
       {
         label: "Abonnemang",
         value: "Auto-Assist krävs för delar av automatiken",
         highlight: true,
       },
+      {
+        label: "Batteri",
+        value: "Laddbart, via USB-C",
+        highlight: true,
+      },
       { label: "Angiven besparing", value: "Upp till 28 %", highlight: true },
-      { label: "Batteri", value: "Uppladdningsbart, laddas via USB-C" },
-      { label: "Batteritid", value: "Cirka 1 år enligt tillverkaren" },
+      { label: "Matter", value: "Ja" },
+      { label: "Batteritid", value: "Cirka 1 år" },
       { label: "Artikelnummer", value: "52260" },
     ],
     verdict:
-      "tado är märket som syns mest i hyllan och som sitter näst sist i vår lista, och det beror varken på tekniken eller på dokumentationen.\n\nDokumentationen är faktiskt kategorins bästa. tados hjälpcenter listar sex adaptrar som följer med, bland dem Danfoss RA, RAV och RAVL, och fyra som inte gör det, bland dem Vaillant och Oventrop. De skriver också att produkten bara fungerar på termostatiska ventiler. Ingenting av det står i butikstexten, som nöjer sig med att den passar termostatventiler från en mängd olika tillverkare.\n\nTvå saker fäller den. Den första kommer från Ljud & Bilds egen testare, som använt tado i flera år: de medföljande plastadaptrarna har inte klarat trycket när termostaterna öppnat och stängt värmen, med följden att termostater fallit av och landat på golvet medan värmen stått fullt uppskruvad, ibland på natten. Hans råd är att köpa en metalladapter från en VVS-butik. Det är den mest konkreta varningen någon oberoende testare ger i hela kategorin.\n\nDen andra är avgiften. Funktionerna som får termostaterna att sköta sig själva var tidigare gratis och ligger nu delvis i den årliga tjänsten Auto-Assist. Samma testare kallar den en riktig bromskloss som luktar mer girighet än god service, och han fick inget svar från tado han var nöjd med.\n\nRäkna på totalen. 1 229 kronor per termostat, plus Bridge X för 869 om du inte redan har en hubb som duger, plus en årsavgift. Tre rum passerar 4 500 kronor innan första vintern.\n\nKöp den om du vill ha den bäst dokumenterade passformen och accepterar abonnemanget. Ljud & Bild rekommenderar den starkt till den som börjar från noll, och det står vi inte emot, men billigare vägar till samma värme finns i den här listan.",
+      "tado X kostar 1 229 kronor styck och går på sju ventilfattningar ur lådan. Batteriet är laddbart och fylls med USB-C, alltså den enda av de elva som inte kräver nya celler var eller vartannat år.\n\nDe två sakerna gör den till en produkt du kan sätta på vilket element som helst och sedan glömma bort. Ljud & Bild rekommenderar den starkt till den som börjar från noll, och det står vi inte emot: kommer du utan hubb, utan app och utan tålamod är tado den mjukaste starten som finns här.\n\n**Sedan kommer priset, och det kommer två gånger.** 1 229 kronor per termostat plus Bridge X för 869 om ingen hubb duger, och därtill en årsavgift: funktionerna som får termostaterna att sköta sig själva ligger numera delvis i tjänsten Auto-Assist. Ljud & Bilds testare kallar den en riktig bromskloss som luktar mer girighet än god service. Tre rum passerar 4 500 kronor innan första vintern, och sedan fortsätter räkningen.\n\nDen tyngsta invändningen är fysisk. Samma testare har använt tado i flera år och skriver att de medföljande plastadaptrarna inte klarat trycket när termostaterna öppnat och stängt värmen, med följden att termostater fallit av och landat på golvet med värmen fullt uppskruvad, ibland på natten. Hans råd är att byta till en metalladapter från en VVS-butik, och det rådet ska du följa.\n\nSka du lösa ett enda rum och inte sätta dig in i någonting är tado pengarna värd. Ska du göra tre betalar du drygt 3 300 kronor extra för mjukstarten, och så mycket är den inte värd.",
   },
   {
     id: "danfoss-ally-ra-014g2420",
@@ -600,10 +661,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Ally RA",
     brand: "Danfoss",
     image: productImage(SMART_TERMOSTAT.slug, "danfoss-ally-ra-014g2420"),
-    tagline: "Kostar 130 kronor mer än syskonet och passar färre ventiler.",
+    tagline: "Samma termostat som Danfoss Ally, med två ventiltyper färre.",
     scores: {
       kravs: 2.5,
-      ventil: 3.5,
+      /* 2 fattningar: M30 och RA. Danfoss produktregister, artikel 014G2420,
+         EAN 5702425245008, läst 2026-08-06. Var 3,5. */
+      ventil: 2,
       oberoende: 3.5,
       provning: 3.5,
       prisvarde: 2,
@@ -616,21 +679,22 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     superlative: "Samma termostat, sämre affär",
     pros: [
       "Samma termostat och samma system som Danfoss Ally",
-      "RA-adapter och M30-adapter ingår båda",
+      "RA-adapter och M30-adapter ligger båda i lådan",
       "Labbprovad av Stiftung Warentest bland elva modeller",
-      "Zigbee 3.0-certifierad",
+      "Zigbee 3.0-certifierad, och två AA-celler räcker 2,5 år",
     ],
     cons: [
-      "890 kronor mot 760 för artikeln som täcker RAV och RAVL också",
+      "890 kronor mot 760 för artikeln som tar RAV och RAVL också",
       "Namnet läses som den variant du behöver om du har en RA-ventil",
       "Kräver Danfoss Ally Gateway, som inte ingår",
+      "Har du RAV eller RAVL på något element passar den inte, och du får köpa en till",
     ],
     specs: [
       { label: "Pris", value: "890 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "RA och M30",
+        value: "2: M30 och Danfoss RA",
         highlight: true,
       },
       {
@@ -640,13 +704,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Zigbee 3.0", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej, Zigbee via hubb" },
+      { label: "Batteri", value: "2 x AA", highlight: true },
       { label: "Angiven besparing", value: "Upp till 30 %", highlight: true },
+      { label: "Öppet fönster", value: "Ja" },
+      { label: "Batteritid", value: "2,5 år" },
+      { label: "Ljud", value: "Under 30 dB" },
       { label: "GTIN", value: "5702425245008" },
       { label: "Artikelnummer", value: "014G2420" },
     ],
     verdict:
-      "Den här produkten står i listan för att visa en fälla, inte för att vi tycker att du ska köpa den.\n\nDanfoss säljer Ally under två artikelnummer. Hos Danfoss egen butik heter 014G2420 adaptertyp RA och M30, medan 014G2460 heter adaptertyp RAV, RA, RAVL och M30. Hos Proshop kostar den första 890 kronor och den andra 760. Den dyrare täcker alltså två ventiltyper färre.\n\nProblemet är namnet. Butiken kallar den Danfoss Ally Radiator Thermostat RA, och den som har konstaterat att elementet bär en Danfoss RA-ventil läser det som bekräftelse på att det är just den här man ska ha. Det stämmer, i den meningen att den passar. Det stämmer inte, i den meningen att den billigare passar likadant och dessutom passar RAV och RAVL om nästa element visar sig ha en annan ventil.\n\nAllt annat är identiskt. Samma Zigbee 3.0, samma krav på Danfoss Ally Gateway, samma plats i Stiftung Warentests provning av elva modeller, samma 30 procent som Danfoss anger utan underlag.\n\nKontrollera artikelnumret på kartongen innan du betalar. Står det 014G2420 och du inte har ett specifikt skäl att välja den, lägg tillbaka den och ta 014G2460.",
+      "Den här termostaten går på två ventilfattningar, M30 och Danfoss RA, och kostar 890 kronor. Den är i övrigt identisk med Danfoss Ally, som går på fyra och kostar 760.\n\nDet är alltså 130 kronor mer för två ventiltyper mindre, och skillnaden märks först när du står vid det andra elementet. Har något rum en RAV- eller RAVL-ventil, vilket är vanligt i hus där radiatorerna är från olika årtionden, passar den inte och du får beställa en till.\n\n**Namnet är det som gör den farlig.** Butiken kallar den Danfoss Ally Radiator Thermostat RA, och den som just konstaterat att elementet bär en Danfoss RA läser det som bekräftelse på att det är den här man ska ha. Den passar, men den billigare passar precis lika bra på samma ventil.\n\nAllt annat är samma sak: samma Zigbee 3.0, samma krav på Danfoss Ally Gateway, samma två AA-celler i 2,5 år, samma plats i Stiftung Warentests provning av elva modeller.\n\nKontrollera artikelnumret på kartongen innan du betalar. Står det 014G2420, lägg tillbaka den och ta 014G2460 i stället.",
   },
   {
     id: "fibaro-radiator-thermostat",
@@ -654,37 +723,42 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Fibaro",
     brand: "Fibaro",
     image: productImage(SMART_TERMOSTAT.slug, "fibaro-radiator-thermostat"),
-    tagline: "Kategorins högsta besparingslöfte, med kategorins tunnaste grund.",
+    tagline: "Laddas som en telefon i stället för att äta AA-celler.",
     scores: {
       kravs: 2.5,
-      ventil: 1.5,
+      /* 3 fattningar: M30x1,5, Danfoss RTD-N och Danfoss RA-N. Fibaros egen
+         bruksanvisning FGT-001 v1.3, sidan 3, läst 2026-08-06. Var 1,5 med
+         motiveringen att Fibaro inte namngav någon fattning alls, vilket var
+         fel: uppgiften stod på första sidan i manualen. */
+      ventil: 3,
       oberoende: 4,
       prisvarde: 3,
     },
-    price: 727,
+    price: 719,
     merchant: PROSHOP,
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Fibaro-Radiator-Thermostat-Starter-Pack/2637987",
-    priceCheckedAt: PRICE_CHECKED,
-    superlative: "Laddbart batteri, opublicerat löfte",
+    priceCheckedAt: "2026-08-06",
+    superlative: "Bäst för Z-Wave-hem",
     pros: [
       "Laddbart litiumpolymerbatteri som fylls med en vanlig telefonladdare",
       "Z-Wave, alltså lokal styrning utan molnberoende",
-      "Startpaketet innehåller en separat temperaturgivare",
+      "Startpaketet innehåller en separat temperaturgivare som mäter rummet i stället för elementet",
       "Reagerar på öppet fönster och på andra värmekällor i rummet",
+      "Frostskydd och en avkalkningsfunktion som motionerar ventilen",
     ],
     cons: [
-      "Anger inga ventiler alls, bara att den passar 98 procent av alla element",
-      "42 procents besparing, fotnotat till tillverkarens egen opublicerade forskning",
-      "Detektering av öppet fönster finns enligt tillverkaren bara i Z-Wave-versionen",
+      "Går bara på tre fattningar: M30x1,5, Danfoss RTD-N och Danfoss RA-N, minst av alla här",
+      "Batteriet är inbyggt och går inte att byta, så termostatens liv är batteriets liv",
+      "Detektering av öppet fönster finns bara i Z-Wave-versionen, inte i HomeKit-varianten",
       "Kräver en Z-Wave-styrenhet eller HomeKit, som inte ingår",
     ],
     specs: [
-      { label: "Pris", value: "727 kr", highlight: true },
+      { label: "Pris", value: "719 kr", highlight: true },
       {
-        label: "Angivna ventiler",
+        label: "Ventilfattningar",
         shortLabel: "Ventiler",
-        value: "Inga namngivna. Uppges passa 98 % av alla element",
+        value: "3: M30x1,5, Danfoss RTD-N och Danfoss RA-N",
         highlight: true,
       },
       {
@@ -694,14 +768,20 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
         highlight: true,
       },
       { label: "Protokoll", value: "Z-Wave eller HomeKit", highlight: true },
-      { label: "Abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Nej", highlight: true },
+      { label: "Matter", value: "Nej, Z-Wave eller HomeKit" },
+      {
+        label: "Batteri",
+        value: "Inbyggt litiumpolymer, laddas via micro-USB, ej utbytbart",
+        highlight: true,
+      },
       { label: "Angiven besparing", value: "Upp till 42 %", highlight: true },
+      { label: "Frostskydd", value: "Ja, plus avkalkningsfunktion" },
       { label: "Öppet fönster", value: "Ja, men bara i Z-Wave-versionen" },
-      { label: "Batteri", value: "Laddbart litiumpolymer, laddas som en telefon" },
       { label: "GTIN", value: "5902701701079" },
     ],
     verdict:
-      "Fibaro utlovar mest av alla och redovisar minst. På produktsidan står rubriken kostnadsminskning på upp till 42 procent, med en liten etta efter. Längst ned på samma sida lyder fotnot ett i sin helhet: baserat på forskning utförd av Fibar Group S.A. Alltså tillverkarens egen forskning, utan publicering, utan metod och utan länk. Det är kategorins högsta tal och kategorins tunnaste underlag, och de sitter på samma sida.\n\nSamma sida byter ut ventillistan mot ett annat procenttal. Termostaten uppges fungera med 98 procent av alla elementtyper tack vare adaptrar som följer med. Vilka adaptrar det är står ingenstans, och vilka de återstående två procenten är står inte heller. Det är den enda produkten här där du inte kan kontrollera passformen alls före köp, och det är därför den hamnar sist.\n\nSynd, för hårdvaran har en riktigt bra idé. Batteriet är laddbart litiumpolymer och fylls med en vanlig telefonladdare, vilket gör slut på decennier av AA-celler. Z-Wave betyder dessutom lokal styrning utan molnberoende, och startpaketet innehåller en separat temperaturgivare som mäter rummet i stället för elementet.\n\nEn brasklapp till: funktionen som stänger värmen vid öppet fönster finns enligt tillverkaren bara i Z-Wave-versionen. Köper du HomeKit-varianten får du inte samma produkt.\n\nKöp den om du redan kör Z-Wave och är trött på batterier. Vet du inte vilken ventil du har ska du köpa något annat.",
+      "Fibaro Heat Controller kostar 719 kronor och har ett laddbart litiumpolymerbatteri som fylls med en vanlig telefonladdare. Det är den enda termostaten här vid sidan av tado som inte kräver nya celler, och den enda under tusenlappen.\n\nHårdvaran har fler bra idéer. Z-Wave ger lokal styrning utan molnberoende, startpaketet innehåller en separat temperaturgivare som mäter rummet i stället för luften vid elementet, och termostaten reagerar både på öppet fönster och på en brasa eller annan värmekälla som får rummet att stiga av sig självt. En avkalkningsfunktion motionerar dessutom ventilen så att spindeln inte kärvar fast över sommaren.\n\n**Passformen är det som fäller den.** Den går på tre fattningar: M30x1,5, Danfoss RTD-N och Danfoss RA-N. Det är minst av alla elva, och det utesluter varje element med RAV, RAVL, M28 eller en italiensk klämfattning. Har huset blandade ventiler är den här termostaten fel köp innan du ens vet vad den kostar.\n\nBatteriet är dessutom inbyggt och går inte att byta, vilket manualen är uttrycklig med. Termostatens livslängd är alltså batteriets, och en litiumcell som laddas varje månad i ett varmt rum håller inte i tio år.\n\nKör du redan Z-Wave, har M30- eller Danfoss RA-ventiler och är trött på att köpa AA-celler: köp den. Är ventilerna blandade eller okända ska du välja Aqara W600 eller SONOFF TRVZB i stället, som klarar mer än dubbelt så många fattningar.",
   },
 ];
 
@@ -787,12 +867,12 @@ export const SMART_TERMOSTAT_FAQ = [
   {
     question: "Vilken smart termostat är bäst 2026?",
     answer:
-      "Aqara Radiator Thermostat W600 för 559 kronor hos Kjell, om du redan har en Matter- eller Zigbee-hubb hemma. Den namnger sex adaptrar direkt på produktsidan, vilket gör att du kan kontrollera att den passar ditt element innan du beställer, och Ljud & Bild lyfte fram att den arbetar helt ljudlöst när den justerar värmen. Frostskyddet är beskrivet med tal: värmen slås på under fem grader och återgår vid åtta. Har du ingen hubb tillkommer en Matter Border Router, och då blir Aqara E1 på 549 kronor eller SONOFF TRVZB på 361 rimligare utgångspunkter.",
+      "Aqara Radiator Thermostat W600 för 559 kronor hos Kjell, om du redan har en Matter- eller Zigbee-hubb hemma. Sex adaptrar ligger i lådan, så den går på sju ventilfattningar och passar därmed nästan vilket element som helst, och Ljud & Bild lyfte fram att den arbetar helt ljudlöst när den justerar värmen. Frostskyddet slår på värmen under 5 grader och släpper vid 8. Ska du göra fyra eller fem element gör SONOFF TRVZB samma jobb för 361 kronor styck, med lika många fattningar men utan oberoende test bakom sig.",
   },
   {
     question: "Hur mycket sparar man på en smart termostat?",
     answer:
-      "Ingen som har provat produkterna vill svara på den frågan. Ljud & Bild, som är den enda svenska redaktion som haft tre av dem i handen, skriver att besparingen inte avhandlas i testet eftersom det skulle kräva ett test under mycket lång tid. Stiftung Warentest provade elva modeller i labb och lägger besparingsavsnittet bakom betalvägg. Tillverkarna fyller tomrummet: Fibaro anger 42 procent, Netatmo 37, Danfoss 30, tado 28, och Aqara, Eve, SONOFF och Schneider anger ingenting alls. Fibaros tal är fotnotat till tillverkarens egen opublicerade forskning. Det ärliga svaret är att det beror på hur du värmer i dag, och att den som redan skruvar ner värmen på natten har mindre att hämta än den som aldrig gör det.",
+      "Ingen som har provat produkterna vill svara på den frågan. Ljud & Bild, som är den enda svenska redaktion som haft tre av dem i handen, skriver att besparingen inte avhandlas i testet eftersom det skulle kräva ett test under mycket lång tid. Stiftung Warentest provade elva modeller i labb och lägger besparingsavsnittet bakom betalvägg. Tillverkarna fyller tomrummet: Fibaro anger 42 procent, Netatmo 37, Danfoss 30, tado 28, och Aqara, Eve, SONOFF och Schneider anger ingenting alls. Fibaros tal är fotnotat till tillverkarens egen opublicerade forskning. Netatmos 37 procent vilar på en studie från Centrale-Supélec på en standardlägenhet, men gäller enligt Netatmos eget material deras rumstermostat i hus med egen panna eller värmepump, inte radiatorventilerna butiken sätter talet på. Det ärliga svaret är att det beror på hur du värmer i dag, och att den som redan skruvar ner värmen på natten har mindre att hämta än den som aldrig gör det.",
   },
   {
     question: "Var kommer siffran 28 procent från?",
@@ -802,7 +882,7 @@ export const SMART_TERMOSTAT_FAQ = [
   {
     question: "Passar en smart termostat på mitt element?",
     answer:
-      "Bara om elementet har en termostatventil, alltså den vred du kan skruva mellan siffror i dag. Sitter det en enkel avstängningskran eller ingenting alls fungerar ingen av produkterna här. Därefter avgör ventilens fattning. De flesta moderna ventiler har gängan M30x1,5, och svenska hus har ofta Danfoss RA, RAV eller RAVL, som kräver var sin adapter. Aqara E1 skriver dessutom ut att manuella ventiler, returtemperaturbegränsare och enrörssystem inte stöds, och enrörssystem är vanligt i flerbostadshus från 1960- och 70-talen. Skruva loss ditt nuvarande vred och läs vad som står på ventilkroppen innan du beställer. Det läcker inte vatten när du gör det.",
+      "Bara om elementet har en termostatventil, alltså den vred du kan skruva mellan siffror i dag. Sitter det en enkel avstängningskran eller ingenting alls fungerar ingen av produkterna här. Därefter avgör ventilens fattning. De flesta moderna ventiler har gängan M30x1,5, och svenska hus har ofta Danfoss RA, RAV eller RAVL, som kräver var sin adapter. Spannet mellan modellerna är femfaldigt: Netatmo når tio fattningar, Aqara W600, tado X och SONOFF sju, fem modeller fyra, och Danfoss Ally RA två. Aqara E1 fungerar dessutom inte alls på manuella ventiler, returtemperaturbegränsare eller enrörssystem, och enrörssystem är vanligt i flerbostadshus från 1960- och 70-talen. Skruva loss ditt nuvarande vred och läs vad som står på ventilkroppen innan du beställer. Det läcker inte vatten när du gör det.",
   },
   {
     question: "Fungerar det om jag bor i lägenhet?",
@@ -812,17 +892,17 @@ export const SMART_TERMOSTAT_FAQ = [
   {
     question: "Behöver jag en hubb till en smart termostat?",
     answer:
-      "Nästan alltid, och det är kategorins dolda kostnad. Danfoss Eco är undantaget: den talar Bluetooth direkt med telefonen och behöver ingenting, men kan inte nås när du inte är hemma. Zigbee-termostater som Aqara E1, Danfoss Ally, Schneider Wiser och SONOFF behöver en Zigbee-hubb. Thread- och Matter-termostater som Aqara W600, Eve Thermo och tado X behöver en Thread Border Router, vilket många redan har i form av en HomePod, en Apple TV, en Nest-högtalare eller en IKEA Dirigera. tado listar själva vilka tredjepartshubbar som duger. Räkna alltid in hubben i priset om du inte redan har en.",
+      "Nästan alltid, och det är kategorins dolda kostnad. Danfoss Eco är undantaget: den talar Bluetooth direkt med telefonen och behöver ingenting, men kan inte nås när du inte är hemma. Zigbee-termostater som Aqara E1, Danfoss Ally, Schneider Wiser och SONOFF behöver en Zigbee-hubb, och Danfoss och Schneider vill ha sin egen. Thread- och Matter-termostater som Aqara W600, Eve Thermo och tado X behöver en Thread Border Router, vilket många redan har i form av en HomePod, en Apple TV, en Nest-högtalare eller en IKEA Dirigera. Ett undantag är värt att veta: SONOFF TRVZB fungerar inte med Philips, IKEA eller Fritzbox gateways trots Zigbee 3.0, så en Dirigera i hallen räcker inte där. Räkna alltid in hubben i priset om du inte redan har en.",
   },
   {
     question: "Vad är skillnaden mellan Danfoss Ally 014G2460 och 014G2420?",
     answer:
-      "Adaptrarna, och priset går åt fel håll. Hos Danfoss egen butik heter 014G2460 adaptertyp RAV, RA, RAVL och M30, medan 014G2420 heter adaptertyp RA och M30. Hos Proshop kostar den första 760 kronor och den andra 890. Den dyrare passar alltså två ventiltyper färre. Butiken saluför 014G2420 under namnet Danfoss Ally Radiator Thermostat RA, vilket är lätt att läsa som den variant man behöver om elementet har en RA-ventil, trots att den billigare passar RA också. Kontrollera artikelnumret på kartongen.",
+      "Adaptrarna, och priset går åt fel håll. I Danfoss eget produktregister bär 014G2460 adaptertyp M30, RA, RAV och RAVL, medan 014G2420 bär M30 och RA. Hos Proshop kostar den första 760 kronor och den andra 890. Den dyrare passar alltså två ventiltyper färre. Butiken saluför 014G2420 under namnet Danfoss Ally Radiator Thermostat RA, vilket är lätt att läsa som den variant man behöver om elementet har en RA-ventil, trots att den billigare passar RA också. Kontrollera artikelnumret på kartongen.",
   },
   {
     question: "Skyddar en smart termostat mot frusna rör?",
     answer:
-      "De flesta anger en frostskyddsfunktion, men den är inte lika väl belagd som produktbladen antyder. Stiftung Warentest provade elva modeller och skriver i sin fritt läsbara text att en av dem missade frostskyddstestet, och att det vid minusgrader kan leda till spruckna rör. Vilken av de elva det var ligger bakom betalvägg, och vi gissar aldrig på en sådan sak. Av de vi rankar anger Aqara W600 att värmen slås på under fem grader och återgår vid åtta, Aqara E1 löser det med en inställd lägstatemperatur, Eve kallar sin funktion Valve Protection och SONOFF skriver ut att frostskyddet ska hindra rör från att frysa och spricka. Lämnar du ett hus obebott en vinter ska du inte lita på funktionen ensam.",
+      "De flesta anger en frostskyddsfunktion, men den är inte lika väl belagd som produktbladen antyder. Stiftung Warentest provade elva modeller och skriver i sin fritt läsbara text att en av dem missade frostskyddstestet, och att det vid minusgrader kan leda till spruckna rör. Vilken av de elva det var ligger bakom betalvägg, och vi gissar aldrig på en sådan sak. Sex av de elva har en frostskyddsfunktion vi kunnat belägga: Aqara W600 slår på värmen under 5 grader och släpper vid 8, Aqara E1 löser det med en inställd lägstatemperatur, Eve kallar sin Valve Protection, SONOFF har ett frostläge med tröskel du sätter själv, Netatmos Frost-Guard står på 7 grader som förval och Fibaro har en anti-freeze-funktion. För de övriga fem står raden tom, vilket inte är samma sak som att funktionen saknas. Lämnar du ett hus obebott en vinter ska du hur som helst inte lita på den ensam.",
   },
   {
     question: "Vad kostar det att göra tre rum?",

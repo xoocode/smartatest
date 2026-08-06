@@ -45,8 +45,9 @@ import Kopguide from "@/content/powerbank-20000/kopguide.mdx";
  * Priser, artikelnummer, kundbetyg och specifikationer är lästa hos Kjell på
  * PRICE_CHECKED.
  *
- * ⚠️ Alla åtta länkar går till Kjell. Koncentrationen står utskriven på sidan,
- * samma lösning som /smart-hem-hubb och /usb-c-laddare.
+ * ⚠️ Sju av åtta länkar går till Kjell och den åttonde till Teknikdelar.
+ * Koncentrationen står utskriven på sidan, samma lösning som /smart-hem-hubb
+ * och /usb-c-laddare.
  *
  * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårat och dofollow.
  * Se lib/links.ts.
@@ -54,12 +55,12 @@ import Kopguide from "@/content/powerbank-20000/kopguide.mdx";
 
 const TEST_PAGE = POWERBANK_20000;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Linocell 165 W vinner för 999 kronor: 27 600 mAh och 99,36 wattimmar, alltså så nära flyggränsen på 100 Wh man kommer, med inbyggd kabel och 165 watt till datorn. Ska du ladda två datorer tar du Anker Prime 300 W. En powerbank får aldrig checkas in, oavsett storlek.",
+    "Linocell 25 000 vinner för 999 kronor: 140 watt ur en port, 508 gram och 27 millimeter tunn, alltså den som faktiskt följer med i datorväskan. Vill du ha maximal kapacitet inför flyget ger Linocell 165 W 99,36 wattimmar för samma pris. En powerbank får aldrig checkas in, oavsett storlek.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -117,15 +118,17 @@ export default async function Powerbank20000Page() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Linocell 165 W för 999 kronor. Den rymmer 27 600 mAh och
-              anger 99,36 wattimmar, alltså 0,64 under gränsen för vad du får ta
-              med i kabinen, och 165 watt räcker till en bärbar dator. Kabeln
-              sitter dessutom fast i enheten. Ska du ladda två datorer samtidigt
-              kostar Anker Prime 300 W 2 490 kronor och fyller sig själv på under
-              en timme. En powerbank får aldrig checkas in, oavsett storlek.
+              Köp Linocell 25 000 för 999 kronor. Den ger 140 watt ur en
+              USB-C-port, alltså full fart till en bärbar dator, väger 508 gram
+              och är 27 millimeter tjock, så den ligger platt bredvid datorn i
+              väskan. Vill du ha maximal kapacitet inför den långa resan rymmer
+              Linocell 165 W 27 600 mAh och 99,36 wattimmar för samma pris, men
+              väger 117 gram mer. En powerbank får aldrig checkas in, oavsett
+              storlek.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -170,7 +173,7 @@ export default async function Powerbank20000Page() {
       <Section
         id="gransen"
         width="default"
-        title="99,36 wattimmar mot ett tak på 100: den här klassen är byggd mot gränsen"
+        title="99,36 wattimmar mot ett tak på 100, och de 200 gram det kostar"
         description="Kapaciteten står i milliamperetimmar. Flygreglerna är skrivna i wattimmar."
       >
         <Prose>
@@ -186,28 +189,26 @@ export default async function Powerbank20000Page() {
           </p>
           <p>
             <strong>Två av produkterna här är byggda alldeles intill taket.</strong>{" "}
-            Linocell 165 W anger 99,36 wattimmar och Anker Prime 300 W anger
+            Linocell 165 W ligger på 99,36 wattimmar och Anker Prime 300 W på
             99,75. Marginalerna är 0,64 respektive en fjärdedels wattimme. Det är
             konstruktion och inte slump: kapaciteten är lagd så högt reglerna
             tillåter och inte en wattimme mer.
           </p>
           <p>
-            <strong>
-              Det är också därför wattimmen plötsligt står utskriven här.
-            </strong>{" "}
-            I den mindre storleksklassen, där ingen produkt kan komma nära taket,
-            anger två av åtta sitt energiinnehåll. I den här klassen gör sju av
-            nio det. Talet publiceras när tillverkaren har ett skäl att visa att
-            produkten ryms under gränsen.
+            <strong>De två är också de tyngsta i jämförelsen.</strong> Linocell
+            165 W väger 625 gram och Anker Prime 300 W 600, medan produkterna på
+            20 000 milliamperetimmar ligger mellan 400 och 535. Maximal laglig
+            kapacitet kostar alltså ungefär 200 gram, och de sitter dessutom i de
+            klumpigaste höljena: 484 kubikcentimeter mot 280 för den mest
+            kompakta.
           </p>
           <p>
-            <strong>Men uppgifterna går inte alltid ihop.</strong> Tre powerbanks
-            med samma nominella 20 000 milliamperetimmar anger 72, 72,36 och 100
-            wattimmar. De två första är förenliga med varandra; den tredje ligger
-            39 procent högre. Vi återger vad som står och räknar aldrig om åt
-            någon, eftersom cellspänningen varierar. Ska du luta dig mot ett tal
-            vid en incheckningsdisk är det värt att kontrollera det mot
-            tillverkarens egen sida först.
+            <strong>Frågan är därför vad du bär den till.</strong> Ska du
+            överleva en flygdag med en dator och en telefon räcker 72 wattimmar,
+            och då finns det ingen anledning att släpa på 625 gram. Ska du klara
+            två arbetsdagar utan vägguttag är de 200 grammen precis vad du
+            betalar för att komma dit, och mer kapacitet än så går inte att ta
+            med ombord.
           </p>
         </Prose>
       </Section>
@@ -293,7 +294,7 @@ export default async function Powerbank20000Page() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Kapaciteten väger 30 och laddeffekten 25, eftersom den här storleken köps för att driva en bärbar dator och spannet mellan produkterna är tretton gånger. Vikt är ett eget kriterium på 15, vilket den mindre klassen inte har behov av: här väger produkterna mellan 400 och 535 gram och skillnaden märks på en resdag. Där energiinnehållet i wattimmar inte är angivet har vi låtit cellen stå tom i stället för att räkna om milliamperetimmarna, eftersom cellspänningen varierar. Tre produkter med samma nominella kapacitet anger 72, 72,36 och 100 wattimmar, och vi återger vad som står utan att avgöra vilken uppgift som är riktig. Att en uppgift saknas räknas som en brist, eftersom en egenskap du inte kan kontrollera före köpet är sämre för dig än en du kan. Kategorin har en riktig labbprovning, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och därför finns inget kriterium för testomdöme. Sju av de åtta länkarna går till samma butik, eftersom den för nästan hela storleksklassen i ett sortiment som gick att kartlägga produkt för produkt. Den åttonde går till en annan butik som säljer samma artikel till samma pris."
+          footnote="Kapaciteten väger 35 och laddeffekten 29, eftersom den här storleken köps för att driva en bärbar dator och spannet mellan produkterna är tretton gånger. Vikt är ett eget kriterium på 18, vilket den mindre klassen inte har behov av: här väger produkterna mellan 400 och 625 gram och skillnaden märks på en resdag. Kriteriet Öppen redovisning, som vägde 15, togs bort 2026-08-06 och vikten fördelades proportionellt på de fyra som är kvar. Det belönade att en uppgift publicerats i stället för vad produkten gör, och varje ingång i det vägs redan av ett annat kriterium. Se rättelsen. En uppgift vi inte fått fram sänker aldrig ett betyg och står som ett streck i tabellen. Där energiinnehållet i wattimmar inte är fastställt har cellen fått stå tom i stället för att räknas om ur milliamperetimmarna, eftersom cellspänningen varierar, och ett värde bärs aldrig över från en systermodell. Kategorin har en riktig labbprovning, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och därför finns inget kriterium för testomdöme. Sju av de åtta länkarna går till samma butik, eftersom den för nästan hela storleksklassen i ett sortiment som gick att kartlägga produkt för produkt. Den åttonde går till en annan butik som säljer samma artikel till samma pris."
         />
       </Section>
 

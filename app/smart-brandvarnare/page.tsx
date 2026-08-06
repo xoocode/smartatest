@@ -56,12 +56,12 @@ import Kopguide from "@/content/smart-brandvarnare/kopguide.mdx";
 
 const TEST_PAGE = SMART_BRANDVARNARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Google la ner Nest Protect i mars 2025 och svenska jämförelser rankar den fortfarande. Vi jämförde åtta uppkopplade brandvarnare på vad appen gör och vad som fungerar den dag tillverkaren slutar.",
+    "Housegard Luma-systemet vinner för 1 098,90 kronor: varnarna larmar ihop över egen radio även utan hubb, app och internet. Nio uppkopplade brandvarnare jämförda på app, oberoende och pris per skyddat rum.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "nest-protect", label: "Vad Nest Protect lärde oss" },
-  { id: "jamforelse", label: "Jämför alla åtta" },
+  { id: "jamforelse", label: "Jämför alla nio" },
   { id: "recensioner", label: "Recensioner av varje varnare" },
   { id: "andra-varnare", label: "Andra produkter vi övervägde" },
   { id: "kopguide", label: "Köpguide" },
@@ -117,14 +117,16 @@ export default async function SmartBrandvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Google slutade tillverka Nest Protect den 28 mars 2025. Den var
-              den mest kända produkten, och flera svenska jämförelser rankar
-              den fortfarande. Vi jämförde åtta uppkopplade brandvarnare på två
-              saker: vad appen faktiskt gör, och vad som fortsätter fungera den
-              dag tillverkaren tröttnar.
+              Housegard Luma-systemet är bäst i test för 1 098,90 kronor. Det
+              är den enda lösningen här där varnarna larmar ihop över egen
+              radio helt utan hubben, alltså tjuter det i sovrummet när det
+              brinner i källaren även vid strömavbrott och även den dag appen
+              stängs av. Ska fler än fyra rum täckas är X-Sense FS61 billigare:
+              316 kronor per skyddat rum mot 549.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -224,7 +226,7 @@ export default async function SmartBrandvarnarePage() {
         id="jamforelse"
         tone="muted"
         width="wide"
-        title="Jämför alla åtta"
+        title="Jämför alla nio"
         description="Raden att läsa noggrannast är Larmar utan app, eftersom den säger vad du har kvar om tjänsten stängs. Därefter Antal varnare, som avgör vad produkten kostar per rum."
       >
         <FilterableComparison
@@ -242,7 +244,7 @@ export default async function SmartBrandvarnarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje varnare"
-        description="Alla åtta bedöms mot samma fem kriterier. Ingen oberoende part har provat de här produkterna, och det gäller även oss."
+        description="Vad varje varnare gör, vad den kostar per skyddat rum och vem den passar. Alla nio bedöms mot samma fem kriterier och samma viktning."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (

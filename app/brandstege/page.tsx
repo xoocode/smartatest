@@ -44,18 +44,21 @@ import Kopguide from "@/content/brandstege/kopguide.mdx";
  * Kriteriebetygen är redaktionell bedömning. Vi har inte belastat, hängt upp
  * eller klättrat i någon stege.
  *
- * Sidans fynd är att kilotalet inte går att jämföra: samma sorts stege anges
- * till 150, 200, 400 och 450 kilo eller ingenting alls, ingen butik anger provmetod, och den enda
- * standard branschen pekar på gäller lutande och stående teleskopstegar. Se
+ * Sidans fynd, omskrivet 2026-08-06 efter att bruksanvisningarna lästs: sex av
+ * åtta stegar får utlösas en enda gång och ska kasseras efteråt, och samtliga
+ * manualer säger att du inte ska dra i utlösningsbandet när du övar. Housegard
+ * EL45A är den enda som får återanvändas. Kilotalet är fortfarande inte
+ * jämförbart, men det är nu ett andra fynd och inte sidans spine. Se
  * lib/categories.ts för viktningen och .agent/research/brandstege.md för
  * underlaget.
  *
- * Tre saker som byggdes in från start:
+ * Tre saker som sidan bär:
  *
- * 1. #vem-har-kontrollerat säger att ettan är dyrast och mest nischad, innan
+ * 1. #engangsbruk är sidans fynd och ligger före tabellen, eftersom det ändrar
+ *    vilken stege läsaren ska välja. Villkoret poängsätts inte i något
+ *    kriterium; det står som nackdel på varje produkt och i tabellen.
+ * 2. #vem-har-kontrollerat säger att ettan är dyrast och mest nischad, innan
  *    läsaren hinner tro att rankningen är en uppmaning att köpa dyrast.
- * 2. #engangsbruk lyfter Julas engångsvillkor ur produkttexten, eftersom det
- *    inte poängsätts i något kriterium och därför annars kunde försvinna.
  * 3. #kallor säger att kategorin saknar både oberoende test och tillämplig
  *    produktstandard.
  *
@@ -68,12 +71,12 @@ import Kopguide from "@/content/brandstege/kopguide.mdx";
 
 const TEST_PAGE = BRANDSTEGE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Åtta brandstegar, och sex olika svar på hur mycket de bär: 150, 200, 400, 450 kilo, och två som inte anger något alls. Vi jämförde åtta hängande stegar från 699 till 2 249 kronor mot Boverkets femmetersgräns.",
+    "Bäst i test är Brandvarnare.se Räddningsstege 7 m för 1 294 kronor, den enda under tvåtusen som når ner från tredje våningen. Har du två våningar tar du Housegard EL45A för 849, den enda av åtta stegar du får öva med mer än en gång.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -84,11 +87,11 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
+  { id: "engangsbruk", label: "Stegarna du inte får öva med" },
   { id: "kilotalet", label: "Kilotalet går inte att jämföra" },
   { id: "femmetersgransen", label: "Femmetersgränsen i byggreglerna" },
   { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
-  { id: "engangsbruk", label: "Stegen du inte får öva med" },
   { id: "recensioner", label: "Recensioner av varje stege" },
   { id: "andra-stegar", label: "Andra produkter vi övervägde" },
   { id: "kopguide", label: "Köpguide" },
@@ -132,15 +135,18 @@ export default async function BrandstegePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Stegar av i stort sett samma konstruktion anger 150, 200, 400 och
-              450 kilo, två anger ingenting alls, och ingen butik anger hur talet
-              mätts. Det finns ingen produktstandard för stegar som hängs över en
-              fönsterkarm. Vi jämförde åtta hängande stegar från 699 till 2 249
-              kronor mot det som faktiskt går att kontrollera: räckvidd, karmmått
-              och vad butiken vågar skriva ut.
+              Bäst i test är Brandvarnare.se Räddningsstege 7 m för 1 294 kronor.
+              Den är den enda stegen under tvåtusen som når ner från ett fönster
+              på tredje våningen, och distanserna på fotstegen håller ut den från
+              fasaden så att foten får plats. Har du två våningar tar du
+              Housegard EL45A för 849 kronor i stället: sex av de åtta stegarna
+              ska enligt sin egen bruksanvisning kasseras efter en enda
+              utlösning, och Housegards är den du får hänga upp, klättra i och
+              använda igen.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -186,8 +192,78 @@ export default async function BrandstegePage() {
       </Section>
 
       {/* --------------------------------------------------- the finding -- */}
-      {/* Först av allt, eftersom det vänder upp och ner på det mått läsaren
-          annars går efter. */}
+      {/* Först av allt, eftersom det avgör vilken stege läsaren ska välja och
+          eftersom uppgiften ligger i en manual man läser efter köpet. */}
+      <Section
+        id="engangsbruk"
+        width="default"
+        title="Stegarna du inte får öva med"
+        description="Sex av åtta ska kasseras efter en enda utlösning. Uppgiften står i bruksanvisningen, inte i butiken."
+      >
+        <Prose>
+          <p>
+            <strong>
+              Sex av de åtta stegarna får utlösas en enda gång och ska kasseras
+              efteråt.
+            </strong>{" "}
+            Housegard EL45A är den enda som får återanvändas. För Nexa FLB-104
+            säger varken butiken eller tillverkaren något om saken.
+          </p>
+          <p>
+            Uppgiften ligger nästan alltid i bruksanvisningen, alltså i det
+            dokument du läser när kartongen redan är öppnad. Jula är ensam om
+            att skriva den i butiken, mitt i ett säljstycke:{" "}
+            <em>&quot;Endast avsedd för engångsbruk.&quot;</em> Biltema skriver
+            den också, längst ned i produkttexten. Hos de övriga står den bara i
+            manualen.
+          </p>
+          <p>
+            <strong>
+              Vår testvinnare säger emot sin egen bruksanvisning.
+            </strong>{" "}
+            Brandvarnare.se beskriver på båda sina produktsidor hur du övar i
+            två nivåer, både att bara hänga stegen över karmen och att fälla ut
+            den hela vägen ned mot marken. Manualen de själva publicerar i
+            dokumentfliken på samma sida säger:{" "}
+            <em>
+              &quot;Denna stege är endast avsedd för engångsbruk&quot;
+            </em>{" "}
+            och, om transportbandet,{" "}
+            <em>&quot;gör inte det vid övning&quot;</em>. Fäller du ut den har
+            du förbrukat en stege för 1 294 kronor.
+          </p>
+          <p>
+            <strong>Alla åtta manualer säger samma sak om övning.</strong> Öva
+            på att hänga upp stegen, dra inte i utlösningsbandet. Housegards och
+            Biltemas formulering är{" "}
+            <em>
+              &quot;Stegen är demonterad och förpackad för att fungera optimalt
+              i en evakueringssituation. Därför bör du inte fälla upp stegen
+              under övning.&quot;
+            </em>{" "}
+            Julas manual säger det under en egen rubrik som heter
+            Övningsmontera.
+          </p>
+          <p>
+            Det är inte en dålig regel. Upphängningen är det moment som är
+            svårast att göra rätt i mörker med en hand, och det är det du kan
+            träna gratis på varje stege här. Men det betyder att den som vill
+            att familjen ska ha klättrat i stegen en gång innan det gäller har
+            ett enda alternativ på den här sidan, och att det alternativet
+            kostar 849 kronor.
+          </p>
+          <p>
+            Villkoret sänker inget betyg. Det hör inte hemma i något av de fyra
+            kriterierna, och ett dolt avdrag hade dolt själva saken. Det står
+            som nackdel på varje produkt det gäller och som en egen rad i
+            tabellen.
+          </p>
+        </Prose>
+      </Section>
+
+      {/* -------------------------------------------------- the kilo tale -- */}
+      {/* Andra fyndet. Låg först på sidan fram till 2026-08-06, men det handlar
+          om hur talen publiceras snarare än om vad läsaren ska välja. */}
       <Section
         id="kilotalet"
         width="default"
@@ -196,9 +272,10 @@ export default async function BrandstegePage() {
       >
         <Prose>
           <p>
-            Sex av de åtta stegarna anger{" "}
-            <strong>150, 200, 400 eller 450 kilo</strong>. Ingen butik anger hur
-            talet mätts. De två återstående anger inget tal alls.
+            Stegarna anges till{" "}
+            <strong>150, 200, 400 eller 450 kilo</strong>, och ingen anger hur
+            talet mätts. Sju av åtta anger 450 kilo någonstans, antingen rakt av
+            eller som ett tal de säger sig ha testat upp till.
           </p>
           <p>
             Det beror inte på slarv utan på att det saknas något att mäta mot.{" "}
@@ -206,41 +283,45 @@ export default async function BrandstegePage() {
               Det finns ingen produktstandard för stegar som hängs över en
               fönsterkarm.
             </strong>{" "}
-            Två av tillverkarna hänvisar till EN 131-6, men Svenska institutet
-            för standarder beskriver den standardens omfattning som lutande och
+            Nexa och Biltema hänvisar till EN 131-6, men Svenska institutet för
+            standarder beskriver den standardens omfattning som lutande och
             stående teleskopstegar. En stege av nylonband som hänger fritt längs
-            fasaden är ingetdera.
+            fasaden är ingetdera. Båda anger dessutom utgåvan 2015, som SIS
+            listar som tillbakadragen och ersatt av 2019. Det är tredje gången i
+            vår brandfamilj efter EN 1869:1997 på brandfiltarna och
+            EN 50291:2010 på kolmonoxidvarnarna.
           </p>
           <p>
-            Bauhaus anger dessutom utgåvan 2015, som SIS listar som
-            tillbakadragen och ersatt av 2019. Det är tredje gången i vår
-            brandfamilj som en svensk butik anger en indragen utgåva, efter
-            EN 1869:1997 på brandfiltarna och EN 50291:2010 på
-            kolmonoxidvarnarna.
+            <strong>Talen motsäger sig själva inom samma dokument.</strong>{" "}
+            Julas manual anger 150 kilo och skriver tre rader längre ned att
+            högst tre personer får använda stegen samtidigt. Brandvarnare.se
+            anger 450 kilo eller tre personer i samma mening. Och Housegards och
+            Biltemas manualer, som anger 200 kilo rekommenderat och 450 testat,
+            säger båda att stegen är avsedd för{" "}
+            <strong>en person åt gången</strong>. Det är den uppgiften som
+            gäller när du står i fönstret med ett barn på armen.
           </p>
           <p>
-            <strong>Två av stegarna anger ingen last alls.</strong>{" "}
-            Skeppshultstegens repstegar hos Bauhaus listar material, längd,
-            bredd, antal steg, avstånd från fasad och max väggtjocklek. Ingen
-            maxlast. I samma produkttext står ändå: överskrid aldrig den
-            maximala belastningsvikten som anges av tillverkaren. Butiken
-            hänvisar till ett tal den inte publicerar. Talet finns på en etikett
-            på själva stegen, synlig på Bauhaus egen produktbild, där du
-            kan läsa det först efter att kartongen är öppnad.
+            <strong>Butiken och tillverkaren anger inte samma tal.</strong>{" "}
+            Bauhaus anger 400 kilo för Nexa FLB-104. Nexas eget produktblad,
+            som Bauhaus länkar under Dokument på samma sida, anger 450, och
+            etikettbilden i produktbladet läser 450 kg. För Skeppshultstegens
+            repstegar publicerar Bauhaus ingen last alls, medan tillverkaren
+            anger 450 kilo för hela serien.
           </p>
           <p>
             <strong>Kontrasten mot de fasta stegarna gör saken tydlig.</strong>{" "}
             En fasadmonterad utrymningsstege provas mot EN 131-1 och EN 131-2,
             alltså de allmänna stegstandarderna, och anger då 150 kilo.
-            Produkten som faktiskt provats uppger den lägsta lasten av alla,
-            medan hängande stegar utan angiven provning skriver upp till 450.
+            Housegards hängande stege hänvisar till exakt samma två standarder i
+            sin bruksanvisning och anger ändå 200 kilo rekommenderat och 450
+            testat. Samma standarder, tre gånger talet.
           </p>
           <p>
             Stegarna är alltså inte svaga. Talet säger något om vem som mätt
-            försiktigast, inte om vem som byggt starkast.
-            Vi kan inte granska något certifikat och påstår därför ingenting om
-            hur mycket stegarna bär. Vi kan läsa vad standarden själv säger att
-            den handlar om.
+            försiktigast, inte om vem som byggt starkast. Gå efter meningen om
+            en person åt gången i stället, och planera för att en vuxen tar sig
+            ner åt gången.
           </p>
         </Prose>
       </Section>
@@ -305,7 +386,7 @@ export default async function BrandstegePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla åtta"
-        description="Längden bestämmer om stegen når från ditt fönster. Karmtjockleken bestämmer om den alls hakar fast."
+        description="Längden bestämmer om stegen når från ditt fönster. Raden längst ned bestämmer om ni får öva med den."
       >
         <ComparisonTable
           products={products}
@@ -345,67 +426,22 @@ export default async function BrandstegePage() {
             979 kronor mot 799 hos Biltema för samma längd.
           </p>
           <p>
-            <strong>Ettans motivering var först fel.</strong> Vi
-            påstod att sjumetersstegen var den enda i svensk handel som når tre
-            våningar. Det stämde inte: Skeppshultstegen säljer 7,5 meter hos
-            Bauhaus och 10 meter hos Stegfabriken. Rankningen står kvar, men på
-            ett skäl som går att kontrollera i stället för ett som inte gjorde
-            det. Rättat 2026-08-03.
+            <strong>Tre betyg var satta på fel uppgifter.</strong> Vi skrev att
+            Housegards och Biltemas stegar saknar distanser mot fasaden, och båda
+            har dem: det står i manualerna, som en varning om att klossarna kan
+            krossa rutan på våningen under. Och Julas 43 centimeter, som vi läste
+            som ett väggavstånd, är stegens eget djup utfälld. Housegard flyttar
+            därmed till andra plats, Biltema från åttonde till femte och Jula
+            från femte till åttonde. Rättat 2026-08-06, se{" "}
+            <a href="/rattelser">rättelser</a>.
           </p>
           <p>
             <strong>Ingen uppgift är granskad av tredje part.</strong> Vi har
-            inte belastat, hängt upp eller klättrat i någon stege, och vi har inte
-            sett något provningsintyg. Kriteriet heter Dokumenterad provning just
-            därför: det mäter vad du kan kontrollera innan du betalar, inte vad
-            stegen fysiskt klarar.
-          </p>
-        </Prose>
-      </Section>
-
-      {/* --------------------------------------------------- single use -- */}
-      {/* Eget avsnitt eftersom villkoret inte poängsätts i något kriterium.
-          Ett dolt avdrag hade dolt själva saken. */}
-      <Section
-        id="engangsbruk"
-        width="default"
-        title="Stegen du inte får öva med"
-        description="Två av fyra tillverkare begränsar produkten till ett enda användningstillfälle. Bara en av dem skriver det i butiken."
-      >
-        <Prose>
-          <p>
-            Julas Hard Head-stege är enligt butikens egen text{" "}
-            <strong>endast avsedd för engångsbruk</strong>. Meningen står i
-            löpande text i ett säljstycke, inte i specifikationen.
-          </p>
-          <p>
-            Konsekvensen är att du aldrig kan pröva stegen. Varje räddningstjänst
-            säger åt dig att öva utrymningsvägen, Brandvarnare.se beskriver på
-            sina produktsidor hur man gör det i två nivåer, och den här stegen
-            förbrukas av övningen. Första gången du klättrar i den står huset i
-            brand, i mörker, med adrenalin, på en produkt du aldrig rört.
-          </p>
-          <p>
-            <strong>Skeppshultstegen säger samma sak, i den dyrare butiken.</strong>{" "}
-            Tillverkarens egen text om repstegarna lyder{" "}
-            <em>
-              &quot;konstruerad för att användas en gång enbart och ska rullas ut
-              enbart när behov finns&quot;
-            </em>
-            . Den meningen publiceras av Stegfabriken. Bauhaus säljer exakt samma
-            artikel 42 procent billigare och skriver i stället bara att den är
-            tillverkad för att användas endast vid behov. Villkoret som avgör om
-            du får öva följer alltså inte med produkten utan med köpstället, och
-            det försvinner just där de flesta handlar.
-          </p>
-          <p>
-            Vi har inte dragit av poäng för det i något kriterium. Det hör inte
-            hemma i något av de fem, och ett dolt avdrag hade dolt själva saken.
-            Det står som nackdel på produkten och det står här.
-          </p>
-          <p>
-            Öva minst upphängningen, oavsett vilken stege du köper. Att haka
-            krokarna rätt över karmen och kontrollera att de sitter är det moment
-            som är svårast att göra rätt i mörker, och det sliter inte på stegen.
+            inte belastat, hängt upp eller klättrat i någon stege, och vi har
+            inte sett något provningsintyg. Vad stegarna verkligen bär vet vi
+            alltså inte. Rankningen bygger därför på det du kan mäta mot ditt
+            eget hus och läsa i bruksanvisningen: räckvidden, avståndet ut från
+            fasaden, karmtjockleken och priset per meter du kan utrymma från.
           </p>
         </Prose>
       </Section>
@@ -415,7 +451,7 @@ export default async function BrandstegePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje stege"
-        description="Alla åtta bedöms mot samma fem kriterier."
+        description="Alla åtta bedöms mot samma fyra kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -460,7 +496,7 @@ export default async function BrandstegePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Räckvidd väger tyngst eftersom längden avgör om produkten alls fungerar från ditt fönster, och gränsen är Boverkets: sitter fönstrets underkant mer än fem meter över marken krävs en fast monterad stege, och under den höjden räknar reglerna med att du hoppar. Skalan för dokumenterad provning är 5,0 för en gällande standard med årtal som gäller stegtypen, vilket ingen produkt når eftersom en sådan standard inte finns, 2,5 när en standard anges utan årtal, 1,5 när den anges i en tillbakadragen utgåva och 1,0 när ingen standard anges alls. Julas engångsvillkor poängsätts inte i något kriterium, eftersom det inte hör hemma i något av de fem och ett dolt avdrag hade dolt saken. Det står som nackdel och har ett eget avsnitt. Vi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till."
+          footnote="Räckvidd väger tyngst eftersom längden avgör om produkten alls fungerar från ditt fönster, och gränsen är Boverkets: sitter fönstrets underkant mer än fem meter över marken krävs en fast monterad stege, och under den höjden räknar reglerna med att du hoppar. Engångsvillkoret poängsätts inte i något kriterium, eftersom det inte hör hemma i något av de fyra och ett dolt avdrag hade dolt saken. Det står som nackdel på varje produkt det gäller, som en egen rad i tabellen och i ett eget avsnitt högst upp. Vi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

@@ -45,8 +45,13 @@ import Kopguide from "@/content/vattenfelsbrytare/kopguide.mdx";
  * mätningar. Vi har inte installerat eller läckagetestat en enda produkt.
  *
  * De tre typgodkännandena är lästa i original som PDF hos RISE via
- * tillverkarnas dokumentbibliotek, inte i en butikstext. Det är det som gör
- * kriterium 1 möjligt att sätta.
+ * tillverkarnas dokumentbibliotek, inte i en butikstext.
+ *
+ * ⚠️ 2026-08-06: kriterium 1 är omgjort. RISE öppna certifikatregister ligger
+ * på `cert.ri.se` och är fullt sökbart — den gamla noten om att registret inte
+ * gick att läsa gällde fel värd. Godkännandet går därför att fastställa åt båda
+ * hållen, och skalan mäter numera vad produkten genomgått i stället för vad
+ * tillverkaren publicerat. Se lib/corrections.ts.
  *
  * Lagerstatus anges inte, samma beslut som på /vattenlarm. Två produkter
  * ligger däremot bland de övervägda för att tillverkaren själv skriver att de
@@ -58,12 +63,12 @@ import Kopguide from "@/content/vattenfelsbrytare/kopguide.mdx";
 
 const TEST_PAGE = VATTENFELSBRYTARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Tre av fem tillverkare publicerar ett typgodkännande du kan ladda ner och läsa. Vi jämförde fem vattenfelsbrytare och läckagebrytare från 819 till 8 495 kronor mot certifikaten, och siffran alla upprepar är fyra år gammal.",
+    "LK CubicSecure vinner för 5 373 kronor: typgodkänd enligt CR 139, stänger av hela huset och mäter trycket varje natt. Sex produkter är godkända i dag och siffran två är fyra år gammal. Vi jämförde fem brytare från 819 till 8 495 kronor mot RISE eget register.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -119,16 +124,17 @@ export default async function VattenfelsbrytarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Åtta vattenfelsbrytare provades av RISE 2022 och ingen klarade sig
-              i första omgången. Två godkändes efter omarbetning, och den
-              siffran upprepas fortfarande som om den beskrev nuläget. Den gör
-              inte det: tre av produkterna här har ett certifikatnummer som
-              tillverkaren publicerar, det färskaste från april 2026, och sedan
-              1 januari 2026 kräver branschreglerna ett typgodkänt aktivt skydd
-              i kök.
+              Köp LK CubicSecure för 5 373 kronor. Den stänger av vattnet till
+              hela huset, mäter trycket en gång per dygn och hittar därmed
+              droppläckaget bakom väggen, och den är typgodkänd enligt CR 139 så
+              att installationen kan intygas och försäkringsrabatten gäller. Ska
+              du bara klara det nya kökskravet snäpps Vatette Läckagebrytare fast
+              för hand på en ventil du redan har och kostar 3 465. Sex produkter
+              är godkända i dag, inte två.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -177,40 +183,48 @@ export default async function VattenfelsbrytarePage() {
       <Section
         id="certifikaten"
         width="default"
-        title="Certifikaten, och vad de säger"
-        description="Kategorins enda publicerade måttstock. Tre av fem tillverkare lägger dokumentet fritt nedladdningsbart på sin egen webbplats."
+        title="Sex produkter är godkända, och du kan slå upp dem själv på en minut"
+        description="Registret som avgör vilken brytare som duger till ett installationsintyg är öppet. Tre av produkterna här står i det, två gör det inte."
       >
         <Prose>
           <p>
-            Ett typgodkännande har ett nummer, en utgåva, ett datum och en
-            innehavare. Ordet godkänd i en produktrubrik har inget av det.
+            <strong>
+              RISE certifikatregister ligger på cert.ri.se och är fritt att söka
+              i.
+            </strong>{" "}
+            Skriv in produktnamnet eller certifikatnumret så får du fram vad
+            godkännandet omfattar och vilket datum det går ut. Det är den enda
+            kontroll som betyder något, eftersom ordet godkänd används om allt
+            möjligt i en produktrubrik.
           </p>
           <p>
-            <strong>LK CubicSecure: C900737, utfärdat 13 juni 2024.</strong> Det
-            färskaste av de centrala, och certifikatet beskriver produkten som
-            utrustad med flödesmätare och tryckmätare, med en integrerad
-            kulventil som stänger vid avvikande flöde.
+            <strong>Tre av produkterna här är typgodkända enligt CR 139.</strong>{" "}
+            LK CubicSecure har C900737 som gäller till februari 2028, Vatette
+            Läckagebrytare har C901455 till april 2031, och Vatette
+            Vattenfelsbrytare har SC0056-15 till januari 2027. Alla tre är
+            godkännanden med beslut om tillverkningskontroll, alltså där
+            tillverkarens egenkontroll löpande övervakas av ett oberoende organ.
           </p>
           <p>
-            <strong>Vatette Vattenfelsbrytare: SC0056-15, utgåva 4 från 31
-            januari 2022.</strong> Den ena av de två som klarade RISE-provningen,
-            och certifikatet anger två saker som ingen butikstext nämner:
-            utgående klämringskoppling för kopparrör, och maximalt 60 grader.
+            <strong>Det sista datumet är värt att stanna vid.</strong> Vatettes
+            centrala brytare har ett halvår kvar på sitt godkännande. Ett
+            typgodkännande förnyas normalt, och produkten är godkänd i dag, men
+            ska en installatör skriva ett intyg är det värt en kontroll först.
           </p>
           <p>
-            <strong>Vatette Läckagebrytare: C901455, utfärdat 17 april
-            2026.</strong> Fyra månader gammalt. I februari 2025 skrev VVS-Forum
-            att typgodkända läckagebrytare med sensorer skulle dyka upp under
-            året, och det här är produkten. Certifikatet namnger fyra artiklar
-            med RSK-nummer, så du kan kontrollera exakt vilken variant som
-            omfattas.
+            <strong>Tollco WaterFuse PlugIn och Aqara Valve Controller T1 står
+            inte i registret.</strong> Tollco har tre godkännanden där, för två
+            uppsamlingstråg och ett vattenlarm, och skriver själva att det är
+            deras vattenlarm som är godkända enligt CR 139. Produkterna fungerar,
+            men installationen går inte att intyga mot branschreglerna och
+            försäkringsrabatten uteblir.
           </p>
           <p>
-            Alla tre är typgodkännanden med beslut om tillverkningskontroll,
-            alltså där tillverkarens egenkontroll löpande övervakas av ett
-            oberoende organ. För de två övriga produkterna finns inget nummer
-            att läsa. Det betyder att uppgiften saknas, inte att produkterna har
-            provats och underkänts, och den skillnaden är avgörande.
+            Utanför den här jämförelsen finns tre godkända till: SenseGuard
+            Vattenfelsbrytare, som säljs som Grohe Sense Guard och är utgången,
+            samt läckagebrytarna Waterguard+ från Fell Technology och Aqualarm
+            PowerStop. Ingen av dem säljs av en svensk butik som publicerar ett
+            pris, vilket är vårt villkor för att ranka något.
           </p>
         </Prose>
       </Section>
@@ -234,7 +248,7 @@ export default async function VattenfelsbrytarePage() {
         tone="muted"
         width="wide"
         title="Jämför alla fem"
-        description="Filtrera på vad produkten skyddar. Raden att läsa noggrannast är Typgodkännande, eftersom den avgör om installationen går att belägga. Inget nummer publicerat betyder precis det, aldrig att produkten har provats och underkänts."
+        description="Filtrera på vad produkten skyddar. Raden att läsa noggrannast är Typgodkännande, eftersom den avgör om installationen går att intyga och om försäkringsrabatten gäller, och den är kontrollerad produkt för produkt mot RISE öppna register. Raden därunder, Vid strömavbrott, står i tillverkarnas manualer och i ingen butikstext vi hittat."
       >
         <FilterableComparison
           products={products}
@@ -276,7 +290,7 @@ export default async function VattenfelsbrytarePage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex produkter som fanns i urvalet men inte i rankningen. Två är avvecklade enligt tillverkaren själv, en av dem är den ena av de två som klarade provningen 2022."
+        description="Åtta produkter som fanns i urvalet men inte i rankningen. Två är avvecklade enligt tillverkaren själv, och tre är typgodkända men säljs inte av någon svensk butik som publicerar ett pris."
       >
         <ConsideredList items={VATTENFELSBRYTARE_CONSIDERED} />
       </Section>
@@ -299,7 +313,11 @@ export default async function VattenfelsbrytarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte installerat, provat eller läckagetestat någon av produkterna, och det är en kategori där ingen konsumentsida har gjort det heller: en vattenfelsbrytare kräver rörmokare och ett ingrepp på inkommande ledning. Det som finns är i stället en riktig laboratorieprovning, RISE mot SP-Metod 5314 på uppdrag av Länsförsäkringars Forskningsfond, och de typgodkännanden som följt av den. De tre certifikaten är hämtade och lästa i original hos tillverkarna, inte återgivna ur en butikstext, och citaten på sidan kommer ur dokumenten själva. Betyget för dokumenterat typgodkännande mäter därför vad som går att kontrollera före köp: 5,0 med publicerat certifikatnummer, 3,0 när tillverkaren hävdar att sortimentet uppfyller reglerna utan nummer för produkten, 1,5 när ingen uppgift finns. Ett lågt betyg betyder aldrig att en produkt underkänts, eftersom RISE register inte går att söka utifrån och ett register vi inte kan läsa inte är ett bevis på frånvaro. Priserna är hos den butik vi länkar till, och eftersom ingen butik för hela sortimentet står källan utskriven per produkt."
+          footnote={`Vi har inte installerat, provat eller läckagetestat någon av produkterna, och det är en kategori där ingen konsumentsida har gjort det heller: en vattenfelsbrytare kräver rörmokare och ett ingrepp på inkommande ledning. Det som finns är i stället en riktig laboratorieprovning, RISE mot SP-Metod 5314 på uppdrag av Länsförsäkringars Forskningsfond, och de typgodkännanden som följt av den.
+
+Vilka produkter som är godkända, och hur länge, är kontrollerat i RISE öppna certifikatregister på cert.ri.se. Certifikaten är dessutom hämtade och lästa i original hos tillverkarna, inte återgivna ur en butikstext, och citaten på sidan kommer ur dokumenten själva. Skalan ger 5,0 för ett giltigt typgodkännande enligt CR 139, 2,5 för provning av ett annat oberoende organ och 1,0 när ingen oberoende provning för svensk marknad finns. Se rättelsen.
+
+Tekniska uppgifter som ventilens läge vid strömavbrott, vattentemperatur, byggmått och inlärningstid är hämtade ur tillverkarnas egna manualer och tekniska dokument, eftersom butikerna inte anger dem. Priserna är hos den butik vi länkar till, och eftersom ingen butik för hela sortimentet står källan utskriven per produkt.`}
         />
       </Section>
 

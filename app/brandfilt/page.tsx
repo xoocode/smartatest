@@ -40,13 +40,19 @@ import Kopguide from "@/content/brandfilt/kopguide.mdx";
 
 /*
  * ⚠️ Priser, storlekar, material, temperaturtålighet, vikt, artikelnummer,
- * kundbetyg och framför allt vilken version av EN 1869 varje butik anger är
- * riktiga, lästa på butikernas egna produktsidor på PRICE_CHECKED och
+ * kundbetyg och framför allt vilken version av EN 1869 varje filt är provad mot
+ * är riktiga, lästa på butikernas egna produktsidor på PRICE_CHECKED och
  * omkontrollerade samma dag. Kriteriebetygen är redaktionell bedömning utifrån
  * de uppgifterna. Vi har inte tänt eld på något.
  *
  * Sidans fynd är att EN 1869 finns i två versioner som provar olika saker. Se
- * lib/categories.ts för hur det påverkar viktningen.
+ * lib/test-pages.ts för hur det påverkar viktningen.
+ *
+ * ⚠️ 2026-08-06: kriteriet betygsatte tidigare vad butiken skrivit ut i stället
+ * för vad filten är provad mot, och två filtar stod som saknande årtal. Båda
+ * årtalen fanns tryckta på förpackningen i butikens egen produktbild. Ändra
+ * inte tillbaka texten till att handla om vad butiken dokumenterar. Se
+ * lib/corrections.ts och .agent/research/brandfilt.md.
  *
  * ⚠️ Här stod tidigare att versionsnumret "står i butikstexten men i ingen
  * jämförelse". **Det var fel**, uppmätt 2026-08-03: fem av sex svenska
@@ -75,12 +81,12 @@ import Kopguide from "@/content/brandfilt/kopguide.mdx";
 
 const TEST_PAGE = BRANDFILT;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "EN 1869:2019 kräver att brandfilten provats även mot brand i vätska. Den tillbakadragna versionen från 1997 provade bara matolja. Vi jämförde åtta filtar från 99,90 till 299,90 kronor och läste årtalet i varje butiks specifikation.",
+    "Brandvarnare.se:s 120 × 180 i hård box, 199 kronor, är den enda filten som är stor nog att svepa om en vuxen, provad mot brand i vätska och öppnas med ett grepp. Vi jämförde åtta brandfiltar från 99,90 till 299,90 kronor. Tre av dem är provade mot den version av EN 1869 som drogs tillbaka 2020.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -137,15 +143,17 @@ export default async function BrandfiltPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Storleken och årtalet avgör om brandfilten du köper duger, och båda står i
-              butikens specifikation. Storleken ska vara 120 × 180 centimeter,
-              och certifieringen ska vara EN 1869:2019, eftersom bara den
-              versionen kräver att filten provats mot brand i vätska och inte
-              bara mot matolja. Vi jämförde åtta filtar från 99,90 till 299,90
-              kronor och läste årtalet på varje.
+              Köp Brandvarnare.se:s 120 × 180 i hård box för 199 kronor. Den är
+              den enda av de åtta filtarna som är stor nog att svepa om en vuxen,
+              provad mot brand i vätska och öppnas med ett grepp. Storleken ska
+              vara 120 × 180 centimeter och provningen EN 1869:2019, eftersom
+              bara den versionen omfattar brinnande vätska och inte bara matolja.
+              Tre av filtarna är provade mot 1997 års version, som drogs tillbaka
+              2020, och en av dem är jämförelsens dyraste.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -221,13 +229,14 @@ export default async function BrandfiltPage() {
             inte. Den kommer från räddningstjänsterna, och den är 120 × 180.
           </p>
           <p>
-            Sex av åtta filtar i vår jämförelse anger 2019. En anger standarden
-            utan årtal. En anger 1997, och det är jämförelsens dyraste. En anger
-            ingenting alls, trots att samma butik anger 2019 på sin mindre filt.
+            Fem av de åtta filtarna är provade mot 2019. Tre är provade mot 1997,
+            och en av de tre är jämförelsens dyraste. Årtalet står inte alltid i
+            butikens specifikation: för två av filtarna finns det tryckt på
+            förpackningen, som syns på butikens egna produktbilder.
           </p>
           <p>
-            Kontrollera alltså årtalet, inte bara att standarden nämns. Det står
-            i produkttexten hos de butiker som bryr sig om att skriva ut det.
+            Kontrollera alltså årtalet, inte bara att standarden nämns. Står det
+            inte i specifikationen är det värt att zooma in på bilden av påsen.
           </p>
         </Prose>
       </Section>
@@ -251,7 +260,7 @@ export default async function BrandfiltPage() {
         tone="muted"
         width="wide"
         title="Jämför alla åtta"
-        description="Läs Certifiering först, där det är årtalet som räknas. Sedan Storlek, där räddningstjänsterna rekommenderar 120 × 180."
+        description="Läs Certifiering först, där det är årtalet som räknas. Sedan Storlek, där räddningstjänsterna rekommenderar 120 × 180. De två raderna väger lika tungt."
       >
         <FilterableComparison
           products={products}
@@ -276,22 +285,20 @@ export default async function BrandfiltPage() {
         <Prose>
           <p>
             <strong>Ingen certifiering är granskad av tredje part.</strong> Vi
-            läser vad butiken skriver i sin egen specifikation och jämför det med
-            standardens text. Vi har inte sett något provningsintyg, och vi har
-            inte tänt eld på någon filt. Kriteriet heter Dokumenterad
-            certifiering just därför: det mäter vad du kan kontrollera innan du
-            betalar, inte vad filten fysiskt klarar.
+            läser vilken version av standarden varje filt anges vara provad mot,
+            i butikens specifikation eller på förpackningen, och jämför det med
+            standardens egen text. Vi har inte sett något provningsintyg, och vi
+            har inte tänt eld på någon filt.
           </p>
           <p>
             <strong>
               Fyra av åtta filtar kommer från samma butik, och de tar plats 1, 2,
-              4 och 5.
+              5 och 6.
             </strong>{" "}
             Brandvarnare.se säljer dem utan angiven tillverkare, som egen
-            etikett, och deras uppgift om SS-EN 1869:2019 vilar helt på butikens
-            eget ord. Skälet till placeringarna är att de är den enda butiken som
-            säljer 120 × 180 med utskrivet årtal för under 200 kronor. Kjells
-            motsvarande kostar 299,90 och anger 1997.
+            etikett. Skälet till de två översta placeringarna är att de är den
+            enda butiken som säljer 120 × 180 provad mot 2019 för under 200
+            kronor. Kjells 120 × 180 kostar 299,90 och är provad mot 1997.
           </p>
         </Prose>
       </Section>
@@ -301,7 +308,7 @@ export default async function BrandfiltPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje filt"
-        description="Alla åtta bedöms mot samma fem kriterier. Certifieringen är provad av ett certifieringsorgan, inte av oss."
+        description="Alla filtarna bedöms mot samma fem kriterier. Provningen är gjord av ett certifieringsorgan, inte av oss."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -346,7 +353,7 @@ export default async function BrandfiltPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Kriteriet Dokumenterad certifiering väger tyngst, och namnet är noga valt. Vi betygsätter vad du kan kontrollera innan du betalar, inte vad filten fysiskt klarar, eftersom ingen av uppgifterna är granskad av tredje part. Skalan är 5,0 för utskrivet EN 1869:2019, 2,5 när standarden anges utan årtal, 1,5 för utskrivet 1997 och 1,0 när butiken inte anger någon standard alls. Att ett utskrivet 1997 får mer än en tystnad är avsiktligt: en butik ska inte tjäna på att låta bli att svara. Vi hittade inget oberoende test av brandfiltar, så till skillnad från våra sidor om smart belysning och smarta uttag finns här inget kriterium för testomdömen. Priserna är hos den butik vi länkar till."
+          footnote="Provning och storlek väger 30 vardera. Skalan för provning är 5,0 för en filt provad mot EN 1869:2019, alltså brand i matolja, brand i vätska med heptan och ett elprov, och 3,0 för en filt provad mot 1997, som saknar heptanprovet. Fram till augusti 2026 vägde kriteriet 35 och betygsatte i stället vad butiken skrivit ut, vilket gav en filt med okänt årtal högre betyg än en med utskrivet 1997. Det är rättat, och rättelsen står på /rattelser. Vi hittade inget oberoende test av brandfiltar, så till skillnad från våra sidor om smart belysning och smarta uttag finns här inget kriterium för testomdömen. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

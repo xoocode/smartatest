@@ -54,7 +54,7 @@ import Kopguide from "@/content/garageportsoppnare/kopguide.mdx";
 
 const TEST_PAGE = GARAGEPORTSOPPNARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
@@ -129,6 +129,7 @@ export default async function GarageportsoppnarePage() {
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -293,7 +294,7 @@ export default async function GarageportsoppnarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Skydd vid stängning väger 30 därför att det är den enda axeln där tillverkarna säger olika saker om samma fara, och dragkraften bara 25 därför att den inte är en fast egenskap: på Boxer ställs den i nio steg vid installationen och på Chamberlain lärs den in automatiskt, så talet på kartongen är ett tak och inte en leverans. Öppen redovisning väger lika tungt som kraften därför att en uppgift du inte kan kontrollera före köpet bärs av dig och inte av oss. Där en öppnare anger vridmoment i newtonmeter i stället för dragkraft i newton har vi låtit cellen stå tom i stället för att räkna om talet, eftersom omräkningen kräver utväxling och kuggdiameter som inte publiceras. Kategorin saknar oberoende provning helt, så det finns inget kriterium för testomdöme."
+          footnote="Skydd vid stängning väger 30 därför att det är den enda axeln där tillverkarna säger olika saker om samma fara, och dragkraften bara 25 därför att den inte är en fast egenskap: på Boxer ställs den i nio steg vid installationen och på Chamberlain lärs den in automatiskt, så talet på kartongen är ett tak och inte en leverans. Säkerhetsstandarder i försäkran väger lika tungt som kraften därför att det är det enda bindande påstående någon tillverkare gör om vad öppnaren gör mot det som står i vägen. En försäkran som åberopar EN 12453 säger något kontrollerbart; ett newtontal på en kartong säger bara hur tungt öppnaren orkar lyfta. Där en öppnare anger vridmoment i newtonmeter i stället för dragkraft i newton har vi låtit cellen stå tom i stället för att räkna om talet, eftersom omräkningen kräver utväxling och kuggdiameter som inte publiceras. Kategorin saknar oberoende provning helt, så det finns inget kriterium för testomdöme."
         />
       </Section>
 

@@ -41,6 +41,7 @@ export const PAGE_UPDATED: Record<string, string> = {
   "/sakerhet": "2026-08-04",
   "/hem-hushall": "2026-08-04",
   "/elektronik": "2026-08-05",
+  "/kok": "2026-08-05",
 
   /* Förtroendesidorna. */
   /* Personsidorna delar det här datumet, se sitemapen. Bumpat 2026-08-03 när

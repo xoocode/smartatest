@@ -21,18 +21,38 @@ import { productImage } from "@/lib/images";
  * ansöker inte till något Adtraction-program förrän minst 16 sidor finns. Se
  * lib/links.ts.
  *
- * ## Två saker om betygen som inte får försvinna
+ * ## Betygen: en lucka kvar, två stängda 2026-08-06
  *
  * `testomdome` saknas för Cleverio IP200. Det är Kjells eget märke och ingen
  * oberoende part har testat den. Vi hittar hellre på ingenting än ett betyg,
  * så fältet utelämnas, `weightedRating` fördelar om vikten och sidan skriver
- * ut "Ej testat" på raden. Konsekvensen är att Cleverio hamnar överst bedömd
- * på 60 av 100 viktpoäng. Det är ett medvetet val av viktningsmodell, inte en
- * bugg, men det ska stå i verdicten och det gör det.
+ * ut "Ej testat" på raden. Cleverio bedöms därmed på 70 av 100 viktpoäng.
+ * Det är ett medvetet val av viktningsmodell, inte en bugg, och det står i
+ * metodavsnittets fotnot — inte i omdömet, som ska handla om produkten.
  *
- * `viloforbrukning` saknas för tre av fem. Shelly, Philips och Cleverio anger
- * ingen siffra alls, varken i butiken eller i databladet. Att sätta ett lågt
- * betyg för att uppgiften saknas vore att uppfinna en mätning.
+ * `viloforbrukning` saknades för tre av fem fram till 2026-08-06 och var fel
+ * i två av dem. Shelly publicerar "Power consumption: < 1 W" i specen på sin
+ * egen produktsida, och Cleverio anger "Standby: <1 W" i manualen Kjell
+ * länkar. Båda har nu betyg 3,5: en angiven takhöjd under 1 W är sämre än
+ * Plejds uppmätta 0,3 W och klart bättre än Tapos 1,48 W. Philips Hue är den
+ * enda kvarvarande luckan, och den är kontrollerad — se nedan.
+ *
+ * ## Maxlasten på Cleverio, och varför den står kvar på 16 A
+ *
+ * Manualen motsäger sig själv: specifikationstabellen anger "Max. belastning:
+ * 2300 W, 10 A" medan säkerhetstexten på samma uppslag anger "Maximal resistiv
+ * last: 16 A (3680 W)". Dokumentet täcker två artikelnummer — försättsbladet
+ * säger "Item: 51701" och brödtexten hänvisar omväxlande till kjell.com/51701
+ * och /52210 — så tabellen är med all sannolikhet syskonproduktens.
+ *
+ * 16 A står i produktnamnet, i Kjells produkttext och i manualens säkerhetstext,
+ * alltså tre ställen mot ett. Specen står därför kvar på 3 680 W (16 A).
+ * Av samma skäl används INTE måttet 49x49x70 mm ur samma dokument: det går
+ * inte att avgöra vilken av de två artiklarna det gäller.
+ *
+ * Den riktiga lastbegränsningen är i stället den induktiva, 5 A (1 150 W), och
+ * den saknades helt på sidan fram till 2026-08-06 trots att Kjells egen
+ * produkttext säljer pluggen till vattenpumpar och kompressorer.
  *
  * ⚠️ ÄNNU INTE PUBLICERBAR. Kriteriebetygen är redaktionell bedömning utifrån
  * källorna i lib/sources.ts, inte mätningar. Priser
@@ -50,13 +70,15 @@ const SEEDS: ProductSeed[] = [
     shortName: "IP200 3 680 W",
     image: productImage(SMART_PLUG.slug, "cleverio-ip200"),
     tagline:
-      "Den enda pluggen som både klarar 16 A och mäter förbrukningen, till lägsta pris.",
+      "Enda uttaget som både driver ett element och visar vad elementet kostar.",
     scores: {
       /* testomdome utelämnas medvetet: ingen oberoende test finns. */
       maxeffekt: 5,
       anslutning: 2,
       energimatning: 4.5,
-      /* viloforbrukning utelämnas: Cleverio anger ingen siffra. */
+      /* "Standby: <1 W" i manualen, se filhuvudet. Angiven takhöjd, inte
+         uppmätt värde, därför 3,5 och inte Plejds 5. */
+      viloforbrukning: 3.5,
       prisvarde: 5,
     },
     price: 99,
@@ -65,20 +87,18 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/fjarrstrombrytare/fjarrstrombrytare-inomhus/cleverio-ip200-smart-fjarrstrombrytare-med-energimatning-3680-w-p52210",
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för element och torkskåp",
     pros: [
-      "16 A, ensam om att klara element och torkskåp",
-      "Energimätning inbyggd trots lägsta priset av pluggarna",
+      "16 A, klarar element och torkskåp som de flesta uttag inte får driva",
+      "Energimätning inbyggd till lägsta priset av uttagen",
       "Ingen brygga eller hubb behövs",
     ],
     cons: [
-      "Ingen oberoende testare har granskat den",
+      /* Ur manualens säkerhetstext, samma uppslag som maxlasten. Saknades på
+         sidan till 2026-08-06 trots att Kjell säljer pluggen till pumpar. */
+      "Bara 5 A induktiv last, alltså 1 150 W till pump, fläkt eller kompressor",
       "Saknar Matter, så den är beroende av att Smart Life-appen finns kvar",
-      /* Stod "Viloförbrukningen anges inte av tillverkaren" till 2026-08-05.
-         Fel: manualen som Kjell länkar från produktsidans supportflik anger
-         "Standby: <1 W". Butikssidan har ingen specifikationstabell alls, och
-         den tystnaden lästes som ett besked från tillverkaren. */
-      "Manualen anger maxlast 2 300 W i tabellen och 3 680 W i säkerhetstexten",
+      "0–35 °C, så den får inte sitta i garaget. Där är Shelly den enda här som duger",
     ],
     specs: [
       { label: "Maxlast", value: "3 680 W (16 A)", highlight: true },
@@ -86,13 +106,16 @@ const SEEDS: ProductSeed[] = [
       /* Ur manualen, inte butikssidan: "Standby: <1 W". Se rättelsen
          2026-08-05 och .agent/research/pastaenden-kontroll-2026-08-05.md. */
       { label: "Viloförbrukning", shortLabel: "Viloläge", value: "<1 W", highlight: true },
+      /* Manualen, 2026-08-06: "Endast för bruk i temperaturer mellan 0-35 °C." */
+      { label: "Drifttemperatur", shortLabel: "Temperatur", value: "0 till 35 °C", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi 2,4 GHz", highlight: true },
+      { label: "Induktiv last", value: "5 A (1 150 W)" },
       { label: "Matter", value: "Nej" },
       { label: "App", value: "Smart Life" },
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Cleverio IP200 klarar 16 A och mäter energi, till 99 kronor. Ett element, en vattenkokare eller ett torkskåp behöver 16 A, och av de fem pluggarna är det bara den här och Plejd som är märkta för det. Cleverio är dessutom ensam om att kombinera det med energimätning, och det till 99 kronor, 45 procent under den svagaste pluggen här.\n\nMen var ärlig med vad betyget står på: det här är den enda produkten som ingen oberoende testare har granskat, och det vi väger tyngst är just det. Utan det väger 60 av 100 i vår bedömning. Cleverio anger inte heller vad pluggen själv drar i viloläge, vilket är en uppgift vi hade velat ha.\n\nÄr du osäker och vill ha något som blivit granskat är Shelly nästa på listan.",
+      "Cleverio IP200 kostar 99 kronor och är märkt för 16 A. Den och Plejd är de enda uttagen här som får driva ett element, ett torkskåp eller en vattenkokare, och Cleverio är ensam om att kombinera den lasten med energimätning.\n\n**16 A är hela poängen: det är först vid de apparaterna ett smart uttag börjar tjäna in sig.** En golvlampa syns inte på elräkningen, ett element gör det, och 3 680 W räcker till alla tre. Mätningen sitter i appen utan extra kostnad, och det är den som avslöjar frysen som drar dubbelt mot vad du trodde, medan Plejd kostar 150 kronor mer och inte mäter alls. Wifi rakt mot routern gör dessutom att den fungerar ur kartongen, utan brygga och utan gateway.\n\nDen tål däremot bara 5 A induktiv last, alltså 1 150 W. Allt med motor eller kompressor räknas dit: pumpar, byggfläktar, kylskåp. Överskrids gränsen går uttaget sönder, och det är en lägre gräns än siffran i produktnamnet får det att låta som.\n\nKöp den. För 99 kronor gör den mer än något annat uttag här gör för det dubbla, och det enda den ska väljas bort för är en motordriven apparat.",
   },
   {
     id: "shelly-plug-s-gen3",
@@ -107,34 +130,44 @@ const SEEDS: ProductSeed[] = [
       maxeffekt: 3,
       anslutning: 5,
       energimatning: 5,
+      /* "Power consumption: < 1 W" i specen på shelly.com, läst 2026-08-06.
+         Stod "Ej angiven" här till dess. Angiven takhöjd, inte uppmätt. */
+      viloforbrukning: 3.5,
       prisvarde: 4,
     },
     price: 249,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Hornbach",
     merchantUrl: "https://www.hornbach.se/p/smart-plug-shelly-plug-s-gen3/12341078/",
-    superlative: "Bäst för lokal styrning",
+    superlative: "Bäst för det ouppvärmda garaget",
     pros: [
+      "−20 °C, enda uttaget här som får sitta i ett ouppvärmt utrymme",
       "Matter-certifierad, fungerar i Apple Home, Google Home och Alexa",
       "Går att styra lokalt utan molnkonto, och integreras direkt i Home Assistant",
-      "Detaljerad energimätning i realtid",
     ],
     cons: [
-      "2 500 W, inte tillräckligt för de tyngsta apparaterna",
-      "Testet vi hittat gäller föregående generation",
+      "2 500 W, räcker inte till element eller torkskåp. Där tar du Cleverio",
       "Sticker ut mer ur uttaget än Plejd och Tapo",
+      "Högst 70 % luftfuktighet, så kylan klarar den men inte en fuktig krypgrund",
     ],
     specs: [
       { label: "Maxlast", value: "2 500 W (12 A)", highlight: true },
       { label: "Energimätning", shortLabel: "Mätning", value: "Ja, i realtid", highlight: true },
-      { label: "Viloförbrukning", shortLabel: "Viloläge", value: "Ej angiven", highlight: true },
+      /* shelly.com, 2026-08-06: "Power consumption: < 1 W". Stod "Ej angiven"
+         här sedan sidan byggdes — uppgiften var aldrig hämtad hos Shelly. */
+      { label: "Viloförbrukning", shortLabel: "Viloläge", value: "< 1 W", highlight: true },
+      /* shelly.com: "Ambient temperature: -20 °C to 40 °C". */
+      { label: "Drifttemperatur", shortLabel: "Temperatur", value: "−20 till 40 °C", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi + Bluetooth", highlight: true },
       { label: "Matter", value: "Ja" },
       { label: "Mått", value: "44 × 44 × 70 mm" },
+      /* Shelly anger luftfuktighet men ingen IP-klass för Gen3. Skriv inte
+         ut IP20 här: uppgiften finns för Wave Plug S LR, inte för den här. */
+      { label: "Luftfuktighet", value: "30–70 % RH" },
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Shelly Plug S Gen3 är valet för den som tänker bygga vidare. Matter gör att den fungerar i alla fyra ekosystemen samtidigt, och till skillnad från de andra går den att styra lokalt utan att ett moln behöver svara, vilket också är varför den är populär bland dem som kör Home Assistant. Energimätningen är den mest detaljerade av de fem.\n\nTvå förbehåll. Maxlasten på 2 500 W räcker för det mesta men inte för ett element, och det svenska test vi hittat gäller föregående Plug S, som både hade lägre maxlast och saknade Matter. Vi har därför vägt ner testomdömet i stället för att låta ett betyg på en annan produkt räknas som om det gällde den här.\n\nHornbach hade lägst pris när vi kontrollerade. Samma plugg finns hos Inet för trettio kronor mer, där kunderna ger den 4,3 av 5.",
+      "Shelly Plug S Gen3 kostar 249 kronor och är specad ner till −20 °C. Det är tjugo graders större marginal än något annat uttag här har, och det som gör den till den enda du kan sätta i ett ouppvärmt garage.\n\n**De fyra andra slutar vid 0 °C, alltså precis där ett svenskt garage ligger halva året.** Ovanpå det har den fältets starkaste anslutning: Matter gör att den fungerar i Apple Home, Google Home, Alexa och SmartThings samtidigt, och den går att styra lokalt utan att ett moln behöver svara, så den fortsätter lyda när uppkopplingen går ner. Energimätningen är den mest detaljerade av de fem och visar förbrukningen i realtid.\n\nMaxlasten stannar på 2 500 W. Det räcker till det mesta som står i ett garage, men inte till ett element eller ett torkskåp, och där är det Cleverio som gäller.\n\nSka uttaget sitta i kylan är valet redan gjort, för ingen annan här är godkänd för det. Ska det sitta inomhus betalar du 150 kronor extra för Matter och lokal styrning. Det är värt det om du tänker bygga vidare, inte om det ska styra en golvlampa.",
   },
   {
     id: "plejd-spr-01",
@@ -144,7 +177,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "SPR-01",
     image: productImage(SMART_PLUG.slug, "plejd-spr-01"),
     tagline:
-      "Minst, snålast och svensk. Klarar 16 A men mäter ingenting och vill helst leva bland andra Plejd-produkter.",
+      "Snålast i viloläge och så liten att grannuttaget går att använda.",
     scores: {
       testomdome: 4,
       maxeffekt: 5,
@@ -161,9 +194,9 @@ const SEEDS: ProductSeed[] = [
     award: "editor",
     superlative: "Minst och snålast",
     pros: [
-      "0,3 W i viloläge, en femtedel av den sämsta av pluggarnaörelsen",
+      "0,3 W i viloläge, en femtedel av det törstigaste uttaget här",
       "16 A, klarar samma laster som testvinnaren",
-      "Så liten att två får plats i ett dubbeluttag, och scheman ligger i pluggen",
+      "Så liten att två får plats i ett dubbeluttag, och scheman ligger i uttaget",
     ],
     cons: [
       "Ingen energimätning alls",
@@ -174,13 +207,15 @@ const SEEDS: ProductSeed[] = [
       { label: "Maxlast", value: "16 A", highlight: true },
       { label: "Energimätning", shortLabel: "Mätning", value: "Nej", highlight: true },
       { label: "Viloförbrukning", shortLabel: "Viloläge", value: "0,3 W", highlight: true },
+      /* plejd.com, 2026-08-06: "Drifttemperatur 0 till +35 °C, inomhus". */
+      { label: "Drifttemperatur", shortLabel: "Temperatur", value: "0 till 35 °C", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Bluetooth mesh", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "Mått", value: "Ø 43 × 66 mm" },
-      { label: "Kapslingsklass", value: "Inomhus" },
+      { label: "Kapslingsklass", value: "IP20, inomhus" },
     ],
     verdict:
-      "Plejd SPR-01 drar 0,3 W i viloläge mot Tapos 1,48, och är så liten att två stycken får plats i samma dubbeluttag. Att timer, veckour och astrour ligger i själva pluggen är dessutom värt mer än det låter: schemat går i gång även när nätet är nere, vilket ingen av de molnberoende pluggarna kan lova.\n\nSedan kommer priset för det. Ingen energimätning, inget Matter, och för att styra den hemifrån behöver du en Plejd-gateway. Hemmastyrnings omdöme är att den är ett bra köp om du redan har Plejd, och att det finns bättre alternativ om du inte har det. Vi håller med.\n\nHar du Plejd i taket är det här en självklarhet. Har du inte det köper du in dig i ett system för ett enda uttags skull.",
+      "Plejd SPR-01 kostar 249 kronor, drar 0,3 W i viloläge och klarar 16 A. Det är den lägsta viloförbrukningen och den högsta lasten i samma produkt, vilket ingen annan här levererar.\n\n**0,3 W mot Tapos 1,48 låter litet och blir det inte: åtta uttag av den törstigare sorten kostar över tvåhundra kronor om året i ren bakgrundsförbrukning.** Den är dessutom minst av allihop på Ø 43 × 66 mm, så två får plats i samma dubbeluttag i stället för att det ena lägger sig över det andra. Att timer, veckour och astrour ligger i själva uttaget är värt mer än det låter, för schemat går i gång även när nätet ligger nere. Det kan inget molnberoende uttag lova.\n\nDen mäter däremot ingenting. Du ser aldrig vad apparaten drar, alltså får du heller aldrig veta vilken av dem som är värd att styra, och för att nå uttaget hemifrån krävs en Plejd-gateway ovanpå de 249 kronorna.\n\nHar du redan Plejd i taket är det här en självklarhet. Har du inte det köper du in dig i ett slutet system för ett enda uttags skull, och då ger Cleverio dig både mätningen och 16 A för 150 kronor mindre.",
   },
   {
     id: "philips-hue-smart-plug",
@@ -191,7 +226,7 @@ const SEEDS: ProductSeed[] = [
     name: "Smart Plug",
     image: productImage(SMART_PLUG.slug, "philips-hue-smart-plug"),
     tagline:
-      "Dyrast och minst utrustad, men den enda som gör en golvlampa till en riktig Hue-lampa.",
+      "Gör golvlampan till en Hue-lampa: samma rum, samma scener, samma knapp.",
     scores: {
       testomdome: 4,
       maxeffekt: 2.5,
@@ -206,26 +241,34 @@ const SEEDS: ProductSeed[] = [
       "https://www.kjell.com/se/produkter/smarta-hem/philips-hue/philips-hue-tillbehor/philips-hue-smart-plug-fjarrstrombrytare-p51533",
     superlative: "Bäst om du redan har Hue",
     pros: [
-      "Zigbee via Hue Bridge, den stabilaste anslutningen av pluggarna",
+      "Zigbee via Hue Bridge, den stabilaste anslutningen av uttagen",
       "Ligger i samma scener och rum som resten av belysningen",
       "Fungerar med Google, Alexa och HomeKit via bryggan",
     ],
     cons: [
-      "Dyrast av pluggarna och saknar energimätning",
+      "Dyrast av uttagen och saknar energimätning",
       "2 300 W, klarar inte tyngre apparater",
       "Ingen egen app, så utan Hue-brygga är den nästan meningslös",
     ],
     specs: [
       { label: "Maxlast", value: "2 300 W (10 A)", highlight: true },
       { label: "Energimätning", shortLabel: "Mätning", value: "Nej", highlight: true },
+      /* Kontrollerat 2026-08-06 hos Philips på rätt artikel (12NC 929003050601,
+         EAN 8719514342309): rubriken "Strömförbrukning" finns och innehåller
+         bara maxlast. Philips publicerar viloläge för Hue Bridge men inte för
+         uttaget. Bridgens 0,1 W får inte hamna här. */
       { label: "Viloförbrukning", shortLabel: "Viloläge", value: "Ej angiven", highlight: true },
+      /* philips-hue.com, 2026-08-06: "Drifttemperatur 0 °C–35 °C". */
+      { label: "Drifttemperatur", shortLabel: "Temperatur", value: "0 till 35 °C", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Zigbee + Bluetooth", highlight: true },
       { label: "Matter", value: "Via Hue Bridge" },
-      { label: "Modell", value: "929003050601" },
+      /* Ersatte raden "Modell 929003050601" 2026-08-06. Måtten står hos
+         Philips och säger något; artikelnumret gjorde det inte. */
+      { label: "Mått", value: "51 × 84 × 51 mm" },
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Hue Smart Plug har högst pris, ingen energimätning och lägst maxlast av de fem, och som fristående plugg är den svår att försvara. TechRadar landar i samma slutsats när de kallar den ett Hue-tillbehör snarare än en smart plug, och ger den fyra av fem på just den premissen. Det är också så du ska se på den. Har du Hue sedan tidigare gör pluggen att golvlampan hamnar i samma rum och samma scener som taklamporna, tänds med samma knapp och dimras i samma svep. Den saken kan ingen av de andra här göra. Har du inte Hue finns det ingen anledning att börja med den här produkten, eftersom den saknar egen app och alltså kräver en brygga för nästan allt.",
+      "Philips Hue Smart Plug kostar 319 kronor och är det dyraste uttaget här. Den mäter ingenting, klarar lägst last av de fem och har inte ens en egen app.\n\n**Det den gör, gör den ensam: golvlampan hamnar i samma rum och samma scener som taklamporna.** Den tänds med samma knapp, släcks i samma svep och följer med i samma automationer, vilket förvandlar en vanlig lampa till en Hue-lampa utan att du byter ljuskälla. Zigbee via bryggan är dessutom den stabilaste anslutningen i fältet, eftersom enheterna bygger ett eget nät i stället för att belasta wifit.\n\nUtan en Hue Bridge faller det mesta av det bort. Uttaget har ingen egen app, så det du köper för 319 kronor är ett tillbehör till ett system, inte en fristående produkt.\n\nHar du Hue är det här det självklara sättet att få med golvlampan. Har du inte Hue finns det ingen anledning att börja här. Cleverio kostar en tredjedel och gör mer.",
   },
   {
     id: "tp-link-tapo-p100",
@@ -234,7 +277,7 @@ const SEEDS: ProductSeed[] = [
     shortName: "Tapo P100",
     image: productImage(SMART_PLUG.slug, "tp-link-tapo-p100"),
     tagline:
-      "Den mest rekommenderade pluggen i Sverige, och den som drar mest ström när den inte gör någonting.",
+      "Enklaste appen och snabbaste svaret, till 179 kronor.",
     scores: {
       testomdome: 4.5,
       maxeffekt: 2.5,
@@ -263,13 +306,15 @@ const SEEDS: ProductSeed[] = [
       { label: "Maxlast", value: "2 300 W (10 A)", highlight: true },
       { label: "Energimätning", shortLabel: "Mätning", value: "Nej", highlight: true },
       { label: "Viloförbrukning", shortLabel: "Viloläge", value: "1,48 W", highlight: true },
+      /* tp-link.com, 2026-08-06: "Operating Temperature: 0 ºC–35 ºC". */
+      { label: "Drifttemperatur", shortLabel: "Temperatur", value: "0 till 35 °C", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi 2,4 GHz", highlight: true },
       { label: "Matter", value: "Nej" },
       { label: "Mått", value: "51 × 72 × 40 mm" },
       { label: "Kapslingsklass", value: "Inomhus" },
     ],
     verdict:
-      "Tapo P100 är den mest rekommenderade smarta pluggen i landet och hamnar ändå sist här. Trusted Reviews ger den 4,5 av 5 och de har inte fel om det de bedömer: appen är den bästa av wifi-pluggarna, svarstiden är kort och den är liten nog att inte skymma grannuttaget.\n\nKjell anger 1,48 W i viloläge, nästan fem gånger Plejds 0,3 W. Med åtta pluggar i hemmet är det runt hundra kronor om året i ren bakgrundsförbrukning, av en produkt som ofta köps för att spara el. Och 2 300 W betyder att den inte får sitta på det som gör störst skillnad på elräkningen.\n\nSom första plugg till en golvlampa eller julbelysningen är den fortfarande ett rimligt köp. Som grund för hela hemmet är den det inte.",
+      "TP-Link Tapo P100 kostar 179 kronor och har den enklaste appen av wifi-uttagen. Trusted Reviews ger den 4,5 av 5, det högsta betyget någon produkt här har fått.\n\n**Appen är den verkliga skillnaden: den kopplar upp sig på ett par minuter och svarar direkt när du trycker.** Uttaget är dessutom litet nog att inte lägga sig över grannuttaget, och det finns som fyrpack för 399 kronor om du vill ha flera, vilket är den billigaste vägen till ett halvt hem på schema.\n\nDen drar 1,48 W i viloläge, nästan fem gånger Plejds 0,3 W. Med åtta uttag i hemmet blir det runt hundra kronor om året i ren bakgrundsförbrukning, av en produkt många köper just för att spara el.\n\nSka du prova ett smart uttag för första gången på en golvlampa eller julbelysningen är 179 kronor rätt pris för det. Ska de bli många, eller sitta på något som värmer, kostar viloförbrukningen och de 2 300 watten mer än de 70 kronor du sparar mot Cleverio.",
   },
 ];
 
@@ -363,7 +408,10 @@ export const SMART_PLUG_CONSIDERED: ConsideredProduct[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/el-verktyg/starkstrom/energimatare/wiz-smart-wifi-fjarrstrombrytare-med-energimatning-p52131",
     reason:
-      "Billigast med både Matter och energimätning, vilket är en ovanlig kombination i den här prisklassen. Vi lämnade den utanför eftersom varken butiken eller tillverkaren anger maxlast, och Ljud & Bild anmärker på att WiZ rektangulära form tar upp plats i uttaget.",
+      /* Rättat 2026-08-06: här stod att varken butiken eller tillverkaren
+         anger maxlast. Kjells egen specifikationsruta anger 10 A, 230 V,
+         2 300 W och IP20. Uppgiften fanns hela tiden på den sida vi länkade. */
+      "Billigast med både Matter och energimätning, en ovanlig kombination för 143 kronor. Den stannar på 2 300 W och 10 A, alltså samma tak som Tapo P100, och Ljud & Bild anmärker på att den rektangulära formen tar upp plats i uttaget. Har du bara lampor och elektronik att styra är den prisvärd; ska något värmas räcker den inte.",
   },
   {
     brand: "TP-Link",
@@ -395,7 +443,7 @@ export const SMART_PLUG_FAQ = [
   {
     question: "Drar en smart plug ström när den är avstängd?",
     answer:
-      "Ja, och betydligt mer än många tror. Radion måste vara vaken dygnet runt för att kunna ta emot kommandot att slå på. Skillnaden mellan produkterna är stor: TP-Link anger 1,48 W för Tapo P100 medan Plejd anger 0,3 W för SPR-01, alltså nästan fem gånger så mycket. 1,48 W dygnet runt blir 13 kWh om året, vilket med två kronor per kilowattimme är runt 26 kronor per plugg. Åtta pluggar av den sämre sorten kostar alltså över tvåhundra kronor om året i ren bakgrundsförbrukning.",
+      "Ja, och betydligt mer än många tror. Radion måste vara vaken dygnet runt för att kunna ta emot kommandot att slå på. Skillnaden mellan produkterna är stor: TP-Link anger 1,48 W för Tapo P100 medan Plejd anger 0,3 W för SPR-01, alltså nästan fem gånger så mycket. Cleverio IP200 och Shelly Plug S Gen3 anger båda under 1 W. 1,48 W dygnet runt blir 13 kWh om året, vilket med två kronor per kilowattimme är runt 26 kronor per plugg. Åtta pluggar av den törstigare sorten kostar alltså över tvåhundra kronor om året i ren bakgrundsförbrukning.",
   },
   {
     question: "Vilken smart plug klarar ett element?",
@@ -405,7 +453,7 @@ export const SMART_PLUG_FAQ = [
   {
     question: "Kan man ha en smart plug utomhus eller i garaget?",
     answer:
-      "Bara om den är byggd för det, och två uppgifter avgör. Kapslingsklassen ska vara minst IP44 för att pluggen ska tåla regn och stänk. Drifttemperaturen ska täcka det kallaste du kan vänta dig på platsen. Där brister de flesta: en vanlig inomhusplugg är ofta specad ner till 0 °C och slutar därmed fungera pålitligt i ett ouppvärmt garage på vintern. Shelly Outdoor Plug S Gen3 anger −25 till 51 °C, medan flera andra utomhuspluggar inte anger någon drifttemperatur alls. En inomhusplugg i ett fuktigt utrymme är dessutom en brandrisk, inte bara ett funktionsproblem.",
+      "Bara om den är byggd för det, och två uppgifter avgör. Kapslingsklassen ska vara minst IP44 för att pluggen ska tåla regn och stänk. Drifttemperaturen ska täcka det kallaste du kan vänta dig på platsen. Där brister de flesta: fyra av de fem uttagen i den här jämförelsen är specade 0 till 35 °C och är alltså utanför sitt godkända område i ett svenskt garage hela vintern. Shelly Plug S Gen3 anger −20 till 40 °C och är det enda av de fem som klarar kylan, men den tål högst 70 procent luftfuktighet och hör därför inte hemma i en krypgrund. Ska uttaget tåla stänk krävs en utomhusmodell: Shelly Outdoor Plug S Gen3 anger −25 till 51 °C och IP44.",
   },
   {
     question: "Fungerar en smart plug till motorvärmaren?",

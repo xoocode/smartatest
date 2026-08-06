@@ -43,7 +43,7 @@ import Kopguide from "@/content/robotgrasklippare/kopguide.mdx";
  * PRICE_CHECKED. Kriteriebetygen är redaktionell bedömning. Vi har inte klippt
  * någon gräsmatta, inte mätt någon ljudnivå och inte provat någon robot.
  *
- * SIDANS TVÅ FYND:
+ * SIDANS TRE FYND:
  * 1. Samma modellnamn, dubbla ytan, lägre pris: Dreame A1 Pro 1 000 m² kostar
  *    12 990 och 2 000 m² kostar 11 490 hos samma butik. Kontrollerat på
  *    respektive produktsida.
@@ -51,6 +51,21 @@ import Kopguide from "@/content/robotgrasklippare/kopguide.mdx";
  *    innan påkörning, samtliga körde över ungar. Standardiserat prov finns
  *    sedan 2024 med klassning 0-4, föreslaget för CENELEC. Ingen tillverkare
  *    redovisar ett resultat.
+ * 3. Husqvarnas 600 m² gäller en SYSTEMATISK gräsmatta. Husqvarna publicerar
+ *    400 m² för en oregelbunden, alltså den sortens tomt de flesta har.
+ *    Butiken och produktnamnet anger bara det högre talet.
+ *
+ * ⚠️ RÄTTAT 2026-08-06, se lib/corrections.ts. Sidan publicerades med
+ * "Ej angiven" på ljudnivån för sex av sju robotar och byggde ett avsnitt, en
+ * tagline och delar av ljudkriteriet på det. Samtliga sju publicerar den, och
+ * fem av talen stod på produktsidan vi redan länkade till. Ljudbetygen är
+ * omräknade och fyra placeringar ändrades. Samma körning rättade att Husqvarna
+ * Aspire R4 har begränsningskabel (16 av 18 är slinglösa, inte 17) och att
+ * Sunseeker S5 RTK anger 60 % lutning, vilket tar bort luckan mellan 45 och 80.
+ *
+ * ⚠️ S5 RTK flyttades samtidigt från bortvalslistan till rankningen och ligger
+ * trea. Sidan jämför alltså ÅTTA robotar, inte sju. Skälet den låg utanför var
+ * det felaktiga påståendet om lutningen. Beslut av användaren 2026-08-06.
  *
  * ⚠️⚠️ IGELKOTTEN ÄR INGET KRITERIUM och får inte bli ett. Användarbeslut
  * 2026-08-04, och ett hårdare skäl: det finns inga publicerade provresultat per
@@ -75,12 +90,12 @@ import Kopguide from "@/content/robotgrasklippare/kopguide.mdx";
 
 const TEST_PAGE = ROBOTGRASKLIPPARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Maxlutningen avgör oftare än priset om köpet fungerar. Vi jämförde sju robotgräsklippare från 1 999 till 16 490 kronor på yta, lutning och navigering, och tog reda på vad forskningen säger om robotar och igelkottar.",
+    "Dreame A1 Pro klipper 2 000 kvadratmeter och tar 45 procents lutning för 11 490 kronor, störst tomt per krona av åtta robotar från 1 999 till 16 089. Maxlutningen avgör oftare än priset om köpet fungerar.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -93,7 +108,7 @@ const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "lutningen", label: "Lutningen avgör oftare än priset" },
   { id: "igelkotten", label: "Ingen av robotarna ser igelkotten" },
-  { id: "jamforelse", label: "Jämför alla sju" },
+  { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "recensioner", label: "Recensioner av varje robot" },
   { id: "andra-robotar", label: "Andra produkter vi övervägde" },
@@ -138,15 +153,19 @@ export default async function RobotgrasklipparePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Den siffra som oftast gör att ett robotköp inte fungerar är inte
-              priset utan maxlutningen, och en slänt som ser måttlig ut ligger
-              ofta kring 25 procent. Vi jämförde sju robotar från 1 999 till
-              16 490 kronor på yta, lutning och navigering. Och så tog vi reda på
-              vad forskningen säger om robotar och igelkottar, eftersom svaret
-              ändrar när du bör köra roboten snarare än vilken du bör köpa.
+              Dreame A1 Pro klipper 2 000 kvadratmeter och tar 45 procents
+              lutning för 11 490 kronor, vilket är den största gräsmattan här
+              till det lägsta priset per kvadratmeter. Men den siffra som oftast
+              gör att ett robotköp inte fungerar är inte priset utan
+              maxlutningen, och en
+              slänt som ser måttlig ut ligger ofta kring 25 procent. Vi jämförde
+              åtta robotar från 1 999 till 16 089 kronor på yta, lutning, ljud och
+              navigering, och tog reda på vad forskningen säger om robotar och
+              igelkottar.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -203,14 +222,16 @@ export default async function RobotgrasklipparePage() {
           </p>
           <p>
             <strong>Skillnaden mellan robotarna är dessutom inte gradvis.</strong>{" "}
-            Den billigaste anger 25 procent, huvudfältet ligger på 40 till 45,
-            och en enda robot anger 80 tack vare fyrhjulsdrift. Mellan 45 och 80
-            finns ingenting alls.
+            Den billigaste anger 25 procent och huvudfältet ligger tätt packat på
+            40 till 45. Över den gränsen finns bara två, och båda har drivning på
+            alla hjul: Sunseeker S5 RTK på 60 procent och Luba Mini 2 AWD på 80.
           </p>
           <p>
             Det gör lutningen till en tröskelfråga snarare än en gradskala. Har
-            du en backe på 50 procent hjälper det inte att lägga till tusen
-            kronor. Du behöver hoppa hela vägen till fyrhjulsdrift.
+            du en backe på 50 procent hjälper det inte att lägga tusen kronor
+            till på en robot ur huvudfältet, för den slutar ändå vid 45. Du
+            behöver hoppa till drivning på alla hjul, och det steget kostar från
+            12 995 kronor.
           </p>
           <p>
             <strong>Räkna bara gräset.</strong> Uppfarten, altanen och rabatterna
@@ -230,9 +251,10 @@ export default async function RobotgrasklipparePage() {
           </p>
           <p>
             <strong>En sak har handeln redan avgjort åt dig.</strong> Av 18
-            robotar i butikens sortiment är 17 slinglösa. Begränsningskabeln är
-            inte längre ett val du behöver göra, utan ett undantag du får leta
-            upp om du vill ha det.
+            robotar i butikens sortiment är 16 slinglösa, och de två som har kvar
+            begränsningskabeln är de billigaste av alla. Kabeln är inte längre
+            ett val du behöver göra, utan ett undantag du får leta upp om du vill
+            ha det.
           </p>
         </Prose>
       </Section>
@@ -321,7 +343,7 @@ export default async function RobotgrasklipparePage() {
       <Section
         id="jamforelse"
         width="wide"
-        title="Jämför alla sju"
+        title="Jämför alla åtta"
         description="Klippyta och max lutning är de två rader som avgör om roboten passar din tomt."
       >
         <ComparisonTable
@@ -330,7 +352,7 @@ export default async function RobotgrasklipparePage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Klippyta, max lutning och navigeringsteknik är butikens och tillverkarens egna uppgifter. Där en rad står som ej angiven publicerar butiken ingen uppgift, vilket gäller ljudnivån för sex av de sju robotarna. Tabellen innehåller medvetet ingen rad för knivtyp: den studie som konstruerade igelkottsprovet kunde inte belägga att knivtyp förutsäger utfallet, och en sådan rad hade sett ut som ett säkerhetsmått utan att vara det.",
+            "Klippyta, max lutning, ljudnivå, klippbredd, klipphöjd och vikt är butikens och tillverkarens egna uppgifter, lästa 2026-08-06. Ingen tillverkare anger vid vilket avstånd ljudnivån är mätt, så jämför decibeltalen som storleksordningar snarare än på decibelen. Tabellen innehåller medvetet ingen rad för knivtyp: den studie som konstruerade igelkottsprovet kunde inte belägga att knivtyp förutsäger utfallet, och en sådan rad hade sett ut som ett säkerhetsmått utan att vara det.",
           )}
         />
       </Section>
@@ -374,7 +396,7 @@ export default async function RobotgrasklipparePage() {
             igelkottssäkerhet vore att hitta på ett mätvärde.
           </p>
           <p>
-            <strong>Fem av sju länkar går till Clas Ohlson.</strong> Butiken har
+            <strong>Sex av åtta länkar går till Clas Ohlson.</strong> Butiken har
             det bredaste sortimentet vi hittat, och de flesta robotarna vi rankar
             finns inte samlade någon annanstans i svensk handel. Att så mycket
             hänger på en källa är en svaghet, och den står här i stället för att
@@ -409,7 +431,7 @@ export default async function RobotgrasklipparePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje robot"
-        description="Alla sju bedöms mot samma fem kriterier."
+        description="Alla åtta bedöms mot samma fem kriterier."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -434,7 +456,7 @@ export default async function RobotgrasklipparePage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex robotar som inte hamnade i rankningen, tre av dem för att butiken inte anger någon maxlutning."
+        description="Fem robotar som inte hamnade i rankningen, och skälet till att var och en föll bort."
       >
         <ConsideredList items={ROBOTGRASKLIPPARE_CONSIDERED} />
       </Section>
@@ -457,7 +479,7 @@ export default async function RobotgrasklipparePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Yta och terräng väger 30 av 100 eftersom det är den enda egenskap som avgör om roboten alls fungerar på just din tomt, och eftersom både klippyta och maxlutning publiceras för nästan varje modell och därför går att jämföra i klartext. Navigering väger 25, för slinglösa robotar löser samma uppgift på tre sätt med olika svagheter: satellit tappar positionen under träd, kameror behöver ljus, lidar störs av motljus. Klippresultat väger 20 och är redaktionell bedömning ur publicerade uppgifter, eftersom Råd & Röns modellbetyg ligger bakom betalvägg. Ljud väger 15 och är den uppgift som saknas oftast: sex av sju robotar anger ingen ljudnivå, och då står det som saknad uppgift och aldrig som en nolla. Igelkottssäkerhet är medvetet inget kriterium, eftersom det saknas publicerade provresultat per modell och eftersom den studie som konstruerade provet inte kunde belägga att något konstruktionsdrag förutsäger utfallet. Vi har inte klippt någon gräsmatta och inte mätt någon ljudnivå. Priserna är hos den butik vi länkar till."
+          footnote="Yta och terräng väger 30 av 100 eftersom det är den enda egenskap som avgör om roboten alls fungerar på just din tomt, och eftersom både klippyta och maxlutning publiceras för varje modell och därför går att jämföra i klartext. Navigering väger 25, för slinglösa robotar löser samma uppgift på tre sätt med olika svagheter: satellit tappar positionen under träd, kameror behöver ljus, lidar störs av motljus. Klippresultat väger 20 och är redaktionell bedömning ur publicerade uppgifter, eftersom Råd & Röns modellbetyg ligger bakom betalvägg. Ljud väger 15 och betygsätts mot en fast decibelskala: 50 dB eller lägre ger 5,0, 51 till 55 ger 4,5, 56 till 58 ger 4,0, 59 till 61 ger 3,0, 62 till 63 ger 2,5 och 64 eller mer ger 2,0. Igelkottssäkerhet är medvetet inget kriterium, eftersom det saknas publicerade provresultat per modell och eftersom den studie som konstruerade provet inte kunde belägga att något konstruktionsdrag förutsäger utfallet. Vi har inte klippt någon gräsmatta och inte mätt någon ljudnivå. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

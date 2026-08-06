@@ -40,6 +40,8 @@ import { ToolWidget } from "@/components/tools/registry";
  * monteringspunkten och inte i komponenterna.
  */
 const TOOL_SLUGS: Record<string, string> = {
+  VacuumRuntime: "drifttid-skaftdammsugare",
+  BabyMonitorRange: "rackvidd-babyvakt",
   LumenCalculator: "lumenraknare",
   RunningCostCalculator: "elkostnad-lampor",
   ProtocolPicker: "protokollvaljare-smart-hem",
@@ -73,6 +75,7 @@ const TOOL_SLUGS: Record<string, string> = {
   RobotThresholdPicker: "klarar-roboten-troskeln",
   Fuktavlasning: "vad-betyder-talet-pa-hygrometern",
   Ventilpassning: "vilken-termostat-passar-min-ventil",
+  PowerstationSizer: "hur-stor-powerstation",
 };
 
 /* Byggs en gång på modulnivå. En komponent som skapas under rendering läses av

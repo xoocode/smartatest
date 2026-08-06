@@ -61,12 +61,12 @@ import Kopguide from "@/content/vattenlarm/kopguide.mdx";
 
 const TEST_PAGE = VATTENLARM;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde nio vattenlarm från 190 till 876 kronor. Hälften larmar bara där de ligger, tre kräver en hubb som kostar mer än larmet, och ett skickar ingen notis alls förrän du byggt en automation.",
+    "X-Sense SWS54 är bäst i test: tre sensorer och basstation för 876 kronor, utan hubb och utan abonnemang. Vi jämförde nio vattenlarm från 179 kronor, varav tre aldrig når din telefon.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -122,12 +122,15 @@ export default async function VattenlarmPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde nio vattenlarm från 190 till 876 kronor. Det som
-              skiljer dem åt är inte priset utan vad som händer när de känner
-              vatten: tre av dem tjuter bara där de ligger, tre kräver en hubb
-              som kostar mer än larmet självt, och ett är uppkopplat men skickar
-              ingen notis förrän du byggt en automation i appen. Snittkostnaden
-              för en vattenskada är enligt Vattenskadecentrum 49 700 kronor.
+              X-Sense SWS54 är bäst i test. För 876 kronor får du tre sensorer
+              och en basstation, alltså det enda köpet här som täcker kök, tvätt
+              och beredare på en gång och når din telefon utan att du äger en
+              hubb sedan tidigare. Vi jämförde nio vattenlarm från 179 till 876
+              kronor, och det avgörande är vad som händer när de känner vatten:
+              tre tjuter bara där de ligger, tre kräver en hubb som kostar mer
+              än larmet självt, och ett skickar ingen notis förrän du byggt en
+              automation i appen. Snittkostnaden för en vattenskada är enligt
+              Vattenskadecentrum 49 700 kronor.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -233,7 +236,7 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="wide"
         title="Jämför alla nio"
-        description="Filtrera på hur larmet når dig. Raden att läsa noggrannast är Hubb krävs, eftersom den avgör vad produkten faktiskt kostar."
+        description="Filtrera på hur larmet når dig. Raden att läsa noggrannast är Hubb krävs, eftersom den avgör vad produkten faktiskt kostar. Därnäst Drifttemperatur, som avgör om larmet får ligga där du tänkt."
       >
         <FilterableComparison
           products={products}
@@ -250,7 +253,7 @@ export default async function VattenlarmPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje larm"
-        description="Alla nio bedöms mot samma fem kriterier. Kategorin saknar oberoende laboratorieprovning, så det finns inget kriterium för testomdöme här."
+        description="Alla nio bedöms mot samma fem kriterier, med larmvägen tyngst. Varje omdöme säger vad larmet gör, vad det kostar och vem som blir nöjd med det."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -295,7 +298,11 @@ export default async function VattenlarmPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte provat de här larmen, och ingen annan har heller gjort det på ett sätt som går att kontrollera. Stiftung Warentest har inte testat kategorin, och de tyska sidor som ser ut som tester är jämförelsesajter utan mätvärden, varav en heter test-stiftung.de. Brandinfo har recenserat X-Sense-systemet, en av nio produkter, vilket är för lite för ett eget kriterium. Därför saknas kriteriet Omdöme i oberoende tester som finns på våra andra sidor. Samtidigt påstår alla fem svenska konkurrentsidor i rubriker att de utfört egna tester, med avsnitt som Genomförandet av Testet, Så testar vi våra vattenlarm och Hur vi utförde detta test, utan att någon av dem redovisar ett enda mätvärde. De står namngivna i källistan, så påståendet går att kontrollera. Priserna är hos den butik vi länkar till."
+          footnote={
+            "Vi har inte provat de här larmen, och ingen annan har heller gjort det på ett sätt som går att kontrollera. Stiftung Warentest har inte testat kategorin, och de tyska sidor som ser ut som tester är jämförelsesajter utan mätvärden, varav en heter test-stiftung.de. Brandinfo har recenserat X-Sense-systemet, en av nio produkter, vilket är för lite för ett eget kriterium. Därför saknas kriteriet Omdöme i oberoende tester som finns på våra andra sidor.\n\n" +
+            "Samtidigt påstår alla fem svenska konkurrentsidor i rubriker att de utfört egna tester, med avsnitt som Genomförandet av Testet, Så testar vi våra vattenlarm och Hur vi utförde detta test, utan att någon av dem redovisar ett enda mätvärde. De står namngivna i källistan, så påståendet går att kontrollera.\n\n" +
+            "Specifikationerna i tabellen är hämtade hos tillverkarna, i flera fall ur manualen butiken själv länkar till. Priserna är hos den butik vi länkar till."
+          }
         />
       </Section>
 
@@ -327,7 +334,7 @@ export default async function VattenlarmPage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="Notera vad som saknas: det finns ingen laboratorieprovning av vattenlarm att luta sig mot. Tyngdpunkten ligger därför på svensk skadestatistik och på försäkringsbolagens egna villkor, som är det verkliga beslutsunderlaget."
+        description="Svensk skadestatistik, försäkringsbolagens egna villkor och branschreglerna för kök, plus tillverkarnas specifikationer för varje larm i tabellen."
       >
         <SourceList sources={VATTENLARM_SOURCES} title={null} />
       </Section>

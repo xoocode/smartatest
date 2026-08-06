@@ -1,6 +1,6 @@
-import { NextResponse, type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
-import { captureClickId, getConfig } from "@/lib/r9track";
+import { captureAndClean, getConfig } from "@/lib/r9track";
 import { TRACK_CONFIG } from "@/lib/track-config";
 
 /**
@@ -22,7 +22,11 @@ import { TRACK_CONFIG } from "@/lib/track-config";
  * file convention, and redpoint9.com already moved.
  */
 export function proxy(request: NextRequest) {
-  return captureClickId(request, NextResponse.next(), getConfig(TRACK_CONFIG));
+  /* Fångar id:t och tar sedan bort parametern ur adressen med en 307, så att
+     `?gclid=` inte följer med när läsaren delar eller bokmärker sidan och inte
+     hamnar i referraren till nästa klick. Omdirigeringen sker bara när id:t
+     faktiskt sparats; se `captureAndClean`. */
+  return captureAndClean(request, getConfig(TRACK_CONFIG));
 }
 
 export const config = {

@@ -8,11 +8,11 @@ import { INOMHUSKAMERA } from "@/lib/test-pages";
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, upplösning, synfält, panorering, lagring,
- * kundbetyg, vad som ligger i lådan och vilka funktioner butiken märker som
- * abonnemangsberoende. Läst på Kjells egen sida 2026-08-03. Uppgifterna om
- * avstängning och linsskydd är lästa i tillverkarens egen dokumentation, se
- * lib/sources.ts.
+ * **Verkligt och daterat:** priser och kundbetyg lästa på Kjells egen sida
+ * 2026-08-03. Upplösning, synfält, rörelseomfång, lagring och avstängning är
+ * hämtade ur tillverkarens egen specifikation, manual eller produktblad
+ * 2026-08-06, se lib/sources.ts. Abonnemangspriserna står på Arlos och Rings
+ * egna planssidor.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte monterat eller
  * filmat med någon kamera.
@@ -25,17 +25,21 @@ import { INOMHUSKAMERA } from "@/lib/test-pages";
  * produkten: får du regelbundet besök av hemtjänst bevakas personalen under
  * sin arbetstid, och då gäller GDPR.
  *
- * ## Produktfyndet: ett linsskydd är den enda integritet du kan se
+ * ## Produktfyndet: fyra sätt att stänga av en kamera så att det syns
  *
- * | Nivå | Produkt |
+ * | Mekanism | Produkt |
  * |---|---|
- * | Automatiskt skydd som stängs när larmet slås av | Arlo Essential 3 PTZ Indoor |
- * | Fysisk knapp som fäller ner skydd eller vrider bort linsen | Tapo C225 och C125 |
- * | Fysiskt linsskydd i lådan | Ring Indoor Cam Plus och Pan-Tilt |
- * | Bara programläge | Tapo C220, Tapo C100, Aqara G3 |
+ * | Linsen lutar ner i foten av sig själv när kameran avlarmas | Arlo Essential 3 PTZ Indoor |
+ * | Linsen vänds bort, går att automatisera med en egen regel | Aqara Camera Hub G3 |
+ * | Knapp på kameran som vrider bort linsen | Tapo C225 och C125 |
+ * | Linsskydd, inbyggt hos Ring Pan-Tilt och löst hos Indoor Cam Plus | Ring |
+ * | Bara programläge | Tapo C220, Tapo C100 |
  *
- * Arlos automatiska skydd har en brasklapp i tillverkarens egna ord: med
- * kontinuerlig inspelning påslagen står skyddet kvar öppet.
+ * ⚠️ **Rättat 2026-08-06.** Sidan gav tidigare Arlo ett motoriserat linsskydd
+ * och Aqara ingen fysisk avstängning alls. Båda uppgifterna var fel, se
+ * lib/corrections.ts. Arlos Privacy Shield sitter på den fasta Essential
+ * Indoor, inte på panoreringsmodellen vi rankar, och Aqara skriver själva att
+ * G3 har ett hårdvaruläge som går att slå på för hand eller automatiskt.
  *
  * ## ⚠️ Sökvolymen är inte mätt
  *
@@ -54,7 +58,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Tapo C225",
     brand: "TP-Link",
     image: productImage(INOMHUSKAMERA.slug, "tapo-c225"),
-    tagline: "Fysisk knapp som vrider bort linsen, för 599 kronor.",
+    tagline: "Hela rummet i 2K, och du ser från soffan när den är avstängd.",
     scores: { avstangning: 4, bild: 4.5, kostnad: 5, hemtjanst: 4, prisvarde: 5 },
     price: 599,
     merchant: "Kjell & Company",
@@ -63,33 +67,75 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 168, scale: 5, checkedAt: PRICE_CHECKED },
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för rummet familjen lever i",
     pros: [
-      "Fysisk integritetsknapp som enligt TP-Link fäller ner ett skydd eller vrider bort linsen helt",
+      "Knapp på kamerans hölje som fäller ner ett skydd över linsen eller vrider bort den helt",
       "Programläget stänger av både bild och ljud, inte bara inspelningen",
       "360 grader horisontellt och 149 vertikalt tar hela rummet, golv och tak inräknat",
       "2K QHD på minneskort upp till 512 GB, och ingenting kräver abonnemang",
       "168 kundomdömen med snittet 4,5",
-      "599 kronor, under en tredjedel av vad de abonnemangsberoende kostar",
+      "599 kronor, under hälften av vad de abonnemangsberoende kostar",
     ],
     cons: [
       "15 bilder per sekund, lägst av kamerorna",
       "Bara 2,4 GHz wifi, vilket kan vara trångt i ett hem med många enheter",
-      "Skyddet måste tryckas ner för hand, till skillnad från Arlos som stängs av sig självt",
-      "Kjell anger inget horisontellt synfält för objektivet, bara rörelseomfånget",
+      "Knappen måste tryckas in för hand, till skillnad från Arlos och Aqaras som går att automatisera",
+      "83 graders synfält är smalast här, så mycket av täckningen kommer från att kameran vrider sig i stället för att se brett",
     ],
     specs: [
-      { label: "Avstängning", value: "Fysisk knapp, vrider bort linsen", highlight: true },
-      { label: "Programläge", value: "Stänger av bild och ljud", highlight: true },
+      { label: "Avstängning", value: "Knapp på kameran, vrider bort linsen", highlight: true },
+      { label: "Rörelseomfång", value: "360° × 149°", highlight: true },
+      { label: "Synfält", value: "83° horisontellt, 100° diagonalt", highlight: true },
       { label: "Upplösning", value: "2K QHD, 2560 × 1440", highlight: true },
-      { label: "Täckning", value: "360° × 149°", highlight: true },
       { label: "Lagring", value: "microSD upp till 512 GB", highlight: true },
-      { label: "Kräver abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Behövs inte, allt sparas på kortet", highlight: true },
+      { label: "Programläge", value: "Stänger av bild och ljud" },
       { label: "Ström", value: "Nätadapter 12 V, ingår" },
       { label: "Bildfrekvens", value: "15 fps" },
     ],
     verdict:
-      "Tapo C225 kostar 599 kronor och har ett fysiskt linsskydd du ser från andra sidan rummet. 360 grader horisontellt och 149 vertikalt tar hela rummet, golv och tak inräknat.\n\nTP-Links egen supportsida listar C225 bland de modeller som har en fysisk integritetsknapp, och beskriver vad den gör: fäller ner ett skydd över linsen eller vrider bort linsen helt. Då litar du inte på ett företags programvara, utan ser med egna ögon att objektivet pekar in i höljet. För en kamera som står i ett vardagsrum eller ett sovrum är det inte en detalj, det är hela frågan.\n\nProgramläget är dessutom mer ärligt än de flestas. TP-Link skriver att det stoppar streaming och inspelning av både video och ljud. Flera konkurrenter pausar bara inspelningen och låter mikrofonen vara.\n\nTäckningen är den bästa av kamerorna. 360 grader horisontellt och 149 vertikalt betyder att en enda kamera ser hela rummet inklusive golvet framför den, vilket är det som spelar roll om du har den för att se om katten kommit in eller om någon ramlat.\n\nAllt sparas på ett minneskort i kameran. Ingenting kräver abonnemang, ingenting lämnar huset om du inte ber om det. För inomhusbilder, som är det känsligaste material ett hem producerar, är det en principiell skillnad och inte bara en ekonomisk.\n\n599 kronor. Ring tar 699 för en fast kamera i 1080p vars inspelning kräver abonnemang. Arlo tar 1 290 för två kameror i 1080p som inte sparar något alls utan att du betalar.\n\nDet enda som saknas mot toppen är automatiken. Arlos skydd stängs av sig självt när larmet slås av. Här måste du trycka på knappen, och en säkerhetsfunktion man ska komma ihåg blir sällan använd.",
+      "Tapo C225 kostar 599 kronor, filmar i 2K och har en knapp på höljet som vrider bort objektivet. Den vrider sig 360 grader horisontellt och 149 vertikalt, alltså hela rummet med golvet framför sig inräknat.\n\nKnappen är hela skälet till att den vinner. Ett tryck fäller ner ett skydd över linsen eller vrider bort den helt, och då litar du inte på ett företags programvara utan ser med egna ögon att objektivet pekar in i höljet. Ska du dessutom bara stänga av i appen gör programläget mer än de flestas: det stoppar bild och ljud, inte bara inspelningen. Och allt hamnar på ett minneskort i kameran, upp till 512 GB, så inomhusbilderna lämnar aldrig bostaden om du inte ber om det.\n\nObjektivet är samtidigt det smalaste här, 83 grader horisontellt. Täckningen kommer av att kameran vrider sig, inte av att den ser brett, och står den stilla i ett hörn ser den mindre än en Ring för samma pengar. Bildfrekvensen stannar på 15 bilder i sekunden.\n\nKöp den ändå. Ingen annan kamera i kategorin kombinerar ett skydd du kan peka på, hela rummet, 2K och noll kronor i månaden, och den gör det för 599 kronor. Ska kameran stå där familjen faktiskt lever är det här kameran.",
+  },
+  {
+    id: "aqara-g3",
+    name: "Aqara Camera Hub G3",
+    shortName: "Camera Hub G3",
+    brand: "Aqara",
+    image: productImage(INOMHUSKAMERA.slug, "aqara-g3"),
+    tagline: "Vänder bort linsen när du kommer hem, och styr resten av hemmet.",
+    scores: { avstangning: 4.5, bild: 4, kostnad: 4.5, hemtjanst: 4, prisvarde: 3 },
+    price: 1299,
+    merchant: "Kjell & Company",
+    merchantUrl:
+      "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/natverkskameror/aqara-camera-hub-g3-overvakningskamera-p51976",
+    priceCheckedAt: PRICE_CHECKED,
+    userRating: { value: 4.5, count: 27, scale: 5, checkedAt: PRICE_CHECKED },
+    superlative: "Bäst för den som redan har Apple",
+    pros: [
+      "Hårdvaruläge som vänder bort linsen och visar ett sovande ansikte i stället, för hand eller via en egen regel",
+      "HomeKit Secure Video lagrar krypterat i din iCloud i stället för hos kameratillverkaren",
+      "Inbyggd Zigbee 3.0-hubb, så kameran blir också navet för sensorer och lampor",
+      "110 graders objektiv, näst bredast av kamerorna, plus 340 graders panorering",
+      "Wifi på både 2,4 och 5 GHz, till skillnad från flera konkurrenter",
+    ],
+    cons: [
+      "Lutar bara 45 grader, mot 149 hos Tapo C225, så den ser sämre nedåt mot golvet",
+      "Minneskort bara upp till 128 GB, mot 512 hos Tapo",
+      "1 299 kronor, nästan tre gånger C220 för jämförbar bild",
+      "Automatiken är en regel du själv får bygga i appen, inte ett läge som följer med ur lådan",
+    ],
+    specs: [
+      { label: "Avstängning", value: "Linsen vänds bort, går att automatisera", highlight: true },
+      { label: "Rörelseomfång", value: "340° × 45°", highlight: true },
+      { label: "Synfält", value: "110°", highlight: true },
+      { label: "Upplösning", value: "2K, 2304 × 1296", highlight: true },
+      { label: "Lagring", value: "microSD 128 GB eller iCloud", highlight: true },
+      { label: "Abonnemang", value: "Behövs inte, kort eller iCloud", highlight: true },
+      { label: "Hubb", value: "Zigbee 3.0 inbyggd" },
+      { label: "Ström", value: "USB-C, 5 V 2 A" },
+    ],
+    verdict:
+      "Aqara Camera Hub G3 kostar 1 299 kronor och gör två saker på en gång: den filmar i 2K och den är navet för resten av det smarta hemmet. Avstängningen är mekanisk och syns på håll.\n\nAqara kallar den hårdvarumaskering. Linsenheten vrids bort så att objektivet inte längre pekar in i rummet, och framsidan visar ett sovande ansikte i stället. Det går att göra för hand och det går att lägga i en regel, till exempel att kameran somnar när ytterdörren öppnas. Därmed är det den enda kameran utom Arlo där avstängningen kan ske utan att någon kommer ihåg den. Ovanpå det kommer lagringen: HomeKit Secure Video krypterar materialet och lägger det i din egen iCloud i stället för hos kameratillverkaren, och minneskort finns som väg för den som står utanför Apple. Den inbyggda Zigbee-hubben är det tredje argumentet, för ska du köpa en hubb ändå försvinner prisskillnaden mot en enklare kamera.\n\nDen lutar bara 45 grader. Tapo C225 klarar 149 och ser därmed golvet framför sig, vilket är precis det man vill ha om kameran finns där för att upptäcka att någon ramlat. Minneskortstaket på 128 GB är också snålt när Tapo tar 512.\n\nKöp den om du är i Apples ekosystem eller ändå ska ha en hubb. Då får du tre produkter för priset av en och en avstängning som sköter sig själv. Ska den bara vara kamera kostar den 850 kronor för mycket, och Tapo C225 gör det viktigaste bättre.",
   },
   {
     id: "tapo-c220",
@@ -97,7 +143,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Tapo C220",
     brand: "TP-Link",
     image: productImage(INOMHUSKAMERA.slug, "tapo-c220"),
-    tagline: "461 omdömen, 449 kronor och hela rummet, men bara mjukvaruläge.",
+    tagline: "449 kronor för hela rummet i 2K, om ingen behöver se att den är av.",
     scores: { avstangning: 2.5, bild: 4, kostnad: 5, hemtjanst: 3.5, prisvarde: 5 },
     price: 449,
     merchant: "Kjell & Company",
@@ -110,70 +156,29 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     pros: [
       "449 kronor för 2K, 360 graders panorering och minneskort upp till 512 GB",
       "461 kundomdömen med snittet 4,5, näst mest prövad av kamerorna",
-      "Kjells specifikation anger både Aktivitetszoner och Privata zoner, på varsin rad",
       "Detekterar barnskrik, hundskall och glaskross utöver rörelse och personer",
+      "Sekretesszoner som svartar ut ett område, utöver vanliga detekteringszoner",
       "Siren på 99 dB och wifi 6-stöd",
     ],
     cons: [
-      "Inget fysiskt linsskydd, bara programläget i appen",
+      "Ingen fysisk avstängning, bara programläget i appen",
       "Drifttemperatur 0 till 40 grader, så inte för ouppvärmda utrymmen",
       "Standardinställningen är 15 bilder per sekund",
-      "Nätadaptern har 3 meter kabel, vilket styr var kameran kan stå",
+      "76 graders objektiv, smalast tillsammans med C225",
     ],
     specs: [
       { label: "Avstängning", value: "Programläge, bild och ljud", highlight: true },
-      { label: "Programläge", value: "Stänger av bild och ljud", highlight: true },
-      { label: "Upplösning", value: "2K 4 MP, 2560 × 1440", highlight: true },
-      { label: "Täckning", value: "360° × 114°", highlight: true },
+      { label: "Rörelseomfång", value: "360° × 114°", highlight: true },
+      { label: "Synfält", value: "76° horisontellt, 90° diagonalt", highlight: true },
+      { label: "Upplösning", value: "2K QHD, 2560 × 1440", highlight: true },
       { label: "Lagring", value: "microSD upp till 512 GB", highlight: true },
-      { label: "Kräver abonnemang", value: "Nej" },
+      { label: "Abonnemang", value: "Behövs inte, allt sparas på kortet", highlight: true },
       { label: "Detektering", value: "Person, husdjur, barnskrik, glaskross" },
       { label: "Siren", value: "99 dB" },
-      { label: "Mörkerseende", value: "Upp till 10 m" },
+      { label: "Drifttemperatur", value: "0 till 40 °C" },
     ],
     verdict:
-      "Tapo C220 kostar 449 kronor och har 461 kundomdömen på 4,5. Butiksspecifikationen skiljer dessutom detekteringszon från sekretesszon, vilket ingen annan här gör.\n\n461 kundomdömen med 4,5 i snitt är ett underlag ingen jämförelsesida kan skapa själv. Bara systermodellen C100 har fler. För 449 kronor får du 2K, 360 graders panorering, minneskort upp till ett halvt terabyte och en detektering som skiljer på barnskrik, hundskall och glaskross. Det är orimligt mycket kamera för pengarna.\n\nEn detalj som förtjänar beröm: Kjells specifikation för C220 anger Aktivitetszoner och Privata zoner på två separata rader. Det är tredje gången i hela vår kartläggning av kameror som en butik gör den skillnaden tydlig, och det är den skillnaden som avgör om du kan dölja ett område eller bara sluta få notiser om det.\n\nSkälet till att den inte vinner är enkelt och kostar 150 kronor att åtgärda. C220 har inget fysiskt linsskydd. Avstängningen sker i appen, och programläget stänger visserligen av både bild och ljud enligt TP-Link, men du kan inte se från soffan att det är på. Systermodellen C225 kostar 599 och har en fysisk knapp som vrider bort linsen.\n\nStår kameran i ett förråd, en hall eller ett rum ingen vistas i är den skillnaden betydelselös och C220 är det klart bästa köpet här. Står den i ett vardagsrum där familjen faktiskt lever är den avgörande.\n\nEn praktisk sak till: drifttemperaturen börjar vid noll grader. Den ska inte stå i ett ouppvärmt garage eller en oisolerad förstuga på vintern.",
-  },
-  {
-    id: "aqara-g3",
-    name: "Aqara Camera Hub G3",
-    shortName: "Camera Hub G3",
-    brand: "Aqara",
-    image: productImage(INOMHUSKAMERA.slug, "aqara-g3"),
-    tagline: "Kamera och smart hem-hubb i ett, med lagring i iCloud som alternativ.",
-    scores: { avstangning: 2.5, bild: 4, kostnad: 4.5, hemtjanst: 4, prisvarde: 3 },
-    price: 1299,
-    merchant: "Kjell & Company",
-    merchantUrl:
-      "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/natverkskameror/aqara-camera-hub-g3-overvakningskamera-p51976",
-    priceCheckedAt: PRICE_CHECKED,
-    userRating: { value: 4.5, count: 27, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Bäst för den som redan har Apple",
-    pros: [
-      "HomeKit Secure Video lagrar i iCloud med Apples kryptering i stället för hos kameratillverkaren",
-      "Inbyggd Zigbee 3.0-hubb, så kameran blir också navet för sensorer och lampor",
-      "2K och 340 graders panorering, plus minneskort som alternativ till molnet",
-      "Wifi på både 2,4 och 5 GHz, till skillnad från flera konkurrenter",
-      "Nätadapter ingår, och 27 kundomdömen med snittet 4,5",
-    ],
-    cons: [
-      "Inget fysiskt linsskydd dokumenterat, samma svaghet som Tapo C220",
-      "Minneskort bara upp till 128 GB, mot 512 hos Tapo",
-      "1 299 kronor, nästan tre gånger C220 för jämförbar bild",
-      "110 graders synfält är smalast bland de panorerande kamerorna här",
-    ],
-    specs: [
-      { label: "Avstängning", value: "Programläge", highlight: true },
-      { label: "Programläge", value: "Ej dokumenterat i detalj", highlight: true },
-      { label: "Upplösning", value: "2K, 2304 × 1296", highlight: true },
-      { label: "Täckning", value: "340° panorering", highlight: true },
-      { label: "Lagring", value: "microSD 128 GB, HomeKit Secure Video", highlight: true },
-      { label: "Kräver abonnemang", value: "Nej" },
-      { label: "Hubb", value: "Zigbee 3.0 inbyggd" },
-      { label: "Synfält", value: "110°" },
-    ],
-    verdict:
-      "Aqara Camera Hub G3 lagrar via HomeKit Secure Video, alltså krypterat i iCloud i stället för hos tillverkaren. Den är också en Matter-hubb.\n\nDe flesta kameror väljer mellan minneskort i enheten och molnlagring hos tillverkaren. G3 stöder HomeKit Secure Video, vilket betyder att materialet krypteras och lagras i din egen iCloud i stället för på Aqaras servrar. För den som redan betalar Apple för lagring tillkommer ingen kostnad, och för den som är obekväm med att inomhusbilder ligger hos en kameratillverkare är det ett verkligt alternativ. Minneskort finns dessutom som väg.\n\nDen inbyggda Zigbee-hubben är det andra argumentet. Står du i begrepp att köpa en hubb ändå, för sensorer eller lampor, är prisskillnaden mot en enklare kamera i praktiken borta.\n\nMen den saknar det sidan väger tyngst. Vi har inte hittat någon uppgift om ett fysiskt linsskydd, och betygsätter därför på det programläge som finns dokumenterat. Det placerar den i samma fack som Tapo C220, som kostar 850 kronor mindre.\n\nMinneskortstaket på 128 GB är också snålt när Tapo klarar 512, och 110 graders synfält är det smalaste bland de panorerande. Att den vrider sig 340 grader hjälper när du tittar live, men mindre när du letar i inspelningar efteråt.\n\nKöp den om du är i Apples ekosystem eller vill ha hubben. Köp annars C225 och lägg mellanskillnaden på något annat.",
+      "Tapo C220 kostar 449 kronor och ger 2K, 360 graders panorering och minneskort upp till ett halvt terabyte. 461 köpare har satt snittet 4,5.\n\nFör pengarna är det orimligt mycket kamera. Den vrider sig 360 grader horisontellt och 114 vertikalt, den skiljer på barnskrik, hundskall och glaskross i stället för att bara larma på rörelse, och den har både detekteringszoner och sekretesszoner, alltså områden den slutar titta på snarare än bara slutar notisa om. Sirenen går på 99 dB. Ingenting av det kräver abonnemang, eftersom allt hamnar på kortet i kameran.\n\nDen saknar det sidan väger tyngst, och bristen kostar 150 kronor att åtgärda. C220 har ingen fysisk avstängning. Programläget stänger visserligen av både bild och ljud, men du kan inte se från soffan att det är på, och den som står framför kameran kan inte se det alls. Systermodellen C225 har knappen och kostar 599.\n\nKöp den till förrådet, hallen, tvättstugan eller vilket rum som helst där ingen annan ska behöva känna sig trygg framför objektivet. Där är den kategorins självklara köp. Ska den stå i vardagsrummet är de 150 kronorna den bästa uppgraderingen på hela sidan. Och ställ den inte i ett ouppvärmt garage: drifttemperaturen börjar vid noll grader.",
   },
   {
     id: "arlo-essential-3-ptz-indoor",
@@ -181,43 +186,42 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Essential 3 PTZ",
     brand: "Arlo",
     image: productImage(INOMHUSKAMERA.slug, "arlo-essential-3-ptz-indoor"),
-    tagline: "Skyddet stängs av sig självt, och står öppet om du betalar mest.",
-    scores: { avstangning: 5, bild: 2.5, kostnad: 1, hemtjanst: 5, prisvarde: 2.5 },
+    tagline: "Lutar ner linsen i foten så fort du kommer hem, utan att du gör något.",
+    scores: { avstangning: 5, bild: 3, kostnad: 1, hemtjanst: 5, prisvarde: 2.5 },
     price: 1290,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus/arlo-essential-3-hd-ptz-overvakningskamera-inomhus-2-pack-p66622",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Enda automatiska linsskyddet",
+    superlative: "Bäst när ingen ska behöva komma ihåg det",
     pros: [
-      "Linsskyddet täcker linsen automatiskt när kameran avlarmas och öppnas när den larmas på",
-      "Trettio dagars Arlo Secure ingår vid köp, så du kan pröva vad abonnemanget faktiskt ger",
-      "Rörelsedetektering, ljuddetektering och mikrofonen stängs av när skyddet är stängt",
-      "Att live-titta när kameran inte är inställd på inspelning kräver lösenord, ansikte eller fingeravtryck",
-      "360 graders panorering och 180 graders lutning täcker hela rummet",
+      "Kameran lutar ner tills linsen ligger mot foten så fort systemet står i standby eller hemmaläge",
+      "Rörelsedetekteringen och mikrofonen stängs av samtidigt som linsen vänds bort",
+      "Går också att aktivera direkt med ett tryck i appen, eller läggas i en egen rutin",
+      "130 graders objektiv och 360 × 180 graders rörelse, bäst täckning av alla sju",
+      "Trettio dagars Arlo Secure ingår vid köp",
       "Två kameror för 1 290 kronor, 645 per styck",
     ],
     cons: [
-      "Med kontinuerlig inspelning påslagen står skyddet kvar öppet, enligt Arlos egen dokumentation",
-      "AI-detektering och molnlagring kräver Arlo Secure enligt Kjells specifikation",
-      "Ingen lokal lagring alls",
+      "Ingen lokal lagring alls, så utan abonnemang sparas ingenting",
+      "Arlo Secure kostar 149 kronor i månaden för att täcka båda kamerorna, alltså 1 788 kronor om året",
       "1080p, lägst upplösning av kamerorna",
       "Bara svartvitt infrarött mörkerseende, inget färgläge",
-      "Skyddet får enligt Arlo inte stängas för hand, utan bara genom att avlarma i appen",
+      "AI-detekteringen ligger bakom abonnemanget",
     ],
     specs: [
-      { label: "Avstängning", value: "Automatiskt skydd vid avlarmning", highlight: true },
-      { label: "Programläge", value: "Skydd, mikrofon och detektering av", highlight: true },
-      { label: "Upplösning", value: "1080p, 2 MP", highlight: true },
-      { label: "Täckning", value: "360° × 180°", highlight: true },
-      { label: "Lagring", value: "Moln, kräver Arlo Secure", highlight: true },
-      { label: "Kräver abonnemang", value: "Ja, för AI och lagring" },
+      { label: "Avstängning", value: "Linsen lutar ner i foten, automatiskt", highlight: true },
+      { label: "Rörelseomfång", value: "360° × 180°", highlight: true },
+      { label: "Synfält", value: "130°", highlight: true },
+      { label: "Upplösning", value: "1080p", highlight: true },
+      { label: "Lagring", value: "Endast moln", highlight: true },
+      { label: "Abonnemang", value: "Arlo Secure, 149 kr/mån för båda", highlight: true },
       { label: "Antal", value: "2 kameror" },
       { label: "Mörkerseende", value: "IR, svartvitt" },
-      { label: "Siren", value: "80 dB inbyggd" },
+      { label: "Drifttemperatur", value: "0 till 45 °C" },
     ],
     verdict:
-      "Arlo Essential 3 PTZ har det bäst dokumenterade sekretesskyddet av kamerorna här: 360 graders panorering, 180 graders lutning och zoner som Arlo beskriver utförligt.\n\nBörja med det som är verkligt bra, för det är genuint bäst i test på sin punkt. Linsskyddet är motoriserat och kopplat till larmläget: när du avlarmar kameran täcks linsen automatiskt, och när du larmar på öppnas den. Rörelsedetektering, ljuddetektering och mikrofonen stängs av samtidigt. Du behöver alltså inte komma ihåg någonting, till skillnad från ett skydd du trycker ner för hand.\n\nArlo lägger dessutom till ett skydd ingen annan här har: försöker någon titta live på en kamera som inte är inställd på att spela in krävs kontolösenord, ansiktsigenkänning eller fingeravtryck. Det skyddar mot fel person i din egen app, inte bara mot fel person i rummet.\n\nFör hemtjänstfallet är det här den bästa kameran av de sju. Ställ in att inspelning bara sker i läget Arm Away, så är linsen fysiskt täckt varje gång någon är hemma, och det syns. Arlo skriver samtidigt att skyddet inte får stängas för hand, utan bara genom att avlarma kameran i appen.\n\nSedan brasklappen, i Arlos egna ord: är kontinuerlig inspelning påslagen står skyddet kvar öppet och kameran fortsätter spela in. Kontinuerlig inspelning är en abonnemangsfunktion. Det bäst dokumenterade sekretesskyddet slutar alltså fungera precis när du köper den dyraste nivån.\n\nEn anmärkning om källan, eftersom bedömningen vilar på den: Arlos dokumentation av skyddet gäller Essential Indoor Camera i tredje generationen, alltså den familj Kjells modell tillhör. Vi har inte hittat något dokument som beskriver panoreringsvarianten separat.\n\nOch resten av kalkylen är svag. 1080p är lägst här. Det finns ingen lokal lagring, så utan abonnemang sparas ingenting. AI-detekteringen kräver Arlo Secure enligt butikens egen text. 1 290 kronor för två kameror låter billigt tills man inser att de inte spelar in något förrän man betalar.",
+      "Arlo Essential 3 PTZ Indoor är två kameror för 1 290 kronor med kategorins bästa avstängning och kategorins sämsta kalkyl efter köpet.\n\nAvstängningen är det bästa som finns här. Ställs systemet i standby eller hemmaläge lutar kameran ner tills objektivet ligger an mot foten, och rörelsedetekteringen och mikrofonen slås av i samma rörelse. Du behöver inte komma ihåg någonting, vilket är skillnaden mot varje knapp och varje skydd i lådan, och det syns tvärs över rummet att linsen pekar i golvet. Vill du styra det för hand räcker ett tryck i appen. För hemtjänstfallet är det här den bästa kameran av de sju: ställ in att inspelning bara sker i bortaläget, så är linsen fysiskt bortvänd varje gång någon arbetar i hemmet, och personalen kan se det själv. Täckningen är dessutom bäst i test, 130 graders objektiv och 360 × 180 graders rörelse.\n\nSedan kostnaden. Det finns ingen lokal lagring, så utan abonnemang sparas ingenting alls. Arlo Secure går på 149 kronor i månaden för att täcka båda kamerorna, alltså 1 788 kronor om året ovanpå de 1 290 du redan betalat. Bilden stannar på 1080p och mörkerseendet är svartvitt.\n\nKöp den om det viktigaste är att kameran är bevisligt avstängd när någon annan är i rummet, och om du accepterar en månadskostnad för att över huvud taget spara något. Är svaret på det andra nej gör Tapo C225 det viktigaste nästan lika bra, i 2K, för 599 kronor och noll i månaden.",
   },
   {
     id: "tapo-c100",
@@ -225,7 +229,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Tapo C100",
     brand: "TP-Link",
     image: productImage(INOMHUSKAMERA.slug, "tapo-c100"),
-    tagline: "279 kronor och 578 omdömen. Kategorins mest sålda, och den enklaste.",
+    tagline: "279 kronor för ett rum du bara vill kunna titta in i.",
     scores: { avstangning: 2.5, bild: 2.5, kostnad: 5, hemtjanst: 2.5, prisvarde: 5 },
     price: 279,
     merchant: "Kjell & Company",
@@ -233,71 +237,33 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/natverkskameror/tp-link-tapo-c100-overvakningskamera-p62680",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 578, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Mest omdömd produkt på hela sajten",
+    superlative: "Bäst för förrådet och garaget",
     pros: [
       "279 kronor, billigast av kamerorna med bred marginal",
       "578 kundomdömen med snittet 4,5, fler än någon annan produkt vi rankat i någon kategori",
+      "99 graders objektiv, bredare än både C220 och C225",
+      "Minneskort upp till 512 GB i kameran och inget abonnemangskrav",
       "Samma programläge som övriga Tapo stänger av både bild och ljud",
-      "Minneskort i kameran och inget abonnemangskrav",
     ],
     cons: [
-      "Inget fysiskt linsskydd",
-      "Fast kamera utan panorering, så den ser en del av rummet",
-      "Kjell publicerar ingen specifikation alls för modellen, varken upplösning eller synfält",
-      "Ingen av de funktioner som gör C220 och C225 intressanta finns här",
+      "Ingen fysisk avstängning",
+      "Fast kamera utan panorering, så den ser den del av rummet den råkar peka mot",
+      "1080p, halva upplösningen mot systermodellerna",
+      "Drifttemperatur 0 till 40 grader",
     ],
     specs: [
       { label: "Avstängning", value: "Programläge, bild och ljud", highlight: true },
-      { label: "Programläge", value: "Stänger av bild och ljud", highlight: true },
-      { label: "Upplösning", value: "Ej angiven av butiken", highlight: true },
-      { label: "Täckning", value: "Fast, ingen panorering", highlight: true },
-      { label: "Lagring", value: "microSD", highlight: true },
-      { label: "Kräver abonnemang", value: "Nej" },
-      { label: "Kundomdömen", value: "578 hos butiken" },
+      { label: "Rörelseomfång", value: "Fast, vrider sig inte", highlight: true },
+      { label: "Synfält", value: "99° horisontellt, 117° diagonalt", highlight: true },
+      { label: "Upplösning", value: "1080p, 1920 × 1080", highlight: true },
+      { label: "Lagring", value: "microSD upp till 512 GB", highlight: true },
+      { label: "Abonnemang", value: "Behövs inte, allt sparas på kortet", highlight: true },
+      { label: "Mörkerseende", value: "850 nm IR, upp till 12 m" },
+      { label: "Drifttemperatur", value: "0 till 40 °C" },
       { label: "Pris per kamera", value: "279 kr" },
-      { label: "Mörkerseende", value: "Upp till 10 m" },
     ],
     verdict:
-      "Tapo C100 kostar 279 kronor och är den enklaste kameran här. Den är också den mest omdömda produkt vi sett någonstans.\n\n578 kundomdömen med snittet 4,5. Ingen annan produkt vi rankat, i någon kategori, kommer i närheten. Det säger inte att den är bäst, men det säger att väldigt många har köpt den, satt upp den och blivit nöjda, och den sortens underlag är värt att ta på allvar.\n\nFör 279 kronor får du en fast kamera med minneskort och samma programläge för avstängning som resten av Tapo-familjen: ett läge som stänger av både bild och ljud. Ingenting kräver abonnemang.\n\nSedan gränserna. Det finns inget fysiskt linsskydd. Kameran panorerar inte, så den ser den fjärdedel av rummet den råkar peka mot. Och Kjell publicerar ingen teknisk specifikation alls för modellen, vilket är anmärkningsvärt för den mest sålda kameran här: varken upplösning, synfält eller kortstorlek går att läsa i butiken.\n\nDet är därför den inte kan komma högre på bild. Vi bedömer inte en produkt högt på uppgifter som inte går att läsa, oavsett hur många som gillar den.\n\nKöp den till förrådet, garaget om det är uppvärmt, eller som en första kamera för att se om man alls vill ha en. Ska den stå i ett rum där folk lever är 170 kronor extra för C220 eller 320 för C225 den bästa uppgraderingen i hela kategorin.",
-  },
-  {
-    id: "ring-indoor-cam-plus",
-    name: "Ring Indoor Camera Plus",
-    shortName: "Indoor Cam Plus",
-    brand: "Ring",
-    image: productImage(INOMHUSKAMERA.slug, "ring-indoor-cam-plus"),
-    tagline: "Linsskydd i lådan, 2K i bilden, och ingenting sparat utan abonnemang.",
-    scores: { avstangning: 4, bild: 3.5, kostnad: 1.5, hemtjanst: 2.5, prisvarde: 3.5 },
-    price: 699,
-    merchant: "Kjell & Company",
-    merchantUrl:
-      "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus/ring-indoor-camera-plus-retinal-2k-overvakningskamera-svart-p66702",
-    priceCheckedAt: PRICE_CHECKED,
-    superlative: "Fysiskt linsskydd i lådan",
-    pros: [
-      "Ett linsskydd ligger i förpackningen enligt butikens egen innehållslista",
-      "2K, 2560 × 1440, högre upplösning än både Arlo och Ring Pan-Tilt",
-      "Liten, 5 × 5 × 9,7 cm, och drivs via USB-C med nätadapter som ingår",
-      "699 kronor, billigast av de tre abonnemangsberoende",
-    ],
-    cons: [
-      "Ingen lokal lagring, så inget sparas utan Ring-abonnemang",
-      "Fast kamera med 115 graders horisontellt och bara 60 graders vertikalt synfält",
-      "Linsskyddet är löstagbart och manuellt, inte inbyggt eller automatiskt",
-      "Inga kundomdömen alls hos butiken",
-    ],
-    specs: [
-      { label: "Avstängning", value: "Fysiskt linsskydd i lådan", highlight: true },
-      { label: "Programläge", value: "Ej dokumenterat i detalj", highlight: true },
-      { label: "Upplösning", value: "2K, 2560 × 1440", highlight: true },
-      { label: "Täckning", value: "Fast, 115° × 60°", highlight: true },
-      { label: "Lagring", value: "Endast moln", highlight: true },
-      { label: "Kräver abonnemang", value: "Ja, för inspelning" },
-      { label: "Ström", value: "USB-C, adapter ingår" },
-      { label: "Storlek", value: "5 × 5 × 9,7 cm" },
-    ],
-    verdict:
-      "Eufy Indoor Cam Plus ger 2K för 699 kronor, högre upplösning än både Arlo och Ring, och sekretesskyddet sitter fast på kameran.\n\nDet Ring gör rätt är att lägga ett linsskydd i lådan. Kjells innehållsförteckning listar det som en egen post: ett linsskydd. Det är ett mekaniskt löfte, och det är den sortens integritetskontroll den här sidan väger tyngst. Att det dessutom är den billigaste kameran med 2K-upplösning gör den till en rimlig kandidat på papperet.\n\nSedan lagringen. Det finns ingen lokal. Utan Ring-abonnemang får du en notis och en direktbild, men ingenting sparas. För en kamera vars uppgift ofta är att du ska kunna gå tillbaka och se vad som hände är det en grundinställning som ändrar produktens karaktär.\n\nDet är dessutom inomhusbilder det handlar om. Materialet från en kamera i ett vardagsrum är det känsligaste ett hem producerar, och att det bara existerar på Amazons servrar och inte på ett kort i kameran är en avvägning man ska göra medvetet.\n\nSynfältet är också snålt. 115 grader horisontellt och 60 vertikalt från en fast kamera betyder att du ser ett utsnitt, inte ett rum. Tapo C225 kostar hundra kronor mindre och vrider sig 360 grader.\n\nOch linsskyddet är löstagbart snarare än inbyggt. Det ligger i lådan, vilket också betyder att det kan ligga kvar i lådan.",
+      "Tapo C100 kostar 279 kronor, filmar i 1080p och står stilla. Den är också den mest omdömda produkten vi stött på i någon kategori: 578 köpare, snittet 4,5.\n\nDet underlaget är värt något i sig. Ingen jämförelsesida kan skapa 578 omdömen, och att så många satt upp den och blivit nöjda säger att den gör det den lovar. För 279 kronor får du ett 99 graders objektiv, alltså faktiskt bredare än de dyrare systermodellernas, minneskort upp till 512 GB och samma programläge som resten av familjen, det som stänger av bild och ljud och inte bara inspelningen. Ingenting kräver abonnemang.\n\nDen står däremot still, och 1080p är halva upplösningen mot C220. En fast kamera i ett hörn ser den fjärdedel av rummet den pekar mot, och det finns ingen fysisk avstängning, bara läget i appen.\n\nKöp den till förrådet, till garaget om det är uppvärmt, eller som första kamera för att ta reda på om man alls vill ha en. Där gör den precis sitt jobb för under trehundra kronor. Ska den stå i ett rum där folk lever är 170 kronor extra för C220 eller 320 för C225 den bästa uppgraderingen i hela kategorin.",
   },
   {
     id: "ring-pan-tilt-indoor",
@@ -305,40 +271,85 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Pan-Tilt Indoor",
     brand: "Ring",
     image: productImage(INOMHUSKAMERA.slug, "ring-pan-tilt-indoor"),
-    tagline: "Sekretesskyddet sitter fast på kameran, men bilden hamnar hos Amazon.",
+    tagline: "Linsskyddet sitter fast på kameran, så det kan inte hamna i en låda.",
     scores: { avstangning: 4, bild: 3, kostnad: 1.5, hemtjanst: 2.5, prisvarde: 3 },
     price: 799,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus/ring-pan-tilt-indoor-camera-svart-p65887",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Skyddet sitter kvar på kameran",
+    superlative: "Bäst för den som redan har Ring",
     pros: [
-      "Sekretesskyddet är fäst på kameran enligt butiken, så inget löst tillbehör att tappa bort",
+      "Linsskyddet är inbyggt i kameran, inte ett löst tillbehör som kan tappas bort",
       "360 graders panorering och 169 graders lutning täcker hela rummet",
+      "143 graders objektiv, näst bredast av alla sju",
       "Färgseende i mörker, vilket Arlo saknar i samma prisklass",
+      "Ring garanterar säkerhetsuppdateringar i minst fyra år efter att modellen slutat säljas",
       "Nätadapter, väggfäste, monteringsplatta och installationskit ingår",
     ],
     cons: [
-      "Kjells specifikation bär fotnoten att funktioner kräver Ring Home-abonnemang",
-      "Ingen lokal lagring",
+      "Ingen lokal lagring, så utan abonnemang sparas ingenting",
+      "Ring Basic kostar 3,99 euro i månaden, alltså cirka 45 kronor, för en enda kamera",
       "1080p, lägre upplösning än systermodellen Indoor Cam Plus som kostar hundra mindre",
-      "Inga kundomdömen alls hos butiken",
+      "Skyddet måste fällas för hand, och kan inte läggas i en rutin",
       "799 kronor plus abonnemang, mot 599 för Tapo C225 utan",
     ],
     specs: [
-      { label: "Avstängning", value: "Sekretesskydd fäst på kameran", highlight: true },
-      { label: "Programläge", value: "Ej dokumenterat i detalj", highlight: true },
-      { label: "Upplösning", value: "1080p HD", highlight: true },
-      { label: "Täckning", value: "360° × 169°", highlight: true },
+      { label: "Avstängning", value: "Linsskydd inbyggt på kameran", highlight: true },
+      { label: "Rörelseomfång", value: "360° × 169°", highlight: true },
+      { label: "Synfält", value: "143° diagonalt", highlight: true },
+      { label: "Upplösning", value: "1080p", highlight: true },
       { label: "Lagring", value: "Endast moln", highlight: true },
-      { label: "Kräver abonnemang", value: "Ja, Ring Home" },
+      { label: "Abonnemang", value: "Ring Basic, 3,99 €/mån", highlight: true },
       { label: "Mörkerseende", value: "Färg" },
-      { label: "Synfält", value: "115° × 59°" },
-      { label: "Ström", value: "Micro-USB" },
+      { label: "Siren", value: "72 dB" },
+      { label: "Drifttemperatur", value: "-20 till 45 °C" },
     ],
     verdict:
-      "Ring Pan-Tilt Indoor panorerar 360 grader och lutar 169, alltså hela rummet. 799 kronor.\n\nSekretesskyddet sitter fäst på kameran, inte löst i lådan. Det är en bättre lösning än Ring Indoor Cam Plus har, eftersom ett skydd som sitter kvar också används. Kombinationen med 360 graders panorering och färgseende i mörker gör den till en genomtänkt produkt för ett vardagsrum.\n\nMen tre saker drar ner den.\n\nAbonnemanget. Kjells specifikation bär en fotnot: kräver Ring Home-abonnemang. Det finns ingen lokal lagring, så utan att betala sparas ingenting. Det väger tungt i en kategori där materialet är inomhusbilder från ditt eget hem.\n\nUpplösningen. 1080p, medan systermodellen Indoor Cam Plus ger 2K för hundra kronor mindre. Du betalar alltså mer för att få mindre bild och mer rörlighet.\n\nOch priset i sammanhang. 799 kronor plus en månadskostnad, mot 599 kronor och ingenting för Tapo C225, som har en fysisk knapp som vrider bort linsen, samma 360-graders täckning, 2K och minneskort i kameran.\n\nDen hamnar sist inte för att den är dålig utan för att varje enskild sak den gör bra finns billigare någon annanstans, utan månadsavgift.",
+      "Ring Pan-Tilt Indoor kostar 799 kronor, panorerar 360 grader och lutar 169. Linsskyddet sitter inbyggt i kameran i stället för löst i förpackningen.\n\nDet är den bättre lösningen av Rings två, eftersom ett skydd som sitter fast också används. Kombinationen med 143 graders objektiv, hela rummets rörelseomfång och färgseende i mörker gör den till en genomtänkt kamera för ett vardagsrum, och Ring lovar säkerhetsuppdateringar i minst fyra år efter att modellen slutat säljas, vilket ingen annan tillverkare här sätter på pränt.\n\nSedan de tre sakerna som drar ner den. Det finns ingen lokal lagring, så utan Ring Basic för 3,99 euro i månaden sparas ingenting alls, och det väger tungt när materialet är inomhusbilder från ditt eget hem. Upplösningen stannar på 1080p, medan systermodellen ger 2K för hundra kronor mindre. Och skyddet måste fällas för hand varje gång.\n\nKöp den om du redan har Ring i huset och vill hålla allt i en app. Då är den kategorins bästa Ring-kamera och skyddet sitter där det ska. Har du inget Ring sedan tidigare får du hos Tapo C225 samma 360 graders täckning, 2K i stället för 1080p, ett skydd du också kan se, och ingen månadskostnad, för tvåhundra kronor mindre.",
+  },
+  {
+    id: "ring-indoor-cam-plus",
+    name: "Ring Indoor Camera Plus",
+    shortName: "Indoor Cam Plus",
+    brand: "Ring",
+    image: productImage(INOMHUSKAMERA.slug, "ring-indoor-cam-plus"),
+    tagline: "Skarpast bild av de fasta kamerorna, om molnet inte stör dig.",
+    scores: { avstangning: 3.5, bild: 3.5, kostnad: 1.5, hemtjanst: 2, prisvarde: 3.5 },
+    price: 699,
+    merchant: "Kjell & Company",
+    merchantUrl:
+      "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus/ring-indoor-camera-plus-retinal-2k-overvakningskamera-svart-p66702",
+    priceCheckedAt: PRICE_CHECKED,
+    superlative: "Bäst för ett hörn du vill se skarpt",
+    pros: [
+      "2K, 2560 × 1440, högre upplösning än både Arlo och systermodellen Pan-Tilt",
+      "115 graders objektiv, bredast av de fasta kamerorna",
+      "Ett linsskydd ligger i förpackningen",
+      "Liten, 5 × 5 × 9,7 cm, och drivs via USB-C med nätadapter som ingår",
+      "Ring garanterar säkerhetsuppdateringar i minst fyra år efter att modellen slutat säljas",
+      "699 kronor, billigast av de tre abonnemangsberoende",
+    ],
+    cons: [
+      "Ingen lokal lagring, så utan abonnemang sparas ingenting",
+      "Ring Basic kostar 3,99 euro i månaden, alltså cirka 45 kronor, för en enda kamera",
+      "Fast kamera, så den ser bara den del av rummet den pekar mot",
+      "Linsskyddet är löstagbart, vilket också betyder att det kan bli liggande i lådan",
+      "60 grader vertikalt är smalt, så den ser lite av golvet framför sig",
+    ],
+    specs: [
+      { label: "Avstängning", value: "Löst linsskydd i lådan", highlight: true },
+      { label: "Rörelseomfång", value: "Fast, vrider sig inte", highlight: true },
+      { label: "Synfält", value: "115° horisontellt, 138° diagonalt", highlight: true },
+      { label: "Upplösning", value: "2K, 2560 × 1440", highlight: true },
+      { label: "Lagring", value: "Endast moln", highlight: true },
+      { label: "Abonnemang", value: "Ring Basic, 3,99 €/mån", highlight: true },
+      { label: "Ström", value: "USB-C, adapter ingår" },
+      { label: "Siren", value: "75 dB" },
+      { label: "Storlek", value: "5 × 5 × 9,7 cm" },
+    ],
+    verdict:
+      "Ring Indoor Camera Plus kostar 699 kronor och ger 2K från ett 115 graders objektiv. Det är den skarpaste av de fasta kamerorna, och ett linsskydd ligger i lådan.\n\nDen gör två saker bättre än sina konkurrenter i prisklassen. Upplösningen är högre än både Arlos och systermodellen Pan-Tilts, trots att den kostar mindre än båda, och objektivet är bredast av de fasta kamerorna, vilket är det som avgör hur mycket av rummet en kamera som inte vrider sig faktiskt ser. Den är dessutom liten nog att stå på en hylla utan att dominera den, och Ring lovar säkerhetsuppdateringar i minst fyra år efter att modellen slutat säljas.\n\nMen den sparar ingenting själv. Utan Ring Basic för 3,99 euro i månaden får du en notis och en direktbild, och sedan är det borta. Materialet från en kamera i ett vardagsrum är det känsligaste ett hem producerar, och att det bara finns på Amazons servrar och inte på ett kort i kameran är en avvägning man ska göra medvetet snarare än få på köpet. Linsskyddet är dessutom löst, och det som ligger i lådan har en tendens att stanna där.\n\nKöp den om du har en bestämd punkt du vill se skarpt, ett hörn, en ytterdörr inifrån, en hall, och om molnet inte stör dig. Vill du i stället se hela rummet och slippa månadskostnaden kostar Tapo C225 hundra kronor mindre och gör båda delarna.",
   },
 ];
 
@@ -356,7 +367,7 @@ export const INOMHUSKAMERA_CONSIDERED: ConsideredProduct[] = [
     brand: "TP-Link",
     name: "Tapo C125",
     reason:
-      "Har samma fysiska integritetsknapp som vinnaren C225 och kostar 549 kronor i stället för 599, 50 kronor billigare. Rankas ändå inte, eftersom den är fast och inte panorerar: 140 graders synfält mot C225:s 360 graders rörelseomfång. För femtio kronor är det ingen besparing värd namnet. Köp den bara om kameran ska sitta i ett hörn och peka åt ett bestämt håll för alltid.",
+      "Har samma knapp på höljet som vinnaren C225 och kostar 549 kronor i stället för 599, 50 kronor billigare. Rankas ändå inte, eftersom den är fast och inte panorerar: 140 graders synfält mot C225:s 360 graders rörelseomfång. För femtio kronor är det ingen besparing värd namnet. Köp den bara om kameran ska sitta i ett hörn och peka åt ett bestämt håll för alltid.",
     approxPrice: 549,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -366,7 +377,7 @@ export const INOMHUSKAMERA_CONSIDERED: ConsideredProduct[] = [
     brand: "eufy",
     name: "Indoor Cam C220 och S350",
     reason:
-      "Kjell publicerar ingen teknisk specifikation alls för någon av dem, varken upplösning, synfält eller lagring. Vi rankar inte en produkt där ingen av de uppgifter vi betygsätter går att läsa. Synd, för C220 kostar 499 kronor och har 77 kundomdömen, ett verkligt underlag. Kontrollera specifikationen direkt hos eufy om du överväger dem.",
+      "eufy anger 2K, 360 graders panorering, lokal lagring och ett privatläge för Indoor Cam C220, alltså samma uppsättning som Tapo C220 men för 499 kronor i stället för 449. Avstängningen sker i appen hos båda. S350 kostar 1 390 kronor, mer än Aqara G3 som dessutom är hubb för resten av hemmet. Ingen av dem gör något kategorin inte redan gör billigare, och det är hela skälet. C220 har 77 kundomdömen och är en rimlig kandidat till rankningen nästa gång sidan görs om.",
     approxPrice: 499,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -386,7 +397,7 @@ export const INOMHUSKAMERA_CONSIDERED: ConsideredProduct[] = [
     brand: "Google",
     name: "Nest Cam Indoor",
     reason:
-      "1 090 kronor för 1080p och 135 graders fast synfält är dyrt i den här kategorin, och vi har inte hittat någon dokumentation om vare sig fysiskt linsskydd eller sekretesszoner. Det som talar för den är att maskininlärningen körs på enheten i stället för i molnet, vilket är ovanligt, plus 25 kundomdömen med snittet 4,5. Rankas inte eftersom det vi väger tyngst inte går att belägga.",
+      "1 090 kronor för 1080p och 135 graders fast synfält är dyrt i den här kategorin, och den har varken linsskydd eller panorering. Det som talar för den är att maskininlärningen körs på enheten i stället för i molnet, vilket är ovanligt, plus 25 kundomdömen med snittet 4,5. Rankas inte eftersom du betalar dubbla priset mot Tapo C225 för sämre bild, sämre täckning och en avstängning som bara finns i appen.",
     approxPrice: 1090,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -416,32 +427,32 @@ export const INOMHUSKAMERA_FAQ = [
   {
     question: "Vilken inomhuskamera är bäst 2026?",
     answer:
-      "TP-Link Tapo C225 för 599 kronor hos Kjell. Den har en fysisk knapp som enligt TP-Link fäller ner ett skydd över linsen eller vrider bort den helt, den täcker hela rummet med 360 graders panorering, den spelar in i 2K på ett minneskort i kameran och ingenting kräver abonnemang. Vill du ha billigast möjliga är Tapo C220 för 449 kronor nästan lika bra, men utan det fysiska skyddet.",
+      "TP-Link Tapo C225 för 599 kronor hos Kjell. Den har en knapp på höljet som fäller ner ett skydd över linsen eller vrider bort den helt, den täcker hela rummet med 360 graders panorering och 149 graders lutning, den spelar in i 2K på ett minneskort i kameran och ingenting kräver abonnemang. Vill du att avstängningen ska ske av sig själv är Aqara Camera Hub G3 eller Arlo Essential 3 PTZ svaret, och vill du ha billigast möjliga är Tapo C220 för 449 kronor nästan lika bra, men utan den fysiska avstängningen.",
   },
   {
     question: "Får jag ha kamera hemma om jag har hemtjänst?",
     answer:
-      "Inte inom privatundantaget. IMY har ett eget exempel för det: får en privatperson regelbundet besök av hemtjänsten omfattas kamerabevakningen inte av undantaget, eftersom personalen besöker hemmet i sin yrkesroll och därmed bevakas under sin arbetstid. Då gäller GDPR, vilket innebär att du behöver en rättslig grund, ska göra en intresseavvägning och ska informera om bevakningen. Det praktiska svaret är att kameran ska vara avstängd när personalen är där, och att ett fysiskt linsskydd är det enda sättet att visa dem att den faktiskt är det.",
+      "Inte inom privatundantaget. IMY har ett eget exempel för det: får en privatperson regelbundet besök av hemtjänsten omfattas kamerabevakningen inte av undantaget, eftersom personalen besöker hemmet i sin yrkesroll och därmed bevakas under sin arbetstid. Då gäller GDPR, vilket innebär att du behöver en rättslig grund, ska göra en intresseavvägning och ska informera om bevakningen. Det praktiska svaret är att kameran ska vara avstängd när personalen är där, och att en fysisk avstängning är det enda sättet att visa dem att den faktiskt är det.",
   },
   {
     question: "Vad är skillnaden mellan ett linsskydd och privatläge i appen?",
     answer:
-      "Ett linsskydd är en mekanism. Det täcker eller vrider bort objektivet, det syns tvärs över rummet och det kräver ingen tillit till programvaran. Ett privatläge i appen är ett löfte om att programvaran gör som den säger, och det löftet kan du inte kontrollera. Arlos Essential Indoor har ett skydd som stängs automatiskt när kameran avlarmas. Tapo C225 och C125 har en fysisk knapp. Ring lägger ett linsskydd i lådan. Övriga har bara programläget.",
+      "Ett linsskydd är en mekanism. Det täcker eller vrider bort objektivet, det syns tvärs över rummet och det kräver ingen tillit till programvaran. Ett privatläge i appen är ett löfte om att programvaran gör som den säger, och det löftet kan du inte kontrollera. Arlo Essential 3 PTZ lutar ner linsen i foten när kameran avlarmas. Aqara G3 vänder bort linsen och visar ett sovande ansikte, för hand eller via en regel du bygger. Tapo C225 och C125 har en knapp på höljet. Ring har ett linsskydd, inbyggt på Pan-Tilt och löst hos Indoor Cam Plus. Tapo C220 och C100 har bara programläget.",
   },
   {
     question: "Krävs abonnemang för en inomhuskamera?",
     answer:
-      "Det beror på fabrikat, och skillnaden är stor. TP-Link Tapo, Aqara och Imou sparar allt på ett minneskort i kameran och fungerar fullt ut utan abonnemang. Ring spelar inte in något alls utan Ring Home, och Arlo kräver Arlo Secure för både molnlagring och AI-detektering enligt Kjells egen specifikation. Eftersom inomhusbilder är det känsligaste material ett hem producerar är frågan var de lagras inte bara ekonomisk.",
+      "Det beror på fabrikat, och skillnaden är stor i kronor. TP-Link Tapo, Aqara och Imou sparar allt på ett minneskort i kameran och fungerar fullt ut för noll kronor i månaden. Ring spelar inte in något alls utan Ring Basic, som kostar 3,99 euro i månaden för en kamera, och Arlo kräver Arlo Secure för både molnlagring och AI-detektering, 99 kronor i månaden för en kamera och 149 för flera. Ett Arlo-tvåpack som körs i tre år kostar alltså mer i abonnemang än fyra Tapo C225 kostar att köpa.",
   },
   {
     question: "Ska kameran kunna vrida sig?",
     answer:
-      "Inomhus, oftast ja. Avstånden är korta och en fast kamera i ett hörn ser en fjärdedel av rummet. En kamera med 360 graders panorering ser hela. Skillnaden är större här än utomhus, där en fast kamera med brett synfält täcker en uppfart bra. Tapo C220 och C225, Ring Pan-Tilt, Arlo Essential 3 PTZ och Aqara G3 vrider sig. Tapo C100, Tapo C125 och Ring Indoor Cam Plus gör det inte.",
+      "Inomhus, oftast ja. Avstånden är korta och en fast kamera i ett hörn ser den del av rummet den pekar mot. En kamera med 360 graders panorering ser hela. Skillnaden är större här än utomhus, där en fast kamera med brett synfält täcker en uppfart bra. Tapo C220 och C225, Ring Pan-Tilt, Arlo Essential 3 PTZ och Aqara G3 vrider sig. Tapo C100, Tapo C125 och Ring Indoor Cam Plus gör det inte. Titta samtidigt på lutningen och inte bara på panoreringen: Aqara vrider sig 340 grader i sidled men bara 45 i höjdled, medan Tapo C225 klarar 149 och därför ser golvet framför sig.",
   },
   {
     question: "Kan jag ha kamera i ett barnrum?",
     answer:
-      "Juridiskt är det ditt hem och ditt barn, så privatundantaget gäller normalt. Men det är värt att skilja på en babyvakt och en övervakningskamera: en babyvakt ska ge ljud och en larmgräns, medan en övervakningskamera spelar in historik och gör personigenkänning. Ju äldre barnet blir desto rimligare är det att fråga om samtycke, och en kamera med fysiskt linsskydd gör den frågan konkret i stället för teoretisk.",
+      "Juridiskt är det ditt hem och ditt barn, så privatundantaget gäller normalt. Men det är värt att skilja på en babyvakt och en övervakningskamera: en babyvakt ska ge ljud och en larmgräns, medan en övervakningskamera spelar in historik och gör personigenkänning. Ju äldre barnet blir desto rimligare är det att fråga om samtycke, och en kamera med fysisk avstängning gör den frågan konkret i stället för teoretisk.",
   },
   {
     question: "Var ska kameran stå?",
@@ -451,7 +462,7 @@ export const INOMHUSKAMERA_FAQ = [
   {
     question: "Vad händer med bilderna om tillverkaren lägger ner tjänsten?",
     answer:
-      "Med minneskort i kameran händer ingenting. Med molnlagring försvinner både materialet och funktionen. Google lade ner Nest Protect i mars 2025, vilket är vinkeln på vår sida om smarta brandvarnare, och det gällde en produkt som fungerat i åratal. Tapo, Aqara och Imou sparar lokalt. Ring och Arlo gör det inte.",
+      "Med minneskort i kameran händer ingenting. Med molnlagring försvinner både materialet och funktionen. Google lade ner Nest Protect i mars 2025, vilket är vinkeln på vår sida om smarta brandvarnare, och det gällde en produkt som fungerat i åratal. Tapo, Aqara och Imou sparar lokalt. Ring och Arlo gör det inte. Ring anger däremot att modellerna får säkerhetsuppdateringar i minst fyra år efter att de slutat säljas, vilket är ett besked de andra tillverkarna inte ger.",
   },
   {
     question: "Kan jag använda en inomhuskamera som babyvakt?",

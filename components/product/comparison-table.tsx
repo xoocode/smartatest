@@ -530,7 +530,7 @@ function MatrixTable({
             >
               <span className="sr-only">Köp</span>
             </th>
-            {products.map((product) => (
+            {products.map((product, i) => (
               <td
                 key={product.id}
                 className={cn("px-2 py-3 sm:px-3 sm:py-4", cellBorder)}
@@ -543,6 +543,7 @@ function MatrixTable({
                   productId={product.id}
                   productName={fullName(product)}
                   placement="comparison-table"
+                  position={i + 1}
                   size="default"
                   showIcon={false}
                   block
@@ -707,7 +708,7 @@ function ChecklistTable({
             >
               <span className="sr-only">Köp</span>
             </th>
-            {products.map((product) => (
+            {products.map((product, i) => (
               <td
                 key={product.id}
                 className={cn("px-2 py-3 sm:px-3 sm:py-4", cellBorder)}
@@ -720,6 +721,7 @@ function ChecklistTable({
                   productId={product.id}
                   productName={fullName(product)}
                   placement="comparison-table"
+                  position={i + 1}
                   size="default"
                   showIcon={false}
                   block
@@ -926,6 +928,7 @@ function RowsTable({
                     productId={product.id}
                     productName={fullName(product)}
                     placement="comparison-table"
+                    position={i + 1}
                     size={dense ? "sm" : "default"}
                     showIcon={false}
                   />

@@ -31,6 +31,14 @@ ourselves. That model is the product, not a limitation to hide.
 
 Project background, keyword data and per-test-page research live in `.agent/`.
 
+`README.md` introduces the site and the codebase to a human arriving at the
+repo. It is **downstream of this file**: it summarises the stack, the four-file
+page anatomy, the check suite and the gates, and it is the right thing to hand
+someone new. It is never the source of a rule. Where it and `.claude/context/`
+disagree, the context file is right and the README is stale — fix it there and
+then. Do not add a rule to the README that does not already live in a context
+file.
+
 ## Default: yes, and here is what it costs
 
 The gates below are the only prohibitions. Everything else is a judgement call,
@@ -56,8 +64,8 @@ Aligning on *scope* still comes first; this is about what is *possible*.
 
 ## Gates
 
-- **Never deploy automatically.** Only when explicitly asked.
-  `git add . && git commit -am "…" && git push origin main && vercel --prod`
+- **Never deploy automatically.** Only when explicitly asked. The command lives
+  once, in `.claude/context/ship.md`.
 - **Never save files to the project root.** Working files go in `.agent/`, plans
   in `.agent/plans/`.
 - **Never `status: "live"`** in `lib/catalog.ts` before the page is genuinely
@@ -69,8 +77,11 @@ Aligning on *scope* still comes first; this is about what is *possible*.
 
 ## Notes
 
-- This Next.js version differs from training data. Read
-  `node_modules/next/dist/docs/` before writing framework code.
 - `.se` domains go through HostUp, never Vercel or Cloudflare. Check
   availability via `whois.iis.se` port 43; DNS NXDOMAIN misses parked domains.
 - Credentials in `C:\code\credentials\`: `adtraction/`, `hostup/`.
+
+The Next.js rule — read the version-matched docs before writing framework code —
+lives once, in `AGENTS.md`, which Next.js maintains and this line imports:
+
+@AGENTS.md

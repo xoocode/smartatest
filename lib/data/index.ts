@@ -1,5 +1,7 @@
 import type { Product } from "@/lib/products";
 import type { Service } from "@/lib/services";
+import { SKAFTDAMMSUGARE_PRODUCTS } from "@/lib/data/skaftdammsugare";
+import { BABYVAKT_PRODUCTS } from "@/lib/data/babyvakt";
 import { HEMLARM_SERVICES } from "@/lib/data/hemlarm";
 import { SMART_BELYSNING_PRODUCTS } from "@/lib/data/smart-belysning";
 import { SMART_PLUG_PRODUCTS } from "@/lib/data/smart-plug";
@@ -37,10 +39,15 @@ import { USB_C_KABEL_PRODUCTS } from "@/lib/data/usb-c-kabel";
 import { GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/garageportsoppnare";
 import { SMART_GARAGEPORTSOPPNARE_PRODUCTS } from "@/lib/data/smart-garageportsoppnare";
 import { POWERBANK_PRODUCTS } from "@/lib/data/powerbank";
+import { GALAXY_S26_FODRAL_PRODUCTS } from "@/lib/data/galaxy-s26-fodral";
+import { GALAXY_S26_SKAL_PRODUCTS } from "@/lib/data/galaxy-s26-skal";
+import { MJOLKSKUMMARE_PRODUCTS } from "@/lib/data/mjolkskummare";
 import { IPHONE_SKAL_PRODUCTS } from "@/lib/data/iphone-skal";
 import { IPHONE_FODRAL_PRODUCTS } from "@/lib/data/iphone-fodral";
 import { IPHONE_SKARMSKYDD_PRODUCTS } from "@/lib/data/iphone-skarmskydd";
+import { BLUETOOTH_HOGTALARE_PRODUCTS } from "@/lib/data/bluetooth-hogtalare";
 import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
+import { POWERSTATION_PRODUCTS } from "@/lib/data/powerstation";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -63,9 +70,16 @@ import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...SKAFTDAMMSUGARE_PRODUCTS,
+  ...BABYVAKT_PRODUCTS,
+  ...POWERSTATION_PRODUCTS,
   ...SLACKSPRAY_PRODUCTS,
+  ...BLUETOOTH_HOGTALARE_PRODUCTS,
   ...IPHONE_SKARMSKYDD_PRODUCTS,
   ...IPHONE_FODRAL_PRODUCTS,
+  ...GALAXY_S26_FODRAL_PRODUCTS,
+  ...GALAXY_S26_SKAL_PRODUCTS,
+  ...MJOLKSKUMMARE_PRODUCTS,
   ...IPHONE_SKAL_PRODUCTS,
   ...POWERBANK_PRODUCTS,
   ...POWERBANK_20000_PRODUCTS,

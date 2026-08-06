@@ -79,6 +79,23 @@ export type ServiceTerms = {
    * normalfallet i den här branschen och alltså inte ett fel i datan.
    */
   monthlyFee: number | null;
+  /**
+   * Löpande avgift som faktureras per år i stället för per månad.
+   *
+   * ⚠️ Infört 2026-08-06 för Garda Alarm, som marknadsför sig som larmet utan
+   * månadskostnad och tar 1 199 kr/år för larmcentralsanslutningen enligt
+   * punkt 2.5 i sina villkor. Utan fältet räknade `disclosureOf()` bolaget som
+   * "inget pris publicerat", vilket var fel i precis den fråga sidan handlar
+   * om.
+   *
+   * **Fyll aldrig `monthlyFee` med en tolftedel av det här talet.** En
+   * månadsavgift bolaget inte publicerar blir då en härledd siffra i ett fält
+   * som bara får bära lästa, och den skulle dessutom räknas in i verktygens
+   * femårskostnad som om den fakturerades månadsvis.
+   */
+  annualFee?: number | null;
+  /** Vad bolaget själv kallar årsavgiften. */
+  annualFeeLabel?: string;
   /** Startavgift, uppkopplingsavgift eller startpaket. `null` = ej publicerad. */
   startFee: number | null;
   /** Vad bolaget själv kallar startavgiften. */
@@ -263,10 +280,15 @@ export function formatBinding(months: number | null | undefined): string {
  * någon minns att ändra ett andra fält.
  */
 export function disclosureOf(terms: ServiceTerms): PriceDisclosure {
-  const hasMonthly = typeof terms.monthlyFee === "number";
+  /* Årsavgift räknas som löpande pris. Ett bolag som fakturerar per år har
+     publicerat vad tjänsten kostar lika mycket som ett som fakturerar per
+     månad, och att bara läsa `monthlyFee` gav Garda Alarm etiketten "inget
+     pris publicerat" trots två publicerade årsbelopp. */
+  const hasRecurring =
+    typeof terms.monthlyFee === "number" || typeof terms.annualFee === "number";
   const hasStart = typeof terms.startFee === "number";
-  if (hasMonthly && hasStart) return "publicerat";
-  if (hasMonthly || hasStart) return "delvis";
+  if (hasRecurring && hasStart) return "publicerat";
+  if (hasRecurring || hasStart) return "delvis";
   return "dolt";
 }
 
@@ -282,6 +304,20 @@ export function totalCost(
   months: number,
   options: { withBinding?: boolean } = {},
 ): number | null {
+  /* ⚠️ Årsavgiften räknas in **bara** när det också finns en månadsavgift,
+     och skälet är att de två bolag som har en årsavgift har den av rakt
+     motsatta skäl.
+
+     Safeland tar 249 kr/mån för larmet och 1 490 kr/år för larmcentral med
+     väktare. Utan årsavgiften blir femårssumman 18 930 kronor i stället för
+     26 380, alltså 7 450 för lite, och jämförelsen mot bolag där
+     larmcentralen ingår blir dessutom en jämförelse av olika saker.
+
+     Garda Alarm har ingen månadsavgift alls utan 1 199 kr/år, och köper man
+     hårdvaran till ett pris de inte publicerar. En femårssumma byggd på
+     enbart årsavgiften hade blivit 5 995 kronor och lästs som hela kostnaden,
+     alltså en bråkdel av sanningen. Där är `null` och "går inte att räkna"
+     rätt svar, och det är vad raden nedan ger. */
   if (typeof terms.monthlyFee !== "number") return null;
 
   const start =
@@ -290,7 +326,12 @@ export function totalCost(
       ? terms.startFeeWithoutBinding
       : terms.startFee;
 
-  return terms.monthlyFee * months + (typeof start === "number" ? start : 0);
+  const annual =
+    typeof terms.annualFee === "number" ? terms.annualFee * (months / 12) : 0;
+
+  return (
+    terms.monthlyFee * months + annual + (typeof start === "number" ? start : 0)
+  );
 }
 
 /**

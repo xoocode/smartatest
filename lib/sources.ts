@@ -49,6 +49,7 @@ export type Source = {
     | "IT"
     | "ES"
     | "PT"
+    | "PL"
     | "UK"
     | "US";
   /** What this source contributes that we did not measure ourselves. */
@@ -85,6 +86,7 @@ export const MARKET_LABELS: Record<NonNullable<Source["market"]>, string> = {
   IT: "Italien",
   ES: "Spanien",
   PT: "Portugal",
+  PL: "Polen",
   UK: "Storbritannien",
   US: "USA",
 };
@@ -124,7 +126,9 @@ export function sourceSummary(sources: Source[]) {
   /* Utelämnad `kind` räknas som test, se typen. Jämförelsesajter räknas för
      sig: en affiliatefinansierad topplista är inte ett experttest, och att
      addera dem hade blåst upp den siffra som ska bära trovärdigheten. */
-  const tests = sources.filter((s) => s.kind !== "standard" && s.kind !== "comparison");
+  const tests = sources.filter(
+    (s) => s.kind !== "standard" && s.kind !== "comparison",
+  );
   const comparisons = sources.filter((s) => s.kind === "comparison");
   /* Myndigheter, standardiseringsorgan, butiker och tillverkare. Störst av de
      tre grupperna, och fram till 2026-08-04 den enda utan eget tal: den låg
@@ -278,6 +282,13 @@ export const SMART_BELYSNING_SOURCES: Source[] = [
  * Matter-stöd.
  */
 export const SMART_PLUG_SOURCES: Source[] = [
+  {
+    publisher: "Energimyndigheten",
+    title: "Enkla elmätare och smarta pluggar med energimätning",
+    url: "https://www.energimyndigheten.se/effektiv-energianvandning/tester/tester-a-o/enkla-elmatare-och-smarta-pluggar-med-energimatning/",
+    market: "SE",
+    note: "Myndighetstest av åtta uttag enligt SS-EN 50564 och SS-EN 50643, med uppmätt viloförbrukning och mätfel vid laster från 0,3 W till 2 500 W.\n\nInget av uttagen kunde mäta 0,3 W och flera visade noll även vid 1,5 W. Först från 30 W är felet under 3,5 procent. De uppmätta modellerna är andra generationer än våra, så siffrorna ligger i köpguiden som kategorifakta och är inte förda till någon produkt.",
+  },
   {
     publisher: "Ljud & Bild",
     title: "6 smart plugs med Matter",
@@ -652,14 +663,16 @@ export const ELEKTRISK_RULLGARDIN_SOURCES: Source[] = [
   },
   {
     publisher: "TechHive",
-    title: "SwitchBot Curtain 3 review: 3rd-gen curtain controller gets it right",
+    title:
+      "SwitchBot Curtain 3 review: 3rd-gen curtain controller gets it right",
     url: "https://www.techhive.com/article/2238336/switchbot-curtain-3-review-3rd-gen-curtain-controller-gets-it-right.html",
     market: "US",
     note: "Testar just tredje generationen och jämför den mot föregångaren. Lyfter den kraftigare motorn och magneten som ersätter manuell kalibrering av stoppläget.",
   },
   {
     publisher: "Trusted Reviews",
-    title: "SwitchBot Curtain 3 review: The quiet way to turn your curtains smart",
+    title:
+      "SwitchBot Curtain 3 review: The quiet way to turn your curtains smart",
     url: "https://www.trustedreviews.com/reviews/switchbot-curtain-3",
     market: "UK",
     note: "Bekräftar det tysta läget som produktens starkaste egenskap, och att hubb krävs för att styra den utanför Bluetooth-räckvidd.",
@@ -693,8 +706,37 @@ export const ELEKTRISK_RULLGARDIN_SOURCES: Source[] = [
     note: "Testar solpanelen över tid, alltså påståendet att produkten aldrig behöver laddas manuellt.",
   },
   {
+    publisher: "The Ambient",
+    title: "SwitchBot Roller Shade review",
+    url: "https://www.the-ambient.com/reviews/switchbot-roller-shade-r/",
+    market: "UK",
+    note: "David Ludlow testar den kompletta rullgardinen och beskriver den som mjuk och pålitlig i drift, med pillig montering och två färger som invändningar. Ligger bakom betyget på Omdöme i oberoende tester, som fram till 2026-08-06 stod tomt.",
+  },
+  {
+    publisher: "SmartHomeScene",
+    title: "Aqara Roller Shade Driver E1 Review",
+    url: "https://smarthomescene.com/reviews/aqara-roller-shade-driver-e1-review/",
+    market: "UK",
+    note: "Går igenom kedjemotorn lokalt via Home Assistant och beskriver den som mycket tystgående. Ljudbetyget på 4,0 vilar på den här iakttagelsen och på HomeKit News nedan.",
+  },
+  {
+    publisher: "HomeKit News",
+    title: "Aqara Roller Shade Driver E1 (review)",
+    url: "https://homekitnews.com/2021/09/22/aqara-roller-shade-driver-e1-review/",
+    market: "UK",
+    note: "Sätter 8,5 till 9,5 av 10 på delbetygen och lyfter att motorn är betydligt tystare än föregångarens. Den återkommande invändningen är att den är långsam.",
+  },
+  {
+    publisher: "Aqara",
+    title: "Curtain Driver E1 (Track Version) User Manual",
+    url: "https://www.aqara.com/eu/product/curtain-driver-e1-track-version/user-manual/",
+    kind: "standard",
+    note: "Sidan 3 avgör vilka skenor produkten får sitta på: både U-skena och I-skena, och I-skenan ska vara slät och bredare än 10 mm. Ligger bakom att den är den enda i rankningen som svarar på I-skena.",
+  },
+  {
     publisher: "Android Police",
-    title: "Aqara Curtain Driver E1 review: Smart but expensive curtain automation",
+    title:
+      "Aqara Curtain Driver E1 review: Smart but expensive curtain automation",
     url: "https://www.androidpolice.com/aqara-curtain-driver-e1-review/",
     market: "US",
     note: "Kritiserar priset och kravet på hubb, men lyfter batteritiden som klassens bästa.",
@@ -723,7 +765,8 @@ export const ELEKTRISK_RULLGARDIN_SOURCES: Source[] = [
   },
   {
     publisher: "M3",
-    title: "Test: IKEA Fyrtur, smart rullgardin styrs med app och fjärrkontroll",
+    title:
+      "Test: IKEA Fyrtur, smart rullgardin styrs med app och fjärrkontroll",
     url: "https://www.m3.se/article/1860773/ikea-fyrtur-smart-rullgardin.html",
     market: "SE",
     kind: "standard",
@@ -771,7 +814,8 @@ export const ELEKTRISK_RULLGARDIN_SOURCES: Source[] = [
   },
   {
     publisher: "Testix",
-    title: "Rullgardin bäst i test, guide till mörkläggande och smarta rullgardiner",
+    title:
+      "Rullgardin bäst i test, guide till mörkläggande och smarta rullgardiner",
     url: "https://testix.se/test/rullgardin",
     market: "SE",
     kind: "comparison",
@@ -914,7 +958,7 @@ export const VATTENLARM_SOURCES: Source[] = [
     url: "https://brandinfo.se/brandvarnare/x-sense-fs31-smart-brandsakerhetssystem/",
     market: "SE",
     kind: "test",
-    note: "Den enda faktiska recensionen vi hittat av någon produkt i rankningen. Gäller X-Sense-systemet med basstationen SBS50 och vattenvarnaren SWS51. Att den täcker en av tio produkter är skälet till att den här sidan saknar ett testomdöme-kriterium: ett kriterium som är blankt för nio av tio jämför ingenting.",
+    note: "Recension av X-Sense-systemet med basstationen SBS50 och vattenvarnaren SWS51, alltså tekniken bakom både vinnaren och sjätteplatsen. Täcker en av nio rankade produkter, vilket är för lite för ett eget testomdöme-kriterium. Skälet står i viktningen.",
   },
   {
     publisher: "Vattenskadecentrum",
@@ -960,7 +1004,8 @@ export const VATTENLARM_SOURCES: Source[] = [
   },
   {
     publisher: "Säker Vatten",
-    title: "Ändringar och nyheter i Branschregler Säker Vatteninstallation 2026:1",
+    title:
+      "Ändringar och nyheter i Branschregler Säker Vatteninstallation 2026:1",
     url: "https://sakervatten.se/wp-content/uploads/2025/10/branschregler-2026-samlade-andringar-lagupplost.pdf",
     date: "2025-10",
     market: "SE",
@@ -982,7 +1027,7 @@ export const VATTENLARM_SOURCES: Source[] = [
     url: "https://tollco.se/nyheter/rise-certifierade-vattenlarm/",
     market: "SE",
     kind: "standard",
-    note: "Enda tillverkaren bakom ett rankat larm som skriver ut ett certifikatnummer: C901472, som omfattar både batteridriven och nätansluten modell samt tillverkningskontroll. Tillverkarens egen uppgift. Att övriga fabrikat saknas här är ingen uppgift om dem, bara om vad de själva publicerar.",
+    note: "Certifikat C901472 enligt CR 139, som omfattar både batteridriven och nätansluten modell samt löpande tillverkningskontroll. Tillverkarens egen uppgift. Numret är det din VVS-installatör kan slå upp mot RISE register när branschreglerna gäller ditt bygge.",
   },
   {
     publisher: "Folksam",
@@ -1348,7 +1393,57 @@ export const BRANDSLACKARE_SOURCES: Source[] = [
     url: "https://www.biltema.se/hem/sakerhet/brandslackare/brandslackare-pulver-abc-6-kg-2000046826",
     market: "SE",
     kind: "standard",
-    note: "Enda produktsidan i kartläggningen som skriver ut typgodkännandet, EN 3-7/8, tillsammans med manometer, övertrycksventil och att släckaren får användas mot elektrisk utrustning upp till 1 000 V på en meters avstånd.",
+    note: "Anger typgodkännandet EN 3-7/8 direkt i produkttexten, tillsammans med manometer, övertrycksventil och att släckaren får användas mot elektrisk utrustning upp till 1 000 V på en meters avstånd. Källa till samtliga uppgifter om Biltemas tre släckare.",
+  },
+  {
+    publisher: "Brandskyddsföreningen",
+    title: "Norm Hembrandsläckare SBF 2011:1",
+    url: "https://www.brandskyddsforeningen.se/globalassets/blandade-pdfer/norm-hembrandslackare-webb.pdf",
+    date: "2015-03-01",
+    market: "SE",
+    kind: "standard",
+    note: "Sidans viktigaste källa, och den som avgör hur vi betygsätter färgen. Normen slår fast att en hembrandsläckare ska uppfylla samtliga krav i SS-EN 3-7 utom punkt 16.1 om färgen, vara pulver, väga 6 kg och klara provbål 43A och 233B.\n\nDärav följer att en vit släckare inte kan vara EN 3-7-certifierad, och att undantaget uttryckligen inte gäller bostäder som hyrs ut.",
+  },
+  {
+    publisher: "Brandskyddsföreningen",
+    title: "Handbrandsläckare",
+    url: "https://www.brandskyddsforeningen.se/brandsakerhet-i-hemmet/hemma/brandslackare/",
+    market: "SE",
+    kind: "standard",
+    note: "Rekommendationen om minst 6 kg pulver för hem, villa, fritidshus och kontor, en släckare per våningsplan i flervåningshus, och att släckaren ska vara certifierad av SBSC, DNV eller annat Swedac-ackrediterat organ.",
+  },
+  {
+    publisher: "Dafo",
+    title: "Standarder, regler och råd för brandsläckare",
+    url: "https://www.dafo.se/produkter/brandslackare/standarder-regler-och-rad/",
+    market: "SE",
+    kind: "standard",
+    note: "Branschens genomgång av SS-EN 3. Bidrar med att standarden reglerar färgsättning vid sidan av storlek och släckmedelsmängd, och med spannet för effektklasserna: A från 5 till 55, B från 21 till 233.",
+  },
+  {
+    publisher: "Housegard",
+    title: "Brandsläckare 6 kg pulver, röd, specifikation",
+    url: "https://housegard.se/sv/produkter/brandsakerhet/brandslackare/pulverslackare/p/housegard-6-kg-pulverslackare-pe6hr-a-55a",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen specifikation för art. 600170: certifiering EN3-7, CE och Wheelmark, temperaturområde −30 till +60 °C, arbetstryck 15 bar, kastlängd 4–6 m, tömningstid 22 sekunder. Den vita systermodellen 600169 har samma modellbeteckning och enbart CE, vilket är hela färgpoängen på sidan.",
+  },
+  {
+    publisher: "Deltronic Security",
+    title: "Brandsläckare ABC, produktblad 6 kg och 2 kg",
+    url: "https://brandvarnare.se/wp-content/uploads/sites/3/2024/06/Brandslackare-ABC.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Importörens eget produktblad för art. 60500, 60505, 60510 och 60515. Källa till temperaturområde, fylld vikt, arbetstryck och provtryck, och till att röda släckare anges enligt SS-EN 3 medan vita anges enbart med CE.\n\n⚠️ Bladet beskriver en äldre fyllning och anger 42A där de nuvarande produktsidorna anger 43A och 55A. Vi följer de aktuella sidorna och noterar avvikelsen.",
+  },
+  {
+    publisher: "Ogniochron",
+    title: "Bruksanvisning för portabla brandsläckare, IO-01",
+    url: "https://brandvarnare.se/wp-content/uploads/sites/3/2025/01/IO-01-Wyd.-B-11.2022-SE.pdf",
+    date: "2022-11",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens manual för de tre släckare Brandvarnare.se säljer. Bidrar med brukstiden: högst 20 år, med utvändig besiktning varje år och kontroll av behållare, släckmedel och ventil minst vart femte år, samt 24 månaders garanti från tillverkningsdatum.",
   },
   /*
    * Fem svenska jämförelser till, mätta 2026-08-03.
@@ -1476,7 +1571,7 @@ export const BRANDFILT_SOURCES: Source[] = [
   {
     publisher: "Myndigheten för civilt försvar",
     title: "Brandvarnare, pulversläckare och brandfilt i bostäder",
-        /* Flyttad under /brandskyddsutrustning/ hos myndigheten. Den gamla
+    /* Flyttad under /brandskyddsutrustning/ hos myndigheten. Den gamla
        adressen svarade 404, kontrollerat 2026-08-03. */
     url: "https://www.mcf.se/sv/amnesomraden/skydd-mot-olyckor-och-farliga-amnen/stod-till-kommunal-raddningstjanst/brandskydd-och-forebyggande/brandskyddsutrustning/brandvarnare-pulverslackare-och-brandfilt-i-bostader---for-dig-som-ger-rad/",
     market: "SE",
@@ -1588,7 +1683,8 @@ export const BRANDFILT_SOURCES: Source[] = [
 export const KOLMONOXIDVARNARE_SOURCES: Source[] = [
   {
     publisher: "Ei Electronics",
-    title: "EN 50291-1:2018 och EN 50291-2:2019, produktstandarder för CO-varnare",
+    title:
+      "EN 50291-1:2018 och EN 50291-2:2019, produktstandarder för CO-varnare",
     url: "https://www.eielectronics.ie/en-50291%E2%80%9112018-en-50291%E2%80%9122019/",
     kind: "standard",
     note: "Tillverkarens genomgång av vad de två delarna omfattar. Del 1 gäller bostäder, del 2 gäller husvagn, husbil, campervan och båt med förbränningsapparater. Del 2 lägger till provning för rörliga och tuffa miljöer: rörelse, vibration och temperaturväxling. Källan till hela sidans uppdelning mellan del 1 och del 2.",
@@ -1614,7 +1710,7 @@ export const KOLMONOXIDVARNARE_SOURCES: Source[] = [
     url: "https://www.consumerreports.org/home-garden/smoke-carbon-monoxide-detectors/best-portable-carbon-monoxide-detectors-a4805719130/",
     market: "US",
     kind: "standard",
-    note: 'Den enda oberoende part vi hittat som faktiskt mäter CO-varnare. De finner att flera varnare underrapporterar halten och larmar för sent, och anger att en X-Sense Portable tog nitton minuter vid 400 ppm, en nivå som är livsfarlig inom timmar. Citeras som standard och inte som test av två skäl: de provar mot amerikanska UL 2034 med helt andra tröskeltider, och modellen de provat är inte XC01-M som vi rankar. Ett omdöme om ett märke är inte ett omdöme om en produkt.',
+    note: "Den enda oberoende part vi hittat som faktiskt mäter CO-varnare. De finner att flera varnare underrapporterar halten och larmar för sent, och anger att en X-Sense Portable tog nitton minuter vid 400 ppm, en nivå som är livsfarlig inom timmar. Citeras som standard och inte som test av två skäl: de provar mot amerikanska UL 2034 med helt andra tröskeltider, och modellen de provat är inte XC01-M som vi rankar. Ett omdöme om ett märke är inte ett omdöme om en produkt.",
   },
   {
     publisher: "OSHA",
@@ -1642,20 +1738,57 @@ export const KOLMONOXIDVARNARE_SOURCES: Source[] = [
     note: 'Myndighetens egen ämnesdatabas, och den svenska motsvarigheten till OSHA-tabellen ovan. Två saker står här som sidan vilar på. Ämnet beskrivs som "Giftig och brandfarlig gas" och lukten anges rakt av som "Luktfri", vilket är hela skälet till att en varnare behövs och inte bara ett öppet fönster. Och gränsvärdena finns i svensk myndighetsform: AEGL-3, alltså risk för dödsfall, går från 1 700 ppm vid 10 minuter till 130 ppm vid 8 timmar, medan AEGL-2, allvarliga och bestående effekter, går från 420 ppm vid 10 minuter till 27 ppm vid 8 timmar. IDLH anges till 1 200 ppm, gränsen där filtermask inte längre duger. Sidan skriver också ut att MSB och Socialstyrelsen är överens om att AEGL-värdena håller högst kvalitet av de gränsvärdesserier som finns.',
   },
   {
-    publisher: "Kjell & Company",
-    title: "Housegard Kolmonoxidlarm, produktsida",
-    url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/gaslarm/housegard-kolmonoxidlarm-p32831",
+    publisher: "Housegard",
+    title: "Manual 604024, Housegard CA108, med försäkran om överensstämmelse",
+    url: "https://housegard.se/Product/Files/Global/604024%20Manual%20Housegard%20CA108%20Global.pdf",
     market: "SE",
     kind: "standard",
-    note: "Butikskälla värd att peka på: den enda produktsidan i kartläggningen som anger båda delarna av standarden i gällande utgåva, EN 50291-1:2018 samt EN 50291-2:2019. Att det är möjligt att skriva ut är skälet till att vi betygsätter de butiker som låter bli.",
+    note: 'Tillverkarens egen manual, och källan till vinnarens uppgifter. Försäkran om överensstämmelse anger EN 50291-1:2018 och EN 50291-2:2019, och manualen skriver ut att varnaren har tio års livslängd räknat från tillverkningsdatum. Här står också larmtrösklarna, ljudtrycket 85 dB på 3 meter, driftstemperaturen och att varnaren visar "END" i displayen när sensorn är förbrukad.',
   },
   {
-    publisher: "Clas Ohlson",
-    title: "Netatmo smart kolmonoxidvarnare, produktsida",
-    url: "https://www.clasohlson.com/se/Netatmo-smart-kolmonoxidvarnare/p/36-8763",
+    publisher: "Netatmo",
+    title: "EU-försäkran om överensstämmelse, NCO01, samt användarmanual",
+    url: "https://www.netatmo.com/sv-se/smart-carbon-monoxide-alarm",
+    kind: "standard",
+    note: "Tillverkarens egna dokument, länkade från produktsidan. Försäkran anger både EN 50291-1:2018 och EN 50291-2:2019, alltså båda delarna, medan den svenska butiken bara angav del 2. Manualens tabell över egenskaper som täcks av NF-märkningen ger sensorns livslängd på tio år, livslängdsindikering och att enheten inte kopplas ihop med andra detektorer.",
+  },
+  {
+    publisher: "Fireblitz",
+    title: "Specifikationsblad 8162 V1.2 för CO10-RF",
+    url: "https://www.fireblitz.co.uk/wp-content/uploads/2025/06/FIREHAWK-8162-V1.2-CO10-RF-Specification-Sheet-2025.pdf",
+    date: "2025",
+    kind: "standard",
+    note: "Tillverkarens aktuella specifikationsblad, och skälet till att varnaren flyttades från femte till andra plats. Det anger BS EN 50291-1:2018 och -2:2019, Kitemark-numret KM 573122, livslängdsindikering och tio års garanti. Den svenska butiken angav utgåvorna från 2010 och 2012, alltså de som föregick dagens.",
+  },
+  {
+    publisher: "Deltronic",
+    title: "Produktblad och manual för CO7BD",
+    url: "https://deltronic.se/wp-content/uploads/2024/01/Produktblad-SE-CO7BD.pdf",
+    date: "2024",
     market: "SE",
     kind: "standard",
-    note: 'Enda produkten i jämförelsen som säljs uttryckligen för fritidsfordon och anger EN50291-2:2019 med orden "specifik för fritidsfordon". Källan till att del 2 inte är en teoretisk skillnad utan något butikerna faktiskt skriver ut när produkten har det.',
+    note: "Tillverkarens produktblad anger BS EN 50291-1:2018 och -2:2019, liksom manualen från mars 2022. ⚠️ Deltronics egen specifikationstabell på webben anger fortfarande 2010-utgåvorna. Vi följer PDF:erna: de är nyare och mer specifika, och en manual reviderad ett halvår efter att 2010-utgåvan drogs tillbaka är den interna konsistensen som avgör.",
+  },
+  {
+    publisher: "X-Sense",
+    title: "Produktspecifikation XC01-M för EU-marknaden, DOC 230613XC01MEU",
+    url: "https://xsensepro.nl/wp-content/uploads/2025/08/X-SENSE_XC01-M_Product-Specification.pdf",
+    kind: "standard",
+    note: "Tillverkarens specifikation för EU-marknaden. Den anger EN 50291-1:2018, tio års livslängd på enheten, sammankoppling av 24 enheter och 500 meters räckvidd. Här står också driftstemperaturen 4 till 38 °C, alltså den uppgift som gör varnaren olämplig i ett ouppvärmt utrymme och som ingen butik för vidare.",
+  },
+  {
+    publisher: "TÜV Rheinland",
+    title: "Certipedia, testmärke 1111291538, certifikat 50649025",
+    url: "https://www.certipedia.com/quality_marks/1111291538?certificate_number=50649025&locale=en",
+    kind: "standard",
+    note: "TÜV Rheinlands öppna certifikatregister, där XC01-M står namngiven bland de modeller som omfattas av typgodkännandet. Använt för att kontrollera en uppgift från butiksledet mot utfärdaren själv, vilket är den enda kontroll som betyder något för ett provningsmärke.",
+  },
+  {
+    publisher: "Heiman",
+    title: "HS-720ES-serien, tillverkarens specifikation",
+    url: "https://www.heimantech.com/product/carbon-monoxide-alarm-hs-720es-series",
+    kind: "standard",
+    note: "Tillverkaren anger sensorns livslängd till tio år och batteritiden till fem, samt över 85 dB på 3 meter och drift mellan -10 och +40 °C. Den svenska distributörens tvåårssiffra är en garantitid och inte sensorns liv, en sammanblandning som tidigare kostade varnaren betyg på den här sidan.",
   },
   /*
    * De fem svenska jämförelserna, mätta 2026-08-03.
@@ -1755,7 +1888,39 @@ export const BRANDSTEGE_SOURCES: Source[] = [
     url: "https://housegard.se/sv/produkter/brandstegar/p/housegard-brandstege-4-5-meter-el45a",
     market: "SE",
     kind: "standard",
-    note: "Enda källan i hela kartläggningen som anger karmtjocklek i båda riktningarna, 15 till 34 centimeter. Anger också att produkten är testad enligt EN 131-6 och att maxbelastningen är 200 kilo men att stegen testats upp till 450. Ingen av de butiker som säljer stegen, Kjell och Clas Ohlson, för uppgifterna vidare. Tillverkaren rekommenderar dessutom kontroll två gånger om året, förvaring under 50 grader och utan direkt solljus, samt byte efter sex till åtta år.",
+    note: "Tillverkarens marknadsföringssida, och den som säger emot sin egen bruksanvisning. Här anges karmtjockleken till 15 till 34 centimeter, och 34 står även i sidtiteln, medan bruksanvisningen anger 15 till 30 och Clas Ohlsons frågespalt svarar samma sak. Vi publicerar 30. Sidan anger också EN 131-6, medan manualen anger EN 131-1 och EN 131-2.\n\nDen är ändå värd att läsa för underhållsråden, som ingen butik för vidare: kontroll två gånger om året, förvaring under 50 grader och utan direkt solljus, och byte efter sex till åtta år.",
+  },
+  {
+    publisher: "Housegard",
+    title: "Bruksanvisning brandstege EL45S, PDF som Kjell länkar från produktsidan",
+    url: "https://www.kjell.com/globalassets/mediaassets/897328_21053_stege_manual_se_no.pdf",
+    market: "SE",
+    kind: "standard",
+    note: 'Sidans mest värdefulla dokument, och det ingen butik sammanfattar. Under Tekniska data står maximal belastning 200 kg testad till 450, maximal evakueringshöjd 4,7 meter mätt från fönstrets nederkant, maximal karmtjocklek 30 cm och godkännande enligt CE, EN 131-1:2007+A1-2011 och EN 131-2:2010.\n\nTvå meningar i löptexten ändrar hur produkten ska läsas. "Stegen är avsedd att användas av en person åt gången", vilket gäller framför både 200 och 450 kilo. Och en varning om att stegen inte får användas från fönster rakt ovanför ett annat, eftersom "avståndsklossarna på stegen" kan krossa rutan under, vilket är beviset för att stegen har distanser mot väggen. Biltemas manual för artikel 21-500 är samma dokument med samma bilder.',
+  },
+  {
+    publisher: "SAVS",
+    title: "Användarmanual utrymningsstege ESC-450 till ESC-2000, PDF hos Brandvarnare.se",
+    url: "https://brandvarnare.se/wp-content/uploads/sites/3/2025/01/SAVS-manual-8fold-version-FINAL-v1.1-SE.pdf",
+    market: "SE",
+    kind: "standard",
+    note: 'Tillverkarens manual till båda de stegar Brandvarnare.se säljer, publicerad av butiken själv under fliken Dokument. "Denna stege är endast avsedd för engångsbruk", "Det rekommenderas att byta ut denna stege efter 5 år", och om transportbandet: "gör inte det vid övning."\n\nSamma butiks produktsidor beskriver hur du övar genom att fälla ut stegen hela vägen ned mot marken. Specifikationstabellen i manualen ger också 13 respektive 21 fotsteg och 4,8 respektive 6,5 kilo.',
+  },
+  {
+    publisher: "Jula",
+    title: "Bruksanvisning Hard Head brandstege 025385, One time use fire ladder",
+    url: "https://assets.cdn.jula.com/v2/177003",
+    market: "SE",
+    kind: "standard",
+    note: 'Manualens titel är hela beskedet: "ONE TIME USE FIRE LADDER / Brandstege för engångsbruk." Tekniska data anger 150 kg maximal belastning och måtten hopfälld 18,5 × 37 × 25 cm och utfälld 430 × 31 × 43 cm. Det sista talet är stegens djup i utfällt läge, inte ett väggavstånd, och vi publicerade det som väggavstånd fram till 2026-08-06.\n\nSamma manual anger att fönsterbrädjupet får vara maximalt 30 cm, inte 28 som vi publicerade, att produkten bör bytas vart femte år, och att högst tre personer får använda stegen samtidigt trots de 150 kilona på föregående sida.',
+  },
+  {
+    publisher: "Nexa",
+    title: "Produktblad brandstege FLB-104, PDF som Bauhaus länkar",
+    url: "https://www.bauhaus.se/brandstege-nexa-flb-104-4m",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens eget produktblad anger maximal belastning 450 kg. Bauhaus, som säljer stegen och länkar produktbladet på samma sida, anger 400 kg i sin specifikation. Etiketten på stegen i produktbladets egen bild läser 450 kg. Bladet ger också vikten 4,5 kg, tolv fotsteg, 30 cm stegbredd och maximal evakueringshöjd 4,3 meter.",
   },
   {
     publisher: "Jula",
@@ -1869,7 +2034,7 @@ export const UTRYMNINGSSTEGE_SOURCES: Source[] = [
     date: "2015",
     market: "SE",
     kind: "standard",
-    note: 'SIS anger båda utgåvorna som "Withdrawn". Del 1 från 2015 är ersatt av +A1:2019, som i sin tur är ersatt av +A2:2025 som är den gällande. Del 2 från 2010 är ersatt av +A1:2012, och kedjan går vidare via +A2:2017 till +A3:2025. Kjell anger EN 131-1:2015 och EN 131-2:2010 för Housegard EL39, alltså utgåvor som ligger två respektive tre ändringar efter. SIS återger också standardens omfattning, "portable ladders", vilket förklarar varför en ren EN 131-hänvisning inte beskriver infästningen i fasaden.',
+    note: 'SIS anger utgåvekedjan: del 1 från 2015 är ersatt av +A1:2019 och därefter av +A2:2025, del 2 från 2010 via +A1:2012 och +A2:2017 av +A3:2025. Housegards egen bruksanvisning anger EN 131-1:2015+A1:2019 och EN 131-2:2010+A2:2017, alltså en ändring efter den gällande i vardera delen, medan Kjells produktsida anger grundutgåvorna. Vi följer tillverkaren. SIS återger också standardens omfattning, "portable ladders", vilket förklarar varför en ren EN 131-hänvisning inte beskriver infästningen i fasaden.',
   },
   {
     publisher: "Modum",
@@ -1885,7 +2050,41 @@ export const UTRYMNINGSSTEGE_SOURCES: Source[] = [
     url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/brandskydd/brandstegar/housegard-brandstege-39-m-p21279",
     market: "SE",
     kind: "standard",
-    note: "Enda butiken i kategorin som anger en standard, och den anger två indragna utgåvor. Sidan är också den enda som anger en maxlast för en fast stege, 150 kilo, och totallängden 3,86 meter mot produktnamnets 3,9. Housegards egen produktsida nämner ingen standard alls, vilket betyder att uppgiften finns hos återförsäljaren men inte hos tillverkaren.",
+    note: "Källa för priset 3 695 kronor, maxlasten 150 kilo, totallängden 3,86 meter mot produktnamnets 3,9 och att stegen har halkskyddade steg. Standarduppgiften på sidan anger grundutgåvorna av EN 131-1 och -2; tillverkarens egen bruksanvisning anger nyare utgåvor och är den vi följer.",
+  },
+  {
+    publisher: "Housegard",
+    title: "Bruksanvisning utrymningsstege EL39, art 605020, ver 250320",
+    url: "https://www.housegard.se/Product/Files/Global/605020%20-%20User%20manual%20-%20EL39%20-%20GB_SE_NO_DK_FI_EE%20-%20Ver%20250320.pdf",
+    date: "2025-03-20",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen bruksanvisning, och den bar tre uppgifter som ingen butik för vidare: stegbredd 240 millimeter, avstånd mellan steg 300 millimeter, och provning enligt EN 131-1:2015+A1:2019 och EN 131-2:2010+A2:2017. Här står också väggfästets mått 50 × 114 millimeter, hela förpackningsinnehållet och rekommenderat fäste för trävägg, tegelmur och lecavägg. Läst 2026-08-06.",
+  },
+  {
+    publisher: "Skeppshultstegen",
+    title: "Produktblad och monterings- och bruksanvisning, utrymningsstege fällbar",
+    url: "https://skeppshultstegen.se/sv/tak-fasadstegar/utrymningstege.html",
+    market: "SE",
+    kind: "standard",
+    note: 'Tillverkarens två egna dokument, båda länkade från produktsidan. Monteringsanvisningen anger "Stegpinnarna har ett avstånd centrum - centrum på 300 mm" och en fullständig infästningstabell för sju väggmaterial, från träskruv A4 i panel till injekteringsmassa i håltegel och lättklinker, med dragkraft och tvärkraft per infästning. Produktbladet anger sex längder, stegantal per längd, bredd 430 millimeter utfälld och 67 infälld, samt vikt 11,8 kilo för 3,9 meter. Läst 2026-08-06.',
+  },
+  {
+    publisher: "RISE",
+    title: "Certifikat C900764 och typkontrollintyg 102102, Hultafors Group",
+    url: "https://www.wsteps.se/documents/certificates",
+    date: "2023-09-24",
+    market: "SE",
+    kind: "standard",
+    note: "Lästa i sin helhet för att avgöra vad W.Steps utrymningsstegar omfattas av. P-märket C900764 gäller taksäkerhetsanordningar, och produktlistan på sidan 2 innehåller fyra glidskydd för lösa stegar. Typkontrollintyg 102102 listar bärbara stegar och arbetsbockar över fyra sidor. Utrymningsstegarnas artikelnummer, 727xxx, 729xxx och 741xxx, finns i ingetdera. Frånvaron av tredjepartsprövning är alltså belagd och inte antagen.",
+  },
+  {
+    publisher: "W.steps",
+    title: "Utrymningsstegar 320, 400 och 120, tillverkarens produktsidor",
+    url: "https://www.wsteps.se/products/wall-and-roof-products/escape-ladders",
+    market: "SE",
+    kind: "standard",
+    note: 'Källa för stegantal och vikt per längd, vilket ger stegavståndet 300 millimeter på samtliga nio modeller, samt för att 320 får skarvas till 7,2 meter och 400 till 18. Tillverkaren skriver att inga bultar medföljer eftersom väggkonstruktionen varierar, och positionerar serierna: "Välj mellan 320-stegen för privata hus och den lite bredare 400-stegen för kommersiella fastigheter." Våningsskarven för 400 gör att stegen kan öppnas på flera våningar samtidigt. Läst 2026-08-06.',
   },
   {
     publisher: "Bauhaus",
@@ -1893,7 +2092,7 @@ export const UTRYMNINGSSTEGE_SOURCES: Source[] = [
     url: "https://www.bauhaus.se/bygg/stegar-byggstallningar/stegar/utrymningsstegar",
     market: "SE",
     kind: "standard",
-    note: "Källa för att en svensktillverkad stege kan säljas helt utan lastuppgift. Bauhaus tekniska information för alla tre längderna består av fyra rader: material, längd, bredd utfälld och djup ihopfällt. Ingen maxlast, ingen standard, ingen monteringsanvisning i texten. Samma sida är källan till att kategorin Utrymningsstegar hos Bauhaus även innehåller två hängande repstegar, vilket är varför de två produkttyperna blandas ihop i svensk handel.",
+    note: "Källa för priset 7 799 kronor och för att kategorin Utrymningsstegar hos Bauhaus även innehåller två hängande repstegar, vilket är varför de två produkttyperna blandas ihop i svensk handel. Bauhaus anger bredd utfälld 400 millimeter och vikt 13,0 kilo; tillverkarens eget produktblad anger 430 respektive 11,8. Vi följer tillverkaren och konflikten står i underlaget.",
   },
   /*
    * De fyra svenska jämförelserna, mätta 2026-08-03. Samma fyra som vid
@@ -1999,7 +2198,7 @@ export const OVERVAKNINGSKAMERA_SOURCES: Source[] = [
     date: "2025-12-10",
     market: "UK",
     kind: "standard",
-    note: 'Kortaste dokumentationen och den mest uppseendeväckande formuleringen: "when you enable the privacy zones feature, activity in the privacy zones may not be avoided completely to be recorded." Alltså att maskeringen inte säkert hindrar inspelning. Modellistan omfattar S100 Wall Light Cam, eufyCam 2 Pro, 2C Pro, 2 och 2C, och därmed varken SoloCam S220 eller eufyCam C35 som säljs i svensk handel.',
+    note: 'Kortaste dokumentationen och den mest uppseendeväckande formuleringen: "when you enable the privacy zones feature, activity in the privacy zones may not be avoided completely to be recorded." Alltså att maskeringen inte säkert hindrar inspelning. Högst två zoner per kamera.\n\neufys nuvarande artikel på support.eufy.com anger funktionen för "one camera or doorbell" utan modellbegränsning. Den separata artikeln över vilka modeller som stöder zoner motsäger sig själv, eftersom rubriken räknar upp SoloCam C210, S230 och eufyCam E330 medan artikelnumren under inte gör det. Vi drar därför inga slutsatser om enskilda modeller ur den listan.',
   },
   {
     publisher: "Kjell & Company",
@@ -2068,7 +2267,8 @@ export const OVERVAKNINGSKAMERA_SOURCES: Source[] = [
   },
   {
     publisher: "Test.se",
-    title: "Bäst i test övervakningskamera, bästa kameran för inomhus och utomhus",
+    title:
+      "Bäst i test övervakningskamera, bästa kameran för inomhus och utomhus",
     url: "https://www.test.se/overvakningskamera/",
     market: "SE",
     kind: "comparison",
@@ -2087,7 +2287,8 @@ export const OVERVAKNINGSKAMERA_SOURCES: Source[] = [
 export const DORRKLOCKA_SOURCES: Source[] = [
   {
     publisher: "Integritetsskyddsmyndigheten",
-    title: "Kamerabevaka inom privatundantaget, exemplet dörrkamera i lägenhetshus",
+    title:
+      "Kamerabevaka inom privatundantaget, exemplet dörrkamera i lägenhetshus",
     url: "https://www.imy.se/privatperson/kamerabevakning/regler-for-dig-som-kamerabevakar/kamerabevaka-inom-privatundantaget/",
     date: "2026-06-05",
     market: "SE",
@@ -2102,6 +2303,51 @@ export const DORRKLOCKA_SOURCES: Source[] = [
     market: "SE",
     kind: "standard",
     note: 'Modellistan omfattar både Tapo D230S1 och Tapo D235, alltså två av de dörrklockor vi rankar. Samma sida anger gränsen: "Privacy Zones are applied based on the current camera view. If the camera is rotated or repositioned, the Privacy Zones will remain active but will shift with the view and no longer cover the original areas." Högst fyra zoner.',
+  },
+  {
+    publisher: "Google",
+    title: "Set up and use Activity Zones",
+    url: "https://support.google.com/googlenest/answer/9207697",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Avgör betyget för Google Nest Doorbell. Googles egen hjälptext skriver ut vad en aktivitetszon gör och inte gör: "Although Activity Zones doesn\'t change the footage your camera streams and records, when you add a zone, you can get more useful alerts as it tells you where the motion has happened." Zonen styr alltså notiser och inte bilden, och är därmed den zontyp vår skala sätter lägst. Samma begreppsskillnad som gäller eufy, se den bortvalda posten.',
+  },
+  {
+    publisher: "Arlo",
+    title: "Arlo Secure, svenska abonnemangspriser",
+    url: "https://www.arlo.com/sv_se/serviceplans",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: "Rättar noteringen att inget abonnemangspris gick att läsa. Arlo publicerar hela tabellen öppet: Arlo Secure 99 kr i månaden eller 1 089 om året för en enhet, 149 kr eller 1 639 för flera, Secure Plus 239 kr eller 2 629, Secure Pro 289 kr eller 3 179. Det var adressen vi tidigare provat som var fel, inte källan som var stängd.",
+  },
+  {
+    publisher: "Ring",
+    title: "Ring-abonnemang för Sverige",
+    url: "https://ring.com/se/sv/plans",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: "Ring prissätter sina svenska planer i euro. Basic täcker en dörrklocka eller kamera för 3,99 € i månaden eller 39,99 € om året och ger upp till 180 dagars händelsehistorik; Standard 9,99 € eller 99,99 € för alla enheter på en adress; Premium 19,99 € eller 199,99 € med inspelning dygnet runt. Utan plan sparar Ring ingenting.",
+  },
+  {
+    publisher: "Google",
+    title: "Google Home Premium, tidigare Nest Aware",
+    url: "https://store.google.com/se/product/nest_aware?hl=sv",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: "Nest Aware heter numera Google Home Premium. Standard kostar 100 kr i månaden eller 1 000 om året och ger 30 dagars händelsebaserad videohistorik; Advanced 200 kr eller 2 000 om året och ger 60 dagar plus inspelning dygnet runt, dock bara 10 dagars dygnetruntshistorik och bara för kameror och dörrklockor med kabel, vilket den batteridrivna Nest Doorbell inte är.",
+  },
+  {
+    publisher: "Imou",
+    title: "Doorbell 2S Kit, tillverkarens datablad",
+    url: "https://static-website.imoulife.com/9e0f2f62-7aab-4d6f-ae00-87dcf5c8c15a.pdf",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Bär de mått Kjell inte publicerar: synfältet uppdelat i 125° horisontellt, 98° vertikalt och 166° diagonalt, laddtemperatur 0 till 45 °C mot drifttemperatur -20 till 50 °C, och förpackningsinnehållet med chime och chime-plugg. Databladet räknar upp produktens funktioner i sin helhet, och den zon som finns är en detekteringszon; det Imou själva kallar integritetsskydd på den här modellen är röstförvrängning och snabbsvar. Imou marknadsför "Privacy Mask" uttryckligen på de modeller som har det, exempelvis Ranger Pro.',
   },
   {
     publisher: "Arlo",
@@ -2226,12 +2472,21 @@ export const INOMHUSKAMERA_SOURCES: Source[] = [
   },
   {
     publisher: "Arlo",
-    title: "How do I use the Privacy Shield on my Arlo Essential Indoor Camera?",
-    url: "https://www.arlo.com/en_gb/support/faq/000062930/how-do-i-use-the-privacy-shield-on-my-arlo-essential-indoor-camera",
-    date: "2025-11-27",
+    title: "Arlo Essential Pan Tilt Indoor Camera FAQ",
+    url: "https://www.arlo.com/en_gb/support/faq/000063618/arlo-essential-pan-tilt-indoor-camera-faq",
+    date: "2026-08-06",
     market: "UK",
     kind: "standard",
-    note: 'Kategorins bästa integritetslösning, beskriven av tillverkaren själv: "The Privacy Shield automatically covers the camera lens when the camera is disarmed, and opens when the camera is armed. Motion detection, audio detection, and the camera microphone are turned off when the Privacy Shield is closed." Och brasklappen i samma text: "If continuous video recording (CVR) is enabled, the Privacy Shield stays open, and your camera continues recording." Alltså slutar skyddet fungera på den dyraste abonnemangsnivån. Sidan anger också att live-visning av en kamera som inte spelar in kräver lösenord, ansiktsigenkänning eller fingeravtryck.',
+    note: 'Tillverkarens beskrivning av avstängningen på just den modell vi rankar: "Your Arlo Essential Pan Tilt Indoor Camera enters a privacy state when the system is in Standby or Arm Home mode. The camera moves to a downward-facing position, stops motion detection, and turns off its microphone." Mekaniken är alltså att kameran lutar ner objektivet mot foten, inte att en lucka fälls för linsen. Arlos produktblad för samma modell lägger till att läget också går att slå på för hand med ett tryck i appen, och att det går att knyta till egna rutiner: "Tilt to hide - Camera points fully down so the lens is covered by the base."',
+  },
+  {
+    publisher: "Arlo",
+    title: "Essential Pan Tilt Indoor Camera, användarmanual (VMC3073/2073)",
+    url: "https://www.arlo.com/content/dam/arlo/support/user-manuals/essential-3-ptz-indoor/UM_E3%20PTZ%20Indoor%20(VMC3073_2073)_EN.pdf",
+    date: "2025-10-01",
+    market: "UK",
+    kind: "standard",
+    note: 'Manualen täcker båda varianterna, HD (VMC2073) och 2K (VMC3073), och det är HD-varianten Kjell säljer i tvåpack. Härifrån kommer synfältet, 130 grader, rörelseomfånget 360 grader horisontellt och 180 vertikalt, och drifttemperaturen 0 till 45 grader. Manualen listar avstängningen som "Privacy mode" bland kamerans funktioner och nämner inget motoriserat linsskydd, vilket är skillnaden mot den fasta Essential Indoor.',
   },
   {
     publisher: "TP-Link",
@@ -2240,7 +2495,52 @@ export const INOMHUSKAMERA_SOURCES: Source[] = [
     date: "2026-07-01",
     market: "SE",
     kind: "standard",
-    note: 'Källan till både programläget och det fysiska skyddet. "When Privacy Mode is enabled on a Tapo or Kasa camera, it stops streaming and recording both video and audio", alltså både bild och ljud och inte bara inspelningen. Och: "Select Tapo camera models, such as Tapo C125 and Tapo C225, support a physical privacy button. Pressing it lowers a shield over the lens or rotates the lens away for complete privacy." Det är den uppgiften som gör C225 till sidans vinnare.',
+    note: 'Källan till både programläget och den fysiska knappen. "When Privacy Mode is enabled on a Tapo or Kasa camera, it stops streaming and recording both video and audio", alltså både bild och ljud och inte bara inspelningen. Och: "Select Tapo camera models, such as Tapo C125 and Tapo C225, support a physical privacy button. Pressing it lowers a shield over the lens or rotates the lens away for complete privacy." Det är den uppgiften som gör C225 till sidans vinnare.',
+  },
+  {
+    publisher: "TP-Link",
+    title: "Specifikationer för Tapo C100, C220 och C225",
+    url: "https://www.tapo.com/en/product/smart-camera/tapo-c100/",
+    date: "2026-08-06",
+    market: "US",
+    kind: "standard",
+    note: "Tillverkarens egna specifikationstabeller bär objektivets synfält, som den svenska produktsidan lämnar tom för C100. C100 anges till 117 grader diagonalt, 98,8 horisontellt och 53,5 vertikalt, med 1080p och minneskort upp till 512 GB. C220 anges till 89,7 diagonalt och 76,2 horisontellt, C225 till 100 diagonalt och 83 horisontellt. Det är alltså den mest sålda kameran i kategorin som har det bredaste objektivet av de tre, medan de dyrare kompenserar genom att vrida sig.",
+  },
+  {
+    publisher: "Aqara",
+    title: "Camera Hub G3, produktsida och specifikation",
+    url: "https://www.aqara.com/en/product/camera-hub-g3/",
+    date: "2026-08-06",
+    market: "US",
+    kind: "standard",
+    note: 'Tillverkaren beskriver en fysisk avstängning under rubriken Physical Masking: "The G3 Camera Hub has a hardware privacy protection mode that can be turned on manually or automatically. This mode can be easily identified by a cute sleepy face." Linsenheten vrids alltså bort och framsidan visar ett sovande ansikte. Specifikationssidan ger 2K 2304 × 1296, 110 graders objektiv, rörelseomfång 340 grader horisontellt och 45 vertikalt, samt minneskort upp till 128 GB.',
+  },
+  {
+    publisher: "Ring",
+    title: "Indoor Cam Plus och Pan-Tilt Indoor Cam, specifikationer",
+    url: "https://ring.com/support/products/cameras/pan-tilt-indoor-cam",
+    date: "2026-08-06",
+    market: "UK",
+    kind: "standard",
+    note: "Tillverkarens specifikation skiljer de två modellerna åt på ett sätt butikstexten inte gör. Pan-Tilt har ett inbyggt linsskydd, 143 graders objektiv och rörelseomfång 360 gånger 169 grader, medan Indoor Cam Plus har ett löst linsskydd i förpackningen, 138 grader diagonalt och 115 horisontellt, och står stilla. Båda anges till minst fyra års säkerhetsuppdateringar efter att modellen slutat säljas, vilket ingen annan tillverkare här utfäster.",
+  },
+  {
+    publisher: "Ring",
+    title: "Ring Home, abonnemangsplaner för Sverige",
+    url: "https://ring.com/se/en/plans",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: "Rings svenska prislista, som avgör vad de två Ring-kamerorna faktiskt kostar. Basic täcker en dörrklocka eller kamera för 3,99 euro i månaden eller 39,99 om året, Standard täcker alla enheter på en adress för 9,99 euro i månaden, och Premium 19,99. Utan plan sparas ingen inspelning alls, eftersom ingen av modellerna har lokal lagring.",
+  },
+  {
+    publisher: "Arlo",
+    title: "Arlo Secure, abonnemangsplaner för Sverige",
+    url: "https://www.arlo.com/sv_se/serviceplans",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: "Arlos svenska prislista. Arlo Secure kostar 99 kronor i månaden för en kamera och 149 kronor för flera, vilket är den nivå ett tvåpack kräver. Eftersom modellen saknar lokal lagring är det abonnemanget som avgör om den spelar in något över huvud taget, och tre år på 149 kronor kostar mer än fyra Tapo C225 gör att köpa.",
   },
   {
     publisher: "Kjell & Company",
@@ -2248,7 +2548,7 @@ export const INOMHUSKAMERA_SOURCES: Source[] = [
     url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/kameraovervakning/overvakningskameror/overvakningskameror-inomhus",
     market: "SE",
     kind: "standard",
-    note: 'Butikskälla för priser, upplösning, panorering, lagring och kundbetyg. Också källan till att Ring levererar ett fysiskt skydd: innehållsförteckningen för Indoor Camera Plus listar "1 × Linsskydd" och för Pan-Tilt Indoor Camera "1x sekretesskydd (fäst på kameran)". Samma butik anger att Arlos AI-detektering och molnlagring kräver Arlo Secure, och att Ring Pan-Tilt kräver Ring Home-abonnemang. Butiken publicerar dessutom ingen specifikation alls för Tapo C100, kategorins mest sålda produkt, eller för eufys två inomhuskameror.',
+    note: "Butikskälla för priser och kundbetyg, och den butik alla sju länkar går till. Kundomdömena är sidans enda underlag som kommer från köpare i stället för från tillverkare, och två av dem är ovanligt tunga: Tapo C100 har 578 omdömen och C220 461, fler än någon annan produkt vi rankat i någon kategori.",
   },
   /*
    * De sex svenska jämförelserna, mätta 2026-08-03.
@@ -2312,7 +2612,8 @@ export const INOMHUSKAMERA_SOURCES: Source[] = [
   },
   {
     publisher: "Bygghemma",
-    title: "Övervakningskamera bäst i test, vi jämför modeller med smarta funktioner",
+    title:
+      "Övervakningskamera bäst i test, vi jämför modeller med smarta funktioner",
     url: "https://www.bygghemma.se/reportage-och-guider/bast-i-test-overvakningskamera/",
     market: "SE",
     kind: "comparison",
@@ -2335,7 +2636,43 @@ export const KODLAS_SOURCES: Source[] = [
     date: "2027-11-27",
     market: "SE",
     kind: "standard",
-    note: 'Sidans viktigaste källa och en primärkälla. Certifikat 21-537, innehavare ASSA ABLOY Opening Solutions Sweden AB, klass S3 enligt SSF 3523 utgåva 1, ordning Scheme 5 enligt ISO/IEC 17067:2013, giltigt till 2027-11-27. Certifikatets fält Additional anger vad godkännandet omfattar: "Gäller bortasäkert läge med blockerade användarkoder och låsöppning med nyckelbricka eller med appen Yale Home." Den certifierade konfigurationen har alltså användarkoderna blockerade, på den produkt kategorin är uppkallad efter. Datumfältet här är certifikatets giltighetstid och inte ett publiceringsdatum.',
+    note: 'Sidans viktigaste källa och en primärkälla. Certifikat 21-537, innehavare ASSA ABLOY Opening Solutions Sweden AB, klass S3 enligt SSF 3523 utgåva 1, ordning Scheme 5 enligt ISO/IEC 17067:2013, giltigt till 2027-11-27. Certifikatets fält Additional anger vad godkännandet omfattar: "Gäller bortasäkert läge med blockerade användarkoder och låsöppning med nyckelbricka eller med appen Yale Home." Den digitalt certifierade konfigurationen har alltså användarkoderna blockerade, på den produkt kategorin är uppkallad efter.\n\nYale Doorman L3S omfattas av samma certifikat: tillverkarens eget produktblad M4746.2409 anger "SSF 3522 klass 3 och SSF 3523 klass S3 Digital låsenhet, certifierat av SBSC". Datumfältet här är certifikatets giltighetstid och inte ett publiceringsdatum.',
+  },
+  {
+    publisher: "Svensk Brand- och Säkerhetscertifiering",
+    title: "Certifikat 22-316, 22-317 och 22-318, Nimly Code Pro",
+    url: "https://www.sbsc.se/produktcertifikat/22-317/mekaniskt-lashus/nimly-touch-pro-nimly-code-pro/easyaccess-sverige-ab",
+    date: "2027-09-07",
+    market: "SE",
+    kind: "standard",
+    note: 'Tre certifikat, innehavare EasyAccess Sverige AB, samtliga klass 3 enligt SSF 3522 utgåva 2 och giltiga till 2027-09-07: mekatronikcylinder 22-316, mekaniskt låshus 22-317 och mekaniskt slutbleck 22-318. Alla tre bär samma villkorsfält: "Masterkoder och användarkoder ska ha minimum 4 siffror, anti-inbrottsfunktionen ska vara aktiverad, kamouflagefunktionen ska vara inaktiverad, bortasäkert läge ska vara aktiverat och 2-faktors autentisering ska vara aktiverat." Kamouflagefunktionen är den som omger koden med slumpsiffror, alltså en säljande funktion som ska stängas av. Nimlys egen produktsida bekräftar klassen: "Code Pro är certifierad enligt SBSC SSF 3522, låsklass 3."',
+  },
+  {
+    publisher: "Svensk Brand- och Säkerhetscertifiering",
+    title: "Certifikat 22-520, 22-521 och 22-522, Nimly Code",
+    url: "https://www.sbsc.se/produktcertifikat/22-522/mekatronikcylinder/nimly-touch-nimly-code/easyaccess-sverige-ab",
+    date: "2027-10-30",
+    market: "SE",
+    kind: "standard",
+    note: 'Källan till varför Nimly Code inte når klass 3. Slutbleck 22-520 och låshus 22-521 är klass 3 enligt SSF 3522 utgåva 2, men mekatronikcylindern 22-522 är klass 2A. Eftersom en godkänd låsenhet kräver att varje ingående produkt når klass 3 var för sig kapar cylindern hela enheten till 2A. Samtliga tre giltiga till 2027-10-30 och med samma villkorsfält som systermodellen. Nimlys egen sida skriver samma sak: "Code låsen har ett certifikat för godkänd låsenhet utfärdat av SBSC enligt SSF 3522 Låsklass 2A."',
+  },
+  {
+    publisher: "Svensk Brand- och Säkerhetscertifiering",
+    title: "Certifikat 20-19 och 20-172, Yale Doorman och Yale Doorman L3",
+    url: "https://www.sbsc.se/produktcertifikat/20-19/elektromekaniskt-lashus/yale-doorman/assa-abloy-opening-solutions-sweden-ab/",
+    date: "2031-09-13",
+    market: "SE",
+    kind: "standard",
+    note: 'Två elektromekaniska låshus enligt SSF 3522 utgåva 2. Certifikat 20-19 avser Yale Doorman, alltså den som säljs som Doorman Classic, och anger klass 2A med nytt certifikat utfärdat med giltighet till 2031-09-13. Villkor: "Integritetsswitchen ska vara ställd i nivå hög. Elektronisk nyckel eller elektronisk nyckel + PIN-kod ska användas för upplåsning. Automatisk låsning ska vara aktiverat." Certifikat 20-172 avser Yale Doorman L3 och anger klass 3 utan villkor, giltigt till 2030-10-22. Yales egen supportsida förklarar skillnaden mot äldre exemplar: produkten är oförändrad, men lås tillverkade till och med 2020-06-26 är klass 3 och lås efter det klass 2A, och klassen på förpackningen gäller oavsett inköpsdatum.',
+  },
+  {
+    publisher: "Svensk Brand- och Säkerhetscertifiering",
+    title: "Certifikat 24-365, Yale Linus L2",
+    url: "https://www.sbsc.se/produktcertifikat/24-365/mekatronikcylinder/yale-linus-l2/assa-abloy-opening-solutions-sweden-ab",
+    date: "2030-02-11",
+    market: "SE",
+    kind: "standard",
+    note: 'Mekatronikcylinder, klass 2A enligt SSF 3522 utgåva 2, giltigt till 2030-02-11. Villkorsfältet lyder "Godkänt tillsamman med Yale DOT", alltså NFC-taggen som enligt butikens förpackningsinnehåll ligger i lådan. Certifikatet är skälet till att Linus L2 inte kan beskrivas som ett lås utan klass.',
   },
   {
     publisher: "Stöldskyddsföreningen",
@@ -2360,7 +2697,7 @@ export const KODLAS_SOURCES: Source[] = [
     url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/las/smarta-las",
     market: "SE",
     kind: "standard",
-    note: 'Butikskälla för priser, upplåsningsmetoder, dörrtjocklek, batterityp och kundbetyg. Också den enda butik vi gått igenom som redovisar låsklass per produkt, och som skriver ut det negativa: för Aqara U200 står "OBS! Aqara Smart Lock U200 är inte godkänt enligt SSF 3522 klass 3 eller SSF 3523 klass S3." För Nimly Code anges "Låsklass 2A och SSF3522", för Nimly Code Pro "Låsklass: Klass 3", och för Yale Doorman L3S att låset är försäkringsgodkänt för både mekanisk och digital säkerhet. För Yale Doorman Classic Home, Yale Linus L2, Nimly Touch Pro och Danalock V3 Scandi anges ingen låsklass alls.',
+    note: 'Butikskälla för priser, upplåsningsmetoder, batterityp, IP-klass och kundbetyg. Också den enda butik vi gått igenom som redovisar låsklass per produkt, och som skriver ut det negativa: för Aqara U200 står "OBS! Aqara Smart Lock U200 är inte godkänt enligt SSF 3522 klass 3 eller SSF 3523 klass S3." Det är sidans enda positivt belagda frånvaro av godkännande. Butikens klassuppgifter stämmer mot certifikaten där de finns: "Låsklass 2A och SSF3522" för Nimly Code och "Låsklass: Klass 3" för Nimly Code Pro. Klasserna för Yale Doorman Classic Home och Yale Linus L2 står inte hos butiken utan är hämtade ur certifikaten 20-19 och 24-365.',
   },
   /*
    * De sex svenska jämförelserna, mätta 2026-08-03. Kategorin är den där
@@ -2496,7 +2833,7 @@ export const HEMLARM_SOURCES: Source[] = [
     url: "https://www.securitashome.se/abonnemang",
     market: "SE",
     kind: "standard",
-    note: "Det andra av två bolag som publicerar hela priset. Abonnemang LILLA 349 kronor i månaden med bildverifiering, STORA 399 kronor i månaden med video. Startpaket i tre storlekar efter boendeform: lägenhet från 995 kronor, radhus från 1 495 och villa från 1 995. Bindningstid och uppsägningstid framgår däremot inte, vilket är skälet till att bolaget inte får full poäng på öppna villkor.",
+    note: 'Ett av fyra bolag som publicerar hela priset. Abonnemang LILLA 349 kronor i månaden med bildverifiering, STORA 399 kronor i månaden med video. Startpaket i tre storlekar efter boendeform: lägenhet från 995 kronor, radhus från 1 495 och villa från 1 995. Avtalstiden står i §4.1 i de allmänna villkor sidan länkar till: "Avtalet gäller i tjugofyra (24) månader räknat från leveransdag och kan därefter sägas upp med en (1) månads varsel av vardera part." §7.1 låser månadsavgiften under de första 24 månaderna, och §15.7 anger att Securitas avaktiverar SIM-kortet vid avtalets slut och att kunden själv bekostar bortkopplingen.',
   },
   {
     publisher: "Avarn Security",
@@ -2504,7 +2841,7 @@ export const HEMLARM_SOURCES: Source[] = [
     url: "https://www.avarnsecurity.se/tjanster/safe-home/",
     market: "SE",
     kind: "standard",
-    note: "Publicerar en månadsavgift på 449 kronor rakt ut på tjänstesidan, vilket är mer än de flesta gör, men ingen startavgift och inga avtalsvillkor vi kunnat hitta. Sidan ligger under en tjänstemeny på en sajt som i övrigt vänder sig till företag, vilket är skälet till att erbjudandet sällan syns i jämförelser.",
+    note: "Publicerar en månadsavgift på 449 kronor rakt ut på tjänstesidan, vilket är mer än de flesta gör, men ingen startavgift. Sidan beskriver Crash and smash, alltså att en inkräktare som slår sönder panelen ändå registreras och larmcentralen får besked, samt inaktivitetslarm, visuell verifiering och att bilder skickas direkt vid larm. Avtalsvillkor för SAFE HOME finns inte publicerade: bolagets sitemap räknades upp i sin helhet den 6 augusti 2026 och innehåller integritetspolicy, cookie- och GDPR-sidor men inga allmänna villkor.",
   },
   {
     publisher: "Svenska Alarm",
@@ -2512,7 +2849,7 @@ export const HEMLARM_SOURCES: Source[] = [
     url: "https://www.svenskaalarm.se/hemlarm/",
     market: "SE",
     kind: "standard",
-    note: 'Publicerar ett från-pris: "Tjänster tillkommer från 175 kr/mån. Alla priser till privatperson är inklusive moms." Sidan innehåller också en delbetalningskalkylator för hårdvaran med löptider upp till 72 månader. Ett från-pris med tillägg är inte ett pris, vilket är skälet till att bolaget hamnar i mitten och inte i toppen på kriteriet öppna villkor.',
+    note: 'Publicerar ett från-pris: "Tjänster tillkommer från 175 kr/mån. Alla priser till privatperson är inklusive moms." Sidan innehåller också en delbetalningskalkylator för hårdvaran med löptider upp till 72 månader. Ett från-pris med tillägg går inte att räkna på, och en avbetalning över sex år binder kunden lika hårt som en bindningstid.',
   },
   {
     publisher: "Gardio",
@@ -2530,6 +2867,60 @@ export const HEMLARM_SOURCES: Source[] = [
     market: "SE",
     kind: "standard",
     note: 'Produktsidan för hemlarmet, med hela priset utskrivet: "249,00 kr /månad", "Ingen startavgift, 24 månaders bindningstid". Anger att två HD-kameror, Avarns larmcentral och väktare med fria utryckningar ingår. Samtliga elva produkter i butiken har priset utskrivet. Sidan är skälet till rättelsen den 5 augusti 2026: vi hade läst förstasidan, sett ingen prislapp och dragit slutsatsen att bolaget inte publicerar priser.',
+  },
+  {
+    publisher: "Garda Alarm AB",
+    title: "Villkor för hemlarm",
+    url: "https://www.gardaalarm.se/uploads/1/3/5/0/135017696/garda_alarm_-_villkor_f%C3%B6r_hemlarm.pdf",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Dokumentet som gav Garda Alarm två placeringars lyft, och det låg publicerat hela tiden. Punkt 2.5: "Kunden ska som privatkund betala en kostnad till Garda som f.n. är 1199 kr per år för säkerhetsavtalet", alltså uppkopplingen mot larmcentral enligt punkt 15. Punkt 14.1: "Samtliga tjänster har 36 månaders bindningstid", och avtalet förlängs ett år i sänder om uppsägning inte sker tre månader före avtalstidens utgång.\n\nPunkt 9.1 begränsar skadeståndsansvaret till 50 000 kronor och kräver skriftligt anspråk inom en månad. Punkt 9.3 ger självriskeliminering upp till 3 000 kronor och kräver både service- och säkerhetsavtal. Punkt 6.1 förbjuder kunden att koppla in produkter från annan leverantör, vid äventyr att garantin på hela systemet upphör.',
+  },
+  {
+    publisher: "Garda Alarm AB",
+    title: "Köp hemlarm",
+    url: "https://www.gardaalarm.se/kop-hemlarm.html",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Bolagets egen produktsida, med den andra löpande avgiften utskriven: "Serviceavtal ingår kostnadsfritt för alla nya kunder första året och förnyas sedan frivilligt för 695:-/år." Samma belopp står på kundtjänstsidan om larm- och serviceavtal, som också anger att ett servicebesök om 995 kronor krävs för att teckna serviceavtal i efterhand. Sidan namnger larmcentralen: Lövestad Larmcentral, uppgiven som certifierad enligt SBSC och SSF.',
+  },
+  {
+    publisher: "Safeland AB",
+    title: "Villkor för Safelands larmtjänster",
+    url: "https://www.safeland.se/wp-content/uploads/2026/06/Villkor-Safelands-larmtjanster.pdf",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Punkt 9: "Avtalet har ingen bindningstid eller uppsägningstid förutsatt att du inte betalar med avbetalning." Det gör Safeland till det enda av de åtta bolagen utan någondera.\n\nPunkt 6.2 beskriver larmcentralen som en tilläggstjänst: "Vi bedriver inte larmcentral eller väktarbolag i egen regi utan anlitar underleverantörer för dess utförande", och namnger Westra Security. Utryckning är kostnadsfri vid bekräftat inbrott, men "utan bevis på inbrott genom polisanmälan debiteras utryckningen till dig med 2400 kr". Bolaget förbehåller sig också rätten att neka utryckning där inget väktarbolag finns i närheten.',
+  },
+  {
+    publisher: "Safeland AB",
+    title: "Särskilda villkor för abonnemang av larmsystem, version 1.5",
+    url: "https://www.safeland.se/wp-content/uploads/2026/06/Sarskilda-villkor-for-hyra-av-larmsystem-privat-1.5.pdf",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Slår fast att systemet hyrs och inte köps, vilket vi tidigare angav tvärtom. "Du kan närsomhelst säga upp hyresavtalet", mot att kunden själv monterar ned, paketerar och bekostar returen. Prishöjningar begränsas till konsumentprisindex eller 5 procent per år och får inte ske alls under de första tolv månaderna. Friköp av hårdvaran erbjuds mot pris på förfrågan. Safeland får själva säga upp avtalet tidigast 36 månader efter startdatum.',
+  },
+  {
+    publisher: "Safeland AB",
+    title: "Larmpaket med abonnemang, webbutiken",
+    url: "https://shop.safeland.se/se/butik/ajax/larm-bas-med-abonnemang/",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Priset vi angav som opublicerat, i en webbutik på egen subdomän som bara är länkad från ordet Webbshop i sidfoten. Ordinarie 249 kr/mån och 3 990 kr i start, kampanjpris 198 respektive 2 490 den 6 augusti 2026. Produktsidan skriver ut villkoren: "Ingen bindningstid, ingen uppsägningstid" och "Med tjänsten hyr du larmsystemet, inklusive mobil datatrafik, support och full garanti. Du kan avsluta och återlämna systemet när du vill."\n\nHårdvaran är Ajax Hub 2 Plus med larmväg över ethernet, wifi och 4G, och sidan anger säkerhetsklass Grad 2. Larmcentral med väktare är en egen produkt, 1 490 kronor för tolv månader förbetalt, och ingår alltså inte i månadsavgiften. Det är den uppgiften som gör priset jämförbart med de bolag där larmcentralen ingår.',
+  },
+  {
+    publisher: "Svenska Alarm",
+    title: "Allmänna avtalsvillkor och villkor för Bemannad Larmcentral",
+    url: "https://www.svenskaalarm.se/villkor/",
+    date: "2026-08-06",
+    market: "SE",
+    kind: "standard",
+    note: 'Sju separata villkorsdokument publicerade utan inloggning, fler än något annat bolag i jämförelsen lägger fram. De allmänna avtalsvillkoren punkt 6.3 anger tre månaders uppsägningstid och förlängning om uppsägning inte sker tre månader före bindningstidens utgång. Bindningstiden själv står bara som "överenskommen", alltså i det individuella kontraktet.\n\nVillkoren för Bemannad Larmcentral är den viktigare läsningen. Väktartjänsten utförs av ett bevakningsbolag som Svenska Alarm handlar upp åt kunden med fullmakt och "får ändras fritt av Svenska Alarm", och punkt 6.6 slår fast att bolaget inte ansvarar för bevakningstjänstens fullgörande, kvalitet, täckning eller tillgång. Väljer kunden inte väktartjänst skriftligt aktiveras ingen.',
   },
   {
     publisher: "Svensk Brand- och Säkerhetscertifiering",
@@ -2589,7 +2980,8 @@ export const HEMLARM_SOURCES: Source[] = [
 export const LARM_UTAN_ABONNEMANG_SOURCES: Source[] = [
   {
     publisher: "Stöldskyddsföreningen",
-    title: "SSF 140 utgåva 1, projektering och installation av inbrottslarmanläggningar med intern radioöverföring",
+    title:
+      "SSF 140 utgåva 1, projektering och installation av inbrottslarmanläggningar med intern radioöverföring",
     url: "https://www.stoldskyddsforeningen.se/app/uploads/2019/11/Frhandsgranskning-SSF-140-01-Proj-o-inst-av-Inbrottslarmanl-med-intern-radioverfring.pdf",
     market: "SE",
     kind: "standard",
@@ -2597,7 +2989,8 @@ export const LARM_UTAN_ABONNEMANG_SOURCES: Source[] = [
   },
   {
     publisher: "SBSC",
-    title: "SSF 1112 Behörig installatör, inbrottslarm med intern radioöverföring",
+    title:
+      "SSF 1112 Behörig installatör, inbrottslarm med intern radioöverföring",
     url: "https://www.sbsc.se/certifikat/ssf-1112-behorig-installator-inbrottslarm-med-intern-radiooverforing/",
     market: "SE",
     kind: "standard",
@@ -2641,7 +3034,36 @@ export const LARM_UTAN_ABONNEMANG_SOURCES: Source[] = [
     url: "https://www.clasohlson.com/se/Hemlarm-Eufy-Security-Alarm-Kit-5-delar/p/36-8328",
     market: "SE",
     kind: "standard",
-    note: "Den enda butikssida i kategorin som har en specifikationsrad för larmuppringning, och där står Nej. Sidan bekräftar också att systemet bygger på hemmets befintliga wifi och att HomeBase 2 fungerar som repeater. Varken sirenens ljudnivå eller hubbens reservbatteri anges, vare sig här eller hos Kjell, och därför står de som saknad uppgift i vår tabell.",
+    note: "Den enda butikssida i kategorin som har en specifikationsrad för larmuppringning, och där står Nej. Sidan bekräftar också att systemet bygger på hemmets befintliga wifi och att HomeBase 2 fungerar som repeater.",
+  },
+  {
+    publisher: "eufy",
+    title: "eufy Backup Battery for HomeBase 2, tillverkarens supportartikel",
+    url: "https://service.eufy.com/article-description/How-long-does-the-Backup-Battery-for-HomeBase-2-last-on-a-full-charge",
+    kind: "standard",
+    note: "Belägger att HomeBase 2 inte har något inbyggt reservbatteri. eufy sålde ett separat tillbehör, eufy Backup Battery for HomeBase 2, och anger att det räcker upp till 8 timmar fulladdat. Tillbehöret är utgått. eufys tre egna manualer för HomeBase 2 räknar upp samma sju delar på enheten, ingen av dem ett batteri, och förpackningen innehåller hubb, nätadapter, nätverkskabel och återställningsnål. Manualerna kallar dessutom ljudkällan i hubben för högtalare, och eufy publicerar ingen decibelsiffra för den: de 105 dB som cirkulerar gäller T8970 eufy Security Siren, ett separat tillbehör.",
+  },
+  {
+    publisher: "TP-Link",
+    title: "Tapo H200, tillverkarens datablad",
+    url: "https://static.tp-link.com/upload/product-overview/2023/202307/20230705/Tapo%20H200(EU)1.0_Datasheet.pdf",
+    kind: "standard",
+    note: "Belägger att Tapo H200 saknar reservbatteri. Databladet räknar upp hela enheten (SYNC-knapp, återställning, microSD-plats, status-LED) och hela förpackningen (hubb, snabbguide, nätverkskabel, nätadapter), och strömförsörjningen anges som adapter 9 V 0,85 A. Ingen av delarna är ett batteri, och TP-Links användarmanual på 19 851 tecken nämner heller inget batteri, bara nätadaptern. Databladet anger också kapaciteten: 64 sensorer, Sub-1G-brytare eller knappar plus 4 kameror eller videodörrklockor.",
+  },
+  {
+    publisher: "Ring",
+    title: "Setting up your Ring Alarm Base Station",
+    url: "https://ring.com/support/articles/pq1zx/Setting-Up-Your-Ring-Alarm-Base-Station",
+    kind: "standard",
+    note: 'Tillverkarens egen bekräftelse av de två siffror som gör Ring till bästa köp: "The Ring Alarm Base Station has a 104 dB siren" och "The Base Station has a 24-hour backup battery that will switch on when your power goes out". Båda är högst i jämförelsen. Ring anger på annan plats att en basstation tar upp till 100 enheter.',
+  },
+  {
+    publisher: "Yale",
+    title: "Yale Smart Alarm Starter Kit+, tillverkarens produktsida",
+    url: "https://yalehome.se/yale-smart-alarm-starter-kit-xl/",
+    market: "SE",
+    kind: "standard",
+    note: 'Tillverkarens egen specifikation, och den rättar en siffra vi hade fel. Yale anger "100 db siren & högtalare", "Batteribackup: 12 timmar fullt fungerande", upp till 100 larmenheter och 1 km räckvidd med Horizon+. Samma sida bekräftar att mobilnätet ligger bakom en plan: "Få ut mer med en prenumeration – säker larmdrift via simkort och automatiska samtal vid larm."',
   },
   {
     publisher: "Ajax Systems",
@@ -2750,7 +3172,7 @@ export const LUFTRENARE_SOURCES: Source[] = [
     date: "2026-01-23",
     market: "SE",
     kind: "standard",
-    note: 'Sidans primärkälla, 45 sidor, läst i sin helhet. Ur sammanfattningen: "Resultaten av granskningen visade att 4 av 20 analyserade luftrenare inte klarade gränsvärdena för ozonavgivning, varav tre låg långt över." Granskningen gällde luftrenare som avger ozon som biprodukt och som är avsedda att stå på medan personer vistas i rummet, alltså inte ozongeneratorer. Rapporten anger gränsvärdet till 0,05 ppm, konstaterar att förfrågningarna till Giftinformationscentralen om symptom efter ozon från luftrenare gick från 12 år 2015 till 132 år 2024, och att Norge sedan 2022 förbjuder att ozongeneratorer tillhandahålls privatpersoner medan Sverige inte gör det. Den räknar också upp vilka tekniker som kan bilda ozon: katalytisk oxidation, plasma, ultraviolett bakteriedödande bestrålning och jonisering.',
+    note: 'Sidans primärkälla, 45 sidor, läst i sin helhet. Ur sammanfattningen: "Resultaten av granskningen visade att 4 av 20 analyserade luftrenare inte klarade gränsvärdena för ozonavgivning, varav tre låg långt över."\n\nGranskningen gällde luftrenare som avger ozon som biprodukt och som är avsedda att stå på medan personer vistas i rummet, alltså inte ozongeneratorer. Gränsvärdet anges till 0,05 ppm.\n\nRapporten konstaterar att förfrågningarna till Giftinformationscentralen om symptom efter ozon från luftrenare gick från 12 år 2015 till 132 år 2024, och att Norge sedan 2022 förbjuder att ozongeneratorer tillhandahålls privatpersoner medan Sverige inte gör det. Den räknar också upp vilka tekniker som kan bilda ozon: katalytisk oxidation, plasma, ultraviolett bakteriedödande bestrålning och jonisering.',
   },
   {
     publisher: "Kemikalieinspektionen",
@@ -2779,6 +3201,30 @@ export const LUFTRENARE_SOURCES: Source[] = [
     note: 'Butikskällan som binder ihop myndighetsgranskningen med en produkt du kan köpa i dag. Under rubriken Ozon och lukt skriver Kjell: "En joniserande luftrenare producerar små mängder ozon vid användning." Det är säljarens egna ord om sin egen produkt. Specifikationen anger elektrostatiskt filter och VOC-filter, alltså inget HEPA-filter över huvud taget, och produkten har kategorins lägsta kundbetyg med 3,0 på 17 omdömen.',
   },
   {
+    publisher: "Rubicson",
+    title: "Compact air purifier, bruksanvisning för artikel 40793",
+    url: "https://www.kjell.com/globalassets/mediaassets/894622_40793_manual_en_no_sv_20231226.pdf",
+    date: "2023-12-26",
+    market: "SE",
+    kind: "standard",
+    note: 'Manualen butiken länkar till, läst 2026-08-06. Om ozonet: "Luftrenaren producerar aldrig mer än 0,05 ppm", alltså samma tal som gränsvärdet i myndighetsgranskningen, alltså taket och inte en marginal ner till det.\n\nOm driften: "Luftrenaren stängs av automatiskt efter 6 timmar." Och om placeringen: den ska stå minst 50 centimeter från den som vistas i rummet, eftersom långvarig exponering i stängda utrymmen kan ge torrhet i ögon och mun hos människor och djur.\n\nManualen beskriver genomgående en apparat för bilen, husvagnen och husbilen.',
+  },
+  {
+    publisher: "Xiaomi",
+    title: "Mijia Smart Air Purifier 6 FAQ, fråga 32",
+    url: "https://www.mi.com/global/support/faq/details/KA-595230/",
+    kind: "standard",
+    note: 'Tillverkarens eget supportsvar på om jongeneratorn bildar ozon: "The negative ion technology used in the Mijia Smart Air Purifier 6 has been continuously upgraded and improved in manufacturing processes, resulting in ozone emissions that are extremely low and almost undetectable." Alltså ja, utan tal.\n\nSamma dokument anger att apparaten har både UV-sterilisering och jonfunktion, och att ljudnivån är högst 64 dB(A). Två uppgifter som saknas hos butiken och som avgör två av våra fem kriterier.',
+  },
+  {
+    publisher: "SharkNinja",
+    title: "Shark NeverChange5 Air Purifier HP150UK, specifikation",
+    url: "https://www.sharkninja.co.uk/shark-neverchange5-air-purifier-hp150uk/HP150UK.html",
+    market: "UK",
+    kind: "standard",
+    note: "Hemmamarknadens produktsida för samma apparat, läst 2026-08-06, med två uppgifter Kjell inte har.\n\nAvskiljningen anges till 99,97 procent vid 0,1 till 0,2 mikrometer enligt IEST-RP-CC007.3, alltså mätt vid den partikelstorlek som är svårast att fånga. Det är ett hårdare prov än de 0,3 mikrometer flera konkurrenter anger.\n\nOch ytan: 60 kvadratmeter gäller vid en enda luftväxling i timmen, medan 12 kvadratmeter gäller vid 4,8, båda enligt AHAM AC-1-2020. Samma apparat, två tal som skiljer fem gånger, och det första är det som står i marknadsföringen. Något CADR-tal publicerar Shark inte, varken här, hos sharkclean.eu, hos sharkclean.com eller i AHAM Verifides katalog.",
+  },
+  {
     publisher: "Kjell & Company",
     title: "Xiaomi Mijia Smart Air Purifier 6, produktsida",
     url: "https://www.kjell.com/se/produkter/hem-fritid/inomhusklimat-uppvarmning/luftrenare/xiaomi-mijia-smart-air-purifier-6-smart-luftrenare-2950-m-p47220",
@@ -2788,7 +3234,8 @@ export const LUFTRENARE_SOURCES: Source[] = [
   },
   {
     publisher: "Camfil",
-    title: "EPA, HEPA och ULPA-filter: vilket behöver du och när är HEPA rätt val?",
+    title:
+      "EPA, HEPA och ULPA-filter: vilket behöver du och när är HEPA rätt val?",
     url: "https://www.camfil.com/sv-se/kunskapscenter/utbildning-och-expertis/epa-hepa-ulpa-filter-vilket-behover-du",
     market: "SE",
     kind: "standard",
@@ -2857,14 +3304,14 @@ export const LUFTRENARE_SOURCES: Source[] = [
   },
   {
     publisher: "Bygghemma",
-    title: "Luftrenare bäst i test, vi jämför luftrengörare mot damm och allergi",
+    title:
+      "Luftrenare bäst i test, vi jämför luftrengörare mot damm och allergi",
     url: "https://www.bygghemma.se/reportage-och-guider/bast-i-test-luftrenare/",
     market: "SE",
     kind: "comparison",
     note: "Kortast av de sex, 1 385 ord. Butikens egen redaktionella sida om det egna sortimentet.",
   },
 ];
-
 
 /**
  * Luftfuktare. Två svenska normkällor, två tyska laboratorieprov, ett svenskt
@@ -2918,7 +3365,7 @@ export const LUFTFUKTARE_SOURCES: Source[] = [
     date: "2025-02-10",
     market: "SE",
     kind: "test",
-    note: 'Det enda svenska grupptestet vi hittat, fem apparater, skrivet av Åsa Warme Hallén. Metoden är beskriven öppet och är ett handhavandetest och inget labbtest: varje apparat användes i ett antal dagar i ett rum av rimlig storlek, med en Airthings View Plus som kontrollmätare tre till sju meter bort. Ingen bakteriemätning. Testet utser ingen vinnare och sätter inga betyg, utan ger varje produkt plus och minus. Av de fem är bara Philips 5000 samma modell vi rankar: testets Wilfa är HU1A-43C mot Kjells Dew TX450, och testets Levoit är OasisMist 1000S mot Kjells 450S. Ingressen säger att det inte finns några exakta gränsvärden för hälsosam luftfuktighet, vilket FoHMFS 2014:14 motsäger.',
+    note: "Det enda svenska grupptestet vi hittat, fem apparater, skrivet av Åsa Warme Hallén. Metoden är beskriven öppet och är ett handhavandetest och inget labbtest: varje apparat användes i ett antal dagar i ett rum av rimlig storlek, med en Airthings View Plus som kontrollmätare tre till sju meter bort. Ingen bakteriemätning. Testet utser ingen vinnare och sätter inga betyg, utan ger varje produkt plus och minus. Av de fem är bara Philips 5000 samma modell vi rankar: testets Wilfa är HU1A-43C mot Kjells Dew TX450, och testets Levoit är OasisMist 1000S mot Kjells 450S. Ingressen säger att det inte finns några exakta gränsvärden för hälsosam luftfuktighet, vilket FoHMFS 2014:14 motsäger.",
   },
   {
     publisher: "Clas Ohlson",
@@ -2927,6 +3374,40 @@ export const LUFTFUKTARE_SOURCES: Source[] = [
     market: "SE",
     kind: "standard",
     note: 'Butikssidan för vår testvinnare, och samtidigt ett exempel på varför vi läser testet och inte butikens sammanfattning av det. Produktbeskrivningen inleds med orden "Bäst i test." och skriver längre ner "Bäst i test feb 2025 enligt Ljud & Bild". Publikationen stämmer och datumet stämmer, men testet utser ingen vinnare och sätter inga betyg alls. Samma sida anger också "NanoCloud-teknik minskar bakterier med upp till 99 procent", vilket är tillverkarens eget påstående och inte en klassning enligt någon standard.',
+  },
+  {
+    publisher: "Wilfa",
+    title: "Dew TX450 luftfuktare, produktsida och specifikation",
+    url: "https://www.kjell.com/se/produkter/hem-fritid/inomhusklimat-uppvarmning/luftfuktare/wilfa-dew-tx450-luftfuktare-p66651",
+    market: "SE",
+    kind: "standard",
+    note: 'Källan som flyttade en produkt sex placeringar, och en påminnelse om att spectabellen inte är produktsidan. Tabellen listar "Inställningar: luftfuktning, nattläge, timer" och ingen rumsyta, vilket vi läste och rankade på. Löptexten ovanför säger: "Luftfuktigheten kan justeras mellan 35 % och 75 % i steg om 5 %, och den inbyggda hygrostaten ser till att nivån hålls stabil", "passar Dew TX450 för rum upp till 70 m²" samt "Integrerad UV-funktion som minskar bakterier" och ett keramiskt filter som kan rengöras och återanvändas. Effekt 30–110 W, tank 4,3 liter, 450 ml/h.',
+  },
+  {
+    publisher: "Rubicson",
+    title: "Manual, luftfuktare art. 47011",
+    url: "https://www.kjell.com/globalassets/mediaassets/910911_47011_manual_en_no_sv_20250211.pdf",
+    date: "2025-02-11",
+    market: "SE",
+    kind: "standard",
+    note: "Manualen bakom butikens supportflik, och svaret på tre av de fyra uppgifter vi publicerat som saknade. Specifikationsrutan ger 230 V, 25 W, 2,5 liter, 150 ml/h (± 25 %), upp till 13 timmar och Ø180×258 mm. Samma manual instruerar rengöring av vattentanken var tredje dag, inte varje vecka, med motiveringen att mikroorganismer i vattnet annars kan blåsas ut i luften. Ljudnivån är den enda uppgift som verkligen inte står någonstans.",
+  },
+  {
+    publisher: "Cleverio",
+    title: "Manual, AM300 luftfuktare art. 47167",
+    url: "https://www.kjell.com/globalassets/mediaassets/898004_47167_manual_en_no_sv_20240301.pdf",
+    date: "2024-03-01",
+    market: "SE",
+    kind: "standard",
+    note: 'Ger effekten vi publicerat som oangiven: 105 W. Manualen anger också att målfuktigheten ställs mellan 40 och 80 procent och att apparaten stänger av sig när nivån nåtts, samt att autoläget siktar på 55 till 68 procent, alltså över de 45 procent Folkhälsomyndigheten namnger. Övrigt: 4 liters tank som räcker 10–40 timmar, 400 ml/h varm och 300 kall, under 25 dB, 2,25 kg.',
+  },
+  {
+    publisher: "Beurer",
+    title: "Gebrauchsanweisung LB 300 Plus och LB 45",
+    url: "https://pim.beurer.com/images/attribut/100.67_LB300_2023-02-21_03_IM1_BEU.pdf",
+    market: "DE",
+    kind: "standard",
+    note: "Tillverkarens egna manualer på hemmamarknaden, där Technische Daten ger de effekter varken Apotea eller Beurers svenska sidor publicerar: LB 300 Plus 220–240 V, 26 W och upp till 300 ml/h, LB 45 25 W, 30 m² och 1,5 kg. Beurers tyska produktsida ger dessutom LB 300 Plus tankvolym, 3,0 liter, och bekräftar att steglös reglering inte finns på någon av dem.",
   },
   /*
    * De sex svenska jämförelserna. Mätta med
@@ -3051,7 +3532,23 @@ export const AVFUKTARE_SOURCES: Source[] = [
     url: "https://www.clasohlson.com/se/Wood%E2%80%99s-LD40-avfuktare-kallare-och-tvattstuga,-100-m2/p/46-1453",
     market: "SE",
     kind: "standard",
-    note: 'Den här produktsidan är sidans viktigaste enskilda bevis, och den är en butikssida och inget test. I butikens egen specifikation står två rader efter varandra: "Avfuktning (20 °C / 70 % RF): 7,5 liter per dygn" och "Avfuktning (30 °C / 80 % RF): 13 liter per dygn". Samma apparat, samma sida, samma dag, och talet nästan fördubblas beroende på vilka villkor som väljs. Det är den enda avfuktaren hos Clas Ohlson som publicerar båda. Övriga publicerar ett tal, och de flesta utan att ange några villkor alls. Hämtad 2026-08-03.',
+    note: 'I butikens egen specifikation står två rader efter varandra: "Avfuktning (20 °C / 70 % RF): 7,5 liter per dygn" och "Avfuktning (30 °C / 80 % RF): 13 liter per dygn". Samma apparat, samma sida, samma dag, och talet skiljer 73 procent beroende på vilka villkor som väljs. Det är den enda avfuktaren hos Clas Ohlson som publicerar båda talen, och Wood\'s egen sida publicerar bara 30-gradersraden. Hämtad 2026-08-03.',
+  },
+  {
+    publisher: "Meaco",
+    title: "MeacoDry Arete One, tillverkarens extraktionstabeller",
+    url: "https://meaco.com/products/meacodry-arete-one-25l-dehumidifier-and-air-purifier",
+    market: "UK",
+    kind: "standard",
+    note: 'Sidans viktigaste enskilda bevis. Meaco publicerar under rubriken "Extraction Rate Data" en tabell per modell med sex rader: rumsvillkor, maximal vattenmängd och watt. För Arete One 25L går den från 17,53 liter per dygn vid 280 watt vid 20 °C och 80 % RH ned till 2,15 liter vid 215 watt vid 10 °C och 50 % RH, med 10,73 liter vid 267 watt på raden 20 °C och 60 % RH.\n\nDet är den enda uppgiften i kategorin som sträcker sig ned till 10 grader, alltså till den temperatur en ouppvärmd svensk källare håller i november. Tabellerna för 10L, 12L och 20L har samma form och finns på respektive produktsida. Hämtade 2026-08-06.',
+  },
+  {
+    publisher: "eeese air care",
+    title: "eeese Adam, Hugo och Emil, tillverkarens spectabeller",
+    url: "https://eeese-aircare.com/se/eeese-sortiment/avfuktare",
+    market: "SE",
+    kind: "standard",
+    note: 'Den danska tillverkaren publicerar två kapacitetsrader per modell: "Kapacitet 30 °C/RH80 %" och "Kapacitet 27 °C/RH60 %". Adam anger 20 respektive 11,5 liter per dygn, Hugo 25 och 15, Emil 10 och 5. Butiken som säljer dem publicerar bara det första talet.\n\nSpectabellerna rättar också fyra uppgifter mot butikens: Emil drar 165 watt och inte 155, Adams tank rymmer 4,8 liter och inte 5, och ljudnivåerna anges per fläktläge i stället för som ett enda tal. Hämtade 2026-08-06.',
   },
   {
     publisher: "Wood's",
@@ -3059,7 +3556,7 @@ export const AVFUKTARE_SOURCES: Source[] = [
     url: "https://woods.se/sv/produkter/avfuktare/kallare/woods-sw42fw/",
     market: "SE",
     kind: "standard",
-    note: 'Tillverkarens egen spectabell anger "Avfuktningskapacitet (30 ºC & 80 % RH): 25 liter/24 h" och "Strömförbrukning (30 ºC & 80 % RH): 600 watt", alltså båda talen vid namngivna villkor. Det är den öppnaste redovisningen vi hittat i kategorin. Samma sida marknadsför apparaten för källare, garage och andra kalla utrymmen med driftstemperatur +2 till +35 ºC, alltså 28 grader under den temperatur kapacitetstalet är uppmätt vid. Värt att notera: Clas Ohlson, som säljer samma apparat, anger 25,5 liter och 550 watt utan villkor. Två av tillverkarens tal och två av butikens, för en och samma produkt. Hämtad 2026-08-03.',
+    note: 'Tillverkarens egen spectabell anger "Avfuktningskapacitet (30 ºC & 80 % RH): 25 liter/24 h" och "Strömförbrukning (30 ºC & 80 % RH): 600 watt", alltså båda talen vid namngivna villkor. Samma sida marknadsför apparaten för källare, garage och andra kalla utrymmen med driftstemperatur +2 till +35 ºC, alltså 28 grader under den temperatur kapacitetstalet är uppmätt vid.\n\nBruksanvisningen, som produktsidan länkar till, går längre än produktsidan. Dess tekniska tabell för hela SW-serien har egna rader för "Dehumidifying at 20 ˚C and 70 % r.h." och "Power at 20 ˚C and 70 % r.h.", och för SW42 står där 12 liter per dygn på 420 watt. Det är näst mest vatten i svalt av de tolv apparaterna på sidan. Samma tabell ger nettovikt 25 kg, tankvolym 11,4 l, ljudnivå 56–60 dB, köldmedium R290/120 g och IPX1. Värt att notera: Clas Ohlson, som säljer samma apparat, anger 25,5 liter och 550 watt utan villkor. Produktsidan hämtad 2026-08-03, bruksanvisningen 2026-08-06.',
   },
   {
     publisher: "Bygghemma",
@@ -3067,7 +3564,7 @@ export const AVFUKTARE_SOURCES: Source[] = [
     url: "https://www.bygghemma.se/hus-och-bygg/varme-och-ventilation/inomhusklimat-och-luktsanering/avfuktare/avfuktare-och-luftrenare-meaco-meacodry-arete-one-25l/p-1887651",
     market: "SE",
     kind: "standard",
-    note: 'Tredje varianten av samma problem, och den mest talande. Modellen heter 25L, alltså är literantalet själva produktnamnet, men specifikationen säger inte med ett ord vid vilka villkor de 25 literna gäller. Däremot anges elen exakt: "Strömförbrukning vid 20 °C och 60 % RH: 267 watt". Meaco redovisar alltså effekten vid en realistisk svensk nivå och kapaciteten vid ingen angiven nivå alls, medan Wood\'s gör tvärtom och anger båda vid 30 grader. Hämtad 2026-08-03.',
+    note: 'Butiken vi länkar till för vinnaren. Specifikationen anger "Strömförbrukning vid 20 °C och 60 % RH: 267 watt" men bara modellnamnets 25 liter som kapacitet, alltså utan de villkor tillverkaren själv publicerar. Den som vill se hela kurvan får gå till Meacos egen sida, och det är skälet till att den ligger som egen källa ovan. Pris och lagerstatus hämtade 2026-08-03.',
   },
   /*
    * De sex svenska jämförelserna, hämtade som rå HTML 2026-08-03 och
@@ -3102,7 +3599,7 @@ export const AVFUKTARE_SOURCES: Source[] = [
   {
     publisher: "Bäst i test",
     title: "Avfuktare bäst i test",
-        /* Punycode, inte unicode. Adressen är ett IDN och ska stå i den form
+    /* Punycode, inte unicode. Adressen är ett IDN och ska stå i den form
        en webbläsare och en crawler ser. */
     url: "https://www.xn--bst-i-test-q5a.se/avfuktare",
     market: "SE",
@@ -3184,6 +3681,14 @@ export const ROBOTDAMMSUGARE_SOURCES: Source[] = [
     market: "SE",
     kind: "test",
     note: "Natasja Broström provar Tapo RV50 Pro Omni, eufy Clean X10 Pro Omni, Dreame L40 Ultra AE och Xiaomi X20 Pro. Det här är källan som bär trösklarna, och fyndet finns inte i något internationellt test: nordiska trösklar visade sig vara en av de största utmaningarna i hela grupptestet, och en av de fyra robotarna fick ge upp helt. På kaffesump från köksgolvet drog flera robotar runt sumpen i stället för att ta upp den, medan Xiaomis modell klarade det bättre. Redaktionen har också provat DJI ROMO P och kallar den följsam och tyst, men skriver att den ofta tappar bort både sig själv och smutsen. Om Dreames första robot med mopprulle skriver de att den är nästan perfekt och att bara mindre brister hindrar högsta betyg.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "Roborock Qrevo Curv 2 Flow",
+    url: "https://www.ljudochbild.se/test/smart-hem/roborock-qrevo-curv-2-flow/",
+    market: "SE",
+    kind: "test",
+    note: "Enskilt test av den robot som ligger fyra här, och det enda svenska omdömet om just den modellen. Redaktionen skriver att roboten har svårt med orienteringen och har en tung bakdel. Det motsade vårt eget navigeringsbetyg, som var sidans högsta, och betyget är sänkt efter den här läsningen. Se /rattelser.",
   },
   {
     publisher: "Ljud & Bild",
@@ -3275,21 +3780,31 @@ export const HYGROMETER_SOURCES: Source[] = [
     title: "Thermo-Hygrometer HM 16, tillverkarens tekniska data",
     url: "https://www.beurer.com/de/p/67915/",
     kind: "standard",
-    note: 'Den ena av två tillverkare i hela vår kartläggning som skriver ut hur mycket fel mätaren får visa. Tekniska data anger "± 5% RH" i spannet 40 till 80 procent och "± 8% RH" i spannen 20 till 40 och 80 till 95, samt ± 1 grad mellan 0 och 40 och ± 2 grader mellan 40 och 50. Det dubbla värdet är sidans mest användbara enskilda uppgift: toleransen är dubbelt så vid utanför mellanspannet, alltså sämst precis i krypgrunden om vintern och i badrummet efter en dusch. Läst i original 2026-08-04, inte i en söklista.',
+    note: 'Tekniska data anger "± 5% RH" i spannet 40 till 80 procent och "± 8% RH" i spannen 20 till 40 och 80 till 95, samt ± 1 grad mellan 0 och 40 och ± 2 grader mellan 40 och 50. Samma sida anger identiska fukttal för HM 22, som kostar 69 kronor mer, vilket är skälet att läsa båda i original och inte lita på bruksanvisningens sammanfattning: vi angav först "8 procentenheter" för HM 22 och byggde ett omdöme på att den dyrare modellen lovade sämre. Det dubbla värdet är kategorins mest användbara enskilda uppgift: toleransen är dubbelt så vid utanför mellanspannet, alltså sämst precis i krypgrunden om vintern och i badrummet efter en dusch. Läst i original 2026-08-04, kontrollerat på nytt 2026-08-06.',
   },
   {
     publisher: "TFA Dostmann",
-    title: "Digital thermo-hygrometer MOXX 30.5026, tillverkarens tekniska data",
-    url: "https://www.tfa-dostmann.de/en/product/digital-thermo-hygrometer-moxx-30-5026/",
+    title:
+      "Digitales Thermo-Hygrometer MOXX 30.5026, tillverkarens bruksanvisning",
+    url: "https://www.tfa-dostmann.de/produkt/digitales-thermo-hygrometer-moxx-30-5026/",
     kind: "standard",
-    note: 'Motstycket till Beurer, och lika viktig av motsatt skäl. Tabellen anger mätområdet "20...99% rH" och "0...+50°C", mått, vikt och batteri, men ingen tolerans alls, varken för fukt eller temperatur. Det är samma modell som mögelsaneringsförbundet mätte till 0,5 procentenheters avvikelse, alltså kategorins mest träffsäkra mätare enligt den enda provning som finns. Tillverkaren själv lovar ingenting. Det säger något om hur lite ett utelämnat tal går att tolka som ett dåligt tal.',
+    note: 'Källan som visar var toleransen faktiskt bor. Produktsidans tabell "Technische Daten" anger mätområdet "20...99% rH" och "0...+50°C", material, mått, vikt och batteri, men ingen noggrannhet. Vi läste den och skrev att TFA inte anger någon. Talet står i §10 i den bruksanvisning TFA länkar från samma sida, i svensk utgåva: "±4 % vid 30...80 %rH, annars ±5 %" för fukten och "±1,0 °C" för temperaturen. Det är samma modell som mögelsaneringsförbundet mätte till 0,5 procentenheters avvikelse, alltså åtta gånger bättre än tillverkarens eget löfte. Läst 2026-08-06.',
   },
   {
     publisher: "Shelly",
     title: "Shelly H&T Gen3, tillverkarens kunskapsbas",
     url: "https://kb.shelly.cloud/knowledge-base/shelly-h-t-gen3",
     kind: "standard",
-    note: 'Kontrollerad, inte antagen. Specifikationen anger batterityp "4 AA (LR6) 1.5 V (not included)" och batteritid omkring ett år, och bekräftar att det finns en temperatur- och en fuktgivare, men publicerar varken mätområde eller noggrannhet för fukten. Det är den modell som sex svenska jämförelsesajter korat till bäst i test i kategorin, och ingen av dem efterlyste talet. Hos Kjell kostar den 429 kronor och har 3,5 i kundbetyg från 36 betyg, vilket är det lägsta vi noterat i kategorin.',
+    note: 'Kontrollerad två gånger, 2026-08-04 och 2026-08-06, och båda gångerna utan träff. Specifikationen anger batterityp "4 AA (LR6) 1.5 V (not included)", batteritid omkring ett år, mått 70 × 70 × 26 mm, vikt 47 gram och att det finns en temperatur- och en fuktgivare, men varken mätområde eller noggrannhet för fukten. De "30 % to 70 % RH" som står under Environmental är driftvillkor och inte ett mätområde. Samma sida ger rapporttröskeln: mätaren skickar först när temperaturen ändrats 0,5 grader eller fukten 5 procentenheter. Det är den modell sex svenska jämförelsesajter korat till bäst i test, och ingen av dem efterlyste noggrannheten. Hos Kjell kostar den 429 kronor och har 3,5 i kundbetyg från 36 betyg.',
+  },
+  {
+    publisher: "Rubicson",
+    title: "Digital hygrometer 48599, bruksanvisning",
+    url: "https://www.kjell.com/globalassets/mediaassets/914594_48599_manual_en_no_sv_20250416.pdf",
+    date: "2025-05-16",
+    market: "SE",
+    kind: "standard",
+    note: 'Beviset för att toleransen bor i manualen. Kjells produktsida för Rubicson Kompakt anger mätområde, batteri och mått men ingen noggrannhet, och vi skrev därför att mätaren inte anger någon. Sidan 8 i den bruksanvisning Kjell själv länkar från produktsidan har en tabell med rubriken "Noggrannhet": ± 8 procentenheter mellan 30 och 40 procent, ± 5 mellan 40 och 80, ± 8 mellan 80 och 90, samt ± 1 grad mellan 0 och 40. Det är exakt samma fukttolerans som Beurer HM 16 och HM 22 anger, i en mätare som kostar 20 respektive 89 kronor mindre. En kundrecension på Kjells egen produktsida hänvisade till "noggrannhets-intervallet enligt manualen", vilket var det som fick oss att öppna den. Läst 2026-08-06.',
   },
   {
     publisher: "Folkhälsomyndigheten",
@@ -3325,7 +3840,7 @@ export const LUFTKVALITETSMATARE_SOURCES: Source[] = [
     url: "https://www.test.de/CO2-Messgeraete-und-CO2-Ampeln-im-Test-5709239-0/",
     date: "2021-12-22",
     kind: "test",
-    note: 'Kategorins enda oberoende provning, och den täcker just den givare sidan handlar om. 26 koldioxidmätare och koldioxidampuller provades på mätning, handhavande, strömförbrukning och utförande. Utfallet var blandat: 18 av 26 fick bra betyg för mätningen, tre underkändes och resten hamnade på tillfredsställande eller nöjaktigt. Att var åttonde apparat inte klarade att mäta det den säljs för att mäta är skälet att bry sig om givartekniken. Airthings View Plus, som vi rankar först, fick **sehr gut (1,2) för mätningarna** och gut (1,9) totalt. Det är den starkaste sortens belägg vi har i kategorin, eftersom det är någon annan än tillverkaren som mätt. Prisspannet i provningen gick från under 100 euro för den billigaste bra apparaten till nästan 500 för den dyraste. Observera att den tyska betygsskalan går åt andra hållet än den svenska: 1,0 är bäst och 5,0 sämst. Provningen är från slutet av 2021 och täcker en av de sju vi rankar.',
+    note: "Kategorins enda oberoende provning, och den täcker just den givare sidan handlar om. 26 koldioxidmätare och koldioxidampuller provades på mätning, handhavande, strömförbrukning och utförande. Utfallet var blandat: 18 av 26 fick bra betyg för mätningen, tre underkändes och resten hamnade på tillfredsställande eller nöjaktigt. Att var åttonde apparat inte klarade att mäta det den säljs för att mäta är skälet att bry sig om givartekniken. Airthings View Plus, som vi rankar först, fick **sehr gut (1,2) för mätningarna** och gut (1,9) totalt. Det är den starkaste sortens belägg vi har i kategorin, eftersom det är någon annan än tillverkaren som mätt. Prisspannet i provningen gick från under 100 euro för den billigaste bra apparaten till nästan 500 för den dyraste. Observera att den tyska betygsskalan går åt andra hållet än den svenska: 1,0 är bäst och 5,0 sämst. Provningen är från slutet av 2021 och täcker en av de sju vi rankar.",
   },
   {
     publisher: "Strålsäkerhetsmyndigheten",
@@ -3340,7 +3855,22 @@ export const LUFTKVALITETSMATARE_SOURCES: Source[] = [
     title: "Uncovering the Airthings carbon dioxide sensor",
     url: "https://www.airthings.com/resources/carbon-dioxide-sensor",
     kind: "standard",
-    note: 'Tillverkarens egen redogörelse för vilken teknik de använder, och den enda i kategorin som sätter en siffra på noggrannheten. Givaren är NDIR, alltså en mätning av hur infrarött ljus absorberas av koldioxiden i luften, och den beskrivs som "a compact NDIR sensor installed in every Airthings Wave Plus device". Noggrannheten anges till "±30ppm ±3% within 15 – 35°C ... and 0 – 80%RH" och mätområdet till 400 till 5 000 ppm. Källan är värdefull för kontrasten mot de mätare som anger eCO2: den beskriver vad en riktig koldioxidgivare gör, och den som har en sådan visar sig också våga skriva ut vad den klarar.',
+    note: 'Tillverkarens egen redogörelse för vilken teknik de använder. Givaren är NDIR, alltså en mätning av hur infrarött ljus absorberas av koldioxiden i luften, och den beskrivs som "a compact NDIR sensor installed in every Airthings Wave Plus device". Noggrannheten anges till "±30ppm ±3% within 15 – 35°C ... and 0 – 80%RH" och mätområdet till 400 till 5 000 ppm.\n\n⚠️ Talet gäller Wave Plus. View Plus anger ±50 ppm ±3 % och Wave Enhance ±50 ppm ±5 %, båda på sina egna produktsidor. Sidan bar tidigare Wave Plus tal för alla tre.',
+  },
+  {
+    publisher: "Netatmo",
+    title: "How do I calibrate my Smart Indoor Air Quality Monitor?",
+    url: "https://helpcenter.netatmo.com/hc/en-us/articles/360025217051-How-do-I-calibrate-my-Smart-Indoor-Air-Quality-Monitor",
+    kind: "standard",
+    note: 'Netatmos eget hjälpcenter, och den enda sida där de sätter en siffra på koldioxidmätningen: "we specify a precision of +/- 100ppm", plus +/- 0,3 grader för temperatur. Det är den vidaste koldioxidtoleransen bland de fyra mätare här som verkligen mäter koldioxid, och den står nu i jämförelsetabellen.\n\n⚠️ Artikeln gäller Smart Indoor Air Quality Monitor. Netatmos andra artikel om koldioxidgivaren beskriver en optisk mätning med lampa och infraröd mottagare och anger ±10 % över 1 000 ppm, men den handlar om Smart Home Weather Station och får inte bäras hit.',
+  },
+  {
+    publisher: "Mill International AS",
+    title: "Mill Sense Air, användarmanual",
+    url: "https://www.clasohlson.com/medias/sys_master/hfc/h27/67895414849566.pdf",
+    market: "SE",
+    kind: "standard",
+    note: 'Bruksanvisningen som ligger länkad från Clas Ohlsons egen produktsida, och kategorins skarpaste citat, eftersom det kommer från en tillverkare som beskriver sin egen svaghet: "eCO2 beräknas från VOC-mätningen ... Om det finns betydande koncentrationer av andra flyktiga organiska ämnen kommer eCO2-avläsningen att vara högre än den faktiska CO2-nivån." Mill bekräftar därmed sidans huvudfynd i eget tryck.\n\nManualen anger också precisionen: relativ fuktighetssensor ± 2,0 % RH och temperaturavvikelse ± 0,15 °C, snävast av alla sju. Sensorerna behöver 72 timmar för full noggrannhet, och en knapp på ovansidan visar läget i fyra färger.',
   },
 ];
 
@@ -3381,7 +3911,7 @@ export const ROBOTGRASKLIPPARE_SOURCES: Source[] = [
     url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10777904/",
     date: "2024-01-16",
     kind: "standard",
-    note: 'Uppföljningen, i Animals 14(1):122, och den viktigaste källan på sidan. Här konstrueras ett standardiserat säkerhetsprov: attrapper i två storlekar på kokosmatta, sextio försök per storlek, tre vinklar, och en skadeklassning i fem steg. Reglerna är citerbara i klartext: en robot som bara ger klass 0 till 2 får kallas säker för igelkottar, en som ger klass 3 eller 4 får inte, och klass 4 innebär underkänt. Studien prövade dessutom vilka konstruktionsdrag som faktiskt förutsäger utfallet, alltså knivtyp, kollisionssensorer, strömavkänning i hjulmotorer, ultraljud, klipphöjd, glidplåtar, strålkastare, antal hjul och fram- eller bakhjulsdrift, och fann inget med säkerställd skyddande effekt. Det är skälet till att den här sidan inte betygsätter igelkottssäkerhet och inte heller jämför knivtyp: den som gör det jämför något som studien inte kunde belägga betyder något. Författarna skriver att protokollet nu bör valideras innan det förs in i CENELEC-standarden, vilket alltså inte har skett.',
+    note: "Uppföljningen, i Animals 14(1):122, och den viktigaste källan på sidan. Här konstrueras ett standardiserat säkerhetsprov: attrapper i två storlekar på kokosmatta, sextio försök per storlek, tre vinklar, och en skadeklassning i fem steg. Reglerna är citerbara i klartext: en robot som bara ger klass 0 till 2 får kallas säker för igelkottar, en som ger klass 3 eller 4 får inte, och klass 4 innebär underkänt. Studien prövade dessutom vilka konstruktionsdrag som faktiskt förutsäger utfallet, alltså knivtyp, kollisionssensorer, strömavkänning i hjulmotorer, ultraljud, klipphöjd, glidplåtar, strålkastare, antal hjul och fram- eller bakhjulsdrift, och fann inget med säkerställd skyddande effekt. Det är skälet till att den här sidan inte betygsätter igelkottssäkerhet och inte heller jämför knivtyp: den som gör det jämför något som studien inte kunde belägga betyder något. Författarna skriver att protokollet nu bör valideras innan det förs in i CENELEC-standarden, vilket alltså inte har skett.",
   },
   {
     publisher: "Oxfords universitet",
@@ -3393,7 +3923,8 @@ export const ROBOTGRASKLIPPARE_SOURCES: Source[] = [
   },
   {
     publisher: "Husqvarna",
-    title: "Husqvarnakoncernen välkomnar ny forskning om säkerhet för robotgräsklippare",
+    title:
+      "Husqvarnakoncernen välkomnar ny forskning om säkerhet för robotgräsklippare",
     url: "https://www.husqvarna.com/se/utforska-och-upptack/nyheter-och-media/husqvarnakoncernen-valkomnar-ny-forskning-om-sakerhet-for-robotgrasklippare/",
     date: "2021-04-26",
     kind: "standard",
@@ -3423,21 +3954,56 @@ export const FONSTERPUTSROBOT_SOURCES: Source[] = [
     title: "HOBOT-388, bruksanvisning",
     url: "https://manuals.plus/hobot/388-window-cleaning-robot-manual",
     kind: "standard",
-    note: 'Den enda tillverkare i jämförelsen som sätter ett tal på säkerhetslinan: "the safety rope can endure the impact force up to 200kg to catch any fall". Samma manual anger att det inbyggda reservbatteriet håller roboten kvar på rutan i tjugo minuter vid strömavbrott, vilket är kortast av dem som anger något, och att glaset får vara hur tjockt som helst. Den innehåller också kategorins skarpaste förbud: "Do not use on frameless glass". Att en tillverkare uttryckligen förbjuder det en annan tillåter är skälet att läsa manualen före butikstexten.',
+    note: 'Manualen bakom två av sidans hårdaste besked. Säkerhetslinan: "the safety rope can endure the impact force up to 200kg to catch any fall", och HOBOTs egen produktsida preciserar det till 4,5 meter som tål 200 kilo dragkraft. Reservbatteriet håller roboten kvar på rutan i tjugo minuter, och glaset får vara hur tjockt som helst.\n\nHär står också kategorins skarpaste förbud: "Do not use on frameless glass". Att en tillverkare uttryckligen förbjuder det en annan är godkänd för är skälet att läsa manualen före butikstexten.',
+  },
+  {
+    publisher: "Kärcher",
+    title: "RCW 2, bruksanvisning",
+    url: "https://s1.kaercher-media.com/documents/manuals/html/BTA-5967734-000-00/EN.html",
+    kind: "standard",
+    note: 'Dokumentet Kärchers produktsida länkar till, och det bär två uppgifter produktsidan inte har. Under Intended use: roboten är "designed for cleaning vertical, framed glass surfaces", alltså fönster med båge. Och i tekniska data: säkerhetslinan är 4 meter.\n\nSamma manual beskriver rengöringen, som skiljer sig från vad butikstexten antyder: "2 ultrasonic spray nozzles atomise the cleaning solution into a mist and distribute it evenly over the glass surface", följt av två roterande putsdiskar och ett avslutande polersteg utan vätska.',
   },
   {
     publisher: "Kärcher",
     title: "Window cleaning robot RCW 2, tekniska data",
     url: "https://www.kaercher.com/int/home-garden/window-cleaning-robot/rcw-2-12692100.html",
     kind: "standard",
-    note: 'Den öppnaste redovisningen av hålltid i kategorin. Nödbatteriet anges hålla roboten kvar i fyrtio minuter vid strömavbrott, och till skillnad från de andra publiceras batteriet självt: litiumjon, 0,65 Ah, 14,8 V, så talet går att kontrollera. Sidan anger också sugkraften till 3 300 Pa normalt och 5 000 Pa som mest, och minsta fönster till 35 × 35 cm. Den sista uppgiften är den mest användbara för svenska hus, eftersom spröjsade fönster ofta har mindre rutor än så. Säkerhetslina står i utrustningslistan utan hållfasthet.',
+    note: "Fyrtio minuters hålltid vid strömavbrott, och batteriet bakom talet publicerat så att det går att räkna på: litiumjon, 0,65 Ah, 14,8 V. Det är den längsta hålltiden i jämförelsen och dubbelt mot båda HOBOT-modellerna.\n\nSidan anger också sugkraften till 3 300 Pa normalt och 5 000 Pa som mest, minsta fönster till 35 × 35 cm, städhastigheten till 3 min/m² och vikten till 1,1 kg utan tillbehör.",
+  },
+  {
+    publisher: "Ecovacs",
+    title: "Winbot W2 PRO, specifikationer",
+    url: "https://www.ecovacs.com/us/shop/winbot-window-cleaning-robot/winbot-w2-pro",
+    kind: "standard",
+    note: 'Tillverkarens fullständiga speclista för W2 Pro, och den rättar tre saker vi haft fel om. "Applicable Frame Type: with Frame & Frameless" gör att modellen är godkänd för rutor utan båge. "Power-off Protection Duration (min) 30" ger ett exakt tal där Ecovacs svenska sida bara säger mer än 30 för hela serien.\n\nOch "Total Lenght of Power Cable（m）6,7" visar att roboten går på sladd; de 3 000 mAh är reservbatteriet för strömavbrott. Samma tabell ger 1,8 kg, 6 meters säkerhetslina, 3 mm minsta glastjocklek och 1 min 45 s per kvadratmeter, snabbast av de sju.',
+  },
+  {
+    publisher: "Ecovacs",
+    title: "Winbot W2 OMNI, produktsida",
+    url: "https://www.ecovacs.com/us/winbot-window-cleaning-robot/winbot-w2-omni",
+    kind: "standard",
+    note: 'Enda plats där Ecovacs sätter ett tal på en lina: "The safety rope is made from a three-layer, durable composite material with a strong tensile strength of up to 100KG", i samma stycke som stationens 5,2 kilo och 800 newton mot glaset.\n\nSidan avgör också frågan om båge: "From floor-to-ceiling, small sized, frameless or tilting windows, the WINBOT W2 OMNI works with all types of windows." Hongkong-butikens specark för samma modell ger 30 × 40 cm minsta ruta, 1,6 kg och 72 dB.',
+  },
+  {
+    publisher: "Ecovacs",
+    title: "Winbot MINI och W1 PRO, specifikationer",
+    url: "https://www.ecovacs.com/us/shop/winbot-window-cleaning-robot/winbot-mini",
+    kind: "standard",
+    note: "Winbot Mini kommer upp på 22 × 25 cm, minsta måttet i jämförelsen och knappt halva ytan av vad Kärcher behöver. Samma tabell anger 30 minuters hålltid vid strömavbrott, 3,3 meters lina, 1,3 kg och 3 min/m².\n\nSystersidan för W1 Pro ger 30 × 40 cm, 1,53 kg, en putsduk på 262 × 262 mm som är störst i jämförelsen, och en säkerhetslina på 1,5 meter, kortast av de sju. Samma tal står i den brittiska versionen.",
   },
   {
     publisher: "Ecovacs",
     title: "Winbot W1 Pro, bruksanvisning",
     url: "https://manuals.plus/ecovacs/w1-pro-winbot-website-manual",
     kind: "standard",
-    note: 'Motstycket till HOBOT, och den finns med för kontrasten. Manualen är detaljerad om glaset och tyst om linan. Båglöst glas är tillåtet men med marginal: "Do not stick the WINBOT too close to the edge when cleaning the frameless glass. It is recommended to be more than 10 cm away from the edge." Bågen måste vara minst 5 mm bred, glaset minst 3 mm tjockt och speglar minst 4 mm. Om säkerhetslinan står bara att den ska knytas i något stadigt, utan hållfasthet, och någon hålltid vid strömavbrott anges inte alls, bara att säkerhetsbatteriet driver apparaten om strömmen bryts.',
+    note: 'Manualen ger marginalen på båglöst glas: "Do not stick the WINBOT too close to the edge when cleaning the frameless glass. It is recommended to be more than 10 cm away from the edge." Bågen ska vara minst 5 mm bred, glaset minst 3 mm tjockt och speglar minst 4 mm.\n\nSamma gränser står i W2 Omnis manual, vilket gör dem till Ecovacs regler för hela serien snarare än den här modellens egenheter.',
+  },
+  {
+    publisher: "HOBOT Technology",
+    title: "HOBOT-2S, produktsida och tekniska data",
+    url: "https://www.hobot.com.tw/hobot-2s/",
+    kind: "standard",
+    note: 'Linan: "The 4.5-meter-long safety rope can bear up to 200kg pulling force." Reservkraften: "the embedded Uninterruptible Power System keeps HOBOT in position for 20 minutes with audio alert." Båda talen är samma som för HOBOT-388.\n\nHOBOTs amerikanska butik ger resten av bladet för samma modell: 40 × 40 cm minsta arbetsyta, vilket är det största minimimåttet i jämförelsen, 1 300 gram, 64 dB på en meters avstånd och 2 min 24 s per kvadratmeter.',
   },
   {
     publisher: "Ecovacs",
@@ -3445,7 +4011,7 @@ export const FONSTERPUTSROBOT_SOURCES: Source[] = [
     url: "https://www.ecovacs.com/se/winbot-window-cleaning-robot",
     market: "SE",
     kind: "standard",
-    note: 'Tillverkarens svenska sida för W2- och W3-serien, och den enda plats där Ecovacs sätter en siffra på hålltiden. Sidan beskriver en "förstärkt kompositkabel som fungerar som ett säkerhetsrep" och ett reservbatteri som kan "hålla den fäst i mer än 30 minuter om huvudbatteriet tar slut". Formuleringen "mer än" är värd att notera: den är ett golv och inte ett mätvärde, till skillnad från Kärchers fyrtio minuter med batteridata bakom.',
+    note: 'Tillverkarens svenska sida för W2- och W3-serien. Sidan beskriver en "förstärkt kompositkabel som fungerar som ett säkerhetsrep" och ett reservbatteri som kan "hålla den fäst i mer än 30 minuter om huvudbatteriet tar slut". Talet i tabellen för W2 Omni kommer härifrån; för W2 Pro och Mini har vi modellernas egna speclistor, som är mer exakta.',
   },
 ];
 
@@ -3493,21 +4059,24 @@ export const SMART_TERMOSTAT_SOURCES: Source[] = [
   },
   {
     publisher: "Fraunhofer IBP",
-    title: "IBP-Report 579 E (2022): The energy saving potential of an intelligent heating control system",
+    title:
+      "IBP-Report 579 E (2022): The energy saving potential of an intelligent heating control system",
     url: "https://cdn.bfldr.com/607DGEMS/as/mtjrbvmqvfnhc36qwsmkbps5/EN_Fraunhofer_Study",
     kind: "standard",
     note: 'Grundkällan bakom talet som upprepas i hela kategorin, läst i original. Fyra saker står i rapporten och inte i marknadsföringen. Den är en beräkning och inte en mätning: "The study described here is based on transient calculations (TRNSYS 17)." Klimatet är tyskt: väderdata "is represented in this study by a Test Reference Year for Munich". Resultatet är ett spann och inte ett tal: systemet "can reduce the heating energy requirements … by 12–28 %". Och uppdragsgivaren är tillverkaren: sammanfattningen bygger på "a full report No. EER-021/2022/720 that can be requested from the client tado° GmbH". Referensfallet som besparingen räknas mot är ett hem där termostaterna står på konstant 20 °C hela dagen. Delsiffrorna i rapporten är också spann: närvarodetektering 13–23 procent, väderprognos 0,4–6, öppet fönster 1–12. Marknadsföringen citerar taket i varje spann.',
   },
   {
     publisher: "tado",
-    title: "Scientifically proven: With tado° you save up to 28% energy when heating",
+    title:
+      "Scientifically proven: With tado° you save up to 28% energy when heating",
     url: "https://www.tado.com/en-gb/about/fraunhofer-study",
     kind: "standard",
     note: 'Tillverkarens egen redovisning av rapporten ovan, och den är ärligare än de flesta i kategorin. Talen stämmer mot originalet, och tado skriver själva att delsiffrorna inte får adderas: "the savings potentials of the different functions can\'t simply be added up, because they can influence each other." De publicerar dessutom sitt eget användarsnitt, 22 procent, vilket är lägre än rubriken. Det som inte framgår är att studien är en simulering med münchenklimat och att spannets golv är 12 procent.',
   },
   {
     publisher: "tado",
-    title: "Which radiator valves are the Smart Radiator Thermostats compatible with?",
+    title:
+      "Which radiator valves are the Smart Radiator Thermostats compatible with?",
     url: "https://support.tado.com/en/articles/3482335-which-radiator-valves-are-the-smart-radiator-thermostats-compatible-with-do-i-need-an-adapter-to-mount-the-device",
     kind: "standard",
     note: 'Kategorins bästa adaptertabell, och den ligger på fel ställe. Uppdaterad 2025-10-07. Sex adaptrar ingår i förpackningen: Danfoss RA, RAV och RAVL, M28x1,5 för Comap, Herz, Terrier, Siemens och Olymp, samt Caleffi och Giacomini. Fyra ingår inte: Vaillant 30,5 mm, Oventrop M30x1,0, Ista M32x1,0 och Orkli M28x1,0. tado skriver också att produkten "is only compatible with thermostatic radiator valves" och friskriver sig för adaptrar de inte tillverkat själva. Ingenting av detta står i butikstexten, som nöjer sig med att termostaten "passar termostatventiler från en mängd olika tillverkare".',
@@ -3517,7 +4086,7 @@ export const SMART_TERMOSTAT_SOURCES: Source[] = [
     title: "Which adaptor should I use to install my Smart Radiator Valve?",
     url: "https://helpcenter.netatmo.com/hc/en-us/articles/360015739059-Which-adaptor-should-I-use-to-install-my-Smart-Radiator-Valve",
     kind: "standard",
-    note: 'Samma mönster som hos tado: full redovisning i hjälpcentret, ingenting i butiken. Netatmo skiljer uttryckligen på vad som följer med och vad som kostar extra. Ingår: M30x1,5, M28x1,5, M30x1, Giacomini, Danfoss RA23 och Danfoss RAVL. Säljs separat i tiopack: M28x1, Caleffi, Danfoss RAV34 och Pettinaroli PEM28x1,5. Artikeln beskriver dessutom hur man mäter gängan med en linjal, vilket är den enda praktiska anvisningen någon tillverkare i kategorin ger. Det Netatmo inte publicerar någonstans vi kunnat nå är underlaget för de 37 procent butikerna skriver ut.',
+    note: "Tio ventilfattningar, fler än någon annan termostat i jämförelsen. Sex adaptrar följer med varje ventil: M30x1,5, M28x1,5, M30x1, Giacomini, Danfoss RA och Danfoss RAVL. Fyra säljs separat i tiopack: Danfoss RAV, Vaillant, M28x1 och Pettinaroli. ⚠️ Vi angav tidigare Caleffi som den fjärde extraadaptern, vilket var fel; Netatmos egen utbildningsbok för återförsäljare anger Vaillant. Samma bok anger 2 AA-celler som följer med och omkring 2 års batteritid, samt frostläget Frost-Guard med 7 °C som förvalt värde. Artikeln beskriver dessutom hur man mäter gängan med en linjal.",
   },
   {
     publisher: "Aqara",
@@ -3531,7 +4100,7 @@ export const SMART_TERMOSTAT_SOURCES: Source[] = [
     title: "Radiator Thermostat W600, tillverkarens produktsida",
     url: "https://www.aqara.com/en/product/radiator-thermostat-w600/",
     kind: "standard",
-    note: 'Sex adaptrar namngivna på produktsidan i stället för i ett hjälpcenter: RA, RAV, RAVL, GIA för Giacomini, M28x1,5 och CAL för Caleffi, utöver den egna M30x1,5-fattningen. Frostskyddet är beskrivet med tal: värmen slås på automatiskt när temperaturen faller under 5 °C och återgår vid 8 °C. Ljudnivån anges till under 30 dB, vilket stämmer med Ljud & Bilds omdöme att den arbetar helt ljudlöst. ⚠️ Öppet fönster-funktionen kräver enligt samma sida en separat dörr- och fönstersensor och en temperaturskillnad på 3 °C, till skillnad från de flesta konkurrenter som känner av temperaturfallet själva. Tvåårig batteritid på två AA-celler. Ingen besparingsprocent förekommer.',
+    note: "Sex adaptrar namngivna på produktsidan i stället för i ett hjälpcenter: RA, RAV, RAVL, GIA för Giacomini, M28x1,5 och CAL för Caleffi, utöver den egna M30x1,5-fattningen. Frostskyddet är beskrivet med tal: värmen slås på automatiskt när temperaturen faller under 5 °C och återgår vid 8 °C. Ljudnivån anges till under 30 dB, vilket stämmer med Ljud & Bilds omdöme att den arbetar helt ljudlöst. ⚠️ Öppet fönster-funktionen kräver enligt samma sida en separat dörr- och fönstersensor och en temperaturskillnad på 3 °C, till skillnad från de flesta konkurrenter som känner av temperaturfallet själva. Tvåårig batteritid på två AA-celler. Ingen besparingsprocent förekommer.",
   },
   {
     publisher: "Danfoss",
@@ -3542,10 +4111,10 @@ export const SMART_TERMOSTAT_SOURCES: Source[] = [
   },
   {
     publisher: "Fibaro",
-    title: "Radiator Thermostat, tillverkarens produktsida",
-    url: "https://www.fibaro.com/en/products/radiator-thermostat/",
+    title: "The Heat Controller FGT-001, bruksanvisning v1.3",
+    url: "https://manuals.fibaro.com/content/manuals/en/FGT-001/FGT-001-EN-T-v1.3.pdf",
     kind: "standard",
-    note: 'Kategorins högsta besparingstal och kategorins tunnaste underlag, på samma sida. Rubriken lyder "Costs reduction ¹ of up to 42%", och fotnot 1 längst ned på sidan lyder i sin helhet: "Based on research by Fibar Group S.A." Alltså tillverkarens egen forskning, utan publicering, utan metod och utan länk. Samma sida ersätter ventillistan med ett annat procenttal: produkten "works with 98% of radiator types" tack vare adaptrar som följer med, och vilka de två procenten är står ingenstans. Två sakuppgifter är däremot användbara: batteriet är laddbart via en vanlig telefonladdare, och funktionen för öppet fönster finns enligt sidan bara i Z-Wave-versionen.',
+    note: '⚠️ Den här källan ersatte Fibaros produktsida 2026-08-06, sedan vi publicerat att Fibaro inte namnger en enda ventil. Uppgiften står på sidan 3 i deras egen bruksanvisning: termostaten är "to be installed on three types of valves: M30 x 1.5, Danfoss RTD-N and Danfoss RA-N". Manualen ger också två uppgifter som saknades: batteriet är ett inbyggt litiumpolymerpaket som laddas via micro-USB och uttryckligen inte får bytas ("Do not attempt to replace the battery!"), och produkten har både en anti-freeze-funktion och en avkalkningsfunktion. Fibaros produktsida svarade 404 vid kontroll 2026-08-06, liksom hela deras produktkatalog; sidan låg tidigare bakom talen "Costs reduction of up to 42%" med fotnoten "Based on research by Fibar Group S.A." och påståendet att termostaten passar 98 procent av alla element.',
   },
   {
     publisher: "Schneider Electric",
@@ -3553,14 +4122,35 @@ export const SMART_TERMOSTAT_SOURCES: Source[] = [
     url: "https://www.se.com/se/sv/product/CCTFR6100Z3/",
     market: "SE",
     kind: "standard",
-    note: 'Den enda tillverkare som anger passformen på svenska och rakt av: "Kompatibel med Danfoss RA, RAV, RAVL och M30x1.5-ventiler." Zigbee, styrs via Wiser-appen, max 32 enheter i upp till 16 rum. ⚠️ Samma sida anger batteriet på två sätt, "batteri 2x AA" i produkttiteln och "Batteri 3V /LR03 AAA" i beskrivningen, och vi återger därför båda i stället för att välja åt läsaren. Produkten säljs hos Proshop under märket LK, men artikelnumret 3606482072589 är Schneider Electrics eget och leder till CCTFR6100Z3 hos Rexel.',
+    note: 'Fyra fattningar, angivna på svenska och rakt av: "Kompatibel med Danfoss RA, RAV, RAVL och M30x1.5-ventiler." Zigbee, styrs via Wiser-appen, max 32 enheter i upp till 16 rum, kapslingsklass IP30. ⚠️ Vi återgav tidigare batteriet på två sätt, 2 x AA och 3V LR03 AAA. Det är utrett: både produkttiteln och Schneiders bruksanvisning CCTFR6100_WH_DUG_EN anger 2 x 1,5 V IEC LR6 (AA), och manualen tillägger i versaler att endast vanliga alkaliska celler får användas, inte laddbara. Produkten säljs hos Proshop under märket LK, men artikelnumret 3606482072589 är Schneider Electrics eget och leder till CCTFR6100Z3.',
   },
   {
     publisher: "SONOFF",
     title: "Zigbee Thermostatic Radiator Valve TRVZB, dokumentation",
     url: "https://help.sonoff.tech/docs/trvzb",
     kind: "standard",
-    note: 'Kategorins billigaste termostat, 361 kronor, och den enda som uttryckligen räknar upp vilka tredjepartshubbar den fungerar med: "Compatible with Zigbee 3.0 hubs such as SONOFF iHost, NSPanel Pro, ZB Bridge Pro, ZBDongle-P, and ZBDongle-E, as well as any Zigbee 3.0-compliant hubs." Det är motsatsen till en märkesbunden brygga och väger tungt på raden om oberoende. Om ventilen säger de bara "Fits standard M30 x 1.5mm radiator valves; includes adapters compatible with most heating systems and manufacturers", alltså en gänga och ett löfte, utan lista. Frostskydd anges: "Frost protection avoids pipe freezing and bursting."',
+    note: 'Kategorins billigaste termostat, 361 kronor. Den talar ren Zigbee 3.0 och fungerar bakom vilken kompatibel hubb som helst, vilket väger tungt på raden om oberoende, men samma dokumentation anger att Philips, IKEA och Fritzbox gateways inte stöds. De hubbar som räknas upp vid namn är SONOFFs egna: iHost, NSPanel Pro, ZB Bridge Pro, ZBDongle-P och ZBDongle-E. ⚠️ Vi skrev tidigare att de räknar upp konkurrenternas hubbar, vilket var fel. Sidan anger också frostläge med justerbar tröskel ("Frost protection avoids pipe freezing and bursting"), att tre AA-celler krävs och att de inte ligger i förpackningen, temperaturområdet 4 till 35 °C och måtten 58,4 x 58,4 x 94 mm.',
+  },
+  {
+    publisher: "SONOFF",
+    title: "TRV Applicable Valve List, kompatibilitetsguide 2024-12-02",
+    url: "https://sonoff.tech/wp-content/uploads/2024/12/SONOFF_TRV-Compatibility-Guide-20241202.pdf",
+    kind: "standard",
+    note: "⚠️ Dokumentet som gjorde att SONOFF TRVZB gick från fjärde till andra plats den 6 augusti 2026. Vi hade publicerat att SONOFF bara anger gängan M30x1,5 och lovar adaptrar för de flesta system utan att namnge en enda. Guiden ligger på SONOFFs egen domän, finns i två versioner sedan 2023, och räknar 41 ventilmärken från Boss och Comap till Heimeier, Oventrop och Watts. För var och en anges om adapter behövs och vilken: M28, CAL för Caleffi och Emmeti, GIA för Giacomini och Roca, RAV för Danfoss RAV och Oventrop UniLDV, RAVL för Danfoss RAVL, och RA för Danfoss och Honeywell RA-serien. Tjugo märken går direkt på M30x1,5 utan adapter. Guiden avslutar med att uppgifterna är vägledande och inte fullständiga, vilket är skälet till att betyget stannar på 4,0 och inte 5,0.",
+  },
+  {
+    publisher: "Danfoss",
+    title: "Produktregister, artiklarna 014G1115, 014G2460 och 014G2420",
+    url: "https://designcenter.danfoss.com/products/p/014G1115",
+    kind: "standard",
+    note: "Danfoss eget produktregister, matchat på EAN mot de tre Danfoss-produkter vi rankar. Det avgjorde tre uppgifter vi haft fel eller luckor i. Danfoss Eco (014G1115, EAN 5702425245329) anger adaptertyp M30, RA, RAV och RAVL, alltså fyra fattningar och inte de två vi publicerat, samt öppet fönster-funktion, ljudnivå under 30 dB(A) enligt JIS C 9612, två AA-celler med 2,5 års livslängd och inställningsområdet 4 till 28 °C. Ally (014G2460, EAN 5702425245015) och Ally RA (014G2420, EAN 5702425245008) har samma batteri, samma ljudnivå och samma öppet fönster-funktion, med inställningsområdet 5 till 35 °C. Skillnaden mellan de två artiklarna är adaptertypen, M30, RA, RAV och RAVL mot M30 och RA.",
+  },
+  {
+    publisher: "Netatmo",
+    title: "Training Book, Smart Radiator Valves",
+    url: "https://netatmostatic.blob.core.windows.net/static/pro/NRV/Training-Book-NRV-EN.pdf",
+    kind: "standard",
+    note: "Netatmos egen utbildningsbok för återförsäljare, och den innehåller det underlag vi tidigare skrev att Netatmo inte publicerar någonstans. De 37 procenten fotnotas till en studie från Centrale-Supélec på en standardlägenhet utrustad med Netatmos ventiler. ⚠️ Samma bok skriver dessutom att de 37 procenten gäller Netatmos rumstermostat i hus med egen panna eller värmepump, inte radiatorventilerna, medan butikerna sätter talet på ventilen. Boken bekräftar också sex medföljande adaptrar per ventil, fyra extra i tiopack, två AA-celler som följer med, omkring 2 års batteritid och frostläget Frost-Guard med 7 °C som förval.",
   },
   {
     publisher: "Eve Systems",
@@ -3585,7 +4175,14 @@ export const SMART_HEM_HUBB_SOURCES: Source[] = [
     title: "Philips Hue och Matter",
     url: "https://www.philips-hue.com/sv-se/explore-hue/works-with/matter",
     kind: "standard",
-    note: 'Finns med för det den inte säger. Butikstexten för Hue Bridge lovar att den "kan kopplas till enheter från flera tillverkare", vilket en köpare rimligen läser som att bryggan kan styra andra märken. Philips egen Matter-sida beskriver bara riktningen utåt: "Du kan ansluta till alla favoriter – Amazon Alexa, Apple Home och Google Assistant." Något besked om huruvida bryggan kan lägga till andra tillverkares Matter-enheter finns inte, varken ja eller nej. Sidan återger det som en saknad uppgift, eftersom det är vad det är.',
+    note: 'Källan som avgör riktningen för Hue Bridge. Philips beskriver genomgående hur Hue ansluts utåt: "Du kan ansluta till alla favoriter – Amazon Alexa, Apple Home och Google Assistant."\n\nKjell skriver tvärtom att du med Matter kan lägga till produkter från flera tillverkare. Vi följer tillverkaren före butiken och räknar bryggan som enkelriktad.',
+  },
+  {
+    publisher: "Philips Hue",
+    title: "Philips Hue and Matter: Complete Setup & Support Guide",
+    url: "https://www.philips-hue.com/en-us/support/article/philips-hue-and-matter-complete-setup-and-support-guide/000012",
+    kind: "standard",
+    note: 'Philips egen supportartikel, och den enda källan som svarar på om Hue Bridge fungerar utan internet. Jämförelsetabellen i artikeln har raden "Local control (offline)" med bock för uppsättning med brygga.\n\nVarje Matter-controller Philips namnger i artikeln är någon annans nav: HomePod mini, Nest Hub, Echo. Det är den andra halvan av belägget för att bryggan går utåt och inte inåt.',
   },
   {
     publisher: "Athom",
@@ -3601,7 +4198,14 @@ export const SMART_HEM_HUBB_SOURCES: Source[] = [
     url: "https://www.kjell.com/se/nabu-casa-home-assistant-green-p88430",
     market: "SE",
     kind: "standard",
-    note: 'Den enda plattformen i jämförelsen där oberoendet är själva produkten: "Grundfunktionen i Home Assistant är gratis och körs lokalt – du äger din data och kan styra hemmet även om internet ligger nere." Nabu Casa-abonnemanget är uttryckligen valfritt och köper fjärråtkomst, inte funktion. Z-Wave kräver en separat USB-sticka, vilket är en verklig extrakostnad och står i produkttexten. 69 kundbetyg är näst mest av hubbarna i jämförelsen.',
+    note: 'Den enda plattformen i jämförelsen där oberoendet är själva produkten: "Grundfunktionen i Home Assistant är gratis och körs lokalt – du äger din data och kan styra hemmet även om internet ligger nere." Nabu Casa-abonnemanget är uttryckligen valfritt och köper fjärråtkomst, inte funktion.\n\nButikens specifikationstabell är dessutom den som rättar oss: wifi, Bluetooth, Zigbee, Thread och Z-Wave står alla som Nej. 69 kundbetyg är flest av hubbarna i jämförelsen.',
+  },
+  {
+    publisher: "Nabu Casa",
+    title: "Home Assistant Green, tillverkarens produktsida",
+    url: "https://www.home-assistant.io/green/",
+    kind: "standard",
+    note: "Belägget för att Green inte har någon radio i lådan: Zigbee och Thread kräver Home Assistant Connect ZBT-2, medan Z-Wave och Bluetooth kräver en USB-sticka från tredjepart. Nätverket är gigabit Ethernet.\n\nDet flyttar produkten i rankningen, eftersom vi tidigare räknade wifi, Zigbee och Thread som inbyggda och bara Z-Wave som tillbehör.",
   },
   {
     publisher: "Aqara",
@@ -3609,7 +4213,38 @@ export const SMART_HEM_HUBB_SOURCES: Source[] = [
     url: "https://www.kjell.com/se/aqara-hub-m3-smarta-hem-controller-p57869",
     market: "SE",
     kind: "standard",
-    note: 'Ensam i hela sortimentet om att skriva ut vad en Matter-controller gör: "Matter-controller – kan styra tredjepartsprodukter." Formuleringen är den enda i kategorin som rakt ut svarar på frågan om hubben når andra märken än sitt eget, och den är skälet till att sorten går att klassificera för den här produkten utan att tolka. Stöd för Zigbee, Bluetooth, Thread och Matter.',
+    note: 'Tre uppgifter som avgör placeringen står här: "Matter-controller – kan styra tredjepartsprodukter", "Edge-hubb – automatisering och styrning sker lokalt i stället för i molnet" och en 360-graders IR-sändare för fjärrstyrning av apparater via infrarött.\n\nDe två sista hade vi missat, och sidan angav tidigare att M3 saknar infraröd och inte anger något om lokal drift. Stöd i övrigt för Zigbee, Bluetooth 5.1, Thread och Matter, samt PoE.',
+  },
+  {
+    publisher: "Aqara",
+    title: "Smart Hub M100, produktuppgifter hos återförsäljaren",
+    url: "https://www.kjell.com/se/aqara-smart-hub-m100-vit-p56569",
+    market: "SE",
+    kind: "standard",
+    note: 'Källan som gör den billigaste produkten till en fullvärdig controller: "Hub M100 fungerar som både Matter Bridge och Matter Controller." Samma sida anger lokala automationer utan internet, Thread Border Router och ett tak på 40 enheter varav 20 Zigbee.',
+  },
+  {
+    publisher: "IKEA",
+    title: "Dirigera hubb för smarta produkter, tillverkarens produktsida",
+    url: "https://www.ikea.com/se/sv/p/dirigera-hubb-foer-smarta-produkter-vit-smart-10503406/",
+    market: "SE",
+    kind: "standard",
+    note: 'IKEA skriver ut båda rollerna: "Hubben DIRIGERA är en Matter-brygga … Hubben DIRIGERA är en Matter-styrenhet. Det innebär att alla Matter-produkter som stöds kan anslutas till hubben."\n\nSamma sida ger priset 899 kronor och kundbetyget 3,6 av 5 på 714 omdömen, vilket är det överlägset största underlaget bland hubbarna vi rankar och samtidigt det lägsta betyget.',
+  },
+  {
+    publisher: "IKEA",
+    title: "Kan jag ansluta smarta produkter från andra märken till Dirigera?",
+    url: "https://www.ikea.com/se/en/customer-service/knowledge/articles/eedg4f80-4032-4g32-9220-3f6gd9304gc2.html",
+    market: "SE",
+    kind: "standard",
+    note: "IKEA:s egen kundserviceartikel: Dirigera kan ansluta smarta produkter från andra varumärken som stöder Matter, plus begränsat stöd för Zigbee från andra tillverkare.\n\nSidan angav tidigare att IKEA inte publicerar den uppgiften, vilket var skälet till att Dirigera inte rankades. Skälet höll inte, och produkten är nu rankad.",
+  },
+  {
+    publisher: "Matter Alpha",
+    title: "Ikea adds Matter Controller and Thread support",
+    url: "https://www.matteralpha.com/explainer/ikea-adds-matter-controller-and-thread-support-integrating-third-party-matter-devices",
+    kind: "standard",
+    note: "Enda belägget för att Dirigera fungerar som Thread Border Router, eftersom IKEA inte dokumenterar Thread någonstans. Firmware 2.805.6 aktiverar Thread-radion, och skribenten verifierar via mDNS och OpenThreads REST-API att hubben kör OpenThread 1.4.\n\nEn andra teknisk genomgång hos matter-smarthome.de beskriver samma funktion. Två samstämmiga tier B-källor, och tabellcellen namnger firmwareversionen så att läsaren kan kontrollera sin egen hubb.",
   },
 ];
 
@@ -3628,6 +4263,23 @@ export const SMART_HEM_HUBB_SOURCES: Source[] = [
  * längre in än pressmeddelandet.
  */
 export const VATTENFELSBRYTARE_SOURCES: Source[] = [
+  {
+    publisher: "RISE",
+    title: "Certifierade produkter, RISE öppna certifikatregister",
+    url: "https://cert.ri.se/sv/products",
+    market: "SE",
+    kind: "standard",
+    date: "2026-08-06",
+    note: "Sidans viktigaste källa och den som avgör kriterium 1. Registret är öppet, rymmer 5 127 produktcertifikat och går att söka på certifikatnummer, produktnamn eller innehavare. Här står vilka produkter som är typgodkända enligt CR 139, vad godkännandet omfattar och vilket datum det löper ut.\n\nHärifrån kommer giltighetstiderna, som ingen tillverkare skyltar med: C900737 till 2028-02-08, SC0056-15 till 2027-01-30 och C901455 till 2031-04-16. Härifrån kommer också beskedet att Tollco WaterFuse PlugIn och Aqara Valve Controller T1 inte är godkända enligt CR 139, och att tre godkända produkter finns utanför vår ranking.\n\n⚠️ Registret ligger på cert.ri.se. Huvudsajten ri.se levererar en botkontroll, och en tidigare version av den här sidan drog slutsatsen att registret inte gick att läsa. Det var fel värd.",
+  },
+  {
+    publisher: "Säker Vatten",
+    title: "Aktiva skydd, Branschregler Säker Vatteninstallation 2026:1",
+    url: "https://sakervatten.se/vvs-produkter/aktivaskydd/",
+    market: "SE",
+    kind: "standard",
+    note: 'Branschorganisationens egen sida om kravet. Ordagrant: läckagebrytare, vattenfelsbrytare eller vattenlarm "ska vara godkända enligt CR 139". Ingen annan certifieringsregel och inget annat certifieringsorgan nämns, vilket är skälet till att RISE register räcker för att avgöra frågan.',
+  },
   {
     publisher: "Länsförsäkringar",
     title: "Stort test: Få vattenfelsbrytare godkända",
@@ -3657,7 +4309,8 @@ export const VATTENFELSBRYTARE_SOURCES: Source[] = [
   },
   {
     publisher: "Säker Vatten",
-    title: "Ändringar och nyheter i Branschregler Säker Vatteninstallation 2026:1",
+    title:
+      "Ändringar och nyheter i Branschregler Säker Vatteninstallation 2026:1",
     url: "https://sakervatten.se/wp-content/uploads/2025/10/branschregler-2026-samlade-andringar-lagupplost.pdf",
     date: "2025-10",
     market: "SE",
@@ -3784,7 +4437,7 @@ export const NYCKELSKAP_SOURCES: Source[] = [
     date: "2022-11-07",
     market: "SE",
     kind: "test",
-    note: 'Kategorins enda riktiga labbprovning, utförd på uppdrag av Villaägarnas Riksförbund och läst i sin helhet: sex sidor rapport och femton sidor bilaga med foton. Provad 2022-06-16 vid RISE Tillämpad Mekaniks laboratorium i Borås enligt SS-EN 1630:2021, nivå RC2 och RC3. Fyra skåp, samtliga forcerade. Med kofot mot infästningen lossnade Master Lock 5441 på 16 sekunder, Masunt 520 M på 23, ABUS 787 C på 35 och HMF 2030-11 på 1 minut och 15. Det snabbaste angreppet i hela rapporten står i §4.6: åtta slag med en 700 grams snickarhammare öppnade Master Lock 5441 på nio sekunder, och hammaren ingår inte i standardens verktygslistor utan lades till som en objektsspecifik svag punkt. Rapporten skriver också rakt ut att SS-EN 1630 inte omfattar nyckelskåp, vilket är skälet till att inget skåp här kallas RC2-klassat.',
+    note: "Kategorins enda riktiga labbprovning, utförd på uppdrag av Villaägarnas Riksförbund och läst i sin helhet: sex sidor rapport och femton sidor bilaga med foton. Provad 2022-06-16 vid RISE Tillämpad Mekaniks laboratorium i Borås enligt SS-EN 1630:2021, nivå RC2 och RC3. Fyra skåp, samtliga forcerade. Med kofot mot infästningen lossnade Master Lock 5441 på 16 sekunder, Masunt 520 M på 23, ABUS 787 C på 35 och HMF 2030-11 på 1 minut och 15. Det snabbaste angreppet i hela rapporten står i §4.6: åtta slag med en 700 grams snickarhammare öppnade Master Lock 5441 på nio sekunder, och hammaren ingår inte i standardens verktygslistor utan lades till som en objektsspecifik svag punkt. Rapporten skriver också rakt ut att SS-EN 1630 inte omfattar nyckelskåp, vilket är skälet till att inget skåp här kallas RC2-klassat.",
   },
   {
     publisher: "Villaägarnas Riksförbund",
@@ -3806,7 +4459,22 @@ export const NYCKELSKAP_SOURCES: Source[] = [
     title: "KeyGarage 787, tillverkarens produktsida",
     url: "https://www.abus.com/se/Konsument/KeyGarage-Nyckelrutor/787-KeyGarage",
     kind: "standard",
-    note: "Källan som binder RISE:s provobjekt till en produkt som går att köpa. EAN 4003318463310 är samma nummer som butiken anger för den mekaniska 787:an, och rapportens Bild 5 visar fyra mekaniska kodhjul, alltså inte den elektroniska Smart-BT-modellen. Härifrån kommer också lucka i tryckgjuten zink, plats för 20 nycklar eller 14 kort, fyrsiffrig inställbar kod, 80 x 120 x 45 mm och 683 gram. ABUS anger montering i skyddad utomhusmiljö, vilket är det närmaste ett väderbesked som finns för modellen.",
+    note: "Källan som binder RISE:s provobjekt till en produkt som går att köpa. EAN 4003318463310 är samma nummer som butiken anger för den mekaniska 787:an, och rapportens Bild 5 visar fyra mekaniska kodhjul, alltså inte den elektroniska Smart-BT-modellen. Härifrån kommer också lucka i tryckgjuten zink, plats för 20 nycklar eller 14 kort, fyrsiffrig inställbar kod, 80 x 120 x 45 mm och 683 gram.\n\nDatabladet listar dessutom ett skyddslock med skjutmekanism över kodhjulen, och monteringsanvisningen för 787 och 797 beskriver momentet steg för steg: skjut ner locket, ställ in koden, öppna, skjut upp locket igen. Skåpet är byggt för väggmontering inomhus eller på ett skyddat ställe utomhus.",
+  },
+  {
+    publisher: "ABUS",
+    title: "KEYGARAGE One 787 för väggmontering, tillverkarens datablad",
+    url: "https://www.abus.com/se/abusproductsheet.pdf/222847/swe-SE",
+    kind: "standard",
+    note: "Databladet för den elektroniska modellen, som Kjell säljer under namnet KeyGarage 787 Smart-BT. ABUS skriver att namnbytet till KEYGARAGE One följde med integrationen i ABUS One-appen, och att det är samma vara går att kontrollera på måtten 82,5 x 120 x 63 mm och batteriet 2 x AA, som är identiska hos butiken.\n\nHärifrån kommer kapslingsklassen: nyckelboxen är stänkskyddad enligt IP 54 och får installeras på skyddade ställen utomhus. Bladet anger också 20 nycklar, 3 bilnycklar eller 30 plastkort, belyst knappsats, automatisk låsning när facket stängs, batterifack åtkomligt från utsidan och 894 gram.",
+  },
+  {
+    publisher: "Nivex Top Safe",
+    title: "Nyckelgömma T7, tillverkarens produktsida",
+    url: "https://nivextopsafe.se/produkt/t7-nyckelgomma/",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkaren bakom gömmorna E-safe säljer, och den som anger de uppgifter butiken utelämnar: aluminiumgjutgods, väderskydd i gummi, vikt 0,6 kilo, utvändigt mått 106 x 66 x 57 mm och invändigt 70 x 38 x 22 mm. Innermåttet är värt att stanna vid, eftersom det är det som avgör om en bilnyckel med fjärrkontroll går ner i skåpet. Sidans bild på den öppna gömman visar också fyra infästningshål i bakväggen av nyckelfacket, alltså innanför luckan.",
   },
   {
     publisher: "ABUS",
@@ -3845,7 +4513,7 @@ export const USB_C_KABEL_SOURCES: Source[] = [
     date: "2020-02-24",
     market: "SE",
     kind: "test",
-    note: 'Kategorins enda oberoende provning, och den enda källa här som mätt något. Testfakta lät tyska laboratoriet PZT GmbH prova tolv laddkablar, sex med Lightning och sex med USB-C, och betalade själva för provningen. Metoden är publicerad och det är ovanligt: kabeln spändes fast på en roterbar balk med en vikt på 150 gram i andra änden, balken vred kabeln 90 grader åt vardera hållet, och funktionen provades efter 1 000, 2 500, 3 500 och 5 000 böjningar. Båda ändarna provades och den sämsta av dem rapporterades, eftersom en kabel inte är starkare än sin svagaste punkt. Testfakta skriver själva att 150-gramsvikten simulerar milda vardagliga belastningar och att det är något annat än att rycka loss en sladd som fastnat. Resultatet är sidans mest citerade: den dyraste kabeln i provningen, Cellularline LongLife från Circle K för 240 kronor, gick sönder redan under de första 1 000 böjningarna och fick 1 av 10, medan IKEA LILLHULT för 50 kronor tog sig igenom hela cykeln utan skada och fick 10. Belkin, Clas Ohlsons Exibel och Samsung fick också 10; Kjells Linocell USB-C 3.0 fick 8 med synliga förslitningar i höljet. Resultattabellen ligger öppet som PDF. ⚠️ Provningen är från februari 2020 och samtliga sex USB-C-kablar är USB-A-formen, alltså USB-A till USB-C. Den här sidan rankar bara USB-C till USB-C, så noll av de rankade kablarna är provade. Därför finns inget kriterium för testomdöme, och inget resultat härifrån knyts till någon rankad produkt.',
+    note: "Kategorins enda oberoende provning, och den enda källa här som mätt något. Testfakta lät tyska laboratoriet PZT GmbH prova tolv laddkablar, sex med Lightning och sex med USB-C, och betalade själva för provningen. Metoden är publicerad och det är ovanligt: kabeln spändes fast på en roterbar balk med en vikt på 150 gram i andra änden, balken vred kabeln 90 grader åt vardera hållet, och funktionen provades efter 1 000, 2 500, 3 500 och 5 000 böjningar. Båda ändarna provades och den sämsta av dem rapporterades, eftersom en kabel inte är starkare än sin svagaste punkt. Testfakta skriver själva att 150-gramsvikten simulerar milda vardagliga belastningar och att det är något annat än att rycka loss en sladd som fastnat. Resultatet är sidans mest citerade: den dyraste kabeln i provningen, Cellularline LongLife från Circle K för 240 kronor, gick sönder redan under de första 1 000 böjningarna och fick 1 av 10, medan IKEA LILLHULT för 50 kronor tog sig igenom hela cykeln utan skada och fick 10. Belkin, Clas Ohlsons Exibel och Samsung fick också 10; Kjells Linocell USB-C 3.0 fick 8 med synliga förslitningar i höljet. Resultattabellen ligger öppet som PDF. ⚠️ Provningen är från februari 2020 och samtliga sex USB-C-kablar är USB-A-formen, alltså USB-A till USB-C. Den här sidan rankar bara USB-C till USB-C, så noll av de rankade kablarna är provade. Därför finns inget kriterium för testomdöme, och inget resultat härifrån knyts till någon rankad produkt.",
   },
   {
     publisher: "Europeiska unionen",
@@ -3944,7 +4612,8 @@ export const USB_C_LADDARE_SOURCES: Source[] = [
 export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   {
     publisher: "Chamberlain",
-    title: "Garageportöppnare ML700, ML750 och ML850, bruksanvisning 114A2806B-S",
+    title:
+      "Garageportöppnare ML700, ML750 och ML850, bruksanvisning 114A2806B-S",
     url: "https://www.clasohlson.com/medias/sys_master/9542690930718.pdf",
     market: "SE",
     kind: "standard",
@@ -3952,7 +4621,8 @@ export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   },
   {
     publisher: "Jula",
-    title: "Garageportsöppnare 377011, bruksanvisning och EU-försäkran om överensstämmelse",
+    title:
+      "Garageportsöppnare 377011, bruksanvisning och EU-försäkran om överensstämmelse",
     url: "https://www.jula.se/catalog/bygg-och-farg/beslag-och-byggvaror/port-garagebeslag/garageportoppnare/garageportsoppnare-377011/",
     date: "2021-03-05",
     market: "SE",
@@ -3969,7 +4639,8 @@ export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   },
   {
     publisher: "Millarco International",
-    title: "Boxer garageportsöppnare 63.002 och 63.003, bruksanvisning version 3",
+    title:
+      "Boxer garageportsöppnare 63.002 och 63.003, bruksanvisning version 3",
     url: "https://www.bauhaus.se/media/pdf/5514481A.pdf",
     date: "2015-01-05",
     kind: "standard",
@@ -3984,7 +4655,8 @@ export const GARAGEPORTSOPPNARE_SOURCES: Source[] = [
   },
   {
     publisher: "Svenska institutet för standarder",
-    title: "SS-EN 12453, Portar – Säkerhet vid användning av maskindrivna portar – Krav",
+    title:
+      "SS-EN 12453, Portar – Säkerhet vid användning av maskindrivna portar – Krav",
     url: "https://www.sis.se/produkter/byggnadsmaterial-och-byggnader/byggnadsdelar/dorrar-och-fonster/ssen12453/",
     market: "SE",
     kind: "standard",
@@ -4037,14 +4709,59 @@ export const SMART_GARAGEPORTSOPPNARE_SOURCES: Source[] = [
     title: "SwitchBot Garage Door Opener, tillverkarens produktsida",
     url: "https://eu.switch-bot.com/products/switchbot-garage-door-opener",
     kind: "standard",
-    note: 'Enda produkten i jämförelsen som stöder Matter. Tillverkaren skriver "Supports Matter over Wi-Fi and works with Apple Home, Google, Alexa, and Samsung", vilket gör den till den enda som når Apples ekosystem utan att man behöver köpa en särskild artikelvariant. Sidan anger också att modulen kan koppla upp till två SwitchBot-enheter över Bluetooth.',
+    note: "Enda produkten i jämförelsen som stöder Matter, alltså den enda som läggs till en gång och syns i Apple Home, Google, Alexa och Samsung utan att tillverkaren behöver underhålla stöd för vart och ett.\n\nSpecifikationsrutan anger måtten 42 × 36 × 16 mm, vikten 27 gram och material PC, vilket gör den till den minsta modulen på sidan. I lådan ligger en 12 V-adapter med 1,5 meter kabel, en 0,3 meter torrkontaktkabel och en 7 meter lång kabel till reedbrytaren. Som gateway håller den 10 enheter över Bluetooth.",
   },
   {
     publisher: "Meross",
     title: "Smart Wi-Fi Garage Door Opener MSG100, tillverkarens produktsida",
     url: "https://www.meross.com/en-gc/smart-garage-door-opener/smart-wi-fi-garage-door-opener/58",
     kind: "standard",
-    note: 'Tillverkarens beskrivning av MSG100-familjen, som anger att modulen fungerar med Apple HomeKit, Siri, Amazon Alexa, Google Assistant och SmartThings och att ingen hubb krävs. ⚠️ Meross säljer flera artiklar under MSG100-namnet, och HomeKit-stödet hör historiskt till varianten MSG100HK som säljs separat i Sverige för 569 kr. Vi anger därför inte HomeKit som en egenskap hos den artikel NetOnNet säljer, eftersom vi inte kunnat bekräfta artikelnumret mot tillverkarens variantlista. Samma variantfälla som ABUS 787 mot 787 Smart-BT på /nyckelskap.',
+    note: 'Tillverkarens produktsida för MSG100, ordagrant: "Support Apple HomeKit, Amazon Alexa, Google Assistant, SmartThings. Compatible with over 200 brands and 1600 different models." Ingen hubb krävs. Samma sida anger måtten 3,7 × 1,8 × 0,9 tum, alltså 94 × 46 × 23 mm, en 1,5 meter lång sladd och 5 V likström in.\n\nDen bredaste kompatibiliteten i jämförelsen, och den enda tillverkare som publicerar en kontroll där du kan slå upp din egen portöppnare före köpet. Sidan stod tidigare på att HomeKit-stödet krävde den separata artikeln MSG100HK; det stämmer inte för den modul som säljs i dag, och även butiken anger HomeKit för sin artikel.',
+  },
+  {
+    publisher: "Meross",
+    title: "Why do I need Two-factor authentication?",
+    url: "https://www.meross.com/en-gc/support/FAQ/460.html",
+    kind: "standard",
+    note: 'Tillverkarens eget svar om kontoskyddet, och skälet till att Meross vinner kriteriet Säkerhet och kontoskydd. Ordagrant: "For meross, the second form of authentication is a code generated by an application on your mobile device" och "After you configure 2FA using a time-based one-time password (TOTP) mobile app, you can add a security key."\n\nSkillnaden mot en kod som skickas med e-post eller sms är att en TOTP-kod aldrig lämnar telefonen och därför inte går att fånga genom att ta över ett e-postkonto eller flytta ett telefonnummer till ett nytt sim-kort.',
+  },
+  {
+    publisher: "SwitchBot",
+    title: "Instructions for Two-Step Verification Feature (V9.0 or newer)",
+    url: "https://support.switch-bot.com/hc/en-us/articles/23626131340055-Instructions-for-Two-Step-Verification-Feature-V9-0-or-newer",
+    date: "2024-08-21",
+    kind: "standard",
+    note: "Tillverkarens hjälpcenter beskriver hur tvåstegsverifieringen slås på, under Profil och Hantera konton, och att inloggningen därefter kräver lösenord plus en bekräftelsekod via e-post. Betrodda enheter kan läggas till så att koden bara krävs från en ny telefon. Uppgiften saknades i butikens specifikation, vilket är skälet till att sidan tidigare bedömde skyddet som okänt.",
+  },
+  {
+    publisher: "iSmartGate",
+    title: "Säkerhet och integritet",
+    url: "https://ismartgate.com/sv/saker-garageport/",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens beskrivning av den arkitektur som skiljer iSmartGate från de fem övriga: data och konfiguration lagras i enheten hemma hos köparen, reläservrarna fungerar som en databrygga utan att lagra något, och enheten är åtkomlig över hemmets wifi även när internet ligger nere.\n\nDet är ett annat svar på samma fråga som tvåstegsverifieringen besvarar, och sidan väger in det under kontoskydd: blir en molnplattform hackad exponeras alla dess användare på en gång, medan ett intrång här träffar en enhet.",
+  },
+  {
+    publisher: "iSmartGate",
+    title: "Matter och smarta hem, tillverkarens produktöversikt",
+    url: "https://ismartgate.com/sv/matter-garage-door/",
+    market: "SE",
+    kind: "standard",
+    note: 'Anger att iSmartGate är kompatibel med Apple HomeKit, Alexa, Google Assistant, IFTTT och SmartThings, med fotnoten att HomeKit och CarPlay gäller modellerna PRO och LITE. Jämförelsetabellen på samma sida anger HomeKit och Google Assistant som inbyggda och Alexa som "ENDAST USA / andra med IFTTT", vilket är skälet till att Alexa räknas som ett extra steg för en svensk köpare. Sidan anger också att en Chamberlain eller LiftMaster med Security+2.0, alltså den med gul inlärningsknapp, kräver en särskild omkopplaradapter.',
+  },
+  {
+    publisher: "Botland",
+    title: "Sterownik Bramy WiFi Tuya RTX WGM2, hemmamarknadens produktsida",
+    url: "https://botland.com.pl/tuya-automatyka-domowa/15851-sterownik-bramy-wifi-tuya-rtx-wgm2-5903794123663.html",
+    kind: "standard",
+    note: "Samma artikel som CDON säljer, kontrollerat på GTIN 5903794123663, men med den specifikation den svenska produktsidan saknar: måtten 46 × 51 × 18 mm, matning 100 till 240 V, wifi på 2,4 GHz med upp till 30 meters räckvidd och drifttemperatur 0 till 50 °C. Sidan bekräftar också att modulen matas med 230 V direkt och därför inte behöver någon extra strömadapter, vilket är det som gör den till ett elinstallationsjobb.",
+  },
+  {
+    publisher: "Wasserman",
+    title: "Przekaźnik breaker do bramy garażowej + kontaktron",
+    url: "https://www.wasserman.eu/pl/p/przekaznik-breaker-do-bramy-garazowej-kontaktron-1526757",
+    kind: "standard",
+    note: "Hemmamarknadens produktsida för den modul CDON säljer omärkt som Garageportsbrytarrelä, kontrollerat på GTIN 5904553905926. Den anger tillverkaren, GOMEDIA, och artikelnumret QS-WIFI-C03, som ingen svensk butik publicerar. Måtten anges som valda för att reläet ska rymmas i en standarddosa med minst 60 millimeters diameter, och matningen som 230 V utan behov av extra strömförsörjning.",
   },
   {
     publisher: "Elsäkerhetsverket",
@@ -4064,6 +4781,133 @@ export const SMART_GARAGEPORTSOPPNARE_SOURCES: Source[] = [
  * och används; inga modellbetyg gissas. Samma hantering som Warentest på
  * /smart-termostat och Testaankoop på /usb-c-laddare.
  */
+/**
+ * Källor för /powerstation.
+ *
+ * ⚠️ Två provningar finns och båda är gamla. Warentests är från juli 2023 och
+ * gäller föregående generation; M3:s är från 2021–2023 och **noll av de åtta
+ * testade produkterna säljs i de svenska kategorier vi läste 2026-08-05**.
+ * Därför finns inget kriterium för testomdöme, och inget modellresultat
+ * härifrån återges. Metoden bär viktningen, inte betygen.
+ *
+ * ⚠️ Ankers och Jackerys specifikationstabeller är hämtade på deras
+ * amerikanska sajter, eftersom EU-sidorna inte gick att läsa maskinellt.
+ * Effekt-, cykel- och dB-tal gäller båda marknaderna. **Spänning, uttagstyp
+ * och antal uttag gör det inte** — Jackery anger tre 230 V-uttag, den svenska
+ * artikeln har två. Se noteringen på varje källa.
+ */
+export const POWERSTATION_SOURCES: Source[] = [
+  {
+    publisher: "Stiftung Warentest",
+    title: "Powerstations im Test: Steckdosen für unterwegs",
+    url: "https://www.test.de/Powerstation-Test-6023127-0/",
+    date: "2023-07-20",
+    market: "DE",
+    kind: "test",
+    note: 'Kategorins enda riktiga labbprovning, elva powerstations. Metoden är fri och bär den här sidans viktning: modellerna laddades ur "mit der vom Anbieter angegebenen maximalen Dauerleistung" tills batteriet var tomt, laddtiden mättes, ljudnivån mättes i labb vid både laddning och urladdning, flera provpersoner bedömde handhavande och transport, och säkerheten bedömdes vid upp- och urladdning. Det öppna fyndet är sidans utgångspunkt, ordagrant: "Ein Modell hat dabei nach 30 Minuten abgeschaltet und somit nicht eingehalten, was der Anbieter verspricht." Härifrån kommer också gränsen mot powerbank: "Eindeutiges Unterscheidungsmerkmal zu den kleineren Powerbanks: Powerstations haben mindestens eine Schuko-Steckdose mit 230 Volt Spannung." ⚠️ Testet är från 2023 och nämner EcoFlow River 2 Max vid namn medan svensk handel säljer River 3. Betyg per modell kräver betalning, 4,90 euro, och vi har inte köpt dem. Inget modellresultat härifrån återges eller gissas.',
+  },
+  {
+    publisher: "M3",
+    title: "Test: 8 portabla power stations med extra mycket laddkraft",
+    url: "https://www.m3.se/article/1829842/test-power-station.html",
+    date: "2024-02-01",
+    market: "SE",
+    kind: "test",
+    note: "Sveriges enda grupptest av kategorin, åtta produkter med betyg av 5, av M3:s chefredaktör. Artikeln skriver själv att provningarna är från 2021–2023 och att bara priserna uppdaterats. ⚠️ Ingen av de åtta modellerna finns i Clas Ohlsons, Elgigantens eller Kjells kategorier 2026-08-05. De testade var Anker 535 Powerhouse, Bresser, EcoFlow Delta 1300, River 2 Max och River 600 Max, Goal Zero Yeti 1500X och 200X samt Jackery Explorer 1000. Källan står med som mätpunkt för vad som finns provat på svenska, och inget betyg härifrån knyts till en produkt här.",
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C1000 Gen 2 Portable Power Station, specifikation",
+    url: "https://www.ankersolix.com/products/c1000-gen2",
+    market: "US",
+    note: 'Tillverkarens egen specifikationstabell, och en av de två källor som visar varför effekten står i tre rader hos oss. Ordagrant: "Output 2,000W (3,000W Peak Output)", plus "80% capacity after 4,000 cycles", "10 ms UPS" och "20dB Operation". Elgigantens fält "Max. AC 230v effekt" anger 3 000 watt för samma produkt, alltså toppeffekten. ⚠️ Tabellen är den amerikanska med 120 V; effekt-, cykel- och dB-tal gäller båda marknaderna, spänning och uttagstyp gör det inte.',
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C2000 Gen 2 Portable Power Station, specifikation",
+    url: "https://www.ankersolix.com/products/c2000-gen2",
+    market: "US",
+    note: 'Den andra av de två, och den tydligaste. Ankers egen tabell anger "AC Output ... 2400W Max" och "Peak Power 4000W", alltså 2 400 watt kontinuerligt. Elgigantens strukturerade fält för samma EAN, 0194644395735, anger 4 000 watt, och deras egen brödtext på samma sida säger "upp till 4 000W toppeffekt". Prisjakt anger 2 400. Produkten ligger utanför den storleksklass sidan rankar och står här enbart som belägg för hur ett watt-tal byter betydelse mellan två svenska säljkanaler.',
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C300 Portable Power Station, specifikation",
+    url: "https://www.ankersolix.com/products/c300",
+    market: "US",
+    note: 'Källan till att C300-seriens 600 watt är ett boostläge och inte en märkeffekt. Ankers egen FAQ svarar ordagrant: "The AC outlets can deliver a maximum of 300W rated power to connected devices (600W with SurgePad)." Här står också ljudnivån, "only emits 25dB from 3.3 ft away", cellkemin LFP och femårsgarantin. ⚠️ Produktsidan anger inget cykeltal, men Ankers datablad för samma artikel gör det, se nedan. Att en av tillverkarens två egna publiceringar tiger säger ingenting om den andra.',
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C300X Portable Power Station, datablad A1723",
+    url: "https://storage.googleapis.com/mauser-public-images/prod_description_document/2025/293/1ec6f8c53a551984171093561f5aa725_0194644298845_f_0.pdf",
+    market: "UK",
+    note: 'Tillverkarens eget datablad, matchat på streckkod 0194644298845 och märkt "Sales Market: US/CA/JP/EU/UK", alltså samma artikel som säljs här. Anger "Cycle Life 3000+ (to 80%)", "AC Surge Power 600W", "Solar Input Power 11-28V 8.2A (100W Max)", "MPPT Support Yes", "EST Recharge Time AC recharging: 68min" och måtten 164 × 161 × 240 mm. ⚠️ Sidan publicerade cykeltalet som ej angivet och drog av poäng för det till 2026-08-06; talet fanns hos tillverkaren hela tiden. Se lib/corrections.ts.',
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C800X Portable Power Station, datablad A1755",
+    url: "https://www.santansolar.com/wp-content/uploads/A1755-datasheet.pdf",
+    market: "US",
+    note: 'Tillverkarens datablad, åtta sidor. Anger "Cycle Life 3000+ (to 80%)", femårsgarantin, och körtiderna som citeras i omdömet: en kaffebryggare på 1 000 watt i 41 minuter och en cpap-apparat i 17 timmar. ⚠️ Databladet marknadsför "IP65-rated water-resistant build", men meningen gäller den löstagbara campinglampan i locket och inte stationen, som saknar klass. ⚠️ Tabellen gäller 120 V-artikeln med fem uttag; den svenska har tre. Ingen ljudnivå anges någonstans i dokumentet.',
+  },
+  {
+    publisher: "TogoPower",
+    title: "Advance Series 240/330/350/650, bruksanvisning",
+    url: "https://togopower.com/pages/manual-download",
+    market: "US",
+    note: 'Tillverkarens egen bruksanvisning, hämtad från deras dokumentsida. Specifikationstabellen för ADVANCE 650 anger batterityp "18650 Lithium Battery", kapacitet "634Wh (22.2V 28.6Ah)", måtten 290 × 201 × 200 mm, "DC Input 12-28V, 100W", och garantin "12 months from the date of purchase". Säkerhetsavsnittet säger "It\'s not waterproof, do not expose to liquids". ⚠️ PDF:en är bildskannad och har noll textlager, så varje textbaserad sökning i den returnerar tomt. Den lästes som bild. Sidan påstod till 2026-08-06 att cellkemin inte gick att läsa före köpet. ⚠️ Tabellen anger två 120 V-uttag; uttagsantalet för den svenska 230 V-artikeln är inte fastställt och står som streck.',
+  },
+  {
+    publisher: "EcoFlow",
+    title: "RIVER 3 och RIVER 3 Plus, specifikation",
+    url: "https://uk.ecoflow.com/products/river-3-plus-portable-power-station",
+    market: "UK",
+    note: 'Tillverkarens egen tabell för 230 V-marknaden, alltså samma utförande som säljs här. Anger "AC Output 3 outlets, 600W total (Surge 1200W, X-Boost 1200W)" för River 3 Plus och "1 outlets, 300W total (Surge 600W, X-Boost 600W)" för River 3, alltså de toppeffekter vår tabell saknade. Här står också "LiFePO4, 3000 cycles to 80% capacity" och "Noise Volume <30 dB". ⚠️ Fotnot 3 är källan till att sidans IP-rader numera säger batteripaket: "The IP54 waterproof rating applies only to the battery pack, not the entire package." EcoFlows egen specifikationsrad heter "Waterproof Level of Battery Pack", och samma gäller Delta 3:s IP65.',
+  },
+  {
+    publisher: "Anker",
+    title: "Anker SOLIX C800 Plus / C800, specifikation",
+    url: "https://www.ankersolix.com/C800-plus-c800-pps",
+    market: "US",
+    note: 'Cykeltalet för C800-serien, ordagrant: "EV-Class LiFePO4 Batteries. Power on with 3,000 charge cycles for up to 10 years of everyday use, guaranteed." Elgigantens produkttext för den svenska artikeln anger "över 3 000 laddningscykler" och stämmer alltså. Samma sida är också belägget för att deras fält på 1 200 watt är den kontinuerliga effekten medan brödtextens 1 600 watt är SurgePad.',
+  },
+  {
+    publisher: "Jackery",
+    title: "Explorer 1000 Pro Portable Power Station, specifikation",
+    url: "https://www.jackery.com/products/explorer-1000-pro-portable-power-station",
+    market: "US",
+    note: 'Tillverkarens egen sida, och den enda källa som anger cellkemin i klartext för den här produkten. FAQ:n svarar ordagrant "The Explorer 1000 Pro uses a ternary lithium battery" och "It is rated for 1000 full charge cycles, at that point you will have approximately 80% of your original capacity". Här står också "1000W, 2000W Peak Surge", "The working volume is at 30dB", vikten 25,4 lbs och "(3+2) Years Guarantee". ⚠️ Sidan anger tre 230 V-uttag; den svenska artikeln hos Elgiganten har två, och uttagsantalet är hämtat därifrån. ⚠️ Sidans korsförsäljningslista visar "LiFePO4 Battery" åtta gånger, samtliga för andra modeller. Inget av det gäller 1000 Pro.',
+  },
+  {
+    publisher: "Clas Ohlson",
+    title: "EcoFlow River 3 Plus portabel powerstation 286 Wh",
+    url: "https://www.clasohlson.com/se/EcoFlow-River-3-Plus-portabel-powerstation-286-Wh/p/36-375",
+    market: "SE",
+    note: 'Kategorins bästa svenska specifikation, och den enda butik i svepet som skiljer kontinuerlig effekt från boostläge i klartext: "AC-uttag: 3 × 600 W (X-Boost upp till 1200 W)". Här står också "LiFePo4, 3000 cykler till 80 procent kapacitet", "Ljudnivå: Under 30 dB vid normal användning", vikt, mått, laddtid och solingång. Priser, artikelnummer och kundbetyg för samtliga EcoFlow- och Cocraft-produkter är lästa här samma dag.',
+  },
+  {
+    publisher: "Clas Ohlson",
+    title: "EcoFlow Delta 3 portabel powerstation 1024 Wh",
+    url: "https://www.clasohlson.com/se/EcoFlow-Delta-3-portabel-powerstation-1024-Wh/p/36-379",
+    market: "SE",
+    note: 'Samma sorts fullständiga specifikation: "LFP, 4000 cykler till 80 procent kapacitet", "IP-klass: IP65", "Ljudnivå: 30 dB vid 600W, 40 dB vid 1200W", "AC-uttag: 4 × 1800 W (surge 3600 W)" och fem års garanti. Den kontinuerliga effekten på 1 800 watt är belägget mot Elgigantens 2 400 för samma produkt, där 2 400 är X-Boost-talet.',
+  },
+  {
+    publisher: "Clas Ohlson",
+    title: "Cocraft Advance 500 Power Station, bruksanvisning",
+    url: "https://www.clasohlson.com/medias/sys_master/h0e/hed/68161233354782.pdf",
+    market: "SE",
+    note: 'Bruksanvisningen i original, fyra språk. Omslaget säger "500 W / 400 Wh" och specifikationstabellen "Typ 22,2 V, 18 Ah, Lithium-ion (18650). Kapacitet 400 Wh". Det är belägget för att talet i modellnamnet är watten och inte wattimmarna. Dokumentet är också det som gör raden för cykeltal tom snarare än gissad: batterityp, cellspänning, amperetimmar, kapacitet och laddtid står utskrivna på alla fyra språken, medan ett cykeltal inte förekommer någonstans i handboken.',
+  },
+  {
+    publisher: "EcoFlow",
+    title: "Powerstation, tillverkarens svenska butik",
+    url: "https://ecoflow.se/collections/powerstation",
+    market: "SE",
+    note: "Tillverkarens egen svenska försäljningskanal, 137 artiklar hämtade i klartext 2026-08-05. Använd för att fastställa vilka effekttal EcoFlow själva publicerar för varje modell: River 3 anges till 300 W med X-Boost upp till 600, River 3 Plus till 600 W med X-Boost upp till 1200 och Delta 3 till 1 800 W. Här står också ljudnivån under 30 dB, cirka 3 000 cykler till 80 procent för River 3-serien och femårsgarantin. Priserna ligger inom nio kronor från Clas Ohlsons och används inte som prisunderlag.",
+  },
+];
+
 export const POWERBANK_SOURCES: Source[] = [
   {
     publisher: "Stiftung Warentest",
@@ -4083,18 +4927,35 @@ export const POWERBANK_SOURCES: Source[] = [
     note: "Myndighetens tabell över vad som får följa med på flyget, och skälet till att wattimmar är den enhet som avgör. Lösa litiumjonbatterier inklusive powerbanks upp till 100 Wh får tas med i handbagage men står som Nej i incheckat bagage. Mellan 100 och 160 Wh gäller handbagage, högst två batterier, och flygbolagets godkännande krävs. Över 160 Wh är de inte tillåtna alls. Gränserna uttrycks genomgående i wattimmar, alltså i den storhet som sällan står i produktnamnet.",
   },
   {
+    publisher: "Ljud & Bild",
+    title: "14 powerbanks för flygresan",
+    url: "https://www.ljudochbild.se/test/mobil/14-powerbanks-foer-flygresan/",
+    date: "2026-02-01",
+    market: "SE",
+    kind: "test",
+    note: "Svensk provning av fjorton powerbanks, med ett eget omdöme och en fullständig specifikation per modell. En av dem rankas här: Anker Nano A1638, alltså sidans testvinnare, som de mätte till 82 × 51 × 36 mm och 231 gram och som de anger till 10 000 mAh / 37 Wh. Deras omdöme om den inbyggda kabeln, att den är en mekanism och ingen gimmick, delar vi. Testet ger inget kriterium för testomdöme på sidan, eftersom en av åtta produkter inte är täckning nog att betygsätta ett fält på. Övriga tretton modeller säljs inte i den hylla sidan jämför och inget av deras resultat är överfört till någon annan produkt.",
+  },
+  {
+    publisher: "Linocell",
+    title: "Bruksanvisningar till powerbank 20622, 20623, 80198, 80205 och 80206",
+    url: "https://www.kjell.com/globalassets/mediaassets/903896_80198_manual_en_no_sv_20240808.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egna manualer, samtliga länkade från butikens respektive produktsida. De bär specifikationerna som inte står i säljtexten: energiinnehåll i wattimmar med cellspänning, effekt per port och spänningsnivå, samlad effekt när flera portar används, laddtid, vikt och mått. Det är härifrån de tre cellspänningarna 3,6, 3,7 och 3,85 volt kommer, och härifrån uppgiften att de magnetiska modellernas trådlösa laddning ger 7,5 watt mot en iPhone. Där manualen och butikens produktsida säger olika, som om laddtiden för artikel 80206, gäller manualen.",
+  },
+  {
+    publisher: "Anker",
+    title: "Användarguider för A1638 och A1665",
+    url: "https://support.anker.com/s/article/Anker-Nano-Power-Bank-10K-45W-Built-In-Retractable-USB-C-Cable-User-Guide-A1638",
+    kind: "standard",
+    note: "Tillverkarens specifikationer för de två Anker-modeller vars uppgifter butiken inte återger fullständigt. A1638 anger 30 watt in, 45 watt ut på ett uttag och 7,5 watt per uttag när alla tre används samtidigt, vilket är skälet att sidan skiljer på högsta effekt och samlad effekt. A1665 anger USB-C 5 V/3 A och 9 V/2,22 A, alltså 20 watt, där butiken skriver 22,5. Anker anger cellkapacitet men ingen wattimme för A1665, och den cellen står därför tom.",
+  },
+  {
     publisher: "Kjell & Company",
     title: "Powerbank, produktkategori och specifikationer",
     url: "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank",
     market: "SE",
-    note: "Den butik vi kartlagt hylla för hylla, 39 produkter 2026-08-05. Underlaget för hur ojämnt kapaciteten redovisas: av åtta produkter i den storleksklass sidan rankar anger två wattimmar, och tre saknar specifikationsruta helt. Anker Nano 30 W anger 10 000 mAh / 37 Wh och Linocell Premium 30 W anger 10 000 mAh (36 Wh), alltså olika wattimmar för samma nominella kapacitet. Priser, artikelnummer och kundbetyg är lästa här samma dag.",
-  },
-  {
-    publisher: "Kjell & Company",
-    title: "Bäst i test: Powerbank 2026",
-    url: "https://www.kjell.com/se/kunskap/guider/bast-i-test-powerbank",
-    market: "SE",
-    note: "Butikens egen guide om produkterna i den egna hyllan. Den är med som mätpunkt och inte som underlag: 1 265 ord, ordet mAh 23 gånger, ordet Wh noll gånger, och varken flyg eller handbagage nämns. Vi har inte hämtat någon uppgift härifrån.",
+    note: "Den butik vi kartlagt hylla för hylla, 39 produkter 2026-08-05. Priser, artikelnummer och kundbetyg är lästa här samma dag, tillsammans med den strukturerade specifikationsrutan under Teknisk information på varje produktsida. Butiken länkar också tillverkarnas manualer, vilket är vägen till de uppgifter säljtexten utelämnar.",
   },
   {
     publisher: "Testkompassen",
@@ -4135,13 +4996,39 @@ export const POWERBANK_20000_SOURCES: Source[] = [
     title: "Powerbank, produktkategori och specifikationer",
     url: "https://www.kjell.com/se/produkter/mobilt/ladda-koppla/powerbank",
     market: "SE",
-    note: "Butiken vi kartlagt produkt för produkt. Underlaget för hur olika samma nominella kapacitet redovisas: av tre powerbanks på 20 000 mAh anger Linocell Premium 72 Wh med spänningen 3,6 V utsatt, Anker Prime 72,36 Wh för 20 100 mAh, och Xtorm 100 Wh. Sju av nio produkter i storleksklassen anger sitt energiinnehåll, mot två av åtta i den mindre klassen. Priser, artikelnummer, kundbetyg och specifikationer är lästa här 2026-08-05.",
+    note: "Butiken vi kartlagt produkt för produkt, och den som för nästan hela storleksklassen. Priser, artikelnummer och kundbetyg är lästa här 2026-08-05.\n\nSpecifikationerna är lästa i butikens eget specifikationsblock och därefter kontrollerade mot tillverkarens egen sida, manual eller supportartikel. Där de två inte stämmer överens gäller tillverkaren, och där bara butiken har uppgiften står den kvar som butikens.",
+  },
+  {
+    publisher: "Chargerlab",
+    title:
+      "Teardown of UGREEN Nexode 20000mAh 165W Power Bank with Retractable USB-C Cable (PB726)",
+    url: "https://www.chargerlab.com/teardown-of-ugreen-nexode-20000mah-165w-power-bank-with-retractable-usb-c-cable-pb726/",
+    market: "US",
+    kind: "test",
+    note: "Isärtagning av just den Ugreen som jämförs här, matchad på modellbeteckningen PB726. Härifrån kommer energiinnehållet 72 Wh, avläst på produktens egen märkning, och celluppsättningen: fyra SunPower INR21700-5000 på 3,6 V och 18 Wh var, alltså 14,4 V och 5 000 mAh i serie. Talen går ihop med varandra och med de tre andra bankerna på 20 000 mAh.\n\nDärifrån kommer också cellernas uthållighet, över 70 procent kvar efter 1 000 fulla laddcykler, och en vägning på 534 gram mot tillverkarens 535.",
+  },
+  {
+    publisher: "Anker",
+    title: "Anker Prime Power Bank användarguider, A110A och A110B",
+    url: "https://support.anker.com/s/article/Anker-Prime-Power-Bank-26K-300W-User-Guide-A110A",
+    market: "US",
+    kind: "standard",
+    note: "Tillverkarens egna guider till de två Anker Prime-modellerna. Härifrån kommer uppladdningstiderna: båda blir fulla på ungefär en timme, 26 250 mAh-modellen med en 140 W-laddare och 20 100 mAh-modellen med en på 100 W.\n\nHärifrån kommer också den uttagbara kapaciteten, ungefär 11 250 mAh av 20 100, alltså 56 procent av det nominella talet. Det är den enda tillverkare i jämförelsen som skriver ut den siffran själv.",
+  },
+  {
+    publisher: "Denver",
+    title: "Denver PQC-20009, produktblad och bruksanvisning",
+    url: "https://denver.eu/other-electronics/powerbanks/denver-pqc-20009-117140000790",
+    market: "DK",
+    kind: "standard",
+    note: "Tillverkarens sida för den billigaste powerbanken i jämförelsen, matchad på artikelnumret 117140000790. Härifrån kommer batterityp och cellspänning, 3,7 V litiumpolymer, samt utgångarnas spänningssteg: USB-A når 10 V och 2,25 A medan USB-C stannar på 12 V och 1,67 A. De 22,5 watten kommer alltså ur USB-A-porten och inte ur USB-C.\n\nVarken produktsidan, produktbladet eller bruksanvisningen anger ett energiinnehåll i wattimmar, och cellen står därför tom.",
   },
   {
     publisher: "Testkompassen",
     title: "Powerbank: 5 favoriter efter hårda tester",
     url: "https://www.testkompassen.se/kategorier/elektronik-och-foto/mobiltilbehor/powerbank",
     market: "SE",
+    kind: "comparison",
     note: 'Den enda svenska jämförelsen som tar upp wattimmar, och den gör det korrekt: omräkningen "Wh ≈ (mAh ÷ 1000) × 3,7 V" står ordagrant, liksom att verklig leverans blir 10 till 30 procent lägre, och gränserna 100 och 160 Wh återges rätt. Källan står med eftersom sidan aldrig ska påstå att ämnet är obehandlat på svenska.',
   },
 ];
@@ -4163,10 +5050,103 @@ export const POWERBANK_20000_SOURCES: Source[] = [
  * slutar på 9H, standarden bakom den är en färgstandard, och standardens eget
  * abstract säger att metoden inte duger till jämförelser.
  */
+/**
+ * /bluetooth-hogtalare.
+ *
+ * De två första bär sidan: förordningen som gör batteriet utbytbart 2027 och
+ * det enda svenska testet av kategorin. Testet saknar betyg, vilket är
+ * kontrollerat recension för recension och är skälet till att sidan inte har
+ * något testomdömekriterium.
+ */
+export const BLUETOOTH_HOGTALARE_SOURCES: Source[] = [
+  {
+    publisher: "Europeiska unionen",
+    title:
+      "Förordning (EU) 2023/1542 om batterier och förbrukade batterier, artikel 11",
+    url: "https://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32023R1542",
+    date: "2023-07-12",
+    kind: "standard",
+    note: 'Läst i original i svensk språkversion på EUR-Lex, CELEX 32023R1542. Artikel 11.1, ordagrant: "Varje fysisk eller juridisk person som på marknaden släpper ut produkter där det ingår bärbara batterier ska säkerställa att dessa batterier lätt kan avlägsnas och ersättas av slutanvändaren när som helst under produktens livslängd." Samma punkt definierar lätt att avlägsna som att det ska gå "med hjälp av kommersiellt tillgängliga verktyg, utan att det krävs användning av specialverktyg […] värmeenergi eller lösningsmedel", och kräver att anvisningar för batteribyte görs permanent tillgängliga på en offentlig webbplats. Slutartikeln anger tillämpningsdatum: "Artikel 11 ska tillämpas från och med den 18 februari 2027." Artikel 11.2 a låter apparater "särskilt utformade för att främst användas i en miljö som regelbundet innebär vattenstänk, strömmande vatten eller nedsänkning i vatten och som är avsedda att vara tvättbara eller sköljbara" nöja sig med att batteriet kan bytas av en oberoende yrkesutövare, och samma punkt begränsar undantaget till fall där det "är nödvändigt för att säkerställa användarens och apparatens säkerhet". ⚠️ Vi bedömer aldrig om en enskild högtalare omfattas av undantaget; det är tillverkarens bedömning mot den egna konstruktionen.',
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "De bästa bärbara högtalarna",
+    url: "https://www.ljudochbild.se/test/hogtalare/de-basta-barbara-hogtalarna/",
+    date: "2025-07-07",
+    market: "SE",
+    note: "Kategorins enda svenska test, av chefredaktör Lasse Svendsen. Sju modeller: JBL Charge 6, JBL Flip 7, Sony ULT Field 5, Sony ULT Field 3, Marshall Kilburn III, Marshall Middleton II och Soundcore Boom 2 Pro. Fyra av dem ligger i vår rankning, tre är partihögtalare och ligger bland de övervägda. ⚠️ Testet sätter inga betyg. Samtliga sju enskilda recensioner är hämtade och genomsökta efter betyg, poäng och stjärnmönster, och noll av sju bär något. Därför finns inget testomdömekriterium på sidan. Deras omdömen om enskilda modeller återges i våra recensioner med publikationen namngiven. Källan används också för vikt, eftersom butikens viktfält visade sig ange mer än dubbla den verkliga vikten för en av modellerna.",
+  },
+  {
+    publisher: "Elon",
+    title: "Bluetooth-högtalare",
+    url: "https://www.elon.se/ljud/hogtalare/bluetooth-hogtalare",
+    date: "2026-08-05",
+    market: "SE",
+    note: "Butiken samtliga tio rankade högtalare är prissatta hos, 88 produkter i kategorin. Källa för pris och kapslingsklass. ⚠️ Butiken anger speltiden på två ställen på samma produktsida och talen skiljer sig för de modeller som anger flest timmar: JBL Charge 6 står som 28 timmar i säljpunkterna och 24 i specifikationens fält, JBL Flip 7 som 16 respektive 14. Tabellen visar en speltid per modell, kontrollerad mot tillverkaren där den publicerar talet. ⚠️ Butikens viktfält anger 1,23 kg för JBL Flip 7 där tillverkaren och Ljud & Bild ger 0,56 kg, sannolikt förpackad vikt, och vikt har därför inte hämtats därifrån. ⚠️ Butikens sida för JBL Charge Essential 3 nämner ingen powerbank-funktion. Den finns, och är belagd hos två andra butiker.",
+  },
+  {
+    publisher: "Marshall",
+    title: "Emberton III och Middleton II, produktsidor och bruksanvisning",
+    url: "https://www.marshall.com/se/sv/product/emberton-iii",
+    date: "2026-08-06",
+    note: 'Tillverkarens egen publicering, läst 2026-08-06. Emberton III anges till "32+ HOURS OF PORTABLE PLAYTIME", full laddning på 2 timmar och 20 minuters snabbladdning för 6 timmars speltid; Middleton II till "30+ HOURS" och 230 × 98 × 110 mm. Elon anger 30 timmar för Emberton III, alltså föregångarens tal, och 30 för Middleton II. Tabellen använder tillverkarens. Den fullständiga bruksanvisningen till Emberton III ger batterityp (litiumjon), fäste för rem där remmen inte ingår, och att två enheter kan vara anslutna samtidigt. ⚠️ Marshall publicerar varken batteriets wattimmar eller Bluetooth-versionen för någon av modellerna. Cellerna står tomma och inget betyg sänks av det.',
+  },
+  {
+    publisher: "Harman Kardon",
+    title: "Luna, spec sheet",
+    url: "https://www.harmankardon.se/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw08c287d5/pdfs/HK_LUNA_Spec_Sheet_SV.pdf",
+    date: "2026-08-06",
+    note: "Tillverkarens eget produktblad, läst i original. Ger batteriet som litiumjonpolymer 17,28 Wh (3,6 V / 4 800 mAh), 12 timmars musikspeltid, 2,5 timmars laddningstid, Bluetooth 5.3 och stereoparning mellan två Luna. ⚠️ Produktbladet skiljer på produktens vikt 0,71 kg och förpackningens vikt 1,13 kg, medan tillverkarens egen webbspectabell publicerar 1,13 utan att säga vilken av dem det är. Sidan använder 0,71 kg. Bladet anger också att USB-porten bara är avsedd för service utanför den amerikanska versionen, vilket är skälet till att powerbank står som nej.",
+  },
+  {
+    publisher: "Urbanista",
+    title: "Malibu, produktsida och bruksanvisning",
+    url: "https://urbanista.com/products/malibu",
+    date: "2026-08-06",
+    note: "Tillverkarens spectabell, läst 2026-08-06. Ger batteriet som 1 800 mAh vid 7,4 V, alltså 13,3 Wh, en batterireserv på 20 timmar, Bluetooth 5.2 med profilerna A2DP, AVRCP och SPP, samt IP67. Bruksanvisningen ger USB-C och appen Urbanista Audio. Samtliga dessa uppgifter stod tidigare som okända på sidan, hämtade enbart ur butiksledet.",
+  },
+  {
+    publisher: "Sonos",
+    title: "Roam 2",
+    url: "https://www.sonos.com/en/shop/roam-2",
+    date: "2026-08-06",
+    note: "Tillverkarens produktsida. Bekräftar 18 Wh, upp till 10 timmars uppspelning vid måttlig volym, Bluetooth 5.2, IP67 med nedsänkning en meter i trettio minuter, samt 0,43 kg och 168 × 62 × 60 mm.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "JBL Flip Essential 2",
+    url: "https://www.kjell.com/se/produkter/ljud-bild/hogtalare/tradlosa-bluetooth-hogtalare/jbl-flip-essential-2-tradlos-bluetooth-hogtalare-p24277",
+    date: "2026-08-06",
+    note: "Använd för JBL:s Essential-modeller. Ger Flip Essential 2 som litiumjonpolymer 11,7 Wh (3,6 V / 3 250 mAh), 3 timmars laddningstid, Bluetooth 5.1, 520 g och IPX7. Butiken anger också 14 timmar för JBL Flip 7, alltså samma tal som Elons specifikationsfält och inte samma som Elons säljpunkt, vilket är det oberoende belägg tabellen vilar på.",
+  },
+  {
+    publisher: "Clas Ohlson och Proshop",
+    title: "JBL Charge Essential 3, två oberoende produktsidor",
+    url: "https://www.clasohlson.com/se/JBL-Charge-Essential-3-Bluetooth-hogtalare,-vattentat/p/10-1-405",
+    date: "2026-08-06",
+    note: "Två butiker oberoende av varandra anger samma uppgifter: 27 Wh litiumjon (3,6 V / 7 500 mAh), 20 timmars speltid, cirka 4 timmars laddtid, Bluetooth 5.4, Auracast och USB-C in och ut. Det sista är avgörande: modellen laddar telefonen, vilket Elons produktsida inte nämner och vilket sidan tidigare beskrev som en funktion bara vinnaren hade.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Lautsprecher im Test",
+    url: "https://www.test.de/Lautsprecher-im-Test-4987334-0/",
+    market: "DE",
+    note: "Med som belägg för vad som finns och inte finns av oberoende provning. Warentest provar högtalare löpande, men vi har inte kunnat knyta något publicerat resultat till de tio modeller sidan rankar, och innehållet ligger dessutom bakom betalvägg. Ingen uppgift på sidan är hämtad härifrån, och vi återger inga betyg därifrån.",
+  },
+  {
+    publisher: "M3",
+    title: "Test av 10 trådlösa bluetooth-högtalare",
+    url: "https://www.m3.se/article/1845174/test-av-10-tradlosa-bluetooth-hogtalare.html",
+    market: "SE",
+    note: "Svensk jämförelse i samma kategori, med som mätpunkt. ⚠️ Inte läst i original vid publicering, och ingen uppgift på sidan är hämtad härifrån. Ska läsas vid nästa runda, både för modellöverlappet och för att kontrollera om någon svensk publikation tagit upp batteriförordningen.",
+  },
+];
+
 export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
   {
     publisher: "ASTM International",
-    title: "ASTM D3363-22, Standard Test Method for Film Hardness by Pencil Test",
+    title:
+      "ASTM D3363-22, Standard Test Method for Film Hardness by Pencil Test",
     url: "https://store.astm.org/d3363-22.html",
     date: "2022-07-11",
     market: "US",
@@ -4175,7 +5155,8 @@ export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
   },
   {
     publisher: "ISO",
-    title: "ISO 15184:2020, Paints and varnishes – Determination of film hardness by pencil test",
+    title:
+      "ISO 15184:2020, Paints and varnishes – Determination of film hardness by pencil test",
     url: "https://www.iso.org/standard/76044.html",
     date: "2020-01-08",
     kind: "standard",
@@ -4207,7 +5188,8 @@ export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
   },
   {
     publisher: "PanzerGlass",
-    title: "PanzerGlass 2-way Privacy Screen Protector iPhone 17 Pro, Ultra-Wide Fit",
+    title:
+      "PanzerGlass 2-way Privacy Screen Protector iPhone 17 Pro, Ultra-Wide Fit",
     url: "https://panzerglass.com/products/panzerglass%C2%AE-2-way-privacy-screen-protector-iphone-17-pro-ultra-wide-fit-w-easyaligner",
     date: "2026-08-05",
     market: "DK",
@@ -4215,7 +5197,8 @@ export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
   },
   {
     publisher: "Spigen",
-    title: "iPhone 17 Series GLAS.tR EZ Fit (Sensor Protection) Screen Protector",
+    title:
+      "iPhone 17 Series GLAS.tR EZ Fit (Sensor Protection) Screen Protector",
     url: "https://www.spigen.com/products/iphone-17-series-screen-protector-glas-tr-ez-fit-sensor-protected",
     date: "2026-08-05",
     note: 'Tillverkarens egen produktsida. Källa för att förpackningen innehåller två skydd och en monteringsbygel, för AluminaCore-lagret och för att skyddet täcker sensorerna ovanför skärmen. Sidan har ingen specifikationstabell och anger varken tjocklek eller provmetod. Hårdheten anges som "9H plus" i en bildbeskrivning, alltså ett steg över pennskalans tak enligt ASTM D3363 och Tekras not ovan.',
@@ -4250,10 +5233,26 @@ export const IPHONE_SKARMSKYDD_SOURCES: Source[] = [
   },
 ];
 
-export const IPHONE_SKAL_SOURCES: Source[] = [
+/**
+ * De tre MIL-STD-810-utgåvorna, delade av /iphone-skal och /galaxy-s26-skal.
+ *
+ * Ligger i en egen konstant därför att standarden inte är telefonberoende och
+ * båda sidorna vilar på exakt samma läsning av den. Två kopior hade kunnat
+ * glida isär, och noterna nedan bär citat ur dokumenten som det tog en halv
+ * dags PDF-extraktion att få fram.
+ *
+ * Läsningen bär numera ingenting annat än ett skäl att **inte** betygsätta. Båda
+ * sidorna hade ett kriterium för öppen redovisning som vägde talen; på
+ * /galaxy-s26-skal togs det bort 2026-08-06, eftersom det rankade vem som
+ * skrivit ut en siffra i stället för vad skalet gör. Citaten nedan är skälet:
+ * provvillkoren får ändras och de 26 fallen får delas på fem exemplar, så två
+ * tal mäter inte samma sak ens när båda anges.
+ */
+const MIL_STD_810_SOURCES: Source[] = [
   {
     publisher: "US Department of Defense",
-    title: "MIL-STD-810H, Environmental Engineering Considerations and Laboratory Tests",
+    title:
+      "MIL-STD-810H, Environmental Engineering Considerations and Laboratory Tests",
     url: "https://cvgstrategy.com/wp-content/uploads/2019/03/MIL-STD-810H.pdf",
     date: "2019-01-31",
     market: "US",
@@ -4278,6 +5277,10 @@ export const IPHONE_SKAL_SOURCES: Source[] = [
     kind: "standard",
     note: 'Metodutdraget ur 2008 års utgåva, läst i original. Det är den utgåva OtterBox hänvisar till på sina svenska produktsidor, och den enda av de tre där plywood fortfarande är föreskrivet underlag: "For the floor or barrier receiving the impact, use two-inch plywood backed by concrete. For materiel over 454 kg, use a concrete floor or barrier." Ersatt två gånger sedan dess, 2014 och 2019.',
   },
+];
+
+export const IPHONE_SKAL_SOURCES: Source[] = [
+  ...MIL_STD_810_SOURCES,
   {
     publisher: "Råd & Rön",
     title: "Tester, telefoni, datorer och internet",
@@ -4317,6 +5320,95 @@ export const IPHONE_SKAL_SOURCES: Source[] = [
 ];
 
 /**
+ * Källor för /galaxy-s26-skal och /galaxy-s26-fodral.
+ *
+ * ⚠️ Kategorin saknar oberoende provning av skal, precis som iPhone-sidorna.
+ * Telefonerna är däremot väl provade av Mobil.se, PC-tidningen och Prisjakt.
+ * **De testerna gäller telefoner och får aldrig citeras som stöd för ett
+ * skalomdöme**, och de står därför inte här.
+ */
+export const GALAXY_S26_SOURCES: Source[] = [
+  ...MIL_STD_810_SOURCES,
+  {
+    publisher: "Samsung",
+    title: "Vi introducerar den senaste Galaxy S26-serien",
+    url: "https://www.samsung.com/se/mobile-phone-buying-guide/introducing-samsung-galaxy-s26/",
+    date: "2026-02-25",
+    market: "SE",
+    note: 'Tillverkarens egen svenska sida, läst i original 2026-08-05. Källa för vilka modeller serien består av och när de kom: "Galaxy S26, S26+ och S26 Ultra presenterades den 25th februari 2026 på Galaxy Unpacked." Avgör sidans avgränsning. ⚠️ Svensk teknikpress skrev under ryktesfasen om en serie med namnen Pro och Edge, och de rubrikerna ligger kvar i sökresultaten. De namnen finns inte i Samsungs egen text och används aldrig på sajten. Bekräftat mot Elgigantens produktdata, där modellnamnet är Samsung Galaxy S26 och serien S26, och mot Skal-mans modellnavigation.',
+  },
+  {
+    publisher: "9to5Google",
+    title:
+      "Samsung's excuse for skipping Qi2 magnets in Galaxy S26 ignores the big picture",
+    url: "https://9to5google.com/2026/02/28/samsung-galaxy-s26-qi2-magnets-problem/",
+    date: "2026-02-28",
+    market: "US",
+    note: 'Bär båda sidornas fynd, och det bärande i den är ett citerat tillverkarsvar snarare än publikationens bedömning. Samsung uppgav till 9to5Google att serien saknar inbyggda Qi2-magneter som en del av företagets "commitment to thinner, lighter designs", och att "Galaxy S26 series supports Qi2-compatible phone cases, offering users flexibility without embedding the feature directly into the device". Tillverkaren hänvisar alltså köparen till skalet för en funktion telefonen inte har, samtidigt som Samsung säljer magnetisk powerbank och magnetladdare till serien. ⚠️ Bedömningen att 25 W i praktiken kräver ett magnetiskt skal, eftersom ingen Qi2 25 W-laddare på marknaden saknar magnetisk uppriktning, är publikationens och inte tillverkarens. Den återges som en bedömning och aldrig som en mätning.',
+  },
+  {
+    publisher: "Samsung",
+    title: "Galaxy S26 Ultra, specifikationer",
+    url: "https://www.samsung.com/se/smartphones/galaxy-s26-ultra/specs/",
+    market: "SE",
+    note: "Tillverkarens egen specifikation, läst 2026-08-05. Specifikationen tar varken upp Qi2 eller trådlös laddning, och den enda magnet som nämns är den geo-magnetiska sensorn, alltså kompassen. Det stämmer med Samsungs svar till 9to5Google. ⚠️ Sidan gäller Ultra-modellen; skalsidan rankar basmodellen. Uppgiften används enbart om serien som helhet, aldrig om en enskild modells mått.",
+  },
+  {
+    publisher: "Skal-man.se",
+    title: "Skal eller fodral till Samsung Galaxy S26, S26 Plus och S26 Ultra?",
+    url: "https://skal-man.se/blogs/nyheter/skal-eller-fodral-till-samsung-galaxy-s26-s26-plus-och-s26-ultra",
+    date: "2026-03-25",
+    market: "SE",
+    note: 'Konkurrent, med som mätpunkt och inte som underlag. Enda svenska texten som täcker både skal och fodral till serien. Läst i sin helhet 2026-08-05 och kontrollerad term för term: den rankar ingen produkt, anger inget pris, hänvisar till ingen provning, och nämner varken magnet, Qi2 eller trådlös laddning en enda gång. Påstår dessutom att "Alla våra fodral till Samsung Galaxy S26, S26 Plus och S26 Ultra har även kortfack", vilket beskriver butikens sortiment och inte kategorin. Ingen uppgift är hämtad härifrån.',
+  },
+];
+
+/**
+ * Källor för /galaxy-s26-fodral.
+ *
+ * Delar modellfrågan, magnetfrågan och konkurrenten med skalsidan, och lägger
+ * till de tillverkarkällor som bär fodralsidans specifikationer. De ligger inte
+ * i den delade listan eftersom de bara gäller plånboksfodralen.
+ */
+export const GALAXY_S26_FODRAL_SOURCES: Source[] = [
+  ...GALAXY_S26_SOURCES,
+  {
+    publisher: "Partner Tele.com",
+    title: "Produktkatalog, kabura Mezzo, Tender, Sensitive, Luna och Smart Pro",
+    url: "https://partnertele.com/akcesoria_do_samsung_galaxy_s26/etui_do_samsung_galaxy_s26",
+    market: "PL",
+    note: "Tillverkaren bakom de fem fodral som säljs utan varumärke i Sverige och heter Holster i sin egen katalog. Varje artikel bär två fält som avgör sidans viktigaste kolumn: Wsparcie uchwytów magnetycznych och Wsparcie ładowania bezprzewodowego. Båda står på nie för samtliga fem, alltså varken stöd för magnetiska hållare eller trådlös laddning genom fodralet.\n\nHärifrån kommer också antalet innerfickor: tre för Tender, två för Mezzo, en för Sensitive, Luna och Smart Pro, samt Lunas aluminiumram och silikonhållare. Smart Pro anges som skóra naturalna och TPU, alltså äkta läder, och artikeln heter Smart Pro Book skórzane.\n\nLäst per artikel 2026-08-06 och matchad på EAN mot butikens artikelnummer, eftersom en gissad URL svarar 200 på en sida utan produkten.",
+  },
+  {
+    publisher: "Tech-Protect",
+    title: "Wallet MagSafe, Wallet och Smart Wallet för Galaxy S26",
+    url: "https://tech-protect.eu/pl/products/tech-protect-wallet-magsafe-galaxy-s26-matte-black-187849.html",
+    market: "PL",
+    note: 'Tillverkarens egen butik, läst 2026-08-06. Specifikationstabellen anger MagSafe: Tak för Wallet MagSafe Matte och MagSafe: Nie för Wallet, vilket är skillnaden mellan att kunna hänga på en magnetladdare och att inte kunna det. Matte anger dessutom "ładowanie bezprzewodowe bez zdejmowania etui", alltså trådlös laddning utan att fodralet tas av. Funkcja podstawki står på Tak för båda.\n\nMattes artikelsida räknar upp förpackningens innehåll under Zestaw zawiera, och där står ett enda föremål: "1 × Etui Tech-Protect Wallet MagSafe". Det är grunden för Nej på handledsrem, alltså en uppräkning och inte en tystnad.\n\nFör Smart Wallet beskrivs fönsterfunktionen och att den styrs av en app som laddas ner separat. Antalet kortfack anges inte för någon av de tre, vilket är kontrollerat på tillverkarens sida och inte utläst ur butikstexten.',
+  },
+  {
+    publisher: "Puro",
+    title: "Coque Wallet Stand, Samsung Galaxy S26",
+    url: "https://www.puro.it/fr-eu/products/coque-wallet-stand-samsung-galaxy-s-26",
+    market: "IT",
+    note: "Tillverkarens egen produktsida, läst 2026-08-06 och matchad på artikelnummer PUSGS26BOOKC8BLK, som är samma som butikens MPN. Anger fonction de support, rabat en cuir PU, 2 poches pour cartes, poche d'argent, bordures souples TPU och fermeture magnétique. Modellnamnet är Wallet Stand. Puros eget pris är 29,95 euro, vilket är underlaget för prisjämförelsen i omdömet.",
+  },
+  {
+    publisher: "Celly",
+    title: "Wally, datablad WALLY1163",
+    url: "https://www.celly.com/en/datasheet/wallet-case-wally1163",
+    market: "IT",
+    note: "Tillverkarens datablad, läst 2026-08-06 och matchat på EAN 8021735226284. Anger built-in stand function, inside pockets for cards and documents, hard shell, horizontal closure with magnetic flap och faux leather. ⚠️ Databladets måttfält står på 0 cm i höjd, bredd och längd, och viktangivelsen 30 gram är därför behandlad som platshållardata och inte publicerad, trots att Icecat återger samma tal.",
+  },
+  {
+    publisher: "Icecat",
+    title: "Produktdata för Gear 7319925994572 och Celly 8021735226284",
+    url: "https://icecat.biz/",
+    note: "Strukturerad produktdata, hämtad på GTIN 2026-08-06. Bekräftar för Gear: Trådlös laddning Ja, Skrivbordsstativ Ja, Antal kort fickor 3, Handledsrem ingår Nej och vikt 72 gram. För Celly: Skrivbordsstativ Ja och Antal kort fickor 3, vilket är den andra källan bakom antalet. ⚠️ Tier B, alltså en katalog och inte tillverkaren själv. Nio av elva prövade artikelnummer gav ingen data, antingen bakom betalnivån eller utanför katalogen, vilket aldrig säger något om vad tillverkaren publicerar.",
+  },
+];
+
+/**
  * Källor för /slackspray.
  *
  * ⚠️ Kategorins enda oberoende utvärdering är ett examensarbete, inte en
@@ -4335,10 +5427,11 @@ export const SLACKSPRAY_SOURCES: Source[] = [
   },
   {
     publisher: "Svenska institutet för standarder",
-    title: "SS-EN 3-7:2004, Brand och räddning – Handbrandsläckare – Del 7: Egenskaper, funktionskrav och provningsmetoder",
+    title:
+      "SS-EN 3-7:2004, Brand och räddning – Handbrandsläckare – Del 7: Egenskaper, funktionskrav och provningsmetoder",
     url: "https://www.sis.se/produkter/miljo-och-halsoskydd-sakerhet/skydd-mot-brand/brandbekampning/ssen372004/",
     kind: "standard",
-    note: 'Standarden som avgör vad talen på burken betyder, och skälet till att sidan alls går att skriva. Enligt LTH-rapporten klassas inom EU alla brandsläckningsprodukter avsedda för privatbruk enligt SS-EN 3–7, med undantag för brandfiltar. Det gäller alltså även släcksprayer, vilket är sidans utgångspunkt: sprayen säljs bredvid handbrandsläckaren och mäts med samma måttstock. A avser fibrösa bränslen som trä, textil och kartong, och talet framför är storleken på testbålet; B avser vätskeformiga bränslen och talet är liter n-heptan; C avser gasformiga bränslen och F fettbränder. D för metallbränder omfattas inte av standarden men förekommer ändå på släckare avsedda för det, vilket är relevant för litiumsprayerna. ⚠️ Vi har inte köpt standarden och återger därför ingenting om provvillkoren utöver det rapporten beskriver. Samma hållning som SS-EN 810 på /avfuktare och SS-EN 12453 på /garageportsoppnare.',
+    note: "Standarden som avgör vad talen på burken betyder, och skälet till att sidan alls går att skriva. Enligt LTH-rapporten klassas inom EU alla brandsläckningsprodukter avsedda för privatbruk enligt SS-EN 3–7, med undantag för brandfiltar. Det gäller alltså även släcksprayer, vilket är sidans utgångspunkt: sprayen säljs bredvid handbrandsläckaren och mäts med samma måttstock. A avser fibrösa bränslen som trä, textil och kartong, och talet framför är storleken på testbålet; B avser vätskeformiga bränslen och talet är liter n-heptan; C avser gasformiga bränslen och F fettbränder. D för metallbränder omfattas inte av standarden men förekommer ändå på släckare avsedda för det, vilket är relevant för litiumsprayerna. ⚠️ Vi har inte köpt standarden och återger därför ingenting om provvillkoren utöver det rapporten beskriver. Samma hållning som SS-EN 810 på /avfuktare och SS-EN 12453 på /garageportsoppnare.",
   },
   {
     publisher: "Myndigheten för civilt försvar",
@@ -4395,11 +5488,488 @@ export const IPHONE_FODRAL_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Mjölkskummare.
+ *
+ * Kategorin har en riktig svensk labbprovning, vilket är ovanligt: Råd & Rön
+ * har provat 18 elektriska mjölkskummare med ett provprogram som täcker fem
+ * mjölksorter, skummets fasthet, temperatur, energiförbrukning och ljudnivå.
+ *
+ * ⚠️ Resultaten per modell ligger bakom betalvägg som vi **inte** betalat,
+ * efter användarbeslut 2026-08-05. Därför finns inget testomdömekriterium, och
+ * vi påstår aldrig vilken produkt som vann. Det fria utdraget bär metoden,
+ * betygsspannet och temperaturbandet, och det är allt vi använder. Samma
+ * hållning som Stiftung Warentest på /powerbank.
+ *
+ * ⚠️ `.../mjolkskummare/sa-testar-vi-mjolkskummare/` cirkulerar i sökresultat
+ * men svarar med Råd & Röns egen 404-sida. Länka aldrig den; metodlistan står
+ * på testsidan själv.
+ *
+ * Tillverkarnas egna sidor bär sidans fynd. Severins svenska butik publicerar
+ * skummax och värmemax var för sig genom hela sortimentet, vilket är det som
+ * gör spridningen mätbar.
+ */
+const MJOLKSKUMMARE_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Mjölkskummare – bäst i test: 18 elektriska mjölkskummare",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/mjolkskummare/",
+    date: "2024-09-03",
+    market: "SE",
+    kind: "test",
+    note: "Kategorins enda oberoende labbprovning. Skummar och värmer lättmjölk, mellanmjölk, standardmjölk samt mjölkdryck av soja och mandel, och mäter skummets fasthet, textur och stabilitet, tiden, energiförbrukningen och ljudnivån. Det fria utdraget anger att skummet bör hålla 63 till 67 grader, att volymökningen är måttet på skumkvalitet, och att bara testets bästa klarar alla mjölksorter. Resultat per modell ligger bakom betalvägg vi inte betalat, så inget betyg härifrån knyts till en produkt.",
+  },
+  {
+    publisher: "Severin",
+    title:
+      "Mjölkskummare: Spuma 500 SM 3585, Spuma 700 SM 3586 och SM 3587, SM 3584, SM 3588, Spuma Light 400 SM 3579 och SM 3589",
+    url: "https://www.severinshop.se/category/mjolkskummare",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen svenska butik, och den enda källa som publicerar skummax och värmemax var för sig för varje modell. Sju modeller: 100 av 200 ml, 150 av 300, 220 av 400 två gånger, 120–260 av 500 och 120–350 av 700 två gånger. Spuma 700 anger dessutom justerbar temperatur mellan 45 och 65 grader.",
+  },
+  {
+    publisher: "Philips",
+    title: "Milk Twister mjölkskummare CA6500/63",
+    url: "https://www.philips.se/c-p/CA6500_63/milk-twister-mjolkskummare",
+    market: "SE",
+    kind: "standard",
+    note: "Anger kapaciteten till 120 ml och räknar själv om talet till koppar: mjölkskummet räcker till två cappuccino. Den omräkningen ligger till grund för hur vi beskriver de andra apparaternas storlek, alltså ungefär 60 ml skum per cappuccino. Kannan rymmer 120 ml, så apparaten kan inte värma mer mjölk än den skummar.",
+  },
+  {
+    publisher: "Melitta",
+    title: "Cremio mjölkskummare",
+    url: "https://www.melitta.se/produkter/maskiner/mjoelkskummare/cremio-mjoelkskummare-svart.html",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkaren skriver att man för bästa skumningsresultat bör använda mjölk med högt proteininnehåll, alltså samma sak som labbet fann: resultatet beror på vad som hälls i.",
+  },
+  {
+    publisher: "Melitta",
+    title: "Cremio, bruksanvisning 6758122-04",
+    url: "https://www.melitta.de/media/30/b1/57/1695020835/Cremio.pdf",
+    market: "DE",
+    kind: "standard",
+    note: "Tillverkarens egen manual, läst i original. Anger max fyllnadsmängd till 150 ml mjölkskum och 250 ml varm mjölk, alltså de tal som ligger i tabellen.\n\nHär står också kategorins mest användbara råd: välj en dryck med minst 3 gram protein per 100 gram, eftersom högre halt ger stabilare och finporigare skum. Manualen anger dessutom att soja- och laktosfri mjölk fungerar, och att behållaren och bottenstationen aldrig får maskindiskas medan lock och visp får.",
+  },
+  {
+    publisher: "Sage Appliances",
+    title: "the Milk Café SMF600, bruksanvisning för Norden",
+    url: "https://assets.sageappliances.com/Instruction-Booklets/Nordic/SMF600_The_Milk_Cafe_EU_UG7_A21_LowRes.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen manual, läst i original. Ratten är steglös mellan 40 och 80 grader med 60 utmärkt som optimal mjölktemperatur, vilket är det bredaste temperaturspannet bland de rankade apparaterna.\n\nManualen beskriver också de två vispskivorna Capp och Latté, läget Cold Stir som skummar utan värme, och att kanna, lock och mätkopp tål maskindisk medan skivorna helst handdiskas.",
+  },
+  {
+    publisher: "Severin",
+    title: "Induktions-Milchaufschäumer SM 3585, bruksanvisning",
+    url: "https://d.otto.de/files/952fc75d-8669-5391-a501-3abe66fc2ef5.pdf",
+    market: "DE",
+    kind: "standard",
+    note: "Tillverkarens egen manual, läst i original. Bekräftar Spuma 500:s tre nivåer: minst 120 ml, högst 260 ml för skumning och högst 500 ml för omrörning och uppvärmning, alltså den halvering som sidan bygger på.\n\nSeverin ger samma mjölkråd som Melitta, alltså hög proteinhalt och kylskåpskall mjölk, och ett knep som fungerar på vilken apparat som helst med båda lägena: kör en kall omgång först och en varm direkt efteråt för tätare skum.",
+  },
+  {
+    publisher: "CHiATO",
+    title: "milkPLAY Electric Milk Frother, bruksanvisning",
+    url: "https://img.kavosdraugas.lt/a49e4c08-b14a-4202-ad7f-b1de08f055a7/original/250x210mmchiatofrothermanual-1pdf.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen manual, läst i original. Tekniska data anger minst 75 ml, högst 130 ml mjölkskum och högst 240 ml varm choklad, samt 450 till 550 watt.\n\nManualen slår också fast att apparaten aldrig får sänkas i vatten, eftersom mjölkbehållaren sitter ihop med basen. Den kan alltså inte maskindiskas, vilket cellen tidigare stod tom om.",
+  },
+  {
+    publisher: "RIG-TIG by Stelton",
+    title: "FOODIE electric milk frother",
+    url: "https://www.rig-tig.com/products/foodie-electric-milk-frother",
+    market: "DK",
+    kind: "standard",
+    note: "Tillverkarens egen produktsida. Anger tre program: varmt skum, kallt skum och uppvärmning utan skumning. Anger också att apparaten inte tål maskindisk. Sidan hade tidigare två program och påstod att kallskumsläge saknades.",
+  },
+  {
+    publisher: "Coffee Friend",
+    title: "Elektriska mjölkskummare",
+    url: "https://www.coffeefriend.se/c/koksapparater/mjolkskummare/elektriska-mjolkskummare/",
+    market: "SE",
+    kind: "standard",
+    note: "Priser, artikelnummer och GTIN för fem av de rankade produkterna. Butikens fält Kapacitet (vätskor) bär skummaxet för Bialetti MKF02 och värmemaxet för Bialetti MK01, alltså två storheter i samma fält för samma fabrikat.",
+  },
+  {
+    publisher: "KitchenTime",
+    title: "Mjölkskummare",
+    url: "https://www.kitchentime.se/koksapparater/kaffemaskiner/mjolkskummare/",
+    market: "SE",
+    kind: "standard",
+    note: "Priser för sju av de rankade produkterna. Produktsidan för Severin publicerar båda kapacitetstalen i brödtexten men bara det större i produktnamnet och i det strukturerade fältet.",
+  },
+  {
+    publisher: "Elgiganten",
+    title: "Nespresso Aeroccino 4 mjölkskummare",
+    url: "https://www.elgiganten.se/product/hem-hushall-tradgard/kaffemaskiner-te/tillbehor-till-kaffemaskiner-te/mjolkskummare/nespresso-aeroccino-4-mjolkskummare-12478749/694779",
+    market: "SE",
+    kind: "standard",
+    note: "Enda butiken som skriver ut båda talen i ett och samma fält, Kapacitet skum/mjölk 120/240 ml. Samma sidas brödtext kallar apparaten generös med 240 ml, alltså marknadsföring på det större talet.",
+  },
+  {
+    publisher: "Icecat",
+    title: "Produktdatablad Philips CA6500/63, GTIN 8720389007613",
+    url: "https://icecat.biz/",
+    kind: "standard",
+    note: "Effekt 500 W, skumningstid 130 sekunder, tål maskindisk, sladdlös bas, teflonbehandlad, två års garanti. Slog bara igenom för Philips; Melitta, Sage och Nespresso ligger utanför den öppna katalogen, vilket inte säger något om vad tillverkarna publicerar.",
+  },
+  {
+    publisher: "Bäst i test",
+    title: "Mjölkskummare: 6 produkter i test",
+    url: "https://www.xn--bst-i-test-q5a.se/mjolkskummare",
+    date: "2026-03",
+    market: "SE",
+    kind: "comparison",
+    note: "Namngiven redaktör och uppger eget test under minst sex veckor i ett vanligt hem, bedömt på uppvärmning, användning och rengöring. Nämner ingen mjölksort och ingen temperatur.",
+  },
+  {
+    publisher: "Testkollen",
+    title: "Mjölkskummare bäst i test",
+    url: "https://www.testkollen.se/mjolkskummare-bast-i-test",
+    market: "SE",
+    kind: "comparison",
+    note: "Den utförligaste svenska jämförelsen, och den täcker växtbaserad dryck grundligt med 58 omnämnanden av havre. Ingen temperatur och ingen volymökning.",
+  },
+  {
+    publisher: "Testkompassen",
+    title: "Bästa mjölkskummare",
+    url: "https://www.testkompassen.se/kategorier/hem-och-kok/koeksmaskiner/mjolkskummare",
+    market: "SE",
+    kind: "comparison",
+    note: "Tar upp proteinhalten som förklaring till skumresultatet, vilket ingen annan konkurrent gör. Ingen temperatur.",
+  },
+  {
+    publisher: "Testix",
+    title: "Mjölkskummare bäst i test",
+    url: "https://testix.se/test/mjolkskummare",
+    market: "SE",
+    kind: "comparison",
+    note: "Topplista över fem produkter med jämförelsetabell. Monetiseras via PriceRunner.",
+  },
+  {
+    publisher: "Test.se",
+    title: "Mjölkskummare som är bäst i test",
+    url: "https://www.test.se/mjolkskummare/",
+    market: "SE",
+    kind: "comparison",
+    note: "Rankar elektriska, manuella och handhållna i samma lista, och har egna avsnitt om vilken mjölk som går att använda och hur varm den får bli. Den enda konkurrent som nämner Råd & Rön.",
+  },
+];
+
+/**
+ * Babyvakt.
+ *
+ * Tyngdpunkten ligger på tillverkarnas egna manualer, och det är ett medvetet
+ * val snarare än en nödlösning. Elva manualer besvarar den fråga hela sidan
+ * vilar på — vad föräldraenheten gör när förbindelsen bryts — och ingen enda
+ * butikstext i kategorin gör det fullständigt.
+ *
+ * ⚠️ Råd & Rön förbjuder vidarepublicering av testresultat, tabeller och betyg.
+ * Källan är med för att provningen finns och bär ett datum, aldrig för vad den
+ * kom fram till.
+ */
+export const BABYVAKT_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Test: Babyvakter",
+    url: "https://www.radron.se/tester/barn-familj-husdjur/babyvakter/",
+    date: "2012-06-15",
+    market: "SE",
+    kind: "test",
+    note:
+      "Den enda svenska laboratorieprovningen av babyvakter. Tretton modeller, med tekniskt uppmätt lägsta ljudnivå och en egen axel för vilken varning apparaten ger när signalen bryts.\n\nAlla tretton är borta ur handeln. Testet är med här för att det finns och bär sitt datum, inte som underlag för någon produkt på sidan.",
+  },
+  {
+    publisher: "1177",
+    title: "Plötslig spädbarnsdöd – förebyggande råd",
+    url: "https://www.1177.se/barn--gravid/att-skota-ett-nyfott-barn/plotslig-spadbarnsdod--forebyggande-rad/",
+    date: "2026-01-14",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Sex råd, granskade av specialist i barnmedicin vid Karolinska: sova på rygg, inget nikotin, fritt ansikte och lagom värme, egen säng under tre månader, amning och napp. Anger att ungefär 1 barn på 6 000 drabbas i Sverige.\n\nIngen av åtgärderna är en apparat, och det är utgångspunkten för guidens avsnitt om vad en babyvakt är till för.",
+  },
+  {
+    publisher: "CAPiDi",
+    title: "CAPiDi Premium Baby Monitor – Instruction Manual",
+    url: "https://capidi.com/wp-content/uploads/2024/09/CAPiDi-Premium-manual.pdf",
+    market: "DK",
+    kind: "standard",
+    note:
+      "Anger 863–870 MHz, 12 dBm sändareffekt på babyenheten och 1 000 meters räckvidd i fri sikt. Beskriver larmet vid bruten förbindelse i detalj: efter 30 sekunder, med ljud och blinkande ikon, och med en prioritetsordning mellan larmen.",
+  },
+  {
+    publisher: "CAPiDi",
+    title: "CAPiDi Babyalarm – Instruction Manual",
+    url: "https://capidi.com/wp-content/uploads/2019/07/Babyalarm_A5_manual_170925.pdf",
+    market: "DK",
+    kind: "standard",
+    note:
+      "Anger 800 meter i fri sikt, 109 timmars standby och larm efter 30 sekunder som även utlöses om babyenheten stängts av eller fått slut på batteri.\n\nBär också tillverkarens egen varning om att apparaten inte ska betraktas som medicinteknisk.",
+  },
+  {
+    publisher: "Neonate",
+    title: "User manual BC-5700D",
+    url: "https://neonate.no/wp-content/uploads/2024/12/QG-BC-5700D-v8.pdf",
+    market: "NO",
+    kind: "standard",
+    note:
+      "Larmavsnittet är kategorins mest utförliga. Larmet vid bruten förbindelse går efter 30 sekunder och täcker tre fall: utanför räckvidd, babyenheten avstängd, och att babyenheten inte kan sända, till exempel för att den är trasig.",
+  },
+  {
+    publisher: "Neonate",
+    title: "User manual BC-6900D / BC-6500D",
+    url: "https://neonate.no/wp-content/uploads/2024/12/BC-6X00D-200x150mm-v10.pdf",
+    market: "NO",
+    kind: "standard",
+    note:
+      "Anger larmet vid bruten förbindelse till 30 sekunder och tre fall: enheterna är utanför räckvidd, babyenheten är avstängd, eller dess batteri har tagit slut.\n\nSamma avsnitt bär kategorins viktigaste brasklapp: aktiverar du Zero Radiation stängs larmet av, och funktionen ska enligt tillverkaren bara användas när du vet att enheterna är inom räckhåll.",
+  },
+  {
+    publisher: "Motorola Nursery",
+    title: "PIP10 Digital Audio Baby Monitor – User Guide",
+    url: "https://motorolanursery.com/media/zwhbtmkt/pip10-en_eu_na_v5.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Anger räckvidden till 160 fot inomhus och 1 000 fot utomhus, alltså 49 mot 305 meter. Det är den ena av två manualer på sidan som publicerar båda talen, och grunden för att räkna om metertalet på kartongen.",
+  },
+  {
+    publisher: "Motorola Nursery",
+    title: "PIP15 Audio Baby Monitor – User Guide",
+    url: "https://motorolanursery.com/media/w1neo1aq/pip15-multi_ug_en_v6.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Anger 450 meter i fri sikt, mindre än 0,25 W sändareffekt i EU-utförandet och drifttiden 10 timmar för babyenheten och 9 för föräldraenheten. Beskriver också de fem nivåerna av mikrofonkänslighet.",
+  },
+  {
+    publisher: "Motorola Nursery",
+    title: "VM483 Video Baby Monitor – User Guide",
+    url: "https://motorolanursery.com/media/kj5nnc12/vm483-ug-en-eu-us-v12.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Anger 2 405–2 475 MHz, 2,8-tums skärm och batteritid 5 timmar. Larmet vid bruten förbindelse står inte i huvudavsnittet utan i felsökningen tre sidor senare, vilket är värt att veta för den som letar.",
+  },
+  {
+    publisher: "Philips",
+    title: "Avent SCD892 – User manual",
+    url: "https://www.documents.philips.com/assets/20230725/712136d5b7374d0ba9f8b04a009135d3.pdf",
+    market: "NL",
+    kind: "standard",
+    note:
+      "Anger IEEE 802.11 b/g/n, 2 412–2 472 MHz och högst 20 dBm, alltså den kraftigaste sändaren i jämförelsen. Föräldraenheten har 2 600 mAh och 10 timmars drift i ekoläge.\n\nLarmet vid bruten förbindelse är ett pip var tjugonde sekund plus röd länklampa.",
+  },
+  {
+    publisher: "VTech",
+    title: "DM1212 Audio Baby Monitor – User's guide",
+    url: "https://cdn-vtech-jouets.vtech.com/assets/32813391-90be-41cb-a93e-ffe4ae467ce4/DM1212_UK_CIB_V3_20210831.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Deklarerar sändareffekten till 0,25 W, alltså DECT-klassens toppeffekt, och är därmed måttstocken när andra tillverkare anger sin effekt som en procentandel av DECT.\n\nAnger också 75 meter inomhus mot 460 utomhus, och att apparaten inte är medicinteknisk.",
+  },
+  {
+    publisher: "VTech",
+    title: "VM5254 Video Baby Monitor – Quick start guide",
+    url: "https://cdn-web.vtp-media.com/products/VM/VM5254/VM5254-X_QSG_V7_20201211.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Menyavsnittet visar att pipet när länken mellan enheterna bryts är en inställning du slår på, inte ett larm som är på från början.",
+  },
+  {
+    publisher: "VTech",
+    title: "RM5756HD Smart Wi-Fi Video Monitor – Quick start guide",
+    url: "https://cdn-web.vtp-media.com/products/RM/RM5756/RM5756HD_US_QSG_V2_20221229.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Bekräftar att både strömmen till appen och den lokala föräldraenheten går genom samma babyenhet, och att larmtonen vid bruten länk går att ställa i menyn.",
+  },
+  {
+    publisher: "Bäst i test",
+    title: "Test: Bästa Babyvakten",
+    url: "https://www.xn--bst-i-test-q5a.se/babyvakt",
+    market: "SE",
+    kind: "comparison",
+    note:
+      "Rankar på sammanvägda expertbetyg och monetiseras via Prisjakt. Den är värd att känna till av ett annat skäl än rankningen: CAPiDi anger i sin egen produkttext hos Jollyroom att de är \"Testvinnare 2024 av Bäst-i-Test.se\", så butikens bäst-i-test-brickor pekar hit.",
+  },
+  {
+    publisher: "Prisjakt",
+    title: "Bästa babyvakterna 2026: Expertens 5 toppval",
+    url: "https://www.prisjakt.nu/topplistor/topplista-basta-babyvakten",
+    market: "SE",
+    kind: "comparison",
+    note:
+      "Fem produkter med prisjämförelse. Prisjakt betalar per utklick, vilket förklarar varför listan är byggd för att klickas vidare snarare än för att övertyga.",
+  },
+  {
+    publisher: "Bygghemma",
+    title: "Babyvakt bäst i test 2026",
+    url: "https://www.bygghemma.se/reportage-och-guider/babyvakt-bast-i-test/",
+    market: "SE",
+    kind: "comparison",
+    note:
+      "En av tre butiker som utser en vinnare bland produkter de själva säljer. Tas med för att den ligger på förstasidan och för att läsaren ska kunna se skillnaden mot en jämförelse som länkar till flera butiker.",
+  },
+];
+
+/**
+ * Skaftdammsugare. Underlag i .agent/research/skaftdammsugare.md.
+ *
+ * Sidan vilar på två sorters källor. Råd & Rön bär bilden av vad kategorin
+ * klarar, och tillverkarnas egna datablad bär talen per maskin.
+ *
+ * ⚠️ Råd & Rön förbjuder vidarepublicering av testresultat, tabeller och betyg,
+ * och det står i sidfoten på deras egen sida. Betygen per modell ligger dessutom
+ * bakom en betalvägg på 69 kronor som vi inte betalat. Det fria utdraget bär
+ * provprogrammet och de slutsatser som gäller hela fältet, och det är allt vi
+ * använder. Samma hållning som /robotdammsugare och /mjolkskummare.
+ *
+ * ⚠️ `.../dammsugare/sa-testar-vi-dammsugare/` cirkulerar i sökresultat och
+ * svarar med Råd & Röns egen 404-sida, kontrollerat 2026-08-06. Länka aldrig
+ * den. Metodlistan står på testsidan själv.
+ *
+ * ⚠️ Electrolux egen sida för EP71AB14UG leder vidare till sortimentslistan,
+ * kontrollerat 2026-08-06 med både jina och webbläsare. Därför står NetOnNets
+ * produktsida som källa för den maskinen: det är där hela drifttidsstegen
+ * finns, 40, 20 och 10 minuter. Sidan för ES52CB18UG ligger kvar och används.
+ */
+const SKAFTDAMMSUGARE_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Dammsugare och skaftdammsugare, bäst i test",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/dammsugare/",
+    date: "2025-08-13",
+    market: "SE",
+    kind: "test",
+    note: "46 golvdammsugare och 65 skaftdammsugare mellan 900 och 10 000 kronor, alltså hela marknaden och inte ett urval. Samtliga åtta maskiner i vår jämförelse ingår. Labbet mäter damm, djurhår och smulor från hårt golv och matta, hur lätt maskinen är att använda i trappor, hur filter byts och behållaren töms, batteritiden vid max- och minieffekt, partikelutsläppen och ljudtrycket.\n\nSlutsatserna i det fria utdraget är hårdare än något en butik skriver. Batteritiden vid maximal effekt ligger på sju minuter till en kvart för de skaftdammsugare som toppar testet, och de som håller närmare en halvtimme orkar inte få upp damm ur springorna i parkett eller klinker. De sämsta släpper igenom upp till nio procent av partiklarna igen, och de sämre skaftmodellerna saknar utblåsfilter helt.\n\nMoppfunktionen underkänns rakt av: labbet moppade lera och choklad på samma sätt som på robotdammsugarna och kom till samma resultat. Betygen per modell ligger bakom betalvägg och återges inte här.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Staubsauger im Test: Akkustaubsauger und Bodenstaubsauger",
+    url: "https://www.test.de/Staubsauger-im-Test-1838262-0/",
+    market: "DE",
+    kind: "test",
+    note: "Det tyska labbets löpande jämförelse av batteridrivna och sladdburna dammsugare, med i huvudsak samma fabrikat som säljs här. Resultaten per modell ligger bakom betalvägg som vi inte betalat, så ingen produkt på sidan bär ett betyg härifrån.",
+  },
+  {
+    publisher: "Bosch",
+    title: "Sladdlös dammsugare Unlimited 10 BSS1041GHF, tekniskt datablad",
+    url: "https://media3.bosch-home.com/Documents/specsheet/sv-SE/BSS1041GHF.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Kategorins mest genomskinliga dokument, och det som gav sidan sin vinkel. Bosch anger drifttiden i fyra steg för samma maskin och samma batteri: 80 minuter i ekoläge med ett tillbehör utan motor, 65 i ekoläge med det motoriserade golvmunstycket, 25 i autoläge och 11 i turboläge.\n\nHärifrån kommer också ljudnivån 80 dB(A), vikten 2,9 kilo, HEPA-filtreringen på 99,99 procent, de tio årens motorgaranti och reparationsindex 9,8.",
+  },
+  {
+    publisher: "Dyson",
+    title: "Dyson V15 Detect Absolute",
+    url: "https://www.dyson.se/dammsugare/sladdlosa/v15/2023",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen svenska sida, som anger 240 luftwatt i maxläge, 60 minuters drifttid, 0,77 liters behållare, 3,1 kilo och 4,5 timmars laddning. Filtreringen beskrivs som helt förseglad genom hela maskinen ned till 0,1 mikrometer.",
+  },
+  {
+    publisher: "Philips",
+    title: "Philips 5000 Series sladdlös dammsugare XC5141/01",
+    url: "https://www.home-appliances.philips/se/sv/p/XC5141_01",
+    market: "SE",
+    kind: "standard",
+    note: "Den andra tillverkaren som publicerar båda drifttiderna: 60 minuter i ekoläge och 15 i turboläge. Philips skriver dessutom ut villkoret i en fotnot, att båda talen gäller enbart handenheten utan golvmunstycke, vilket ingen butikstext återger.",
+  },
+  {
+    publisher: "Electrolux",
+    title: "Electrolux 500 skaftdammsugare ES52CB18UG",
+    url: "https://www.electrolux.se/homecare/vacuum-cleaners/stick-vacuum-cleaners/cordless-sticks/es52cb18ug/",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens sida för den billigaste Electrolux i jämförelsen. Härifrån kommer 45 minuters drifttid på lägsta nivå, sugeffekten 29 luftwatt, dammbehållaren på 0,3 liter, 79 dB(A), 2,8 kilo och att batteriet går att byta.",
+  },
+  {
+    publisher: "NetOnNet",
+    title: "Electrolux Animal 700 Cordless EP71AB14UG",
+    url: "https://www.netonnet.se/art/hem-fritid/dammsugare-rengoring/skaftdammsugare/electrolux-animal-700-cordless-ep71ab14ug/1028078.9265/",
+    market: "SE",
+    kind: "standard",
+    note: "Butikens specifikationsruta bär hela drifttidsstegen för Animal 700: 40 minuter på lägsta effekt, 20 på normal och 10 på högsta. Härifrån kommer också 95 luftwatt, luftflödet 12,5 liter i sekunden, 0,3 liters behållare, 14,4 volt och att maskinen är provad enligt IEC 62885-2 och IEC 62885-4.",
+  },
+  {
+    publisher: "Dreame",
+    title: "Dreame Z30 sladdlös dammsugare",
+    url: "https://se.dreametech.com/products/z30",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens svenska butik, som anger 310 luftwatt, 150 000 varv per minut, 99,99 procents filtrering vid 0,1 mikrometer, 0,6 liters behållare, 90 minuters maximal drifttid och åtta battericeller på 3 200 mAh. Talen är uppmätta i Dreames eget labb, vilket de skriver ut.",
+  },
+  {
+    publisher: "Samsung",
+    title: "Samsung Jet 85 Multi VS20C852CTN/WA",
+    url: "https://www.samsung.com/se/vacuum-cleaners/stick/vs9500al-stick-more-advance-cleaning-performance-hexajet-motor-jet-cyclone-green-vs20c852ctn-wa/",
+    market: "SE",
+    kind: "standard",
+    note: "Anger 210 luftwatt, en timmes drifttid, femskiktsfiltrering som håller kvar 99,999 procent av mikrodammet och en helt tvättbar dammbehållare på 0,8 liter. Samsung skriver också ut att luftwatten är uppmätt vid inloppet till ett verktyg utan motor med tom behållare, vilket är den fotnot som gör talet jämförbart med andras.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Xiaomi Vacuum Cleaner G20 Lite skaftdammsugare",
+    url: "https://www.kjell.com/se/produkter/hem-fritid/stadning-rengoring/dammsugare/skaftdammsugare/xiaomi-vacuum-cleaner-g20-lite-skaftdammsugare-p24936",
+    market: "SE",
+    kind: "standard",
+    note: "Butikens specifikationslista för den billigaste maskinen i jämförelsen, med 18 000 pascal, 40 till 45 minuters drifttid i standardläge och 15 i turboläge, 2 200 mAh på 22,2 volt, 0,5 liters behållare och femstegsfiltrering som håller kvar 99,9 procent av partiklar ned till 0,3 mikrometer.",
+  },
+  {
+    publisher: "Bäst i test",
+    title: "Skaftdammsugare: 12 modeller i test",
+    url: "https://www.xn--bst-i-test-q5a.se/skaftdammsugare",
+    market: "SE",
+    kind: "comparison",
+    note: "Längst av jämförelserna, 7 261 ord, och den enda som rankar tolv modeller. Ingen oberoende provning nämns och ingen drifttid vid full effekt anges.",
+  },
+  {
+    publisher: "M3",
+    title: "Bästa skaftdammsugare 2026, stort test av populära modeller",
+    url: "https://www.m3.se/article/2168937/skaftdammsugare-test.html",
+    market: "SE",
+    kind: "comparison",
+    note: "Teknikredaktionens genomgång, 2 557 ord, med egna intryck av varje maskin. Pengarna kommer från klick vidare till PriceRunner, och drifttiderna som anges är kartongens.",
+  },
+  {
+    publisher: "Prisjakt",
+    title: "Bästa skaftdammsugaren, expertens bäst i test",
+    url: "https://www.prisjakt.nu/topplistor/basta-skaftdammsugaren",
+    market: "SE",
+    kind: "comparison",
+    note: "Prisjämförarens egen topplista. Kortast av jämförelserna, 1 438 ord, och byggd för att skicka läsaren vidare till en butik snarare än för att skilja maskinerna åt.",
+  },
+  {
+    publisher: "Bäst24",
+    title: "Skaftdammsugare, sladdlös dammsugare, bäst i test 2026",
+    url: "https://bast24.se/skaftdammsugare/",
+    market: "SE",
+    kind: "comparison",
+    note: "Den enda jämförelse som hänvisar till Råd & Rön, men till en uppdatering från september 2022 och med testvinnare som inte längre säljs. Köpguiden är däremot den mest genomarbetade av konkurrenternas, med egna avsnitt om utbytbara batterier och batteriets livslängd.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/skaftdammsugare": SKAFTDAMMSUGARE_SOURCES,
+  "/babyvakt": BABYVAKT_SOURCES,
+  "/mjolkskummare": MJOLKSKUMMARE_SOURCES,
+  "/powerstation": POWERSTATION_SOURCES,
   "/iphone-fodral": IPHONE_FODRAL_SOURCES,
   "/slackspray": SLACKSPRAY_SOURCES,
+  "/bluetooth-hogtalare": BLUETOOTH_HOGTALARE_SOURCES,
   "/iphone-skarmskydd": IPHONE_SKARMSKYDD_SOURCES,
   "/iphone-skal": IPHONE_SKAL_SOURCES,
+  "/galaxy-s26-skal": GALAXY_S26_SOURCES,
+  /* Delade källor: modellfrågan, magnetfrågan och konkurrenten gäller båda
+     sidorna, och Skal-mans guide behandlar skal och fodral i samma text. */
+  "/galaxy-s26-fodral": GALAXY_S26_FODRAL_SOURCES,
   "/powerbank-20000": POWERBANK_20000_SOURCES,
   "/powerbank": POWERBANK_SOURCES,
   "/smart-garageportsoppnare": SMART_GARAGEPORTSOPPNARE_SOURCES,
@@ -4440,7 +6010,9 @@ export const SOURCES_BY_HREF: Record<string, Source[]> = {
 
 /** Samma källa kan citeras av flera kategorier. Räkna den en gång. */
 function dedupeByUrl(sources: Source[]): Source[] {
-  return sources.filter((s, i, all) => all.findIndex((x) => x.url === s.url) === i);
+  return sources.filter(
+    (s, i, all) => all.findIndex((x) => x.url === s.url) === i,
+  );
 }
 
 /**

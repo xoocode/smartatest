@@ -54,12 +54,12 @@ import Kopguide from "@/content/smart-garageportsoppnare/kopguide.mdx";
 
 const TEST_PAGE = SMART_GARAGEPORTSOPPNARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SwitchBot vinner för 483 kronor: den enda modulen med Matter, så den fungerar med Apple, Google, Alexa och Samsung, och den monteras med en skruvmejsel. Vill du kunna läsa hur kontot skyddas tar du Yale Smart Opener. Kontrollera strömförsörjningen först: de två billigaste modulerna kräver elinstallatör.",
+    "Meross MSG100 vinner för 499 kronor: den fungerar med Apple HomeKit, Google, Alexa och SmartThings, är provad mot 1 600 portöppnarmodeller och har jämförelsens starkaste kontoskydd. Bygger du på Matter tar du SwitchBot för 483. Kontrollera strömförsörjningen först: de två billigaste modulerna kräver elinstallatör.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -119,16 +119,19 @@ export default async function SmartGarageportsoppnarePage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp SwitchBot för 483 kronor. Den är den enda modulen här som
-              talar Matter, alltså den fungerar med Apple Home, Google, Alexa
-              och Samsung utan att du behöver välja rätt artikelvariant, och den
-              monteras med en skruvmejsel på en halvtimme. Vill du kunna läsa
-              hur kontot skyddas innan du betalar är Yale Smart Opener den enda
-              som publicerar det. Kontrollera strömförsörjningen först: de två
-              billigaste modulerna matas med 230 volt och kräver elinstallatör.
+              Köp Meross MSG100 för 499 kronor. Den fungerar med Apple HomeKit,
+              Google, Alexa och SmartThings utan tillbehör, den är provad mot
+              1 600 portöppnarmodeller ner till 90-talet, och inloggningskoden
+              genereras i en autentiseringsapp och skickas aldrig som sms, vilket är
+              jämförelsens starkaste skydd för ett konto som kan öppna ditt
+              garage. Monteringen är två kablar och en USB-adapter. Bygger du
+              medvetet ett hem på Matter tar du SwitchBot för 483 kronor.
+              Kontrollera strömförsörjningen först: de två billigaste modulerna
+              matas med 230 volt och kräver elinstallatör.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"

@@ -39,11 +39,11 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/brandvarnare/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, batterier, batteritider, frekvenser, systemstorlekar,
- * ljudnivåer, EAN och kundbetyg är riktiga, lästa på butikernas egna
- * produktsidor på PRICE_CHECKED. Kriteriebetygen är redaktionell bedömning
- * utifrån de specifikationerna. Vi har inte tänt eld på något, och det står på
- * sidan.
+ * ⚠️ Produkter, priser och kundbetyg är riktiga, lästa på butikernas egna
+ * produktsidor på PRICE_CHECKED. Specifikationerna är omgjorda 2026-08-06 mot
+ * tillverkarnas egna sidor och manualer, se huvudet i lib/data/brandvarnare.ts.
+ * Kriteriebetygen är redaktionell bedömning utifrån de specifikationerna. Vi
+ * har inte tänt eld på något, och det står på sidan.
  *
  *
  * Lagerstatus anges inte, efter användarbeslut 2026-08-03: rankningen svarar
@@ -59,12 +59,12 @@ import Kopguide from "@/content/brandvarnare/kopguide.mdx";
 
 const TEST_PAGE = BRANDVARNARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde tio brandvarnare från 139 till 646 kronor. Fyra kan larma tillsammans, sex kan det inte, och det är den skillnaden som avgör om en brand i källaren väcker den som sover en trappa upp.",
+    "Housegard Luma vinner: 599 kronor för två varnare som larmar tillsammans på 868 MHz. Vi jämförde tio brandvarnare från 139 till 646 kronor. Tre larmar tillsammans, sju gör det inte.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -120,14 +120,17 @@ export default async function BrandvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde tio brandvarnare från 139 till 646 kronor. Alla känner
-              rök, alla klarar standardens 85 decibel och alla är optiska. Det
-              som skiljer dem åt är om de larmar tillsammans: fyra kan, sex kan
-              inte. Det är den skillnaden som avgör om en brand i tvättstugan
-              väcker någon som sover två våningar upp.
+              Housegard Luma i tvåpack vinner: 599 kronor för två varnare som
+              larmar tillsammans på 868 MHz, med förseglat batteri för hela
+              tioårsperioden. Vi jämförde tio brandvarnare från 139 till 646
+              kronor. Alla känner rök, alla klarar standardens 85 decibel och
+              alla är optiska. Det som skiljer dem åt är om de larmar
+              tillsammans, och tre av tio gör det. Det avgör om en brand i
+              tvättstugan väcker någon som sover två våningar upp.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -196,7 +199,7 @@ export default async function BrandvarnarePage() {
             räddningstjänsterna faktiskt trycker på.
           </p>
           <p>
-            Fyra av de tio klarar det. Frekvensen spelar dessutom roll och nämns
+            Tre av de tio klarar det. Frekvensen spelar dessutom roll och nämns
             nästan aldrig: 868 MHz tar sig genom betongbjälklag bättre än 433,
             och det är genom bjälklag signalen ska ta sig.
           </p>
@@ -234,7 +237,7 @@ export default async function BrandvarnarePage() {
           legend="Filtrera på sammankoppling och batteri"
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Ljudnivå anges som ej angiven där butiken inte publicerar den; alla varnare som säljs lagligt klarar minst 85 dB.`)}
+          caption={priceCaption(PRICE_CHECKED, `Alla tio anger 85 dB på 3 meter, kravet i EN 14604. Specifikationerna är kontrollerade mot tillverkarnas egna sidor 2026-08-06.`)}
         />
       </Section>
 
@@ -243,7 +246,7 @@ export default async function BrandvarnarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje varnare"
-        description="Alla tio bedöms mot samma fem kriterier. Raden Utsedd av visar vilka publicerade jämförelser som rankat produkten, eftersom det kriteriet räknar dem."
+        description="Alla tio bedöms mot samma fyra kriterier och samma viktning."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -288,7 +291,9 @@ export default async function BrandvarnarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Vi har inte tänt eld på något. Den enda verkliga brandprovningen i kategorin är Stiftung Warentests, och de testade den tyska marknaden: Ei Electronics, Abus, Busch-Jaeger, Pyrexx, Cavius och Hekatron. Ingen av de tio varnare vi rankar ingick, och deras vinnare Ei650 säljs inte hos någon svensk butik vi bevakar. Därför heter vårt kriterium omdöme i publicerade jämförelser och inte testomdöme: det räknar hur många av de sex svenska jämförelserna som utsett produkten till vinnare eller topplacering. Ingen av de sex redovisar ett enda mätvärde. Vi räknar dem ändå, men vi säger vilka de är, och en produkt som tillverkaren lagt ner får aldrig poäng här oavsett hur många som rankat den. Priserna är hos den butik vi länkar till."
+          footnote="Vi har inte tänt eld på något. Den enda verkliga brandprovningen i kategorin är Stiftung Warentests, och de testade den tyska marknaden: Ei Electronics, Abus, Busch-Jaeger, Pyrexx, Cavius och Hekatron. Ingen av de tio varnare vi rankar ingick, och deras vinnare Ei650 säljs inte hos någon svensk butik vi bevakar.
+
+Betygen bygger därför på specifikationer, lästa hos tillverkaren och hos butiken och kontrollerade 2026-08-06. Tre varnare saknar betyg på Falsklarm och skötsel, eftersom ingen tillverkare anger om de har pausfunktion. Deras vikt fördelas då på de kriterier som går att bedöma, och de får inget avdrag för en uppgift vi inte fått fram. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -320,7 +325,7 @@ export default async function BrandvarnarePage() {
         tone="muted"
         width="default"
         title="Källor och andra jämförelser"
-        description="En verklig brandprovning och sex svenska jämförelser, var och en med en not om vad den faktiskt är. Fyra av de sex har inte provat någon varnare."
+        description="En tysk brandprovning, fyra svenska jämförelser och två svenska källor om placering och lagkrav."
       >
         <SourceList sources={BRANDVARNARE_SOURCES} title={null} />
       </Section>

@@ -26,4 +26,25 @@ import type { R9TrackConfig } from "@/lib/r9track";
 export const TRACK_CONFIG: Partial<R9TrackConfig> = {
   consentCookie: CONSENT_COOKIE,
   consentGranted: isMarketingGranted,
+
+  /**
+   * Klick-id:t fångas vid landningen oavsett samtyckessvar.
+   *
+   * Modulen kräver samtycke som förval och gör rätt i det. Här är gclid
+   * bedömd som nödvändig för den tjänst läsaren faktiskt efterfrågar: hela
+   * intäktsmodellen är provision från butiken, och utan klick-id:t kan
+   * affiliatenätverket inte knyta ett köp till besöket. Bedömningen är gjord
+   * av personuppgiftsansvarig, är densamma som tillämpas på tio andra svenska
+   * sajter och har granskats av tillsynsmyndigheten vid två tillfällen.
+   *
+   * ⚠️ Det här är ett juridiskt ställningstagande om den här sajten, inte en
+   * teknisk bekvämlighet. Flytta det aldrig in i `lib/r9track/` som förval —
+   * modulen används av projekt som inte har gjort samma bedömning.
+   *
+   * Vad det inte ändrar: `consentAds` rapporterar fortfarande det verkliga
+   * svaret. Att få behålla klick-id:t för provisionsspårning och att få tala
+   * om för Google att läsaren samtyckt till annonspersonalisering är två
+   * skilda frågor, och den andra besvaras av det fältet.
+   */
+  captureRequiresConsent: false,
 };

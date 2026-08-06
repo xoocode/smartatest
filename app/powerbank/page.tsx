@@ -42,8 +42,11 @@ import Kopguide from "@/content/powerbank/kopguide.mdx";
  * laptopklassen från 20 000 mAh får /powerbank-20000, efter användarbeslut
  * 2026-08-05. Systersida till /usb-c-laddare och /usb-c-kabel.
  *
- * Priser, artikelnummer, kundbetyg och specifikationer är lästa hos Kjell på
- * PRICE_CHECKED.
+ * Priser, artikelnummer och kundbetyg är lästa hos Kjell på PRICE_CHECKED.
+ * Specifikationerna är kompletterade ur tillverkarnas manualer 2026-08-06.
+ *
+ * ⚠️ Kriteriet `Öppen redovisning` togs bort 2026-08-06 och vinnaren ändrades.
+ * Se lib/corrections.ts och filhuvudet i lib/data/powerbank.ts.
  *
  * ⚠️ Alla åtta länkar går till Kjell. Koncentrationen står utskriven på sidan,
  * samma lösning som /smart-hem-hubb och /usb-c-laddare.
@@ -54,12 +57,12 @@ import Kopguide from "@/content/powerbank/kopguide.mdx";
 
 const TEST_PAGE = POWERBANK;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Anker Nano 30 W vinner för 799 kronor: kabeln sitter fast i enheten, 30 watt åt båda hållen och 10 000 mAh som motsvarar 37 wattimmar. Vill du ha samma fart billigare tar du Linocell Premium 30 W för 499,90. Räkna med två telefonladdningar av 10 000 mAh, inte tre.",
+    "Anker Nano 45 W vinner för 699 kronor: 45 watt räcker till en bärbar dator, kabeln rullas ut ur enheten och 37 wattimmar laddas fulla på två timmar. Vill du ha mest energi per krona kostar Linocell 10000 249,90 och rymmer lika många wattimmar. Räkna med två telefonladdningar av 10 000 mAh, inte tre.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -70,7 +73,7 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
-  { id: "wattimmen", label: "Talet som avgör vid gaten" },
+  { id: "wattimmen", label: "Talet på kartongen är inte energin" },
   { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "recensioner", label: "Recensioner av varje powerbank" },
   { id: "andra-powerbanks", label: "Andra vi övervägde" },
@@ -118,12 +121,12 @@ export default async function PowerbankPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Anker Nano 30 W för 799 kronor. Kabeln sitter fast i enheten,
-              så den kan inte glömmas hemma, den laddar med 30 watt åt båda
-              hållen och dess 10 000 mAh motsvarar 37 wattimmar. Vill du ha
-              samma fart billigare kostar Linocell Premium 30 W 499,90 och
-              skriver också ut sina wattimmar. Räkna med att 10 000 mAh ger en
-              telefon två laddningar, inte tre.
+              Köp Anker Nano 45 W för 699 kronor. Den ger 45 watt ut, vilket
+              räcker till en lättare bärbar dator och inte bara till telefonen,
+              kabeln dras ut ur enheten och rullas in själv, och dess 37
+              wattimmar fylls på två timmar. Ska pengarna räcka längst rymmer
+              Linocell 10000 lika många wattimmar för 249,90. Räkna med att
+              10 000 mAh ger en telefon två laddningar, inte tre.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -171,8 +174,8 @@ export default async function PowerbankPage() {
       <Section
         id="wattimmen"
         width="default"
-        title="Två av åtta anger wattimmar, och det är talet som avgör vid gaten"
-        description="Kapaciteten står i milliamperetimmar. Flygreglerna är skrivna i wattimmar."
+        title="Samma 10 000 mAh rymmer 36, 37 eller 38,5 wattimmar"
+        description="Talet på kartongen är inte energin. Skillnaden mellan de fyra tiotusenmodellerna här är sju procent."
       >
         <Prose>
           <p>
@@ -185,31 +188,31 @@ export default async function PowerbankPage() {
           </p>
           <p>
             <strong>
-              Transportstyrelsen sätter sina gränser i wattimmar:
+              Fyra av produkterna här heter 10 000 mAh och rymmer olika mycket.
             </strong>{" "}
-            upp till 100 Wh i handbagage, 100 till 160 Wh med flygbolagets
-            godkännande och högst två batterier, och över 160 Wh inte alls. Den
-            regel som oftast ställer till det är dock en annan och gäller alla
-            storlekar: en powerbank får aldrig ligga i det incheckade bagaget.
-            Inte den minsta, inte den billigaste.
+            Linocell Premium anger 36 wattimmar, Anker Nano och Linocell 10000
+            anger 37, och Linocell Magnetisk anger 38,5. Skillnaden är
+            cellspänningen: 3,6 volt i den första, 3,7 i de två i mitten och
+            3,85 i den sista. Det är sju procent mer energi i den ena änden än i
+            den andra, bakom ett identiskt tal på förpackningen.
+          </p>
+          <p>
+            <strong>Praktiskt betyder det två saker.</strong> Jämför du två
+            märken mot varandra är milliamperetimmen inte ett mått du kan lita
+            på, utan wattimmen. Och räknar du själv om mAh till Wh kan du hamna
+            sju procent fel, vilket är skälet till att vi bara publicerar det tal
+            tillverkaren själv angett.
           </p>
           <p>
             <strong>
-              Av de åtta powerbanks som jämförs här anger två sitt
-              energiinnehåll i wattimmar.
+              Transportstyrelsen sätter dessutom sina gränser i wattimmar:
             </strong>{" "}
-            Anker Nano 30 W anger 37 Wh och Linocell Premium 30 W anger 36 Wh för
-            samma nominella 10 000 mAh. Att de två som räknat får olika svar
-            beror på att cellspänningen skiljer sig, och det är skälet till att
-            vi inte räknar om åt de sex som är tysta. Ett uträknat tal är inte
-            ett publicerat.
-          </p>
-          <p>
-            <strong>I den här storleksklassen är risken praktisk noll.</strong>{" "}
-            5 000 till 10 000 mAh blir 18 till 37 wattimmar och ligger tryggt
-            under varje gräns som finns. Talet börjar spela roll först runt
-            27 000 mAh, där hundragränsen passeras, och det är också där
-            tillverkarna plötsligt börjar skriva ut det.
+            upp till 100 Wh i handbagage, 100 till 160 Wh med flygbolagets
+            godkännande och högst två batterier, och över 160 Wh inte alls. I den
+            här storleken är det ingen praktisk risk: 18,5 till 38,5 wattimmar
+            ligger tryggt under varje gräns. Den regel som oftare ställer till
+            det gäller alla storlekar, nämligen att en powerbank aldrig får
+            ligga i det incheckade bagaget. Inte den minsta, inte den billigaste.
           </p>
         </Prose>
       </Section>
@@ -295,7 +298,11 @@ export default async function PowerbankPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Kapaciteten väger 35 därför att det är den fråga läsaren kommer med, och öppen redovisning 15 därför att den avgör om svaret går att kontrollera. Där energiinnehållet i wattimmar inte är angivet har vi låtit cellen stå tom i stället för att räkna om milliamperetimmarna, eftersom cellspänningen varierar: de två tillverkare som faktiskt räknat anger 36 respektive 37 wattimmar för samma nominella tiotusen. Att uppgiften saknas räknas som en brist, eftersom en egenskap du inte kan kontrollera före köpet är sämre för dig än en du kan, och konsekvensen bärs av dig. Tre av produkterna saknar teknisk specifikation helt i butiken, vilket syns som streck på flera rader. Kategorin har en riktig labbprovning, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och därför finns inget kriterium för testomdöme. Samtliga åtta länkar går till samma butik, eftersom den för hela storleksklassen i ett sortiment som gick att kartlägga produkt för produkt."
+          footnote={
+            "Kapaciteten väger 41 därför att det är den fråga läsaren kommer med, och den mäts i wattimmar eftersom milliamperetimmen svajar sju procent mellan tillverkarna. Där en tillverkare inte publicerat sin wattimme står ett streck, och produkten betygsätts på sin kapacitet i milliamperetimmar. Vi räknar aldrig om åt någon, och en uppgift vi inte hittat sänker aldrig ett betyg.\n\n" +
+            "Specifikationerna är hämtade ur tillverkarnas egna manualer och användarguider 2026-08-06, i flera fall ur dokument butiken själv länkar från produktsidan. Kategorin har en riktig labbprovning, men resultaten per modell ligger bakom en betalvägg vi inte betalat, och den svenska provning som finns täcker en av de åtta. Därför har sidan inget kriterium för testomdöme.\n\n" +
+            "Samtliga åtta länkar går till samma butik, eftersom den för hela storleksklassen i ett sortiment som gick att kartlägga produkt för produkt."
+          }
         />
       </Section>
 
@@ -327,7 +334,7 @@ export default async function PowerbankPage() {
         tone="muted"
         width="default"
         title="Källor och andra tester"
-        description="Stiftung Warentests provning av 24 powerbanks, Transportstyrelsens regler för batterier i bagage och butikens egna produktdata."
+        description="Stiftung Warentests provning av 24 powerbanks, Ljud & Bilds test av fjorton, Transportstyrelsens regler för batterier i bagage och tillverkarnas egna manualer."
       >
         <SourceList sources={POWERBANK_SOURCES} title={null} />
       </Section>

@@ -55,6 +55,7 @@ export function WinnerCard({
       productId={product.id}
       productName={fullName(product)}
       placement="winner-card"
+      position={1}
       size="2xl"
       note={ctaNote}
       block

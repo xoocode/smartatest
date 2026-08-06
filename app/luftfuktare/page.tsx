@@ -65,12 +65,12 @@ import Kopguide from "@/content/luftfuktare/kopguide.mdx";
 
 const TEST_PAGE = LUFTFUKTARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SweSIAQ skriver att man i allmänhet bör undvika konstgjord befuktning av luften, och Folkhälsomyndigheten namnger 45 procent vid 21 grader. Butikerna marknadsför 40 till 60. Vi jämförde tolv luftfuktare från 399 till 1 999 kronor på fuktreglering och hygien.",
+    "Philips 5000 för 1 999 kronor vinner: enda apparaten som låter dig ställa målfukten fritt mellan 30 och 70 procent på maskinen själv, och den avdunstar i stället för att spruta ut tankens innehåll. Tolv luftfuktare från 399 kronor, vägda på fuktreglering och hygien.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -128,17 +128,19 @@ export default async function LuftfuktarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Svenska föreningen för inomhusmiljö skriver att man i allmänhet
-              bör undvika konstgjord befuktning av luften. Folkhälsomyndigheten
-              namnger 45 procent vid 21 grader som en indikation för att kräva
-              undersökning av bostaden. Butikerna marknadsför 40 till 60. Ingen
-              av de sju svenska jämförelser vi läst nämner något av det. Har du
-              ändå bestämt dig jämförde vi tolv luftfuktare från 399 till 1 999
-              kronor på två frågor: om apparaten kan sluta fukta, och om den
-              skickar ut tankens innehåll i rummet.
+              <strong>Philips 5000 för 1 999 kronor</strong> är den enda av tolv
+              luftfuktare där du ställer målfukten fritt, 30 till 70 procent i
+              steg om fem, på maskinen själv. Den avdunstar dessutom vattnet i
+              stället för att finfördela tankens innehåll ut i rummet, och drar
+              8 watt, lägst av alla. Vi jämförde tolv apparater från 399 kronor
+              på två frågor: om den kan sluta fukta, och om den skickar ut
+              tankens innehåll i rummet. Och på en tredje, som ingen ställer:
+              svenska föreningen för inomhusmiljö avråder från konstgjord
+              befuktning över huvud taget.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -188,7 +190,7 @@ export default async function LuftfuktarePage() {
         id="normen"
         width="default"
         title="Expertorganet avråder från hela produktkategorin"
-        description="Det står i klartext, och ingen svensk jämförelse citerar det."
+        description="Två svenska normkällor, lästa i original, och det enda fukttal en myndighet namnger."
       >
         <Prose>
           <p>
@@ -283,12 +285,12 @@ export default async function LuftfuktarePage() {
             Det är därför hygien och teknik väger 25 av 100 hos oss.
           </p>
           <p>
-            <strong>Och det syns inte på produktnamnet.</strong> Två av
-            apparaterna här hamnade långt från där namnet antydde. Xiaomi Smart
-            Humidifier Pro fuktar enligt butikens egen text genom naturlig
-            avdunstning utan synlig dimma, och gick från botten till andra
-            plats. Wilfa Dew TX450 kostar lika mycket som vår testvinnare och
-            beskrivs av butiken som ultrasonisk. Den hamnade sist.
+            <strong>Och det syns inte på produktnamnet.</strong> Xiaomi Smart
+            Humidifier Pro låter vattnet avdunsta utan synlig dimma, trots att
+            varken namnet eller prisklassen antyder det, och ligger tvåa. Wilfa
+            Dew TX450 kostar lika mycket som vår testvinnare och är ultraljud,
+            vilket kostar den hälften av hygienbetyget, men den fuktar 70
+            kvadratmeter, störst av alla tolv, och håller nivån du ställt in.
           </p>
         </Prose>
       </Section>
@@ -317,7 +319,7 @@ export default async function LuftfuktarePage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Teknik, kapacitet, tankvolym, ytor, ljudnivåer och effekt är butikens egna uppgifter. Där en uppgift står som anges inte betyder det att butiken inte publicerar den, inte att egenskapen saknas. Det gäller effekt för två av apparaterna, ställbar fukt för en och rumsyta för en.`)}
+          caption={priceCaption(PRICE_CHECKED, `Teknik, målfuktighet, kapacitet, tankvolym, ytor och effekt är hämtade ur tillverkarnas manualer och produktblad, kontrollerade 6 augusti 2026. Effekten mäts på högsta läget där tillverkaren anger ett spann.`)}
         />
       </Section>
 
@@ -362,8 +364,20 @@ export default async function LuftfuktarePage() {
             <strong>Fyra av tolv är Beurer.</strong> Det beror på att Beurer
             dominerar Apoteas sortiment, och Apotea är en av få svenska butiker
             med bredd i kategorin. De fyra hamnar dessutom på fyra olika
-            platser i rankningen, från tredje till åttonde, vilket är rimligt
+            platser i rankningen, från tredje till nionde, vilket är rimligt
             eftersom två av dem är förångare och två är ultraljud.
+          </p>
+          <p>
+            <strong>
+              Den 6 augusti 2026 rättade vi tolv uppgifter och flyttade två
+              produkter.
+            </strong>{" "}
+            Vi hade byggt sidan på butikernas specifikationstabeller och
+            publicerat sju uppgifter som obefintliga när de i själva verket
+            stod i tillverkarens manual eller i löptexten på samma produktsida.
+            Wilfa Dew TX450 gick från tolfte till sjätte plats när det visade
+            sig att den har en hygrostat och fuktar 70 kvadratmeter. Allt står
+            på <a href="/rattelser">rättelsesidan</a>.
           </p>
         </Prose>
       </Section>
@@ -373,7 +387,7 @@ export default async function LuftfuktarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje luftfuktare"
-        description="Alla tolv bedöms mot samma fem kriterier. Uppgifterna är butikens egna, inte kontrollerade av oss."
+        description="Alla tolv bedöms mot samma fem kriterier. Vi har inte provat någon apparat."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -418,7 +432,7 @@ export default async function LuftfuktarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Fuktreglering och hygien väger tillsammans 50 av 100, eftersom de svarar på var sin halva av den enda verkliga risken: att apparaten fuktar mer än du vill, och att den skickar ut tankens innehåll i rummet. Fuktreglering ger 5,0 när målnivån går att ställa fritt i små steg, 4,0 i fasta steg, 3,5 när apparaten mäter men inte låter dig sätta ett mål, 2,0 för enbart effektlägen och 1,0 för enbart timer. Hygien ger 5,0 för förångning, 4,5 för ånga, 2,5 för ultraljud med angiven motåtgärd och 2,0 för ultraljud utan. Kriteriet mäter teknikens art och vad butiken skriver, inte ett mätvärde: vi har inte odlat bakterier ur någon av apparaterna. Där en butik inte publicerar en uppgift står den som saknad, aldrig som en nolla. Priserna är hos den butik vi länkar till."
+          footnote="Fuktreglering och hygien väger tillsammans 50 av 100, eftersom de svarar på var sin halva av den enda verkliga risken: att apparaten fuktar mer än du vill, och att den skickar ut tankens innehåll i rummet. Fuktreglering ger 5,0 när målnivån går att ställa fritt i små steg, 4,0 i fasta steg, 3,5 när apparaten mäter men inte låter dig sätta ett mål, 2,0 för enbart effektlägen och 1,0 för enbart timer. Hygien ger 5,0 för förångning, 4,5 för ånga, 2,5 för ultraljud med en åtgärd mot bakterier i vattnet, alltså silverstav, UV-lampa eller keramiskt filter, och 2,0 för ultraljud utan. Hygienbetyget mäter teknikens art, inte ett mätvärde: vi har inte odlat bakterier ur någon av apparaterna. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

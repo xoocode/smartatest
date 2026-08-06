@@ -54,13 +54,18 @@ import Kopguide from "@/content/usb-c-kabel/kopguide.mdx";
  * 300 000 böjningar över sitt eget sortiment utan publicerad metod. Se
  * lib/spec-schema.mjs, ALDRIG_BEDOMD.
  *
+ * ⚠️ Kriteriet öppen redovisning togs bort 2026-08-06 och vikten fördelades
+ * proportionellt över de fyra som är kvar. Samtidigt rättades nio felaktiga
+ * påståenden om att en uppgift inte gick att få tag på. Tabellen över vad som
+ * stod var, och de två påståenden som höll, ligger i lib/data/usb-c-kabel.ts.
+ *
  * AFFILIATE-SWAP — länkarna går direkt till butiken, ospårat och dofollow.
  * Se lib/links.ts.
  */
 
 const TEST_PAGE = USB_C_KABEL;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
@@ -126,12 +131,12 @@ export default async function UsbCKabelPage() {
             <p className="max-w-2xl text-lg text-muted-foreground">
               Delock 240 W för 199 kronor vinner, därför att den gör 40 gigabit i
               sekunden och driver en 8K-skärm till samma pris som kablar som bara
-              laddar. Ska sladden enbart ladda en telefon räcker IKEA:s för 59.
-              Skillnaden mellan dem syns inte på kontakten, och det är hela
-              anledningen till att sidan finns.
+              laddar. Ska sladden enbart ladda en telefon räcker IKEA:s för 59
+              kronor, och skillnaden mellan de två syns inte på kontakten.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -290,7 +295,7 @@ export default async function UsbCKabelPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Datahastigheten väger 30 därför att den är den egenskap som skiljer kategorin mest och syns minst, och prisvärde per meter 25 därför att modellerna säljs i allt från 0,3 till 3 meter: utan den normaliseringen hade den kortaste kabeln vunnit på att vara kort. Sidan har inget kriterium för testomdöme. Den enda oberoende provningen i kategorin är Testfaktas från 2020, och samtliga sex USB-C-kablar där är USB-A-formen, som den här sidan inte rankar, så en betygskolumn hade blivit tom för varenda kabel. Tillverkarnas egna böjtal betygsätts inte heller: ingen publicerar en metod, och samma tillverkare anger allt mellan 5 000 och 300 000 böjningar för olika produkter i sitt eget sortiment. Där en uppgift som e-marker eller mantel inte publiceras räknas det som en brist under öppen redovisning, eftersom en kabel som inte gör det du trodde är ditt problem och inte vårt."
+          footnote="Datahastigheten väger 35 därför att den är den egenskap som skiljer kategorin mest och syns minst, och prisvärde per meter 30 därför att modellerna säljs i allt från 0,3 till 3 meter: utan den normaliseringen hade den kortaste kabeln vunnit på att vara kort. Sidan har inget kriterium för testomdöme. Den enda oberoende provningen i kategorin är Testfaktas från 2020, och samtliga sex USB-C-kablar där är USB-A-formen, som den här sidan inte rankar, så en betygskolumn hade blivit tom för varenda kabel. Tillverkarnas egna böjtal betygsätts inte heller: ingen publicerar en metod, och samma tillverkare anger allt mellan 5 000 och 300 000 böjningar för olika produkter i sitt eget sortiment. Fram till den 6 augusti 2026 vägde ett femte kriterium, öppen redovisning, 15 av 100. Det är borttaget: hur lätt en uppgift är att hitta säger något om säljaren och ingenting om kabeln, och två kablar som gör samma sak hamnade på olika plats av ett skäl köparen inte kan använda. Vikten är fördelad proportionellt över de fyra som är kvar, och en uppgift vi inte har står som ett streck i tabellen."
         />
       </Section>
 

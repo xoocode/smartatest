@@ -101,10 +101,10 @@ const SEEDS: ProductSeed[] = [
       /* 700 N, 100 kg, 2,5 m höjd och 5 m bredd. Klarar dubbelport, men ligger
          under Boxers 1000 N och 120 kg. */
       kapacitet: 3.5,
-      /* Starkast standardredovisning i jämförelsen, och fullständiga tekniska
-         data. Drar ner: dragkraften anges som vridmoment i butiksledet, så
-         talet går inte att jämföra utan att öppna manualen. */
-      redovisning: 4,
+      /* 5,0: försäkran åberopar EN 12453:2017 tillsammans med EN 13241,
+         EN 12635 och EN ISO 12100. Läst i Julas egen bruksanvisning
+         2026-08-06, assets.cdn.jula.com/v2/127887, som produktsidan länkar. */
+      standarder: 5,
       prisvarde: 5,
       /* 5 års garanti, längst här. Standbyförbrukning okänd. */
       drift: 4,
@@ -131,6 +131,7 @@ const SEEDS: ProductSeed[] = [
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "499 kr", highlight: true },
       { label: "Dragkraft", shortLabel: "Kraft", value: "700 N", highlight: true },
+      { label: "Standarder i försäkran", shortLabel: "Standarder", value: "EN 12453:2017, EN 13241, EN 12635" },
       { label: "Vridmoment", value: "Ej angiven" },
       { label: "Max portvikt", shortLabel: "Portvikt", value: "100 kg", highlight: true },
       { label: "Max portyta", shortLabel: "Portyta", value: "Ej angiven", highlight: true },
@@ -148,7 +149,7 @@ const SEEDS: ProductSeed[] = [
       { label: "Artikelnummer", value: "377011" },
     ],
     verdict:
-      "Hard Head 377011 drar en garageport på 100 kilo och kostar 499 kronor. Det är den billigaste vägen till riktig dragkraft i den här jämförelsen, med god marginal.\n\n**700 newton räcker till en normal villaport, och 5 meters portbredd betyder att även en dubbelport går att öppna.** Det är samma portbredd som en öppnare för fem gånger priset klarar. Skenan tar 2,5 meters porthöjd, vilket täcker praktiskt taget varje garage byggt som bostadsgarage.\n\nDen är också byggd mot EN 12453 och EN 13241, alltså de standarder som gäller säkerhet vid användning av maskindrivna portar och portar som produkt. Det är det enda kontrollerbara påstående någon tillverkare gör om säkerheten i den här kategorin, och det är värt mer än ett tal på en kartong. Till det kommer 5 års garanti, dubbelt mot vad klassen brukar ge.\n\nDet du inte får veta är hur hårt porten trycker när den går ner. Kraften vid stängning står inte angiven någonstans, och fotocellen ingår inte. Rör sig småbarn i garaget ska du räkna in en fotocell i budgeten, och då hamnar du runt tusenlappen ändå.\n\nKöp den. Den gör samma jobb som öppnare för tre gånger pengarna, och de 500 kronorna du sparar räcker till fotocellen den saknar.",
+      "Hard Head 377011 drar en garageport på 100 kilo och kostar 499 kronor. Det är den billigaste vägen till riktig dragkraft i den här jämförelsen, med god marginal.\n\n**700 newton räcker till en normal villaport, och 5 meters portbredd betyder att även en dubbelport går att öppna.** Det är samma portbredd som en öppnare för fem gånger priset klarar. Skenan tar 2,5 meters porthöjd, vilket täcker praktiskt taget varje garage byggt som bostadsgarage.\n\nDen är också byggd mot EN 12453 och EN 13241, alltså de standarder som gäller säkerhet vid användning av maskindrivna portar och portar som produkt. Det är det enda kontrollerbara påstående någon tillverkare gör om säkerheten i den här kategorin, och det är värt mer än ett tal på en kartong. Till det kommer 5 års garanti, dubbelt mot vad klassen brukar ge.\n\nÖppnaren har ingen inställbar kraftgräns i newton. Den lär sig i stället hur mycket motstånd som är normalt i din port, uppåt och nedåt, och vänder när motståndet blir för stort. Det fungerar, men det betyder att du inte kan ställa in en gräns själv, och fotocellen ingår inte. Rör sig småbarn i garaget ska du räkna in en fotocell i budgeten, och då hamnar du runt tusenlappen ändå.\n\nKöp den. Den gör samma jobb som öppnare för tre gånger pengarna, och de 500 kronorna du sparar räcker till fotocellen den saknar.",
   },
   {
     id: "chamberlain-ml810ev",
@@ -164,10 +165,9 @@ const SEEDS: ProductSeed[] = [
       skydd: 4,
       /* 800 N, 110 kg, 11,5 m², 2,1 m höjd, 5 m bredd. Näst mest kapabel. */
       kapacitet: 4,
-      /* Butiken publicerar kraft, yta, vikt, höjd och bredd. Manualen anger
-         stängningskraft och hinderprov. Drar ner: manualen åberopar VDE 0700
-         och ZH1/494, alltså äldre beteckningar, och ingen portstandard. */
-      redovisning: 3.5,
+      /* 2,0: manualen åberopar VDE 0700 och ZH1/494, alltså äldre tyska
+         beteckningar, och ingen portstandard. */
+      standarder: 2,
       prisvarde: 3,
       drift: 2.5,
     },
@@ -194,6 +194,7 @@ const SEEDS: ProductSeed[] = [
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "2 541 kr", highlight: true },
       { label: "Dragkraft", shortLabel: "Kraft", value: "800 N", highlight: true },
+      { label: "Standarder i försäkran", shortLabel: "Standarder", value: "VDE 0700, ZH1/494" },
       { label: "Vridmoment", value: "Ej angiven" },
       { label: "Max portvikt", shortLabel: "Portvikt", value: "110 kg", highlight: true },
       { label: "Max portyta", shortLabel: "Portyta", value: "11,5 m²", highlight: true },
@@ -226,12 +227,11 @@ const SEEDS: ProductSeed[] = [
       skydd: 1.5,
       /* 1000 N, 120 kg, 16 m², 2,80 m porthöjd. Mest kapabel i jämförelsen. */
       kapacitet: 5,
-      /* Butikssidan är den mest kompletta i kategorin: kraft, yta, vikt, höjd,
-         räckvidd och standby på samma ställe. Drar ner kraftigt: manualens
-         svenska och danska tabell anger 8 respektive 800 watt standby och 3,5
-         respektive 3 meter skena för samma modell, och försäkran åberopar två
-         direktiv som upphört att gälla. */
-      redovisning: 2.5,
+      /* 1,0: försäkran undertecknad 2015-01-05 åberopar 98/37/EG, som upphörde
+         2009-12-28, och 89/336/EEG, som upphörde 2007-07-19. Verifierat mot
+         CELEX 31998L0037 och 31989L0336 på EUR-Lex. Säger ingenting om att
+         produkten skulle sakna giltig CE-märkning, se kriteriets beskrivning. */
+      standarder: 1,
       prisvarde: 4,
       /* 8 watt standby är publicerat, vilket ingen annan gör, men det är också
          mycket: ungefär 70 kWh om året. */
@@ -259,6 +259,7 @@ const SEEDS: ProductSeed[] = [
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "1 955 kr", highlight: true },
       { label: "Dragkraft", shortLabel: "Kraft", value: "1000 N", highlight: true },
+      { label: "Standarder i försäkran", shortLabel: "Standarder", value: "98/37/EG och 89/336/EEG, båda upphävda" },
       { label: "Vridmoment", value: "Ej angiven" },
       { label: "Max portvikt", shortLabel: "Portvikt", value: "120 kg", highlight: true },
       { label: "Max portyta", shortLabel: "Portyta", value: "16 m²", highlight: true },
@@ -292,7 +293,12 @@ const SEEDS: ProductSeed[] = [
       skydd: 4,
       /* 550 N, 80 kg, 7,4 m², 2,1 m höjd, 3,5 m bredd. Minst kapabel här. */
       kapacitet: 2,
-      redovisning: 3.5,
+      /* Inget betyg. ML580EV:s egen försäkran har vi inte fått fram: Chamberlain
+         publicerar en samlingsmanual för ML-serien som nämner EN 12453 och
+         pekar på doc.chamberlain.de, men den identifierar inte ML580EV, och ett
+         värde får inte bäras över mellan modeller. Betyget utelämnas hellre än
+         sätts lågt — vi drar inte av för vad vi inte hittat. Se
+         .agent/research/garageportsoppnare.md. */
       /* 1 990 kr för 550 N är kategorins svagaste förhållande mellan pris och
          kraft: Hard Head 377011 ger 700 N för en fjärdedel. */
       prisvarde: 2,
@@ -319,6 +325,7 @@ const SEEDS: ProductSeed[] = [
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "1 990 kr", highlight: true },
       { label: "Dragkraft", shortLabel: "Kraft", value: "550 N", highlight: true },
+      { label: "Standarder i försäkran", shortLabel: "Standarder", value: "Ej fastställd" },
       { label: "Vridmoment", value: "Ej angiven" },
       { label: "Max portvikt", shortLabel: "Portvikt", value: "80 kg", highlight: true },
       { label: "Max portyta", shortLabel: "Portyta", value: "7,4 m²", highlight: true },
@@ -350,10 +357,10 @@ const SEEDS: ProductSeed[] = [
       skydd: 3,
       /* 80 kg, 12 m², 2,3 m höjd. Ingen dragkraft i newton publicerad. */
       kapacitet: 2.5,
-      /* 8 Nm är samma uppgift i butik och manual, alltså konsekvent. Men
-         vridmoment går inte att ställa mot de andras newtonuppgifter, så
-         köparen kan inte jämföra den med något. */
-      redovisning: 2,
+      /* 3,0: försäkran åberopar gällande maskindirektiv 2006/42/EG och
+         EN ISO 12100 plus EN 60335, men varken EN 12453 eller EN 13241. Läst i
+         Julas egen bruksanvisning 2026-08-06, assets.cdn.jula.com/v2/162235. */
+      standarder: 3,
       prisvarde: 2.5,
       drift: 3,
     },
@@ -379,6 +386,7 @@ const SEEDS: ProductSeed[] = [
     specs: [
       { label: "Pris", shortLabel: "Pris", value: "999 kr", highlight: true },
       { label: "Dragkraft", shortLabel: "Kraft", value: "Ej angiven", highlight: true },
+      { label: "Standarder i försäkran", shortLabel: "Standarder", value: "2006/42/EG, EN ISO 12100" },
       { label: "Vridmoment", value: "8 Nm" },
       { label: "Max portvikt", shortLabel: "Portvikt", value: "80 kg", highlight: true },
       { label: "Max portyta", shortLabel: "Portyta", value: "12 m²", highlight: true },

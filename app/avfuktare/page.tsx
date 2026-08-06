@@ -38,17 +38,19 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/avfuktare/kopguide.mdx";
 
 /*
- * ⚠️ Priser, kundbetyg, kapacitet, effekt, driftstemperatur, tankvolym,
- * ljudnivåer, luftflöden och köldmedium är riktiga, lästa på Bygghemmas, Clas
- * Ohlsons, Kjells och Wood's egna sidor på PRICE_CHECKED. Kriteriebetygen är
- * redaktionell bedömning. Vi har inte mätt avfuktning, inte vägt uppsamlat
- * vatten och inte provat någon apparat.
+ * ⚠️ Priser och kundbetyg lästa på PRICE_CHECKED. Kapacitet, effekt,
+ * driftstemperatur, tankvolym, ljudnivåer, luftflöden, vikt och köldmedium
+ * lästa 2026-08-06 hos tillverkaren där tillverkaren publicerar dem, annars hos
+ * butiken. Kriteriebetygen är redaktionell bedömning. Vi har inte mätt
+ * avfuktning, inte vägt uppsamlat vatten och inte provat någon apparat.
  *
- * Sidans fynd: literantalet på kartongen saknar gemensam grund. Wood's anger
- * vid 30 ºC och 80 % RH, Meaco anger effekten vid 20 °C och 60 % RH men
- * ingenting om literantalet, och Clas Ohlsons egna, eeese, Xiaomi och Duux
- * anger inga villkor alls. Clas Ohlson publicerar själva båda talen för Wood's
- * LD40: 7,5 l/dygn vid 20/70 och 13 l/dygn vid 30/80.
+ * Sidans fynd: talet i modellnamnet är uppmätt vid 30 ºC och 80 % RH, och du
+ * får ungefär 40 procent av det i ett svalt rum. Meacos egen extraktionstabell
+ * bevisar det rad för rad, och Wood's LD40 visar samma sak i två tal.
+ *
+ * ⚠️ RÄTTAT 2026-08-06: sidan påstod att nio av tolv inte anger villkoren.
+ * Meaco publicerar sex rader per modell, eeese två. Felet var vår research.
+ * Kvar utan villkor: Clas Ohlsons två egna och Xiaomi. Se lib/corrections.ts.
  *
  * ⚠️⚠️ SS-EN 810 finns och är gällande sedan 1997-04-30, men VI HAR INTE KÖPT
  * DEN. Sidan får aldrig påstå vilka provvillkor standarden föreskriver. Den
@@ -65,12 +67,12 @@ import Kopguide from "@/content/avfuktare/kopguide.mdx";
 
 const TEST_PAGE = AVFUKTARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Clas Ohlson anger både 7,5 och 13 liter per dygn för samma Wood's LD40, beroende på vilka villkor de väljer. Wood's mäter vid 30 grader, Meaco vid 20, och resten anger ingenting. Vi jämförde tolv avfuktare från 1 499 till 7 890 kronor och skrev ut vilken grund varje tal vilar på.",
+    "Meaco Arete One 25L för 4 299 kr vinner: 10,7 liter per dygn vid 20 °C och toppbetyg hos Which?. Vi jämförde tolv avfuktare från 1 499 till 7 890 kronor på vad de tar upp i svalt, hur djupt ned i kyla de arbetar och vad de drar per liter vatten.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -81,7 +83,7 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
-  { id: "talet", label: "Samma apparat, 7,5 eller 13 liter" },
+  { id: "talet", label: "25L-apparaten tar 10,7 liter" },
   { id: "standarden", label: "Standarden som finns men inte används" },
   { id: "jamforelse", label: "Jämför alla tolv" },
   { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
@@ -128,15 +130,17 @@ export default async function AvfuktarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Clas Ohlson skriver att Wood&rsquo;s LD40 avfuktar 7,5 liter per
-              dygn. På samma sida, två rader ner, står 13 liter. Skillnaden är
-              vilka villkor talet mäts vid, och de flesta tillverkare anger inga
-              villkor alls. Ingen av de sex svenska jämförelser vi läst nämner
-              det. Vi jämförde tolv avfuktare från 1 499 till 7 890 kronor och
-              skrev ut vilken grund varje siffra vilar på.
+              Meaco Arete One 25L för 4 299 kronor tar 10,7 liter vatten per
+              dygn i ett rum på 20 grader, mer än någon annan apparat här, och
+              den är den enda som en oberoende provning gett toppbetyg. Vill du
+              ha mest vatten per krona kostar eeese Adam 2 699. Räkna däremot
+              aldrig med talet i modellnamnet: det är uppmätt vid 30 grader och
+              80 procents luftfuktighet, och i en sval källare får du ungefär 40
+              procent av det.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -185,68 +189,80 @@ export default async function AvfuktarePage() {
       <Section
         id="talet"
         width="default"
-        title="Samma apparat, 7,5 eller 13 liter per dygn"
-        description="Det står på samma produktsida, och det är den enda butikssida i kategorin som visar det."
+        title="Apparaten som heter 25L tar 10,7 liter i en sval källare"
+        description="Talet i modellnamnet är uppmätt vid 30 grader och 80 procents luftfuktighet. Ditt hus håller inte det."
       >
         <Prose>
           <p>
             Literantalet är det tal alla jämför avfuktare på. Det står i
-            produktnamnet, i rubriken och först i varje specifikation.{" "}
-            <strong>Det går inte att jämföra mellan märken</strong>, och skälet
-            syns tydligast på en enda produktsida.
+            produktnamnet, i rubriken och först i varje specifikation. Det är
+            också uppmätt i ett klimat som inte finns i ett svenskt hus, och
+            Meaco publicerar själva hela kurvan som visar hur mycket det gör.
           </p>
           <p>
-            Hos Clas Ohlson står följande i specifikationen för{" "}
-            <strong>Wood&rsquo;s LD40</strong>, två rader efter varandra:
+            Så här ser deras egen tabell ut för{" "}
+            <strong>MeacoDry Arete One 25L</strong>, apparat för apparat samma
+            dygn:
           </p>
           <blockquote>
-            Avfuktning (20 °C / 70 % RF): 7,5 liter per dygn
+            30 °C och 80 % RH: 25 liter per dygn (talet i modellnamnet)
             <br />
             <br />
-            Avfuktning (30 °C / 80 % RF): 13 liter per dygn
+            20 °C och 80 % RH: 17,5 liter per dygn, 280 watt
+            <br />
+            <br />
+            20 °C och 60 % RH: 10,7 liter per dygn, 267 watt
+            <br />
+            <br />
+            10 °C och 60 % RH: 3,5 liter per dygn, 220 watt
           </blockquote>
           <p>
-            Samma apparat, samma sida, samma dag.{" "}
-            <strong>Talet skiljer 73 procent</strong> beroende på vilken
-            temperatur och luftfuktighet man väljer att mäta vid. LD40 är den
-            enda avfuktaren hos Clas Ohlson som publicerar båda talen. Alla
-            andra publicerar ett.
+            <strong>
+              En källare i oktober håller ungefär 20 grader och 60 procent. Där
+              är apparaten en tiolitersapparat.
+            </strong>{" "}
+            I en ouppvärmd källare i november, 10 grader och 60 procent, tar den
+            3,5 liter medan kompressorn fortfarande drar 220 watt. Samma
+            apparat, samma dygn, en sjundedel av vattnet i den kallaste raden.
           </p>
           <p>
-            <strong>Och de mäter inte likadant.</strong> Tre olika grunder
-            ligger sida vid sida i svensk handel:
-          </p>
-          <ul>
-            <li>
-              <strong>Wood&rsquo;s</strong> anger både kapacitet och effekt vid{" "}
-              <strong>30 ºC och 80 % RH</strong>.
-            </li>
-            <li>
-              <strong>Meaco</strong> anger effekten vid{" "}
-              <strong>20 °C och 60 % RH</strong> men säger inte ett ord om vid
-              vilka villkor literantalet i modellnamnet gäller. Modellerna heter
-              10L, 12L, 20L och 25L.
-            </li>
-            <li>
-              <strong>Clas Ohlsons egna, eeese, Xiaomi och Duux</strong> anger
-              inga villkor alls.
-            </li>
-          </ul>
-          <p>
-            <strong>Det blir värre.</strong> Wood&rsquo;s SW42FW anges av
-            tillverkaren till 25 liter per dygn och 600 watt, båda vid 30 grader
-            och 80 procent. Clas Ohlson, som säljer samma apparat, anger 25,5
-            liter och 550 watt utan villkor. Två av tillverkarens tal och två av
-            butikens, för en och samma produkt.
+            <strong>Wood&rsquo;s LD40 visar samma sak i två tal.</strong> 13
+            liter per dygn vid 30 grader och 80 procent, 7,5 liter vid 20 grader
+            och 70 procent. Skillnaden är 73 procent, och det lägre talet är det
+            som gäller i ett svenskt hus.
           </p>
           <p>
-            <strong>Varför det spelar roll för dig.</strong> En kondensavfuktare
-            arbetar genom att kyla luft under daggpunkten, precis som imma på en
-            kall flaska. Ju kallare och torrare luften är, desto mindre vatten
-            finns det att fälla ut. Wood&rsquo;s marknadsför SW42FW för källare
-            och garage ner till <strong>+2 grader</strong>, och kapacitetstalet
-            är uppmätt vid <strong>30</strong>. Det är 28 graders skillnad, och
-            LD40-raderna ovan visar ungefär vad den skillnaden gör med siffran.
+            <strong>Varför det händer.</strong> En kondensavfuktare arbetar
+            genom att kyla luft under daggpunkten, precis som imma på en kall
+            flaska. Ju kallare och torrare luften är, desto mindre vatten finns
+            det att fälla ut. Kompressorn drar däremot nästan lika mycket ström
+            hela vägen ned, så elen per uppsamlad liter stiger brant när det blir
+            kallt: 16 watt per liter för Arete One 25L vid 20 grader och 80
+            procent, 62 watt per liter vid 10 grader och 60.
+          </p>
+          <p>
+            <strong>Vad du ska göra med det.</strong> Läs raden{" "}
+            <em>Avfuktning i svalt</em> i tabellen nedan och inte raden{" "}
+            <em>Kapacitet</em>. Tio av tolv apparater har ett tal vid svalare
+            villkor, och där det talet finns är det det du får hem. Ett
+            rum eller ett badrum klarar sig med 4 till 6 liter per dygn i verklig
+            avfuktning. En källare eller tvättstuga du kör året runt bör ha 8
+            till 12.
+          </p>
+          <p>
+            <strong>Wood&rsquo;s SW42FW tar 12 liter vid 20 grader.</strong> Det
+            står i bruksanvisningen som ligger på tillverkarens produktsida, på
+            en rad som gäller hela SW-serien: 12 liter per dygn på 420 watt vid
+            20 grader och 70 procent, mot 25 liter på 600 watt vid 30 och 80.
+            Det är näst mest vatten i svalt av alla tolv apparaterna, och 60
+            procent mer än Wood&rsquo;s egen LD40 vid exakt samma villkor.
+          </p>
+          <p>
+            <strong>En sak till, om samma apparat i två butiker.</strong>{" "}
+            Wood&rsquo;s anger 25 liter per dygn och 600 watt för SW42FW. Clas
+            Ohlson, som säljer samma apparat, anger 25,5 liter och 550 watt. Vi
+            går efter tillverkarens tal, eftersom det är det enda av de två som
+            säger vid vilka villkor det är uppmätt.
           </p>
         </Prose>
       </Section>
@@ -322,13 +338,13 @@ export default async function AvfuktarePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla tolv"
-        description="Läs raden Kapacitet tillsammans med raden under den. Ett literantal utan villkor går inte att ställa mot ett med."
+        description="Raden Avfuktning i svalt är den som gäller hemma hos dig. Raden Kapacitet är talet i modellnamnet."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Kapacitet, effekt, driftstemperatur, tankvolym, ljudnivå och luftflöde är tillverkarens eller butikens egna uppgifter. Där det står att villkor inte är angivna betyder det att tillverkaren inte publicerar vid vilken temperatur och luftfuktighet talet är uppmätt, vilket gäller nio av tolv. Där det står att en uppgift saknas betyder det att butiken inte publicerar den alls, inte att egenskapen saknas.`)}
+          caption={priceCaption(PRICE_CHECKED, `Kapacitet, avfuktning i svalt, effekt, driftstemperatur, ljudnivå, luftflöde, vikt och tankvolym är lästa 2026-08-06 hos tillverkaren, i den bruksanvisning tillverkaren länkar, eller hos butiken. Villkoren står i cellen: Meaco mäter vid 20 °C och 60 % RH, Wood's vid 20 °C och 70 % RF, eeese och Xiaomi vid 27 °C och 60 % RH. De raderna är alltså inte direkt jämförbara med varandra, eftersom ett varmare och fuktigare rum ger ett högre tal.`)}
         />
       </Section>
 
@@ -346,9 +362,23 @@ export default async function AvfuktarePage() {
               Vi har inte mätt någon avfuktning och inte vägt något uppsamlat
               vatten.
             </strong>{" "}
-            Alla kapacitetstal kommer från tillverkaren eller butiken, och de
-            vilar på olika grund. Det enda oberoende måttet kommer från Which?,
-            som Stiftung Warentest publicerar.
+            Alla kapacitetstal kommer från tillverkaren eller butiken. Det enda
+            oberoende måttet kommer från Which?, som Stiftung Warentest
+            publicerar.
+          </p>
+          <p>
+            <strong>
+              Den här sidan hade fel om nio av tolv apparater fram till 6 augusti
+              2026.
+            </strong>{" "}
+            Vi skrev att tillverkarna inte anger vid vilka villkor literantalet
+            är uppmätt. Meaco har sex rader per modell och eeese två, på sina
+            egna sidor, Kjell har både villkoren och effekten för
+            Xiaomi-apparaten, och Wood&rsquo;s bruksanvisning har en egen rad
+            för 20 grader och 70 procent för hela SW- och LD-serien. Två
+            omgångar rättelser samma dag ändrade tolv betyg och tio placeringar,
+            och båda står med sina siffror på{" "}
+            <a href="/rattelser">rättelsesidan</a>.
           </p>
           <p>
             <strong>
@@ -366,7 +396,7 @@ export default async function AvfuktarePage() {
             <strong>Fyra av tolv är Meaco, och tre av dem samma serie.</strong>{" "}
             Det beror på att Bygghemma för Arete One i fyra storlekar och att
             ingen annan svensk butik för ett brett sortiment av ett provat
-            märke. Storlekarna hamnar på plats ett, två, fyra och sex, och du ska
+            märke. Storlekarna hamnar på plats ett, två, fem och sex, och du ska
             välja mellan dem efter ytan du ska avfukta och inte efter ordningen i
             listan. Det står i varje omdöme.
           </p>
@@ -388,7 +418,7 @@ export default async function AvfuktarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje avfuktare"
-        description="Alla tio bedöms mot samma fem kriterier. Uppgifterna är tillverkarens eller butikens egna, inte kontrollerade av oss."
+        description="Alla tolv bedöms mot samma fyra kriterier. Uppgifterna är tillverkarens eller butikens egna, inte kontrollerade av oss."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -433,7 +463,7 @@ export default async function AvfuktarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Öppen redovisning är ett kriterium som inte mäter apparaten utan vad du får veta om den, och det är det enda vi kan kontrollera själva, påstående för påstående. Skalan är 5,0 när kapacitet och effekt anges vid namngivna villkor och mer än en mätpunkt redovisas, 4,0 vid en namngiven punkt för båda talen, 3,0 när bara effekten har villkor, 2,0 vid en vag reservation i löptext, 1,5 när talen publiceras men helt utan villkor och 1,0 när flera av talen inte publiceras alls. Fem av tolv ligger på 1,5 eller lägre. Energipoängen bygger på deklarerad effekt delad med deklarerad kapacitet, och den kvoten ärver samma jämförbarhetsproblem som talen den bygger på: Meacos watt är uppmätta vid 20 grader och 60 procent, Wood's vid 30 och 80, och Clas Ohlsons egna vid ingenting angivet. Det står utskrivet i varje omdöme där det spelar roll. Där en butik inte publicerar en uppgift står den som saknad, aldrig som en nolla. Priserna är hos den butik vi länkar till."
+          footnote="Avfuktning i praktiken väger tyngst, och där Which? har ett omdöme väger det tungt, eftersom det är den enda provningen i Europa som mäter vid svenska temperaturer och räknar elen per uppsamlad liter vatten. Energipoängen bygger på watt delat med liter per dygn vid samma villkor, alltså 30 grader och 80 procent där paret finns publicerat. Fram till 6 augusti 2026 delade vi i stället deklarerad effekt med talet i modellnamnet, vilket för Meacos del blandade två olika klimat i en kvot och gav dem ett försprång de inte hade. Där en uppgift inte finns står ett streck i tabellen, aldrig en nolla, och den drar inte ned något betyg. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -465,18 +495,18 @@ export default async function AvfuktarePage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="En europeisk standard, två svenska normkällor, två oberoende provningar och tre produktsidor som bär bevisningen."
+        description="En europeisk standard, två svenska normkällor, två oberoende provningar och de tillverkarsidor som bär bevisningen."
       >
         <Prose className="mb-block">
           <p>
             <strong>
-              Tre av källorna nedan är produktsidor, och det är avsiktligt.
+              Flera av källorna nedan är tillverkarsidor, och det är avsiktligt.
             </strong>{" "}
-            Clas Ohlsons sida för Wood&rsquo;s LD40, Wood&rsquo;s egen sida för
-            SW42FW och Bygghemmas sida för Meaco Arete One 25L är de tre ställen
-            där de tre olika deklarationsbaserna går att läsa svart på vitt. De
-            är inga tester och räknas inte som sådana, men den som vill ska kunna
-            gå och läsa samma rader.
+            Meacos extraktionstabeller, eeeses spectabeller, Wood&rsquo;s egen
+            sida för SW42FW och Clas Ohlsons sida för LD40 är de ställen där
+            kapacitet vid svalare villkor går att läsa svart på vitt. De är inga
+            tester och räknas inte som sådana, men den som vill ska kunna gå och
+            läsa samma rader.
           </p>
           <p>
             <strong>

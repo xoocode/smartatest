@@ -1,4 +1,5 @@
-import type { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 import { getConfig, type R9TrackConfig } from "./config";
 
@@ -19,17 +20,23 @@ import { getConfig, type R9TrackConfig } from "./config";
  * middleware is the difference between measuring three months of affiliate
  * revenue and measuring one week of it.
  *
- * ## Why consent gates it
+ * ## Consent, and who decides
  *
- * A gclid identifies a person's ad click, which makes it personal data under
- * GDPR. Without granted advertising consent the identifier is never written,
- * and the click is still counted — anonymously — because earnings-per-click
- * needs the denominator regardless. Measurement we are allowed to keep, in
- * other words, and nothing we are not.
- *
- * The default is to store nothing at all until a consent cookie is configured.
+ * By default the identifier is not written until advertising consent is
+ * granted, and with no consent cookie configured it is never written at all.
  * That fails closed: a project that drops this module in and forgets to wire
- * its CMP gets no tracking, rather than silently assuming consent.
+ * its CMP gets no tracking rather than silent assumed consent.
+ *
+ * `captureRequiresConsent: false` turns that off, for a controller who has
+ * assessed the identifier as strictly necessary to a service the reader asked
+ * for. That is a determination about one site, made by the people answerable
+ * for it, so it belongs in that site's config with its reasoning attached and
+ * never in this module's defaults.
+ *
+ * Either way the click is counted, and either way `consentAds` reports the
+ * real answer. Whether we may keep the identifier for affiliate attribution
+ * and whether we may tell Google the reader consented to ad personalisation
+ * are two different questions, and the second one is answered by that field.
  */
 
 /** Google's three click identifiers, in the order we prefer them. */
@@ -119,7 +126,12 @@ export function captureClickId(
 
   const captured = readClickParam(request.nextUrl);
   if (!captured) return response;
-  if (!hasAdConsent(request, config)) return response;
+  /* Consent is a gate only where the controller has decided it is one. See
+     `captureRequiresConsent` in config.ts, and the site's own config for the
+     reasoning behind whichever way it is set. */
+  if (config.captureRequiresConsent && !hasAdConsent(request, config)) {
+    return response;
+  }
 
   const payload: ClickCookie = { ...captured, t: Date.now() };
 
@@ -137,4 +149,51 @@ export function captureClickId(
   });
 
   return response;
+}
+
+/**
+ * Capture the identifier and take it back out of the address bar.
+ *
+ * Returns a redirect to the same URL minus the click parameters, carrying the
+ * cookie, or a plain `next()` when there is nothing to do. Call it instead of
+ * `captureClickId` from middleware.
+ *
+ * ## Why strip at all
+ *
+ * A landing address that keeps `?gclid=…` gets shared, bookmarked and pasted
+ * into chats with someone else's ad click stapled to it, and it turns up in
+ * the referrer of anything the reader clicks next. Cleaning it costs one
+ * redirect on the ad landing and nothing afterwards.
+ *
+ * ## Why only after a successful capture
+ *
+ * Stripping is destructive: the parameter is the only copy. If the identifier
+ * was not stored, because tracking is off or because consent is required and
+ * has not been given, the URL is left exactly as it was. Otherwise a project
+ * running with `captureRequiresConsent: true` would throw the identifier away
+ * before the reader ever had the chance to say yes to it.
+ *
+ * 307, not 308: the parameter varies per visit and nothing about this should
+ * be cached or made permanent.
+ */
+export function captureAndClean(
+  request: NextRequest,
+  config: R9TrackConfig = getConfig()
+): NextResponse {
+  const passthrough = () => captureClickId(request, NextResponse.next(), config);
+
+  if (!config.enabled) return passthrough();
+  const captured = readClickParam(request.nextUrl);
+  if (!captured) return passthrough();
+  if (config.captureRequiresConsent && !hasAdConsent(request, config)) {
+    return passthrough();
+  }
+
+  const clean = new URL(request.nextUrl);
+  for (const param of CLICK_PARAMS) clean.searchParams.delete(param);
+
+  /* The cookie goes on the redirect itself. Setting it on a response the
+     browser is about to discard would store nothing, and the retry would
+     arrive with no parameter left to capture. */
+  return captureClickId(request, NextResponse.redirect(clean, 307), config);
 }

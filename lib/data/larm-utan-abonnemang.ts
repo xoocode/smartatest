@@ -21,8 +21,8 @@ import { LARM_UTAN_ABONNEMANG } from "@/lib/test-pages";
  *
  * | Produkt | Reservkanal när bredbandet dör | Reservbatteri i hubben |
  * |---|---|---|
- * | Tapo T30 KIT | **ingen**, endast 2,4 GHz wifi | ej angivet |
- * | eufy Hemlarm | **ingen**, larmuppringning anges som Nej | ej angivet |
+ * | Tapo T30 KIT | **ingen**, endast 2,4 GHz wifi | **inget**, endast nätadapter |
+ * | eufy Hemlarm | **ingen**, larmuppringning anges som Nej | **inget**, tillbehöret utgått |
  * | Ring Alarm | 4G, **kräver Ring Protect Plus** | 24 h |
  * | Yale Startlarmkit+ | 4G, **kräver SIM-kort och prenumeration** | 12 h, ca 6 h på wifi |
  * | Ajax Hub 2 Plus | **Ethernet + wifi + två SIM, ingår** | 15 h |
@@ -31,12 +31,31 @@ import { LARM_UTAN_ABONNEMANG } from "@/lib/test-pages";
  * och prenumeration)". Kjells egen produkttext om Ring: "Genom att prenumerera
  * på tjänsten Ring Protect Plus kan du dessutom använda mobilnätet".
  *
- * ## Regeln om saknade uppgifter
+ * ## Reservbatterierna, belagda hos tillverkarna 2026-08-06
  *
- * Samma som på /hemlarm: där butiken inte publicerar en uppgift står "Ej
- * angivet", aldrig en nolla och aldrig en gissning. Det gäller särskilt eufys
- * ljudnivå och reservbatteri, som ingen av de två butiker som säljer den
- * anger.
+ * Kolumnen stod tidigare som "ej angivet" för eufy och Tapo. Den var vår
+ * research och inte produkternas egenskap, och båda gick att belägga:
+ *
+ * - **Tapo H200 har inget batteri.** TP-Links eget datablad räknar upp hela
+ *   enheten (SYNC, RESET, microSD, status-LED) och hela förpackningen (hubb,
+ *   snabbguide, nätverkskabel, nätadapter). Manualen på 19 851 tecken nämner
+ *   inte batteri en enda gång, bara nätadaptern.
+ * - **eufy HomeBase 2 har inget inbyggt batteri.** eufys tre egna manualer
+ *   listar samma sju delar, varav ingen är ett batteri, och förpackningen
+ *   innehåller hubb, nätadapter, nätverkskabel och nålen. eufy sålde ett
+ *   separat tillbehör, "eufy Backup Battery for HomeBase 2", angivet till upp
+ *   till 8 timmar. Det är utgått.
+ *
+ * Båda är alltså belagda frånvaron, inte okända uppgifter. Skillnaden avgör
+ * betyget: eufy gick från 1,5 till 1,0 på uppkoppling. Se lib/corrections.ts.
+ *
+ * ## eufys ljudnivå: högtalare, inte siren
+ *
+ * eufys egna manualer kallar komponenten **Speaker**, inte siren, och eufy
+ * publicerar ingen decibelsiffra för HomeBase 2. Den siffra på 105 dB som
+ * cirkulerar gäller **T8970 eufy Security Siren**, ett separat tillbehör som
+ * Kjell säljer för 499 kr. Den får aldrig skrivas som HomeBase 2:s ljudnivå.
+ * Tabellen säger därför vad komponenten är, utan att påstå ett tal.
  *
  * ## Butiksfördelningen
  *
@@ -71,17 +90,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.laskompaniet.se/product/ajax-larmpaket-hub2plus-lan-wifi-4g",
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "Bäst uppkoppling, dyrast av alla",
+    superlative: "Bäst för huset som står tomt",
     pros: [
       "Fyra kommunikationsvägar: Ethernet, wifi och två SIM-kortsplatser för mobilnät",
       "Reservbatteri upp till 15 timmar, och hubben kollar varje sensor var tolfte sekund",
-      "Separat siren i paketet i stället för en siren inuti hubben",
+      "Separat siren i paketet, monterad där du vill ha den",
       "Enda systemet med riktiga svenska tester bakom sig",
     ],
     cons: [
       "8 259 kronor, nästan tre gånger Ring och fyra gånger eufy",
       "Säljs inte i storhandeln, utan av låssmeder och larminstallatörer",
-      "Mobiltrafiken kräver ett SIM-abonnemang som vi inte hittat något pris på",
+      "Mobiltrafiken betalas separat, eftersom SIM-korten är dina egna abonnemang",
     ],
     specs: [
       { label: "Pris", value: "8 259 kr", highlight: true },
@@ -90,11 +109,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Siren", value: "Separat inomhussiren ingår", highlight: true },
       { label: "Knappsats", value: "Ingår", highlight: true },
       { label: "Delar i paketet", value: "5" },
+      { label: "Max antal enheter", value: "200" },
       { label: "Rörelsedetektor", value: "IR 12 m, husdjursanpassad" },
       { label: "Artikelnummer", value: "50461012" },
     ],
     verdict:
-      "Ajax Hub 2 Plus-paketet är det enda systemet här som svenska testredaktioner faktiskt provat, och det enda som överlever att någon klipper uppkopplingen. 8 259 kronor.\n\nEtt uppkopplat larm som bara har hemmets bredband slås ut av att någon klipper en kabel eller drar ur routern. Hub 2 Plus har fyra vägar ut: Ethernet, wifi och två separata SIM-kortsplatser, och den växlar mellan dem på sekunder. Vid strömavbrott går den vidare på eget batteri i upp till femton timmar. Den kollar dessutom varje sensor var tolfte sekund och upptäcker en bruten förbindelse inom sextio.\n\nDet andra den gör rätt är sirenen. I Ring, Yale, eufy och Tapo sitter sirenen inuti hubben, som står inomhus och går att hitta och tysta. Här är sirenen en egen enhet du sätter där du vill ha den.\n\nSedan priset. 8 259 kronor mot 2 899 för Ring, som har ett längre reservbatteri och en högre siren. Räknar du bara på delarna i lådan är Ajax dyrt. Det du betalar för är att uppkopplingen inte har någon enskild felpunkt, och det är en sak värd olika mycket för olika människor.\n\nEn reservation vi inte kan lösa: SIM-korten kostar pengar hos någon operatör, och Ajax egen SIM-tjänst har vi inte hittat något pris på. Att platserna finns i hubben betyder inte att trafiken är gratis. Vi drar ner den på det du får utan abonnemang av just det skälet.\n\nDet är också det enda systemet som svenska testredaktioner faktiskt har provat. PC för Alla och Allt för Hemmet har båda skrivit om det. Vi har inget kriterium för det, eftersom fyra av fyra tester handlar om samma märke och ett sådant kriterium bara hade blivit en bonus till Ajax.",
+      "Ajax Hub 2 Plus-paket kostar 8 259 kronor och är det enda larmet här som fortfarande fungerar när någon klipper uppkopplingen.\n\n**Hubben har fyra vägar ut: Ethernet, wifi och två SIM-kortsplatser, och den växlar mellan dem på sekunder.** Kapas telefonkabeln vid fasaden går larmet ut över mobilnätet ändå, och slås strömmen av lever hubben vidare i upp till 15 timmar på eget batteri. Den frågar dessutom varje sensor var tolfte sekund om den är kvar och upptäcker en bruten förbindelse inom 60, så en detektor som plockas ner ger dig en notis inom minuten. Sirenen är en egen enhet du monterar där du vill: hos Ring, Yale, eufy och Tapo sitter den inuti hubben, som står inomhus och går att hitta och tysta.\n\nDet du betalar för är just det. 8 259 kronor mot 2 899 för Ring, som har både längre reservbatteri och högre siren, och räknar du delarna i lådan är Ajax dyrt. Till det kommer att du köper det hos en låssmed och inte i storhandeln, och att de två SIM-korten är dina egna abonnemang med sin egen månadskostnad.\n\nDet här är larmet till huset som står tomt delar av året, och till hemmet där ett inbrott skulle kosta långt mer än mellanskillnaden upp till Ring. Köp det.",
   },
   {
     id: "ring-alarm-2gen",
@@ -117,10 +137,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     superlative: "Den de flesta ska köpa",
     pros: [
-      "104 dB är den högsta angivna ljudnivån av larmen",
-      "Reservbatteriet i basstationen anges till 24 timmar, längst av alla",
+      "104 dB siren, den högsta ljudnivån av larmen här",
+      "Reservbatteriet i basstationen räcker 24 timmar, längst av alla fem",
       "Basstationen kan kopplas med nätverkskabel och inte bara wifi",
-      "Sensorerna använder Z-Wave, ett eget radioprotokoll och inte hemmets wifi",
+      "Sensorerna använder Z-Wave, ett eget radioprotokoll skilt från hemmets wifi",
     ],
     cons: [
       "Mobilnätet som reserv kräver abonnemanget Ring Protect Plus",
@@ -134,12 +154,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Siren", value: "104 dB, inbyggd i basstationen", highlight: true },
       { label: "Knappsats", value: "Ingår", highlight: true },
       { label: "Delar i paketet", value: "5" },
+      { label: "Max antal enheter", value: "100" },
       { label: "Anslutning", value: "Nätverkskabel eller wifi" },
       { label: "Sensorprotokoll", value: "Z-Wave" },
       { label: "Modellnummer", value: "4K11SZ-0EU0" },
     ],
     verdict:
-      "Ring Alarm 5-delat kit kostar 2 899 kronor och är det bästa köpet för de flesta.\n\nBörja med det som är bra, för det är mycket. 104 decibel är den högsta ljudnivå någon butik anger för de här larmen. Reservbatteriet på 24 timmar är det längsta: ett dygn efter ett strömavbrott. Basstationen tar nätverkskabel och inte bara wifi, vilket är stabilare. Och sensorerna går på Z-Wave i stället för på hemmets wifi, så en överbelastad router tar inte ner larmet. För 2 899 kronor är det mycket larm.\n\nSedan meningen i Kjells produkttext: genom att prenumerera på Ring Protect Plus kan du dessutom använda mobilnätet för att kontrollera att systemet fungerar om du inte har en internetuppkoppling.\n\nLäs den igen. Skyddet mot att någon klipper din uppkoppling, det enklaste sättet att slå ut ett uppkopplat larm, är en prenumerationsfunktion. I en produktkategori vars hela försäljningsargument är att du slipper prenumerera.\n\nVi drar inte ner betyget för att videohistoriken kostar extra. Det är en tilläggstjänst och den är rimlig att ta betalt för. Reservuppkopplingen är inte en tilläggstjänst, den är en larmfunktion, och därför sitter avdraget på båda de två tyngsta kriterierna.\n\nSäg ändå så här: köper du utan abonnemang och har ett stabilt bredband får du för 2 899 kronor det högsta ljudet, det längsta batteriet och ett hederligt sensorprotokoll. Det räcker långt för en lägenhet eller ett radhus. Vill du ha ett larm som överlever att någon drar ut kabeln får du gå till Ajax och betala nästan tre gånger så mycket.",
+      "Ring Alarm 5-delat kit kostar 2 899 kronor och ger dig mest larm per krona i den här jämförelsen.\n\n**104 decibel är den högsta ljudnivån av larmen, och basstationens reservbatteri räcker 24 timmar.** Det första hörs genom en lägenhetsvägg och ut på gatan, det andra betyder att ett strömavbrott mitt i natten inte lämnar dig oskyddad förrän långt in på nästa dygn. Basstationen tar nätverkskabel och inte bara wifi, vilket är stabilare, och sensorerna talar Z-Wave på egen radio, så en router som går på knäna av strömmande video tar inte ner larmet med sig.\n\nHaken står i Kjells egen produkttext: mobilnätet som reserv kräver abonnemanget Ring Protect Plus. Att videohistoriken kostar extra är rimligt, men skyddet mot att någon klipper uppkopplingen är en larmfunktion, och den ligger alltså bakom en månadsavgift i en kategori som säljs på att du slipper månadsavgifter.\n\nHar du ett stabilt bredband och en lägenhet eller ett radhus att skydda är det här köpet. Ska larmet klara att någon drar ut kabeln vid fasaden får du gå till Ajax och betala nästan tre gånger så mycket.",
   },
   {
     id: "eufy-alarm-kit-5",
@@ -147,9 +168,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Security Hemlarm",
     brand: "eufy",
     image: productImage(LARM_UTAN_ABONNEMANG.slug, "eufy-alarm-kit"),
-    tagline: "Inget abonnemang alls, och ingen reserv när nätet går ner.",
+    tagline: "Ingen funktion i larmet ligger bakom en betalplan.",
     scores: {
-      uppkoppling: 1.5,
+      uppkoppling: 1,
       utanAbonnemang: 4.5,
       larmfunktion: 3,
       utbyggnad: 3.5,
@@ -162,7 +183,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 43, scale: 5, checkedAt: PRICE_CHECKED },
     award: "budget",
-    superlative: "Störst kundunderlag, ingen plan",
+    superlative: "Bäst för eufy-hemmet",
     pros: [
       "43 kundomdömen med 4,5 i snitt, alltså det största underlaget i kategorin",
       "Appen är gratis och ingen funktion i larmet ligger bakom en plan",
@@ -170,23 +191,25 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "HomeBase fungerar också som repeater för wifi-signalen",
     ],
     cons: [
-      "Ingen reservuppkoppling, och butiken anger larmuppringning som Nej",
-      "Varken sirenens ljudnivå eller hubbens reservbatteri publiceras av någon av de två butiker som säljer den",
+      "Ingen reservuppkoppling, och butikens specifikation anger larmuppringning som Nej",
+      "HomeBase 2 saknar reservbatteri, så larmet slocknar med strömmen",
       "Bygger helt på hemmets wifi, och går ner med routern",
+      "Larmljudet kommer ur hubbens högtalare, och en riktig siren kostar 499 kronor till",
     ],
     specs: [
       { label: "Pris", value: "1 990 kr", highlight: true },
       { label: "Reservkanal", value: "Ingen", highlight: true },
-      { label: "Reservbatteri i hubben", value: "Ej angivet", highlight: true },
-      { label: "Siren", value: "Inbyggd, ljudnivå ej angiven", highlight: true },
+      { label: "Reservbatteri i hubben", value: "Inget, tillbehöret är utgått", highlight: true },
+      { label: "Siren", value: "Högtalare i HomeBase 2", highlight: true },
       { label: "Knappsats", value: "Ingår", highlight: true },
       { label: "Delar i paketet", value: "5" },
+      { label: "Max antal enheter", value: "16 kameror och 34 sensorer" },
       { label: "Batteritid, knappsats", value: "6 månader" },
       { label: "Batteritid, sensorer", value: "2 år" },
       { label: "Larmuppringning", value: "Nej, enligt butikens specifikation" },
     ],
     verdict:
-      "X-Sense Security Hemlarm kostar 1 990 kronor och är den ärligaste produkten här om vad du får utan abonnemang.\n\nBörja med det ärliga. eufy har ingen plan att sälja dig. Appen är gratis, larmet fungerar, och ingen funktion är avstängd tills du betalar. Det är precis vad rubriken larm utan abonnemang lovar, och två av de fyra andra håller inte det löftet lika rakt.\n\n43 kundomdömen med 4,5 i snitt hos Kjell är dessutom det största underlaget i hela kategorin. Clas Ohlson säljer samma paket för samma pengar och har 36 recensioner. Tillsammans är det fler människor som uttalat sig om den här produkten än om de fyra andra tillsammans.\n\nSedan luckan. Systemet går på hemmets wifi och har ingenting annat. Clas Ohlsons specifikationstabell har en rad som heter Larmuppringning, och där står Nej. Går routern ner, eller drar någon ur den, står larmet still. Ingen av de två butikerna anger heller hur högt sirenen låter eller hur länge HomeBase går på eget batteri, och de uppgifterna skriver vi inte ut som nollor: vi vet inte, och det ska stå så.\n\nFör 1 990 kronor och ett hem där uppkopplingen är stabil är det ett rimligt köp, särskilt om du redan har eufy-kameror. Ska larmet stå emot någon som vet vad som görs räcker det inte.",
+      "eufy Security Hemlarm kostar 1 990 kronor och håller kategorins löfte rakare än någon konkurrent.\n\n**Ingenting i larmet är avstängt tills du betalar.** Appen är gratis, det finns ingen plan att uppgradera till och ingen funktion som låses upp mot en månadsavgift. Knappsatsen ingår, så någon som inte har appen på sin telefon kan ändå larma av, och HomeBase 2 förstärker samtidigt wifi-signalen där den står. 43 kundomdömen med 4,5 i snitt hos Kjell och 36 till hos Clas Ohlson är dessutom det största underlaget i kategorin, alltså fler människor som uttalat sig om den här produkten än om de fyra andra tillsammans.\n\nPriset står i vad som händer när något går sönder. Systemet har hemmets wifi och ingenting annat, och Clas Ohlsons specifikation har en rad som heter Larmuppringning där det står Nej. HomeBase 2 har heller inget reservbatteri, och tillbehöret som gav den 8 timmars drift har eufy slutat sälja. Går routern ner står larmet still, går strömmen slocknar det helt. Larmljudet kommer ur hubbens högtalare, och den siren eufy säljer separat kostar 499 kronor till.\n\nKöp den om du redan har eufy-kameror och ett hem där strömmen och bredbandet står stadigt, för då får du mycket larm för 1 990 kronor. Ska larmet stå emot någon som vet var routern sitter är Ring 909 kronor dyrare och gör det.",
   },
   {
     id: "tapo-t30-kit",
@@ -194,7 +217,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Tapo T30 KIT",
     brand: "TP-Link",
     image: productImage(LARM_UTAN_ABONNEMANG.slug, "tapo-t30-kit"),
-    tagline: "629 kronor, och en siren i hubben som får göra hela jobbet.",
+    tagline: "Säger ifrån när altandörren öppnas, för en femtedel av priset.",
     scores: {
       uppkoppling: 1,
       utanAbonnemang: 5,
@@ -208,32 +231,33 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "https://www.kjell.com/se/produkter/smarta-hem/smarta-larm/tp-link-tapo-t30-kit-smarta-sensorer-for-ett-tryggare-och-bekvamare-hem-p66396",
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 5, scale: 5, checkedAt: PRICE_CHECKED },
-    superlative: "Billigast, om du vet vad du inte får",
+    superlative: "Bäst för en enskild dörr",
     pros: [
-      "629 kronor är en femtedel av näst billigaste riktiga larmpaket",
+      "629 kronor är en tredjedel av näst billigaste larmpaket",
       "Ingen plan, inget konto att uppgradera, ingenting låst",
       "Sensorerna går på 868 MHz och inte på wifi, med upp till två års batteritid",
-      "Bygger vidare i Tapos ekosystem, som är brett och billigt",
+      "Tar 64 sensorer och 4 kameror, så den växer billigt inom Tapo",
     ],
     cons: [
-      "90 dB i hubben är kategorins lägsta angivna ljudnivå",
+      "90 dB i hubben är den lägsta ljudnivån av larmen här",
       "Ingen knappsats, alltså krävs appen för att larma av",
-      "Ingen reservuppkoppling och ingen angiven reservbatteritid",
+      "Varken reservuppkoppling eller reservbatteri: hubben går bara på nätadapter",
       "Fyra delar och ingen separat siren",
     ],
     specs: [
       { label: "Pris", value: "629 kr", highlight: true },
       { label: "Reservkanal", value: "Ingen", highlight: true },
-      { label: "Reservbatteri i hubben", value: "Ej angivet", highlight: true },
+      { label: "Reservbatteri i hubben", value: "Inget, endast nätadapter", highlight: true },
       { label: "Siren", value: "90 dB, inbyggd i hubben", highlight: true },
       { label: "Knappsats", value: "Ingår ej", highlight: true },
       { label: "Delar i paketet", value: "4" },
+      { label: "Max antal enheter", value: "64 sensorer och 4 kameror" },
       { label: "Sensorradio", value: "868 MHz, upp till 50 m inomhus" },
       { label: "Hubbens nätverk", value: "2,4 GHz wifi" },
       { label: "Batteritid, rörelsesensor", value: "Upp till 2 år" },
     ],
     verdict:
-      "Tapo T30 KIT kostar 629 kronor och får en dörr att säga ifrån. Det ska inte förväxlas med ett larm som skyddar ett hus.\n\nFör 629 kronor får du en hubb, en rörelsesensor och två kontaktsensorer. Sensorerna går på 868 megahertz i stället för på wifi, med upp till två års batteritid, och hubben har en inbyggd siren på 90 decibel. Utlöses något ljuder den och du får en notis. Ingen plan, inget konto, ingenting låst. På kriteriet som handlar om vad som fungerar utan abonnemang är den bäst i jämförelsen, och det är inte ett skämt: den har inget att sälja dig.\n\nDet den inte har är nästan allt annat. 90 decibel är kategorins lägsta angivna ljudnivå, och den sitter inuti hubben som står inomhus. Det finns ingen knappsats, så alla som ska kunna larma av behöver appen och ett konto. Det finns ingen reservuppkoppling, och ingen uppgift om hur länge hubben klarar sig utan ström.\n\nDärför står den på fjärde plats trots att den är billigast och trots att den har högsta betyg på ett av de tunga kriterierna. Prisvärde och abonnemangsfrihet väger tillsammans 40 av 100, larmfunktion och uppkoppling väger 45.\n\nKöp den om du vill veta när altandörren öppnas, om du redan har Tapo hemma, eller om du bor i en lägenhet där grannarna hör allt. Köp den inte som ditt inbrottsskydd i en villa.",
+      "Tapo T30 KIT kostar 629 kronor och får en dörr att säga ifrån. Det är en annan sak än att skydda ett hus.\n\n**För 629 kronor får du en hubb, en rörelsesensor och två kontaktsensorer, och ingenting av det kräver ett konto du betalar för.** Sensorerna talar 868 megahertz på egen radio, så de fungerar även när wifi-nätet är trögt, och batterierna räcker upp till två år innan du behöver tänka på dem igen. Hubben tar 64 sensorer och 4 kameror, alltså kan du börja med altandörren för 629 kronor och lägga till en fönstersensor i taget för ett par hundra styck.\n\nDet den inte har är nästan allt annat. 90 decibel är den lägsta ljudnivån här, och ljudet kommer inifrån hubben som står inomhus. Det finns ingen knappsats, så var och en som ska kunna larma av behöver appen och ett konto. Och hubben går bara på nätadapter: varken reservkanal eller reservbatteri, så ett strömavbrott eller en utdragen kontakt släcker larmet helt.\n\nSom inbrottsskydd i en villa är den för tunn, och där börjar Ring på 2 899 kronor. Som ett sätt att veta när altandörren öppnas är den svårslagen för 629.",
   },
   {
     id: "yale-startlarmkit-plus",
@@ -241,7 +265,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Startlarmkit+",
     brand: "Yale",
     image: productImage(LARM_UTAN_ABONNEMANG.slug, "yale-startlarmkit"),
-    tagline: "Sex delar och störst ekosystem, med backupen bakom en plan.",
+    tagline: "Sex delar i lådan och plats för hundra, med en kilometers räckvidd.",
     scores: {
       uppkoppling: 2.5,
       utanAbonnemang: 2.5,
@@ -253,16 +277,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchant: "Yale",
     merchantUrl: "https://yalehome.se/yale-smart-alarm-starter-kit-xl/",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Störst utbyggnad, sämst prisvärde",
+    superlative: "Bäst för hem som redan har Yale Doorman",
     pros: [
-      "Sex delar i lådan, alltså två kontakter och två rörelsesensorer i stället för en av varje",
-      "Systemet tar upp till 100 enheter och räckvidden anges till 1 km",
+      "Sex delar i lådan, alltså två kontakter och två rörelsesensorer",
+      "Systemet tar upp till 100 enheter och räckvidden når 1 km",
       "Fungerar ihop med Yales lås och kameror, och med Google, Alexa och Philips Hue",
-      "Sensorernas batteritid anges till 3 och 4 år",
+      "Sensorernas batterier räcker 3 till 4 år",
     ],
     cons: [
-      "4G-backup kräver enligt butikens egen specifikation både SIM-kort och prenumeration",
-      "Reservbatteriet anges till 12 timmar, och till ungefär 6 timmar på wifi",
+      "4G-backup kräver enligt Yales egen produktsida både SIM-kort och prenumeration",
+      "Reservbatteriet räcker 12 timmar, och omkring 6 timmar när systemet körs på wifi",
       "3 990 kronor, alltså 1 091 mer än Ring för lägre siren och kortare batteri",
       "Automatiserad samtalsvarning ligger också i prenumerationsplanen",
     ],
@@ -287,7 +311,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Artikelnummer", value: "AL-SK2-1A-EU" },
     ],
     verdict:
-      "Startlarmkit+ har 104 dB siren och 24 timmars reservbatteri, den högsta ljudnivån och det längsta strömavbrottsskyddet av larmen här.\n\nDet finns riktiga skäl att välja det här. Sex delar i lådan i stället för fem, alltså två kontaktsensorer och två rörelsesensorer, vilket täcker en ytterdörr och en altandörr direkt. Radion når enligt tillverkaren en kilometer, vilket gör garaget och förrådet möjliga. Systemet tar hundra enheter. Och det pratar både med Yales egna lås och kameror och med Google, Alexa och Philips Hue, alltså bredast i jämförelsen.\n\nProblemet står i Kjells specifikationstabell, i klartext: Kommunikation: Wi-fi, Ethernet, Bluetooth, 4G (kräver SIM-kort och prenumeration).\n\nSamma sida listar också vad prenumerationsplanen ger: 4G-backup, automatiserad samtalsvarning och professionell övervakning. Två av de tre är sådant vi tycker är rimligt att ta betalt för. 4G-backup är det inte, eftersom det är larmets skydd mot det enklaste angreppet.\n\nDärtill den uppgift som är lättast att missa. Reservbatteriet anges till tolv timmar, med en fotnot: cirka sex timmar vid wifi-anslutning. Kör du systemet trådlöst, som de flesta gör, halveras alltså tiden efter ett strömavbrott till en fjärdedel av Rings.\n\n3 990 kronor är 1 091 mer än Ring. För de pengarna får du en extra sensor, ett bredare ekosystem och en längre radioräckvidd, men en lägre siren och ett kortare batteri. Har du redan Yale Doorman på ytterdörren är det ett rimligt köp. Har du inte det finns det billigare vägar till samma sak.",
+      "Yale Startlarmkit+ kostar 3 990 kronor och är det larm som räcker längst när du bygger vidare.\n\n**Sex delar i lådan, alltså två kontaktsensorer och två rörelsesensorer, täcker en ytterdörr och en altandörr direkt utan påbyggnad.** Radion når enligt Yale en kilometer, vilket gör garaget och förrådet till rimliga platser för en sensor, och systemet tar hundra enheter innan det tar slut. Det talar dessutom både med Yales egna lås och kameror och med Google, Alexa och Philips Hue, alltså bredast i jämförelsen, så larmet kan tända lamporna när det går.\n\nTvå saker drar ner det. Mobilnätet som reserv kräver enligt Yales egen produktsida både SIM-kort och en prenumeration, samma plan som ger automatiserad samtalsvarning. Och reservbatteriet är angivet till 12 timmar fullt fungerande, men Kjells specifikation lägger till att det blir omkring 6 timmar när systemet körs över wifi, vilket är så de flesta kör det: en fjärdedel av Rings dygn, till 1 091 kronor mer.\n\nDe 1 091 kronorna över Rings pris köper räckvidd och utbyggnad, inte högre ljud eller längre batteri. Har du redan Yale Doorman på ytterdörren och tänker dra larmet ut till garaget är de väl använda.",
   },
 ];
 
@@ -370,7 +394,7 @@ export const LARM_UTAN_ABONNEMANG_FAQ = [
   {
     question: "Vad händer med larmet om internet försvinner?",
     answer:
-      "Det beror helt på vilket du köpt, och det är den fråga som skiljer produkterna mest. Ajax Hub 2 Plus har Ethernet, wifi och två SIM-kortsplatser för mobilnät, alltså fyra vägar ut, och växlar mellan dem automatiskt. Ring Alarm och Yale Startlarmkit+ kan använda mobilnätet, men bara med en prenumeration: Ring Protect Plus respektive Yales egen plan med SIM-kort. eufy Security och Tapo T30 har ingen reservkanal alls och går ner med routern. Clas Ohlsons specifikation för eufy anger till och med larmuppringning som Nej. Kontrollera det här innan du köper, för det är svårare att åtgärda i efterhand än att välja rätt från början.",
+      "Det beror helt på vilket du köpt, och det är den fråga som skiljer produkterna mest. Ajax Hub 2 Plus har Ethernet, wifi och två SIM-kortsplatser för mobilnät, alltså fyra vägar ut, och växlar mellan dem automatiskt. Ring Alarm och Yale Startlarmkit+ kan använda mobilnätet, men bara med en prenumeration: Ring Protect Plus respektive Yales egen plan med SIM-kort. eufy Security och Tapo T30 har ingen reservkanal alls och går ner med routern. Clas Ohlsons specifikation för eufy anger till och med larmuppringning som Nej. Ett strömavbrott är den andra halvan av samma fråga: Ring håller 24 timmar på eget batteri, Ajax 15 och Yale 12, medan eufy och Tapo slocknar direkt. Kontrollera båda innan du köper, för det är svårare att åtgärda i efterhand än att välja rätt från början.",
   },
   {
     question: "Vad är skillnaden mot ett hemlarm med abonnemang?",
@@ -395,7 +419,7 @@ export const LARM_UTAN_ABONNEMANG_FAQ = [
   {
     question: "Hur högt ska sirenen låta?",
     answer:
-      "Så högt att den hörs ut, och där skiljer produkterna mer än man tror. Ring anger 104 decibel, Yale 100 och TP-Link Tapo 90. eufy anger ingen ljudnivå alls hos någon av de två butiker som säljer den. Tio decibel motsvarar ungefär en fördubbling av upplevd ljudstyrka, så skillnaden mellan 90 och 104 är stor. Viktigare än talet är dock var sirenen sitter: hos Ring, Yale, eufy och Tapo är den inbyggd i hubben, som står inomhus och går att hitta och tysta. Ajax-paketet har en separat siren du monterar där du vill, och alla systemen kan kompletteras med en utomhussiren som kostar extra.",
+      "Så högt att den hörs ut, och där skiljer produkterna mer än man tror. Ring har 104 decibel, Yale 100 och TP-Link Tapo 90. Tio decibel motsvarar ungefär en fördubbling av upplevd ljudstyrka, så skillnaden mellan 90 och 104 är stor. eufys larmljud kommer ur en högtalare i HomeBase 2, och den riktiga sirenen säljer eufy separat för 499 kronor hos Kjell. Viktigare än talet är ändå var sirenen sitter: hos Ring, Yale, eufy och Tapo ljuder den inifrån hubben, som står inomhus och går att hitta och tysta. Ajax-paketet har en separat siren du monterar där du vill, och alla systemen kan kompletteras med en utomhussiren som kostar extra.",
   },
   {
     question: "Kan jag koppla ett larm utan abonnemang till en larmcentral senare?",

@@ -1,4 +1,5 @@
 import { SITE } from "@/lib/site";
+import { publishedFor } from "@/lib/catalog";
 import type { TestPage, Product } from "@/lib/products";
 import { DEFAULT_REVIEWER, type Person } from "@/lib/people";
 import {
@@ -59,6 +60,10 @@ export function ProductSchema({
   sections,
 }: ProductSchemaProps) {
   const url = `${SITE.url}${pageUrl}`;
+
+  /* Publiceringsdatumet slas upp pa slug i katalogen i stallet for att skickas
+     in som prop, sa att de 37 sidfilerna slipper en tredje datumkonstant. */
+  const published = publishedFor(testPage.slug);
 
   const publisher = orgRef();
 
@@ -124,6 +129,7 @@ export function ProductSchema({
     author,
     reviewer,
     reviewed,
+    published,
     about: {
       "@type": "Thing",
       "@id": `${url}#amne`,

@@ -48,10 +48,16 @@ import Kopguide from "@/content/iphone-skal/kopguide.mdx";
  * vattentäta dykhus. Därför finns inget kriterium för testomdöme, och sidan
  * säger det rakt ut enligt IDÉ-012.
  *
- * ⚠️ Angiven fallhöjd och angiven militärstandard ingår i inget betygsatt
- * mätvärde. MIL-STD-810 är läst i original i tre utgåvor, och del ett §1.2 b
- * säger att det inte är giltigt att betrakta en metods provvillkor som
- * oföränderliga. Se lib/spec-schema.mjs, ALDRIG_BEDOMD.
+ * ⚠️ Fallhöjd och militärstandard ingår i inget betygsatt mätvärde. De ligger
+ * i en enda rad, `Falltest enligt tillverkaren`, och stannar där. MIL-STD-810
+ * är läst i original i tre utgåvor, och del ett §1.2 b säger att det inte är
+ * giltigt att betrakta en metods provvillkor som oföränderliga. Se
+ * lib/spec-schema.mjs, ALDRIG_BEDOMD.
+ *
+ * ⚠️ Kriteriet `redovisning` (vikt 22) togs bort 2026-08-06. Det betygsatte
+ * säljarens produktblad och inte skalet, och kategorin saknar den motpart som
+ * skulle gjort ett redovisningskriterium meningsfullt: ingen myndighet provar
+ * mobilskal och utfärdar intyg. Vikterna är nu 51/28/21. Se lib/corrections.ts.
  *
  * ⚠️ H1 bär avgränsningen, som på /brandvarnare och /smart-termostat: ordet
  * skal täcker även plånboksfodral, skärmskydd och kameralinsskydd i samma
@@ -63,12 +69,12 @@ import Kopguide from "@/content/iphone-skal/kopguide.mdx";
 
 const TEST_PAGE = IPHONE_SKAL;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Spigen Rugged Armor MagFit för 349 kr vinner: stötdämpande skum i hörnen och ett helt inbyggt kamerablock. Vi jämför tolv skal till iPhone 17 från 99 till 1 099 kronor på konstruktion, redovisat skydd och magnetring.",
+    "Spigen Rugged Armor MagFit för 349 kr vinner: stötdämpande skum i hörnen och ett kamerablock som ligger under skalets yta. Vi jämför tolv skal till iPhone 17 från 99 till 1 099 kronor på konstruktion, prisvärde och magnetring.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -126,10 +132,9 @@ export default async function IphoneSkalPage() {
             <p className="max-w-2xl text-lg text-muted-foreground">
               Spigen Rugged Armor MagFit för 349 kronor vinner, därför att den
               lägger stötdämpande skum i hörnen och bygger in hela kamerablocket
-              så linserna aldrig möter bordet. Ska skalet bara hålla repor borta
-              räcker Trolsks matta för 99. Talet om militärstandard som står på
-              nästan varje kartong säger mindre än du tror, och det är hela
-              anledningen till att sidan finns.
+              så linserna aldrig möter bordet. Vill du se telefonens färg kostar
+              Spigen Ultra Hybrid MagFit 269 med samma magnetring, och ska skalet
+              bara hålla repor borta räcker Trolsks matta för 99.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -209,10 +214,19 @@ export default async function IphoneSkalPage() {
           </p>
           <p>
             Därför betygsätter vi inga fallhöjder här. Det som går att jämföra är
-            konstruktionen du kan se på skalet, och hur mycket säljaren skriver
-            ut. Precisionen följer inte priset: skalet för 259 kronor anger både
-            utgåva och metodnummer, medan det för 1 099 anger 7,6 meter utan att
-            namnge någon standard alls.
+            konstruktionen du kan se på skalet.
+          </p>
+          <p>
+            Vilken utgåva märkena hänvisar till följer inte heller priset. Skalet
+            för 259 kronor är det enda som anger 516.7, alltså metoden från 2014
+            där stål är underlaget. OtterBox och UAG hänvisar båda till 516.6
+            från 2008, den enda utgåva där plywooden fortfarande gäller. Ingen
+            av de tolv nämner 810H, som gällt sedan 2019.
+          </p>
+          <p>
+            UAG lägger dessutom till en multipel: 3X för Plyo och 5X för Monarch
+            Pro Kevlar. Standarden definierar ingen sådan, så vad de tre eller
+            fem gångerna avser går inte att slå upp någonstans.
           </p>
         </Prose>
       </Section>
@@ -250,7 +264,7 @@ export default async function IphoneSkalPage() {
         tone="muted"
         width="wide"
         title="Recensioner av varje skal"
-        description="Tolv skal mellan 99 och 1 099 kronor, bedömda på hur de är byggda, hur mycket du får veta före köpet och om magneten sitter i."
+        description="Tolv skal mellan 99 och 1 099 kronor, bedömda på hur de är byggda, vad de kostar och vad magneten duger till."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -299,7 +313,7 @@ export default async function IphoneSkalPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Skydd du kan se väger 40 därför att det är det läsaren betalar för, och därför att det är det enda skyddet som går att bedöma på något annat än ett påstående. Sidan har inget kriterium för testomdöme, och den här gången är kategorin helt tom: Råd & Rön provar mobiler men inte skal, Testfakta har ingen provning, och Stiftung Warentests fallprov gäller vattentäta dykhus. Angiven fallhöjd och angiven militärstandard betygsätts inte som mätvärden. MIL-STD-810 är läst i original i tre utgåvor, och i del ett står att det inte är giltigt att betrakta en metods provvillkor som oföränderliga, samtidigt som tabellen tillåter att de 26 fallen delas på fem exemplar. Två sådana tal är därför inte jämförbara ens när båda anges. De väger i stället in under öppen redovisning, som mäter hur mycket av köpbeslutet du får ta själv. Garanti prövades som femte kriterium och ströks före insamlingen, eftersom märkena ger två år och husmärkena ett och kolumnen därmed skiljde produkterna åt på en axel ingen köper efter."
+          footnote="Skydd du kan se väger 51 därför att det är det du betalar för, och därför att det är det enda i kategorin som går att bedöma på något annat än ett påstående. Sidan har inget kriterium för testomdöme, och den här gången är kategorin helt tom: Råd & Rön provar mobiler men inte skal, Testfakta har ingen provning, och Stiftung Warentests fallprov gäller vattentäta dykhus. Fallhöjder och militärstandarder står i tabellen men ingår inte i något betyg. MIL-STD-810 är läst i original i tre utgåvor, och i del ett står att det inte är giltigt att betrakta en metods provvillkor som oföränderliga, samtidigt som tabellen tillåter att de 26 fallen delas på fem exemplar. Två sådana tal mäter därför inte samma sak ens när båda anges. Kriteriet Öppen redovisning av skydd vägde 22 fram till den 6 augusti 2026 och togs bort då, eftersom det betygsatte om tillverkaren skrivit ut ett tal i stället för vad skalet gör; vikten fördelades proportionellt på de tre som blev kvar. Garanti prövades som femte kriterium och ströks före insamlingen, eftersom märkena ger två år och husmärkena ett och kolumnen därmed skiljde produkterna åt på en axel ingen köper efter."
         />
       </Section>
 

@@ -156,6 +156,7 @@ export function ProductCard({
               productId={product.id}
               productName={fullName(product)}
               placement={placement}
+              position={rank}
               block
             />
           </div>
@@ -208,6 +209,7 @@ export function ProductCard({
           productId={product.id}
           productName={fullName(product)}
           placement={placement}
+          position={rank}
           size="lg"
           block
         />

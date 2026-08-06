@@ -40,9 +40,18 @@ import Kopguide from "@/content/luftkvalitetsmatare/kopguide.mdx";
 /*
  * ⚠️ Priser, kundbetyg, GTIN och givaruppsättningar är riktiga, lästa hos Clas
  * Ohlson via webbläsare med kakorna avvisade och hos Proshop i deras
- * strukturerade data på PRICE_CHECKED. Airthings noggrannhet är läst på deras
- * egen sida. Kriteriebetygen är redaktionell bedömning. Vi har inte mätt någon
- * luft och inte provat någon mätare.
+ * strukturerade data på PRICE_CHECKED. Givare, noggrannhet, mått och
+ * batteritider är lästa hos tillverkaren 2026-08-06. Kriteriebetygen är
+ * redaktionell bedömning. Vi har inte mätt någon luft och inte provat någon
+ * mätare.
+ *
+ * ⚠️ ±30 ppm GÄLLER BARA WAVE PLUS. View Plus anger ±50 ppm ±3 % och Wave
+ * Enhance ±50 ppm ±5 %. Sidan skrev tidigare samma tal för alla tre. Skriv
+ * aldrig ett noggrannhetstal utan att kontrollera modellen det står på.
+ *
+ * ⚠️ WAVE ENHANCE MÄTER SJU STORHETER, inte fyra som Clas Ohlson listar:
+ * koldioxid, VOC, fukt, temperatur, lufttryck, ljudnivå och ljus. Källan är
+ * Airthings eget produktblad.
  *
  * Sidans fynd: TRE AV ÅTTA kartlagda mätare saknar koldioxidgivare helt trots
  * att de säljs som luftkvalitetsmätare, och en fjärde anger `eCO2`, alltså ett
@@ -61,7 +70,19 @@ import Kopguide from "@/content/luftkvalitetsmatare/kopguide.mdx";
  * ⚠️ INGET PRIS på en ackrediterad radonmätning publiceras. Laboratoriernas
  * egna produktsidor svarar 404 och sökresultaten gav tre olika tal.
  *
- * ⚠️ Netatmos noggrannhet är INTE fastställd och står som ej angiven.
+ * ⚠️ Netatmo publicerar sin specifikation, men först när dragspelet "Tekniska
+ * specifikationer" öppnas i en riktig webbläsare: temperatur ±0,3 °C, fukt
+ * ±3 %, koldioxid 0 till 5 000 ppm, ljud 35 till 120 dB. Koldioxidtoleransen
+ * ±100 ppm står i hjälpcentrets artikel 360025217051, som gäller just Smart
+ * Indoor Air Quality Monitor. Det är den vidaste av de fyra som mäter
+ * koldioxid på riktigt.
+ *
+ * ⚠️ Netatmos ANDRA artikel om koldioxidgivaren, 360020908892, beskriver en
+ * optisk mätning med lampa och infraröd mottagare och anger ±10 % över
+ * 1 000 ppm. Den gäller Smart Home Weather Station och får INTE bäras hit.
+ * Samma fälla som ±30 ppm-felet. Vilken teknik NHC:s givare använder är inte
+ * fastställt, och cellen säger därför bara att koldioxiden mäts och inte
+ * räknas fram.
  *
  * ⚠️ Clas Ohlson publicerar reviewCount, inte ratingCount. Talen här är alltså
  * inte jämförbara med Kjells på andra sidor.
@@ -71,12 +92,12 @@ import Kopguide from "@/content/luftkvalitetsmatare/kopguide.mdx";
 
 const TEST_PAGE = LUFTKVALITETSMATARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-05";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Tre av åtta luftkvalitetsmätare saknar koldioxidgivare helt, och en fjärde anger eCO2, ett tal uträknat ur VOC-halten. Vi jämförde sju mätare från 729 till 2 856 kronor på vilka givare som faktiskt sitter i lådan.",
+    "Airthings View Plus vinner för 2 856 kronor och är ensam om att mäta partiklar. Tre av åtta mätare saknar koldioxidgivare helt och en fjärde anger eCO2. Vi jämförde sju mätare från 729 kronor på vad de faktiskt mäter.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -134,15 +155,20 @@ export default async function LuftkvalitetsmatarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Tre av de åtta mätare vi kartlagt saknar koldioxidgivare, och två
-              av dem kostar över tusen kronor. En fjärde anger eCO2, ett tal som
-              räknas fram ur luftens innehåll av organiska ämnen i stället för
-              att mätas. Skillnaden mellan modellerna ligger inte i hur bra de
-              mäter utan i vad de mäter. Vi jämförde sju mätare från 729 till
-              2 856 kronor på just den frågan.
+              <strong className="text-foreground">
+                Airthings View Plus mäter radon, partiklar och koldioxid i samma
+                apparat för 2 856 kronor
+              </strong>{" "}
+              och är den enda i jämförelsen som mäter partiklar. Den frågan
+              avgör kategorin: tre av de åtta mätare vi kartlagt saknar
+              koldioxidgivare, och två av dem kostar över tusen kronor. En
+              fjärde anger eCO2, ett tal som räknas fram ur luftens innehåll av
+              organiska ämnen i stället för att mätas. Vi jämförde sju mätare
+              från 729 till 2 856 kronor på vad de faktiskt mäter.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -216,14 +242,26 @@ export default async function LuftkvalitetsmatarePage() {
           <p>
             <strong>En riktig givare heter NDIR</strong> och mäter hur infrarött
             ljus absorberas av gasen. Airthings använder den i View Plus, Wave
-            Plus och Wave Enhance, och anger dessutom noggrannheten till{" "}
-            <strong>±30 ppm ±3 procent</strong> mellan 15 och 35 grader.
+            Plus och Wave Enhance, men de tre anger tre olika toleranser:{" "}
+            <strong>±30 ppm ±3 procent</strong> för Wave Plus, ±50 ppm ±3
+            procent för View Plus och ±50 ppm ±5 procent för Wave Enhance.
+            Netatmo, som också mäter koldioxid med en egen givare, anger ±100
+            ppm och är därmed den trubbigaste av de fyra.
           </p>
           <p>
-            <strong>Det är samma mönster som på vår hygrometersida, fast vänt.</strong>{" "}
-            Där handlade fyndet om att nästan ingen tillverkare skriver ut hur
-            mycket fel mätaren får visa. Här visar det sig att den som har en
-            riktig givare också är den som vågar sätta en siffra på den.
+            <strong>
+              Den noggrannaste koldioxidgivaren sitter alltså i mellanmodellen,
+              inte i den dyraste.
+            </strong>{" "}
+            Wave Plus kostar 1 999 kronor och mäter koldioxid snävare än View
+            Plus för 2 856. Ska du bara följa koldioxiden är det den billigare
+            av de två som gör det bäst.
+          </p>
+          <p>
+            <strong>Det avgör vad du ska leta efter på kartongen.</strong> Ordet
+            luftkvalitet säger ingenting om vilka givare som sitter i lådan. Leta
+            efter NDIR eller koldioxid i givarlistan, och läs eCO2 som beskedet
+            att koldioxiden inte mäts.
           </p>
         </Prose>
       </Section>
@@ -317,7 +355,7 @@ export default async function LuftkvalitetsmatarePage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Givaruppsättningarna är butikens och tillverkarens egna uppgifter. CO2-teknik skiljer NDIR, som mäter koldioxid direkt, från eCO2, som räknas fram ur halten flyktiga organiska ämnen. Angiven noggrannhet är tillverkarens egen utfästelse; där den står som ej angiven publicerar tillverkaren ingen, vilket gäller fyra av de sju. Priserna är hos den butik vi länkar till, och samma apparat kan skilja flera hundra kronor mellan två svenska butiker.",
+            "Givaruppsättningarna är hämtade ur tillverkarnas egna produktblad. CO2-teknik skiljer NDIR, som mäter koldioxid direkt, från eCO2, som räknas fram ur halten flyktiga organiska ämnen. Noggrannheten är tillverkarens egen utfästelse och gäller den storhet som står i cellen. Strömförsörjningen avgör var mätaren får stå: den nätdrivna måste ha ett uttag, medan de batteridrivna klarar sig 14 månader till 3 år. Priserna är hos den butik vi länkar till, och samma apparat kan skilja flera hundra kronor mellan två svenska butiker.",
           )}
         />
       </Section>
@@ -336,8 +374,9 @@ export default async function LuftkvalitetsmatarePage() {
               Vi har inte mätt någon luft och inte provat någon mätare.
             </strong>{" "}
             Givaruppsättningarna är lästa hos butiken och hos tillverkaren.
-            Noggrannheten är Airthings egen uppgift. Reglerna för radonmätning
-            kommer från Strålsäkerhetsmyndighetens vägledning.
+            Toleranserna är Airthings, Netatmos och Mills egna uppgifter.
+            Reglerna för radonmätning kommer från
+            Strålsäkerhetsmyndighetens vägledning.
           </p>
           <p>
             <strong>
@@ -358,22 +397,22 @@ export default async function LuftkvalitetsmatarePage() {
             apparat klarade alltså inte att mäta det den säljs för att mäta.
           </p>
           <p>
-            <strong>Sex av produkterna är Airthings.</strong> Det beror på att
-            märket dominerar sortimentet. De hamnar på
-            fyra skilda platser i rankningen, från första till näst sist, vilket
-            är rimligt eftersom givaruppsättningarna går från sju givare till tre.
+            <strong>Fem av de sju är Airthings.</strong> Det beror på att märket
+            dominerar sortimentet. De hamnar på fem skilda platser i rankningen,
+            från första till näst sist, vilket är rimligt eftersom
+            givaruppsättningarna går från sju givare till tre.
           </p>
           <p>
-            <strong>Netatmos noggrannhet står som ej angiven.</strong> Deras
-            specifikationssida gick inte att nå när vi läste, och varken butiken
-            eller något datablad vi hittat anger vilken teknik givaren använder.
-            Det är en frånvaro av uppgift, inte ett underkännande.
-          </p>
-          <p>
-            <strong>Vi anger inget pris på en ackrediterad radonmätning.</strong>{" "}
-            Laboratoriernas egna produktsidor svarade inte när vi läste, och ett
-            pris vi inte kunnat läsa hos den som säljer tjänsten skriver vi inte
-            ut.
+            <strong>
+              Toleranserna för koldioxid är tillverkarnas egna, och de är
+              skrivna på olika villkor.
+            </strong>{" "}
+            Airthings anger ±30 ppm ±3 procent för Wave Plus mellan 15 och 35
+            grader, ±50 ppm ±3 procent för View Plus mellan 10 och 35, och ±50
+            ppm ±5 procent för Wave Enhance inom 500 till 2 000 ppm. Netatmo
+            anger ±100 ppm för sin mätare. Talen går att ställa mot varandra som
+            storleksordningar, men de är varken mätta av samma part eller
+            angivna för samma temperatur- och mätspann.
           </p>
           <p>
             <strong>Betygstalen kommer från Clas Ohlson och är recensioner,
@@ -390,7 +429,7 @@ export default async function LuftkvalitetsmatarePage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje mätare"
-        description="Alla sju bedöms mot samma fem kriterier, och koldioxidgivaren avgör mest. Tre av mätarna räknar fram sitt tal ur något annat än koldioxid."
+        description="Alla sju bedöms mot samma fyra kriterier, och koldioxidgivaren avgör mest. Tre av mätarna räknar fram sitt tal ur något annat än koldioxid."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -438,7 +477,7 @@ export default async function LuftkvalitetsmatarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Givare och mätteknik väger 35 av 100 eftersom den verkliga skillnaden mellan mätarna ligger i vad apparaterna mäter: tre av åtta kartlagda saknar koldioxidgivare helt. Beslutsnytta väger 25 och mäter om talet går att agera på, inte om det duger till ett myndighetsbeslut. Det är en viktig skillnad: en radonmätare straffas inte här för att dess värde inte kan användas i ett tillsynsärende, eftersom den ändå talar om ifall det är värt att beställa en riktig mätning och visar om en åtgärd hjälpt. Ett eCO2-värde straffas däremot hårt, eftersom talet inte motsvarar någon storhet som finns i rummet. Reglerna för radonmätning står i köpguiden och påverkar inte betygen, efter beslut när sidan byggdes. Där en tillverkare inte publicerar en uppgift står den som ej angiven, aldrig som en nolla. Priserna är hos den butik vi länkar till."
+          footnote="Givare och mätteknik väger 40 av 100 eftersom den verkliga skillnaden mellan mätarna ligger i vad apparaterna mäter: tre av åtta kartlagda saknar koldioxidgivare helt. Beslutsnytta väger 30 och mäter om talet går att agera på, inte om det duger till ett myndighetsbeslut. Det är en viktig skillnad: en radonmätare straffas inte här för att dess värde inte kan användas i ett tillsynsärende, eftersom den ändå talar om ifall det är värt att beställa en riktig mätning och visar om en åtgärd hjälpt. Ett eCO2-värde straffas däremot hårt, eftersom talet inte motsvarar någon storhet som finns i rummet. Avläsning och app väger 20 och pris och värde 10. Reglerna för radonmätning står i köpguiden och påverkar inte betygen, efter beslut när sidan byggdes. Priserna är hos den butik vi länkar till."
         />
       </Section>
 
@@ -470,16 +509,18 @@ export default async function LuftkvalitetsmatarePage() {
         tone="muted"
         width="default"
         title="Källor"
-        description="En tysk provning av 26 mätare, en svensk myndighetsvägledning och ett tillverkardatablad."
+        description="En tysk provning av 26 mätare, en svensk myndighetsvägledning och tre tillverkardokument."
       >
         <Prose className="mb-block">
           <p>
-            <strong>Tre källor bär sidan, alla lästa i original.</strong>{" "}
+            <strong>Fem källor bär sidan, alla lästa i original.</strong>{" "}
             Stiftung Warentests provning av 26 koldioxidmätare ger det enda
             oberoende måttet på hur väl apparaterna mäter.
             Strålsäkerhetsmyndighetens vägledning ger reglerna för vad ett
-            radonvärde duger till. Airthings eget datablad ger den enda
-            publicerade noggrannheten i fältet.
+            radonvärde duger till. Airthings och Netatmos egna datablad ger
+            toleranserna för koldioxid, och Mills bruksanvisning både talen för
+            fukt och temperatur och tillverkarens egen beskrivning av vad ett
+            eCO2-värde är.
           </p>
           <p>
             <strong>

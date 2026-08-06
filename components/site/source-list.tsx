@@ -2,6 +2,7 @@ import { ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { MARKET_LABELS, sourceSummary, type Source } from "@/lib/sources";
+import { VerdictText } from "@/components/product/verdict-text";
 
 export type SourceListProps = {
   sources: Source[];
@@ -182,8 +183,13 @@ export function SourceList({
             {source.market ? ` · ${MARKET_LABELS[source.market]}` : null}
             {source.date ? ` · ${source.date}` : null}
           </p>
+          {/* Stycken. Den längsta källnoten var 1 230 tecken den 6 augusti
+              2026 och ingen enda hade styckebrytning. */}
           {source.note ? (
-            <p className="text-sm text-muted-foreground">{source.note}</p>
+            <VerdictText
+              text={source.note}
+              className="text-sm text-muted-foreground"
+            />
           ) : null}
         </li>
       ))}

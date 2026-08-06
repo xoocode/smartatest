@@ -37,24 +37,29 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/utrymningsstege/kopguide.mdx";
 
 /*
- * ⚠️ Priser, längder, mått, material, angiven maxlast, vad som ingår och vilken
- * standard eller vilket godkännande butiken eller tillverkaren anger är
- * riktiga, lästa på butikens eller tillverkarens egen sida på PRICE_CHECKED.
- * SINTEF-certifikatet TG 2536 är läst i sin helhet. Kriteriebetygen är
- * redaktionell bedömning. Vi har inte belastat, monterat eller klättrat i någon
- * stege.
+ * ⚠️ Priser, längder, mått, material, stegbredd, stegavstånd, angiven maxlast,
+ * vad som ingår och vilken standard eller vilket godkännande tillverkaren anger
+ * är riktiga. Priser lästa på butikens egen sida på PRICE_CHECKED, tekniska
+ * uppgifter i tillverkarnas egna produktblad, monteringsanvisningar och
+ * certifikat 2026-08-06. Kriteriebetygen är redaktionell bedömning. Vi har inte
+ * belastat, monterat eller klättrat i någon stege.
  *
  * Sidans tre fynd, i den ordning de står:
  *
  * 1. #godkannandet — SINTEF Certification har en produktgrupp för räddningsstegar
- *    med fyra godkända produkter, och en av dem säljs i Sverige. Det är enda
- *    gången i brandfamiljen någon produkt når 5,0 på provningskriteriet.
- * 2. #hojdgranserna — godkännandet slutar vid 5,0 meter utan ryggbygel medan
- *    Boverket tillåter 8,0. De två gränserna går inte ihop, och de tre stegar
- *    som inte anger någon gräns alls säljs i upp till sex meter.
+ *    med fyra godkända produkter, och en av dem säljs i Sverige. Frånvaron hos de
+ *    övriga är belagd genom att läsa registret och W.Steps egna RISE-intyg, inte
+ *    genom att de saknas i en butikstext.
+ * 2. #stegpinnen — stegbredden spänner 240 till 400 mm medan stegavståndet är
+ *    300 mm hos samtliga. Det är den största fysiska skillnaden mellan stegarna
+ *    och ingen svensk jämförelse nämner den. Hittat 2026-08-06 i tillverkarnas
+ *    egna dokument, se .agent/research/utrymningsstege.md.
  * 3. #prisskillnaden — samma artikelnummer skiljer 49 procent mellan två
- *    svenska butiker. Eget avsnitt eftersom det inte hör hemma i något kriterium
- *    utöver prisvärde, och där hade det försvunnit som ett par tiondelar.
+ *    svenska butiker. Eget avsnitt eftersom det gäller butiken och inte varan.
+ *
+ * Avsnittet #vem-har-kontrollerat togs bort 2026-08-06. Det upprepade
+ * metodrutan och ägnade tre stycken åt vad vi läst i stället för åt stegarna.
+ * Metoden står i viktningen, en gång. Se lib/corrections.ts.
  *
  * Systersida till /brandstege, som rankar de hängande stegarna. Se
  * lib/categories.ts för viktningen och .agent/research/utrymningsstege.md för
@@ -69,12 +74,12 @@ import Kopguide from "@/content/utrymningsstege/kopguide.mdx";
 
 const TEST_PAGE = UTRYMNINGSSTEGE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Fyra stegar i världen har ett tredjepartsgodkännande för utrymning, och en av dem säljs i Sverige. Vi jämförde fem fasta fasadstegar från 3 695 till 14 513 kronor mot vad du faktiskt kan kontrollera före köp.",
+    "Modum Original är den enda stege som är provad och godkänd för utrymning, och 3,9 meter kostar 9 621 kronor. Housegard EL39 gör jobbet för 3 695. Vi jämförde fem fasta fasadstegar på stegbredd, räckvidd och vilka väggar de går upp på.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -86,9 +91,9 @@ export const metadata: Metadata = {
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
   { id: "godkannandet", label: "Godkännandet fyra stegar har" },
+  { id: "stegpinnen", label: "16 centimeter skiljer stegpinnarna" },
   { id: "hojdgranserna", label: "Två höjdgränser som inte går ihop" },
   { id: "jamforelse", label: "Jämför alla fem" },
-  { id: "vem-har-kontrollerat", label: "Vem har kontrollerat det här?" },
   { id: "prisskillnaden", label: "Samma stege, 49 procent dyrare" },
   { id: "recensioner", label: "Recensioner av varje stege" },
   { id: "andra-stegar", label: "Andra produkter vi övervägde" },
@@ -133,14 +138,17 @@ export default async function UtrymningsstegePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              En fast stege är det enda byggreglerna räknar som utrymningsväg
-              när fönstret sitter mer än fem meter upp. Fyra stegar i världen har
-              ett tredjepartsgodkännande för ändamålet, och en av dem säljs här.
-              Vi jämförde fem fabrikat från 3 695 till 14 513 kronor mot det som
-              faktiskt går att kontrollera innan du skruvar fast något i fasaden.
+              <strong>Modum Original</strong> är den enda stegen i svensk handel
+              som en tredje part provat och godkänt för utrymning, den finns i
+              sexton längder så att den slutar där fönstret börjar, och 3,9 meter
+              kostar 9 621 kronor. Har du inte 9 621 kronor gör{" "}
+              <strong>Housegard EL39</strong> samma jobb för 3 695. Vi jämförde
+              fem fabrikat på stegbredden du sätter foten på, hur högt de når och
+              vilka väggar de går upp på.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -192,7 +200,7 @@ export default async function UtrymningsstegePage() {
         id="godkannandet"
         width="default"
         title="Godkännandet fyra stegar har"
-        description="Det finns en riktig tredjepartsordning för fast monterade utrymningsstegar. En av produkterna i svensk handel har den."
+        description="Fyra stegar i världen är provade och godkända för utrymning från fönster. En av dem säljs i Sverige."
       >
         <Prose>
           <p>
@@ -202,29 +210,76 @@ export default async function UtrymningsstegePage() {
             Sørlandsstigen. Av dem säljs en i Sverige.
           </p>
           <p>
-            Ett tekniskt godkännande är något annat än en standardhänvisning i en
-            butikstext. Certifikatet TG 2536 är fyra sidor och det står vad man
-            vill veta innan man skruvar fast något i sitt hus:{" "}
+            Certifikatet TG 2536 är fyra sidor, och det som står där är vad
+            stegen faktiskt provats till:{" "}
             <strong>provlast 2,6 kN</strong> mitt på steget och vid yttre vangen,
-            brandklass A1, minst två meters avstånd till underliggande fönster,
-            träskruv på minst sex millimeter parvis med högst sex decimeter
-            mellan infästningarna, panel på minst nitton millimeter, och
-            giltighet till den 1 april 2028.
+            vilket enligt certifikatet motsvarar två personer samtidigt i varje
+            stegenhet. Brandklass A1. Träskruv på minst 6 millimeter parvis med
+            högst 6 decimeter mellan infästningarna, i panel på minst 19
+            millimeter. Godkänt för fönster upp till 5,0 meter över marken, och
+            7,5 meter med ryggbygel. Giltigt till den 1 april 2028.
           </p>
           <p>
-            De fyra övriga stegarna har ingen motsvarighet. En
-            av dem anger en standard, i två utgåvor som Svenska institutet för
-            standarder listar som tillbakadragna. Tre anger ingenting alls:{" "}
+            De fyra övriga är inte provade av någon tredje part för det här
+            ändamålet, och det är kontrollerat och inte antaget: SINTEF:s
+            register är uppräknat, och W.Steps båda RISE-intyg är lästa i sin
+            helhet. P-märket gäller glidskydd för lösa stegar och
+            typkontrollintyget bärbara stegar och arbetsbockar. Utrymningsstegarna
+            står i ingetdera.
+          </p>
+          <p>
             <strong>
-              ingen maxlast, ingen provlast, ingen standard, inget godkännande.
-            </strong>
+              Housegard är den enda av de fyra som anger vad stegen bär: 150 kilo
+              och en person i taget.
+            </strong>{" "}
+            Tillverkaren skriver också att EL39 är provad mot EN 131-1 och
+            EN 131-2. Det är inget tredjepartsintyg, men det är ett åtagande med
+            ett tal i, och för 3 695 kronor är det mer än stegarna för elva och
+            fjorton tusen lämnar ifrån sig.
+          </p>
+        </Prose>
+      </Section>
+
+      {/* --------------------------------------------- the physical finding -- */}
+      {/* Nytt 2026-08-06. Stegbredden kom ur tillverkarnas egna produktblad och
+          bruksanvisningar, som ingen butik återger. Ingen svensk jämförelse i
+          kategorin nämner måttet. */}
+      <Section
+        id="stegpinnen"
+        width="default"
+        title="16 centimeter skiljer stegpinnarna"
+        description="Stegbredden spänner från 240 till 400 millimeter. Avståndet mellan stegen är 300 hos alla fem."
+      >
+        <Prose>
+          <p>
+            Du kommer att klättra ner barfota eller i strumplästen, i mörker,
+            förmodligen med någon framför dig. Då är det en enda siffra som
+            avgör hur det går: hur mycket fot du får på pinnen.
           </p>
           <p>
-            Det betyder inte att de tysta stegarna är svaga. Vi har inte belastat
-            någon av dem och vet inte vad de klarar. Det betyder att du inte
-            heller vet det, och att du inte kan ta reda på det innan du betalar.
-            Det är därför kriteriet heter Dokumenterad provning och väger trettio
-            procent.
+            Housegard EL39 har <strong>240 millimeter</strong> brett steg.
+            Modum har 311, W.Steps 320 har 320 och W.Steps 400 har{" "}
+            <strong>400</strong>. Det är 16 centimeter mellan smalast och
+            bredast, alltså skillnaden mellan halva foten och hela foten på
+            pinnen. Skeppshultstegen anger 430 millimeter i utfällt yttermått
+            men inget mått på själva steget.
+          </p>
+          <p>
+            <strong>Avståndet mellan stegen är 300 millimeter hos samtliga
+            fem.</strong>{" "}
+            Det skiljer alltså ingenting, vilket är värt att veta eftersom det
+            är det mått butikerna oftast anger när de anger något. Modums
+            certifikat, Housegards bruksanvisning och Skeppshultstegens
+            monteringsanvisning skriver alla 300, och W.Steps stegantal per längd
+            ger samma tal på nio modeller.
+          </p>
+          <p>
+            Det praktiska rådet är därför enkelt. Ska du eller någon i hushållet
+            klättra ner med ett barn på armen väger de 16 centimetrarna tyngre än
+            allt annat på den här sidan, och då är W.Steps 400 eller Modum rätt.
+            Ska stegen sitta där i tjugo år och förhoppningsvis aldrig användas
+            är Housegards 240 millimeter fullt tillräckligt för en vuxen som
+            klättrar själv.
           </p>
         </Prose>
       </Section>
@@ -295,53 +350,14 @@ export default async function UtrymningsstegePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla fem"
-        description="Godkänd höjd är det bara ett fabrikat som fyller i. Fotsteg är det du står på när du klättrar."
+        description="Stegbredden är måttet som avgör nedklättringen, och längdserien avgör om stegen slutar där ditt fönster börjar."
       >
         <ComparisonTable
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={`Priserna gäller den längd som anges i raden Längd i jämförelsen, kontrollerade ${PRICE_CHECKED} hos respektive butik. Varje fabrikat säljs i flera längder till andra priser, och flera av dem finns hos mer än en butik till skillnader på fyrtio till femtio procent. Där en uppgift står som ej angiven betyder det att varken butik eller tillverkare publicerar den, inte att egenskapen saknas.`}
+          caption={`Priserna gäller den längd som anges i raden Längd i jämförelsen, kontrollerade ${PRICE_CHECKED} hos respektive butik. Varje fabrikat säljs i flera längder till andra priser, och flera av dem finns hos mer än en butik till skillnader på 41 till 49 procent. Måtten kommer ur tillverkarnas egna produktblad, bruksanvisningar och certifikat, lästa 2026-08-06.`}
         />
-      </Section>
-
-      {/* ------------------------------------------------ self-disclosure -- */}
-      <Section
-        id="vem-har-kontrollerat"
-        tone="muted"
-        width="default"
-        title="Vem har kontrollerat det här?"
-        description="Vad rankningen bygger på, och var den är svag."
-      >
-        <Prose>
-          <p>
-            <strong>
-              Vinnaren kostar nästan tre gånger så mycket som tvåan, och det är
-              en följd av viktningen.
-            </strong>{" "}
-            Dokumenterad provning väger trettio procent, och det är den enda
-            axeln där produkterna skiljer sig kontrollerbart. Skillnaden mellan
-            ett certifikat och tystnad är därför värd mycket hos oss. Om du
-            däremot väger priset tyngst är tvåan rätt köp, och den är dessutom
-            den enda andra produkten som anger en maxlast över huvud taget.
-          </p>
-          <p>
-            <strong>Godkännandet är norskt och inget svenskt krav.</strong>{" "}
-            SINTEF Teknisk Godkjenning är en frivillig ordning i Norge. Att en
-            stege saknar den är inte ett regelbrott och betyder inte att den är
-            underkänd någonstans. Det betyder att du inte kan kontrollera vad den
-            provats till. Det är också därför Skeppshultstegen, som tillverkas i
-            Sverige, får ett lågt betyg på just det kriteriet trots att vi inte
-            har någon anmärkning på hur den är byggd.
-          </p>
-          <p>
-            <strong>Ingen uppgift är kontrollerad av oss.</strong> Vi har inte
-            belastat, monterat eller klättrat i någon stege. Det vi gjort är att
-            läsa certifikatet i original, kontrollera standardernas status hos
-            SIS och läsa varje pris på butikens egen sida. Kriteriet mäter vad du
-            kan kontrollera innan du betalar, inte vad stegen fysiskt klarar.
-          </p>
-        </Prose>
       </Section>
 
       {/* -------------------------------------------------- price spread -- */}
@@ -369,10 +385,9 @@ export default async function UtrymningsstegePage() {
           </p>
           <p>
             Det gäller alltså inte en enskild produkt utan hela sortimentet, och
-            det gäller på artikelnivå där ingenting skiljer utom butiken. Vi
-            drar av för det i prisvärde där vi kan, men kriteriet väger tio
-            procent och en prisskillnad på fyrtio procent förtjänar mer
-            uppmärksamhet än så.
+            det gäller på artikelnivå där ingenting skiljer utom butiken. W.Steps
+            båda serier säljs bara av Stegfabriken, vilket är värt att ha i
+            bakhuvudet när du ser 11 378 och 14 513 kronor.
           </p>
           <p>
             <strong>Leta upp artikelnumret och sök på det innan du beställer.</strong>{" "}
@@ -409,7 +424,7 @@ export default async function UtrymningsstegePage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex poster som inte hamnade i rankningen, inklusive tillbehören som avgör mer än flera av skillnaderna mellan stegarna."
+        description="Sju poster som inte hamnade i rankningen, inklusive tillbehören som avgör mer än flera av skillnaderna mellan stegarna."
       >
         <ConsideredList items={UTRYMNINGSSTEGE_CONSIDERED} />
       </Section>
@@ -432,7 +447,7 @@ export default async function UtrymningsstegePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Dokumenterad provning väger tyngst eftersom det är där produkterna skiljer sig på ett sätt som går att kontrollera. Skalan är 5,0 för ett tredjepartsgodkännande för just den här produkttypen, med provlast, användningsområde och utgångsdatum, 2,5 för en gällande standard angiven med årtal, 1,5 när standarden anges i en utgåva som SIS listar som tillbakadragen, och 1,0 när ingen standard anges alls. Räckvidd mäts inom det stegen är godkänd eller specificerad för, inte i råa meter, eftersom en längd utan angiven högsta användningshöjd inte säger något om vad tillverkaren står bakom. Att samma artikelnummer kostar fyrtio till femtio procent mer hos en annan butik drar ner prisvärdet, men det kriteriet väger tio procent och fyndet har därför ett eget avsnitt i stället för att gömmas i ett betyg. Vi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till, för den längd som anges i jämförelsen."
+          footnote="Nedstigning väger tyngst, eftersom stegbredden spänner 240 till 400 millimeter och är den största fysiska skillnaden mellan stegarna. Räckvidd mäts som hur högt stegen når och hur nära din faktiska fönsterhöjd längdserien kommer. Montering väger vilka väggmaterial tillverkaren anvisar ett fäste för och vad som ligger i lådan.\n\nEn uppgift vi inte lyckats få fram sänker aldrig ett betyg. Skeppshultstegen saknar mått på stegbredden i vårt underlag och står därför med ett streck i tabellen, men den bedöms på det som är belagt och inte på det som fattas.\n\nVi hittade inget svenskt eller nordiskt test av kategorin. Priserna är hos den butik vi länkar till, för den längd som anges i jämförelsen."
         />
       </Section>
 
@@ -479,10 +494,10 @@ export default async function UtrymningsstegePage() {
           <p>
             <strong>Primärkällorna finns däremot, och de är starka.</strong>{" "}
             SINTEF publicerar sitt certifikat i sin helhet med provlast,
-            monteringsvillkor och utgångsdatum. SIS publicerar status för de
-            standarder butikerna hänvisar till. Boverket publicerar
-            höjdgränserna. Alla tre är lästa i original och citerade ordagrant på
-            den här sidan, i stället för att refereras via en tredje part.
+            monteringsvillkor och utgångsdatum. Boverket publicerar
+            höjdgränserna. Fyra av fem tillverkare publicerar produktblad,
+            bruksanvisning eller monteringsanvisning med de mått butikerna inte
+            återger. Allt är läst i original och citerat ordagrant här.
           </p>
         </Prose>
         <SourceList sources={UTRYMNINGSSTEGE_SOURCES} title={null} />

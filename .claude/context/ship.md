@@ -8,25 +8,31 @@ live.
 ## The checks
 
 ```bash
-pnpm check          # tsc, lint, emdash, refs, läckor
+pnpm check          # tsc, lint, then the thirteen scripts marked ✓ below
 pnpm build          # kills the dev server; restart after
 ```
 
-| Command | Fails on |
-|---|---|
-| `check:emdash` | Em dashes in reader-facing text, including `aria-label` |
-| `check:refs` | A data file not spread into `ALL_PRODUCTS`; test page `updated` disagreeing with the page's `UPDATED`; a tool older than the newest test page in its `usedOn` |
-| `check:lackor` | Narrated research, word counts, business model as self-defence, machine vocabulary, first person in verdict fields. **Owns the affiliate-wording route allowlist**; nothing else should re-implement it |
-| `check:tools` | Any of a tool's registrations missing, an MDX name not routed through `ToolWidget`, or a guide embedding a tool whose `usedOn` omits that test page |
-| `check:vikter` | Criterion weights not summing to 100, or a test page with fewer than three or more than seven criteria |
-| `check:upplysning` | The same disclosure variant twice on one page, or a page repeating the footer's |
-| `check:fraser` | The confirmed overtramp from `measurements.md`, in reader-facing text with comments stripped. Two tiers: a short hard list that fails, and a counted list that only reports |
-| `check:kallprat` | Reports site-wide, fails with `--strict`: reader-facing fields that describe what a source published rather than what the product does. Field-aware — `methodology`, `footnote` and `reason` are exempt by design |
-| `check:omdomen` | Reports: verdicts over 500 characters in a single paragraph, `superlative` repeating the award, two products sharing a superlative |
-| `check:tackning` | Reports: highlighted specs that never become a row, and rows under 50 % filled |
-| `check:lankar` | Outbound links that no longer resolve |
-| `sprak "<fras>"` | Comparison against the 151k-word reference corpus |
-| `priskoll` | Price drift against the merchant pages |
+The table is the whole list. ✓ marks a step `pnpm check` runs; the rest are
+run by hand.
+
+| Command | | Fails on |
+|---|---|---|
+| `check:emdash` | ✓ | Em dashes in reader-facing text, including `aria-label` |
+| `check:refs` | ✓ | A data file not spread into `ALL_PRODUCTS`; test page `updated` disagreeing with the page's `UPDATED`; a tool older than the newest test page in its `usedOn` |
+| `check:lackor` | ✓ | Narrated research, word counts, business model as self-defence, machine vocabulary, first person in verdict fields. **Owns the affiliate-wording route allowlist**; nothing else should re-implement it |
+| `check:tools` | ✓ | Any of a tool's registrations missing, an MDX name not routed through `ToolWidget`, or a guide embedding a tool whose `usedOn` omits that test page |
+| `check:vikter` | ✓ | Criterion weights not summing to 100, or a test page with fewer than three or more than seven criteria |
+| `check:upplysning` | ✓ | The same disclosure variant twice on one page, or a page repeating the footer's |
+| `check:fraser` | ✓ | The confirmed overtramp from `measurements.md`, in reader-facing text with comments stripped. Two tiers: a short hard list that fails, and a counted list that only reports |
+| `check:omdomen` | ✓ | Reports: verdicts over 500 characters in a single paragraph, `superlative` repeating the award, two products sharing a superlative, a superlative over 35 characters |
+| `check:tackning` | ✓ | Reports: highlighted specs that never become a row, and rows under 50 % filled |
+| `check:redovisning` | ✓ | Reports: criteria that rank publication rather than the goods, reading both the label and the description. Fails only with `--sida <slug> --strict` |
+| `check:avdrag` | ✓ | Reports: scale rungs that deduct for a figure *we* failed to establish, where the criterion itself measures something real |
+| `check:priser` | ✓ | A data file whose `PRICE_CHECKED` is over 90 days old. Reads the date only, so it is free; raise the bar with `--dagar N` |
+| `check:bilder` | ✓ | A ranked `image:` product with no packshot at `public/bilder/{slug}/{id}-produkt.webp`. Derived from the id, so a missing file shows up nowhere in the code |
+| `check:lankar` | | Outbound links that no longer resolve |
+| `sprak "<fras>"` | | Comparison against the 151k-word reference corpus |
+| `priskoll` | | Price drift against the merchant pages |
 
 `check:refs` is the one that catches an invisible failure. It stays quiet in
 `tsc`, `lint` and `build`, and it silently blanks every `<ProductRef>` in a
@@ -52,17 +58,21 @@ knowable and differentiating beats a prestigious row nobody publishes.
 Treat a line here as unfinished work on the page it names, not as a permanent
 property of the category.
 
-### Why three checks report instead of failing
+### Why four checks report instead of failing
 
-`check:kallprat`, `check:omdomen` and `check:tackning` all found that what
-looked like one page's mistake was the site's habit: 167 källprat hits across 30
-pages, 28 single-paragraph verdicts, 44 invisible highlighted specs, 10 winners
-labelled `Bäst i test`. Failing on any of them would block the repo on work that
+`check:omdomen`, `check:tackning`, `check:redovisning` and `check:avdrag` each
+found that what looked like one page's mistake was the site's habit: 167
+källprat hits across 30 pages, 28 single-paragraph verdicts, 44 invisible
+highlighted specs, 10 winners labelled `Bäst i test`, 81 superlatives over the
+35-character ceiling. Failing on any of them would block the repo on work that
 requires someone to write new text, page by page.
 
-So they are a worklist, and `/fix-page` is what works it. That skill runs
-`check:kallprat --sida <slug> --strict`, so **the page being fixed must come out
-clean even while the rest of the site does not.** Global report, per-page gate.
+So they are a worklist, and `/fix-page` is what works it. That skill runs all
+four, so **the page being fixed must come out clean even while the rest of the
+site does not.** Global report, per-page gate.
+
+`check:redovisning` already implements the per-page gate: `--sida <slug>
+--strict` exits 1. The other three report only.
 
 When a list empties, make it fail so no new page can reinvent the fault.
 

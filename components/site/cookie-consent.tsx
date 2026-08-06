@@ -135,7 +135,7 @@ export function CookieConsent({
     <aside
       data-slot="cookie-consent"
       data-variant={variant}
-      aria-label="Inställningar för kakor"
+      aria-label="Inställningar för cookies"
       className={cn(
         "z-40 bg-card shadow-raised",
         forceOpen ? "relative" : "fixed",
@@ -159,9 +159,19 @@ export function CookieConsent({
         )}
       >
         <p className="text-sm text-muted-foreground">
-          Vi mäter inte ditt besök och har varken besöksstatistik eller pixlar.
-          Godkänner du annonskakor kan vi se vilken annons som ledde till ett
-          köp. Säger du nej fungerar sajten precis lika bra.{" "}
+          {/* Rutan frågar om det som faktiskt går att välja bort: Googles
+              annonskakor, alltså ad_storage, ad_user_data och
+              ad_personalization i Consent Mode. Klick-id:t är bedömt som
+              nödvändigt och står i policyn, inte här, eftersom en fråga om
+              något som ändå sker inte är en fråga.
+
+              Öppningen sa tidigare "Vi mäter inte ditt besök". Det gick inte
+              att låta stå: vi fångar klick-id:t vid landningen och räknar varje
+              klick vidare till en butik. */}
+          Vi har ingen besöksstatistik och inga pixlar, men vi räknar klick
+          vidare till butikerna. Det du väljer här gäller Googles
+          annonscookies: om vi får dela uppgifter med Google och låta annonser
+          anpassas efter dig. Säger du nej fungerar sajten precis lika bra.{" "}
           {/* Understruken hela tiden, inte bara vid hovring. En länk mitt i ett
               stycke får inte skiljas ut av enbart färg, WCAG 1.4.1. */}
           <Link

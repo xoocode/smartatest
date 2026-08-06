@@ -70,10 +70,18 @@ export type TillRouteOptions = {
 /**
  * Crude, deliberately.
  *
- * This exists to keep obvious crawlers out of the click counts that value the
- * observation conversion action, not to defeat anyone determined. A bot that
- * spoofs a browser user agent will be counted, and the honest answer is that
- * the ratio of outbound clicks to transactions is the real detector.
+ * This exists to keep obvious crawlers out of the click counts, not to defeat
+ * anyone determined. A bot that spoofs a browser user agent will be counted,
+ * and the honest answer is that the ratio of outbound clicks to transactions
+ * is the real detector.
+ *
+ * Those counts feed the outbound click conversion action, which is uploaded
+ * from the platform with `UploadClickConversions` and never fired by a tag in
+ * the browser. Its value is measured earnings per click, which only the
+ * platform's own transaction history knows, so a client side event could not
+ * carry it even if we wanted one. That is also why removing the click id from
+ * the landing URL costs nothing here: nothing in the page ever needed to read
+ * it.
  */
 const BOT_PATTERN =
   /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|headless|lighthouse|preview|monitor|curl|wget|python-requests|axios|node-fetch/i;
@@ -171,7 +179,14 @@ export function createTillRoute(options: TillRouteOptions) {
     const userAgent = request.headers.get("user-agent") ?? "";
     const isBot = BOT_PATTERN.test(userAgent);
     const consentAds = hasAdConsent(request, config);
-    const stored = consentAds ? readClickCookie(request, config) : null;
+    /* Read under the same rule that governs writing. Gating the read on
+       consent while the write is ungated would store an identifier and then
+       refuse to use it, which is the worst of both: the data is kept and the
+       attribution is still lost. */
+    const stored =
+      !config.captureRequiresConsent || consentAds
+        ? readClickCookie(request, config)
+        : null;
 
     const clickId = mintClickId();
 
@@ -197,6 +212,30 @@ export function createTillRoute(options: TillRouteOptions) {
     if (config.enabled && !isBot) {
       const params = request.nextUrl.searchParams;
       const position = Number(params.get(positionParam));
+      const pagePath = pagePathFrom(request);
+
+      /* No same-origin referrer means nobody was on a page when this fired.
+       *
+       * Measured on the first two days of real traffic: 23 of 31 clicks had no
+       * page, and all 23 were automated — exactly one click per product, never
+       * a repeat, with five of them landing inside 1.2 seconds across five
+       * different retailers. All 8 clicks that did carry a page looked like
+       * people: several on the same page seconds apart, one product clicked
+       * twice. Nothing human lacked a referrer, and nothing that lacked one
+       * behaved like a human.
+       *
+       * The user-agent test above only catches crawlers that admit to it.
+       * These present ordinary mobile browser strings, so they sailed past it
+       * and were counted as genuine clicks, which is 74% of the traffic
+       * feeding earnings per click and conversion rate.
+       *
+       * Flagged rather than dropped, for two reasons. `is_bot` was previously
+       * hardcoded false here, so the "bots excluded" figure on the reports was
+       * always zero and read as "no bot traffic" rather than "not measured".
+       * And a heuristic that silently deletes rows cannot be reviewed: a
+       * reader whose browser strips the referrer is misfiled by this, and
+       * keeping the row is what makes that visible and reversible. */
+      const looksAutomated = pagePath === null;
 
       after(() =>
         reportClick(
@@ -206,7 +245,7 @@ export function createTillRoute(options: TillRouteOptions) {
             gclid: stored?.value ?? null,
             braidType: stored?.braidType ?? null,
             consentAds,
-            pagePath: pagePathFrom(request),
+            pagePath,
             productId: target.productId ?? id,
             merchant: target.merchant ?? null,
             placement: params.get(placementParam)?.slice(0, 60) ?? null,
@@ -214,7 +253,7 @@ export function createTillRoute(options: TillRouteOptions) {
             programId: target.programId ?? null,
             country: request.headers.get("x-vercel-ip-country"),
             deviceType: deviceType(userAgent),
-            isBot: false,
+            isBot: looksAutomated,
           },
           config
         )

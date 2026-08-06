@@ -8,16 +8,14 @@ genomgång. Från ungefär 20 000 milliamperetimmar och uppåt börjar tre fråg
 gälla som inte finns i den mindre klassen: får den följa med ombord, orkar den
 ladda en dator, och hur mycket väger den i väskan.
 
-## Wattimmar, och varför de plötsligt står utskrivna
+## Wattimmar är enheten som avgör vid gaten
 
-Kapaciteten anges i milliamperetimmar. Flygreglerna är skrivna i wattimmar.
+Kapaciteten står i milliamperetimmar. Flygreglerna är skrivna i wattimmar.
 
 Omräkningen är kapaciteten i amperetimmar gånger cellspänningen, alltså 20 000
-mAh vid 3,6 volt = 72 wattimmar.
-
-I den mindre storleksklassen anger två av åtta produkter sitt energiinnehåll. I
-den här gör sju av nio det, och det är ingen tillfällighet: när taket är i sikte
-har tillverkaren ett skäl att visa att produkten ryms under det.
+mAh vid 3,6 volt = 72 wattimmar. En powerbank i den här klassen landar därför
+nästan alltid mellan 72 och 100 wattimmar, och det är i den övre halvan av det
+spannet det börjar bli intressant.
 
 Två av produkterna här är byggda alldeles intill gränsen:
 
@@ -29,24 +27,31 @@ Två av produkterna här är byggda alldeles intill gränsen:
 Det är konstruktion och inte slump. Bakom de talen ligger ett val att lägga
 kapaciteten så högt som reglerna tillåter och inte en enda wattimme mer.
 
-## När talen inte går ihop
+⚠️ De två är samtidigt de tyngsta här, 625 respektive 600 gram mot 400 till 535
+för produkterna på 20 000 mAh. **Maximal laglig kapacitet kostar ungefär 200
+gram**, och det är den avvägning som avgör vilken av dem du ska ta.
 
-Tre powerbanks i den här jämförelsen har samma nominella kapacitet och anger
-olika energiinnehåll:
+## Det står 20 000, du får ut 11 500
 
-| Produkt | Kapacitet | Angivet |
+Kapacitetstalet gäller battericellen vid dess egen spänning, omkring 3,6 volt.
+Telefonen laddas vid 5 volt eller mer, och omvandlingen mellan de två kostar
+energi som försvinner i värme.
+
+Två av tillverkarna här skriver ut vad som blir kvar:
+
+| Produkt | Nominellt | Uttagbart |
 |---|---|---|
-| <ProductRef id="linocell-premium-100w-20000" /> | 20 000 mAh | 72 Wh, med 3,6 V utsatt |
-| <ProductRef id="anker-prime-220w-20100" /> | 20 100 mAh | 72,36 Wh |
-| <ProductRef id="xtorm-fuel-5-35w-20000" /> | 20 000 mAh | 100 Wh |
+| <ProductRef id="anker-prime-220w-20100" /> | 20 100 mAh | Ca 11 250 mAh |
+| <ProductRef id="ugreen-nexode-165w-20000" /> | 20 000 mAh | Ca 11 600 mAh |
 
-De två första går att förena: samma kapacitet, samma spänningsklass, samma
-resultat. Den tredje ligger 39 procent högre för samma nominella tal.
+Alltså ungefär 57 procent, och det är normalt för klassen. Ett labb som mätt
+uttagbar energi i den här storleken fann 58 till 70 wattimmar där de nominella
+talen antyder 72 till 100.
 
-**Vi säger inte att någon har fel.** Vi säger att uppgifterna inte går att
-förena, och att du som ska svara på en fråga vid en incheckningsdisk inte kan
-avgöra vilken som gäller. Behöver du ett tal du kan luta dig mot, kontrollera
-det mot tillverkarens egen sida innan du reser.
+**Räkna med drygt hälften när du planerar.** De 11 250 milliamperetimmarna
+levereras vid 5 volt, medan telefonens batteri sitter på knappt 4. En telefon
+med 5 000 mAh batteri får därför ungefär tre fulla laddningar ur en bank på
+20 000, och en med 4 000 mAh knappt fyra.
 
 ## Kontrollera effekten, inte bara kapaciteten
 
@@ -83,17 +88,23 @@ emot 250 watt kräver en laddare de flesta inte äger.
 ## Vikten är en resefråga i den här klassen
 
 I den mindre klassen väger produkterna 128 till 200 gram. Här väger de 400 till
-535.
+625.
 
-Skillnaden på 135 gram mellan den lättaste och den tyngsta märks tydligt på en
+Skillnaden på 225 gram mellan den lättaste och den tyngsta märks tydligt på en
 flygplats, och den följer inte kapaciteten:
 <ProductRef id="xtorm-fuel-5-35w-20000" /> väger 400 gram och
 <ProductRef id="ugreen-nexode-165w-20000" /> väger 535, och båda rymmer 20 000
 milliamperetimmar.
 
-⚠️ Vikten är samtidigt den uppgift som oftast saknas. Bara tre av åtta produkter
-här har den utskriven i butiken, vilket är svårt att förstå i något som ska
-bäras. Går den inte att hitta kan du inte planera packningen.
+Det som väger är effektelektroniken och antalet celler, inte
+milliamperetimmarna. En bank som ska ge 140 watt ur en port behöver kraftigare
+kretsar och tjockare kylning än en som ger 35, och det syns på vågen.
+
+⚠️ **Väg in formen och inte bara grammen.** Två produkter kan väga lika mycket
+och ändå bete sig helt olika i en datorväska: <ProductRef id="denver-225w-20000" />
+tar 280 kubikcentimeter, <ProductRef id="linocell-165w-27600" /> tar 484, och
+den senare är 51 millimeter tjock mot 27 för <ProductRef id="linocell-25000" />.
+En platt och bred enhet glider ner bredvid datorn. En kloss gör det inte.
 
 ## Kabeln måste klara effekten
 
@@ -164,9 +175,10 @@ Ordningen, om budgeten är begränsad:
 
 1. **Tillräcklig effekt för det du ska ladda.** Under 65 watt är en dator
    utesluten, och det är det vanligaste skälet att köpa den här storleken.
-2. **Ett publicerat energiinnehåll**, så att du kan svara på flygfrågan.
+2. **Vikt och format du orkar bära varje dag.** 225 gram och nästan dubbel
+   volym skiljer ytterligheterna här.
 3. **En kabel som klarar effekten**, helst inbyggd.
-4. **Vikt du orkar bära**, vilket förutsätter att uppgiften finns.
+4. **Kapacitet under 100 wattimmar**, om den ska flyga med dig.
 
 Det som sällan är värt pengar är laddfart i den andra riktningen. Att
 powerbanken blir full på en timme i stället för tre är en verklig lyx, men den

@@ -9,10 +9,15 @@ import { VATTENLARM } from "@/lib/test-pages";
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, artikelnummer, EAN, mått,
- * batterityper, batteritider, IP-klasser och kundbetyg. Allt läst 2026-08-03 på
+ * **Verkligt och daterat:** priser, EAN och kundbetyg lästa 2026-08-03 på
  * butikens egen produktsida, aldrig ur ett sökresultat. Brandvarnare.se anger
  * priset i `product:price:amount`, Kjell och Proshop i JSON-LD.
+ *
+ * Specifikationerna kommer däremot från **tillverkarna själva**, lästa
+ * 2026-08-06 i gap-passet: larmstyrka, drifttemperatur, mått, garanti,
+ * batteritid och vattentålighet. Tre av dem ligger i manualer som butiken
+ * själv länkar till. Se .agent/research/vattenlarm.md §13 för källa per
+ * uppgift. Fem påståenden om att en uppgift saknades visade sig falska.
  *
  * **Redaktionell bedömning:** kriteriepoängen. De är vår sammanvägning av
  * specifikationerna ovan mot viktningen i lib/categories.ts, inte mätvärden.
@@ -91,7 +96,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     cons: [
       "Klart dyrast av larmen om du bara vill skydda ett ställe",
       "Basstationen måste sitta i ett eluttag",
-      "Butiken anger ingen IP-klass för sensorerna",
+      "Basstationen är godkänd bara till 38 °C, så den kan inte stå i pannrummet",
     ],
     specs: [
       {
@@ -101,21 +106,27 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       },
       { label: "Hubb krävs", value: "Nej, basstation ingår", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "3", highlight: true },
+      /* 110 dB är sensorn, 100 dB basstationen. Båda talen står i X-Sense egen
+         specifikation, läst 2026-08-06. Tidigare stod bara basstationens. */
+      { label: "Larmstyrka", value: "110 dB sensorn, 100 dB basstationen", highlight: true },
       { label: "Batteri", value: "2 × AAA per sensor, förmonterade", highlight: true },
       { label: "Batteritid", value: "3 år", highlight: true },
-      { label: "Basstation", value: "SBS50, nätansluten" },
-      { label: "Anslutning", value: "Wi-Fi 2,4 GHz" },
-      { label: "Abonnemang", value: "Nej" },
-      { label: "Garanti", value: "5 år" },
-      { label: "Artikelnummer", value: "10231" },
+      {
+        label: "Drifttemperatur",
+        value: "0 till 50 °C sensorn, 4 till 38 °C basstationen",
+        highlight: true,
+      },
+      { label: "Mått", value: "Ø77 × 30 mm (sensorn)", highlight: true },
+      { label: "Garanti", value: "5 år", highlight: true },
+      /* Två radio, inte en: sensorerna talar 868 MHz med basstationen, som i sin
+         tur talar wifi med routern. x-sense.com 2026-08-06. */
+      { label: "Anslutning", value: "868 MHz till basstationen, Wi-Fi 2,4 GHz därifrån" },
+      { label: "Vattentålighet", value: "IP66" },
+      { label: "Modell", value: "SWS54 med basstation SBS50" },
       { label: "EAN", value: "7332211102314" },
-      { label: "Siren", value: "100 dB" },
-      { label: "Kapslingsklass", value: "IP66, tål inte att sänkas ner" },
-      { label: "Protokoll", value: "Wi-Fi 2,4 GHz" },
-      { label: "Mått", value: "Ø77 x 30 mm (sensorn)" },
     ],
     verdict:
-      "Det här är det enda köpet som svarar mot hur en vattenskada faktiskt går till. Läckan börjar på ett ställe du inte valt, och därför behöver du sensorer på flera ställen samtidigt: under diskbänken, bakom tvättmaskinen, vid varmvattenberedaren. Paketet innehåller tre.\n\nBasstationen är det som lyfter det över resten. Den kopplar sensorerna till appen utan att du behöver äga någon hubb sedan tidigare, och X-Sense tar inget abonnemang för det. Butikens egen text är dessutom tydlig med något viktigt: sensorerna tjuter lokalt även om basstationen är urkopplad eller om strömmen gått i huset. Ett larm som slutar fungera vid strömavbrott är ett larm som fallerar just när ett gammalt hus är som mest sårbart.\n\n876 kronor är mycket för något man hoppas aldrig ska höras. Ställ det mot självrisken i stället för mot de andra larmen. Vattenskadecentrum anger att självrisken ensam ligger mellan 3 440 och 10 000 kronor, och då är åldersavdraget inte inräknat.\n\nDet vi saknar är en IP-klass. Kjell anger IP67 för Aqara, Brandvarnare.se anger ingenting för X-Sense, och vi gissar inte.",
+      "X-Sense SWS54 är tre sensorer och en basstation för 876 kronor, och det enda köpet här som täcker mer än ett ställe direkt ur lådan. Ett normalt hus har tre till fyra ställen där vatten kan komma ut, och läckan börjar på det du inte gissade.\n\nBasstationen är det som lyfter paketet över resten. Den kopplar sensorerna till appen utan att du behöver äga en hubb sedan tidigare, och X-Sense tar inget abonnemang för det. Sensorerna tjuter dessutom på 110 decibel även om basstationen är urkopplad eller strömmen gått i huset, alltså fungerar larmet den natt ett gammalt hus är som mest sårbart. De är byggda i IP66 och godkända till 50 grader, så de får ligga intill varmvattenberedaren.\n\nNavet är känsligare än sensorerna det styr. X-Sense anger 4 till 38 grader för basstationen, så den ska stå inne i bostaden och inte i pannrummet eller i en ouppvärmd stuga. Sensorerna klarar kylan, lådan de rapporterar till gör det inte.\n\nKöp den. 876 kronor ser dyrt ut bredvid en sensor för 199, men självrisken ensam ligger på 3 440 till 10 000 kronor enligt Vattenskadecentrum, och det här är det enda larmet som täcker kök, tvätt och beredare samtidigt. Ska du skydda ett enda ställe i en lägenhet räcker SQ400B för 199 kronor.",
   },
   {
     id: "sq400b-wifi-vattenvarnare",
@@ -142,24 +153,27 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Under tvåhundra kronor",
     ],
     cons: [
-      "Kortast uppgiven batteritid av larmen, över ett år",
-      "Ingen IP-klass angiven",
+      "Kortast batteritid av larmen, ett år mot tre till fem för de bästa",
+      "75 decibel, alltså svagast av de larm som anger en styrka",
       "Kräver att wifi-nätet når fram till platsen, ofta ett skåp eller en källare",
     ],
     specs: [
       { label: "Larmväg", value: "Wi-Fi till app, plus ljudsignal", highlight: true },
       { label: "Hubb krävs", value: "Nej", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1", highlight: true },
-      { label: "Batteri", value: "CR123A litium 3 V", highlight: true },
-      { label: "Batteritid", value: "Över 1 år", highlight: true },
+      { label: "Larmstyrka", value: "Över 75 dB på 3 m", highlight: true },
+      { label: "Batteri", value: "CR123A litium 3 V, medföljer", highlight: true },
+      /* Deltronics eget datablad anger "1 år", inte "över 1 år". 2026-08-06. */
+      { label: "Batteritid", value: "1 år", highlight: true },
+      { label: "Drifttemperatur", value: "0 till 50 °C", highlight: true },
+      { label: "Mått", value: "50 × 50 × 35 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
       { label: "Anslutning", value: "Wi-Fi 2,4 GHz" },
-      { label: "Mått", value: "50 × 50 × 35 mm" },
-      { label: "Sammankopplingsbar", value: "Ja" },
-      { label: "Artikelnummer", value: "30330" },
+      { label: "Modell", value: "SQ400B" },
       { label: "EAN", value: "7332211303308" },
     ],
     verdict:
-      "Bor du i lägenhet och vill skydda ett enda ställe är det här köpet. Två hundra kronor, ingen hubb, ingen basstation, och notisen når telefonen var du än är. Den kombinationen saknas i resten av det billiga skiktet, där nästan allt antingen bara tjuter på golvet eller kräver att du redan äger rätt hubb.\n\nBatteritiden är svagheten. \"Över 1 år\" är det kortaste någon butik anger i den här jämförelsen, och ett vattenlarm är en produkt man sätter ut och glömmer. Sätt en påminnelse i kalendern samma dag du sätter dit den.\n\nTänk också på var wifi-nätet faktiskt räcker. Larmet ska ligga längst in i ett diskbänksskåp eller i ett källarutrymme, ungefär de sämsta platserna ett hus har för radiotäckning.",
+      "SQ400B är billigaste vägen till en notis i telefonen: 199 kronor, ingen hubb, ingen basstation. Den kombinationen saknas i resten av det billiga skiktet, där nästan allt antingen bara tjuter på golvet eller kräver att du redan äger rätt hubb.\n\nDen talar wifi rakt till routern, så larmet når dig på jobbet eller på semestern utan att du köpt något mer. Deltronic lägger dessutom CR123A-batteriet i kartongen och skriver ut att enheten bör bytas efter tio år, vilket är ovanligt rakt för prisklassen.\n\nBatteritiden är svagheten, och den är verklig. Ett år är kortast i hela jämförelsen, mot tre år för X-Sense och över fem för Numens. Sirenen är dessutom svagast av dem som anger en siffra, drygt 75 decibel mot 110 för X-Sense, så ligger den bakom en stängd skåpsdörr är det notisen och inte ljudet du ska räkna med.\n\nBor du i lägenhet och ska skydda ett enda ställe är det här köpet, förutsatt att du sätter en påminnelse om batteribytet samma dag du packar upp. Ska du täcka ett helt hus blir SWS54 billigare per plats.",
   },
   {
     id: "nedis-smartlife-lackagedetektor",
@@ -167,7 +181,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "SmartLife",
     brand: "Nedis",
     image: productImage(VATTENLARM.slug, "nedis-smartlife-lackagedetektor"),
-    tagline: "Sensorn sitter på en meters kabel, så den når dit larmet behövs.",
+    tagline: "Sonden når in bakom maskinen medan larmet sitter torrt på väggen.",
     scores: {
       larmvag: 2.5,
       fristaende: 4,
@@ -183,13 +197,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     userRating: { value: 4, count: 44, scale: 5, checkedAt: PRICE_CHECKED },
     superlative: "Bäst bakom maskinerna",
     pros: [
-      "115 cm kabel till sensorn, ensam om att nå in bakom en tvättmaskin",
+      "Sonden är 6 mm tunn och sitter på 115 cm kabel, så den glider in i springan bakom en inbyggd maskin",
       "Väggfäste medföljer, så själva enheten sitter torrt och synligt",
       "Kan trigga andra enheter i Smart Life, till exempel en lampa",
       "Batteriet medföljer och räcker upp till två år",
     ],
     cons: [
       "Skickar ingen notis förrän du själv byggt en automation i appen",
+      "50 decibel, alltså svagast i jämförelsen och knappt hörbart genom en stängd dörr",
       "Dyrast av wifi-larmen utan att ge mer larmväg",
     ],
     specs: [
@@ -200,13 +215,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       },
       { label: "Hubb krävs", value: "Nej", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1, på 115 cm kabel", highlight: true },
+      { label: "Larmstyrka", value: "50 dB", highlight: true },
       { label: "Batteri", value: "CR123A, medföljer", highlight: true },
       { label: "Batteritid", value: "Upp till 2 år", highlight: true },
+      { label: "Drifttemperatur", value: "0 till 40 °C", highlight: true },
+      { label: "Mått", value: "Ø67 × 33 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
       { label: "Anslutning", value: "Wi-Fi 2,4 GHz" },
-      { label: "Driftstemperatur", value: "0 till 40 °C" },
+      { label: "Modell", value: "WIFIDW10WT" },
+      { label: "EAN", value: "5412810272822" },
     ],
     verdict:
-      "Kabeln är det som gör den intressant. Sensorn sitter på 115 centimeters sladd från själva enheten, vilket betyder att du kan skruva upp larmet synligt på väggen och lägga sonden där vattnet faktiskt kommer: bakom diskmaskinen, under en beredare, i botten av ett trångt skåp. Alla andra larm är en klump som ska ligga på ett fritt golv, och fritt golv är inte där rören går sönder.\n\nSedan finns det en sak Kjell har varit hederliga nog att skriva ut på produktsidan, hämtad rakt ur tillverkarens manual: detektorn skickar ingen notis när den känner vatten. Du måste själv skapa en automation i appen som gör det. Det står på engelska mitt i den svenska texten, och det är lätt att läsa förbi.\n\nEtt uppkopplat vattenlarm som är tyst i mobilen tills du konfigurerat det är i praktiken ett lokalt larm för den som köper det och ställer undan kartongen. Vi drar ner larmvägen hårt för det, och det är enda skälet till att en produkt med den bästa sensorlösningen inte ligger högre.",
+      "Nedis SmartLife kostar 299,90 kronor och är larmet med den genomtänkta sensorlösningen: en 6 millimeter tunn sond på 115 centimeters kabel, så enheten skruvas upp synligt på väggen medan sonden ligger i springan bakom diskmaskinen. Numens 204 når en bit längre, men med en klumpigare platta.\n\nDen ansluter till wifi utan hubb, batteriet medföljer och räcker två år, och den kan trigga andra Smart Life-enheter så att en lampa tänds när sonden blir blöt.\n\nSedan kommer haken, och den är stor. Detektorn skickar ingen notis när den känner vatten. Du måste själv bygga en automation i appen som gör det, annars händer ingenting i telefonen. Till det kommer att sirenen ligger på 50 decibel, svagast här och ungefär en normal samtalston. Ett larm som varken hörs genom en skåpsdörr eller ringer i telefonen skyddar ingenting förrän det konfigurerats.\n\nKöp den om du gillar att bygga automationer och behöver just den tunna sonden. Vill du att larmet ska fungera direkt ur kartongen tar du SQ400B för hundra kronor mindre.",
   },
   {
     id: "numens-204",
@@ -214,12 +234,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "204",
     brand: "Numens",
     image: productImage(VATTENLARM.slug, "numens-204"),
-    tagline: "Femårsbatteri och löstagbara sensorbläck. Men den ringer aldrig.",
+    tagline:
+      "Enda larmet som är godkänt under noll, och batteriet håller över fem år.",
     scores: {
       larmvag: 1,
       fristaende: 4.5,
       batteritid: 5,
-      sensorutforande: 3.5,
+      /* 4,0 och inte 3,5 sedan tillverkarens manual lästes 2026-08-06: sonden
+         får sitta 1,5 m från enheten, längst i fältet, och larmet utlöser vid
+         2 mm vatten och tål 1,8 m fall mot betong. Se lib/corrections.ts. */
+      sensorutforande: 4,
       prisvarde: 2.5,
     },
     price: 197,
@@ -227,10 +251,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: "https://brandvarnare.se/produkt/numens-204/",
     priceCheckedAt: PRICE_CHECKED,
     award: "budget",
-    superlative: "Längst batteritid",
+    superlative: "Bäst i ouppvärmda utrymmen",
     pros: [
       "Över fem års batteritid, mer än dubbelt så länge som de flesta",
-      "Löstagbara sensorbläck, så sonden kan läggas där enheten inte får plats",
+      "Godkänd ner till −10 °C, alltså det enda larmet som får ligga i ett ouppvärmt garage eller en krypgrund",
+      "Sonden får sitta 1,5 m från enheten, längre än något annat larm här",
+      "Tål 1,8 m fall mot betong och löser ut redan vid 2 mm vatten",
       "Fungerar helt utan wifi, konto och app",
     ],
     cons: [
@@ -240,15 +266,24 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     specs: [
       { label: "Larmväg", value: "Endast lokal siren", highlight: true },
       { label: "Hubb krävs", value: "Nej, och ingen app finns", highlight: true },
-      { label: "Antal sensorer", shortLabel: "Sensorer", value: "1, med löstagbara bläck", highlight: true },
+      { label: "Antal sensorer", shortLabel: "Sensorer", value: "1, sond på upp till 1,5 m", highlight: true },
+      { label: "Larmstyrka", value: "Minst 85 dB på 3 m", highlight: true },
       { label: "Batteri", value: "9 V litium, utbytbart", highlight: true },
       { label: "Batteritid", value: "Över 5 år", highlight: true },
-      { label: "Mått", value: "98 × 60 × 35 mm" },
-      { label: "Artikelnummer", value: "30322" },
+      /* Enda larmet i jämförelsen som är godkänt under noll. Tillverkarens
+         manual, läst 2026-08-06. */
+      { label: "Drifttemperatur", value: "−10 till +50 °C", highlight: true },
+      { label: "Mått", value: "98 × 60 × 35 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
+      { label: "Anslutning", value: "Ingen, larmar på plats" },
+      /* Numens eget datablad anger IP-42 i klartext, utöver formuleringen
+         "stänksäker (ej vattentät)". Siffran hör hemma i cellen. 2026-08-06. */
+      { label: "Vattentålighet", value: "IP42, stänksäker men inte nedsänkbar" },
+      { label: "Modell", value: "204" },
       { label: "EAN", value: "7332211303223" },
     ],
     verdict:
-      "Femårsbatteriet är inte en detalj. Ett vattenlarm är en produkt du sätter ut en gång och sedan aldrig tänker på igen, och därför är den vanligaste orsaken till att det inte larmar att batteriet dog i tysthet för ett år sedan. Numens 204 håller mer än dubbelt så länge som fältet i övrigt och varnar med en 9-voltare du kan byta i en handvändning.\n\nDe löstagbara sensorbläcken gör också att den, till skillnad från de flesta i det här prisläget, går att få dit vattnet är snarare än dit enheten får plats.\n\nMen den ringer aldrig. Hör du den inte, larmade den inte, och det är just när ingen är hemma en läcka hinner arbeta sig genom ett golv. Den är rätt köp på ett ställe där du ändå befinner dig, eller i en stuga utan wifi där alternativet är ingenting alls. Den är fel köp om tanken var att bli varnad på jobbet.",
+      "Numens 204 kostar 197 kronor och är larmet för de utrymmen där de andra inte får vara. Tillverkaren anger −10 till +50 grader, och det är det enda larmet här som är godkänt under noll.\n\nDet gör den till svaret på en fråga sidan annars saknar: ouppvärmt garage, krypgrund, sommarstuga i november. Till det kommer ett batteri som håller över fem år, alltså mer än dubbelt så länge som fältet i övrigt, vilket spelar roll just på de platserna eftersom du inte går dit och kontrollerar. Sonden får dessutom sitta 1,5 meter från själva enheten, längre än något annat larm här, så den når in under en beredare medan lådan sitter torrt. Den tål 1,8 meters fall mot betong och löser ut vid 2 millimeter vatten.\n\nMen den ringer aldrig. Hör du den inte, larmade den inte, och det är just när ingen är hemma en läcka hinner arbeta sig genom ett golv.\n\nHar du ett kallt utrymme att skydda är valet redan gjort, för de andra åtta får inte ligga där. Ska larmet nå dig när du är borta duger den inte, och då kostar SQ400B två kronor mer.",
   },
   {
     id: "tp-link-tapo-t300",
@@ -256,10 +291,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Tapo T300",
     brand: "TP-Link",
     image: productImage(VATTENLARM.slug, "tp-link-tapo-t300"),
-    tagline: "Bra sensor till lågt pris, förutsatt att du redan har en Tapo-hubb.",
+    tagline: "Sex prober, IP67 och justerbar siren för 179 kronor.",
     scores: {
       larmvag: 3,
       fristaende: 1.5,
+      /* Tillbaka på 3,0 efter omkontroll 2026-08-06 mot tapo.com/se. TP-Link
+         anger två tal och inget av dem är tre år: "up to 1.5 years while
+         coordinating with 24/7 Tapo Hub alarms" och "more than 2 years when
+         working independently". Rubriken på samma sida säger "1+Year Battery
+         Life". Det tal som gäller köparen är 1,5 år, eftersom produkten kräver
+         hubben för att göra något annat än att tjuta. Det placerar den mellan
+         SQ400B på 1 år (2,5) och tvåårsgruppen (3,5). Se lib/corrections.ts. */
       batteritid: 3,
       sensorutforande: 4.5,
       /* 3,0 och inte 2,5 sedan priset föll från 199 till 179 kronor vid
@@ -283,24 +325,29 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     ],
     cons: [
       "Kräver Tapo-hubb H100 eller H200, som säljs separat",
-      "Använder 868/922 MHz och inte wifi, så den kan inte tala med routern",
-      "Uppgiven batteritid upp till ett år",
+      "Använder 868 MHz och inte wifi, så den kan inte tala med routern",
+      "1,5 års batteritid när den arbetar mot hubben, alltså näst kortast här",
+      "Godkänd bara till 40 °C, alltså inte intill en varmvattenberedare",
     ],
     specs: [
       { label: "Larmväg", value: "Egen siren, app via Tapo-hubb", highlight: true },
       { label: "Hubb krävs", value: "Ja, Tapo H100 eller H200", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1", highlight: true },
+      { label: "Larmstyrka", value: "0 till 90 dB, justerbar", highlight: true },
       { label: "Batteri", value: "2 × AAA, medföljer", highlight: true },
-      { label: "Batteritid", value: "Upp till 1 år", highlight: true },
-      { label: "Kapslingsklass", shortLabel: "IP", value: "IP67" },
-      { label: "Siren", value: "Upp till 90 dB, justerbar" },
-      { label: "Radio", value: "868/922 MHz" },
-      { label: "Driftstemperatur", value: "0 till 40 °C" },
-      { label: "Mått", value: "84,5 × 46,5 × 30 mm" },
-      { label: "Protokoll", value: "868/922 MHz till hubb" },
+      /* TP-Links två tal, tapo.com/se läst 2026-08-06: 1,5 år mot hubben,
+         över 2 år fristående. Kjell anger 1 år. Cellen bär båda, eftersom
+         skillnaden beror på hur produkten används och inte på källan. */
+      { label: "Batteritid", value: "1,5 år med hubb, över 2 år utan", highlight: true },
+      { label: "Drifttemperatur", value: "0 till 40 °C", highlight: true },
+      { label: "Mått", value: "84,5 × 46,5 × 30 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
+      { label: "Anslutning", value: "868 MHz till Tapo-hubb" },
+      { label: "Vattentålighet", value: "IP67" },
+      { label: "Modell", value: "T300" },
     ],
     verdict:
-      "Själva sensorn är en av de bästa av larmen. IP67, sex prober som känner både uppifrån och nerifrån, och en egen siren på 90 dB som går att skruva ner. Priset ser också rätt ut: 179 kronor hos Kjell, 22 kronor billigare än hos Proshop och lägsta priset på hela sidan.\n\nHaken står inte alltid utskriven i butiken. T300 pratar 868/922 MHz och inte wifi, och kan alltså inte nå din router på egen hand. TP-Link är själva tydliga med det, deras egen butik har ordet \"Hub Required\" i produktnamnet: den behöver en Tapo H100 eller H200 för att kunna skicka något till din telefon. Utan hubb har du köpt en tjutande dosa för 179 kronor.\n\nHar du redan en Tapo-hubb för kameror eller sensorer är detta däremot ett självklart köp, och då blir kalkylen den omvända: en hubb hanterar 64 sensorer, så nästa larm kostar bara 179 kronor till.",
+      "Tapo T300 kostar 179 kronor och är billigast på hela sidan. Sensorn är samtidigt en av de bästa här: IP67, sex prober som känner både uppifrån och nerifrån, och en egen siren på upp till 90 decibel.\n\nAtt sirenen går att skruva ner låter futtigt tills larmet ligger i en hall utanför ett sovrum. Proberna på båda sidor gör dessutom att den känner vatten oavsett hur den hamnar när du skjuter in den under en maskin, och batterierna ligger i kartongen.\n\nDen talar 868 MHz och inte wifi, alltså når den inte din router på egen hand. Utan en Tapo H100 eller H200, som säljs separat och kostar mer än larmet, är det här en tjutande dosa för 179 kronor. Mot hubben håller batterierna dessutom bara 1,5 år, näst kortast i jämförelsen.\n\nHar du redan en Tapo-hubb för kameror eller sensorer är detta ett självklart köp: en hubb hanterar 64 sensorer, så nästa larm kostar 179 kronor till. Börjar du från noll blir förutsättningen dyrare än produkten, och då är SQ400B för 199 kronor rätt väg.",
   },
   {
     id: "x-sense-sws51",
@@ -308,7 +355,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "SWS51",
     brand: "X-Sense",
     image: productImage(VATTENLARM.slug, "x-sense-sws51"),
-    tagline: "Samma sensor som i paketet, men ensam blir den bara en siren.",
+    tagline: "Samma 110-decibelssensor som i vinnarpaketet, såld styckvis.",
     scores: {
       larmvag: 1.5,
       fristaende: 3,
@@ -322,10 +369,10 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     priceCheckedAt: PRICE_CHECKED,
     superlative: "Utbyggnad till basstationen",
     pros: [
-      "Treårsbatteri och fem års garanti",
-      "Kraftig signal på 110 dB",
+      "Treårsbatteri och fem års garanti, längst garanti i jämförelsen",
+      "Kraftig signal på 110 dB, starkast här",
+      "IP66 och godkänd till 50 °C, alltså användbar intill beredaren",
       "Prober både över och under enheten",
-      "Enda produkten som recenserats av en oberoende svensk sajt",
     ],
     cons: [
       "Ger endast lokal ljudsignal om du inte äger basstationen SBS50",
@@ -340,17 +387,19 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       },
       { label: "Hubb krävs", value: "Ja för app, basstation SBS50", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1", highlight: true },
+      { label: "Larmstyrka", value: "110 dB", highlight: true },
       { label: "Batteri", value: "2 × AAA, förmonterade", highlight: true },
       { label: "Batteritid", value: "Över 3 år", highlight: true },
-      { label: "Siren", value: "110 dB" },
-      { label: "Detektering", value: "Prober över och under enheten" },
-      { label: "Garanti", value: "5 år" },
-      { label: "Artikelnummer", value: "10247" },
+      { label: "Drifttemperatur", value: "0 till 50 °C", highlight: true },
+      { label: "Mått", value: "Ø77 × 29 mm", highlight: true },
+      { label: "Garanti", value: "5 år", highlight: true },
+      { label: "Anslutning", value: "868 MHz, endast till basstation SBS50" },
+      { label: "Vattentålighet", value: "IP66" },
+      { label: "Modell", value: "SWS51" },
       { label: "EAN", value: "7332211102475" },
-      { label: "Mått", value: "Ø77 x 29 mm" },
     ],
     verdict:
-      "SWS51 är sensorn ur vinnarpaketet, såld styckvis. Den är välbyggd, har treårsbatteri, fem års garanti och en signal på 110 dB, och den är den enda produkten som blivit recenserad av en oberoende svensk sajt, Brandinfo.\n\nProblemet är vad du får för de 190 kronorna om du inte redan äger en basstation. Butiken skriver det själv: fristående ger den endast lokal ljudsignal, och den går inte ens att sammankoppla med andra X-Sense-larm utan SBS50. Ensam är den alltså en siren, ungefär som Numens 204, men med kortare batteritid och utan de löstagbara bläcken.\n\nKöp den som komplettering när du redan har ett X-Sense-system. Ska du börja från noll är paketet SWS54 nästan alltid rätt väg, eftersom priset per sensor blir lägre och appen ingår.",
+      "SWS51 är sensorn ur vinnarpaketet, såld styckvis för 190 kronor. Den är den mest välbyggda enskilda sensorn här: 110 decibel, alltså starkast i jämförelsen, IP66, godkänd till 50 grader och med fem års garanti, vilket ingen annan än Housegard matchar.\n\nBatteriet är förmonterat och håller över tre år, och proberna sitter både på ovan- och undersidan, så den känner vatten oavsett hur den hamnar när du skjuter in den i ett skåp.\n\nProblemet är vad de 190 kronorna ger om du inte redan äger en basstation. Fristående lämnar den bara en lokal ljudsignal, och den går inte ens att sammankoppla med andra X-Sense-larm utan SBS50. Ensam är den alltså en siren, ungefär som Numens 204, men med kortare batteritid och utan sondkabeln.\n\nKöp den som komplettering när du redan har ett X-Sense-system, för då är den billig utbyggnad. Börjar du från noll är paketet SWS54 nästan alltid rätt väg, eftersom priset per sensor blir lägre och appen ingår.",
   },
   {
     id: "aqara-water-leak-sensor-t1",
@@ -358,11 +407,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "T1",
     brand: "Aqara",
     image: productImage(VATTENLARM.slug, "aqara-water-leak-sensor-t1"),
-    tagline: "Minsta larmet i testet, och det tåligaste. Men Zigbee kräver hubb.",
+    tagline: "15 millimeter hög, så den får plats under diskmaskinen.",
     scores: {
       larmvag: 2.5,
       fristaende: 1.5,
-      batteritid: 3,
+      /* 3,5 och inte 3,0 sedan batteritiden faktiskt gick att belägga
+         2026-08-06: Aqara EU anger över 2 år, bekräftat av två oberoende
+         återförsäljare. Det gamla betyget satt på en lucka i vår research och
+         inte på produkten. Samma nivå som Nedis, Fibaro och Housegard, som alla
+         har två år. Se lib/corrections.ts. */
+      batteritid: 3.5,
       sensorutforande: 4.5,
       prisvarde: 2.5,
     },
@@ -379,7 +433,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     ],
     cons: [
       "Kräver en Aqara-hubb, som kostar mer än larmet",
-      "Ingen egen siren värd namnet, larmet går via hubben",
+      "Ljudet kommer från hubben, alltså larmar den där hubben står och inte där läckan är",
       "CR2032 är ett litet batteri för en produkt som ska glömmas bort",
     ],
     specs: [
@@ -387,16 +441,20 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Hubb krävs", value: "Ja, Aqara-hubb", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1", highlight: true },
       { label: "Batteri", value: "CR2032, medföljer", highlight: true },
-      { label: "Batteritid", value: "Ej angiven av butiken", highlight: true },
-      { label: "Kapslingsklass", shortLabel: "IP", value: "IP67" },
-      { label: "Protokoll", value: "Zigbee 3.0" },
-      { label: "Driftstemperatur", value: "0 till 55 °C" },
-      { label: "Mått", value: "50 × 50 × 15 mm" },
+      /* Aqara EU anger över 2 år, bekräftat av två oberoende återförsäljare mot
+         modellbeteckningen WL-S02D. Läst 2026-08-06. Stod tidigare som "Ej
+         angiven av butiken", vilket var vår research och inte produkten. */
+      { label: "Batteritid", value: "Över 2 år", highlight: true },
+      { label: "Drifttemperatur", value: "0 till 55 °C", highlight: true },
+      { label: "Mått", value: "50 × 50 × 15 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
+      { label: "Anslutning", value: "Zigbee 3.0" },
+      { label: "Vattentålighet", value: "IP67" },
       { label: "Modell", value: "WL-S02D" },
-      { label: "GTIN", value: "6975833352142" },
+      { label: "EAN", value: "6975833352142" },
     ],
     verdict:
-      "Femton millimeter hög. Ska larmet in under en diskmaskin eller bakom en toalettstol är Aqara T1 det enda larm som får plats. IP67 och 55 grader gör den dessutom användbar intill en varmvattenberedare, där de flesta andra är godkända till fyrtio.\n\nZigbee är både styrkan och problemet. Protokollet är rätt teknikval, det belastar inte wifi och blir stabilare ju fler enheter du har, men det förutsätter en Aqara-hubb och den kostar mer än larmet självt. Har du redan ett Aqara-hem är detta det bästa styckeköpet av alla. Har du inte det är den totala kostnaden svår att försvara mot ett SQ400B för 199 kronor som klarar sig på routern.\n\nVi länkar Proshop, som tar samma pris som Kjell och till skillnad från dem publicerar produktens GTIN.",
+      "Femton millimeter hög, och det är hela argumentet. Ska larmet in under en diskmaskin eller bakom en toalettstol är Aqara T1 det enda som får plats, och de 229 kronorna köper dessutom IP67 och godkänt till 55 grader, alltså den högsta temperaturtåligheten bland larmen som når din telefon.\n\nBatteriet är en CR2032 som medföljer och håller över två år, och sensorn säger till i appen när det börjar ta slut. Zigbee 3.0 är rätt teknikval: det belastar inte wifi-nätet och blir stabilare ju fler enheter du har.\n\nMen ljudet sitter i hubben, inte i sensorn. Larmar den i tvättstugan hörs det i hallen där hubben står, och en Aqara-hubb kostar mer än larmet självt. Från noll landar du på närmare sex hundra kronor för att skydda ett ställe.\n\nHar du redan ett Aqara-hem är det här det bästa styckeköpet på sidan. Har du inget är SQ400B för 199 kronor samma nytta utan hubben.",
   },
   {
     id: "fibaro-flood-sensor",
@@ -404,12 +462,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "FGFS-101",
     brand: "Fibaro",
     image: productImage(VATTENLARM.slug, "fibaro-flood-sensor"),
-    tagline: "Mest funktion per sensor, till högst pris och med hårdast krav.",
+    tagline: "Mäter temperatur, känner sabotage och klarar sig utan tillverkarens moln.",
     scores: {
       larmvag: 2.5,
       fristaende: 1,
       batteritid: 3.5,
-      sensorutforande: 4.5,
+      /* 4,0 och inte 4,5 sedan kapslingsklassen belagts 2026-08-06: IP20,
+         alltså ingen tätning alls mot vatten, och märkt för inomhusbruk. Två
+         oberoende källor anger samma sak. Kriteriet inleds med IP-klass, och
+         den här sensorn hade näst högsta betyget på det trots fältets svagaste
+         kapsling. Landar på samma nivå som Numens 204, som har IP42 och en
+         längre sond. Se lib/corrections.ts. */
+      sensorutforande: 4,
       prisvarde: 1.5,
     },
     price: 599,
@@ -424,10 +488,12 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       "Mäter temperatur och kan varna för hastiga höjningar",
       "Sabotageskydd, larmar om någon flyttar den",
       "Inbyggd siren, batteriet medföljer",
+      "Flyter, så den följer med uppåt i stället för att bli liggande under ytan",
       "Z-Wave Plus-certifierad och därmed oberoende av tillverkarens moln",
     ],
     cons: [
       "Kräver en Z-Wave-styrenhet, den dyraste förutsättningen något larm ställer",
+      "IP20 och märkt för inomhusbruk, alltså svagaste kapslingen i jämförelsen",
       "Tre gånger priset på ett wifi-larm som klarar sig själv",
     ],
     specs: [
@@ -436,12 +502,20 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "1", highlight: true },
       { label: "Batteri", value: "CR123A, medföljer", highlight: true },
       { label: "Batteritid", value: "Upp till 2 år", highlight: true },
-      { label: "Protokoll", value: "Z-Wave Plus" },
-      { label: "Extra", value: "Temperaturgivare och sabotageskydd" },
+      { label: "Drifttemperatur", value: "0 till 40 °C", highlight: true },
+      { label: "Mått", value: "Ø72 × 28 mm", highlight: true },
+      { label: "Garanti", value: "2 år", highlight: true },
+      { label: "Anslutning", value: "Z-Wave Plus, 868 MHz" },
+      /* IP20 enligt Z-Wave Europes tekniska data och smarterhome.sk:s
+         specifikation, båda lästa 2026-08-06 och överens. Att den flyter är
+         Fibaros egen uppgift och motsäger inte kapslingen: höljet är otätat.
+         Cellen bär båda, eftersom bara "flyter" bredvid IP66 och IP67 läses
+         som mer vattentålighet än produkten har. */
+      { label: "Vattentålighet", value: "IP20, men flyter på vattenytan" },
       { label: "Modell", value: "FGFS-101" },
     ],
     verdict:
-      "Fibaro är den enda sensorn här som gör mer än att känna vatten. Den mäter temperatur och kan larma för hastiga höjningar, den har sabotageskydd som säger till om någon rubbar den, och den kör Z-Wave Plus, som till skillnad från de flesta wifi-larm inte slutar fungera den dag tillverkarens molntjänst läggs ner.\n\nDärför ligger den ändå näst sist. 599 kronor för en sensor är tre gånger vad ett fungerande wifi-larm kostar, och till det ska en Z-Wave-styrenhet läggas, vilket är den dyraste förutsättningen någon produkt här ställer. Den kalkylen går bara ihop om du redan byggt ett Z-Wave-hem, och gör du det vet du redan att du vill ha den här.\n\nVid priskontrollen var den dessutom slut hos Kjell.",
+      "Fibaro Flood Sensor kostar 599 kronor och är den enda sensorn här som gör mer än att känna vatten. Den mäter temperatur och kan larma för hastiga höjningar, och den har sabotageskydd som säger till om någon rubbar den.\n\nZ-Wave Plus gör den oberoende av tillverkarens moln, så den slutar inte fungera den dag en molntjänst läggs ner, vilket är den vanligaste tysta döden för billiga uppkopplade prylar. Den kan dessutom drivas på 12 till 24 volt om du vill slippa batteriet helt, och de teleskopiska proberna får kontakt även på ett ojämnt golv.\n\nKapslingen är svagheten, och den är oväntad i prisklassen. Fibaro anger IP20 och märker sensorn för inomhusbruk, alltså finns ingen tätning alls mot vatten, medan de billigaste larmen här har IP66 eller IP67. Att den flyter hjälper i en källare som svämmar över, men den ska inte ligga i ett fuktigt garage eller under en beredare som droppar.\n\nHar du redan byggt ett Z-Wave-hem och vill ha temperatur och sabotageskydd i samma enhet är den värd pengarna. Alla andra får mer skydd per krona av tre SQ400B.",
   },
   {
     id: "housegard-vattenlarm",
@@ -449,7 +523,7 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "WA201S",
     brand: "Housegard",
     image: productImage(VATTENLARM.slug, "housegard-vattenlarm"),
-    tagline: "Ställ den på golvet och glöm den. Den gör inget mer än så.",
+    tagline: "Tål 60 grader och har fem års garanti, utan konto och utan app.",
     scores: {
       larmvag: 1,
       fristaende: 4,
@@ -466,9 +540,9 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     superlative: "Enklast tänkbara",
     pros: [
       "Ingenting att installera, ingen app och inget konto",
-      "Varnar när batteriet börjar ta slut",
-      "Känt märke som finns i de flesta butiker",
-      "Batteriet medföljer",
+      "Godkänd till +60 °C, alltså den som tål mest värme intill en varmvattenberedare",
+      "Fem års garanti, längst i jämförelsen tillsammans med X-Sense",
+      "Varnar när batteriet börjar ta slut, och batteriet medföljer",
     ],
     cons: [
       "Bara lokal siren",
@@ -479,14 +553,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
       { label: "Larmväg", value: "Endast lokal siren", highlight: true },
       { label: "Hubb krävs", value: "Nej, och ingen app finns", highlight: true },
       { label: "Antal sensorer", shortLabel: "Sensorer", value: "3 på enheten", highlight: true },
+      { label: "Larmstyrka", value: "85 dB på 3 m", highlight: true },
       { label: "Batteri", value: "9 V, medföljer", highlight: true },
       { label: "Batteritid", value: "Upp till 2 år", highlight: true },
-      { label: "Varning vid lågt batteri", shortLabel: "Batterivarning", value: "Ja" },
-      { label: "Mått", value: "Ø83 × 30 mm" },
-      { label: "Vikt", value: "113 g" },
+      /* Högsta övre gräns i jämförelsen. housegard.se, läst 2026-08-06. */
+      { label: "Drifttemperatur", value: "+1 till +60 °C", highlight: true },
+      { label: "Mått", value: "Ø83 × 30 mm", highlight: true },
+      { label: "Garanti", value: "5 år", highlight: true },
+      { label: "Anslutning", value: "Ingen, larmar på plats" },
+      { label: "Modell", value: "WA201S" },
     ],
     verdict:
-      "Housegard är märket folk känner igen från brandvarnaren i taket, och den här produkten är gjord för samma enkelhet: ställ den på golvet, klart. Tre sensorer i botten känner vatten via underlagets ledningsförmåga, den varnar när batteriet tar slut, och det finns inget konto att skapa.\n\nProblemet är att den kostar 229,90 kronor för att göra mindre än Numens 204 gör för 197. Numens har över fem års batteritid mot Housegards två, och löstagbara sensorbläck som når in där den runda dosan inte får plats. Det är svårt att hitta ett skäl att välja Housegard i stället, annat än att den finns på hyllan i en butik du ändå står i.\n\nOch precis som Numens larmar den bara där den ligger. Läser du den här sidan för att du är orolig för vad som händer medan du är bortrest är det här inte produkten.",
+      "Housegard WA201S kostar 229,90 kronor och är märket folk känner igen från brandvarnaren i taket. Produkten är gjord för samma enkelhet: ställ den på golvet, klart. Tre sensorer i botten känner vatten via underlagets ledningsförmåga, och det finns inget konto att skapa.\n\nTvå saker skiljer den från de andra sirenlarmen. Den är godkänd till 60 grader, högst av alla nio, alltså den som får ligga närmast en varmvattenberedare. Och Housegard ger fem års garanti, dubbelt mot vad Deltronic, Aqara, Fibaro och TP-Link lämnar.\n\nDen kostar ändå trettio kronor mer än Numens 204 för att göra mindre. Numens håller över fem år på ett batteri mot Housegards två, tål minusgrader och har en sond som når 1,5 meter från enheten, medan den runda dosan här måste få plats där du vill mäta.\n\nVill du ha ett svenskt märke med lång garanti intill beredaren är den rätt. Ska larmet ligga i ett kallt utrymme eller nå din telefon är den fel, och då är Numens 204 respektive SQ400B billigare och bättre.",
   },
 ];
 
@@ -512,20 +590,28 @@ export type LeakSensorCapability = {
   batteryYears: number;
   /** Har lös sond eller kabel som når in bakom eller under en maskin. */
   reachesTightSpots: boolean;
-  /** Klarar mer än 40 °C, även intill varmvattenberedare. */
+  /**
+   * Klarar mer än 40 °C, alltså får ligga intill en varmvattenberedare.
+   *
+   * Rättat 2026-08-06 mot tillverkarnas egna specifikationer. Flaggan stod
+   * tidigare bara på Aqara, vilket fick väljaren att svara att ett enda larm
+   * dög vid beredaren. Sex av nio klarar över 40 °C, och Housegard klarar mest
+   * av alla med +60 °C.
+   */
   hotSpot: boolean;
 };
 
 export const VATTENLARM_CAPABILITIES: LeakSensorCapability[] = [
-  { id: "x-sense-sws54", reach: "app", spots: 3, batteryYears: 3, reachesTightSpots: false, hotSpot: false },
-  { id: "sq400b-wifi-vattenvarnare", reach: "app", spots: 1, batteryYears: 1, reachesTightSpots: false, hotSpot: false },
-  { id: "nedis-smartlife-lackagedetektor", reach: "app", spots: 1, batteryYears: 2, reachesTightSpots: true, hotSpot: false },
-  { id: "numens-204", reach: "siren", spots: 1, batteryYears: 5, reachesTightSpots: true, hotSpot: false },
-  { id: "tp-link-tapo-t300", reach: "hubbapp", hub: "tapo", spots: 1, batteryYears: 1, reachesTightSpots: false, hotSpot: false },
-  { id: "x-sense-sws51", reach: "siren", spots: 1, batteryYears: 3, reachesTightSpots: false, hotSpot: false },
-  { id: "aqara-water-leak-sensor-t1", reach: "hubbapp", hub: "aqara", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: true },
-  { id: "fibaro-flood-sensor", reach: "hubbapp", hub: "zwave", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: false },
-  { id: "housegard-vattenlarm", reach: "siren", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: false },
+  // Drifttemperaturer ur tillverkarnas egna specifikationer, lästa 2026-08-06.
+  { id: "x-sense-sws54", reach: "app", spots: 3, batteryYears: 3, reachesTightSpots: false, hotSpot: true }, // 0–50 °C
+  { id: "sq400b-wifi-vattenvarnare", reach: "app", spots: 1, batteryYears: 1, reachesTightSpots: false, hotSpot: true }, // 0–50 °C
+  { id: "nedis-smartlife-lackagedetektor", reach: "app", spots: 1, batteryYears: 2, reachesTightSpots: true, hotSpot: false }, // 0–40 °C
+  { id: "numens-204", reach: "siren", spots: 1, batteryYears: 5, reachesTightSpots: true, hotSpot: true }, // −10 till +50 °C
+  { id: "tp-link-tapo-t300", reach: "hubbapp", hub: "tapo", spots: 1, batteryYears: 3, reachesTightSpots: false, hotSpot: false }, // 0–40 °C
+  { id: "x-sense-sws51", reach: "siren", spots: 1, batteryYears: 3, reachesTightSpots: false, hotSpot: true }, // 0–50 °C
+  { id: "aqara-water-leak-sensor-t1", reach: "hubbapp", hub: "aqara", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: true }, // 0–55 °C
+  { id: "fibaro-flood-sensor", reach: "hubbapp", hub: "zwave", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: false }, // 0–40 °C
+  { id: "housegard-vattenlarm", reach: "siren", spots: 1, batteryYears: 2, reachesTightSpots: false, hotSpot: true }, // +1 till +60 °C
 ];
 
 const REACH_LABEL: Record<LeakSensorCapability["reach"], string> = {
@@ -613,7 +699,7 @@ export const VATTENLARM_FAQ = [
   {
     question: "Vad är skillnaden mellan vattenlarm och vattenfelsbrytare?",
     answer:
-      "Ett vattenlarm känner av vatten på golvet och larmar. En vattenfelsbrytare mäter flöde, tryck och temperatur i inkommande ledning och stänger av vattnet automatiskt. Larmet kostar 190 till 900 kronor och lägger du dit själv. Felsbrytaren kostar enligt Länsförsäkringar 6 000 till 10 000 kronor installerad och kräver rörmokare. Larmet varnar dig, felsbrytaren stoppar skadan.",
+      "Ett vattenlarm känner av vatten på golvet och larmar. En vattenfelsbrytare mäter flöde, tryck och temperatur i inkommande ledning och stänger av vattnet automatiskt. Larmet kostar 179 till 876 kronor och lägger du dit själv. Felsbrytaren kostar enligt Länsförsäkringar 6 000 till 10 000 kronor installerad och kräver rörmokare. Larmet varnar dig, felsbrytaren stoppar skadan.",
   },
   {
     question: "Måste ett vattenlarm vara typgodkänt?",
@@ -623,7 +709,7 @@ export const VATTENLARM_FAQ = [
   {
     question: "Vilka vattenlarm är typgodkända enligt CR 139?",
     answer:
-      "En tillverkare skriver ut ett certifikatnummer: Tollco anger C901472 för sina vattenlarm, vilket omfattar både den batteridrivna och den nätanslutna modellen samt löpande kontroll av tillverkningen. De övriga anger inget nummer. Det är inte samma sak som att de saknar godkännande, och vi påstår ingenting om det, men det betyder att svaret inte går att läsa sig till i butiken. Gäller kravet ditt bygge, be om certifikatnumret i stället för att nöja dig med ordet godkänd.",
+      "Tollco anger C901472 för sina vattenlarm, och det omfattar både den batteridrivna och den nätanslutna modellen samt löpande kontroll av tillverkningen. Gäller kravet ditt bygge är certifikatnumret det du ska be om, eftersom det är numret din VVS-installatör kan kontrollera mot RISE register. Ordet godkänd på en förpackning betyder ingenting i sammanhanget.",
   },
   {
     question: "Ger ett vattenlarm rabatt på försäkringen?",
@@ -653,7 +739,7 @@ export const VATTENLARM_FAQ = [
   {
     question: "Larmar ett vattenlarm i mobilen?",
     answer:
-      "Bara om det är byggt för det. Numens 204, Housegard och X-Sense SWS51 utan basstation har enbart en siren och når dig aldrig när du inte är hemma. Nedis SmartLife är uppkopplad men skickar enligt tillverkarens egen manual ingen notis förrän du själv skapat en automation i appen. Kontrollera detta innan du köper, för det står inte alltid tydligt i butiken.",
+      "Bara om det är byggt för det. Numens 204, Housegard och X-Sense SWS51 utan basstation har enbart en siren och når dig aldrig när du inte är hemma. Nedis SmartLife är uppkopplad men skickar ingen notis förrän du själv skapat en automation i appen. Prova därför larmet med en matsked vatten samma dag du sätter dit det, med telefonen i handen.",
   },
   {
     question: "Vad gör jag när vattenlarmet larmar?",
@@ -668,12 +754,12 @@ export const VATTENLARM_FAQ = [
   {
     question: "Hur länge håller batteriet i ett vattenlarm?",
     answer:
-      "Mellan ett och fem år bland dem vi jämför. Numens 204 uppges hålla över fem år, X-Sense treårsbatterier, medan SQ400B och Tapo T300 anges till drygt ett år. Det spelar större roll än det låter, eftersom ett vattenlarm är en produkt du sätter ut och slutar tänka på. Ett larm med tomt batteri är sämre än inget larm, för då tror du att du är skyddad.",
+      "Mellan ett och fem år bland dem vi jämför. Numens 204 uppges hålla över fem år, X-Sense tre, Nedis, Aqara, Fibaro och Housegard två, Tapo T300 ett och ett halvt när den arbetar mot sin hubb, och SQ400B ett. Det spelar större roll än det låter, eftersom ett vattenlarm är en produkt du sätter ut och slutar tänka på. Ett larm med tomt batteri är sämre än inget larm, för då tror du att du är skyddad.",
   },
   {
     question: "Fungerar vattenlarm i ouppvärmda utrymmen?",
     answer:
-      "Sällan. De flesta är godkända från 0 till 40 grader, vilket utesluter ett ouppvärmt garage eller krypgrund på vintern. Aqara T1 klarar upp till 55 grader och är det enda larm som är godkänt att ligga intill en varmvattenberedare. Ska larmet ligga där det fryser bör du kontrollera driftstemperaturen i manualen och inte i butiksrubriken.",
+      "Ett av dem gör det. Numens 204 är godkänd från −10 grader och är den enda i jämförelsen som får ligga i ett ouppvärmt garage, en krypgrund eller en stuga på vintern. De övriga åtta börjar på 0 eller +1 grad, vilket i praktiken tar slut i oktober. Åt andra hållet tål Housegard WA201S mest värme med +60 grader, följt av Aqara T1 på +55. Kontrollera arbetstemperaturen i tillverkarens specifikation, för den står sällan i butiksrubriken.",
   },
   {
     question: "Hur mycket kostar en vattenskada?",

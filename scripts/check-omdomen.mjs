@@ -13,7 +13,7 @@
  * Ingen kontroll saa det. `tsc`, `lint` och `pnpm check` hade ingen aasikt,
  * eftersom en straeng utan radbrytningar aer en giltig straeng.
  *
- * ## Tre saker den tittar paa
+ * ## Fyra saker den tittar paa
  *
  * 1. **Stycken.** Ett omdoeme oever GRANS_TECKEN tecken i ett enda stycke.
  *    Skrivguiden delar recensionen i fyra roerelser; de aer fyra stycken.
@@ -22,6 +22,11 @@
  *    passar. Se references/writing-guide.md.
  * 3. **Tvaa produkter med samma superlativ** paa samma sida. Den avvaegande
  *    laesaren staar mellan just de tvaa och faar daa ingen hjaelp alls.
+ * 4. **Superlativ oever GRANS_SUPERLATIV tecken.** Regeln fanns bara i prosa
+ *    och i en kodkommentar paa `/mjolkskummare` ("fjaerde gaangen felet
+ *    uppstaar"), och hade daa bitit fem sidor. `new-page` bad en agent raekna
+ *    tecken foer hand och varnade samtidigt foer att `wc -c` oeverskattar
+ *    svenska superlativ med tre eller fyra. Det aer precis ett skript.
  *
  * ## Varfoer den inte faeller
  *
@@ -42,9 +47,16 @@ import path from "node:path";
 const DIR = "lib/data";
 const GRANS_TECKEN = 500;
 
+/*
+ * Brickan boerjar klippa runt 39 tecken. 35 aer alltsaa graensen med
+ * marginalen inraeknad, och 39 aer inte budgeten.
+ */
+const GRANS_SUPERLATIV = 35;
+
 const enstycke = [];
 const utmarkelsesuperlativ = [];
 const dubbletter = [];
+const langasuperlativ = [];
 
 /** Plockar ut ett straengfaelt: `verdict: "..."`, oever radbrytning. */
 function faelt(block, namn) {
@@ -89,6 +101,12 @@ for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
       } else {
         seddaSuperlativ.set(nyckel, id);
       }
+
+      /* Tecken, inte bytes: aa, ae och oe aer tvaa bytes var. */
+      const tecken = [...superlative.trim()].length;
+      if (tecken > GRANS_SUPERLATIV) {
+        langasuperlativ.push({ slug, id, superlative: superlative.trim(), tecken });
+      }
     }
   }
 }
@@ -128,6 +146,23 @@ if (dubbletter.length) {
     console.log(`    ${r.slug}  "${r.superlative}"  ${r.a} och ${r.b}`);
   }
   console.log("");
+}
+
+if (langasuperlativ.length) {
+  nagot = true;
+  langasuperlativ.sort((a, b) => b.tecken - a.tecken);
+  const klipper = langasuperlativ.filter((r) => r.tecken > 39).length;
+  console.log(
+    `  ${langasuperlativ.length} superlativ oever ${GRANS_SUPERLATIV} tecken` +
+      `, varav ${klipper} oever 39 daer brickan boerjar klippa:\n`,
+  );
+  for (const r of langasuperlativ) {
+    console.log(`    ${String(r.tecken).padStart(3)} tecken  ${r.slug} · ${r.id}  "${r.superlative}"`);
+  }
+  console.log(
+    `\n  Etiketten ska rymmas paa brickan. Korta ned, eller maet om var\n` +
+      `  klippningen faktiskt boerjar och flytta GRANS_SUPERLATIV daerefter.\n`,
+  );
 }
 
 if (!nagot) console.log("  Alla omdoemen har stycken, alla superlativ aer egna.");

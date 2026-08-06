@@ -35,7 +35,15 @@ export type AffiliateCtaProps = {
    * texten står kvar oförändrad. Skicka `fullName(product)`.
    */
   productName?: string;
+  /**
+   * Var på sidan knappen sitter: winner-card, comparison-table och så vidare.
+   * Följer med i /till-länken och landar i `placement` på klicket, så vi kan
+   * se vilken plats på sidan som faktiskt ger klick. Fram till nu tog den här
+   * propen sig bara till ett `data-placement` i DOM:en och stannade där.
+   */
   placement?: string;
+  /** Placering i rankningen, 1-baserad. Utelämna där ordningen inte betyder något. */
+  position?: number;
   /**
    * Dölj "Annons"-etiketten. Bara för lägen där märkningen redan står i
    * direkt anslutning, exempelvis en tabellkolumn med rubriken Annons. En
@@ -68,6 +76,7 @@ export function AffiliateCta({
   productId,
   productName,
   placement,
+  position,
   hideAdLabel = false,
   className,
 }: AffiliateCtaProps) {
@@ -98,11 +107,15 @@ export function AffiliateCta({
     ) : (
       ctaLabel(DEFAULT_STYLE.cta, merchant)
     ));
-  const link = resolveMerchantLink({
-    id: productId ?? "",
-    merchantUrl: href,
-    affiliateUrl,
-  });
+  const link = resolveMerchantLink(
+    {
+      id: productId ?? "",
+      merchantUrl: href,
+      affiliateUrl,
+    },
+    LINK_MODE,
+    { placement, position },
+  );
 
   /* Branschrekommendationen (TU, Sveriges Tidskrifter, IAB Sverige, 18 juni
      2024) kräver att en kommersiell länk märks och att avsändaren framgår i

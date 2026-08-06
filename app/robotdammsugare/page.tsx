@@ -48,9 +48,11 @@ import Kopguide from "@/content/robotdammsugare/kopguide.mdx";
  * och prislistan visar det: Dreame L10s Ultra Gen 3 anger 25 000 Pa för 4 990
  * kronor, Roborock Qrevo Curv 2 Flow anger 20 000 för 11 490.
  *
- * ⚠️ Samma förbehåll gäller passerhöjden. 40 mm och 8,8 cm kommer från
- * tillverkarna själva, ingen anger provmetod, och sidan använder dem som
- * uppgift och aldrig som mätning.
+ * ⚠️ Samma förbehåll gäller passerhöjden. Talen kommer från tillverkarnas
+ * egna labb, ingen använder en gemensam provmetod, och sidan använder dem som
+ * uppgift och aldrig som mätning. Läs enkelsteget, inte tvåstegstalet: de
+ * skiljer ungefär en faktor två och tillverkarna skyltar med det högre. Se
+ * rättelsen 2026-08-06 i lib/corrections.ts.
  *
  * ⚠️⚠️ Råd & Rön och Stiftung Warentest har BETALVÄGG PÅ PRODUKTNIVÅ. Sidan
  * återger aldrig deras betyg per modell. Det som citeras är metoden och de
@@ -65,12 +67,12 @@ import Kopguide from "@/content/robotdammsugare/kopguide.mdx";
 
 const TEST_PAGE = ROBOTDAMMSUGARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-04";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Dreame anger 25 000 Pa för 4 990 kronor. Roborock anger 20 000 för 11 490. Stiftung Warentest säger att talet är reklam du kan bortse från, och Råd & Rön förklarar varför: roboten sopar, den suger inte. Vi jämförde sju robotdammsugare från 1 999 till 14 890 kronor.",
+    "Dreame Aqua10 Ultra Roller vinner för 14 890 kronor, med den enda moppen som sköljs ren medan den arbetar. Har du höga trösklar tar Roborock Saros 20 Sonic sig över 45 millimeter för 8 990. Sugkraften i pascal kan du strunta i: Stiftung Warentest kallar talet reklam. Sju robotdammsugare från 2 290 kronor.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -129,15 +131,18 @@ export default async function RobotdammsugarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              En robotdammsugare för 4 990 kronor anger 25 000 pascal. En för
-              11 490 anger 20 000. Stiftung Warentest säger att talet är ett
-              reklampåstående du lugnt kan bortse från, och Råd & Rön förklarar
-              varför: roboten har inget munstycke som skapar vakuum, den sopar i
-              stället för att suga. Vi jämförde sju robotar från 1 999 till
-              14 890 kronor på det som labben faktiskt mäter.
+              Dreame Aqua10 Ultra Roller vinner för 14 890 kronor, med den enda
+              moppen som sköljs och skrapas ren medan roboten arbetar. Har du
+              lister mellan rummen tar Roborock Saros 20 Sonic sig över
+              45 millimeters tröskel för 8 990. Talet du kan strunta i är
+              sugkraften: Stiftung Warentest kallar den ett reklampåstående, och
+              Råd & Rön förklarar varför: roboten har inget munstycke som
+              skapar vakuum, den sopar ihop smutsen. Vi jämförde sju robotar från
+              2 290 kronor på det labben faktiskt mäter.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -276,16 +281,30 @@ export default async function RobotdammsugarePage() {
             diskussion, både i pengar och i hur hallen ser ut.
           </p>
           <p>
-            <strong>Så här gör du i praktiken.</strong> Mät den högsta tröskeln
-            mellan de rum roboten ska städa, innan du väljer modell. Bland de
-            rankade anger Dreame L50s Pro Ultra 40 millimeter, vilket är den
-            tydligaste siffran i mellanskiktet. Dreame X60 Ultra uppger 8,8
-            centimeter men kostar 14 990 kronor.
+            <strong>De flesta robotar klarar 10 till 20 millimeter</strong>,
+            enligt Ljud & Bilds egen uppgift. En vanlig innerdörrslist är högre
+            än så, och det är hela problemet.
           </p>
           <p>
-            <strong>Var noga med vad siffrorna är.</strong> De kommer från
-            tillverkarna själva, och ingen anger vid vilken metod höjden är
-            uppmätt. De är alltså uppgifter och inte mätvärden. Skillnaden mot
+            <strong>Tre av de rankade tar sig betydligt högre.</strong> Roborock
+            Saros 20 Sonic klarar <strong>45 millimeter</strong> över en vanlig
+            list och 88 som mest, för 8 990 kronor. Dreame Aqua10 Ultra Roller
+            klarar <strong>42</strong> respektive 80. Dreame L50s Pro Ultra
+            klarar <strong>22</strong> respektive 40.
+          </p>
+          <p>
+            <strong>Läs de talparen rätt, för de säljs ofta ihopblandade.</strong>{" "}
+            Det högre gäller en tröskel med två steg, alltså en skjutdörrsskena
+            där roboten kan ta stödet i två omgångar. Det lägre gäller en vanlig
+            list, och det är det tal du ska mäta din tröskel mot. Dreame skyltar
+            med 40 millimeter för L50s Pro Ultra, och över en list i ett steg tar
+            den sig 22.
+          </p>
+          <p>
+            <strong>Så här gör du i praktiken.</strong> Mät den högsta tröskeln
+            mellan de rum roboten ska städa, innan du väljer modell. Talen kommer
+            från tillverkarnas egna labb och ingen använder en gemensam
+            provmetod, så de är uppgifter och inte mätvärden. Skillnaden mot
             pascaltalet är ändå betydande: en passerhöjd i millimeter går att
             hålla en tumstock mot.
           </p>
@@ -316,7 +335,7 @@ export default async function RobotdammsugarePage() {
           products={products}
           layout={style.table}
           variant="bordered"
-          caption={priceCaption(PRICE_CHECKED, `Moppsystem, passerhöjd, stationens funktioner, sugkraft och batterikapacitet är tillverkarens eller butikens egna uppgifter. Sugkraften i pascal står med för att den efterfrågas, inte för att den rangordnar maskinerna: Stiftung Warentest kallar den ett reklampåstående. Passerhöjd anges bara av de tillverkare som publicerar den, och där raden saknas betyder det att uppgiften inte publiceras, inte att roboten fastnar. Priserna är hos den butik vi länkar till, och två av produkterna länkar till märkets egen svenska butik eftersom maskinen inte säljs hos Proshop.`)}
+          caption={priceCaption(PRICE_CHECKED, `Moppsystem, passerhöjd, mopptvättens temperatur, stationens funktioner, sugkraft och behållarvolymer är tillverkarens eller butikens egna uppgifter. Sugkraften i pascal står med för att den efterfrågas, inte för att den rangordnar maskinerna: Stiftung Warentest kallar den ett reklampåstående. Passerhöjden avser en tröskel i ett steg, och talet inom parentes en tröskel med två steg. Ett streck betyder att vi inte hittat uppgiften, inte att roboten fastnar. Priserna är hos den butik vi länkar till, och två av produkterna länkar till märkets egen svenska butik eftersom maskinen inte säljs hos Proshop.`)}
         />
       </Section>
 
@@ -330,15 +349,16 @@ export default async function RobotdammsugarePage() {
       >
         <Prose>
           <p>
-            Spannet är 1 999 till 14 890 kronor, mer än sju gånger. Frågan om
+            Spannet är 2 290 till 14 890 kronor, mer än sex gånger. Frågan om
             det billigaste duger har ett tydligt svar, men det är villkorat.
           </p>
           <p>
             <strong>Ja, om du har hårda golv och inga mattor.</strong> Xiaomi
-            S40 för 1 999 kronor har lasernavigering, vilket betyder att den kör
-            i ordnade banor i stället för att studsa runt slumpvis. Batteriet
-            räcker för en normal lägenhet. Kör du den ofta håller den undan damm
-            och smulor, och det är det robotar är bäst på enligt Råd & Rön.
+            S40 för 2 290 kronor har lasernavigering, vilket betyder att den kör
+            i ordnade banor och inte studsar runt slumpvis. Batteriet räcker
+            180 minuter, alltså en normal lägenhet på en laddning, och över en
+            tröskel tar den sig 20 millimeter. Kör du den ofta håller den undan
+            damm och smulor, och det är det robotar är bäst på enligt Råd & Rön.
           </p>
           <p>
             <strong>Nej, om du hoppas på moppen.</strong> En fuktig duk som
@@ -353,7 +373,7 @@ export default async function RobotdammsugarePage() {
             eftersom behållaren ofta är svår att få loss utan att damm ramlar ut.
           </p>
           <p>
-            <strong>Det viktigaste steget uppåt kostar 2 000 kronor.</strong>{" "}
+            <strong>Det viktigaste steget uppåt kostar 1 700 kronor.</strong>{" "}
             Från Xiaomi S40 till Roborock QR 798 för 3 990 tillkommer
             tömningsstation med upp till sju veckors intervall, kartor för fyra
             våningar och moppar som lyfts över mattor. Det är det enskilt största
@@ -393,10 +413,12 @@ export default async function RobotdammsugarePage() {
           </p>
           <p>
             <strong>Fritt läsbara omdömen per produkt är få.</strong> Ljud &
-            Bild är den svenska källa som har dem, och de täcker en handfull
-            modeller. Där ett omdöme finns står det utskrivet i produktens text,
-            och där det saknas bygger placeringen på publicerade uppgifter
-            tillsammans med labbens fynd om konstruktionstyperna.
+            Bild är den svenska källa som har dem, och de täcker tre av de sju
+            robotarna här. Där ett omdöme finns står det utskrivet i produktens
+            text, också när det går emot oss: deras test av Roborock Qrevo Curv
+            2 Flow fällde vårt eget navigeringsbetyg, som var sidans högsta. Där
+            omdöme saknas bygger placeringen på publicerade uppgifter tillsammans
+            med labbens fynd om konstruktionstyperna.
           </p>
           <p>
             <strong>
@@ -466,7 +488,7 @@ export default async function RobotdammsugarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Moppningen väger tyngst för att båda labben pekar ut den som robotarnas svagaste funktion och för att konstruktionerna skiljer sig mest där. Skalan går från fuktig duk som släpas hela passet, via roterande dukar med tvätt i stationen, till rullmopp som sköljs och skrapas ren under drift. Trösklar bygger på angiven passerhöjd tillsammans med hur roboten tar sig över, och där tillverkaren inte publicerar någon höjd sätter vi ingen nolla utan bedömer konstruktionen och skriver ut att uppgiften saknas. Sugkraft i pascal ingår inte i något kriterium, eftersom Stiftung Warentest kallar talet ett reklampåstående och ingen tillverkare anger provmetod. Betygen i labbens egna tabeller ligger bakom betalvägg och återges inte här. Priserna är hos den butik vi länkar till."
+          footnote="Moppningen väger tyngst för att båda labben pekar ut den som robotarnas svagaste funktion och för att konstruktionerna skiljer sig mest där. Skalan går från fuktig duk som släpas hela passet, via roterande dukar med tvätt i stationen, till rullmopp som sköljs och skrapas ren under drift. Trösklar mäter hur högt roboten tar sig över en list i ett steg, och där ingen höjd finns publicerad bedöms konstruktionen och betyget landar i mitten. Sugkraft i pascal ingår inte i något kriterium, eftersom Stiftung Warentest kallar talet ett reklampåstående och ingen tillverkare anger provmetod. Betygen i labbens egna tabeller ligger bakom betalvägg och återges inte här. Priserna är hos den butik vi länkar till."
         />
       </Section>
 

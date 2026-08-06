@@ -67,13 +67,112 @@ async function sok(fraga, { svenska = true, antal = 8 } = {}) {
   return data.web?.results ?? [];
 }
 
+/* ─── Googles index, tva leverantorer ──────────────────────────────────────
+ *
+ * Brave ar standard och racker for det mesta. De har finns for det ena fallet
+ * som betyder nagot: **innan du skriver att nagot inte publiceras**. En motor
+ * som inte hittar nagot bevisar ingenting; tva motorer som bada kommer tomma
+ * ar ett belagg.
+ *
+ * Uppmatt 2026-08-05 pa samma fraga: Brave hittade tillverkarens egen sida,
+ * Serper och SearchAPI ledde bada med aterforsaljare. De kompletterar alltsa
+ * varandra at olika hall, och Brave ar inte den svagaste.
+ *
+ * Serper ar POST med JSON-kropp, SearchAPI ar GET med parametrar. Blandar man
+ * ihop dem svarar bada 403, vilket ser ut som en trasig nyckel.
+ */
+
+function las(tjanst) {
+  try {
+    return JSON.parse(
+      readFileSync(`C:/code/credentials/${tjanst}/credentials.json`, "utf8"),
+    );
+  } catch {
+    return null;
+  }
+}
+
+async function sokSerper(fraga, { svenska = true, antal = 8 } = {}) {
+  const c = las("serper");
+  if (!c || c.apiKey.startsWith("PASTE")) return [];
+  const res = await fetch(c.baseUrl + c.searchEndpoint, {
+    method: "POST",
+    headers: { [c.authHeader]: c.apiKey, "content-type": "application/json" },
+    body: JSON.stringify({
+      q: fraga,
+      num: antal,
+      ...(svenska ? { gl: "se", hl: "sv" } : {}),
+    }),
+  });
+  if (!res.ok) {
+    console.error(`  Serper svarade ${res.status}`);
+    return [];
+  }
+  const data = await res.json();
+  return (data.organic ?? []).map((o) => ({ title: o.title, url: o.link }));
+}
+
+async function sokSearchApi(fraga, { svenska = true, antal = 8 } = {}) {
+  const c = las("searchapi");
+  if (!c || c.apiKey.startsWith("PASTE")) return [];
+  const url = new URL(c.baseUrl);
+  url.searchParams.set("engine", c.defaultEngine ?? "google");
+  url.searchParams.set("q", fraga);
+  url.searchParams.set("num", String(antal));
+  if (svenska) {
+    url.searchParams.set("gl", "se");
+    url.searchParams.set("hl", "sv");
+  }
+  const res = await fetch(url, {
+    headers: { Authorization: `${c.authScheme ?? "Bearer"} ${c.apiKey}` },
+  });
+  if (!res.ok) {
+    console.error(`  SearchAPI svarade ${res.status}`);
+    return [];
+  }
+  const data = await res.json();
+  return (data.organic_results ?? []).map((o) => ({
+    title: o.title,
+    url: o.link,
+  }));
+}
+
+const MOTORER = {
+  brave: sok,
+  serper: sokSerper,
+  searchapi: sokSearchApi,
+};
+
+/**
+ * Kor flera motorer och slar ihop. Dubbletter faller bort pa url, och varje
+ * traff bar med sig vilka motorer som hittade den: en traff bara en motor har
+ * ar precis den sorten man annars missar.
+ */
+async function sokAlla(fraga, opt = {}, motorer = Object.keys(MOTORER)) {
+  const sedd = new Map();
+  for (const namn of motorer) {
+    const traffar = await MOTORER[namn](fraga, opt).catch(() => []);
+    console.error(`  ${namn}: ${traffar.length} traffar`);
+    for (const t of traffar) {
+      const nyckel = (t.url ?? "").replace(/[?#].*$/, "").replace(/\/$/, "");
+      if (!nyckel) continue;
+      const post = sedd.get(nyckel) ?? { ...t, motorer: [] };
+      post.motorer.push(namn);
+      sedd.set(nyckel, post);
+    }
+  }
+  /* Flest motorer forst: det som tva index ar overens om ar oftast ratt sida. */
+  return [...sedd.values()].sort((a, b) => b.motorer.length - a.motorer.length);
+}
+
 function skriv(traffar) {
   if (!traffar.length) {
     console.log("  inga traffar");
     return;
   }
   for (const t of traffar) {
-    console.log(`  - ${t.title}`);
+    const kalla = t.motorer ? `  [${t.motorer.join("+")}]` : "";
+    console.log(`  - ${t.title}${kalla}`);
     console.log(`    ${t.url}`);
   }
 }
@@ -166,13 +265,28 @@ async function svep(marke) {
 const argv = process.argv.slice(2);
 if (!argv.length) {
   console.log(
-    'Anvandning:\n  node scripts/sok.mjs "fraga"\n  node scripts/sok.mjs --en "query"\n  node scripts/sok.mjs --brand levoit',
+    'Anvandning:\n' +
+      '  node scripts/sok.mjs "fraga"               Brave, svenska traffar\n' +
+      '  node scripts/sok.mjs --en "query"          Brave, utan landsfilter\n' +
+      '  node scripts/sok.mjs --alla "fraga"        alla tre motorer, sammanslaget\n' +
+      '  node scripts/sok.mjs --motor serper "..."  en vald motor\n' +
+      '  node scripts/sok.mjs --brand levoit        utbudssvep for ett marke',
   );
   process.exit(0);
 }
 
 if (argv[0] === "--brand") {
   await svep(argv[1]);
+} else if (argv[0] === "--alla" || argv[0] === "--all") {
+  /* Alla tre motorerna. Anvand den innan du skriver att nagot inte finns. */
+  skriv(await sokAlla(argv.slice(1).join(" ")));
+} else if (argv[0] === "--motor") {
+  const namn = argv[1];
+  if (!MOTORER[namn]) {
+    console.error(`Okand motor ${namn}. Valj brave, serper eller searchapi.`);
+    process.exit(1);
+  }
+  skriv(await sokAlla(argv.slice(2).join(" "), {}, [namn]));
 } else if (argv[0] === "--en") {
   skriv(await sok(argv.slice(1).join(" "), { svenska: false }));
 } else {

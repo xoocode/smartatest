@@ -46,9 +46,13 @@ import Kopguide from "@/content/hemlarm/kopguide.mdx";
  *
  * Sidans fynd, i den ordning de står:
  *
- * 1. #priset — två av åtta bolag publicerar hela priset, fyra publicerar ett
- *    månadstal. Det förklarar varför frågan "vad kostar hemlarm i månaden" är
- *    obesvarad på svenska trots ett toppbud på 181 kronor per klick.
+ * 1. #priset — fyra av åtta bolag publicerar hela priset och sju publicerar en
+ *    löpande avgift. Det förklarar varför frågan "vad kostar hemlarm i
+ *    månaden" är obesvarad trots ett toppbud på 181 kronor per klick.
+ *
+ *    ⚠️ Talet har rättats uppåt tre gånger på tre dygn, från två till fyra,
+ *    varje gång för att vi läst en källa vi redan hade. Kontrollera det mot
+ *    `disclosureOf()` i stället för mot minnet innan du skriver en ny siffra.
  * 2. #bindningen — bindningstiden är inte dold utan prissatt. 3 990 kronor med
  *    tolv månaders bindning mot 5 990 utan, alltså kostar friheten 2 000 kr.
  * 3. #att-lamna — kostnaden att lämna är en femårig friköpstrappa hos den ena
@@ -65,12 +69,12 @@ import Kopguide from "@/content/hemlarm/kopguide.mdx";
  */
 const TEST_PAGE = HEMLARM;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Två av åtta larmbolag publicerar vad tjänsten kostar. Vi läste avtalsvillkoren i original, med utgåva och punktnummer, och räknade ut vad det kostar att lämna varje bolag.",
+    "SecuritasHome LILLA vinner: 349 kr i månaden och 1 995 kr för villapaketet, runt 22 900 kronor över fem år mot Verisures 39 900. Vi läste avtalsvillkoren för alla åtta bolagen i original, med utgåva och punktnummer, och räknade ut vad det kostar att lämna vart och ett.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -81,7 +85,7 @@ export const metadata: Metadata = {
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilket ska du välja?" },
-  { id: "priset", label: "Två av åtta skriver ut vad det kostar" },
+  { id: "priset", label: "Hälften skriver ut vad det kostar" },
   { id: "bindningen", label: "Bindningstiden är prissatt" },
   { id: "jamforelse", label: "Jämför alla åtta" },
   { id: "att-lamna", label: "Vad det kostar att lämna" },
@@ -125,13 +129,16 @@ export default function HemlarmPage() {
           <h1 className="text-h1">{TEST_PAGE.title}</h1>
           <AffiliateDisclosure variant="balk" />
           <p className="max-w-2xl text-lg text-muted-foreground">
-            Ett hemlarm köper du inte, du tecknar det. Ändå publicerar bara två
-            av åtta bolag vad tjänsten faktiskt kostar. Vi läste avtalsvillkoren
-            i original, med utgåva och punktnummer, och räknade på det ingen
-            annan räknar på: vad det kostar att sluta.
+            SecuritasHome LILLA vinner: 349 kronor i månaden och 1 995 för
+            villapaketet, alltså runt 22 900 kronor över fem år mot Verisures
+            39 900, och du köper hårdvaran i stället för att hyra den. Bara
+            hälften av bolagen skriver ut hela vad tjänsten kostar, så vi läste
+            avtalsvillkoren i original och räknade på det ingen annan räknar
+            på: vad det kostar att sluta.
           </p>
           <UpdatedStamp
             date={UPDATED}
+            slug={TEST_PAGE.slug}
             testedCount={services.length}
             variant="bar"
             className="self-start"
@@ -170,36 +177,54 @@ export default function HemlarmPage() {
       <Section
         id="priset"
         width="default"
-        title="Två av åtta skriver ut vad det kostar"
+        title="Hälften skriver ut vad det kostar"
         description="Kategorins vanligaste fråga saknar ett svar man kan slå upp, och det beror på ett val branschen gjort."
       >
         <Prose>
           <p>
-            Vi läste igenom varje bolags egen sida den 3 augusti 2026. Utfallet:{" "}
+            Vi läste igenom varje bolags egen sida, deras webbutiker och varje
+            avtalsdokument de publicerar. Utfallet:{" "}
             <strong>
-              fyra av åtta publicerar ett månadstal, och bara två publicerar
+              sju av åtta publicerar en löpande avgift, men bara fyra publicerar
               hela priset
             </strong>
-            , alltså både månadsavgift och vad det kostar att komma igång.
+            , alltså både den löpande avgiften och vad det kostar att komma
+            igång.
           </p>
           <p>
-            De som skriver ut månadsavgiften är SecuritasHome med 349 och 399
-            kronor, Avarn Security med 449 kronor, Verisure med 599 kronor och
-            Svenska Alarm med ett från-pris på 175 kronor. Sector Alarm, Gardio,
-            Garda Alarm och Safeland publicerar ingen månadsavgift alls.
+            De som skriver ut hela priset är SecuritasHome, Verisure, Gardio och
+            Safeland. Avarn Security anger 449 kronor i månaden utan
+            startavgift, Svenska Alarm ett från-pris på 175, och Garda Alarm tar
+            1 199 kronor om året för larmcentralen i stället för en
+            månadsavgift. Sector Alarm är ensamma om att inte publicera någon
+            löpande avgift alls.
           </p>
           <p>
-            <strong>Det är ovanligt i svensk handel.</strong> Bredbandsbolag,
-            elbolag och försäkringsbolag publicerar sina priser. Här är
-            normalläget att priset kommer först vid ett hembesök, alltså efter
-            att en säljare sett din hall och dina fönster.
+            <strong>
+              Beloppet du letar efter ligger ofta i avtalet eller i butiken, inte
+              i marknadsföringen.
+            </strong>{" "}
+            Gardas årsavgift står i punkt 2.5 i villkoren och ingen annanstans.
+            Safelands 249 kronor i månaden står i deras webbutik på en egen
+            subdomän, inte på sidorna som beskriver larmet. Båda bolagen har
+            beskrivits som prishemliga i jämförelser, och båda publicerar
+            priset.
           </p>
           <p>
-            Det förklarar också en siffra vi tittade länge på.{" "}
-            <em>Vad kostar hemlarm i månaden</em> söks nittio gånger i månaden
-            och toppbudet ligger på 181 kronor per klick. Ett bud på den nivån
-            betyder att frågan är värdefull och obesvarad samtidigt. Den är
-            obesvarad därför att hälften av branschen valt att inte svara.
+            <strong>Bredbandsbolag, elbolag och försäkringsbolag publicerar
+            sina priser.</strong>{" "}
+            I den här kategorin är normalläget i stället att hela priset kommer
+            först vid ett hembesök, alltså efter att en säljare sett din hall
+            och dina fönster.
+          </p>
+          <p>
+            Det förklarar också en siffra som är svår att förklara på andra
+            sätt. <em>Vad kostar hemlarm i månaden</em> söks nittio gånger i
+            månaden och toppbudet ligger på 181 kronor per klick. Ett bud på
+            den nivån betyder att frågan är värdefull och obesvarad samtidigt.
+            Den är obesvarad därför att fyra av åtta bolag håller inne med minst
+            hälften av svaret, och därför att de som svarar gör det på ställen
+            en jämförelse sällan tittar.
           </p>
           <p>
             Därför väger <strong>öppna villkor trettio procent</strong> i vår
@@ -336,6 +361,15 @@ export default function HemlarmPage() {
             dem under uppsägningstiden.
           </p>
           <p>
+            <strong>Ytterligheterna ligger längre isär än man tror.</strong>{" "}
+            Safelands tjänstevillkor säger att avtalet varken har bindningstid
+            eller uppsägningstid och att du kan säga upp hyresavtalet när du
+            vill, mot att du monterar ned och returnerar utrustningen själv.
+            Garda Alarm binder i 36 månader och förlänger avtalet ett år i
+            taget om uppsägningen inte kommer tre månader före avtalstidens
+            utgång. Mellan de två ligger tre år av avgifter du inte kan slippa.
+          </p>
+          <p>
             Ingen av avgifterna är ovanlig i branschen. Poängen är att de går
             att läsa i förväg och att nästan ingen gör det.
           </p>
@@ -352,41 +386,46 @@ export default function HemlarmPage() {
         <Prose>
           <p>
             <strong>
-              Vinnaren är det bolag vi kritiserar hårdast, och det följer av
-              viktningen.
+              Vi har inte tecknat något abonnemang.
             </strong>{" "}
-            Verisure är dyrast över fem år, behåller äganderätten till det du
-            köpt och har kategorins högsta enskilda avgift. De vinner ändå,
-            därför att öppna villkor väger trettio procent och de är det enda
-            bolag som svarar på alla fyra frågorna före mötet: månadsavgift,
-            startavgift, bindningstid och priset för att lämna. Tycker du att
-            kostnaden väger tyngre än öppenheten är SecuritasHome ditt svar, för
-            nästan halva pengen.
+            Vi har inte installerat något larm, inte utlöst något larm och inte
+            mätt någon inställelsetid. Det går inte att göra trovärdigt för åtta
+            bolag, och vi låtsas inte annat. Det vi har gjort är att läsa
+            avtalen i original och citera dem med utgåva och punktnummer, vilket
+            är den enda kontrollerbara delen av en tjänst som denna.
           </p>
           <p>
-            <strong>Vi har inte tecknat något abonnemang.</strong> Vi har inte
-            installerat något larm, inte utlöst något larm och inte mätt någon
-            inställelsetid. Det går inte att göra trovärdigt för åtta bolag, och
-            vi låtsas inte annat. Det vi har gjort är att läsa avtalen i
-            original och citera dem med utgåva och punktnummer, vilket är den
-            enda kontrollerbara delen av en tjänst som denna.
+            <strong>
+              Fyra av åtta placeringar ändrades den 6 augusti 2026, och felet
+              var vårt.
+            </strong>{" "}
+            Vi hade angett bindningstid, uppsägningstid, äganderätt och löpande
+            avgift som opublicerade hos Garda Alarm, Safeland och Svenska Alarm.
+            Samtliga uppgifter stod i dokument eller butiker bolagen publicerat,
+            i två fall i dokument vi redan länkade till från den här sidan.
+            Safeland flyttade från åttonde till tredje plats och Garda Alarm
+            från sjunde till femte. Hela genomgången står på{" "}
+            <a href="/rattelser">rättelsesidan</a>.
           </p>
           <p>
             <strong>
               Ett lågt betyg på öppna villkor är inte en dom över larmet.
             </strong>{" "}
-            Garda Alarm får 1,0 därför att inget pris publiceras och länken till
-            villkoren är död, inte därför att vi vet något negativt om
-            tjänsten. Deras affärsmodell, ett larm du köper utan månadsavgift,
-            är den mest intressanta i hela jämförelsen. Vi kan bara inte
-            kontrollera en enda uppgift om den.
+            Avarn Security får 3,0 därför att inga avtalsvillkor finns att läsa
+            i förväg, inte därför att vi vet något negativt om deras larm. Att
+            en uppgift saknas hos oss sänker däremot aldrig ett betyg: där vi
+            inte kunnat fastställa något står ett streck i tabellen, och
+            betyget vilar på det som är belagt.
           </p>
           <p>
-            <strong>Safeland jämförs mot fel måttstock.</strong> De bygger på
-            lokal respons från människor i närheten i stället för väktare från
-            en central. Vår viktning är byggd för abonnemangslarm med
-            larmcentral, och att de hamnar sist säger mer om det än om
-            kvaliteten på det de säljer.
+            <strong>Safelands tredjeplats vilar tungt på avtalet.</strong>{" "}
+            Öppna villkor och kostnaden att lämna väger 55 av 100 poäng
+            tillsammans, och där är de bäst på sidan: hela priset publicerat,
+            ingen bindningstid och ingen uppsägningstid. Utryckningsledet är
+            deras svagaste, eftersom larmcentralen är ett tillval från Westra
+            Security och en utryckning kostar 2 400 kronor när inbrottet inte
+            kan styrkas. Är det just väktaren du köper larmet för väger den
+            raden tyngre för dig än vår viktning låter den väga.
           </p>
           <p>
             <strong>Ett tomt fält betyder att bolaget inte publicerar
@@ -448,7 +487,7 @@ export default function HemlarmPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Öppna villkor väger tyngst eftersom det är den enda egenskapen en spekulant kan kontrollera själv innan säljaren står i hallen, och eftersom skillnaderna är stora och dokumenterade. Skalan är 5,0 när månadsavgift, startavgift och fullständiga villkor är publicerade, 3,5 när villkoren finns men bara en del av priset, 2,0 när enbart ett startpaketspris publiceras, och 1,0 när ingen prisuppgift alls går att hitta utan offertförfrågan. Kriteriet mäter öppenhet och inte prisnivå. Kostnaden att lämna väger 25 eftersom du hyr larmet hos de två största, och eftersom en femårig friköpstrappa fungerar som en bindningstid utan att heta så. Prisvärde väger bara 10 av ett enda skäl: för fyra av åtta bolag går det inte att räkna, och att låta kriteriet väga tungt hade betytt att betygsätta gissningar. Det finns inget oberoende test av kategorin och det går inte att göra ett, så vi har i stället läst avtalen i original."
+          footnote="Öppna villkor väger tyngst eftersom det är den enda egenskapen en spekulant kan kontrollera själv innan säljaren står i hallen, och eftersom skillnaderna är stora och dokumenterade. Kriteriet mäter öppenhet och inte prisnivå, och en avgift som faktureras per år räknas som en publicerad löpande avgift. Kostnaden att lämna väger 25 eftersom du hyr larmet hos de två största, och eftersom både en femårig friköpstrappa och en bindningstid som förlängs ett år i taget fungerar som inlåsning utan att heta så. Prisvärde väger bara 10 av ett enda skäl: för fem av åtta bolag går femårskostnaden inte att räkna, och att låta kriteriet väga tungt hade betytt att betygsätta gissningar. Det finns inget oberoende test av kategorin och det går inte att göra ett, så vi har i stället läst avtalen i original."
         />
       </Section>
 

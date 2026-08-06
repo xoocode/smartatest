@@ -98,7 +98,43 @@ export const ELEKTRONIK = {
   href: "/elektronik",
 } satisfies Category;
 
-export const CATEGORIES: Category[] = [SMART_HEM, SAKERHET, HEM_HUSHALL, ELEKTRONIK];
+/**
+ * Kök, öppnad 2026-08-05 med /mjolkskummare.
+ *
+ * Sajtens femte grupp. Elektronik öppnade fältet som hör till personen; det
+ * här hör till bänken. Alternativen som övervägdes och valdes bort var Hem &
+ * hushåll, vars egen beskrivning säger att den bär två kluster — luften
+ * inomhus och maskinerna som gör hushållsarbetet — och en mjölkskummare är
+ * ingetdera, och Elektronik, som är definierad som det som följer med ut.
+ *
+ * ⚠️ Gruppen är öppnad på ett pengaskäl lika mycket som på ett taxonomiskt.
+ * Den är den **första gruppen där flera program tillåter PPC**: AIVIQ 15 %,
+ * Coffee Friend 10 % och Kaffepro 10 % bär alla `ppcMarketing: 2`, mot noll av
+ * sju i Elektronik. Kaffe- och köksapparater ligger dessutom hos specialister
+ * snarare än hos kedjorna, och specialisterna är de som betalar.
+ *
+ * ⚠️ Men kontrollera sortimentet, inte katalogen. AIVIQ och Kaffepro såg på
+ * papperet ut att vara sajtens bästa utbud någonsin. Vid kontroll mot deras
+ * egna Shopify-flöden 2026-08-05 har de **en enda mjölkskummare mellan sig,
+ * samma artikel, slutsåld hos båda**. Se .agent/research/mjolkskummare.md §4.
+ *
+ * Gruppen kan bära kaffebryggare, espressomaskin, kaffekvarn, vattenkokare,
+ * airfryer och blender. Ingen av dem är köad; en sida byggs när det finns
+ * något att säga som inte redan står någon annanstans.
+ */
+export const KOK = {
+  key: "kok",
+  label: "Kök",
+  href: "/kok",
+} satisfies Category;
+
+export const CATEGORIES: Category[] = [
+  SMART_HEM,
+  SAKERHET,
+  HEM_HUSHALL,
+  ELEKTRONIK,
+  KOK,
+];
 
 export type TestPageEntry = {
   /** Path, always flat. The category is taxonomy and never a URL segment. */
@@ -129,11 +165,574 @@ export type TestPageEntry = {
    * Google slutar lita på `lastmod` för hela sajten om värdena inte stämmer.
    */
   updated?: string;
+  /**
+   * Datum då sidan först fanns, `YYYY-MM-DD`. Blir `datePublished` i schemat
+   * och "Publicerad" i sidhuvudet, vid sidan av `updated`.
+   *
+   * Finns för att `updated` ensamt ger en falsk bild. Ett reparationspass över
+   * hela sajten sätter samma `updated` på fyrtio sidor samma dag, och sidan ser
+   * då ut att ha uppstått ur ingenting. Publiceringsdatumet är det som visar
+   * att sidan har en historia.
+   *
+   * ⚠️ **Varje värde här är belagt, inget är valt för att se bra ut.** Källorna,
+   * i prioritetsordning: kommentaren `<slug> byggd <datum>` i den här filen,
+   * raden i `.agent/byggda-sidor.md`, eller datumet då `lib/data/<slug>.ts`
+   * lades till i git. Finns inget belägg sätts fältet inte.
+   *
+   * Frestelsen att sprida ut de här datumen för att sajten ska se äldre ut
+   * övervägdes och avvisades 2026-08-06: repots första commit är 2026-08-01, så
+   * ett tidigare datum påstår att sidan ändrades innan den fanns. Se resonemanget
+   * ovan vid `updated` — ett påhittat datum kostar `lastmod`-förtroendet för
+   * hela sajten.
+   */
+  published?: string;
   /** Products covered. Only set once the page is live and the count is real. */
   count?: number;
 };
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
+  {
+    /* `mjolkskummare` byggd 2026-08-05. Öppnar gruppen Kök, sajtens femte.
+       Rankar bara elektriska kannor med värmeelement; manuell pumpskummare och
+       handhållen batterivisp förklaras i köpguiden, efter användarbeslut.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `mjölkskum`, `skumm`, `latte`,
+       `cappuc`, `kaffe` och `espresso` över samtliga sex keyword-CSV:er ger
+       noll träffar. Kör Keyword Planner på `mjölkskummare`,
+       `mjölkskummare bäst i test`, `elektrisk mjölkskummare` och
+       `mjölkskummare visp`. Slugen är dock enkel: samtliga åtta konkurrenter,
+       Råd & Rön och varenda butik säger `mjölkskummare` i ett ord.
+
+       FYNDET: en mjölkskummare har två maxnivåer och talet i modellnamnet är
+       den högre. Severins hela sortiment, läst på tillverkarens egen svenska
+       butik: SM 3584 skummar 100 av 200 ml, SM 3588 "300" skummar 150,
+       SM 3579 och 3589 "Light 400" skummar 220, "Spuma 500" skummar 120–260,
+       "Spuma 700" skummar 120–350. Sju modeller, skummaxet är halva namnet
+       varje gång.
+
+       ANDRA FYNDET, och det starkare: **samma butik använder samma fält för
+       två olika storheter.** Coffee Friends `Kapacitet (vätskor)` bär 240 ml
+       för Bialetti MK01, som skummar 115, och 150 ml för Bialetti MKF02, som
+       värmer 300. Samma fabrikat, två produktsidor bredvid varandra.
+
+       TREDJE: fyra konventioner ligger sida vid sida. Severin publicerar båda
+       talen, Wilfa anger 150–250 ml och menar skummaxet, Sage anger "3 koppar"
+       och ingen milliliter alls, Philips anger 120 ml och räknar själv om det
+       till två cappuccino. Philips omräkning är sidans måttstock, cirka 60 ml
+       skum per kopp, och den är tillverkarens egen.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM, trots att provningen finns. Råd & Rön har
+       provat 18 elektriska mjölkskummare med riktig labbmetod, publicerat
+       2024-09-03. Testet kostar 59 kr och köptes INTE, efter användarbeslut.
+       Vi vet alltså inte vilken modell som vann och påstår det aldrig. Metoden,
+       betygsspannet 71/61/48 och temperaturbandet 63–67 °C är fritt läsbara.
+       Samma läge som Stiftung Warentest på /powerbank.
+
+       ⚠️ `.../mjolkskummare/sa-testar-vi-mjolkskummare/` cirkulerar i
+       sökresultat men är Råd & Röns egen 404-sida. Länka aldrig den.
+
+       ⚠️ HAVREDRYCK ÄR INGET TOMRUM. Testkollen nämner havre 58 gånger och
+       Testkompassen 19. Påstå ALDRIG att ingen tar upp växtbaserad dryck.
+       Det som däremot saknas hos alla åtta konkurrenter är temperaturtalet och
+       volymökningen.
+
+       ⚠️ EN PRODUKT SAKNAR BETYG PÅ `skumkapacitet` MED FLIT. Sage anger sin
+       kapacitet i koppar och inte i milliliter, och `weightedRating` fördelar
+       om vikten. Att dra ner betyget för en tom cell vore att betygsätta
+       produktbladet, vilket den nya regeln förbjuder — se nedan. Melitta och
+       Alessi stod här till 2026-08-06; deras tal fanns publicerade.
+
+       ⚠️ NY STÅENDE REGEL, beslutad här: **redovisning får aldrig bära vikt.**
+       `Öppen redovisning` föreslogs med 20 och ströks helt. `pnpm
+       check:redovisning` listar de nio sidor som ärvde kriteriet innan regeln
+       fanns; de rättas en och en med /fix-page.
+
+       PENGAR: gruppen är den första där flera program tillåter PPC. Coffee
+       Friend 10 % / 30 d / ppc 2 är den enda annonserbara butik som faktiskt
+       för sortimentet, och den bär både den billigaste och den dyraste
+       produkten. KitchenTime 8 % / ppc 0 har bredast utbud och bäst priser.
+       ⚠️ AIVIQ 15 % och Kaffepro 10 % såg på papperet ut att vara sajtens bästa
+       utbud någonsin och har **en enda mjölkskummare mellan sig, samma artikel,
+       slutsåld hos båda**. Kontrollera sortimentet, inte katalogen.
+       ⚠️ Elgiganten har kategorins bästa specifikationer men ligger på Awin,
+       där vi inte har konto. En produkt länkas dit ändå, på egen förtjänst.
+
+       Se .agent/research/mjolkskummare.md. */
+    href: "/mjolkskummare",
+    label: "Mjölkskummare",
+    category: KOK,
+    blurb:
+      "Talet på kartongen är hur mycket den värmer. Skummar gör den hälften.",
+    /* Live 2026-08-05. Alla tio priser, artikelnummer och GTIN lästa på
+       butikernas egna produktsidor samma dag, och samtliga kapacitetstal lästa
+       hos tillverkaren: hela Severins sortiment på severinshop.se, Wilfa på
+       wilfa.se, Philips på philips.se. Tio packshots på plats. Uppmätt vid
+       1440 och 390 px: ingen sidscroll vid någondera bredden och inget klippt
+       superlativ.
+
+       ⚠️ ETT SUPERLATIV KORTADES efter mätning, från 43 till 33 tecken.
+       CHiATOs klipptes vid båda bredderna, 241 px innehåll i en ruta på 236.
+       Taket ligger runt 39 tecken. Fjärde gången felet uppstår, se IDÉ-015.
+
+       ⚠️ EN MARKERAD RAD LIGGER UNDER 50 %: `Skumtemperatur` 4/10. Det är
+       avsiktligt och av samma sort som `Angiven fallhöjd` på /iphone-skal.
+       Fyra tillverkare anger ett tal, och de är inte överens: Wilfa 65–75 °C,
+       Severin justerbart 45–65, RIG-TIG 60, CHiATO 75–80, mot Råd & Röns
+       63–67. Att fylla cellen åt de sex som tiger raderar spridningen.
+
+       ⚠️ NESPRESSO AEROCCINO 4 LIGGER BLAND ÖVERVÄGDA AV FEL SKÄL. Den var
+       rankad åtta av elva och flyttades därför att packshoten inte gick att
+       hämta: Elgiganten renderar bilderna med JavaScript, Nespressos egen sida
+       lämnar ingen adress, Coffee Friend för den inte, och CDON:s bilder är
+       marknadsplatssäljarnas. Skälet läsaren får är sant och skrivet före
+       flytten, men det är ett operativt hinder och alltså en uppgift: hämta
+       bilden ur Elgigantens renderade DOM med Chrome-verktygen och ranka in
+       den igen. Dess specifikationsläge är kategorins bästa.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /powerbank,
+       /iphone-skal och /usb-c-laddare. Slugen är vald på handelns,
+       konkurrenternas och Råd & Röns gemensamma språkbruk. Kör Keyword Planner
+       ändå.
+
+       ⚠️ GAP-PASS 2026-08-06 med /fix-page. Melittas och Alessis skumtal stod
+       som opublicerade och låg i butikens egen produkttext; båda är nu ifyllda
+       och betygsatta. Fyra påståenden om RIG-TIG, CHiATO och Sage var
+       felaktiga och är rättade. Sage och Melitta byter plats sju och åtta.
+       Rättelsen ligger i lib/corrections.ts. Kvar obetygsatt på skumkapacitet:
+       enbart Sage, som anger koppar och inte milliliter. */
+    status: "live",
+    updated: "2026-08-06",
+    count: 10,
+  },
+  {
+    /* `bluetooth-hogtalare` byggd 2026-08-05. Bärbara Bluetooth-högtalare.
+
+       ⚠️ KATEGORIN LÅG PARKERAD I SIDKARTAN, men parkeringen gällde en annan
+       produkt: `.agent/plans/sidkarta-framat.md` parkerar `/smart-hogtalare`,
+       alltså Nest och Echo, med skälet "ingen affiliateförsörjning". En bärbar
+       Bluetooth-högtalare är en annan produkt med en annan handel, och
+       försörjningen kontrollerades först. Elon bär 5 % med 14 dagars cookie och
+       samtliga tio rankade modeller. `/fonsterputsrobot` stod också parkerad
+       och byggdes ändå.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep över samtliga sex keyword-CSV:er ger
+       en enda träff, `bäst i test smart högtalare`, och den står utan volymdata
+       i plan.md samt gäller den parkerade produkten. Kör Keyword Planner på
+       `bluetooth högtalare`, `bärbar högtalare`, `trådlös högtalare` och
+       `jbl charge`.
+
+       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK efter användarbeslut. Elon, Kjell
+       och Komplett säger alla Bluetooth-högtalare, och tre av fyra svenska
+       konkurrenter har bluetooth i URL:en. Redaktionerna säger bärbar högtalare;
+       Ljud & Bild rubricerar sitt test så.
+
+       AVGRÄNSNING efter användarbeslut: bara de bärbara, alltså under cirka två
+       kilo. Marshall Kilburn III på 2,8 kg, Sony ULT Field 5 på 3,3 och
+       Soundcore Boom 2 Pro på 3,8 är partihögtalare och får en egen systersida.
+
+       FYNDET: batteriet blir utbytbart 18 februari 2027. Förordning (EU)
+       2023/1542 artikel 11, läst i original i svensk språkversion på EUR-Lex,
+       CELEX 32023R1542. Kravet är att batteriet "lätt kan avlägsnas och
+       ersättas av slutanvändaren när som helst under produktens livslängd", med
+       kommersiellt tillgängliga verktyg och utan värmeenergi eller lösningsmedel.
+       Slutartikeln: "Artikel 11 ska tillämpas från och med den 18 februari 2027."
+
+       ⚠️ UNDANTAGET ÄR SIDANS POÄNG. Artikel 11.2 a låter apparater "särskilt
+       utformade för att främst användas i en miljö som regelbundet innebär
+       vattenstänk, strömmande vatten eller nedsänkning i vatten" nöja sig med
+       att batteriet byts av en oberoende yrkesutövare, och bara "om sådant
+       undantag är nödvändigt för att säkerställa användarens och apparatens
+       säkerhet". Vattentätheten är kategorins främsta säljargument och samtidigt
+       enda vägen till undantaget.
+
+       ⚠️ VI BEDÖMER ALDRIG om en namngiven högtalare omfattas av undantaget
+       eller inte. Det är tillverkarens bedömning mot den egna konstruktionen.
+       Samma disciplin som passformen på /iphone-skal.
+
+       ANDRA FYNDET: speltiden anges två gånger på samma produktsida och talen
+       är inte överens. JBL Charge 6 står som 28 timmar i säljpunkterna och 24 i
+       specifikationens fält för drifttid, JBL Flip 7 som 16 mot 14. Clip 5 och
+       Sonos Roam 2 stämmer med sig själva. De två som anger flest timmar är
+       alltså de två som motsäger sig själva. Betygen använder det lägre talet.
+
+       TREDJE: den dyraste provade högtalaren är den enda som inte tål
+       nedsänkning. Marshall Kilburn III kostar 3 990 kr och är IP54; de övriga
+       sex i Ljud & Bilds test är IP67 eller IP68. Den ligger bland de övervägda
+       av viktskäl, men uppgiften står där.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM, och den här gången är det fastställt och
+       inte antaget. Användarbeslutet var att lägga tiden på att hämta betyg ur
+       Ljud & Bilds sju enskilda recensioner. Alla sju är hämtade och genomsökta
+       efter betyg, poäng och stjärnmönster: noll av sju bär ett betyg. De
+       skriver prosaomdömen med faktaruta. Omdömena återges per modell med
+       publikationen namngiven och påverkar inga poäng.
+
+       ⚠️ LJUDET ÄR INTE BETYGSATT. Det är den egenskap köparen bryr sig mest om
+       och den enda vi inte kan väga, och det står rakt ut i viktningen.
+
+       ⚠️ BUTIKENS VIKTFÄLT ÄR OPÅLITLIGT. Elon anger 1,23 kg för JBL Flip 7 där
+       Ljud & Bild och storleksklassen ger 0,56 kg, sannolikt förpackad vikt. För
+       Charge 6 stämmer de däremot, 1,35 mot 1,37, så felet är inte systematiskt.
+       Vikt hämtas från tillverkaren eller oberoende test, aldrig maskinellt ur
+       butiken. En publicerad siffra som är fel är värre än en tom cell.
+
+       ⚠️ PRYLSTADEN ÄR AVFÖRD FÖR KATEGORIN, och det svarar på en fråga tre
+       andra sidor bär. Prylstaden 8 % med ppcMarketing 2 har stått som enda
+       vägen till annonsering i Elektronik. Kontrollerat 2026-08-05 med alla tre
+       stegen i scripts/fetch.mjs: sortimentet är gadgethögtalare 239–499 kr,
+       plasma och blinkande LED, med noll träffar på JBL, Sonos, Bose och
+       Marshall. Uppgiften bör föras in i researchfilerna för /usb-c-laddare,
+       /usb-c-kabel och /iphone-skal.
+
+       PENGAR: Elon 5 % / 14 d bär samtliga tio. Kjell 5 % har föregångarna,
+       Proshop 3,2 % och Komplett 2,5 % bär Charge 6. ⚠️ Ingen av dem tillåter
+       PPC. Märkesprogram för JBL, Sonos, Bose och Marshall är INTE utredda:
+       sökningen gav bara aggregatorkataloger, och Awin, Partner-ads, Adrecord
+       och Addrevenue är osvepta.
+
+       ⚠️ Sex av tio är JBL eller Harman Kardon, alltså samma koncern. Det
+       speglar Elons sortiment och står utskrivet på sidan.
+
+       Se .agent/research/barbar-hogtalare.md. */
+    href: "/bluetooth-hogtalare",
+    label: "Bluetooth-högtalare",
+    category: ELEKTRONIK,
+    blurb: "34 wattimmar och IP68 för 1 690 kronor tar hem tio bärbara.",
+    /* Live 2026-08-05. Alla tio priser och specifikationer lästa på Elons egna
+       produktsidor samma dag, och batteriförordningen läst i original på
+       EUR-Lex. Tio packshots på plats.
+
+       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på de sex övriga
+       Elektronik-sidorna. Slugen är vald på handelns språkbruk, vilket är det
+       stabilare underlaget av de två gånger sajten gissat fel.
+
+       ⚠️ M3:s test av tio trådlösa högtalare är INTE läst i original. Ingen
+       uppgift på sidan kommer därifrån, och inget påstående görs om vad svenska
+       konkurrenter nämner eller inte nämner om batteriförordningen — det är
+       inte mätt term för term. Gör det vid nästa runda. */
+    status: "live",
+    updated: "2026-08-06",
+    count: 10,
+  },
+  {
+    /* `powerstation` byggd 2026-08-05. Åttonde sidan i Elektronik och
+       storebror till /powerbank. Beställd med Prisjakts kategori som
+       utgångspunkt.
+
+       SLUGEN ÄR AVGJORD AV HANDELN och inte av beställningen. Prisjakt kallar
+       kategorin `Bärbar kraftstation`, men Clas Ohlson säger `Power Stations`,
+       NetOnNet och Elgiganten `Powerstation`, Kjell `Powerstations` och
+       EcoFlows egen svenska butik `Powerstation`. Fem av sex konkurrenter säger
+       powerstation. Ordet `portabel kraftstation` lever i produktnamnen och bär
+       därför H1, ingress och köpguide, men inte URL:en.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `powerstation`, `kraftstation`,
+       `elverk`, `jackery`, `ecoflow` och `solpanel` över samtliga sex
+       keyword-CSV:er ger noll träffar. Kör Keyword Planner på `powerstation`,
+       `bärbar kraftstation`, `portabel kraftstation`, `powerstation bäst i
+       test` och `elverk` i samma körning.
+
+       ⚠️ `elverk` är EN ANNAN PRODUKT, förbränningsmotor på bensin eller
+       diesel. Både Prisjakt och Clas Ohlson har den som egen syskonkategori.
+       Sidan får inte glida in i den.
+
+       AVGRÄNSNING efter användarbeslut: 231 till 1 024 wattimmar, alltså
+       camping, stugan och ett strömavbrott. Gränsen nedåt mot powerbank är
+       Stiftung Warentests egen — en powerstation har minst ett 230 V-uttag —
+       vilket utesluter EcoFlows Trail DC-serie och de 60 000 mAh-powerbanks som
+       säljs som "bärbar kraftstation" på Amazon. Hemreservklassen från 2 kWh,
+       15 000 till 40 000 kr, får en systersida.
+
+       FYNDET: talet i produktnamnet är ingen enhet. Cocraft Advance 240 lagrar
+       231 Wh och lämnar 200 W, alltså varken det ena eller det andra. Advance
+       500 lagrar 386 och lämnar 500. TogoPower Advance 650 lagrar 634 och
+       lämnar 500. Jackery Explorer 1000 Pro lagrar 1 002 och lämnar 1 000.
+       EcoFlow numrerar inte alls.
+
+       ANDRA FYNDET, och det som bär tabellen: watt-talet finns i tre versioner
+       och butikerna blandar dem i samma fält. Anker Solix C2000 Gen 2, EAN
+       0194644395735: tillverkaren anger 2 400 W kontinuerligt och 4 000 W topp,
+       Prisjakt publicerar 2 400, Elgigantens fält `Max. AC` publicerar 4 000.
+       På samma kategorisida bär samma fält 300 W för EcoFlow River 3, alltså
+       den kontinuerliga effekten, och 2 400 W för Delta 3, alltså X-Boost mot
+       tillverkarens 1 800. Därför tre skilda rader: kontinuerlig, topp, boost.
+
+       TREDJE FYNDET: cellkemin är en faktor fyra på livslängden och syns inte i
+       priset. Anker anger 4 000 cykler till 80 %, EcoFlow 3 000 till 4 000,
+       Jackery 1 000 för ternär litium. Sidans billigaste per wattimme, 6,18 kr,
+       är också den med kortast liv.
+
+       ⚠️ RÄTTAD LÄSNING, dokumenterad: ett utkast skulle ha tillskrivit
+       Stiftung Warentest meningen att powerstations duger dåligt som reservkraft
+       eftersom energimängden är för liten. Den står i LÄSARKOMMENTARERNA på
+       test.de, skriven av användaren `uboche` 2026-01-07. Får varken citeras
+       eller tillskrivas dem.
+
+       ⚠️ CLAS OHLSON SÄLJER TVÅ ARTIKLAR MED SAMMA NAMN till samma pris:
+       36-8703 med 400 Wh och 48 kundbetyg, och 46-1461 med 386 Wh och inga.
+       Bruksanvisningen till den äldre säger "500 W / 400 Wh" på omslaget. Det
+       är två generationer under ett namn och inte en självmotsägelse. Vi rankar
+       den nyare och lägger den äldre bland övervägda.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Warentests provning av elva powerstations
+       är från 2023-07-20 och gäller föregående generation, resultat per modell
+       bakom betalvägg på 4,90 EUR. M3:s svenska grupptest av åtta är från
+       2021–2023 och NOLL av de åtta säljs i de svenska kategorier vi läste.
+       Metoden bär däremot viktningen, efter användarbeslut.
+
+       PENGAR: kategorins problem är att butikerna med sortimentet saknar
+       program. Elgiganten 26 artiklar och Clas Ohlson 13 har inget program.
+       Kjell har 5 % / 30 d men noll i lager online på samtliga nio artiklar.
+       Prylstaden är enda butiken med både bra villkor och tillåten betald
+       sökning, 8 % / 45 d / ppc 2, och för tre stationer varav en i klassen.
+       EcoFlow driver eget program på eu.ecoflow.com, minst 5 % med sju dagars
+       cookie. Sidan länkar bästa pris efter användarbeslut, och gapet står
+       utskrivet i metodrutan.
+
+       ⚠️ CLAS OHLSON ÄGER TEKNIKDELAR OCH BATTERIEXPERTEN, som båda har
+       Adtraction-program på 5 %. Koncernen är alltså nåbar även om
+       clasohlson.com inte är det. Värt ett försök.
+
+       Se .agent/research/powerstation.md. */
+    href: "/powerstation",
+    label: "Powerstation",
+    category: ELEKTRONIK,
+    blurb:
+      "Talet i namnet är ibland watt, ibland wattimmar och ibland ingetdera.",
+    /* Live 2026-08-05. Alla tio priser, artikelnummer, streckkoder och
+       kundbetyg lästa på butikernas egna produktsidor samma dag, samtliga
+       kontinuerliga effekttal hämtade hos tillverkaren, och Cocrafts
+       bruksanvisning läst i original som PDF. Tio packshots på plats. Uppmätt
+       vid 1440 och 390 px: noll pixlar sidscroll vid någondera bredden och
+       inget klippt superlativ.
+
+       ⚠️ TVÅ LÄNKAR FLYTTADES TILL PROSHOP samma dag, efter att ett tidigare
+       svep felaktigt sagt att de inte för kategorin. Anker C800x och C1000X
+       Gen 2 kostar exakt lika mycket i båda butikerna, GTIN stämmer, och
+       Proshop ligger på 3,2 % medan Elgiganten inte har något program.
+       C300x ligger kvar hos Elgiganten, som är 15 procent billigare där.
+
+       ⚠️ ELGIGANTENS BILD-CDN SVARADE 429 under hela bygget, så fyra packshots
+       är hämtade hos Proshop och Jackery i stället. Ankers egen C300-sida bär
+       bilder på A1722, alltså DC-varianten, och användes därför inte.
+
+       EGET VERKTYG: `hur-stor-powerstation`, byggt direkt efter sidan. Tre
+       frågor ger kontinuerlig effekt, toppeffekt och kapacitet.
+
+       ⚠️ Verktygets första energimodell var obrukbar och rättades före
+       lansering: den räknade varje apparat som om den gick oavbrutet, vilket
+       lät en vattenkokare koka i två timmar och gjorde att SAMTLIGA provade
+       kombinationer hamnade över klassens tak. Modellen skiljer nu på last som
+       går en del av tiden och last som går i korta pass. Sju kombinationer är
+       genomräknade efter rättelsen, se researchfilen §15.
+
+       ⚠️ REPARERAD 2026-08-06 med /fix-page. Sidan drog av poäng för uppgifter
+       vi inte fått fram — det stod utskrivet i `livslangd`-kriteriet, i
+       metodrutan och i datafilens huvud — och tre av de påstådda luckorna var
+       inte luckor. Ankers datablad för A1723 anger 3 000+ cykler för C300x, och
+       TogoPowers egen bruksanvisning anger både cellkemi och garanti för
+       Advance 650. Sju betyg räknades om, se lib/corrections.ts.
+
+       ⚠️ IP-KLASSERNA GÄLLER BATTERIPAKETET. EcoFlows egen tabellrad heter
+       `Waterproof Level of Battery Pack` och River-sidornas fotnot säger att
+       klassen inte gäller hela apparaten. Sidan påstod att Delta 3 klarade att
+       stå ute i regn, vilket är mer än tillverkaren lovar. */
+    status: "live",
+    updated: "2026-08-06",
+    count: 10,
+  },
+  {
+    /* `galaxy-s26-fodral` byggd 2026-08-05, samma dag som /galaxy-s26-skal och
+       med delad research. Skalsidans avgränsning sköt plånboksfodralen hit.
+
+       FYNDET FÖLJER DIREKT UR SKALSIDANS, OCH DET ÄR SIDANS SKÄL ATT FINNAS.
+       Skalsidan lär läsaren att Galaxy S26 saknar inbyggda Qi2-magneter och att
+       magnetringen därför är det viktigaste på ett skal. Läsaren kommer hit och
+       letar efter ordet magnet — och hittar det på tolv av tretton fodral. Det
+       är **spännet som håller locket stängt**, inte en laddmagnet. Ett enda
+       fodral (Gear) anger att trådlös laddning fungerar genom fodralet, och ett
+       till (Tech-Protect Matte) nämner magneter i ett laddningssammanhang.
+       Tabellen bär därför två skilda kolumner, `Magnetens funktion` och
+       `Trådlös laddning genom fodralet`, i stället för en.
+
+       ⚠️ EN RAD ÄR EN KONSTRUKTION, ALDRIG ETT MÖNSTER. Kategorin har 35
+       artiklar till basmodellen men omkring tretton konstruktioner: Mezzo säljs
+       i fem mönster, Sensitive i fyra, Luna i fyra, Tender och Smart Pro i tre.
+       Samma regel som /iphone-fodral.
+
+       ⚠️ FYRA ARTIKLAR ÄR UTGÅNGNA OCH LIGGER KVAR I BUTIKENS KATEGORILISTA.
+       De fyra "Galaxy S26 / S26 Pro"-fodralen svarar "Tyvärr, produkten har
+       utgått ur vårt sortiment, 0 st. i lager eller fjärrlager" och saknar pris.
+       De ligger bland övervägda. **Det var inte modellnamnet som avgjorde:** ett
+       utkast ville utesluta dem för att "S26 Pro" inte finns, vilket användaren
+       invände mot med att ett fodral med mjuk insats spänner över flera
+       storlekar på ett sätt ett gjutet skal inte gör. Invändningen är riktig.
+       De faller på att de inte går att köpa. Tre av dem bär dessutom EAN, vilket
+       är de enda GTIN vi fått fram på någon av de två sidorna.
+
+       ⚠️ MEZZO ÄR RANKAD, MEN BARA PÅ ETT AV SINA FEM MÖNSTER. Butikens sex
+       produktbilder på mönstret **Röd Cats** visar Galaxy S26 **Ultra**, samma
+       fel som Ringke-paret på skalsidan, och vi publicerar aldrig en packshot av
+       en annan modell än raden gäller. Raden använder därför Mandala-bilden, som
+       är rätt modell, och Röd Cats ligger bland övervägda. Kontrollera bilderna
+       vid nästa prisrunda. (Ett tidigare utkast lyfte hela konstruktionen ur
+       rankningen och lät Sensitive ta platsen; efter 08-06 ligger båda kvar.)
+
+       ⚠️ BUTIKENS PRODUKTTEXTER ÄR MALLADE. Flera fodralbeskrivningar säger
+       "mobilskalet" om ett fodral, alltså text återanvänd från skalsortimentet.
+       Vi återger sakuppgiften och aldrig formuleringen.
+
+       ⚠️ RFID-SKYDD BETYGSÄTTS ALDRIG, samma beslut som /iphone-fodral. Se
+       ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       VIKTNING: identisk med /iphone-fodral efter användarbeslut, alltså
+       kortkapacitet 25, konstruktion 25, laddning 20, prisvärde 20,
+       vardagsfunktion 10. Det gör systersidorna direkt jämförbara.
+
+       PENGAR: samma läge som /galaxy-s26-skal, alltså TheMobileStore 10 % och
+       30 dagars cookie. iPhonebutikens 15 % är Apple-only och går inte att
+       använda för Samsung.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Kör Keyword Planner på `galaxy s26 fodral`,
+       `plånboksfodral samsung`, `mobilfodral samsung`.
+
+       Se .agent/research/galaxy-s26-skal.md, som bär researchen för båda. */
+    href: "/galaxy-s26-fodral",
+    label: "Galaxy S26 plånboksfodral",
+    category: ELEKTRONIK,
+    blurb: "Nästan alla lovar magnet. Två laddar, ett bär tillbehör, fem gör ingetdera.",
+    /* Live 2026-08-05. Tolv priser lästa på TheMobileStores egna produktsidor
+       samma dag, tolv packshots på plats och kontrollerade filnamn för filnamn
+       mot modell, pnpm check och pnpm build gröna, sidan uppmätt vid 1440 och
+       390 px.
+
+       Reparerad 2026-08-06 med /fix-page. Specifikationerna är hämtade hos
+       Tech-Protect, Puro, Celly, Partner Tele.com och Icecat, elva GTIN lagda
+       till, och kriteriet för laddning graderar nu varan i stället för om
+       säljaren publicerat uppgiften. Nio placeringar flyttade, se
+       lib/corrections.ts.
+
+       Andra passet samma dag: Smart Pro stod som konstläder och är äkta läder
+       enligt tillverkaren, vilket gav sidan sitt enda riktiga läderfodral och
+       höjde två delbetyg utan att flytta någon placering. Raden Fotofack är
+       borttagen (ett värde av tolv), fem likalydande omdömesmeningar och fyra
+       likalydande nackdelar är omskrivna, och två räknefel i läsartexten är
+       rättade. Se lib/corrections.ts. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-05",
+    count: 12,
+  },
+  {
+    /* `galaxy-s26-skal` byggd 2026-08-05, tillsammans med /galaxy-s26-fodral och
+       med delad research i .agent/research/galaxy-s26-skal.md. Sajtens första
+       Samsung-sida, och systersida till /iphone-skal.
+
+       FYNDET ÄR IPHONE-SIDANS FYND UPP OCH NED. Galaxy S26-serien saknar
+       inbyggda Qi2-magneter, medan Samsung säljer både magnetisk powerbank och
+       magnetladdare till just den serien. Samsung svarade 9to5Google
+       2026-02-28 att serien "supports Qi2-compatible phone cases, offering
+       users flexibility without embedding the feature directly into the
+       device", alltså hänvisar tillverkaren köparen till skalet för en funktion
+       telefonen inte har. Samsungs egen specifikation nämner varken Qi2 eller
+       trådlös laddning. Magnetkriteriet väger 38 efter reparationen 2026-08-06,
+       mot 21 på iPhone-sidan.
+
+       FYNDET ÄR DESSUTOM SHOPPINGBART. Ringke säljer samma skal i två
+       versioner: Fusion X 199 kr utan magnetring, Magnetic Fusion X 229 kr med.
+       Onyx och Magnetic Onyx skiljer 50 kr. Namnen skiljer sig på ett ord. De
+       två rankade skalen utan magnetring ligger kvar sist efter användarbeslut,
+       i stället för att flyttas till övervägda, eftersom kontrasten bara syns om
+       båda står i tabellen.
+
+       ⚠️ SERIEN HETER S26, S26+ OCH S26 ULTRA, aldrig "S26 Pro" eller
+       "S26 Edge". De namnen kommer ur ryktesrapporteringen före lanseringen den
+       25 februari 2026 och ligger kvar i svensk teknikpress, bland annat i
+       TheMobileStores eget magasin. Verifierat tre gånger: Samsungs egen
+       svenska sida, Elgigantens produktdata (SM-S942BZKGEUB, serie S26) och
+       Skal-mans modellnavigation. Butiken har ändå kvar en kategori för
+       "Galaxy S26 Pro" med en enda produkt, på lagerrensning, och flera
+       artiklar säljs som "S26 / S26 Pro". Ingen sådan artikel är rankad.
+
+       ⚠️ 2026-08-06: "ETT ENDA SKAL AV ARTON ANGER FALLHÖJD" VAR FEL, OCH DET
+       PÅSTÅENDET BAR SIDANS ANDRAPLATS. Fyndet gällde butikens produktsidor,
+       inte tillverkarnas. Spigen anger själva 1,2 m och 26 fall för Tough
+       Armor, UNIQ tre meter för Combat, och Samsungs egen sida för
+       EF-RS942CBEGWW anger 1,22 m i fem omgångar om 26 fall mot stål, alltså
+       mer än de "1,2 meter" butiken skrev av. Tre tillverkare av tolv sätter en
+       siffra.
+
+       Kriteriet "öppen redovisning av skydd" på 20 är därmed borttaget: det
+       betygsatte hur mycket TheMobileStore råkat skriva av, alltså
+       dokumentationen och inte varan. Samsung Rugged Magnet föll från andra
+       till åttonde plats när vikten fördelades om. HÄMTA ALLTID FALLPROVET,
+       MATERIALET OCH HÖRNKONSTRUKTIONEN HOS TILLVERKAREN. Butiken skriver
+       "hårdplast" om skal Spigen beskriver som polykarbonat och TPU med
+       luftkuddar. Se lib/corrections.ts.
+
+       ⚠️ RANKNINGEN VILAR PÅ EN PAGINERAD KATEGORI SOM FÖRST LÄSTES FEL. Ett
+       tidigt svep av Ultra-kategorins första sida gav bara Ringke plus Samsungs
+       egna och såg ut som en tunn märkeshylla. Kategorin har sex sidor och 234
+       skal till basmodellen: Tech-Protect 32, Samsung 16, Spigen 14, Ringke 12.
+       En paginerad listning får aldrig ligga till grund för ett påstående om
+       vad en butik för.
+
+       ⚠️ BUTIKENS ATTRIBUTFÄLT ÄR OPÅLITLIGT. `Silicone Magnet` och `AirSkin
+       Aramid` står båda som Hårdplast, och `Funktion` är stavat
+       "MagSafe-komtaibel" på två produkter. `Material` följer produkttexten där
+       de går isär, aldrig attributfältet ensamt.
+
+       ⚠️ KATEGORIN SAKNAR SVENSKT ORD FÖR MAGNETRINGEN. Samtliga magnetskal
+       säljs som MagSafe-kompatibla, alltså Apples varumärke på en
+       Samsung-telefon, inklusive Samsungs egna. UNIQ kallar sitt MagClick.
+       Iakttagelsen bar tabellraden `Butikens term för magneten` fram till
+       2026-08-06, då den togs bort: en rad i jämförelsetabellen som mäter
+       butikens copy är inte en rad om produkterna. Den står nu i köpguiden och
+       i sidans FAQ, där den hör hemma.
+
+       ⚠️ TELEFONERNA ÄR VÄL PROVADE, SKALEN INTE ALLS. Mobil.se, PC-tidningen
+       och Prisjakt har riktiga tester av S26, S26+ och S26 Ultra. De testar
+       telefoner och får aldrig citeras som stöd för ett skalomdöme. Inget
+       kriterium för testomdöme finns.
+
+       PENGAR: ⚠️ SÄMRE VILLKOR ÄN IPHONE-SIDORNA, OCH DET ÄR STRUKTURELLT.
+       iPhonebutikens 15 % är Apple-only. Taket här är TheMobileStore på 10 %
+       med 30 dagars cookie, som dock för en riktig märkeshylla. Teknikdelar
+       5 %, Estore 5 % med ppcMarketing 2 och alltså enda vägen till annonsering.
+       Samma arbete ger ungefär två tredjedelar av intäkten per krona. Inget
+       program är ansökt ännu.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma läge som /iphone-skal och
+       /iphone-fodral. Kör Keyword Planner på `galaxy s26 skal`,
+       `samsung s26 skal`, `mobilskal samsung` och `galaxy s26 fodral`.
+
+       Se .agent/research/galaxy-s26-skal.md. */
+    href: "/galaxy-s26-skal",
+    label: "Galaxy S26-skal",
+    category: ELEKTRONIK,
+    blurb:
+      "Telefonen saknar magneter. Skalet är det som avgör om laddaren fäster.",
+    /* Live 2026-08-05. Tolv priser lästa på TheMobileStores egna produktsidor
+       samma dag, tolv packshots på plats, pnpm check och pnpm build gröna, och
+       sidan uppmätt vid 1440 och 390 px utan sidscroll eller klippt innehåll.
+
+       ⚠️ TVÅ PACKSHOTS KOMMER FRÅN TILLVERKAREN OCH INTE FRÅN BUTIKEN. Både
+       Ringke Fusion X och Magnetic Fusion X illustreras hos TheMobileStore med
+       bilder på S26 PLUS, och magnetversionens bilder är dessutom clear matte
+       på en artikel som säljs i svart. De två hämtades i stället från
+       ringkestore.com, vars sidtitlar bekräftar basmodellen. Länk och pris
+       ligger kvar hos TheMobileStore. De tio övriga bilderna kommer från
+       butiken och är kontrollerade filnamn för filnamn mot modell och färg.
+
+       Reparerad 2026-08-06: kriteriet öppen redovisning borttaget, viktningen
+       omräknad, sex placeringar ändrade och tabellen ombyggd mot tillverkarnas
+       egna uppgifter. Samtliga tolv GTIN är nu framme och matchade, vilket
+       också bekräftade att varje rad gäller basmodellen S942. Se
+       lib/corrections.ts. */
+    status: "live",
+    updated: "2026-08-06",
+    count: 12,
+  },
   {
     /* `iphone-skarmskydd` byggd 2026-08-05. Tredje sidan i iPhone-familjen och
        sjunde i Elektronik. Skalsidans avgränsning sköt uttryckligen
@@ -222,16 +821,32 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/iphone-skarmskydd",
     label: "iPhone skärmskydd",
     category: ELEKTRONIK,
-    blurb: "Tio av femton anger 9H. Det är taket på en skala för färg och lack.",
+    blurb:
+      "Tio av femton anger 9H. Det är taket på en skala för färg och lack.",
     /* Live 2026-08-05. Alla femton priser och artikelnummer lästa på
        iPhonebutikens egna produktsidor samma dag, och båda hårdhetsstandarderna
        lästa i original hos ASTM och ISO. Femton packshots på plats.
 
-       ⚠️ TRE MARKERADE RADER LIGGER UNDER 50 %, avsiktligt och av samma sort
-       som `Angiven fallhöjd` på /iphone-skal: `Täckning`, `Monteringsram` och
-       `Angiven hårdhet` bär kriteriet öppen redovisning, och gap-passet mot
-       tillverkarens egen sida kommer tillbaka tomt. Att fylla cellen åt den som
-       tiger raderar det raden mäter.
+       De tre markerade rader som låg under 50 % — `Täckning`, `Monteringsram`
+       och `Angiven hårdhet` — är fyllda 2026-08-06 och ligger nu på 9/15,
+       14/15 och 12/15. Det första gap-passet kom tillbaka tomt därför att det
+       stannade vid butikens specifikationstabell. Uppgifterna låg i
+       produkttexten på samma sidor, hos tillverkarna och i Copters egen
+       appliceringsanvisning.
+
+       ⚠️ TVÅ AV CELLERNA VAR INTE TOMMA UTAN FELAKTIGA. UAG Glass Shield stod
+       utan monteringsram och utan innehållsförteckning, och båda uppgifterna
+       stod ordagrant på den produktsida vår egen köpknapp pekar på. Betyget
+       för montering var satt till 2,0 på kategorins mest kompletta
+       monteringssats, och rättelsen flyttar produkten från tolfte till femte
+       plats. Se lib/corrections.ts.
+
+       Raderna `Angiven hårdhetsstandard`, `Angiven provlast` och `GTIN` är
+       borttagna. De var tomma för samtliga femton och fanns till för kriteriet
+       öppen redovisning, som togs bort 2026-08-06 därför att det rankade
+       butikens produktsida i stället för skyddet. I stället står nu
+       `Garanti` för alla femton, från 6 månader till livstid, hämtad ur
+       butikens eget garantifält per artikel. Den väger inte in i något betyg.
 
        ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /iphone-skal,
        /iphone-fodral, /usb-c-laddare och /garageportsoppnare. Slugen är vald på
@@ -243,7 +858,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        andra på den som vill ha insynsskydd billigt, men kontrollera vid nästa
        runda att de inte glidit ihop. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
     count: 15,
   },
   {
@@ -311,7 +926,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/iphone-fodral",
     label: "iPhone-fodral",
     category: ELEKTRONIK,
-    blurb: "Sju av tolv fodral stänger av den trådlösa laddningen. Det står aldrig i rubriken.",
+    blurb:
+      "Sju av tolv fodral stänger av den trådlösa laddningen. Det står aldrig i rubriken.",
     /* Live 2026-08-05. Alla tolv priser, artikelnummer och lagerstatus lästa på
        iPhonebutikens egna produktsidor samma dag, och RAID-papperet läst i
        original som PDF. Tolv packshots på plats. Uppmätt vid 1440 och 390 px:
@@ -337,9 +953,21 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        verktyg som svarar nej i två fall av tre är obrukbart hur sant nejet än
        är. Därför visar widgeten alltid vad som händer om ett krav släpps, och
        samtliga 15 tomma utfall har minst en väg vidare. Uppmätt, inte antaget:
-       se .agent/tmp-körningen i researchfilen §10. */
+       se .agent/tmp-körningen i researchfilen §10.
+
+       REPARERAD 2026-08-06 med /fix-page. Guess Book 4G angavs sakna
+       stativfunktion och ha ett sedelfack; licenstagarens egen produkttext
+       säger tvärtom, och den finns i sin helhet hos Empik medan iPhonebutiken
+       bara återger ett sammandrag. Fyra celler fyllda och tre betyg omräknade,
+       utan att ordningen ändrades. Viktningens fotnot sa att en uppgift som
+       inte publiceras räknas som en brist under respektive kriterium, alltså
+       raka motsatsen till repots regel; den är omskriven. Raden
+       `Öppningsriktning` ströks, som var horisontell för samtliga tolv och
+       jämförde ingenting, och `Passar modeller` och `Garanti` markerades i
+       stället. Åtta av tolv anges passa iPhone 18 Pro också. Se
+       lib/corrections.ts och researchfilen §11. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
     count: 12,
   },
   {
@@ -417,18 +1045,34 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/iphone-skal",
     label: "iPhone-skal",
     category: ELEKTRONIK,
-    blurb: "Plywooden som varje skaltillverkare beskriver byttes mot stål 2014.",
+    blurb:
+      "Plywooden som varje skaltillverkare beskriver byttes mot stål 2014.",
     /* Live 2026-08-05. Alla tolv priser, artikelnummer och lagerstatus lästa på
        iPhonebutikens egna produktsidor samma dag, och militärstandarden läst i
        original i tre utgåvor som PDF. Tolv packshots på plats. Uppmätt vid
        1440 och 390 px: ingen sidscroll vid någondera bredden, och inget klippt
        superlativ sedan X2O:s kortades från 44 till 36 tecken enligt IDÉ-015.
 
-       ⚠️ TVÅ MARKERADE RADER LIGGER UNDER 50 %, avsiktligt: `Angiven fallhöjd`
-       4/12 och `Angiven militärstandard` 5/12. Gap-passet är gjort mot
-       tillverkarens egen sida och kommer tillbaka tomt, så uppgiften finns inte
-       publicerad någonstans. Att fylla cellen åt den som tiger raderar det
-       raden mäter. Samma konstruktion som `Angiven noggrannhet` på /hygrometer.
+       ⚠️ VARNINGEN NEDAN INFRIADES. Sidan hävdade att gap-passet mot
+       tillverkarnas egna sidor kom tillbaka tomt och att `Angiven fallhöjd`
+       4/12 och `Angiven militärstandard` 5/12 därför fick ligga tunna med
+       avsikt. Det stämde inte. urbanarmorgear.com skriver ut metoden för båda
+       UAG-skalen, "Meets 3X MIL-SPEC 810G-516.6" respektive 5X, och nomadgoods
+       .com publicerar kanthöjd, bufferttjocklek och magnetkraft. Passet
+       gjordes om 2026-08-06.
+
+       Raderna är sedan dess omgjorda: sju rader som mätte publicering är borta
+       eller sammanslagna till `Falltest enligt tillverkaren`, 8/12, och
+       `Förhöjd kant kamera` är befordrad till markerad rad. Kriteriet `Öppen
+       redovisning av skydd` (vikt 22) är borttaget och vikterna är 51/28/21.
+       Sex placeringar flyttade. Se lib/corrections.ts.
+
+       ⚠️ Den här sidan citerade tidigare `Angiven noggrannhet` på /hygrometer
+       som prejudikat. Gör inte det: det gap-passet var ofullständigt. Talen
+       stod i bruksanvisningarna, raden gick från 3/7 till 5/7 den 2026-08-06
+       och tre placeringar ändrades. Två sidor i rad har nu haft en "avsiktligt
+       tunn" rad som visade sig vara ofullständig research. Behandla varje
+       sådan motivering som obevisad tills passet är gjort om.
 
        ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /usb-c-laddare
        och /garageportsoppnare. Slugen är vald på handelns och konkurrenternas
@@ -452,7 +1096,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Den tomma grenen i widgeten är alltså onåbar med dagens produkter men
        står kvar, eftersom urvalet ändras när en produkt byts ut. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
     count: 12,
   },
   {
@@ -464,28 +1108,36 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        20000` ska med i samma Keyword Planner-körning. Slugen följer
        Teknikdelars egen kategori, `powerbank-20000mah`.
 
-       FYNDET ÄR DET OMVÄNDA MOT /powerbank. Där anger två av åtta produkter
-       sitt energiinnehåll i wattimmar; här gör sju av nio det. Skälet är att
-       taket på 100 Wh bara är i sikte i den här storleken. Wattimmen publiceras
-       när tillverkaren har ett skäl att visa att produkten ryms under gränsen.
+       TVÅ PRODUKTER ÄR BYGGDA INTILL TAKET: Linocell 27 600 mAh ligger på
+       99,36 Wh och Anker Prime 26 250 mAh på 99,75 Wh. Marginal 0,64 respektive
+       0,25 wattimmar mot en gräns på 100. Konstruktion, inte slump.
 
-       TVÅ PRODUKTER ÄR BYGGDA INTILL TAKET: Linocell 27 600 mAh anger 99,36 Wh
-       och Anker Prime 26 250 mAh anger 99,75 Wh. Marginal 0,64 respektive 0,25
-       wattimmar mot en gräns på 100. Konstruktion, inte slump.
+       FYNDET EFTER GAP-PASSET 2026-08-06: de två som ligger intill taket är
+       också de två tyngsta, 625 och 600 g mot 400-535 för dem på 20 000 mAh.
+       Maximal laglig kapacitet kostar ca 200 gram. Det är sidans bärande
+       poäng och det ersatte en poäng om vem som publicerar vad.
 
-       ⚠️ ANDRA FYNDET: tre powerbanks med samma nominella 20 000 mAh anger 72,
-       72,36 och 100 Wh. De två första är förenliga; Xtorms 100 Wh ligger 39 %
-       högre och står bredvid "Flygplansgodkänd: Ja" i samma ruta. Vi påstår
-       ALDRIG att någon har fel — vi redovisar spridningen, som Clas Ohlsons
-       7,5 mot 13 liter på /avfuktare. Xtorms uppgift är INTE kontrollerad mot
-       tillverkarens egen sida; gör det innan något skärps.
+       ⚠️ XTORMS 100 Wh ÄR KJELLS UPPGIFT, INTE XTORMS. Kontrollerat 2026-08-06
+       mot xtorm.eu, tillverkarens spectabell och manualen till FS5201: Xtorm
+       publicerar inget Wh-tal alls, bara "Allowed on the plane". Talet är
+       dessutom oförenligt med de tre andra 20 000 mAh-bankerna som alla ligger
+       på 72 Wh. Cellen är ett STRECK, inte 100 och inte 72 — ett värde bärs
+       aldrig över mellan modeller. Hela konfliktberättelsen är borta ur
+       läsartexten: den handlar om vad en källa skrivit, inte om varan.
 
        ⚠️ INGET TESTOMDÖMEKRITERIUM. Warentest mätte uttagbar energi till
        58,3-69,9 Wh för storleksklassen, men resultat per modell ligger bakom
        betalvägg på 4,90 EUR som vi inte köpt.
 
        ⚠️ VIKT ÄR ETT EGET KRITERIUM här men inte på moderssidan: produkterna
-       väger 400 till 535 g, och bara tre av åtta anger vikten i butiken.
+       väger 400 till 625 g. Alla åtta vikter är framtagna 2026-08-06. Tre av
+       dem stod i Kjells eget specifikationsblock hela tiden, som brödtext och
+       inte som tabell — samma fel som rättades på Linocell 165 W i augusti.
+
+       ⚠️ KRITERIET ÖPPEN REDOVISNING (vikt 15) ÄR BORTTAGET 2026-08-06. Vikten
+       omfördelad proportionellt: kapacitet 35, laddeffekt 29, vikt 18,
+       prisvärde 18. Tillsammans med de tre nya vikterna flyttade det vinnaren
+       från Linocell 165 W till Linocell 25 000. Se lib/corrections.ts.
 
        ⚠️ Sju av åtta länkar går till Kjell, 5 % / 30 d. Ugreen Nexode flyttades
        till Teknikdelar 2026-08-05 efter butikskartläggningen: samma artikel
@@ -500,9 +1152,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* Live 2026-08-05. Alla åtta priser, artikelnummer och kundbetyg lästa i
        butikens egen JSON-LD samma dag. Linocell Premium 65 W var slutsåld och
        ligger bland övervägda, men av variantskäl och inte av lagerskäl: den är
-       samma kapacitet, samma wattimmar och samma pris som 100 W-modellen. */
+       samma kapacitet, samma wattimmar och samma pris som 100 W-modellen.
+
+       Reparerad 2026-08-06: kriteriet Öppen redovisning borttaget, fem tomma
+       celler fyllda, tabellen utökad med effekt per port och laddningstid,
+       samtliga åtta omdömen omskrivna. Priserna är INTE kontrollerade om. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-05",
     count: 8,
   },
   {
@@ -555,20 +1212,25 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/powerbank",
     label: "Powerbank",
     category: ELEKTRONIK,
-    blurb: "Två av åtta anger wattimmar. Det är den enhet flygreglerna är skrivna i.",
+    blurb:
+      "Samma 10 000 mAh rymmer 36, 37 eller 38,5 wattimmar. Talet på kartongen är inte energin.",
     /* Live 2026-08-05. Alla åtta priser, artikelnummer och kundbetyg lästa i
        butikens egen JSON-LD samma dag, samtliga i lager.
 
-       ⚠️ Gap-passet mot tillverkarens egen sajt för att fylla Wh på fler
-       produkter MISSLYCKADES och gjorde det farligt: anker.com returnerade
-       identiska tal, 99,75 Wh och 26 250 mAh, för två olika produktsidor,
-       eftersom värdena kom ur en korsförsäljningskarusell och inte ur
-       produkten. Att föra in dem hade varit variantfällan. Raderna
-       `Energiinnehåll` och `Vikt` är därför inte highlight, alltså inga
-       tabellrader, och fyndet bärs av fyndavsnittet, kriteriet, köpguiden,
-       omdömena och FAQ i stället. */
+       ⚠️ Reparerad 2026-08-06, och rättelsen är stor. Gap-passet 2026-08-05
+       misslyckades mot anker.com, vars korsförsäljningskarusell returnerade
+       främmande tal. Slutsatsen blev då att uppgifterna inte publicerades, och
+       kriteriet `Öppen redovisning` drog av för det. Fel: wattimmen fanns för
+       sju av åtta i tillverkarnas manualer, i flera fall i PDF:er butiken
+       själv länkar, och samtliga åtta har en strukturerad specruta under
+       `Teknisk information` som första insamlingen inte läste.
+
+       Kriteriet är borttaget, vikten omfördelad till 41/23/18/18, och
+       testvinnaren är en annan: Anker Nano 45 W bar det tyngsta avdraget och
+       vinner nu. `Energiinnehåll`, `Vikt`, `Mått` och `Laddningstid` är
+       tabellrader. Se lib/corrections.ts. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
     count: 8,
   },
   {
@@ -580,25 +1242,33 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* 2026-08-03: WiZ Color A60 hade stigit från 103 till 129 kronor sedan
        lanseringen, alltså 25 procent på två dagar på en sida som låg live.
        Prisvärdet sänktes till 4,5. Det var fyndet som gjorde priskollen till
-       ett nattligt jobb i stället för en punktinsats. */
-    updated: "2026-08-03",
+       ett nattligt jobb i stället för en punktinsats.
+
+       2026-08-06: IKEA TRÅDFRI utbytt mot KAJPLATS, färgåtergivning hämtad för
+       alla fem och omfördelningen av saknade kriterier avstängd. Rankningen
+       ändrades, se lib/corrections.ts. */
+    updated: "2026-08-06",
+    published: "2026-08-02",
     count: 5,
   },
   {
     href: "/smart-plug",
     label: "Smart plug",
     category: SMART_HEM,
-    blurb: "Maxeffekt, energimätning och vad de drar när de inte gör något.",
+    blurb: "Maxeffekt, energimätning och vilket uttag som klarar garaget.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-01",
   },
   {
     href: "/smart-strombrytare",
     label: "Smart strömbrytare",
     category: SMART_HEM,
-    blurb: "Nolla i dosan, vad du får installera själv och vad som funkar utan.",
+    blurb:
+      "Nolla i dosan, vad du får installera själv och vad som funkar utan.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-01",
   },
   {
     /* Slugen var `/smarta-gardiner` fram till 2026-08-01. Keyword Planner:
@@ -610,7 +1280,11 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SMART_HEM,
     blurb: "Rullgardinsmotorer, gardinrobotar och vilken skena de passar.",
     status: "live",
-    updated: "2026-08-03",
+    /* 2026-08-06: reparationspass. Fyra påståenden om saknade uppgifter var
+       falska, tabellen gick från tre till sju rader och två placeringar bytte
+       plats. Se lib/corrections.ts och .agent/research/elektrisk-rullgardin.md. */
+    updated: "2026-08-06",
+    published: "2026-08-01",
   },
   {
     /* `utomhustimer` 1 300/mån mot 90 för `smart uttag utomhus`, som planen
@@ -625,9 +1299,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        sidor: sju stämde, Tapo P410M hade fallit från 399 till 259 och
        Cleverio GP120 från 149,90 till 119. Se .agent/priskoll-2026-08-03.md.
        ⚠️ Säsongen är extrem, 6 600 sökningar i november mot 260 i april, så
-       lagerstatus och pris bör kontrolleras om inför november. */
+       lagerstatus och pris bör kontrolleras om inför november.
+
+       Reparerad 2026-08-06 med /fix-page. Drifttemperatur hämtad ur
+       tillverkarnas bruksanvisningar för samtliga tio, vilket fyllde två celler
+       och flyttade Luxorparts från sjätte till åttonde plats. Se rättelsen. */
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-01",
   },
   {
     /* Flyttad från Smart hem till Hem & hushåll 2026-08-04 efter
@@ -651,7 +1330,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: HEM_HUSHALL,
     blurb: "Två labb har provat dem. Båda säger att de sopar, inte suger.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `vattenfelsbrytare` 2 900/mån, alltså mer än vattenlarm trots att
@@ -661,10 +1341,21 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Vatteninstallation 2026:1 ett typgodkänt aktivt skydd i kök, där båda
        typerna duger. Vattenlarm ligger kvar på /vattenlarm.
 
-       Vinkeln är att tre tillverkare publicerar certifikatnummer som går att
-       ladda ner och läsa, och att ingen konsumentsida gör det. Den vanligaste
-       uppgiften i kategorin, att bara två vattenfelsbrytare är godkända, är
-       hämtad ur ett pressmeddelande från 2022 och stämmer inte 2026.
+       Vinkeln är att godkännandet går att slå upp, att sex produkter är
+       godkända enligt CR 139 och att ingen konsumentsida vet det. Den
+       vanligaste uppgiften i kategorin, att bara två vattenfelsbrytare är
+       godkända, är hämtad ur ett pressmeddelande från 2022.
+
+       ⚠️⚠️ REGISTRET GÅR ATT LÄSA, och det vände sidan 2026-08-06. RISE öppna
+       certifikatregister ligger på `cert.ri.se`, inte på `ri.se`, och är fullt
+       sökbart: 5 127 certifikat via POST /api/v1/sv/ProductCertificate/Paged.
+       Den gamla noten om att registret inte gick att söka utifrån gällde fel
+       värd, och hela kriterium 1 var byggt på den. Kriteriet mätte publicering
+       och mäter nu godkännande. Se lib/corrections.ts 2026-08-06.
+
+       Registret gav också certifikatens GILTIGHETSTID, som ingen tillverkare
+       skyltar med, och som är en ny tabellrad. Vatettes centrala brytare löper
+       ut 2027-01-30.
 
        ⚠️ Kategorins enda affiliateprogram, VVSochBad via Partner-ads på
        2,40 %, är dyrast eller näst dyrast på båda de centrala brytarna. Vi
@@ -672,13 +1363,19 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/vattenfelsbrytare",
     label: "Vattenfelsbrytare",
     category: SAKERHET,
-    blurb: "Tre publicerar certifikatnumret. Två gör det inte.",
+    blurb: "Sex är godkända enligt CR 139. Registret är öppet.",
     /* Live 2026-08-05. Alla fem priser lästa på butikens egen sida 2026-08-04,
        och de tre typgodkännandena hämtade som PDF hos RISE via tillverkarnas
        dokumentbibliotek. Ingen av de sex konkurrentsidorna nämner CR 139 eller
-       branschreglernas 2026:1, och ingen återger ett certifikatnummer. */
+       branschreglernas 2026:1, och ingen återger ett certifikatnummer.
+
+       Reparerad 2026-08-06: kriterium 1 omgjort mot RISE öppna register, ny
+       rad för certifikatens giltighetstid, fyra betyg omräknade, samtliga fem
+       omdömen omskrivna, tre godkända produkter tillagda bland de övervägda.
+       Priserna är INTE kontrollerade om. */
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-05",
   },
   {
     /* `vattenlarm` 2 400/mån mot `läckagevarnare` 90, alltså tjugosex gånger.
@@ -697,9 +1394,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        2026-08-05: de tre bortvalda som är vattenfelsbrytare pekade framåt mot
        en sida som inte fanns. Den finns nu, så texterna säger var produkterna
        rankas i stället. LK Cubicsecure fick samtidigt sitt certifikatnummer
-       och ett omkontrollerat riktpris, 4 798 till 5 373 hos en annan butik. */
+       och ett omkontrollerat riktpris, 4 798 till 5 373 hos en annan butik.
+
+       2026-08-06, gap-pass: tabellen gick från fem till nio jämförelserader,
+       alla hämtade hos tillverkarna. Fem påståenden om att en uppgift saknades
+       visade sig falska och tre betyg är omräknade, men ingen produkt bytte
+       plats. Se lib/corrections.ts och research §13. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     /* `brandvarnare` 9 900/mån mot `smart brandvarnare` 720. Den här sidan
@@ -713,7 +1415,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SAKERHET,
     blurb: "Larmar de tillsammans, eller bara den som står närmast branden?",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* `brandsläckare` 12 100/mån, alltså mer än brandvarnare, och toppbudet är
@@ -773,9 +1476,10 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/slackspray",
     label: "Släckspray",
     category: SAKERHET,
-    blurb: "43A rekommenderas för hemmet. Sprayerna anger 5A och 3A.",
+    blurb: "43A rekommenderas för hemmet. Sprayerna når 5A och 3A.",
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-05",
     count: 5,
   },
   {
@@ -784,50 +1488,59 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SAKERHET,
     blurb: "55A eller 43A? Siffran på etiketten som ingen förklarar.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* `brandfilt` 5 400/mån, bud 19,47 kr. Vinkeln är att EN 1869 finns i två
-       versioner: 1997 provade bara brand i matolja, 2019 lade till klass B och
-       elektrisk utrustning. Årtalet står i butikstexten men i ingen jämförelse.
-       Se .agent/research/brandvarnare.md. */
+       versioner: 1997 provade brand i matolja och elektrisk ledningsförmåga,
+       2019 lade till ett heptanprov för brand i vätska. Årtalet står ofta i
+       butikstexten, och när det inte gör det står det tryckt på förpackningen.
+       Se .agent/research/brandvarnare.md och .agent/research/brandfilt.md. */
     href: "/brandfilt",
     label: "Brandfilt",
     category: SAKERHET,
     blurb: "Årtalet efter EN 1869 avgör vad filten faktiskt provats mot.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* `kolmonoxidvarnare` cirka 1 880/mån och toppbudet 5,56 kr, alltså det
        billigaste i hela brandfamiljen. Vinkeln är att EN 50291 har två delar:
        del 1 gäller bostäder, del 2 gäller husvagn, husbil och båt med krav på
-       vibration och temperaturväxling. Dessutom skiljer utgåvorna: 2018 gjorde
-       livslängdsindikering obligatorisk, och 2010 drogs tillbaka 2021.
-       Gasolvarnare är en annan sensor och blir egen sida, se
-       .agent/research/kolmonoxidvarnare.md. */
+       vibration och temperaturväxling. Fyra av sex är provade enligt båda.
+       Den andra vinkeln kom ur reparationspasset 2026-08-06: driftstemperatur.
+       X-Sense XC01-M fungerar först vid +4 °C, de fem andra ner till -10 °C.
+       ⚠️ Utgåveaxeln som sidan byggdes på visade sig vara ett researchfel, se
+       lib/corrections.ts. Gasolvarnare är en annan sensor och blir egen sida,
+       se .agent/research/kolmonoxidvarnare.md. */
     href: "/kolmonoxidvarnare",
     label: "Kolmonoxidvarnare",
     category: SAKERHET,
-    blurb: "Del 1 eller del 2 av EN 50291? Den som ska till husvagnen behöver del 2.",
+    blurb:
+      "Fyra av sex får sitta i husvagnen. En fungerar inte under fyra plusgrader.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* `brandstege` 1 300/mån plus räddningsstege 170 och utrymningsstege 170.
-       Termen täcker två marknader: hängande fönsterstegar för 699 till 1 294
-       kronor och fasta fasadstegar för 1 327 till 9 199. Den här sidan rankar
-       bara de hängande, de fasta får /utrymningsstege. Vinkeln är att kilotalet
-       inte går att jämföra: samma sorts stege anges till 150, 200, 400 och 450
-       kilo, ingen butik anger provmetod, och den standard två tillverkare pekar
-       på gäller lutande och stående teleskopstegar. Se
+       Termen täcker två marknader: hängande fönsterstegar för 699 till 2 249
+       kronor och fasta fasadstegar från 5 599. Den här sidan rankar bara de
+       hängande, de fasta får /utrymningsstege. Vinkeln sedan 2026-08-06 är
+       engångsbruket: sex av åtta stegar ska enligt sin egen bruksanvisning
+       kasseras efter en utlösning, och samtliga manualer säger att du inte ska
+       fälla ut stegen när du övar. Kilotalet är fortfarande ett andra fynd. Se
        .agent/research/brandstege.md. */
     href: "/brandstege",
     label: "Brandstege",
     category: SAKERHET,
-    blurb: "150 eller 450 kilo? Talet på kartongen är uppmätt av den som sålt den.",
+    blurb:
+      "Sex av åtta ska kasseras efter en utlösning. Det står i manualen, inte i butiken.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* Fasta fasadstegar. Egen sida efter användarbeslut 2026-08-02: en hängande
@@ -837,19 +1550,23 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/utrymningsstege",
     label: "Utrymningsstege",
     category: SAKERHET,
-    blurb: "Fast monterad på fasaden, och det enda byggreglerna räknar över fem meter.",
+    blurb:
+      "Fast monterad på fasaden, och det enda byggreglerna räknar över fem meter.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     href: "/smart-brandvarnare",
     label: "Smart brandvarnare",
     category: SAKERHET,
-    blurb: "Google la ner Nest Protect. Vad finns kvar som faktiskt går att köpa?",
+    blurb:
+      "Google la ner Nest Protect. Vad finns kvar som faktiskt går att köpa?",
     /* Först live 2026-08-03, efter att alla åtta priser kontrollerats mot
        butikernas egna sidor. Se .agent/priskoll-2026-08-03.md. */
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-02",
   },
   {
     /* `övervakningskamera` 8 100/mån mot `säkerhetskamera` 260 och
@@ -860,9 +1577,10 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/overvakningskamera",
     label: "Övervakningskamera",
     category: SAKERHET,
-    blurb: "Maskeringen alla har, och brasklappen alla också har.",
+    blurb: "Maskeringen som glider av när kameran svänger.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `dörrklocka med kamera` 1 300/mån mot `videodörrklocka` 170 och
@@ -872,9 +1590,11 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/dorrklocka-med-kamera",
     label: "Dörrklocka med kamera",
     category: SAKERHET,
-    blurb: "I lägenhet gäller inte privatundantaget. I villa avgör om du hör den.",
+    blurb:
+      "I lägenhet gäller inte privatundantaget. I villa avgör om du hör den.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* Inomhus är enligt IMY oftast tillåtet, även kopplat till larmcentral.
@@ -884,9 +1604,10 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/inomhuskamera",
     label: "Inomhuskamera",
     category: SAKERHET,
-    blurb: "Ett skjutbart linsskydd är den enda integritet du kan se.",
+    blurb: "En avstängning du kan se är den enda integritet du kan lita på.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `kodlås ytterdörr` 5 400/mån mot `smarta lås` 260, alltså tjugo gånger.
@@ -895,14 +1616,16 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* `kodlås ytterdörr` 5 400/mån mot `smart lås` 480, alltså elva gånger.
        Varumärkestermen `yale doorman` bär dessutom 27 100 i egen rätt, den
        starkaste enskilda varumärkeseffekten vi mätt. Vinkeln är att
-       certifikatet för marknadens ledande lås gäller med blockerade
-       användarkoder. Se .agent/research/kodlas-ytterdorr.md. */
+       varje SBSC-certifikat i kategorin bär ett villkorsfält, och två av dem
+       stänger av den funktion produkten säljs på. Se
+       .agent/research/kodlas-ytterdorr.md. */
     href: "/kodlas-ytterdorr",
     label: "Kodlås till ytterdörr",
     category: SAKERHET,
-    blurb: "Certifikatet för marknadens ledande lås gäller utan koden.",
+    blurb: "Fem certifikat, fem villkor. Två stänger av en säljande funktion.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `hemlarm` 2 900/mån, och toppbudet 40,61 till 179,12 kr är sajtens
@@ -915,7 +1638,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SAKERHET,
     blurb: "Två av åtta bolag skriver ut vad tjänsten faktiskt kostar.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* Systersidan till /hemlarm, beslutad 2026-08-03. Slugen är vald på
@@ -929,7 +1653,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SAKERHET,
     blurb: "Två av fem säljer reservuppkopplingen som ett abonnemang.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `luftrenare` 18 100/mån, och den jämnaste säsongen vi mätt: kvot 1,2
@@ -942,7 +1667,41 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: HEM_HUSHALL,
     blurb: "Fyra av tjugo klarade inte ozongränsen när myndigheterna mätte.",
     status: "live",
-    updated: "2026-08-03",
+    updated: "2026-08-06",
+    published: "2026-08-03",
+  },
+  {
+    /* `skaftdammsugare` är klustrets största term, mätt i Google Trends för
+       Sverige över tolv månader 2026-08-06: 1 401 mot 598 för handdammsugare
+       och 563 för sladdlös dammsugare. Keyword Planner-volymen är inte mätt,
+       och det är uppföljning och inte ett hinder. Se
+       .agent/research/skaftdammsugare.md §2.
+
+       Avgränsningen mot /robotdammsugare och mot handdammsugare kommer ur
+       branschens egen indelning: Råd & Rön, Elgiganten, NetOnNet, Jula och
+       Bosch håller alla tre isär. De två sidorna nämner inte varandra i dag
+       annat än som avgränsning.
+
+       Vinkeln är att drifttiden på kartongen är uppmätt i ekoläge, i flera
+       fall med ett munstycke utan motor. Bosch anger själva 80 minuter så och
+       11 i turboläge med det motoriserade golvmunstycket; Philips anger 60 mot
+       15; Electrolux 700 anger 40, 20 och 10. Ingen av de sex konkurrentsidor
+       vi mätte skriver det, och den enda som citerar Råd & Rön citerar en
+       uppdatering från september 2022.
+
+       ⚠️ Bosch Home SE och Siemens Home SE är sajtens första annonserbara
+       program i en stor kategori: 4 respektive 5 procent, 45 dygns cookie och
+       ppcMarketing 2, mot noll av sju i Elektronik. Men Bosch egen butik ligger
+       omkring 20 procent över handeln på samma modell, så sidan länkar Power,
+       NetOnNet, Kjell, Elgiganten och Proshop, som ger läsaren rätt pris. Se
+       .agent/research/skaftdammsugare.md §4. */
+    href: "/skaftdammsugare",
+    label: "Skaftdammsugare",
+    category: HEM_HUSHALL,
+    blurb: "80 minuter på kartongen blir 11 när borsten snurrar.",
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
   },
   {
     /* `luftfuktare` 18 100/mån, och sajtens skarpaste säsong: kvot 6,1 mellan
@@ -959,29 +1718,40 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        scripts/priskoll.mjs, Clas Ohlsons via webblaesare eftersom butiken
        botkontrollerar. Wilfa Lotus togs in i rankningen sedan lagerstatus
        slutade vara ett skaal, och Wilfa Dews laenk saknade Kjells
-       artikelsuffix och gick till kategorisidan. Baada raettade. */
+       artikelsuffix och gick till kategorisidan. Baada raettade.
+
+       Manualpass 2026-08-06: sju publicerade "anges inte" var falska, fem av
+       dem loesta i ett dokument butiken sjaelv laenkade. Wilfa Dew TX450 gick
+       fraan tolfte till sjaette plats. Se lib/data/luftfuktare.ts. */
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `avfuktare` 12 100/mån. Tredje och sista sidan i luftklustret, som med
        luftrenare och luftfuktare på 18 100 var blir 48 300 sökningar i
-       månaden. Vinkeln är att literantalet på kartongen inte är jämförbart:
-       Wood's anger vid 30 °C och 80 % RH, Meaco anger effekten vid 20 °C och
-       60 % RH och namnger modellen efter liter utan att säga vid vilka
-       villkor, och resten anger inga villkor alls. Clas Ohlson publicerar
-       själva 7,5 och 13 liter för samma Wood's LD40. SS-EN 810 finns och är
-       gällande sedan 1997, men gäller bara kompressoravfuktare. Se
-       .agent/research/avfuktare.md. */
+       månaden. Vinkeln är att talet i modellnamnet är uppmätt vid 30 °C och
+       80 % RH och att du får ungefär 40 procent av det i ett svalt rum. Meacos
+       egen extraktionstabell bevisar det rad för rad: Arete One 25L tar 10,7
+       liter vid 20 °C och 60 % RH och 3,5 liter vid 10 °C och 60 % RH.
+       SS-EN 810 finns och är gällande sedan 1997, men gäller bara
+       kompressoravfuktare. Se .agent/research/avfuktare.md. */
     href: "/avfuktare",
     label: "Avfuktare",
     category: HEM_HUSHALL,
-    blurb: "Samma apparat, 7,5 eller 13 liter. Det beror på vem som mäter.",
+    blurb: "Apparaten som heter 25L tar 10,7 liter i en sval källare.",
     /* Live 2026-08-03. Alla tolv priser kontrollerade samma dag, sju av dem
        hos Clas Ohlson via webblaesare. eeese Adam och Clas Ohlsons tioliters
-       kom in i rankningen samtidigt, se .agent/uppgift-atersta-slutsalda.md. */
+       kom in i rankningen samtidigt, se .agent/uppgift-atersta-slutsalda.md.
+
+       ⚠️ 2026-08-06: fyra betyg och aatta placeringar aendrade efter att
+       Meacos och eeeses egna spectabeller lasts. Samma dag, andra passet: tre
+       betyg och tre placeringar till efter Wood's bruksanvisning foer
+       SW-serien, som har en egen rad foer 20 °C/70 % RF, och Kjells
+       spectabell foer Xiaomi. Se lib/corrections.ts. */
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-03",
   },
   {
     /* `hygrometer` byggd 2026-08-04. Sidan foeddes ur intern efterfraagan och
@@ -996,19 +1766,34 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        slug tvaa gaanger och haft fel baada gaangerna, se
        .agent/keywords/utfall.md.
 
-       Vinkeln: av tretton kartlagda produkter mellan 139,90 och 1 199 kronor
-       anger tvaa hur maanga procentenheter de faar visa fel. Kjells produktblad
-       ger maatomraadet och en tolerans foer temperaturen, aldrig foer fukten.
-       Sex svenska jaemfoerelsesajter korar Shelly H&T Gen 3, som inte
-       publicerar naagon tolerans alls. Butikerna aer Kjell, Proshop, Clas
-       Ohlson och Hornbach; bara Kjell aer kartlagd, paa 5 procent, och den
-       tillaater inte PPC. Se .agent/research/hygrometer.md. */
+       ⚠️ VINKELN AER OMSKRIVEN 2026-08-06 EFTER ETT SAKFEL. Sidan paastod att
+       tvaa av tretton maetare anger hur maanga procentenheter de faar visa fel.
+       Ett gap-pass mot bruksanvisningarna gav FEM av de sju rankade, och tre av
+       de kontrollerade fraanvaropaastaaendena var falska: TFA Moxx, Rubicson
+       Kompakt och Beurer HM 22. Tre placeringar aendrades. Se
+       lib/corrections.ts.
+
+       LAERDOMEN, och den gaeller hela sajten: toleransen staar aldrig i
+       produktsidans spectabell. Den staar paa sista uppslaget i
+       bruksanvisningen, som PDF, en laenk ned fraan samma sida. Oeppna den.
+
+       Vinkeln nu: ± 5 procentenheter i mellanspannet och ± 8 utanfoer aer
+       branschstandard, och Rubicson Kompakt (179,90), Beurer HM 16 (199,90) och
+       Beurer HM 22 (269) anger identiska tal. Standarden aer foer vid foer de
+       tre graenser laesaren ska agera vid, som ligger inom femton
+       procentenheter. Tvaa slaar den: TFA Moxx med ± 4 och Govee H5075 med ± 3.
+       Sex svenska jaemfoerelsesajter korar Shelly H&T Gen 3, som fortfarande
+       inte publicerar naagot tal alls; den fraanvaron drar inte ner betyget.
+       Butikerna aer Kjell, Proshop, Clas Ohlson och Hornbach; bara Kjell aer
+       kartlagd, paa 5 procent, och den tillaater inte PPC. Se
+       .agent/research/hygrometer.md. */
     href: "/hygrometer",
     label: "Hygrometer",
     category: HEM_HUSHALL,
-    blurb: "Tretton mätare. Två av dem säger hur mycket fel de får visa.",
+    blurb: "Tre mätare, tre priser, exakt samma felmarginal.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `luftkvalitetsmaetare` 720/maan, uppmaett 2026-08-01, konkurrens High
@@ -1019,8 +1804,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        till 1 199. Vinkeln aer att givaruppsaettningen inte aer den man tror.
        Tre av aotta saknar CO2-givare helt trots att de saeljs som
        luftkvalitetsmaetare, och Mill Sense anger `eCO2` i butikens egen text,
-       alltsao ett tal uträknat ur VOC-halten. Airthings anvaender NDIR och
-       publicerar ±30 ppm ±3 %.
+       alltsao ett tal uträknat ur VOC-halten. Mill skriver sjaelv i sin
+       bruksanvisning att eCO2 laeses hoegre aen den faktiska halten.
+
+       ⚠️ Airthings NDIR-tal skiljer per modell: Wave Plus ±30 ppm ±3 %,
+       View Plus ±50 ppm ±3 %, Wave Enhance ±50 ppm ±5 %. Sidan skrev samma
+       tal foer alla tre till 2026-08-06. Den noggrannaste sitter alltsao i
+       mellanmodellen. Kriteriet `Angiven noggrannhet` aer borttaget: det
+       maette vad tillverkaren publicerat, inte vad varan goer.
 
        ⚠️ Radonregeln ligger i koepguiden och FAQ, INTE i rankningen, efter
        anvaendarbeslut. SSM: en korttidsmaetning "kan inte anvaendas foer naogot
@@ -1036,7 +1827,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: HEM_HUSHALL,
     blurb: "Tre av åtta mäter inte koldioxid, hur mycket de än kostar.",
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `robotgraesklippare` 49 500/maan, uppmaett 2026-08-01. Sajtens stoersta
@@ -1071,7 +1863,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: HEM_HUSHALL,
     blurb: "Ingen av de provade robotarna såg igelkotten innan den kördes på.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `fonsterputsrobot` byggd 2026-08-04. Femte maskinsidan i Hem & hushall.
@@ -1079,14 +1872,16 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Sokvolymen ar inte uppmatt och det ar ingen blockerare. Sidan star pa
        att den svarar pa en fraga ingen annan svarar pa.
 
-       Fyndet: tre sakerhetstal publiceras ojamnt. HOBOT-388 anger att linan
-       tal 200 kg stotkraft; Ecovacs och Karcher anger inget tal. Halltid vid
-       stromavbrott: Karcher 40 min med batteridata, Ecovacs W2 och W3 mer an
-       30, HOBOT 20, Ecovacs W1 Pro inget alls. Baglost glas: HOBOT forbjuder
-       det, Ecovacs tillater det med 10 cm marginal till kanten.
+       Fyndet efter omarbetningen 2026-08-06: minsta ruta spanner fran 22 x 25
+       till 40 x 40 cm, alltsa nastan tre ganger ytan, och det avgor kopet oftare
+       an priset. Winbot Mini ar ensam under 30 x 40. Halltid: Karcher 40 min med
+       batteridata, W2 Pro och Mini 30, W2 Omni mer an 30, bada HOBOT 20 var.
+       Baglost glas: fyra Ecovacs godkanda, HOBOT-388 forbjuder, Karcher kraver
+       bage enligt sin manual.
 
-       Svenska vinkeln ar sprojsen: Karcher anger minsta fonster 35 x 35 cm,
-       och mindre rutor ar vanliga i aldre svenska hus.
+       Svenska vinkeln ar sprojsen, och den ar nu ett kop-rad och inte ett
+       avrad: ett korspostfonster ligger kring 30 x 40 cm och stryker fyra av
+       de sju, men Winbot Mini kommer upp pa det.
 
        ⚠️ Tva kandidater foll fore den har. Matavfallskvarn diskvalificerades av
        regelverket: sedan 2024-01-01 ar kvarnar direkt till avloppet inte
@@ -1098,9 +1893,11 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/fonsterputsrobot",
     label: "Fönsterputsrobot",
     category: HEM_HUSHALL,
-    blurb: "En av tillverkarna säger vad säkerhetslinan tål. De andra inte.",
+    blurb:
+      "Minsta rutan spänner från 22 × 25 till 40 × 40 cm. Måttet stryker fyra av sju innan priset spelar roll.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `smart-hem-hubb` byggd 2026-08-04. Punkt 7 i sidkarta-framat.md.
@@ -1111,15 +1908,27 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
 
        Fyndet: ordet hubb tacker tre olika produkter pa samma hylla, 329 till
        4 999 kr. Markesbrygga (Plejd Gateway styr enbart Plejd, enligt Plejd),
-       Matter-controller (Aqara M3 sager rakt ut att den styr tredjepart) och
-       universell hubb (Homey Pro talar varje radio och kor lokalt).
+       Matter-controller (Aqara M100 ar bade bridge och controller for 329 kr)
+       och universell hubb (Homey Pro talar varje radio och kor lokalt).
 
-       ⚠️ Philips sager varken ja eller nej om Hue Bridge kan styra andra
-       markens Matter-enheter. Skriv att uppgiften saknas, aldrig att den inte
-       kan.
+       ⚠️ RESEARCHPASS 2026-08-06 rev fyra pastaenden om saknade uppgifter och
+       fann tva fel at andra hallet. Aqara M3 har IR-blaster och kor lokalt,
+       Aqara M100 ar Matter Controller, Hue Bridge kor lokalt. HA Green har
+       inga inbyggda radior alls och Homey Pro mini saknar aven Z-Wave och BLE.
+       Fyra placeringar flyttade. Se /rattelser och datafilens huvud.
 
-       Andra axeln: fungerar den utan internet? Homey Pro, HA Green och Aqara
-       M100 sager uttryckligen ja. Resten sager ingenting.
+       ⚠️ Kvar som konflikt: Kjell sager att Hue Bridge kan lagga till andra
+       markens produkter, Philips tva egna dokument beskriver bara riktningen
+       utat. Vi foljer tillverkaren.
+
+       ⚠️ IKEA Dirigera rankad 2026-08-06 efter anvandarbeslut, som attonde
+       produkt och pa femte plats. IKEA skriver sjalva att den ar bade
+       Matter-brygga och Matter-styrenhet. Enda produkten som inte lankar till
+       Kjell: IKEA ligger pa 9 % mot Kjells 5 %.
+
+       ⚠️ Raden Thread Border Router for Dirigera ar sidans enda cell som inte
+       vilar pa tillverkaren. IKEA dokumenterar inte Thread; tva tekniska
+       genomgangar visar firmware 2.805.6 och OpenThread 1.4.
 
        Alla sju lankar gar till Kjell, som har hela sortimentet och ligger pa
        5 % / 30 d i Adtraction. Koncentrationen star utskriven pa sidan.
@@ -1129,7 +1938,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     category: SMART_HEM,
     blurb: "Tre olika produkter säljs under samma ord, från 329 till 4 999 kr.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `smart-termostat` byggd 2026-08-04. Punkt 8 i sidkarta-framat.md.
@@ -1182,9 +1992,11 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/smart-termostat",
     label: "Smart termostat",
     category: SMART_HEM,
-    blurb: "42, 37, 30 eller 28 procent? De som provat dem anger ingen siffra alls.",
+    blurb:
+      "Fran 2 till 10 ventilfattningar, och butiken skriver aldrig vilken.",
     status: "live",
-    updated: "2026-08-04",
+    updated: "2026-08-06",
+    published: "2026-08-04",
   },
   {
     /* `nyckelskap` byggd 2026-08-05.
@@ -1316,7 +2128,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        och Estore 5 %. Estore tillåter visserligen PPC, men bär bara plats fem.
        Kontrollerat 2026-08-05, se .agent/research/usb-c-laddare.md §5.1b. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
     count: 13,
   },
   {
@@ -1385,7 +2197,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/garageportsoppnare",
     label: "Garageportsöppnare",
     category: HEM_HUSHALL,
-    blurb: "Kraften de säljer är uppåt. Den som kan klämma någon står i manualen.",
+    blurb:
+      "Kraften de säljer är uppåt. Den som kan klämma någon står i manualen.",
     /* Live 2026-08-05. Alla fem priser och artikelnummer lästa i butikens egen
        JSON-LD eller specifikationstabell samma dag, och kraftuppgifterna hämtade
        ur tillverkarnas bruksanvisningar som PDF.
@@ -1396,7 +2209,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        svenska konkurrenter. Kör Keyword Planner ändå, och gör det innan sidan
        hunnit indexeras: en slugändring efter indexering är den dyra sorten. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-05",
     count: 5,
   },
   {
@@ -1436,10 +2250,10 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Sensorn är standard från 374 kr och uppåt och blev inget kriterium. Se
        .agent/research/smart-garageportsoppnare.md §3.
 
-       ⚠️ VARIANTFÄLLAN: Meross säljer MSG100 och MSG100HK som skilda artiklar,
-       där HK är den med HomeKit. Vi anger inte HomeKit för den artikel
-       NetOnNet säljer, eftersom artikelnumret inte gått att bekräfta mot
-       tillverkarens variantlista. Samma fälla som ABUS 787 mot 787 Smart-BT.
+       ✅ VARIANTFÄLLAN AVFÖRD 2026-08-06: Meross egen produktsida för MSG100
+       skriver "Support Apple HomeKit, Amazon Alexa, Google Assistant,
+       SmartThings", och NetOnNets produktsida skriver HomeKit på fyra ställen.
+       MSG100HK ligger kvar i bortvalslistan som en dyrare dubblett.
 
        ⚠️ INGET TESTOMDÖMEKRITERIUM. Ljud & Bilds Yale-test täcker en av sex.
 
@@ -1457,11 +2271,14 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
 
        ⚠️ Samma omätta sökvolym som moderssidan, se kommentaren där.
 
-       ⚠️ Meross artikelnummer är inte bekräftat mot MSG100 respektive MSG100HK,
-       och därför står HomeKit som okänt på den produkten i stället för som ett
-       ja. Bekräfta mot tillverkarens variantlista vid nästa runda. */
+       ✅ 2026-08-06: variantfällan avförd. Meross egen produktsida för MSG100
+       och NetOnNets egen produktsida anger båda HomeKit-stöd, och cellen står
+       nu som ja. Samtidigt gjordes kontoskyddet om från ett kriterium som
+       betygsatte publicering till ett som betygsätter skyddet, vilket flyttade
+       vinnaren från SwitchBot till Meross. Se lib/corrections.ts. */
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-05",
     count: 6,
   },
   {
@@ -1533,16 +2350,19 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     href: "/usb-c-kabel",
     label: "USB-C-kabel",
     category: ELEKTRONIK,
-    blurb: "Trettio kronor isär hos samma butik. Den dyrare är 83 gånger långsammare.",
+    blurb:
+      "Trettio kronor isär hos samma butik. Den dyrare är 83 gånger långsammare.",
     status: "live",
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+    published: "2026-08-05",
     count: 13,
   },
   {
     href: "/nyckelskap",
     label: "Nyckelskåp",
     category: SAKERHET,
-    blurb: "Alla fyra som provades lossnade från väggen. Den bästa tog 16 sekunder.",
+    blurb:
+      "Alla fyra som provades lossnade från väggen. Den bästa tog 16 sekunder.",
     /* Live 2026-08-05. Alla sex priser kontrollerade mot butikernas egna sidor
        samma dag och samtliga stämde: 490 Byggahus, 2 599 Nordsec, 349 och
        1 899 Kjell, 695 och 895 E-safe.
@@ -1551,10 +2371,89 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        samma artikel: 2 015 kr hos Amazon.se, 2 599 hos Nordsec och 2 995 hos
        Bauhaus, som är slut. PriceRunner anger lowPrice 1 994 över fem
        erbjudanden. Vi länkar Nordsec, se motiveringen i lib/data/nyckelskap.ts.
-       Kontrollera om spridningen vid nästa prisrunda. */
+       Kontrollera om spridningen vid nästa prisrunda.
+
+       2026-08-06: /fix-page. Väderskyddskriteriet gjordes om sedan det visat
+       sig sänka betyget för uppgifter vi inte hittat, och samtliga fem fick ett
+       belagt värde ur tillverkarnas datablad. Smart-BT visade sig vara IP 54
+       och flyttade från femte till andra plats. Se lib/corrections.ts.
+
+       `count` stod på 6 sedan Top Safe T26 flyttades till övervägda. Rättat
+       till 5, vilket är antalet rankade skåp på sidan. */
     status: "live",
-    updated: "2026-08-05",
-    count: 6,
+    updated: "2026-08-06",
+    count: 5,
+  },
+  {
+    /* `babyvakt` byggd 2026-08-06. Ljud- och videovakter. Andningslarm rankas
+       inte, efter samma resonemang som /vattenlarm förde om vattenfelsbrytare:
+       att blanda en apparat för 399 kronor med en för 3 799 är ingen rankning,
+       och ett andningslarm är en annan produkt med en annan köpare. De fyra
+       ligger bland övervägda och förklaras i köpguiden.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `baby`, `barnvakt` och `nanny` över
+       samtliga sex keyword-CSV:er ger noll träffar. Kör Keyword Planner på
+       `babyvakt`, `babyvakt bäst i test`, `babymonitor`, `babylarm` och
+       `andningslarm`. Slugen är dock ovanligt entydig: Råd & Rön, Clas Ohlson,
+       Kjell, Jollyroom, Babyland, Apotea, Elgiganten och Bygghemma säger alla
+       babyvakt, och `babymonitor` förekommer aldrig ensamt som kategorinamn.
+
+       FYNDET: **den enda svenska laboratorieprovningen är från 15 juni 2012.**
+       Råd & Röns test ligger kvar under rubriken Bäst i test: Babyvakter och är
+       förstasidesträff nummer fem. Ingen av de tretton provade modellerna säljs
+       i svensk handel 2026 — Withings Smart Baby Monitor, IKEA Patrull, Topcom
+       Babytalker, Neonate BC-5000. Samma sorts fel som /elektrisk-rullgardin
+       byggdes för att rätta, men fjorton år gammalt.
+
+       ANDRA FYNDET, och det som bär sidan: **räckvidden på kartongen är mätt i
+       fri sikt, och inomhus gäller en sjättedel.** Fyra tillverkare publicerar
+       båda talen och kvoten är nästan identisk hos alla fyra: Motorola PIP10
+       49 mot 305 meter, Philips Avent SCD892 50 mot 300, VTech DM1212 75 mot
+       460, Alecto 50 mot 300. Alltså 6,0 till 6,2 gånger. Resten publicerar
+       bara talet i fri sikt. Räckvidd väger därför bara 15.
+
+       TREDJE: **sändareffekten går inte att läsa två gånger med samma svar.**
+       CAPiDi anges till "max 10mW (ca 4 % av DECT)" hos Jollyroom och "max 10mA"
+       hos Apotea, medan tillverkarens egen manual deklarerar 12 dBm, alltså
+       15,8 mW, och samtidigt påstår 10 procent av DECT, vilket vore 25 mW. Tre
+       tal för samma sändare. Neonate BC-6500D anges till 20 mW hos Jollyroom och
+       25 mW hos Babyland. Jämförelsebasen är läst hos en tredje tillverkare:
+       VTech DM1212 deklarerar 0,25 W, alltså DECT-klassens toppeffekt.
+
+       ⚠️ SÄNDAREFFEKT BLEV INGET KRITERIUM. Att belöna lägre effekt hade byggt
+       in en hälsohierarki vi inte kan belägga, och lägre effekt betalas med
+       kortare räckvidd, som redan vägs. Talet ligger i tabellen och i guiden.
+
+       FJÄRDE: **två tillverkare skriver själva att apparaten inte är
+       medicinteknisk.** CAPiDis manual under WARNING och VTechs DM1212-manual,
+       båda ordagrant. 1177:s sida om plötslig spädbarnsdöd, granskad av
+       barnläkare och uppdaterad 2026-01-14, ger sex råd och inget av dem är en
+       apparat. Det är köpguidens ryggrad.
+
+       ⚠️ RÅD & RÖN FÖRBJUDER VIDAREPUBLICERING av testresultat och betyg. Sidan
+       säger att provningen finns och vilket datum den bär, aldrig vad den kom
+       fram till. Betygen ligger i researchfilen.
+
+       PENGAR: ingen butik som för babyvakter tillåter PPC. Jollyroom 5 %,
+       Apotea 5 %, Apohem 5 %, Kjell 5 %, Babysam 8 %, Baby V 7 % och Babyland
+       4 % bär alla ppcMarketing 0. Safekid ligger på 20 % men säljer GPS-klockor
+       för barn och inga babyvakter, kontrollerat. Sidan går alltså inte att
+       annonsera med nuvarande utbud, samma läge som gruppen Elektronik.
+       ⚠️ Jollyrooms cookie är 3 dygn, kortast av alla butiker vi använder.
+
+       Se .agent/research/babyvakt.md. */
+    href: "/babyvakt",
+    label: "Babyvakt",
+    category: SAKERHET,
+    blurb:
+      "800 meter på kartongen. Genom väggar räcker den till 130, enligt tillverkarnas egna tal.",
+    /* Ligger kvar som `planned` efter uttrycklig instruktion: sidan ska granskas
+       innan den publiceras. Priser, GTIN och bilder är kontrollerade 2026-08-06
+       och elva manualer lästa i original. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 11,
   },
 ];
 
@@ -1613,4 +2512,17 @@ export function testPagesInCategory(category: Category): TestPageEntry[] {
 
 export function findCategory(key: string): Category | undefined {
   return CATEGORIES.find((g) => g.key === key);
+}
+
+/**
+ * Publiceringsdatumet för en sida, eller `undefined` om det inte är belagt.
+ *
+ * Slås upp på slug i stället för att skickas som en konstant på varje sidfil,
+ * eftersom `UPDATED` redan finns i två kopior som `check:refs` måste hålla
+ * ihop. Ett tredje datum på 37 ställen till hade blivit ett tredje ställe att
+ * glömma.
+ */
+export function publishedFor(slug: string): string | undefined {
+  const ren = slug.startsWith("/") ? slug : `/${slug}`;
+  return TEST_PAGE_INDEX.find((p) => p.href === ren)?.published;
 }

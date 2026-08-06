@@ -189,22 +189,26 @@ ersättningen också. Se `measurements.md`.
 
 ## För- och nackdelar
 
-Varje punkt handlar om produkten. En punkt som handlar om vad en tillverkare
-publicerat hör inte hemma i listan alls; se `who-you-are.md`.
+Varje punkt är något varan gör för den som äger den, eller något hen kommer att
+märka. Det är hela urvalsregeln.
 
-| I stället för | Skriv |
-|---|---|
-| "Anger inte vad säkerhetslinan tål" | "Båglösa rutor: ta Ecovacs W1 Pro i stället" |
-| "Publicerar batteriet bakom talet: 0,65 Ah, 14,8 V" | "Reservbatteri på 0,65 Ah och 14,8 V bakom hålltiden" |
-| "Ingen minsta fönsterstorlek angiven" | "Minsta rutan den klarar är okänd, så mät innan du beställer" |
-
-En nackdel som är en förklädd fördel ("enda nackdelen är att den är så kraftfull
-att...") är värre än ingen nackdel alls, eftersom den avslöjar att listan är
+En nackdel ska vara en riktig anledning att välja en annan produkt. Hittar du
+ingen sådan är produkten antingen felrankad, eller så har du läst för få
+tester. En nackdel som är en förklädd fördel ("enda nackdelen är att den är så
+kraftfull att...") är värre än ingen alls, eftersom den avslöjar att listan är
 skriven för att sälja.
 
-Varje nackdel ska vara en verklig anledning för någon att välja bort produkten.
-Om du inte hittar en sådan, är produkten antingen felrankad eller så har du inte
-läst tillräckligt många tester.
+En nackdel får peka vidare till produkten som löser problemet. Det är den
+nyttigaste sortens nackdel vi kan skriva.
+
+Bra nackdelar, alla från riktiga sidor:
+
+- "Bara två meter, så den som vill ha en kort kabel till väskan får leta hos någon annan"
+- "24 månaders bindningstid, den längsta av de åtta"
+- "Larmcentralen är Avarn, alltså inköpt kapacitet och inte egen"
+- "625 gram, alltså den tyngsta här och märkbar i en jackficka"
+
+Var och en säger vad ägaren råkar ut för. Det är testet.
 
 En nackdel får peka vidare till den produkt som löser problemet. Det är den
 mest användbara sortens nackdel vi kan skriva, eftersom den både är ärlig och
@@ -257,12 +261,82 @@ behöver skillnaden som avgör, inte en placering. Se `who-reads.md`.
 Kvar som fasta etiketter är `winner`, `budget`, `premium` och `editor`. De
 säger alla något om urvalet, inte om ordningen.
 
-## Vad du aldrig skriver in i ett omdöme
+## Långa texter bryts i stycken
+
+Fyra fält blir lätt en vägg, eftersom de skrivs i ett svep och renderas i ett
+svep: `methodology`, kriteriernas `description`, källnoternas `note` och
+omdömena.
+
+Mätt den 6 augusti 2026: 541 sådana strängar, **inte en enda med
+styckebrytning**. Metodtexterna låg på 977 tecken i median och den längsta
+kriteriebeskrivningen på 1 166. Det är fem hundra ords löptext i en spalt, och
+ingen läser det.
+
+Komponenterna delar på tomrad sedan samma dag, alltså räcker det att skriva
+texten i stycken. `**fetstil**` fungerar också, på den mening som bär poängen.
+
+Riktvärden, inte gränser:
+
+| Fält | Lagom | Om den blir längre |
+|---|---|---|
+| `methodology` | 3 till 5 meningar | bryt i stycken, ett per tanke |
+| kriteriets `description` | 2 till 4 meningar | bryt, eller korta ned |
+| källans `note` | 1 till 3 meningar | bryt |
+
+**Kortare är oftast bättre än brutet.** En kriteriebeskrivning som behöver tre
+stycken beskriver förmodligen två kriterier, eller berättar något som hör hemma
+i köpguiden. Skriv om innan du bryter.
+
+## Vad ett omdöme är till för
+
+Läsaren står i butiken med kortet i handen och undrar vilken av sju hen ska ta
+hem. Omdömet ska svara på det, med det vi vet.
+
+Skriv om varan: vad den gör, vad den kostar, vad den är byggd för, vad som gör
+den bättre eller sämre än den bredvid, och vem som blir nöjd med den. Det är ett
+gott omdöme, och det är hela uppgiften.
+
+**Skriv om det du har.** Researchen ger dig sällan varje uppgift om varje
+produkt, och det spelar mindre roll än man tror. Ett omdöme byggt på de tolv
+saker vi vet är bättre än ett som ägnar ett stycke åt den trettonde. En kabel
+har en mantel oavsett vad databladet nämner, en powerbank väger vad den väger,
+och läsaren som ska välja mellan två kablar har ingen nytta av att veta vad vi
+inte hann läsa. Låt det du inte har ligga i tabellen som ett streck, och fyll
+omdömet med det som faktiskt hjälper hen att välja.
+
+Det här är sajtens vanligaste och dyraste fel. På `/usb-c-kabel` gick halva
+vinnarens omdöme åt till att en mantel inte stod angiven — och den stod angiven,
+TPE, i Delocks eget datablad. Två fel i samma stycke: fel research, och fel
+ämne.
+
+Fyra saker hör aldrig hemma i ett omdöme, av andra skäl:
 
 - En upplevelse av produkten. Du har inte hållit i den.
 - Ett mätvärde vi inte hämtat från en namngiven källa.
-- Vad en tillverkare, butik eller manual har eller inte har publicerat.
 - Vår egen urvals- eller källpolicy. Den hör hemma i viktningen, en gång.
 - Produktens placering i vår lista som förklaring till något.
 - Lagerstatus. Se `.claude/context/data.md`.
 - Förstaperson i omdömesfälten. `pnpm check:lackor` fäller det.
+
+## När en saknad uppgift ändå är nyheten
+
+Ibland är det du inte kan få reda på precis det köparen går in i. Då är det
+ämnet, och det ska skrivas rakt ut.
+
+Ett larmbolag som inte publicerar sitt pris lämnar dig utan möjlighet att
+jämföra innan en säljare sitter i soffan. En hel produktkategori där varenda
+tillverkare anger en besparingsprocent och ingen av dem har mätt något säger dig
+vad marknadsföringen är värd. `/hemlarm` och `/smart-termostat` bär sina sidor
+på just det, och de är två av våra bästa.
+
+Skillnaden mot manteln: **där är frånvaron något läsaren själv stöter på.**
+Priset går inte att få tag i, hur mycket hen än letar. Manteln är bara något vi
+inte läste, och kabeln fungerar likadant vare sig vi läste det eller inte.
+
+Frågan att ställa: **hindrar det köparen, eller hindrade det bara oss?**
+
+Och utgå från det senare. Av tjugo kontrollerade påståenden om att en uppgift
+saknades var elva falska, och fyra av svaren låg i ett dokument vi själva
+länkade till. Presumtionen är alltså att vi inte letat färdigt, inte att källan
+tigit. Undantaget måste beläggas positivt: du försökte få priset och blev
+stoppad. Att du inte hittade måttet är inget belägg för någonting.

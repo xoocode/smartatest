@@ -51,6 +51,12 @@ const UNDANTAG = [
 ];
 
 const KLASSER = [
+  /* Här låg en klass "vår egen källpolicy", ärvd från check-kallprat den
+     5 augusti 2026 och borttagen samma dag. Den fällde `reason` på övervägda
+     produkter och källnoterna i lib/sources.ts, alltså precis de ställen där
+     formuleringen är riktig. Den här kontrollen läser filer och kan inte skilja
+     på fält, och en kontroll som fäller på rätt ställe lär bara ut nästa
+     omskrivning. Regeln lever som skrivråd i swedish-voice, inte som grind. */
   ["berättad research", [
     /vi sökte igenom/gi, /noll träffar/gi, /träffar på samtliga/gi,
     /fick (noll|inga) träffar/gi, /vi hämtade/gi, /automatiserad läsning/gi,

@@ -1,6 +1,6 @@
 {
   "name": "smartatest",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,17 +15,18 @@
     "check:tools": "node scripts/check-tools.mjs",
     "check:vikter": "node scripts/check-vikter.mjs",
     "check:upplysning": "node scripts/check-upplysning.mjs",
-    "check": "tsc --noEmit && eslint --max-warnings 0 && node scripts/check-emdash.mjs && node scripts/check-refs.mjs && node scripts/check-lackor.mjs && node scripts/check-tools.mjs && node scripts/check-vikter.mjs && node scripts/check-upplysning.mjs && node scripts/check-fraser.mjs && node scripts/check-kallprat.mjs && node scripts/check-omdomen.mjs && node scripts/check-tackning.mjs && node scripts/check-priser.mjs && node scripts/check-bilder.mjs",
+    "check": "tsc --noEmit && eslint --max-warnings 0 && node scripts/check-emdash.mjs && node scripts/check-refs.mjs && node scripts/check-lackor.mjs && node scripts/check-tools.mjs && node scripts/check-vikter.mjs && node scripts/check-upplysning.mjs && node scripts/check-fraser.mjs && node scripts/check-omdomen.mjs && node scripts/check-tackning.mjs && node scripts/check-redovisning.mjs && node scripts/check-avdrag.mjs && node scripts/check-priser.mjs && node scripts/check-bilder.mjs",
     "priskoll": "node scripts/priskoll.mjs",
     "sprak": "node scripts/sprakkoll.mjs",
     "check:lankar": "node scripts/check-lankar.mjs",
     "brandbook": "node scripts/brandbook.mjs",
     "check:fraser": "node scripts/check-fraser.mjs",
     "check:tackning": "node scripts/check-tackning.mjs",
-    "check:kallprat": "node scripts/check-kallprat.mjs",
     "check:omdomen": "node scripts/check-omdomen.mjs",
     "check:priser": "node scripts/check-priser.mjs",
-    "check:bilder": "node scripts/check-bilder.mjs"
+    "check:bilder": "node scripts/check-bilder.mjs",
+    "check:redovisning": "node scripts/check-redovisning.mjs",
+    "check:avdrag": "node scripts/check-avdrag.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

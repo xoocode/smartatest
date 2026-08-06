@@ -22,8 +22,8 @@ att gatewayen ansluter användarens Plejd-mesh till internet och integrerar mot
 HomeKit, Google Home, Alexa och Homey. Riktningen går utåt. Ingenting går in.
 
 **Matter-controllern** kan lägga till andra tillverkares Matter-enheter.
-<ProductRef id="aqara-hub-m3" /> säger det med sju ord som ingen annan
-tillverkare i jämförelsen använder.
+<ProductRef id="aqara-smart-hub-m100" /> är både bridge och controller och
+kostar 329 kronor, alltså mindre än en tredjedel av bryggan ovan.
 
 **Den universella hubben** talar varje radio och kör lokalt.
 <ProductRef id="athom-homey-pro-2026" /> och
@@ -41,27 +41,29 @@ En **Matter-controller** lägger till och styr andra tillverkares enheter. En
 **Matter-bridge** gör tvärtom och exponerar sina egna enheter för andra system.
 
 Skillnaden avgör om hubben löser ditt problem, och förpackningen skiljer dem
-sällan åt. <ProductRef id="philips-hue-bridge-pro" /> är exemplet: butikstexten
-säger att den kan kopplas till enheter från flera tillverkare, medan Philips
-egen Matter-sida bara beskriver hur Hue ansluts till Alexa, Apple Home och
-Google.
+sällan åt. <ProductRef id="philips-hue-bridge-pro" /> går bara åt ena hållet:
+den gör Hue tillgängligt i Apple Home, Google och Alexa, men den tar inte in
+en annan tillverkares Matter-lås. <ProductRef id="aqara-smart-hub-m100" /> är
+båda delarna och kostar 570 kronor mindre.
 
-Om bryggan kan lägga till en annan tillverkares Matter-lås står ingenstans.
-Det står inte heller att den inte kan.
-
-Fråga i vilken riktning stödet går innan du köper på ordet.
+Priset avslöjar alltså ingenting om riktningen. Fråga vilken roll hubben har
+innan du köper på ordet.
 
 ## Vad som händer när internet ligger nere
 
 En hubb är hemmets nav. Slutar den fungera slutar allt som hänger på den att
 fungera, och då spelar det roll var intelligensen sitter.
 
-Tre tillverkare i jämförelsen säger uttryckligen att automationerna körs
-lokalt: Athom om Homey Pro, Nabu Casa om Home Assistant, och Aqara om
-<ProductRef id="aqara-smart-hub-m100" />.
+Sju av de åtta vi rankar fortsätter fungera utan uppkoppling. Homey Pro och
+Homey Pro mini bearbetar allt i enheten, Home Assistant kör i ditt eget
+nätverk, <ProductRef id="aqara-hub-m3" /> hanterar automationerna i hubben, och
+<ProductRef id="aqara-smart-hub-m100" /> kör sina lokala rutiner vidare. Hue
+Bridge och <ProductRef id="ikea-dirigera" /> styr sina enheter över det egna
+nätverket och tappar bara fjärrstyrningen.
 
-De övriga säger ingenting. Det betyder inte att de kräver moln, men det betyder
-att du inte kan ta reda på det innan du står med lådan.
+Undantaget är <ProductRef id="plejd-gateway" />, och där är det definitionen
+snarare än ett fel: enhetens enda uppgift är att koppla Plejd-meshen till
+internet.
 
 Det hänger ihop med en fråga vi ställer på flera andra sidor: vad händer när
 tillverkaren stänger tjänsten. För en lampa är svaret irriterande. För navet är
@@ -80,10 +82,11 @@ som lyder en fjärrkontroll och ingenting annat.
 
 **433 MHz** når äldre trådlösa givare, rörelsevakter och en del gamla larm.
 
-<ProductRef id="athom-homey-pro-2026" /> har båda.
-<ProductRef id="athom-homey-pro-mini" /> har ingen av dem, och det är hela
-skillnaden mellan de två modellerna. Är huset nyare än så märker du aldrig att
-de saknas.
+<ProductRef id="athom-homey-pro-2026" /> har båda inbyggda.
+<ProductRef id="aqara-hub-m3" /> har infraröd men inte 433 MHz.
+<ProductRef id="athom-homey-pro-mini" /> har ingendera, och inte Z-Wave eller
+Bluetooth heller: de fyra kräver en Homey Bridge för 799 kronor. Är huset nyare
+än så märker du aldrig att de saknas.
 
 ## En kväll eller tre minuter
 
@@ -99,9 +102,17 @@ vilken sorts kväll du vill ha.
 
 ## Räkna med kostnaden som inte står på lådan
 
-<ProductRef id="nabu-casa-home-assistant-green" /> saknar Z-Wave. Har du
-Z-Wave-enheter behöver du en USB-sticka utöver hubben, och den verkliga
-prislappen är därför högre än 2 199 kronor.
+<ProductRef id="nabu-casa-home-assistant-green" /> har inga radior alls i lådan.
+Zigbee och Thread kräver Nabu Casas Connect ZBT-2 och Z-Wave en sticka
+därutöver, så den verkliga prislappen är högre än 2 199 kronor så snart något i
+hemmet talar annat än wifi. Samma sak gäller
+<ProductRef id="athom-homey-pro-mini" />: Z-Wave, Bluetooth, infraröd och
+433 MHz ligger i en Homey Bridge för 799 kronor.
+
+Räkna på tillbehören också, för det är där pengarna går. Tjugo sensorer och
+uttag kostar tusenlappar i de flesta ekosystem, medan IKEA säljer sina för
+99 kronor styck. Ska hemmet växa mycket väger det tyngre än vad hubben kostar,
+och det är hela argumentet för <ProductRef id="ikea-dirigera" />.
 
 Samma sak gäller åt andra hållet: en Thread Border Router som
 <ProductRef id="aqara-smart-hub-m100" /> stärker nätet för alla Thread-enheter i
@@ -152,7 +163,8 @@ märke.
 **Att välja bort infraröd och 433 MHz utan att veta vad huset innehåller.** Det
 är en dyr upptäckt att göra i efterhand.
 
-**Att glömma Z-Wave-stickan** när hubben inte har radion inbyggd.
+**Att glömma dongeln** när hubben inte har radion inbyggd. Det gäller Zigbee
+och Thread lika ofta som Z-Wave.
 
 **Att lägga automationerna i molnet** och sedan bli förvånad när de slutar
 fungera under ett driftstopp.

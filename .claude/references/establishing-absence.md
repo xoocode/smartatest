@@ -1,4 +1,4 @@
-# Establishing that something is not published
+# A missing specification is our research, not the source's silence
 
 Read this the moment you are about to write that a fact is missing. Not before,
 not after. The trigger is the sentence, not the phase.
@@ -9,11 +9,29 @@ The trigger phrases, in any field, in any file:
 > saknas · är okänd · Ej angiven · inget pris · ingen uppgift · ingenstans ·
 > ingen tillverkare anger · ingen av testerna nämner*
 
-Writing one of those is not a writing decision. **It is a research task that
-has not been done yet.** Every one of them is a falsifiable claim about the
-world, published in our name, and a reader with thirty seconds and a search box
-can prove it wrong. On 2026-08-05 we checked ten of them. Seven were false, one
-was unprovable as written, and two held up.
+**The default assumption is that we have not found it yet.** Not that the
+manufacturer failed to publish it. That is not humility, it is the base rate:
+of 20 such claims checked across six pages in August 2026, **11 were false**,
+and in four of those the answer sat in a document our own data already linked.
+The `/avfuktare` correction says it in one line — *felet låg i vår research*.
+
+Three consequences, and they are the whole file:
+
+1. **A gap never lowers a score.** A deduction must answer to something the
+   product does. See `check:avdrag`.
+2. **A gap never reaches the reader.** No con, no tagline, no verdict sentence,
+   no FAQ answer. The table cell renders as a dash and says nothing, which is
+   correct, because we have nothing to say.
+3. **A gap is not a finding to report.** It goes in `.agent/research/{slug}.md`
+   with the rungs you tried and the date, and nowhere else. Do not raise it as a
+   blocker, do not headline it in a summary, do not write a paragraph about it.
+   It is a routine outcome of an incomplete search.
+
+The one thing that is *not* a specification gap: a **condition of purchase** the
+buyer also runs into. A price you cannot get without a salesman in your living
+room is established positively — you tried to buy and were stopped — and it is a
+property of the offer. That is `/hemlarm`, and it is the only shape that earns a
+sentence in reader text.
 
 ---
 
@@ -186,37 +204,52 @@ seven: Gardio, Aqara, Delock, both Linocells, the Cleverio and Garda.
 
 ---
 
-## How to write it when it really is missing
+## When the ladder comes up empty
 
-Two of the ten claims were true. One of them was well written:
+**You write nothing.** That is the whole instruction, and it is a change from
+how this file read until 2026-08-06.
 
-> "Inget pris publicerat **på den sida vi läst**."
+The old version taught how to phrase an absence well — *"Inget pris publicerat
+på den sida vi läst"*, naming the boundary of what you checked. The phrasing was
+careful and it was still the wrong move, because it teaches that a search which
+came up empty is publishable if you hedge it precisely enough. It is not. It is
+a search that came up empty, and the honest number says it is more likely our
+failure than the manufacturer's.
 
-That formulation stays true even if a price exists elsewhere. It tells the
-reader exactly how much weight to give it. It costs four words.
+So:
 
-The other true one was not:
+- **The cell** gets `Ej angiven` and renders as a dash. Silent, and correct.
+- **The score** is left out of the arithmetic rather than set at the bottom.
+  If the product cannot be placed on the scale at all, it belongs in the
+  considered list, not in the ranking.
+- **The prose** is about something else. There is always something else: what it
+  does, what it costs, who it suits, what separates it from the one beside it.
+- **The research file** gets the rungs — which URLs, which documents, which
+  searches, on what date. That is the only place it goes.
 
-> "Inget pris publicerat, hela erbjudandet går via offertförfrågan."
+That last one is not bookkeeping. It is what lets the next agent tell
+checked-and-still-missing from never-looked, and it is the distinction this
+whole file exists to protect.
 
-Both describe the same situation. The first is defensible; the second is a
-claim about a company's entire web presence made from one page.
+### The one exception, and it is not a specification
 
-**Name the boundary of what you checked.** Not as a hedge — as the finding.
-"Priset står i butiken men inte på de två sidor som förklarar larmet" is more
-useful to a buyer than either "publiceras inte" or a nervous "vi hittade inte".
+A **condition of purchase** the buyer hits too. An alarm price that requires a
+salesman in your living room is established positively: you tried to get it and
+were stopped, and that is a property of the offer rather than a hole in our
+notes. It earns **one sentence**, never a paragraph and never the spine of a
+review.
 
-And when the ladder comes up empty, record the rungs in
-`.agent/research/{slug}.md`: which URLs, which documents, which searches, on
-what date. The next agent then knows the difference between checked-and-absent
-and never-looked, which is the distinction this whole file exists to protect.
+The test is not "is this interesting". It is: *did it stop the buyer, or did it
+only stop us?*
 
 ---
 
 ## Evidence
 
-`.agent/research/pastaenden-kontroll-2026-08-05.md` — the ten claims, what was
-true, where the fact actually lived, and why we missed it each time.
+`.agent/research/pastaenden-kontroll-2026-08-05.md` — the first ten claims, what
+was true, where the fact actually lived, and why we missed it each time. The
+running total to 2026-08-06 is **20 checked, 11 false**, across /usb-c-laddare,
+/brandstege, /iphone-skarmskydd, /hemlarm, /luftrenare and /smart-termostat.
 
 `.agent/pastaenden-om-franvaro.md` — the standing inventory of every absence
 claim in `lib/data`, with file, product and field. 65 of them as of

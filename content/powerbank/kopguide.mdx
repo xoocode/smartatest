@@ -6,8 +6,9 @@ En powerbank på 10 000 mAh mot en telefon med 4 000 mAh ser ut som två och en
 halv laddningar på papperet. I praktiken blir det ungefär två.
 
 Skälet är att de två talen inte mäts vid samma spänning. Powerbankens
-milliamperetimmar gäller cellen vid dess egen spänning, omkring 3,6 till 3,7
-volt. Telefonen laddas vid 5 volt eller mer, och omvandlingen dit kostar energi.
+milliamperetimmar gäller cellen vid dess egen spänning, någonstans mellan 3,6
+och 3,85 volt beroende på modell. Telefonen laddas vid 5 volt eller mer, och
+omvandlingen dit kostar energi.
 En del försvinner dessutom som värme i kabeln, i elektroniken och i telefonens
 eget batteri.
 
@@ -18,23 +19,32 @@ här:
 - **10 000 mAh** ≈ två
 - **20 000 mAh** ≈ fyra
 
-## Wattimmen är talet du saknar
+## Wattimmen är talet att jämföra på
 
 Milliamperetimmar mäter laddningsmängd vid en viss spänning. Wattimmar mäter
 energi, och det är energin som avgör hur mycket som faktiskt kan komma ut.
 
-Omräkningen är enkel: kapaciteten i amperetimmar gånger cellspänningen.
-10 000 mAh vid 3,7 volt blir 37 wattimmar.
+Omräkningen ser enkel ut: kapaciteten i amperetimmar gånger cellspänningen.
+Problemet är att cellspänningen inte är en konstant, och det syns rakt igenom
+den här jämförelsen.
 
-Det tal du behöver är alltså inte svårt att räkna fram, men det bör inte vara
-du som räknar det. Av de åtta powerbanks som jämförs här anger två sitt
-energiinnehåll i wattimmar: <ProductRef id="anker-nano-30w-10000" /> med 37 Wh
-och <ProductRef id="linocell-premium-30w-10000" /> med 36 Wh.
+Fyra av produkterna heter 10 000 mAh:
 
-**Notera att de två inte är överens.** Samma nominella tiotusen, en wattimmes
-skillnad, därför att cellspänningen skiljer sig. Det är precis varför en
-uträknad siffra inte är samma sak som en publicerad, och varför vi låter cellen
-stå tom för de sex som inte anger något.
+| Powerbank | Cellspänning | Energiinnehåll |
+|---|---|---|
+| <ProductRef id="linocell-premium-30w-10000" /> | 3,6 V | 36 Wh |
+| <ProductRef id="anker-nano-30w-10000" /> | 3,7 V | 37 Wh |
+| <ProductRef id="linocell-10000-20w" /> | 3,7 V | 37 Wh |
+| <ProductRef id="linocell-magnetisk-10000" /> | 3,85 V | 38,5 Wh |
+
+**Sju procent skiljer ytterligheterna**, bakom ett tal som är identiskt på alla
+fyra förpackningarna. Det är ungefär en tiondels telefonladdning, alltså inte
+avgörande i sig. Men det gör milliamperetimmen oanvändbar som jämförelsemått
+mellan märken, och det gör en egen uträkning osäker på just den marginal som
+skiljer två modeller åt.
+
+Titta därför på wattimmen när den finns, och behandla milliamperetimmen som en
+grov storleksklass snarare än ett mätvärde.
 
 ## Därför spelar wattimmen roll vid gaten
 
@@ -53,10 +63,11 @@ Två saker är värda att ta med sig.
 inte i necessären i den väska du lämnar vid incheckningen. Regeln gäller alla
 storlekar, och den är den vanligaste anledningen till att en väska öppnas.
 
-**Gränsen mäts i wattimmar**, alltså i det tal som sällan står på kartongen. I
-den här storleksklassen är det ingen praktisk risk: 5 000 till 10 000 mAh blir
-18 till 37 wattimmar och ligger tryggt under varje gräns. Men den som går upp i
-storlek ska räkna, för runt 27 000 mAh passeras hundragränsen.
+**Gränsen mäts i wattimmar**, alltså i det tal som sällan står på kartongen
+men nästan alltid i manualen. I den här storleksklassen är det ingen praktisk
+risk: 5 000 till 10 000 mAh blir 18,5 till 38,5 wattimmar och ligger tryggt
+under varje gräns. Men den som går upp i storlek ska räkna, för runt 27 000 mAh
+passeras hundragränsen.
 
 ## Watt är fart, och den finns åt två håll
 
@@ -71,12 +82,10 @@ underskatta.
 - **45 watt och uppåt.** Räcker till en lättare bärbar dator
 
 **Ineffekten** avgör hur fort powerbanken själv laddas, och den glöms nästan
-alltid bort. En bank som tar tre till fyra timmar att fylla står ofta tom när du
-ska iväg, medan en som fyller sig på två hinner bli klar under en kväll eller en
-lunch.
-
-Har enheten flera portar delar de dessutom oftast på en gemensam maxeffekt. Två
-telefoner samtidigt laddas alltså långsammare än en.
+alltid bort. Spannet bland de åtta här är dubbelt: två timmar för de snabbaste,
+fyra för <ProductRef id="linocell-10000-20w" />. En bank som tar fyra timmar
+står ofta tom när du ska iväg, medan en som fyller sig på två hinner bli klar
+under en kväll eller en lunch.
 
 ## Leta efter PD
 
@@ -96,19 +105,21 @@ det gamla i byrålådan.
 En powerbank som ligger hemma laddar ingenting, och det är vikten som avgör om
 den hamnar i fickan.
 
-Spannet i den här klassen är större än man tror.
-<ProductRef id="linocell-magnetisk-5000" /> väger 128 gram och
-<ProductRef id="linocell-magnetisk-10000" /> väger 200. Det är mer än en halv
-telefon i skillnad, och den skillnaden känns varje dag i en jackficka.
+Spannet i den här klassen är dubbelt. <ProductRef id="linocell-5000" /> väger
+120 gram och <ProductRef id="linocell-premium-30w-10000" /> väger 240. Det är
+en hel telefon i skillnad, och den skillnaden känns varje dag i en jackficka.
 
-Tjockleken spelar lika stor roll som vikten.
+Tjockleken spelar lika stor roll som vikten, och den följer inte vikten.
 <ProductRef id="anker-maggo-slim-5k" /> är 8,6 millimeter, alltså tunn nog att
-sitta på telefonens baksida utan att paketet blir obekvämt. En bank på 21
-millimeter gör det inte.
+sitta på telefonens baksida utan att paketet blir obekvämt.
+<ProductRef id="anker-nano-45w-10000" /> väger bara hundra gram mer men är 36
+millimeter tjock, alltså fyra gånger så djup. Den ena går ner i ett innerfack,
+den andra kräver en väska.
 
-⚠️ Vikten går inte alltid att läsa före köpet. Fem av de åtta produkterna här
-saknar viktuppgift i butiken, vilket är svårt att förstå i en produktkategori
-där bärbarhet är hela poängen.
+Grovt sett: en powerbank på 5 000 mAh väger 120 till 130 gram och en på 10 000
+väger 200 till 240. Vill du ha dubbelt så mycket ström får du bära dubbelt så
+mycket batteri, och det finns ingen modell i den här klassen som kommer undan
+den regeln.
 
 ## Magnetiskt eller med sladd
 
@@ -155,31 +166,52 @@ laddar och laddas samtidigt, och värme är det som sliter mest på ett
 litiumjonbatteri. Och själva banken fylls långsammare, eftersom en del av
 effekten går rakt igenom.
 
-## Vad du inte får veta, och vad det kostar dig
+## Trådlöst är inte en hastighet, det är två
 
-Redovisningen i den här kategorin är ojämn på ett sätt som är värt att känna
-till innan du jämför prislappar.
+Ordet *magnetisk* på en powerbank säger ingenting om hur fort den laddar, och
+skillnaden mellan de två generationerna är dubbel.
 
-Tre av de åtta produkterna här har ingen teknisk specifikation alls hos
-butiken. Två av dem är kategorins mest köpta, med 303 respektive 222 kundbetyg.
-För dem går varken vikt, mått, portar, laddtid eller wattimmar att läsa före
-köpet.
+**Qi2** är den nyare standarden och ger 15 watt mot en iPhone.
+<ProductRef id="anker-maggo-slim-5k" /> är den enda Qi2-certifierade i den här
+jämförelsen.
 
-Det gör inte produkterna dåliga. Det gör dem omöjliga att jämföra, och det är
-en verklig kostnad som bärs av dig och inte av butiken. Ett högt kundbetyg
-säger att många blivit nöjda, men inte om enheten ryms i din ficka.
+**De äldre magnetfästena** ger 7,5 watt mot en iPhone, även när produktbladet
+anger 10 eller 15 watt. Det högre talet gäller andra telefoner; iPhone får
+hälften. Både <ProductRef id="linocell-magnetisk-10000" /> och
+<ProductRef id="linocell-magnetisk-5000" /> ligger där.
 
-⚠️ Värt att veta om guiderna du läser: butikernas egna jämförelser är inte
-neutrala mätpunkter. Kjells egen guide med "bäst i test" i rubriken är 1 265 ord
-lång och nämner varken wattimmar eller flygregler.
+Praktiskt betyder det att en Qi2-bank fyller din iPhone dubbelt så fort utan
+sladd som en äldre magnetisk gör. Ska magneten vara mer än en bekvämlighet är
+det Qi2 du ska leta efter, och står det inte Qi2 kan du räkna med 7,5 watt.
+
+Kabeln är fortfarande snabbare än båda. De magnetiska modellerna här ger 12 till
+20 watt via USB-C, alltså mellan en och en halv och tre gånger så fort som
+fästet.
+
+## Summan är inte alltid delarna
+
+En powerbank med två uttag laddar sällan två saker i full fart, och skillnaden
+är större än man tror.
+
+<ProductRef id="linocell-10000-20w" /> ger 20 watt via USB-C och 18 via USB-A,
+men **max 15 watt totalt** när båda används samtidigt. Två telefoner får alltså
+7,5 watt var, vilket är långsammare än den enklaste laddaren i väggen.
+
+<ProductRef id="anker-nano-45w-10000" /> ger 45 watt på ett uttag, men 7,5 watt
+per uttag när alla tre används. Det höga talet på förpackningen gäller en enhet
+i taget.
+
+Ska du kunna ladda din och någon annans telefon samtidigt utan att båda blir
+långsamma är det totaleffekten du ska titta på, inte den högsta siffran.
 
 ## Hur länge den håller
 
-Ett litiumjonbatteri åldras av laddcykler och av värme.
+Ett litiumjonbatteri åldras av laddcykler och av värme, och kapaciteten sjunker
+gradvis snarare än plötsligt.
 
-Tillverkare anger ibland hur många cykler cellen klarar innan kapaciteten fallit
-till 80 procent. **Ingen av produkterna i den här jämförelsen anger något sådant
-tal**, så livslängden går inte att jämföra mellan modellerna.
+Flera av modellerna här stänger själva av utmatningen om cellen blir för varm.
+Det skyddar batteriet på sikt, men betyder också att en powerbank som legat i
+solen laddar sämre just då.
 
 Det du själv gör spelar större roll än märket:
 

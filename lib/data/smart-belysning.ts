@@ -19,11 +19,18 @@ import { productImage } from "@/lib/images";
  * apply to any Adtraction program until at least 16 pages exist. See
  * lib/links.ts.
  *
- * ## testomdome, infört retroaktivt 2026-08-01
+ * ## testomdome, infört retroaktivt 2026-08-01, omräknat 2026-08-06
  *
  * Tre av fem lampor saknar ett publicerat omdöme om just den modell vi rankar,
- * och fältet utelämnas då i stället för att gissas. `weightedRating` fördelar
- * om vikten och sidan skriver "Ej testat" på raden.
+ * och fältet utelämnas då i stället för att gissas. Sidan skriver "Ej testat"
+ * på raden.
+ *
+ * ⚠️ **Sidan skickar `redistributeMissing: false`.** Förvalet fördelar om det
+ * saknade kriteriets vikt på de övriga, och det vände rankningen: kriteriet
+ * väger 15, tre av fem lampor saknade det, och de billigaste passerade Råd &
+ * Röns testvinnare på 85 viktpoäng mot Hues 100. KAJPLATS landade på 4,48 mot
+ * Hues 4,09 utan att ha vunnit ett enda kriterium den mätts på. Summan räknas
+ * därför mot full vikt här. Se lib/products.ts.
  *
  * Två av utelämnandena beror på att testet gäller en **annan produkt** än den
  * som namnet antyder, vilket är lätt att missa:
@@ -31,9 +38,47 @@ import { productImage } from "@/lib/images";
  * - Ljud & Bild testar "Nanoleaf **Lines**", en ljusstav, inte Essentials E27.
  * - Tek.no testar "TP-Link **LB120**", inte Tapo L530E.
  *
- * Det tredje, IKEA, är ett generationsproblem: Tek.no 2017 och Dinside 2019
- * handlar om Trådfri-systemet i dess första år, inte om dagens TRÅDFRI E27 med
- * vitt spektrum. Se motiveringen i lib/categories.ts.
+ * Det tredje är KAJPLATS, som är för ny för att någon ska ha hunnit prova den.
+ *
+ * ## KAJPLATS ersatte TRÅDFRI 2026-08-06
+ *
+ * Sidan rankade fram till dess `TRÅDFRI E27 806 lm vitt spektrum` och skrev på
+ * fyra ställen att IKEA inte längre säljer en färgad E27. Det stämde inte:
+ * IKEA har bytt serie. `KAJPLATS LED ljuskälla E27 1055 lumen, smart färgat
+ * och vitt spektrum` kostar 99 kronor, har färgåtergivning 90, 0,2 W i
+ * viloläge och Matter över Thread. TRÅDFRI-drivaren är märkt "Utgår inom
+ * kort". Se lib/corrections.ts.
+ *
+ * ## Färgåtergivning och R9, hämtade ur EPREL 2026-08-06
+ *
+ * Kriteriet väger tyngst på sidan och saknade rad i tabellen.
+ *
+ * ⚠️ **Butikens PIM räcker inte.** Nanoleafs tal togs först ur Proshop, som
+ * angav 1 100 lm, CRI 90, 0,5 W vila och 8,5 W. Tillverkarens egen
+ * EU-registrering säger 806 lm, CRI 91, 0,3 W och 9 W. Fyra fel i en post.
+ * Gå till EPREL, inte till butiken.
+ *
+ *   Lampa      CRI   R9    ɸuse     Vila     EPREL
+ *   Nanoleaf    91    52    806 lm   0,3 W    1343226  (modell NL67E200)
+ *   KAJPLATS    90    40  1 055 lm   0,2 W    2320819  (modell LED2405G8)
+ *   Hue         80     0  1 055 lm   0,50 W   1522883
+ *   WiZ         80     0    806 lm   0,50 W   1421108
+ *   Tapo        80     —    806 lm   0,37 W   1438602
+ *
+ * Ljusflödet är användbart ljusflöde (ɸuse) enligt EU 2019/2015 för alla fem,
+ * alltså ett mått. Kjell anger marknadsföringstalet 1 100 lm vid 4 000 K för
+ * Hue; registreringen säger 1 055.
+ *
+ * R9 är det röda indexet och avgör om kött, tegel och hudton ser rätt ut. Ett
+ * högt CRI kan dölja ett uselt R9, vilket är precis vad Signify deklarerar för
+ * både Hue och WiZ. IKEA publicerar inget R9. TP-Link deklarerar **två olika**
+ * för samma modell, 0 i EPREL 1438602 och 2303207 mot 8 i 2567631 och 1579394,
+ * så den cellen är ett streck.
+ *
+ * Icecat gick inte att använda: vår nyckel ger bara Open Icecat, och Nanoleaf
+ * är inte sponsrat varumärke där. EPREL:s API svarar 403 på curl men fungerar
+ * inifrån en webbläsarsession, med
+ * `?genericField=MODEL_IDENTIFIER&modelIdentifier=…`.
  *
  * ⚠️ Utmärkelserna bakom Hues och WiZ betyg är matchade på **modellnamn, inte
  * GTIN**. Råd & Rön skriver "Hue White and color ambiance" och "Wiz E27 A60
@@ -62,10 +107,13 @@ const SEEDS: ProductSeed[] = [
     brand: "Philips Hue",
     name: "Color Ambiance E27 1100 lm",
     image: productImage(SMART_BELYSNING.slug, "philips-hue-color-ambiance-e27"),
-    tagline:
-      "Dyrast per lampa, men färgåtergivningen och appen är fortfarande i en egen klass.",
+    tagline: "Går ner till 2 000 kelvin, varmare kvällsljus än någon annan lampa.",
     scores: {
-      fargatergivning: 5,
+      /* 3,0 sedan EPREL 1522883 hämtades 2026-08-06: CRI 80 och R9 0, alltså
+         inget rött alls i det deklarerade värdet. Kriteriet väger också in
+         färgtemperaturomfånget, och 2 000–6 500 K är bredast av de fem, vilket
+         är skälet att den ändå ligger över WiZ på samma CRI. */
+      fargatergivning: 3,
       dimring: 5,
       anslutning: 5,
       /* Råd & Rön: "får också högst samlat betyg i testet och vi utser den
@@ -73,8 +121,13 @@ const SEEDS: ProductSeed[] = [
          både TechRadar och Expert Reviews är positiva. Det tyngsta underlaget
          för någon enskild produkt i hela projektet. */
       testomdome: 5,
+      /* 5,0: 1 055 lm användbart ljusflöde enligt EPREL 1522883, delad högst
+         med KAJPLATS. Kriteriet räknar på samma mått för alla fem. */
       ljusstyrka: 5,
-      prisvarde: 2.5,
+      prisvarde: 2,
+      /* PstLM 1,0 enligt EPREL 1522883. Gränsen är 1,0.
+         Exakt på gränsvärdet, se kriteriets beskrivning. */
+      flimmer: 2.5,
     },
     price: 599,
     priceCheckedAt: PRICE_CHECKED,
@@ -82,26 +135,37 @@ const SEEDS: ProductSeed[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/smarta-hem/philips-hue/philips-hue-ljuskallor/philips-hue-color-ambiance-smart-led-lampa-e27-1100-lm-p51501",
     award: "winner",
-    superlative: "Bäst i test",
+    superlative: "Bäst för många lampor",
     pros: [
-      "Renaste färgåtergivningen av lamporna här",
-      "Zigbee håller anslutningen även genom betongvägg",
+      "Går ner till 2 000 K, alltså levande ljus, och ingen av de andra kommer under 2 200",
+      "Zigbee-nätet blir stabilare ju fler lampor du sätter upp, tvärtemot wifi",
       "Fungerar med Google, Alexa, HomeKit och Matter via bryggan",
     ],
     cons: [
-      "Nästan sex gånger priset på billigaste alternativet",
-      "Kräver bryggan för fjärrstyrning och scheman",
+      "Färgåtergivning 80, tio steg under IKEA KAJPLATS som kostar en sjättedel",
+      "Rött index 0 i Philips egen deklaration, mot Nanoleafs 52. Rött och hudton faller platt",
+      "Bryggan krävs för scheman och fjärrstyrning, och kostar utöver lampan",
     ],
     specs: [
-      { label: "Ljusflöde", shortLabel: "Lumen", value: "1 100 lm", highlight: true },
+      /* Samtliga fem tal är användbart ljusflöde (ɸuse) enligt EU 2019/2015,
+         alltså mätt likadant. EPREL 1522883, hämtad 2026-08-06. Kjell anger
+         marknadsföringstalet 1 100 lm vid 4 000 K och 800 lm vid 2 700 K. */
+      { label: "Ljusflöde", shortLabel: "Lumen", value: "1 055 lm", highlight: true },
+      /* EPREL 1522883: colourRenderingIndex 80, r9ColourRenderingIndex 0. */
+      { label: "Färgåtergivning", shortLabel: "CRI", value: "80", highlight: true },
+      { label: "Flimmer", shortLabel: "PstLM", value: "1,0", highlight: true },
+      { label: "Rött index", shortLabel: "R9", value: "0", highlight: true },
       { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 000–6 500 K", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Zigbee + Bluetooth", highlight: true },
+      /* powerStandbyNetworked, EPREL 1522883. */
+      { label: "Viloförbrukning", shortLabel: "Vila", value: "0,50 W", highlight: true },
+      { label: "Märklivslängd", shortLabel: "Livslängd", value: "25 000 h", highlight: true },
       { label: "Sockel", value: "E27" },
-      { label: "Effekt", value: "9 W" },
+      { label: "Effekt", value: "11 W" },
       { label: "Matter", value: "Via Hue Bridge" },
     ],
     verdict:
-      "Hue kostar mest per lampa och behöver dessutom bryggan för att bli riktigt användbar. Ändå hamnar den överst. Testerna är påfallande eniga om två saker: färgerna är renare än hos konkurrenterna, och anslutningen är den som håller när lamporna blir många. Ska du ha fem lampor är prisskillnaden hanterbar. Ska du ha trettio är det en annan diskussion.",
+      "Philips Hue Color Ambiance går ner till 2 000 kelvin, alltså levande ljus, och ingen av de andra lamporna kommer under 2 200. Den kostar 599 kronor och är dyrast av de fem.\n\nZigbee är det som bär den. Lamporna bildar ett eget nät där var och en reläar åt de andra, så uppkopplingen blir stabilare ju fler du sätter upp, medan Wi-Fi-lamporna börjar tappa runt tio enheter på samma router. Dimringen går hela vägen ner utan att blinka, vilket är precis där de billigare lamporna börjar synas på kvällen. **Råd & Rön utser den till Bäst i test och Tek.no gav den samma placering i sitt samlingstest.**\n\nFärgåtergivningen står däremot inte i proportion till priset. Philips deklarerar CRI 80, samma tal som WiZ för 129 kronor och tio steg under IKEA KAJPLATS. Värre är det röda indexet: **Philips anger R9 till 0, medan Nanoleaf anger 52 för en lampa som kostar en tredjedel.** R9 är just det som avgör om kött, tegel och hudton ser rätt ut, och ett högt CRI kan dölja ett uselt R9.\n\nSka ljuset i hela hemmet vara smart är det ändå den här du ska ha. Trettio lampor på Zigbee fungerar den dag trettio lampor på wifi har slutat göra det, och det är den skillnaden pengarna köper.",
   },
   {
     id: "nanoleaf-essentials-e27",
@@ -109,56 +173,86 @@ const SEEDS: ProductSeed[] = [
     name: "Essentials Smart E27 (Matter)",
     shortName: "Essentials E27 Matter",
     image: productImage(SMART_BELYSNING.slug, "nanoleaf-essentials-e27"),
-    tagline: "Matter över Thread rakt av, utan brygga och utan omvägar.",
+    tagline: "Ligger i Apple, Google, Alexa och SmartThings samtidigt.",
     scores: {
+      /* CRI 91 och R9 52 enligt EPREL 1343226 för modell NL67E200, hämtad
+         2026-08-06. Bäst rött index av de tre som deklarerar ett. Stannar på
+         4,5 eftersom kriteriet även väger färgtemperaturomfånget, och 2 700 K
+         är den varmaste punkt lampan når. KAJPLATS går ner till 2 200. */
       fargatergivning: 4.5,
       dimring: 4,
       anslutning: 5,
       /* testomdome utelämnas: Ljud & Bild testar Nanoleaf Lines, en ljusstav,
          inte Essentials E27. Ingen oberoende part har testat vår modell. */
-      ljusstyrka: 4.5,
-      prisvarde: 4,
+      /* 3,5 sedan 2026-08-06. Låg på 4,5 med 1 100 lm ur Proshops PIM. EPREL
+         1343226 anger 806 lm användbart ljusflöde, alltså samma som WiZ och
+         Tapo och 250 under KAJPLATS. Butikens PIM hade fel. */
+      ljusstyrka: 3.5,
+      /* 3,5 av samma skäl: 232 kronor för samma 806 lm som WiZ ger för 129. */
+      prisvarde: 3.5,
+      /* PstLM 0,1 enligt EPREL 1343226. Gränsen är 1,0.
+         En tiondel av det tillåtna. */
+      flimmer: 5,
     },
     price: 232,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Proshop",
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Nanoleaf-Essentials-Smart-E27-Bulb-Matter/3170357",
-    superlative: "Bäst för Thread-hem",
+    superlative: "Bäst för blandade ekosystem",
     pros: [
-      "Matter över Thread utan brygga",
-      "Svarar nästan omedelbart med en Thread border router",
-      "Fungerar i alla fyra ekosystem samtidigt",
+      "Rött index 52, bäst av de tre lampor som deklarerar ett. Hue och WiZ anger 0",
+      "Färgåtergivning 91, högst av alla fem",
+      "Ligger i Apple Home, Google Home, Alexa och SmartThings samtidigt",
     ],
     cons: [
-      "Kräver en Thread border router för full nytta",
-      "Appen är rörigare än Hues",
+      "806 lumen för 232 kronor, alltså samma ljus som WiZ ger för 129",
+      "Går inte varmare än 2 700 K, så kvällsljuset blir aldrig levande-ljusvarmt",
+      "Utan en Thread border router faller den till Bluetooth och tappar sin fördel",
     ],
     specs: [
-      { label: "Ljusflöde", shortLabel: "Lumen", value: "1 100 lm", highlight: true },
+      /* EPREL 1343226 för modell NL67E200, hämtad 2026-08-06. Proshops PIM
+         angav 1 100 lm, 90 i CRI, 0,5 W vila och 8,5 W effekt. Fyra av de
+         talen stämde inte mot tillverkarens egen registrering. */
+      { label: "Ljusflöde", shortLabel: "Lumen", value: "806 lm", highlight: true },
+      { label: "Färgåtergivning", shortLabel: "CRI", value: "91", highlight: true },
+      { label: "Flimmer", shortLabel: "PstLM", value: "0,1", highlight: true },
+      { label: "Rött index", shortLabel: "R9", value: "52", highlight: true },
       { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 700–6 500 K", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Thread + Matter", highlight: true },
+      { label: "Viloförbrukning", shortLabel: "Vila", value: "0,3 W", highlight: true },
+      { label: "Märklivslängd", shortLabel: "Livslängd", value: "25 000 h", highlight: true },
       { label: "Sockel", value: "E27" },
-      { label: "Effekt", value: "8,5 W" },
+      { label: "Effekt", value: "9 W" },
       { label: "Matter", value: "Inbyggt" },
     ],
     verdict:
-      "En av få lampor som kör Matter över Thread utan mellanled. Har du en HomePod, Apple TV, nyare Nest Hub eller Dirigera hemma har du redan den border router som krävs, och då svarar lampan snabbare än Wi-Fi-alternativen. Har du ingen faller den tillbaka på Bluetooth och tappar det mesta av sin fördel.",
+      "Nanoleaf Essentials kör Matter över Thread utan mellanled och kostar 232 kronor. Den är lampan med bäst färgkvalitet på sidan, mätt på det tal som faktiskt skiljer.\n\nCRI ligger på 91, högst av alla fem. **Viktigare är rött index: Nanoleaf deklarerar 52, medan Philips och WiZ anger 0.** R9 avgör om kött, tegel och hudton ser levande ut eller gråa, och det är den enda siffran som skiljer en dyr vit lampa från en billig. Har du en HomePod, Apple TV, nyare Nest Hub eller Dirigera hemma har du redan den border router som krävs, och lampan ligger då i Apple Home, Google Home, Alexa och SmartThings samtidigt.\n\nLjuset räcker däremot inte till priset. 806 lumen är samma som WiZ ger för 129 kronor och 250 mindre än IKEA ger för 99, och lampan går inte varmare än 2 700 K, så levande-ljusvarmt på kvällen får du inte.\n\nBor du i ett kök eller ett matrum där färgerna på tallriken spelar roll är den värd mellanskillnaden. Ska den bara lysa upp ett rum betalar du 133 kronor extra mot IKEA för mindre ljus.",
   },
   {
     id: "tp-link-tapo-l530e",
     brand: "TP-Link",
     name: "Tapo L530E RGBW E27",
     image: productImage(SMART_BELYSNING.slug, "tp-link-tapo-l530e"),
-    tagline: "Wi-Fi direkt i lampan. Smidigt i början, trängre vid tolfte lampan.",
+    tagline: "I gång på två minuter, och den mäter själv vad den drar.",
     scores: {
-      fargatergivning: 3.5,
+      /* 3,0 sedan CRI hämtades 2026-08-06: TP-Link anger ≥80 på sin
+         specifikationsflik, alltså samma golv som Hue och WiZ, och omfånget
+         stannar vid 2 500 K i den varma änden. */
+      fargatergivning: 3,
       dimring: 3.5,
       anslutning: 3.5,
       /* testomdome utelämnas: Tek.no testar TP-Link LB120, inte Tapo L530E.
          Det omdömet ("Svakt") gäller en annan lampa och får inte smittas hit. */
-      ljusstyrka: 4,
-      prisvarde: 4,
+      /* 3,5 och inte 4,0 sedan ljusstyrkan räknas på varmvitt ljus: 806 lm
+         mot KAJPLATS 1 055 vid samma färgtemperatur. */
+      ljusstyrka: 3.5,
+      /* 3,5 och inte 4,0: 299 kronor är tre gånger KAJPLATS pris för färre
+         lumen, lägre CRI och utan Matter. */
+      prisvarde: 3.5,
+      /* PstLM 0,1 enligt EPREL 1438602. Gränsen är 1,0.
+         En tiondel av det tillåtna. */
+      flimmer: 5,
     },
     price: 299,
     priceCheckedAt: PRICE_CHECKED,
@@ -167,69 +261,115 @@ const SEEDS: ProductSeed[] = [
       "https://www.power.se/smart-home/smart-belysning/smarta-glodlampor/tp-link-tapo-l530e-rgbw-smart-ljuskalla-e27/p-1173881/",
     superlative: "Enklast att komma igång med",
     pros: [
-      "Ingen brygga behövs",
-      "Tydlig app med bra schemaläggning",
-      "Inbyggd energimätning",
+      "Skruva i, öppna appen, klart. Varken brygga eller border router",
+      "Mäter själv vad lampan drar, vilket ingen av de andra gör",
+      "Schemaläggningen går att ställa in utan att gissa sig fram",
     ],
     cons: [
-      "Belastar wifi-nätet när lamporna blir många",
-      "Märkbar fördröjning vid röststyrning",
+      "Inget Matter, så den fungerar så länge TP-Link driver sin molntjänst. Vill du ha Matter från TP-Link heter lampan L535E",
+      "806 lumen och färgåtergivning 80 för 299 kronor, mot IKEA:s 1 055 och 90 för 99 kronor",
+      "Varje lampa tar en plats på wifi-nätet, och runt tio enheter börjar en vanlig router klaga",
     ],
     specs: [
       { label: "Ljusflöde", shortLabel: "Lumen", value: "806 lm", highlight: true },
+      /* tapo.com och EPREL 1438602 för Tapo L530E 3.0 anger båda 80. */
+      { label: "Färgåtergivning", shortLabel: "CRI", value: "80", highlight: true },
+      { label: "Flimmer", shortLabel: "PstLM", value: "0,1", highlight: true },
+      /* TP-Links fyra EU-registreringar av samma modell säger emot varandra:
+         1438602 och 2303207 anger R9 0, medan 2567631 och 1579394 anger 8. En
+         tillverkare som deklarerar två värden för en produkt har inte gett oss
+         ett. Cellen är ett streck. Se .agent/research/smart-belysning.md. */
+      { label: "Rött index", shortLabel: "R9", value: "Ej angiven", highlight: true },
       { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 500–6 500 K", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi 2,4 GHz", highlight: true },
+      /* powerStandbyNetworked 0,37 W i samtliga fyra EPREL-poster. TP-Links
+         eget datablad avrundar till 0,4 W. */
+      { label: "Viloförbrukning", shortLabel: "Vila", value: "0,37 W", highlight: true },
+      { label: "Märklivslängd", shortLabel: "Livslängd", value: "25 000 h", highlight: true },
       { label: "Sockel", value: "E27" },
       { label: "Effekt", value: "8,7 W" },
       { label: "Matter", value: "Nej" },
     ],
     verdict:
-      "Den enklaste vägen in: skruva i, öppna appen, klart. Priset du betalar kommer senare. Varje lampa tar en plats på nätverket, och runt tio enheter börjar en vanlig router klaga. Saknar dessutom Matter, vilket gör den beroende av att TP-Link fortsätter driva sin molntjänst.",
+      "TP-Link Tapo L530E ansluter direkt till wifi och är i gång på två minuter. Den kostar 299 kronor och ger 806 lumen.\n\nAppen är den mest genomarbetade av Wi-Fi-lamporna, och schemaläggningen går att ställa in utan att gissa vad reglagen gör. Lampan mäter dessutom vad den själv drar, vilket ingen av de andra fyra gör. Undrar du vad belysningen kostar dig i kronor är det här lampan som svarar.\n\nDen saknar Matter, och det är den dyra bristen. Lampan fungerar så länge TP-Link driver sin molntjänst, och den dagen du vill flytta den till Apple Home eller SmartThings går det inte. För 299 kronor får du dessutom 806 lumen och färgåtergivning 80, mot 1 055 lumen och 90 hos IKEA för 99 kronor. TP-Link deklarerar dessutom två olika röda index för samma lampa i sina fyra EU-registreringar, 0 i två och 8 i två, så det talet går inte att luta sig mot.\n\nVill du ha en TP-Link-lampa med Matter heter den L535E och ger 1 055 lumen. Den här är svår att motivera i dag om du inte redan har halva hemmet i Tapo-appen.",
   },
   {
-    id: "ikea-tradfri-e27",
-    userRating: { value: 3.3, count: 7, checkedAt: PRICE_CHECKED },
+    id: "ikea-kajplats-e27-farg",
+    /* ikea.se, läst 2026-08-06. Sidans lägsta kundbetyg, och lågt nog att stå
+       i omdömet. Vad de 148 klagar på går inte att läsa: IKEA laddar
+       recensionstexterna med JavaScript och de kom inte med i någon rung. */
+    userRating: { value: 3.1, count: 148, checkedAt: "2026-08-06" },
     brand: "IKEA",
-    name: "TRÅDFRI E27 806 lm, vitt spektrum",
-    shortName: "TRÅDFRI E27 806 lm",
-    image: productImage(SMART_BELYSNING.slug, "ikea-tradfri-e27"),
-    tagline: "Billigast per lumen, men färgversionen finns inte längre.",
+    name: "KAJPLATS E27 1055 lm, färgat och vitt spektrum",
+    shortName: "KAJPLATS E27 1055 lm",
+    image: productImage(SMART_BELYSNING.slug, "ikea-kajplats-e27-farg"),
+    tagline: "Samma 1 055 lumen som Hue ger, för en sjättedel av pengarna.",
     scores: {
-      fargatergivning: 3,
-      dimring: 3.5,
+      /* Färgåtergivning 90 enligt ikea.se, näst högst av de fem: Nanoleaf
+         deklarerar 91 i EPREL. KAJPLATS får ändå 5,0 och Nanoleaf 4,5, och
+         skälet är omfånget, inte CRI. 2 200–6 500 K når både levande ljus och
+         dagsljus, medan Nanoleaf stannar på 2 700 K i den varma änden. */
+      fargatergivning: 5,
+      /* 3,0: lampan är trådlöst dimbar, men färgtemperaturen växlar i fyra
+         fasta steg med fjärrkontrollen i stället för glidande, och inget
+         dimringsgolv finns publicerat. Den får inte betyg den inte visat. */
+      dimring: 3,
+      /* 4,5 och inte 5,0 som Nanoleaf: Matter över Thread är inbyggt, men
+         IKEA:s Thread-stack är nyare och kundbetyget på 3,1 talar emot att ge
+         full pott på stabilitet. */
       anslutning: 4.5,
-      /* testomdome utelämnas: Tek.no 2017 och Dinside 2019 testar
-         Trådfri-systemet i dess första år, inte dagens E27 med vitt spektrum.
-         Se lib/categories.ts för hela motiveringen. */
-      ljusstyrka: 4,
+      /* testomdome utelämnas: modellen är för ny för att någon oberoende part
+         ska ha hunnit prova den. Sidan räknar utan omfördelning, se
+         filhuvudet, så kriteriet ger noll poäng i stället för gratispoäng. */
+      ljusstyrka: 5,
       prisvarde: 5,
+      /* PstLM 1,0 enligt EPREL 2320819. Gränsen är 1,0.
+         Exakt på gränsvärdet, se kriteriets beskrivning. */
+      flimmer: 2.5,
     },
     price: 99,
-    priceCheckedAt: PRICE_CHECKED,
+    priceCheckedAt: "2026-08-06",
     merchant: "IKEA",
     merchantUrl:
-      "https://www.ikea.com/se/sv/p/tradfri-led-ljuskaella-e27-806-lumen-smart-tradloes-dimbar-vitt-spektrum-klar-globformad-30486788/",
+      "https://www.ikea.com/se/sv/p/kajplats-led-ljuskaella-e27-1055-lumen-smart-faergat-och-vitt-spektrum-globformad-opalvit-70608575/",
     award: "budget",
-    superlative: "Bäst prisvärde",
+    superlative: "Billigast med färg",
     pros: [
-      "Lägsta pris per lumen av lamporna",
-      "Zigbee, så den belastar inte wifi-nätet",
-      "Går att para mot en Hue Bridge",
+      "1 055 lumen för 99 kronor, samma ljusflöde som Philips Hue ger för 599",
+      "Färgåtergivning 90, tio steg över Hue och WiZ",
+      "0,2 W i viloläge, mindre än hälften av vad Hue och WiZ drar dygnet runt",
     ],
     cons: [
-      "Endast vitt spektrum, ingen färg",
-      "Kräver Dirigera eller annan Zigbee-hubb för fjärrstyrning",
+      "Kundbetyget hos IKEA ligger på 3,1 av 5 efter 148 omdömen",
+      "Färgtemperaturen växlar i fyra fasta steg med fjärrkontrollen: 2 200, 2 700, 4 000 och 6 500 K",
+      "Kräver en Thread border router, till exempel DIRIGERA, HomePod eller Apple TV",
     ],
     specs: [
-      { label: "Ljusflöde", shortLabel: "Lumen", value: "806 lm", highlight: true },
-      { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 200–4 000 K", highlight: true },
-      { label: "Protokoll", shortLabel: "Nätverk", value: "Zigbee", highlight: true },
+      /* ikea.se anger 1 055 lm som förinställt ljusflöde vid förinställda
+         2 700 K, alltså mätt i varmt ljus. Läst 2026-08-06. */
+      { label: "Ljusflöde", shortLabel: "Lumen", value: "1 055 lm", highlight: true },
+      { label: "Färgåtergivning", shortLabel: "CRI", value: "90", highlight: true },
+      { label: "Flimmer", shortLabel: "PstLM", value: "1,0", highlight: true },
+      /* R9 40 enligt EPREL 2320819, modell LED2405G8. Näst högst av de fem,
+         och fyrtio steg över Hue och WiZ som båda deklarerar 0.
+
+         ⚠️ Cellen stod som "Ej angiven" fram till 2026-08-06 med motiveringen
+         att IKEA registrerar under artikelnummer och inte under KAJPLATS. Det
+         stämmer för en namnsökning i EPREL, men produktsidan länkar fichen
+         direkt: `Produktinformationsblad` går till eprel.ec.europa.eu/qr/2320819.
+         Samma läxa som i filhuvudet ovan, en gång till: öppna dokumentet
+         butiken länkar innan du skriver att uppgiften saknas. */
+      { label: "Rött index", shortLabel: "R9", value: "40", highlight: true },
+      { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 200–6 500 K", highlight: true },
+      { label: "Protokoll", shortLabel: "Nätverk", value: "Thread + Matter", highlight: true },
+      { label: "Viloförbrukning", shortLabel: "Vila", value: "0,2 W", highlight: true },
+      { label: "Märklivslängd", shortLabel: "Livslängd", value: "25 000 h", highlight: true },
       { label: "Sockel", value: "E27" },
-      { label: "Effekt", value: "8,4 W" },
-      { label: "Matter", value: "Via Dirigera" },
+      { label: "Effekt", value: "7,8 W" },
+      { label: "Matter", value: "Inbyggt" },
     ],
     verdict:
-      "Ska du lysa upp ett helt hem blir prisskillnaden mot Hue snabbt flera tusen kronor, och Zigbee gör att lamporna bildar eget nät i stället för att tynga routern. Färgversionen av TRÅDFRI E27 säljs inte längre på ikea.se, så det här är vitt spektrum, och du behöver Dirigera för att styra dem utanför hemmet.",
+      "IKEA KAJPLATS kostar 99 kronor och ger 1 055 lumen, delad högsta ljusflöde med Philips Hue som kostar sex gånger så mycket.\n\nIKEA anger färgåtergivning 90, tio steg över Hue och näst högst av de fem. **Det är skillnaden mellan att maten på bordet ser aptitlig ut och att den ser grå ut**, och den syns tydligast i kök och badrum. Lampan talar Matter över Thread direkt utan brygga, så den går in i Apple Home, Google Home, Alexa och SmartThings samtidigt. I viloläge drar den 0,2 watt, mindre än hälften av vad Hue och WiZ drar dygnet runt.\n\nSvagheten står i kundbetyget. Hos IKEA ligger den på 3,1 av 5 efter 148 omdömen, klart lägst av de fem lamporna. Färgtemperaturen växlar dessutom i fyra fasta steg med fjärrkontrollen, 2 200, 2 700, 4 000 och 6 500 K, i stället för glidande som hos Hue, så det mellanläge du vill ha en viss kväll finns kanske inte.\n\nSka du sätta färgat ljus i ett par rum och vill ha bästa möjliga ljus för pengarna köper du den här och lägger mellanskillnaden på en border router. Har du redan trettio lampor på Zigbee är Hue fortfarande rätt lampa.",
   },
   {
     id: "wiz-color-a60-e27",
@@ -237,52 +377,77 @@ const SEEDS: ProductSeed[] = [
     brand: "WiZ",
     name: "Color A60 E27 806 lm",
     image: productImage(SMART_BELYSNING.slug, "wiz-color-a60-e27"),
-    tagline: "Enda färglampan under tvåhundra. Gör jobbet, men inte mycket mer.",
+    tagline: "Tänds och släcks från den vanliga väggbrytaren.",
     scores: {
-      fargatergivning: 3,
+      /* 2,5 sedan 2026-08-06: CRI 80 och R9 0 enligt EPREL 1421108, alltså
+         samma tal som Hue men utan Hues omfång ner till 2 000 K. */
+      fargatergivning: 2.5,
       dimring: 2.5,
-      anslutning: 3.5,
+      /* 4,0 och inte 3,5 sedan 2026-08-06: WiZ har Matter, vilket sidan
+         tidigare skrev nej på. Se filhuvudet och lib/corrections.ts. */
+      anslutning: 4,
       /* Råd & Rön: "vi ger den utmärkelsen Bra köp". Inte högre än 3,5, för
          samma test skriver att betyget "dras ner av att den är krånglig att
          installera och att det saknas såväl länk till som namn på den
          tillhörande appen". En utmärkelse med uttalat förbehåll. */
       testomdome: 3.5,
+      /* 3,5 sedan ljusstyrkan räknas på varmvitt: 806 lm mot KAJPLATS 1 055
+         vid samma färgtemperatur. */
       ljusstyrka: 3.5,
-      /* 4,5 och inte 5,0 sedan priset steg från 103 till 129 kronor mellan
-         2026-08-01 och 2026-08-03. Den är fortfarande den enda färglampan
-         under tvåhundra, men IKEA:s vita ligger på 99 och behåller femman. */
-      prisvarde: 4.5,
+      /* 4,0 sedan 2026-08-06. Låg tidigare på 4,5 med motiveringen "enda
+         färglampan under tvåhundra". Det stämmer inte längre: IKEA KAJPLATS
+         är en färglampa för 99 kronor med högre CRI och fler lumen. */
+      prisvarde: 4,
+      /* PstLM 1,0 enligt EPREL 1421108. Gränsen är 1,0.
+         Exakt på gränsvärdet, se kriteriets beskrivning. */
+      flimmer: 2.5,
     },
     price: 129,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Kjell & Company",
     merchantUrl:
       "https://www.kjell.com/se/produkter/belysning-lampor/smart-belysning/smarta-e27-lampor/wiz-color-a60-smart-led-lampa-e27-806-lm-p52140",
-    superlative: "Billigast med färg",
+    superlative: "Bäst för en enstaka lampa",
     pros: [
-      "Färg till ungefär en femtedel av Hues pris",
-      "Ingen brygga behövs",
-      "Går att styra med vanlig strömbrytare",
+      "Går ner till 2 200 K, varmare kvällsljus än både Nanoleaf och Tapo",
+      "Tål att någon slår av väggbrytaren och tänder igen",
+      "Matter över wifi, så den går in i Apple Home, Google Home och Alexa",
     ],
     cons: [
-      "Svagast färgåtergivning av lamporna",
-      "Flimmer rapporteras vid låg dimring",
-      "Wi-Fi, med samma takproblem som Tapo",
+      "Flimret syns i nedre delen av dimringen, alltså där kvällsljuset ligger",
+      "Färgåtergivning 80 och rött index 0, samma tal som Hue trots en femtedel av priset",
+      "0,50 W i viloläge, mest av lamporna tillsammans med Hue",
     ],
     specs: [
       { label: "Ljusflöde", shortLabel: "Lumen", value: "806 lm", highlight: true },
+      /* wizconnected.com för GTIN 8720169072176, Kjells specifikationslista och
+         EPREL 1421108 anger samma tal. Läst 2026-08-06. R9 0 i samma post. */
+      { label: "Färgåtergivning", shortLabel: "CRI", value: "80", highlight: true },
+      { label: "Flimmer", shortLabel: "PstLM", value: "1,0", highlight: true },
+      { label: "Rött index", shortLabel: "R9", value: "0", highlight: true },
       { label: "Färgtemperatur", shortLabel: "Kelvin", value: "2 200–6 500 K", highlight: true },
       { label: "Protokoll", shortLabel: "Nätverk", value: "Wi-Fi + Bluetooth", highlight: true },
+      /* Effekt i nätverksanslutet standbyläge (Pnet), EPREL 1421108. */
+      { label: "Viloförbrukning", shortLabel: "Vila", value: "0,50 W", highlight: true },
+      { label: "Märklivslängd", shortLabel: "Livslängd", value: "25 000 h", highlight: true },
       { label: "Sockel", value: "E27" },
-      { label: "Effekt", value: "8,8 W" },
-      { label: "Matter", value: "Nej" },
+      /* Effekt i påläge (Pon), EPREL 1421108. Sidan angav tidigare 8,8 W. */
+      { label: "Effekt", value: "8,5 W" },
+      /* wizconnected.com listar Matter under kompatibilitet med
+         tredjepartssystem, "Via tredjepartshubbar (Wi-Fi)", och Kjell skriver
+         "Stöd för Matter" högst upp. Sidan angav tidigare Nej. */
+      { label: "Matter", value: "Ja, över wifi" },
     ],
     verdict:
-      "Vill du bara ha färgat ljus i en läslampa är WiZ svår att argumentera emot på pris. Skillnaden mot de dyrare lamporna syns när du dimrar ner: flera tester noterar synligt flimmer i nedre registret, och färgerna är blekare. Som komplement fungerar den bra, som grund för hela hemmet mindre bra.",
+      "WiZ Color A60 kostar 129 kronor, ger 806 lumen och går ner till 2 200 K, alltså varmare kvällsljus än både Nanoleaf och Tapo klarar.\n\nDen ansluter över wifi utan brygga och talar Matter, så den går att lägga in i Apple Home, Google Home och Alexa. Den tål dessutom att någon slår av väggbrytaren och tänder igen, vilket är den vanligaste besvikelsen med smarta lampor. **Råd & Rön ger den utmärkelsen Bra köp, med förbehållet att installationen är krånglig.**\n\nFlimret är skälet att den inte hamnar högre. I nedre delen av dimringen syns det, och det är just där ljuset ska ligga på kvällen. Färgåtergivningen är dessutom 80 med rött index 0, samma tal som Signify deklarerar för Philips Hue, medan IKEA KAJPLATS ligger på 90 för 30 kronor mindre och ger 250 lumen mer.\n\nTill 30 kronor mer än KAJPLATS får du färre lumen och blekare färger, men slipper skaffa en border router. Det är hela affären, och den går ihop för en enstaka lampa bakom teven, inte för ett vardagsrum du sitter i varje kväll.",
   },
 ];
 
-export const SMART_BELYSNING_PRODUCTS = resolveProducts(SMART_BELYSNING, SEEDS);
+export const SMART_BELYSNING_PRODUCTS = resolveProducts(SMART_BELYSNING, SEEDS, {
+  /* Se filhuvudet. Utan det här får en oprövad lampa 15 viktpoäng gratis, och
+     sidan rankade då två lampor ingen mätt över Råd & Röns testvinnare. */
+  redistributeMissing: false,
+});
 
 /**
  * Looked at, left out. Every reason here is a real one that a reader can check
@@ -327,7 +492,7 @@ export const SMART_BELYSNING_CONSIDERED: ConsideredProduct[] = [
     merchantUrl:
       "https://www.proshop.se/Smarta-Hem/Nedis-SmartLife-LED-Lampor/3067255",
     reason:
-      "Billig och fungerande, men saknar Matter och har den svagaste dimringen av allt vi tittat på. WiZ gör samma sak bättre för ungefär samma pengar.",
+      "Billig och fungerande, men dimringen är den svagaste av allt vi tittat på och Tuya-molnet står mellan lampan och telefonen. WiZ gör samma sak bättre för ungefär samma pengar.",
   },
   {
     brand: "Govee",
@@ -337,17 +502,17 @@ export const SMART_BELYSNING_CONSIDERED: ConsideredProduct[] = [
     merchantUrl:
       "https://www.webhallen.com/se/product/358018-Govee-Smart-Wifi-Bluetooth-Light-Bulb-E27",
     reason:
-      "Prisvärd och ljusstark, men appen kräver konto och samlar mer data än nödvändigt. Vi väntar på en version som går att köra utan molnkonto.",
+      "Prisvärd och ljusstark, men appen kräver ett Govee-konto och lampan går inte att styra lokalt utan det. IKEA KAJPLATS kostar mindre och lyder under Matter i stället för under en molntjänst.",
   },
   {
     brand: "IKEA",
-    name: "TRÅDFRI E14 806 lm, färg",
-    approxPrice: 129,
+    name: "TRÅDFRI E27 806 lm, vitt spektrum",
+    approxPrice: 99,
     merchant: "IKEA",
     merchantUrl:
-      "https://www.ikea.com/se/sv/p/tradfri-led-ljuskaella-e14-806-lumen-tradloes-dimbar-faergat-och-vitt-spektrum-klot-opalvit-80547464/",
+      "https://www.ikea.com/se/sv/p/tradfri-led-ljuskaella-e27-806-lumen-smart-tradloes-dimbar-vitt-spektrum-klar-globformad-30486788/",
     reason:
-      "Utesluten på sockel, inte på kvalitet. Värd att känna till ändå: IKEA säljer fortfarande färgade TRÅDFRI i E14, trots att färgversionen i E27 har utgått. Har du E14-sockel finns alltså färg kvar för 129 kronor.",
+      "Föregångaren till KAJPLATS, och fortfarande i sortimentet för 99 kronor. Samma pris, men 806 lumen mot 1 055, inget färgat ljus och Zigbee i stället för Matter över Thread, alltså en hubb i vägen. Har du redan en DIRIGERA och bara vill ha vitt ljus fungerar den, men den nyare lampan kostar lika mycket.",
   },
 ];
 
@@ -364,7 +529,7 @@ export const SMART_BELYSNING_FAQ = [
   {
     question: "Behöver jag en brygga för att styra smarta lampor?",
     answer:
-      "Inte alltid. Wi-Fi-lampor som Tapo och WiZ ansluter direkt, och Nanoleaf Essentials kör Matter över Thread utan brygga. Philips Hue och IKEA TRÅDFRI kör Zigbee och behöver en brygga för fjärrstyrning och scheman, även om Hue går att styra via Bluetooth på kort håll.",
+      "Inte alltid. Wi-Fi-lampor som Tapo och WiZ ansluter direkt till routern. Nanoleaf Essentials och IKEA KAJPLATS kör Matter över Thread och behöver ingen brygga, men däremot en Thread border router, vilket ofta är något du redan har: en HomePod, en Apple TV, en nyare Nest Hub eller en DIRIGERA. Philips Hue kör Zigbee och behöver Hue Bridge för scheman och fjärrstyrning, även om lampan går att styra via Bluetooth på kort håll.",
   },
   {
     question: "Hur många smarta lampor klarar ett vanligt hemnätverk?",
@@ -377,9 +542,9 @@ export const SMART_BELYSNING_FAQ = [
       "Ja, men bara när strömbrytaren står på. Slår du av strömmen försvinner lampan ur appen tills den slås på igen. Många ersätter därför den vanliga brytaren med en trådlös scenbrytare ovanpå.",
   },
   {
-    question: "Säljer IKEA fortfarande färgade TRÅDFRI-lampor?",
+    question: "Vad är skillnaden mellan IKEA KAJPLATS och TRÅDFRI?",
     answer:
-      "Inte i E27-sortimentet på ikea.se. När vi kontrollerade fanns TRÅDFRI E27 kvar med vitt spektrum, medan de färgade varianterna leder vidare till serieöversikten. Vill du ha färg billigt är WiZ Color A60 det närmaste alternativet i den här jämförelsen.",
+      "KAJPLATS är den nya serien och TRÅDFRI den utgående. Båda kostar 99 kronor för en E27, men KAJPLATS ger 1 055 lumen mot 806, finns med färgat ljus och talar Matter över Thread direkt, medan TRÅDFRI kör Zigbee och kräver en DIRIGERA eller annan hubb. Har du redan ett TRÅDFRI-system fungerar lamporna ihop via DIRIGERA. Bygger du nytt finns det ingen anledning att välja den äldre serien.",
   },
   {
     question: "Lönar det sig att köpa smarta lampor?",
@@ -399,12 +564,12 @@ export const SMART_BELYSNING_FAQ = [
   {
     question: "Drar smarta lampor ström när de är släckta?",
     answer:
-      "Ja. Radion måste vara vaken för att kunna ta emot kommandot att tända, och det kostar ungefär tre tiondels watt per lampa dygnet runt. I kronor är det sällan mycket. Det intressanta är andelen: en lampa som lyser tio minuter om dagen kan förbruka mer i viloläge än i drift, medan samma lampa i ett vardagsrum inte gör det. Låt det avgöra var lamporna sitter, inte om du köper dem: undvik utrymmen du knappt använder.",
+      "Ja. Radion måste vara vaken för att kunna ta emot kommandot att tända, och det kostar mellan 0,2 och 0,5 watt per lampa dygnet runt. Skillnaden är alltså mer än dubbel: IKEA KAJPLATS drar 0,2 W, Nanoleaf 0,3 W, Tapo 0,37 W och Hue och WiZ 0,5 W. I kronor är det sällan mycket. Det intressanta är andelen: en lampa som lyser tio minuter om dagen kan förbruka mer i viloläge än i drift, medan samma lampa i ett vardagsrum inte gör det. Låt det avgöra var lamporna sitter, inte om du köper dem: undvik utrymmen du knappt använder.",
   },
   {
     question: "Vad är CRI och vilket värde ska jag välja?",
     answer:
-      "CRI är färgåtergivning på en skala till 100 och beskriver hur naturligt lampan återger färger jämfört med dagsljus. Åttio är golvet för en anständig lampa. Nittio och uppåt är där det märks i praktiken: mat ser aptitlig ut, träslag får rätt ton och hudfärg ser levande ut i stället för grå. Skillnaden syns tydligast i kök och badrum, där du tittar på mat och på dig själv. I en hall spelar det mindre roll.",
+      "CRI är färgåtergivning på en skala till 100 och beskriver hur naturligt lampan återger färger jämfört med dagsljus. Åttio är golvet för en anständig lampa. Nittio och uppåt är där det märks i praktiken: mat ser aptitlig ut, träslag får rätt ton och hudfärg ser levande ut i stället för grå. Skillnaden syns tydligast i kök och badrum, där du tittar på mat och på dig själv, och spelar mindre roll i en hall. Talet följer inte priset: IKEA KAJPLATS för 99 kronor och Nanoleaf Essentials för 232 anger båda 90, medan Philips Hue för 599 anger 80.",
   },
   {
     question: "Varför flimrar min LED-lampa när jag dimrar ner?",

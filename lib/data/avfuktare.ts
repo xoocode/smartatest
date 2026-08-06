@@ -8,42 +8,59 @@ import { AVFUKTARE } from "@/lib/test-pages";
  *
  * ## Vad som är verkligt i den här filen
  *
- * **Verkligt och daterat:** priser, kundbetyg, kapacitet i liter per dygn,
- * effekt, driftstemperatur, tankvolym, ljudnivå, luftflöde, rekommenderad yta
- * och köldmedium. Allt läst 2026-08-03 på butikens eller tillverkarens egen
- * produktsida, i deras strukturerade data eller i produktbeskrivningen.
+ * **Verkligt och daterat:** priser och kundbetyg lästa 2026-08-03. Kapacitet,
+ * effekt, driftstemperatur, tankvolym, ljudnivå, luftflöde, vikt och köldmedium
+ * lästa 2026-08-06 hos tillverkaren där tillverkaren publicerar dem, annars hos
+ * butiken. Källan står i kommentar vid varje värde som ändrats.
  *
  * **Redaktionell bedömning:** kriteriepoängen. Vi har inte mätt avfuktning,
  * inte vägt uppsamlat vatten och inte provat någon apparat.
  *
- * ## Sidans fynd: talet alla jämför är inte jämförbart
+ * ## Sidans fynd, omskrivet 2026-08-06
  *
- * Tre olika deklarationsbaser ligger sida vid sida i svenska butiker:
+ * Sidan påstod tidigare att nio av tolv tillverkare inte anger vid vilka
+ * villkor literantalet gäller. **Det var fel, och felet låg hos oss.** Tre
+ * tillverkare publicerar villkoren, två av dem på sidor vi inte hade öppnat:
  *
- * - **Wood's** anger både kapacitet och effekt vid **30 ºC och 80 % RH**. LD40 anger dessutom ett andra tal vid 20 °C och 70 % RF, och de två skiljer 73 procent: **7,5 mot 13 liter per dygn för samma apparat**.
- * - **Meaco** anger effekten vid **20 °C och 60 % RH** men säger inte ett ord om vid vilka villkor literantalet i modellnamnet gäller.
- * - **Clas Ohlsons egna, eeese, Xiaomi och Duux** anger inga villkor alls.
+ * - **Meaco** publicerar en extraktionstabell per modell med sex rader, 10, 20
+ *   och 30 ºC mot 50, 60 och 80 % RH, och både liter och watt i varje rad. Det
+ *   är den utförligaste uppgiften i hela kategorin, och den enda som sträcker
+ *   sig ned till 10 ºC. Meaco var den tillverkare sidan pekade ut som värst.
+ * - **eeese** publicerar två rader per modell: 30 ºC/80 % RH och 27 ºC/60 % RH.
+ * - **Wood's** anger 30 ºC/80 % RH, och bruksanvisningen till hela SW- och
+ *   LD-serien har en egen rad för 20 ºC/70 % RF med både liter och watt.
+ * - **Xiaomi**, via Kjell: 13 l/dygn vid 30 ºC/80 % RH och 0,29 kg/h vid
+ *   27 ºC/60 % RH, alltså 7,0 liter per dygn. Läst 2026-08-06.
  *
- * Till det kommer att samma apparat får olika tal hos tillverkare och butik.
- * Wood's SW42FW är 25 liter och 600 watt enligt Wood's, och 25,5 liter och
- * 550 watt enligt Clas Ohlson.
+ * Kvar utan villkor: Clas Ohlsons två egna. Bruksanvisningarna till båda
+ * skriver att kapaciteten sjunker under 15 ºC.
  *
- * `SS-EN 810` handlar om precis det här och heter i sin svenska titel
- * "provning av avfuktningsförmåga, märkning, funktionskrav och redovisning av
- * tekniska data". Den är gällande, utgåva 1, fastställd 1997-04-30, och gäller
- * bara avfuktare med eldriven kompressor.
+ * **Fyndet blev starkare av rättelsen.** Det heter inte längre att ingen anger
+ * villkoren, utan att talet i modellnamnet är mätt vid 30 ºC och 80 % RH, och
+ * att du får ungefär 40 procent av det i ett svalt rum. Meacos egen tabell
+ * bevisar det: apparaten som heter 25L tar 10,7 liter per dygn vid 20 ºC och
+ * 60 % RH.
  *
- * ⚠️ Vi har inte köpt standarden. Filen påstår aldrig vilka provvillkor den
- * föreskriver, bara vad SIS publicerar öppet om den.
+ * ## Vad energipoängen bygger på
+ *
+ * Watt delat med liter per dygn **vid samma villkor**, inte deklarerad effekt
+ * delad med talet i modellnamnet. Den gamla kvoten blandade baser och gav Meaco
+ * 10,7 W/l genom att dela 267 watt uppmätta vid 20 ºC/60 % RH med 25 liter
+ * uppmätta vid 30 ºC/80 % RH. Två olika rum, en kvot. Se rättelsen 2026-08-06.
+ *
+ * Basen är nu 30 ºC och 80 % RH, där sju av tolv har ett publicerat par. Meaco
+ * 20L och 25L publicerar ingen 30-gradersrad, så för dem används 20 ºC/80 % RH,
+ * vilket är ett svårare läge än de övriga mäts vid och alltså håller deras tal
+ * på den försiktiga sidan.
  *
  * ## Om testomdöme
  *
  * Det finns inget eget kriterium för det, efter användarbeslut 2026-08-03.
  * Which?, som Stiftung Warentest publicerar, är enda riktiga provningen i
  * Europa, och den täcker **två av tolv rankade**: Meaco Arete One 12L och 25L.
- * Där omdömet finns styr det avfuktningspoängen, och där det saknas står det
- * utskrivet i produktens omdöme. Ett eget kriterium som tio av tolv inte kan få
- * poäng på hade mätt vem som blivit provad, inte vad produkten går för.
+ * Där omdömet finns styr det avfuktningspoängen. Ett eget kriterium som tio av
+ * tolv inte kan få poäng på hade mätt vem som blivit provad, inte vad produkten
+ * går för.
  *
  * ## Två produkter kom in i efterhand
  *
@@ -52,18 +69,12 @@ import { AVFUKTARE } from "@/lib/test-pages";
  * produkter ändå, och ingen lagerstatus anges längre någonstans på sidan.
  * Cleverio AD100 flyttades däremot inte tillbaka: den tar 0,75 liter per dygn
  * mot rankningens 10 till 25, alltså en annan sorts produkt.
- *
- * ## Vad energipoängen egentligen bygger på
- *
- * Which? mäter el per uppsamlad liter vatten och inte per timme, eftersom
- * drifttiden för samma vattenmängd kan skilja dubbelt. Vi räknar samma kvot ur
- * deklarerade tal, men **kvoten ärver jämförbarhetsproblemet**: Meacos watt är
- * mätt vid 20 °C och 60 % RH, Wood's vid 30 ºC och 80 % RH, och Clas Ohlsons
- * egna vid ingenting angivet. Det står utskrivet i varje omdöme där det spelar
- * roll, och det är därför öppen redovisning är ett eget kriterium.
  */
 
 export const PRICE_CHECKED = "2026-08-03";
+
+/** Specar och tillverkarvärden lästa om i researchpasset. */
+export const SPECS_CHECKED = "2026-08-06";
 
 const BYGGHEMMA = "Bygghemma";
 const BYGGHEMMA_BASE =
@@ -81,12 +92,16 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Meaco 25L",
     brand: "Meaco",
     image: productImage(AVFUKTARE.slug, "meaco-arete-one-25l"),
-    tagline: "En av två som Which? faktiskt har mätt.",
+    tagline: "Den enda apparaten här som ett oberoende labb har mätt och gett toppbetyg.",
     scores: {
       avfuktning: 5,
       kyla: 4,
-      energi: 5,
-      redovisning: 3,
+      /* 4,5 och inte 5,0. Den gamla femman byggde på 267 W / 25 l = 10,7 W per
+         liter, men de 267 watten är uppmätta vid 20 ºC/60 % RH där apparaten
+         tar 10,7 liter, inte 25. Vid 20 ºC/80 % RH, den svåraste rad Meaco
+         publicerar för den här modellen, går det 280 W på 17,53 liter, alltså
+         16,0 W per liter. Rättad 2026-08-06, se lib/corrections.ts. */
+      energi: 4.5,
       prisvarde: 4,
     },
     price: 4299,
@@ -94,40 +109,44 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${BYGGHEMMA_BASE}/avfuktare-och-luftrenare-meaco-meacodry-arete-one-25l/p-1887651`,
     priceCheckedAt: PRICE_CHECKED,
     award: "winner",
-    superlative: "Lägst driftkostnad enligt Which?",
+    superlative: "Bäst för en källare du kör hela hösten",
     pros: [
+      "10,7 liter per dygn vid 20 °C och 60 % RH, alltså en tiolitersapparat i en oktoberkällare",
       "Which? ger den lägst driftkostnad av alla rekommenderade apparater",
       "Fungerar bra även i kyla, enligt Which?",
-      "267 watt vid 20 °C och 60 % RH, en realistisk nivå",
-      "H13 HEPA-filter, så den går som luftrenare när fukten är borta",
-      "Slangadapter för vanlig trädgårdsslang ger kontinuerlig dränering",
+      "H13 HEPA-filter ingår, så den går som luftrenare när fukten är borta",
+      "4,8 liters tank och slangadapter för vanlig trädgårdsslang",
     ],
     cons: [
-      "Specifikationen säger inte vid vilka villkor de 25 literna gäller",
       "16 kilo, inget man bär mellan våningar",
-      "Går ner till 5 °C, medan Wood's klarar 2",
-      "Bygghemma publicerar inga kundbetyg alls",
+      "Går ner till 5 °C, medan Wood's två klarar 2",
+      "42 dB(A) på hög fläkt, hörs genom en stängd sovrumsdörr",
+      "4 299 kronor, 1 600 mer än eeese Adam som anger 20 liter per dygn",
     ],
     specs: [
       { label: "Pris", value: "4 299 kr", highlight: true },
-      { label: "Kapacitet", value: "25 l/dygn, villkor ej angivna", highlight: true },
+      { label: "Kapacitet", value: "25 l/dygn (modellnamnet)", highlight: true },
+      /* Meacos egen extraktionstabell, meaco.com, läst 2026-08-06. Raden
+         20 ºC/60 % RH: 10,73 l/dygn vid 267 W. */
+      { label: "Avfuktning i svalt", value: "10,7 l/dygn vid 20 °C / 60 % RH", highlight: true },
       { label: "Effekt", value: "267 W vid 20 °C / 60 % RH", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
+      { label: "Ljudnivå", value: "40 och 42 dB(A)", highlight: true },
+      { label: "Luftflöde", value: "150/175 m³/h", highlight: true },
+      { label: "Vikt", value: "16 kg", highlight: true },
+      { label: "Tank", value: "4,8 liter", highlight: true },
       { label: "Provad av Which?", value: "Ja, minst 80 % av maxpoängen", highlight: true },
       { label: "Hygrostat", value: "40–70 % RH" },
-      { label: "Tank", value: "4,8 liter" },
-      { label: "Luftflöde", value: "150/175 m³/h" },
-      { label: "Ljudnivå", value: "40 och 42 dB(A)" },
       { label: "Köldmedium", value: "R290, 90 g" },
-      { label: "Vikt", value: "16 kg" },
       { label: "Display", value: "Ja" },
       { label: "Mått", value: "618 x 366 x 272 mm (HxBxD)" },
       { label: "Garanti", value: "5 år" },
-      { label: "Filter", value: "Tvättbart dammfilter, HEPA ingår" },
+      { label: "Filter", value: "Tvättbart dammfilter, H13 HEPA ingår" },
+      { label: "Torkläge", value: "Ja" },
       { label: "Slanganslutning", value: "Ja, 12,5 mm trädgårdsslang" },
     ],
     verdict:
-      "Which? har mätt den här apparaten. Det gäller bara två av de tolv.\n\nWhich?, som Stiftung Warentest publicerar och håller uppdaterad, provar avfuktare vid 21 grader och kallare. Tillverkarnas literantal är i regel uppmätta vid 30 grader, en temperatur som inte råder i något utrymme man vill avfukta. Provningen är därför värd något här. Omdömet: avfuktar toppenbra, lägst driftkostnad av samtliga rekommenderade apparater, fungerar bra även i kyla.\n\nWhich? räknar el per uppsamlad liter vatten och inte per timme, med motiveringen att vissa apparater behöver dubbelt så lång drifttid för samma vattenmängd. Watt per timme säger ingenting utan literantalet bredvid, och det är på den kvoten Arete One vinner.\n\nMeaco redovisar dessutom effekten vid namngivna villkor, 267 watt vid 20 grader och 60 procent relativ fuktighet. Det är den nivå du faktiskt har i en källare, inte den nivå marknadsföringen väljer.\n\nMen de är inte oskyldiga. Literantalet är själva produktnamnet, och ändå säger specifikationen inte med ett ord vid vilka villkor de 25 literna gäller. Det kostar dem på redovisningskriteriet, där Wood's LD40 ensam får full poäng.\n\nDen väger 16 kilo och har hjul men inget bärhandtag värt namnet, så tänk igenom var den ska stå. Och den går ner till 5 grader, vilket räcker för källare och tvättstuga men inte för en krypgrund som går mot noll. Där ska du ha Wood's, eller en sorptionsavfuktare.",
+      "MeacoDry Arete One 25L kostar 4 299 kronor och tar **10,7 liter vatten per dygn vid 20 grader och 60 procents luftfuktighet**, alltså ungefär en svensk källare i oktober.\n\nDen är den enda i jämförelsen som en oberoende provning har mätt och gett toppbetyg. Which? provar vid 21 grader och kallare, räknar elen per uppsamlad liter i stället för per timme, och skriver att den avfuktar toppenbra, har lägst driftkostnad av samtliga rekommenderade apparater och fungerar bra även i kyla. Vid 10 grader och 60 procent tar den fortfarande 3,5 liter per dygn på 220 watt, vilket är ungefär vad en ouppvärmd källare i november ger. Tanken rymmer 4,8 liter och slangadaptern passar en vanlig trädgårdsslang, så står den nära en golvbrunn behöver du aldrig tömma den.\n\nDen väger 16 kilo och har hjul men inget bärhandtag värt namnet. Bestäm var den ska stå innan den kommer, för att flytta den mellan våningar är ett tvåmansjobb.\n\nKöp den. Det är den enda apparaten här där någon oberoende har mätt både vattnet och elen, och den orkar 3,5 liter om dygnet även i en tiogradig källare. Går ditt utrymme under 5 grader behöver du Wood's SW42FW i stället.",
   },
   {
     id: "meaco-arete-one-12l",
@@ -135,49 +154,67 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Meaco 12L",
     brand: "Meaco",
     image: productImage(AVFUKTARE.slug, "meaco-arete-one-12l"),
-    tagline: "Samma provade serie i den storlek de flesta faktiskt behöver.",
+    tagline: "Provad av Which? och 1 300 kronor billigare än vinnaren.",
     scores: {
-      avfuktning: 5,
+      /* 4,5 och inte 5,0. Femman gav samma poäng som 25L på ett kriterium som
+         mäter vatten i ett svalt rum, fast den här tar 5,2 liter mot 10,7. Den
+         låg dessutom över Meaco 20L, som tar 8,5 liter, alltså rankade skalan
+         den mindre apparaten högre än den större enbart på Which?-omdömet.
+         Which? väger fortfarande tyngst och håller den över 20L, men inte över
+         en apparat som tar dubbelt så mycket vatten och som Which? också har
+         provat. Sänkt 2026-08-06, se lib/corrections.ts. */
+      avfuktning: 4.5,
       kyla: 3.5,
+      /* 198 W på 12,18 l vid 30 ºC/80 % RH ur Meacos extraktionstabell, alltså
+         16,3 W per liter. Oförändrat betyg, ny grund. */
       energi: 4.5,
-      redovisning: 3,
       prisvarde: 4.5,
     },
     price: 2999,
     merchant: BYGGHEMMA,
     merchantUrl: `${BYGGHEMMA_BASE}/avfuktare-och-luftrenare-meaco-meacodry-arete-one-12l/p-1887649`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "Provad av Which?, 1 300 kr billigare",
+    superlative: "Bäst för ett rum du kör året runt",
     pros: [
       "Provad av Which? med minst 80 procent av maxpoängen",
       "Which? kallar den energieffektiv, lätt att bära och förhållandevis tyst",
-      "151 watt vid 20 °C och 60 % RH, en realistisk nivå",
-      "1 300 kronor billigare än 25-litersmodellen med samma teknik",
+      "5,2 liter per dygn vid 20 °C och 60 % RH på 151 watt",
+      "10,9 kilo, alltså 5 kilo lättare än vinnaren och möjlig att bära",
       "Samma H13 HEPA-filter och slangadapter som den större",
     ],
     cons: [
-      "Specifikationen säger inte vid vilka villkor de 12 literna gäller",
+      "2,5 liters tank, som fylls på ett halvt dygn i ett fuktigt rum",
+      "80/100 m³/h luftflöde räcker till ett rum, inte till en källarplan",
       "Which? nämner den inte som särskilt bra i kyla, till skillnad från 25L",
-      "Går ner till 5 °C, så ingen krypgrundsapparat",
-      "Bygghemma publicerar inga kundbetyg alls",
+      "Går ner till 5 °C, så ingen garageapparat",
     ],
     specs: [
       { label: "Pris", value: "2 999 kr", highlight: true },
-      { label: "Kapacitet", value: "12 l/dygn, villkor ej angivna", highlight: true },
+      { label: "Kapacitet", value: "12 l/dygn (modellnamnet)", highlight: true },
+      /* Meacos extraktionstabell: 20 ºC/60 % RH ger 5,23 l/dygn vid 151 W. */
+      { label: "Avfuktning i svalt", value: "5,2 l/dygn vid 20 °C / 60 % RH", highlight: true },
       { label: "Effekt", value: "151 W vid 20 °C / 60 % RH", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
+      { label: "Ljudnivå", value: "35 och 38 dB(A)", highlight: true },
+      /* Tillagt 2026-08-06 ur Meacos Technical Overview. */
+      { label: "Luftflöde", value: "80/100 m³/h", highlight: true },
+      { label: "Vikt", value: "10,9 kg", highlight: true },
+      /* Tillagt 2026-08-06: Meaco anger 2,5 liter. */
+      { label: "Tank", value: "2,5 liter", highlight: true },
       { label: "Provad av Which?", value: "Ja, minst 80 % av maxpoängen", highlight: true },
       { label: "Hygrostat", value: "40–70 % RH" },
-      { label: "Ljudnivå", value: "35 och 38 dB(A)" },
-      { label: "Filter", value: "Tvättbart dammfilter, HEPA som tillval" },
+      { label: "Köldmedium", value: "R290, 45 g" },
+      /* Rättat 2026-08-06: stod "HEPA som tillval". Meaco anger fritt
+         HEPA-filter medföljande på hela Arete One-serien. */
+      { label: "Filter", value: "Tvättbart dammfilter, H13 HEPA ingår" },
       { label: "Display", value: "Ja" },
+      { label: "Torkläge", value: "Ja" },
       { label: "Mått", value: "472 x 319 x 237 mm (HxBxD)" },
-      { label: "Vikt", value: "10,9 kg" },
       { label: "Garanti", value: "5 år" },
       { label: "Slanganslutning", value: "Ja, 12,5 mm trädgårdsslang" },
     ],
     verdict:
-      "Samma serie, samma teknik och samma filter som vinnaren, 1 300 kronor billigare.\n\nWhich? provade båda. Om 12-litersmodellen: avfuktar toppenbra, energieffektiv, lätt att bära, enkel att använda och förhållandevis tyst, med rätt låga driftkostnader.\n\nWhich? lyfter däremot uttryckligen fram den större som bra i kyla och skriver ingenting motsvarande om den här. Kvoten mellan effekt och kapacitet är dessutom sämre: 151 watt för 12 liter mot 267 watt för 25, ungefär 12,6 mot 10,7 watt per liter och dygn.\n\nHar du en tvättstuga, ett badrum eller ett sovrum med kondens på rutorna räcker den här med marginal. Har du en källare på hundra kvadratmeter, eller ett utrymme som går mot fem grader på vintern, ta den större.\n\nSamma anmärkning som på vinnaren gäller här. Modellen heter 12L, men ingenstans i specifikationen står det vid vilken temperatur och luftfuktighet de 12 literna är uppmätta. Elen redovisas exakt, kapaciteten inte alls. Det är den vanligaste formen av halv öppenhet bland avfuktare, och fortfarande bättre än att inte ange någonting.",
+      "Samma serie, samma teknik och samma H13-filter som vinnaren, 1 300 kronor billigare. Den tar 5,2 liter per dygn vid 20 grader och 60 procent.\n\nWhich? provade den och skriver att den avfuktar toppenbra, är energieffektiv, lätt att bära, enkel att använda och förhållandevis tyst, med rätt låga driftkostnader. Två av de omdömena hänger ihop med vikten: 10,9 kilo mot 25-litersmodellens 16 gör att den här faktiskt går att bära uppför en trappa, och 35 decibel på låg fläkt är tyst nog för ett sovrum med kondens på rutorna.\n\nTanken rymmer 2,5 liter. Kör du den i ett riktigt fuktigt rum är den full på ett halvt dygn, och en avfuktare som står stilla avfuktar ingenting. Har du inget avlopp att koppla slangen till blir det två tömningar om dagen.\n\nHar du ett rum, ett badrum eller en tvättstuga räcker den här med marginal. Ska den ta hand om en hel källarplan är 80 till 100 kubikmeter luft i timmen för lite, och då är det 25-litersmodellen som gäller.",
   },
   {
     id: "woods-ld40",
@@ -185,12 +222,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wood's LD40",
     brand: "Wood's",
     image: productImage(AVFUKTARE.slug, "woods-ld40"),
-    tagline: "Publicerar kapaciteten vid två olika villkor.",
+    tagline: "Blåser 350 kubikmeter i timmen och arbetar ner till +2 grader.",
     scores: {
       avfuktning: 3.5,
       kyla: 5,
-      energi: 5,
-      redovisning: 5,
+      /* 4,0 och inte 5,0. Den gamla femman kom ur "180 till 250 watt" hos Clas
+         Ohlson ställt mot 13 liter. Wood's egen spectabell anger 250 W vid
+         30 ºC/80 % RH för 13 liter vid samma villkor, alltså 19,2 W per liter,
+         mitt i fältet. Rättad 2026-08-06, se lib/corrections.ts. */
+      energi: 4,
       prisvarde: 1.5,
     },
     price: 7890,
@@ -198,39 +238,58 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/Wood%E2%80%99s-LD40-avfuktare-kallare-och-tvattstuga,-100-m2/p/46-1453`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 0, count: 0 },
-    superlative: "Anger kapaciteten vid två nivåer",
+    superlative: "Bäst för att torka tvätt i ett kallt rum",
     pros: [
-      "Enda apparaten i handeln som publicerar kapaciteten vid två olika villkor",
-      "7,5 liter vid 20 °C och 70 % RF, siffran du faktiskt får",
+      "350 m³/h på hög fläkt, kraftigaste luftströmmen av alla apparaterna",
       "Fungerar ner till +2 °C, även i ett kallt garage",
-      "180 till 250 watt, lägst effekt i förhållande till kapacitet av alla tolv",
-      "11,4 liters tank och 10 års garanti från tillverkaren",
+      "11,4 liters tank, störst av alla, och stänger av sig själv när den är full",
+      "Återför 780 watt värme per liter vattenånga till rummet",
+      "10 års garanti från tillverkaren, dubbelt mot närmaste konkurrent",
     ],
     cons: [
-      "7 890 kronor, dyrast av apparaterna i jämförelsen, med bred marginal",
-      "7,5 liter per dygn vid realistiska villkor är lågt för priset",
-      "Noll kundomdömen, så vi vet ingenting om hur den beter sig i vardagen",
-      "Inte provad av Which? eller någon annan oberoende part",
+      "7 890 kronor, dyrast av apparaterna i jämförelsen med bred marginal",
+      "7,5 liter per dygn vid 20 °C och 70 % RF, mindre än vinnaren för nästan dubbla priset",
+      "55 dB(A) på hög fläkt, hörs genom en stängd dörr",
+      "19,5 kilo utan bärhandtag, alltså ingen apparat du flyttar mellan våningar",
     ],
     specs: [
       { label: "Pris", value: "7 890 kr", highlight: true },
-      { label: "Kapacitet", value: "7,5 l/dygn vid 20 °C / 70 % RF", highlight: true },
-      { label: "Samma apparat", value: "13 l/dygn vid 30 °C / 80 % RF", highlight: true },
-      { label: "Effekt", value: "180–250 W", highlight: true },
+      /* Wood's egen spectabell, woods.se, läst 2026-08-06. */
+      { label: "Kapacitet", value: "13 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      /* Clas Ohlsons spectabell för samma artikel. Wood's egen sida publicerar
+         bara 30/80-raden. */
+      { label: "Avfuktning i svalt", value: "7,5 l/dygn vid 20 °C / 70 % RF", highlight: true },
+      /* Rättat 2026-08-06: stod "180–250 W" utan villkor. Bruksanvisningen till
+         LD-serien visar att butikens spann är samma apparat vid två villkor:
+         250 W vid 30 ºC/80 % RH och 180 W vid 20 ºC/70 % r.h. */
+      { label: "Effekt", value: "250 W vid 30 °C / 80 % RH, 180 W vid 20 °C / 70 % RF", highlight: true },
       { label: "Drifttemperatur", value: "+2 till +35 °C", highlight: true },
+      { label: "Ljudnivå", value: "45–55 dB(A)", highlight: true },
+      /* Rättat 2026-08-06: stod 200/300 efter Clas Ohlson. Wood's egen tabell
+         anger 200/350 m³/h. Konflikten står i .agent/research/avfuktare.md. */
+      { label: "Luftflöde", value: "200/350 m³/h", highlight: true },
+      /* Tillagt 2026-08-06 ur Clas Ohlsons produktsida, 46-1453. Wood's egen
+         spectabell och bruksanvisningen till LD-serien anger ingen nettovikt. */
+      { label: "Vikt", value: "19,5 kg", highlight: true },
+      { label: "Tank", value: "11,4 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
       { label: "Rumsyta", value: "10–100 m²" },
-      { label: "Luftflöde", value: "200/300 m³/h" },
-      { label: "Tank", value: "11,4 liter" },
-      { label: "Ljudnivå", value: "45–55 dB(A)" },
+      /* Bruksanvisningen till LD40/LD44/LD48PRO+ ger också 4,3 kWh/dygn vid
+         20 ºC/70 % r.h. Den siffran står i omdömet, inte som egen rad: en
+         etikett hos en enda produkt jämför ingenting. */
       { label: "Köldmedium", value: "R290, 99 g" },
       { label: "Garanti", value: "10 år" },
       { label: "Display", value: "Ja, digital" },
       { label: "Filter", value: "SMF mögel- och partikelfilter" },
       { label: "Hygrostat", value: "35–75 % RH, variabel" },
+      { label: "Torkläge", value: "Ja" },
+      { label: "Avfrostning", value: "Ja" },
+      { label: "Kapslingsklass", value: "IPX1" },
+      { label: "Mått", value: "640 x 348 x 575 mm (HxBxD)" },
       { label: "Slanganslutning", value: "Ja, 1/2 tum (slang ingår ej)" },
     ],
     verdict:
-      "Wood's publicerar sin kapacitet vid två olika villkor. Ingen annan gör det, och de två talen skiljer 73 procent.\n\nI Clas Ohlsons egen specifikation står raderna efter varandra. Avfuktning vid 20 °C och 70 % RF: 7,5 liter per dygn. Avfuktning vid 30 °C och 80 % RF: 13 liter per dygn. Samma apparat, samma sida, samma dag.\n\nAlla andra tillverkare anger ett tal. Wood's anger båda, och därmed också det låga. Det är den enda produktsidan där du kan se med egna ögon vad villkoren gör med siffran, och därför står den som källa i vår källista.\n\nPå kyla och energi är den också stark. Den arbetar ner till +2 grader, vilket räcker för ett garage som inte värms, och drar 180 till 250 watt för det. Det är det bästa förhållandet mellan effekt och kapacitet av de tolv apparaterna. Wood's beskriver den som en klädtorkare som återvinner värmen ur fukten, och tio års garanti är ovanligt.\n\nSedan kommer priset. 7 890 kronor för 7,5 liter per dygn vid realistiska villkor är svårt att försvara mot Meaco Arete One 25L på 4 299, och den skillnaden är hela skälet till att den ligger trea och inte högre. Att den saknar kundomdömen helt hjälper inte, och Clas Ohlson anger begränsat antal.\n\nKöp den om du torkar tvätt i ett kallt utrymme och vill ha en apparat som talar om vad den gör. Köp den inte för literantalet.",
+      "Wood's LD40 är byggd för att torka tvätt i ett rum som inte värms, och den kostar 7 890 kronor.\n\nDet den gör bättre än något annat här är att flytta luft. 350 kubikmeter i timmen på hög fläkt är över dubbelt mot vinnarens 175, och för en tvättlina är det luftströmmen och inte literantalet som avgör hur fort plaggen blir torra. Den arbetar ner till +2 grader, tanken rymmer 11,4 liter och stänger av apparaten när den är full, och Wood's anger att den återför 780 watt värme per liter vattenånga till rummet, alltså kommer en del av elen tillbaka som värme i stället för att blåsas ut. Garantin är tio år, vilket ingen annan här kommer i närheten av. I ett svalt rum drar den 180 watt, alltså 4,3 kilowattimmar om dygnet, ungefär sex kronor på ett vanligt elpris.\n\nDen tar 7,5 liter per dygn vid 20 grader och 70 procent. Vinnaren tar 10,7 vid 20 grader och 60, alltså mer vatten i torrare luft, för 3 591 kronor mindre. Betalar du de pengarna gör du det för fläkten, kylan och plåten, inte för vattnet.\n\nHar du en tvättstuga i en ouppvärmd källare och torkar tvätt där året om är det här apparaten som gör jobbet. Ska den bara hålla fukten nere i ett uppvärmt utrymme lägger du 3 591 kronor på något annat och tar Meaco Arete One 25L.",
   },
   {
     id: "meaco-arete-one-20l",
@@ -238,53 +297,61 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Meaco 20L",
     brand: "Meaco",
     image: productImage(AVFUKTARE.slug, "meaco-arete-one-20l"),
-    tagline: "Serien mellan de två provade, till mellanpris.",
+    tagline: "8,5 liter per dygn i ett svalt rum för 429 kronor mindre än vinnaren.",
     scores: {
       avfuktning: 4,
       kyla: 3.5,
-      energi: 5,
-      redovisning: 3,
-      /* 3,0 och inte 3,5: 429 kronor mer ger 25-litersmodellen, som både är
-         större och är den enda i serien Which? kallar bra i kyla. Att betala
-         3 870 för mellanstorleken är svårare att motivera än att lägga till
-         resten. Justerat 2026-08-03 efter avläsning av den renderade
-         tabellen, där 3,5 gav samma betyg som Wood's LD40. */
+      /* 225 W på 14,02 l vid 20 ºC/80 % RH, alltså 16,0 W per liter. Samma
+         grund som 25L, och en svårare rad än de som mäts vid 30 ºC. */
+      energi: 4.5,
+      /* 3,0 och inte 3,5: 429 kronor mer ger 25-litersmodellen, som tar 10,7
+         liter i svalt mot 8,5 och är den enda i serien Which? kallar bra i
+         kyla. Justerat 2026-08-03, oförändrat i researchpasset 2026-08-06. */
       prisvarde: 3,
     },
     price: 3870,
     merchant: BYGGHEMMA,
     merchantUrl: `${BYGGHEMMA_BASE}/avfuktare-och-luftrenare-meaco-meacodry-arete-one-20l/p-1887650`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "216 watt för 20 liter",
+    superlative: "Bäst för en tvättstuga året runt",
     pros: [
-      "216 watt vid 20 °C och 60 % RH, 10,8 watt per liter och dygn",
-      "Samma teknik, filter och slangadapter som de två provade syskonen",
-      "38 och 40 dB(A), tystare än 25-litersmodellen",
-      "Fyller luckan mellan 12L och 25L till 871 kronor mindre än den största",
+      "8,5 liter per dygn vid 20 °C och 60 % RH på 216 watt",
+      "38 och 40 dB(A), tystare än 25-litersmodellen på båda fläktlägena",
+      "4,8 liters tank, samma som vinnaren, och slangadapter för trädgårdsslang",
+      "Samma H13 HEPA-filter och femåriga garanti som de två provade syskonen",
     ],
     cons: [
+      "3 870 kronor är bara 429 mindre än vinnaren, som tar 2,2 liter mer per dygn",
+      "145/160 m³/h, alltså mindre luft än 25-litersmodellen i samma chassi",
       "Just den här storleken är inte provad av Which?, till skillnad från 12L och 25L",
-      "Specifikationen säger inte vid vilka villkor de 20 literna gäller",
-      "Går ner till 5 °C, ingen krypgrundsapparat",
-      "Bygghemma publicerar inga kundbetyg alls",
+      "Går ner till 5 °C, ingen garageapparat",
     ],
     specs: [
       { label: "Pris", value: "3 870 kr", highlight: true },
-      { label: "Kapacitet", value: "20 l/dygn, villkor ej angivna", highlight: true },
+      { label: "Kapacitet", value: "20 l/dygn (modellnamnet)", highlight: true },
+      /* Meacos extraktionstabell: 20 ºC/60 % RH ger 8,5 l/dygn vid 216 W. */
+      { label: "Avfuktning i svalt", value: "8,5 l/dygn vid 20 °C / 60 % RH", highlight: true },
       { label: "Effekt", value: "216 W vid 20 °C / 60 % RH", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
+      { label: "Ljudnivå", value: "38 och 40 dB(A)", highlight: true },
+      /* Tillagt 2026-08-06 ur Meacos Technical Overview. */
+      { label: "Luftflöde", value: "145/160 m³/h", highlight: true },
+      { label: "Vikt", value: "15 kg", highlight: true },
+      /* Tillagt 2026-08-06: Meaco anger 4,8 liter. */
+      { label: "Tank", value: "4,8 liter", highlight: true },
       { label: "Provad av Which?", value: "Nej", highlight: true },
-      { label: "Ljudnivå", value: "38 och 40 dB(A)" },
-      { label: "Filter", value: "Tvättbart dammfilter, HEPA som tillval" },
+      { label: "Hygrostat", value: "40–70 % RH" },
+      /* Rättat 2026-08-06: stod "HEPA som tillval". */
+      { label: "Filter", value: "Tvättbart dammfilter, H13 HEPA ingår" },
       { label: "Display", value: "Ja" },
+      { label: "Torkläge", value: "Ja" },
       { label: "Mått", value: "618 x 366 x 272 mm (HxBxD)" },
-      { label: "Vikt", value: "15 kg" },
       { label: "Garanti", value: "5 år" },
       { label: "Köldmedium", value: "R290, 65 g" },
       { label: "Slanganslutning", value: "Ja, 12,5 mm trädgårdsslang" },
     ],
     verdict:
-      "Which? provade 12L och 25L, men inte den här storleken.\n\nDet syns i betyget. Poängen för avfuktning bygger på Meacos egna tal plus det faktum att tekniken, filtret och konstruktionen är densamma som i de provade syskonen, vilket är ett rimligt men svagare underlag än en mätning.\n\nDär den är stark är energin. 216 watt vid 20 grader och 60 procent för 20 liter per dygn ger ungefär 10,8 watt per liter, vilket är i nivå med 25-litersmodellen och bättre än 12L. Den är också tystare än den största, 38 och 40 decibel mot 40 och 42.\n\nVal mellan de tre: ta 12L om utrymmet är ett rum, ta den här om det är en normalstor källare eller tvättstuga du kör året runt, och ta 25L om ytan är stor eller om du vill ha den enda med uttalat gott betyg i kyla.\n\nSamma anmärkning som på de andra Meaco-modellerna. Elen redovisas vid namngivna villkor, kapaciteten inte alls.",
+      "Mellanstorleken i Arete One-serien tar 8,5 liter per dygn vid 20 grader och 60 procent, och kostar 3 870 kronor.\n\nDen sitter i samma chassi som 25-litersmodellen och har samma 4,8-liters tank, samma H13-filter och samma femåriga garanti, men går tystare: 38 och 40 decibel mot 40 och 42. I en tvättstuga som ligger vägg i vägg med ett sovrum är de två decibelen skillnaden mellan att köra den på natten och att stänga av den.\n\nPriset är det svåra. 429 kronor mer ger dig 25-litersmodellen, som tar 2,2 liter mer per dygn i samma svala rum, blåser 175 kubikmeter i timmen i stället för 160, och är den enda i serien Which? uttryckligen kallar bra i kyla.\n\nTa den här om ljudnivån avgör och utrymmet är en normalstor tvättstuga eller källare du kör året runt. Ska den ta en hel källarplan lägger du till de 429 kronorna.",
   },
   {
     id: "woods-sw42fw",
@@ -292,12 +359,18 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Wood's SW42FW",
     brand: "Wood's",
     image: productImage(AVFUKTARE.slug, "woods-sw42fw"),
-    tagline: "Går ner till +2 grader och säger vid vilken temperatur den mätts.",
+    tagline: "Tar 12 liter per dygn i ett svalt rum och arbetar ner till +2 grader.",
     scores: {
-      avfuktning: 4,
+      /* 4,5 och inte 4,0. Bruksanvisningen till SW-serien, som woods.se länkar
+         från produktsidan, har en egen rad "Dehumidifying at 20 ˚C and 70 %
+         r.h." och där står 12 l/24h för SW42/45. Det är näst mest vatten i
+         svalt av alla tolv och 60 procent mer än LD40 vid exakt samma villkor.
+         Höjt 2026-08-06, se lib/corrections.ts. */
+      avfuktning: 4.5,
       kyla: 5,
+      /* 600 W på 25 l vid 30 ºC/80 % RH, alltså 24,0 W per liter. Oförändrat
+         betyg, men nu på ett par som är uppmätt vid samma villkor. */
       energi: 3,
-      redovisning: 4,
       prisvarde: 2.5,
     },
     price: 5999,
@@ -305,41 +378,51 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/Luftavfuktare-Woods-SW42FW/p/36-7872`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 181 },
-    superlative: "Fuktkontroll ner till +2 grader",
+    superlative: "Bäst för ett stort och kallt utrymme",
     pros: [
+      "12 liter per dygn vid 20 °C och 70 % RF, näst mest av alla i svalt",
       "Fungerar ner till +2 °C tack vare avfrostningssystemet",
-      "Tillverkaren anger både kapacitet och effekt vid 30 ºC och 80 % RH",
       "11,4 liters tank plus slanganslutning för trädgårdsslang",
-      "181 kundomdömen på 4,5, ett brett underlag",
+      "181 kundomdömen på 4,5, bredaste underlaget bland de dyrare",
       "Plåthölje, tillverkad i Sverige, upp till 6 års garanti vid registrering",
     ],
     cons: [
-      "550 eller 600 watt beroende på vem man frågar, hög förbrukning oavsett",
-      "Clas Ohlson anger 25,5 liter och 550 W, Wood's anger 25 liter och 600 W",
-      "Butiken utelämnar de villkor tillverkaren själv skriver ut",
-      "Ingen display och ingen timer",
-      "5 999 kronor, 1 700 mer än vinnaren",
+      "600 watt för 25 liter, alltså 24 watt per liter och dygn och näst sämst här",
+      "60 dB(A) på hög fläkt, högsta ljudnivån av alla apparaterna",
+      "25 kilo, tyngst av alla, och den har inget bärhandtag",
+      "Ingen display och ingen timer, så du ställer den för hand varje gång",
     ],
     specs: [
       { label: "Pris", value: "5 999 kr", highlight: true },
-      { label: "Kapacitet", value: "25 l/24 h vid 30 ºC / 80 % RH", highlight: true },
-      { label: "Enligt butiken", value: "25,5 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "600 W (Wood's) / 550 W (Clas Ohlson)", highlight: true },
+      { label: "Kapacitet", value: "25 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      /* Tillagt 2026-08-06 ur bruksanvisningen till SW-serien, som woods.se
+         länkar: raden "Dehumidifying at 20 ˚C and 70 % r.h." ger 12 l/24h och
+         raden "Power at 20 ˚C and 70 % r.h." 420 W för SW42/45. */
+      { label: "Avfuktning i svalt", value: "12 l/dygn vid 20 °C / 70 % RF", highlight: true },
+      /* Bruksanvisningen till SW-serien ger båda raderna, se källnoten. */
+      { label: "Effekt", value: "600 W vid 30 °C / 80 % RH, 420 W vid 20 °C / 70 % RF", highlight: true },
       { label: "Drifttemperatur", value: "+2 till +35 °C", highlight: true },
+      { label: "Ljudnivå", value: "56–60 dB(A)", highlight: true },
+      /* Rättat 2026-08-06: stod 315 m³/h. Wood's anger 220–315. */
+      { label: "Luftflöde", value: "220–315 m³/h", highlight: true },
+      { label: "Vikt", value: "25 kg", highlight: true },
+      { label: "Tank", value: "11,4 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
       { label: "Rumsyta", value: "Upp till 190 m²" },
-      { label: "Luftflöde", value: "315 m³/h" },
-      { label: "Tank", value: "11,4 liter" },
       { label: "Display", value: "Nej" },
-      { label: "Köldmedium", value: "R290" },
+      /* Rättat 2026-08-06: stod bara "R290". Wood's anger R290/120 g. */
+      { label: "Köldmedium", value: "R290, 120 g" },
+      /* Tillagt 2026-08-06 ur Wood's spectabell. */
+      { label: "Kapslingsklass", value: "IPX1" },
       { label: "Filter", value: "SMF mögel- och partikelfilter" },
       { label: "Hygrostat", value: "Variabel" },
-      { label: "Slanganslutning", value: "Ja, 1/2 tum (slang ingår ej)" },
-      { label: "Ljudnivå", value: "56–60 dB" },
-      { label: "Vikt", value: "25 kg" },
+      { label: "Avfrostning", value: "Ja" },
+      { label: "Mått", value: "527 x 345 x 495 mm (HxBxD)" },
       { label: "Garanti", value: "Upp till 6 år vid årligt filterbyte" },
+      { label: "Slanganslutning", value: "Ja, 1/2 tum (slang ingår ej)" },
     ],
     verdict:
-      "Bäst av apparaterna i jämförelsen för ett riktigt kallt utrymme.\n\nDen arbetar ner till +2 grader, 3 grader lägre än Meaco-serien och lägst tillsammans med LD40. Den har 11,4 liters tank, slanganslutning för vanlig trädgårdsslang, plåthölje och 181 kundomdömen på 4,5, vilket är ett brett underlag. Wood's tillverkar den i Sverige och ger upp till sex års garanti om du registrerar den och byter filter.\n\nOch tillverkaren gör rätt sak: spectabellen på woods.se anger \"Avfuktningskapacitet (30 ºC & 80 % RH): 25 liter/24 h\" och \"Strömförbrukning (30 ºC & 80 % RH): 600 watt\". Båda talen, båda vid namngivna villkor.\n\nSedan går man till Clas Ohlson, som säljer samma apparat, och läser 25,5 liter per dygn och 550 watt. Utan villkor. Två av tillverkarens tal och två av butikens, för en och samma produkt, samma dag.\n\nIngen av dem ljuger. Det som saknas är en gemensam grund. Och det får en praktisk följd för dig: kapacitetstalet är uppmätt vid 30 grader, medan apparaten marknadsförs för utrymmen ner till 2. Det är 28 graders skillnad, och en kondensavfuktare fäller ut mindre vatten ju kallare luften är.\n\nDet som drar ner betyget är elen. 550 eller 600 watt för 25 liter är ungefär dubbelt så mycket per liter som Meaco anger, och priset på 5 999 kronor ligger 1 700 över vinnaren.",
+      "Wood's SW42FW är apparaten för ett stort utrymme som går mot nollan, och den kostar 5 999 kronor.\n\nI ett rum på 20 grader tar den 12 liter vatten per dygn, näst mest av alla apparaterna här och 60 procent mer än Wood's egen LD40 vid exakt samma villkor. Den arbetar dessutom ner till +2 grader, tre grader lägre än hela Meaco-serien, med ett avfrostningssystem som smälter bort isen på kylslingorna innan den hinner lägga sig. Höljet är plåt och inte plast, den är tillverkad i Sverige och Wood's ger upp till sex års garanti om du registrerar den och byter filter varje år. 181 kundomdömen på 4,5 är det bredaste underlaget bland de dyrare apparaterna, och det säger något om hur den står sig efter ett par vintrar.\n\nElen är priset för det. 600 watt för 25 liter per dygn är 24 watt per liter, näst sämst av alla apparaterna, och den saknar både display och timer, så fuktnivån ställer du för hand på en ratt varje gång du varit där. På hög fläkt låter den 60 decibel, alltså mer än något annat här, och 25 kilo utan bärhandtag betyder att den ställs på plats en gång.\n\nHar du ett garage, ett förråd eller en källare på över hundra kvadratmeter som håller några få plusgrader är det här apparaten. Den och LD40 är de enda två som ens fungerar där, och av dem är det den här som tar upp mest vatten. Håller utrymmet 15 grader och uppåt betalar du 1 700 kronor för mycket jämfört med vinnaren.",
   },
   {
     id: "meaco-arete-one-10l",
@@ -347,48 +430,57 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Meaco 10L",
     brand: "Meaco",
     image: productImage(AVFUKTARE.slug, "meaco-arete-one-10l"),
-    tagline: "Minsta i serien och den tystaste apparaten i jämförelsen.",
+    tagline: "35 decibel på låg fläkt, tystast av kompressorapparaterna.",
     scores: {
       avfuktning: 3,
       kyla: 3.5,
+      /* 199 W på 10,42 l vid 30 ºC/80 % RH, alltså 19,1 W per liter.
+         Oförändrat betyg, ny grund. */
       energi: 4,
-      redovisning: 3,
       prisvarde: 4.5,
     },
     price: 2586,
     merchant: BYGGHEMMA,
     merchantUrl: `${BYGGHEMMA_BASE}/avfuktare-och-luftrenare-meaco-meacodry-arete-one-10l/p-1887648`,
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "35 dB(A) på låg fläkt",
+    superlative: "Bäst för sovrummet",
     pros: [
-      "35 och 38 dB(A), tystast av apparaterna i jämförelsen",
-      "Samma serie, filter och hygrostat som de två provade syskonen",
+      "35 och 38 dB(A), tystast av kompressorapparaterna här",
+      "10,7 kilo och 47 centimeter hög, alltså lätt att flytta mellan rum",
       "2 586 kronor, billigast av de fyra Meaco-storlekarna",
-      "151 watt vid 20 °C och 60 % RH, vid namngiven nivå",
+      "Samma H13 HEPA-filter, hygrostat och femåriga garanti som de provade syskonen",
     ],
     cons: [
-      "Samma 151 watt som 12L men 2 liter mindre kapacitet, sämre kvot",
-      "Inte provad av Which?, till skillnad från 12L och 25L",
-      "Specifikationen säger inte vid vilka villkor de 10 literna gäller",
-      "10 liter räcker inte till en källare av normal storlek",
+      "4,3 liter per dygn vid 20 °C och 60 % RH, minst av apparaterna i jämförelsen",
+      "Samma 151 watt som 12L men en liter mindre i svalt, alltså sämre kvot",
+      "2,5 liters tank, som räcker ett halvt dygn i ett riktigt fuktigt rum",
+      "80/100 m³/h räcker till ett rum och ingenting mer",
     ],
     specs: [
       { label: "Pris", value: "2 586 kr", highlight: true },
-      { label: "Kapacitet", value: "10 l/dygn, villkor ej angivna", highlight: true },
+      { label: "Kapacitet", value: "10 l/dygn (modellnamnet)", highlight: true },
+      /* Meacos extraktionstabell: 20 ºC/60 % RH ger 4,34 l/dygn vid 151 W. */
+      { label: "Avfuktning i svalt", value: "4,3 l/dygn vid 20 °C / 60 % RH", highlight: true },
       { label: "Effekt", value: "151 W vid 20 °C / 60 % RH", highlight: true },
-      { label: "Ljudnivå", value: "35 och 38 dB(A)", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
+      { label: "Ljudnivå", value: "35 och 38 dB(A)", highlight: true },
+      /* Tillagt 2026-08-06 ur Meacos Technical Overview. */
+      { label: "Luftflöde", value: "80/100 m³/h", highlight: true },
+      { label: "Vikt", value: "10,7 kg", highlight: true },
+      /* Tillagt 2026-08-06: Meaco anger 2,5 liter. */
+      { label: "Tank", value: "2,5 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
       { label: "Hygrostat", value: "40–70 % RH" },
       { label: "Display", value: "Ja" },
+      { label: "Torkläge", value: "Ja" },
       { label: "Mått", value: "472 x 319 x 237 mm (HxBxD)" },
-      { label: "Vikt", value: "10,7 kg" },
       { label: "Garanti", value: "5 år" },
       { label: "Köldmedium", value: "R290, 35 g" },
-      { label: "Filter", value: "Tvättbart dammfilter, HEPA ingår" },
+      { label: "Filter", value: "Tvättbart dammfilter, H13 HEPA ingår" },
       { label: "Slanganslutning", value: "Ja, 12,5 mm trädgårdsslang" },
     ],
     verdict:
-      "Ljudnivån är hela skälet att välja den här framför 12-litersmodellen.\n\n35 och 38 decibel är hörbart men inte störande, och det spelar roll om den ska stå i ett sovrum eller en liten lägenhet. På alla andra punkter är 12L det bättre köpet: den kostar 413 kronor mer, ger två liter mer per dygn på exakt samma 151 watt, och den är dessutom provad av Which? medan den här inte är det.\n\nRäkna på kvoten och skillnaden blir tydlig. 151 watt för 10 liter är drygt 15 watt per liter och dygn, mot 12,6 för 12L. Det är samma apparat med en mindre kompressorkapacitet och samma grundförbrukning, vilket är en vanlig och sällan påpekad effekt av att köpa den minsta modellen i en serie.\n\nTa den här om ljudnivån avgör eller om utrymmet är litet. Ta annars 12L.\n\nSamma redovisningsanmärkning som resten av serien. Elen anges vid 20 grader och 60 procent, literantalet vid ingenting alls.",
+      "Minsta Arete One kostar 2 586 kronor och går på 35 decibel i sitt låga fläktläge.\n\nDet är hela skälet att välja den. 35 decibel är hörbart men inte störande, ungefär en tyst kyl, och den väger 10,7 kilo med integrerade grepp, så den kan stå i sovrummet på natten och i tvättstugan på dagen. HEPA-filtret ingår, vilket betyder att den renar luften från damm och pollen när fukten är borta.\n\nDen tar 4,3 liter per dygn vid 20 grader och 60 procent, alltså minst av alla apparaterna här. För 413 kronor mer ger 12-litersmodellen 5,2 liter på **exakt samma 151 watt**, och den är dessutom provad av Which?. Det är en liter vatten om dagen gratis, varje dag apparaten går.\n\nTa den här bara om ljudnivån är det som avgör och rummet är litet. I alla andra lägen är 12-litersmodellen det bättre köpet.",
   },
   {
     id: "eeese-adam-20l",
@@ -396,12 +488,17 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "eeese Adam",
     brand: "eeese",
     image: productImage(AVFUKTARE.slug, "eeese-adam-20l"),
-    tagline: "Bäst kvot mellan watt och liter av alla utom Meaco.",
+    tagline: "11,5 liter per dygn i svalt för 2 699 kronor.",
     scores: {
-      avfuktning: 3,
+      /* 3,5 och inte 3,0. eeese publicerar 11,5 l/dygn vid 27 ºC/60 % RH, ett
+         kontrollerbart tal vid svalare villkor. Kriteriet säger uttryckligen
+         att ett lägre tal som går att kontrollera väger tyngre än ett högt utan
+         villkor. Höjt 2026-08-06, se lib/corrections.ts. */
+      avfuktning: 3.5,
       kyla: 3,
-      energi: 4.5,
-      redovisning: 1.5,
+      /* 255 W på 20 l vid 30 ºC/80 % RH, alltså 12,75 W per liter och bäst
+         näst efter Hugo. Höjt från 4,5. */
+      energi: 5,
       prisvarde: 4.5,
     },
     price: 2699,
@@ -409,39 +506,51 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/eeese-Air-Care-Adam-luftavfuktare-WiFi,-20-l,-100-m2/p/36-21`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 44 },
-    superlative: "255 W för 20 liter per dygn",
+    award: "budget",
+    superlative: "Mest vatten per krona",
     pros: [
-      "255 watt för 20 liter per dygn, 12,75 watt per liter och dygn",
-      "1 171 kronor billigare än Meaco 20L med samma nominella kapacitet",
-      "5 liters tank, störst av alla utom Wood's två",
+      "11,5 liter per dygn vid 27 °C och 60 % RH, ett tal att räkna med i ett uppvärmt rum",
+      "255 watt för 20 liter, alltså 12,8 watt per liter och näst bäst av alla",
+      "4,8 liters tank, timer 1 till 24 timmar, barnlås och hjul",
+      "Wifi och styrning via Google Assistant, så fukten kan följas från telefonen",
       "44 kundomdömen på 4,5",
-      "Wifi, timer 1 till 24 timmar, barnlås, hjul och tvättbart filter",
     ],
     cons: [
-      "Inga villkor angivna för vare sig kapaciteten eller effekten",
-      "100 m² för samma 20 liter per dygn som Clas Ohlsons egen apparat anger 52 för",
-      "44 dB(A) på hög fläkt, bland de högre här",
+      "44 dB(A) på hög fläkt, alltså inget för ett sovrum",
       "Går ner till 5 °C, ingen apparat för ett kallt garage",
-      'Butiken kallar den "Bästa Hög kapacitet i test 2024" utan att namnge testet',
+      "Slang ingår inte, och den tar 14 mm och inte en vanlig trädgårdsslang",
+      "IPX0, alltså ingen kapsling mot stänk och därmed ingen badrumsapparat",
     ],
     specs: [
       { label: "Pris", value: "2 699 kr", highlight: true },
-      { label: "Kapacitet", value: "20 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "255 W, villkor ej angivna", highlight: true },
-      { label: "Rumsyta", value: "100 m²", highlight: true },
+      /* eeese egen spectabell, eeese-aircare.com, läst 2026-08-06. */
+      { label: "Kapacitet", value: "20 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      { label: "Avfuktning i svalt", value: "11,5 l/dygn vid 27 °C / 60 % RH", highlight: true },
+      { label: "Effekt", value: "255 W", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
-      { label: "Tank", value: "5 liter" },
-      { label: "Luftflöde", value: "145/130 m³/h" },
-      { label: "Ljudnivå", value: "44 och 42 dB(A)" },
+      /* Rättat 2026-08-06: stod "44 och 42". eeese anger 42 låg / 44 hög. */
+      { label: "Ljudnivå", value: "42 och 44 dB(A)", highlight: true },
+      /* Rättat 2026-08-06: stod 145/130. eeese anger 130 låg / 145 hög. */
+      { label: "Luftflöde", value: "130/145 m³/h", highlight: true },
+      { label: "Vikt", value: "15,2 kg", highlight: true },
+      /* Rättat 2026-08-06: butiken anger 5 liter, tillverkaren 4,8. */
+      { label: "Tank", value: "4,8 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      /* Tillverkarens spectabell gäller. Butiken skriver 100 m². Konflikten
+         står i .agent/research/avfuktare.md. */
+      { label: "Rumsyta", value: "70 m²" },
+      { label: "Timer", value: "1–24 timmar" },
       { label: "Filter", value: "Tvättbart" },
       { label: "Garanti", value: "3 år" },
       { label: "Display", value: "Ja" },
-      { label: "Vikt", value: "15,2 kg" },
+      { label: "Torkläge", value: "Ja" },
       { label: "Köldmedium", value: "R290" },
+      { label: "Kapslingsklass", value: "IPX0" },
+      { label: "Mått", value: "540 x 335 x 285 mm (HxBxD)" },
       { label: "Slanganslutning", value: "Ja, 14 mm (slang ingår ej)" },
     ],
     verdict:
-      "Bästa affären av de tolv för den som vill ha 20 liter utan att betala Meacopris.\n\n255 watt för 20 liter per dygn ger 12,75 watt per liter, vilket bara Meacoserien slår. Clas Ohlsons egen tjugolitersapparat drar 440 watt för samma kapacitet, 73 procent mer, och kostar bara 200 kronor mindre. Tanken rymmer 5 liter, mer än allt annat här utom Wood's 11,4. Wifi, timer mellan 1 och 24 timmar, barnlås, hjul och tvättbart filter ingår, och 44 kundomdömen på 4,5 är ett rimligt underlag.\n\nSedan kommer areatalet. **eeese anger 100 kvadratmeter för 20 liter per dygn. Clas Ohlson anger 52 kvadratmeter för 20 liter per dygn.** Samma butik, samma hylla, samma dag, nästan dubbla talet för identisk nominell kapacitet. Ingen av dem säger hur de räknat, och det finns ingen gemensam grund att räkna på. Gå efter liter och watt i stället för kvadratmeter. Adam är illustrationen till varför.\n\nSamma sak gäller literantalet självt. Ingenstans står det vid vilken temperatur och luftfuktighet de 20 literna eller de 255 watten är uppmätta, vilket ger 1,5 på öppen redovisning. Kvoten mellan effekt och kapacitet ser bra ut, men den ärver osäkerheten i båda talen.\n\nClas Ohlson inleder produkttexten med Bästa Hög kapacitet i test 2024. Vilket test det gäller står inte, och vi har inte hittat något test med den indelningen. Vi har inte räknat det som ett testomdöme.\n\nDen går ner till 5 grader, samma undre gräns som Meaco och eeese i övrigt. Ska apparaten stå i ett ouppvärmt garage är det Wood's du ska titta på.",
+      "eeese Adam kostar 2 699 kronor och tar **11,5 liter per dygn vid 27 grader och 60 procents luftfuktighet**, alltså mer än hälften av modellnamnets tjugo i ett normalvarmt rum.\n\nDen är också den näst snålaste apparaten här: 255 watt för 20 liter per dygn blir 12,8 watt per liter, mot 22 för Clas Ohlsons egen tjugolitersapparat som kostar bara 200 kronor mindre. Tanken rymmer 4,8 liter, timern går att ställa mellan 1 och 24 timmar, det finns barnlås och hjul, och wifi gör att fuktnivån kan följas och ändras från telefonen utan att du går ner i källaren. 44 kundomdömen på 4,5 är ett rimligt underlag.\n\nDe 27 graderna är den viktiga hakan. Det är sommarvärme och inte källartemperatur, så i ett rum på 15 grader får du mindre än de 11,5 literna. Apparaten stannar dessutom helt vid 5 grader, precis som Meaco-serien, och IPX0 betyder att den inte får stå där det stänker.\n\nHar du en källare eller tvättstuga som håller vanlig rumstemperatur är det här sidans klokaste affär, och pengarna du sparar räcker till en hygrometer och en slang. Ska apparaten stå i ett ouppvärmt garage är det Wood's du ska titta på.",
   },
   {
     id: "eeese-hugo-25l",
@@ -451,10 +560,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     image: productImage(AVFUKTARE.slug, "eeese-hugo-25l"),
     tagline: "IPX4-klassad, den enda som får stå i ett badrum.",
     scores: {
-      avfuktning: 3.5,
+      /* 4,0 och inte 3,5. eeese publicerar 15 l/dygn vid 27 ºC/60 % RH, det
+         högsta kontrollerbara talet vid svala villkor av alla utom Meacos
+         serie. Höjt 2026-08-06, se lib/corrections.ts. */
+      avfuktning: 4,
       kyla: 3,
-      energi: 4.5,
-      redovisning: 1.5,
+      /* 290 W på 25 l vid 30 ºC/80 % RH, alltså 11,6 W per liter och bäst av
+         alla tolv. Höjt från 4,5. */
+      energi: 5,
       prisvarde: 2.5,
     },
     price: 4499,
@@ -462,35 +575,47 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/eeese-Air-Care-Hugo-luftavfuktare,-luftrenare-25-l/p/36-22`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 3, count: 1 },
-    superlative: "IPX4, godkänd för våtutrymme",
+    superlative: "Bäst för badrummet",
     pros: [
-      "IPX4-klassad, den enda här som får användas i badrum",
-      "290 watt för 25 liter per dygn, god kvot på papperet",
+      "IPX4-klassad, den enda här som får användas i ett våtutrymme",
+      "290 watt för 25 liter, alltså 11,6 watt per liter och snålast av alla",
+      "15 liter per dygn vid 27 °C och 60 % RH, mest av alla utom Wood's SW42FW",
       "HEPA-filter, så den fungerar som luftrenare när fukten är borta",
-      "4,5 liters tank och torkläge för kläder",
+      "4,5 liters tank, torkläge för kläder och timer 1 till 24 timmar",
     ],
     cons: [
-      "Inga villkor alls angivna för de 25 literna",
-      "4 499 kronor, 200 mer än vinnaren som är provad",
+      "4 499 kronor, 200 mer än vinnaren som är provad av Which?",
+      "eeese Adam tar 11,5 liter i svalt för 1 800 kronor mindre",
+      "44 dB(A) på hög fläkt, bland de högre ljudnivåerna här",
       "Ett enda kundomdöme, satt till 3 av 5",
-      "44 dB(A), bland de högre ljudnivåerna här",
-      "eeese Adam ger 20 liter på 255 watt för 1 800 kronor mindre",
     ],
     specs: [
       { label: "Pris", value: "4 499 kr", highlight: true },
-      { label: "Kapacitet", value: "25 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "290 W, villkor ej angivna", highlight: true },
-      { label: "Kapslingsklass", value: "IPX4", highlight: true },
+      /* eeese egen spectabell, läst 2026-08-06. */
+      { label: "Kapacitet", value: "25 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      { label: "Avfuktning i svalt", value: "15 l/dygn vid 27 °C / 60 % RH", highlight: true },
+      { label: "Effekt", value: "290 W", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
-      { label: "Tank", value: "4,5 liter" },
-      { label: "Luftflöde", value: "190 m³/h" },
-      { label: "Ljudnivå", value: "44 dB(A)" },
-      { label: "Filter", value: "HEPA, tvättbart förfilter" },
+      /* Rättat 2026-08-06: stod 44 dB(A). eeese anger 42 låg / 44 hög. */
+      { label: "Ljudnivå", value: "42 och 44 dB(A)", highlight: true },
+      /* Rättat 2026-08-06: stod 190 m³/h. eeese anger 160 låg / 190 hög. */
+      { label: "Luftflöde", value: "160/190 m³/h", highlight: true },
+      /* Tillagt 2026-08-06 ur eeese spectabell. */
+      { label: "Vikt", value: "15,6 kg", highlight: true },
+      { label: "Tank", value: "4,5 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      { label: "Kapslingsklass", value: "IPX4" },
+      { label: "Timer", value: "1–24 timmar" },
+      { label: "Filter", value: "HEPA H13, tvättbart förfilter" },
       { label: "Display", value: "Ja" },
+      { label: "Torkläge", value: "Ja" },
+      { label: "Köldmedium", value: "R290" },
+      { label: "Mått", value: "580 x 378 x 273 mm (HxBxD)" },
       { label: "Garanti", value: "Upp till 3 år" },
+      { label: "Slanganslutning", value: "Ja, 14 mm (slang ingår ej)" },
     ],
     verdict:
-      "Ensam om att vara kapslad för ett våtutrymme.\n\nIPX4 betyder skydd mot vattenstänk från alla riktningar. Ett badrum utan fönster där duschen används dagligen är ett av de vanligaste ställena en avfuktare hamnar på, och de flesta apparater här har ingen kapslingsklass alls angiven. Har du det problemet är valet nästan gjort.\n\nPå papperet är den också energieffektiv: 290 watt för 25 liter per dygn ger 11,6 watt per liter, i nivå med Meaco. Problemet är att ingetdera talet är kopplat till några villkor. Vi vet inte vid vilken temperatur eller luftfuktighet de 25 literna gäller, och därmed inte heller vad kvoten är värd. Det är därför den får 1,5 på öppen redovisning.\n\nPriset gör resten. 4 499 kronor är 200 kronor mer än Meaco Arete One 25L, som har samma nominella kapacitet, redovisar sin effekt vid namngivna villkor och dessutom är provad av Which?. Det enda kundomdöme som finns är satt till 3 av 5.\n\nKöp den för badrummet. Köp den inte för literantalet, eftersom du inte vet vad det betyder.",
+      "eeese Hugo är den enda apparaten här som är kapslad för ett våtutrymme, och den kostar 4 499 kronor.\n\nIPX4 betyder skydd mot vattenstänk från alla riktningar. Ett fönsterlöst badrum där någon duschar varje dag är ett av de vanligaste ställena en avfuktare hamnar på, och det är också det enda ställe där de andra elva formellt inte får stå. Hugo är dessutom den snålaste av alla: 290 watt för 25 liter per dygn blir 11,6 watt per liter, och den tar 15 liter vid 27 grader och 60 procent. HEPA-filtret gör att den renar luften från damm och pollen resten av året.\n\nPriset är svårt att försvara utanför badrummet. 4 499 kronor är 200 mer än vinnaren, som är den enda apparaten här någon oberoende har mätt, och 1 800 mer än eeese Adam, som tar 11,5 liter i svalt av samma tillverkare med samma teknik.\n\nHar du det fönsterlösa badrummet är valet redan gjort. Ska apparaten stå någon annanstans tar du Adam och lägger 1 800 kronor på en fuktspärr i stället.",
   },
   {
     id: "clas-ohlson-20l",
@@ -498,12 +623,14 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Clas Ohlson 20 L",
     brand: "Clas Ohlson",
     image: productImage(AVFUKTARE.slug, "clas-ohlson-20l"),
-    tagline: "416 kundomdömen, bredast vardagsunderlag av alla apparaterna.",
+    tagline: "416 kundomdömen och tre fläktlägen för 2 499 kronor.",
     scores: {
       avfuktning: 3,
       kyla: 2.5,
+      /* 440 W på 20 l, alltså 22,0 W per liter. Villkoren anges inte i
+         butikens spectabell, men bruksanvisningen skriver att kapaciteten
+         sjunker under 15 ºC. Oförändrat betyg. */
       energi: 3,
-      redovisning: 1.5,
       prisvarde: 4.5,
     },
     price: 2499,
@@ -511,38 +638,44 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/Luftavfuktare-20-liter,-52-m2/p/36-8322`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 416 },
-    superlative: "416 omdömen på 4,5",
+    superlative: "Mest funktion för 2 499 kronor",
     pros: [
       "416 kundomdömen på 4,5, flest av alla apparaterna",
-      "2 499 kronor för 20 liter per dygn och 52 kvadratmeter",
+      "Tre fläktlägen på 41, 43 och 46 dB(A), fler steg än någon annan här",
       "Display, ställbar fuktnivå, timer och avfrostningsfunktion",
       "Slanganslutning med 13,5 mm innerdiameter för kontinuerlig dränering",
     ],
     cons: [
-      "Inga villkor angivna för vare sig kapacitet eller effekt",
-      "440 watt för 20 liter, 22 watt per liter och dygn",
+      "440 watt för 20 liter, alltså 22 watt per liter och dygn",
+      "Kapaciteten sjunker under 15 °C enligt bruksanvisningen",
       "Stannar vid 5 °C i nedre kanten och 32 i övre, snävast intervall här",
-      "46 dB(A), högst ljudnivå av de rankade",
-      "3 liters tank, så tömning ofta om du inte kopplar slang",
+      "3 liters tank, som en tjugolitersapparat fyller flera gånger om dygnet",
     ],
     specs: [
       { label: "Pris", value: "2 499 kr", highlight: true },
-      { label: "Kapacitet", value: "20 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "440 W, villkor ej angivna", highlight: true },
-      { label: "Rumsyta", value: "52 m²", highlight: true },
+      { label: "Kapacitet", value: "20 l/dygn", highlight: true },
+      { label: "Effekt", value: "440 W", highlight: true },
       { label: "Drifttemperatur", value: "5–32 °C", highlight: true },
-      { label: "Tank", value: "3 liter" },
-      { label: "Ljudnivå", value: "46 dB" },
+      /* Rättat 2026-08-06: stod 46 dB. Bruksanvisningen anger tre fläktlägen,
+         46/43/41 dB(A). */
+      { label: "Ljudnivå", value: "41, 43 och 46 dB(A)", highlight: true },
+      /* Tillagt 2026-08-06 ur bruksanvisningen till 36-8322, som produktsidan
+         länkar. Butikens egen spectabell anger bara förpackningens vikt,
+         15,15 kg. Manualen anger nettovikten. */
+      { label: "Vikt", value: "14 kg", highlight: true },
+      { label: "Tank", value: "3 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      { label: "Rumsyta", value: "52 m²" },
       { label: "Köldmedium", value: "R290, 0,07 kg" },
       { label: "Avfrostning", value: "Ja" },
       { label: "Display", value: "Ja" },
-      { label: "Timer", value: "Ja" },
+      { label: "Timer", value: "Ja, start och stopp" },
       { label: "Hygrostat", value: "Ja, justerbar" },
       { label: "Slanganslutning", value: "Ja, 13,5 mm innerdiameter" },
       { label: "Mått", value: "510 x 350 x 245 mm (HxBxD)" },
     ],
     verdict:
-      "416 kundomdömen på 4,5 gör den till den mest köpta apparaten i jämförelsen.\n\nClas Ohlsons egen tioliters ligger närmast med 374. Meacos fyra modeller har noll omdömen hos Bygghemma, Wood's LD40 har noll, och eeese Hugo har ett. Det säger inget om avfuktningsförmåga, men mycket om att apparaten fungerar i vardagen hos ett stort antal hushåll.\n\nFör 2 499 kronor får du 20 liter per dygn, 52 kvadratmeter, display, ställbar fuktnivå, timer, avfrostning och slanganslutning. Det är den mest kompletta funktionslistan per krona av apparaterna här.\n\nElen är hög: 440 watt för 20 liter blir 22 watt per liter och dygn, ungefär dubbelt Meacos siffra. Temperaturintervallet är snävast här, 5 till 32 grader, vilket gör den till en apparat för uppvärmda utrymmen och inte för garaget. Och 46 decibel är den högsta ljudnivån bland de rankade.\n\nDen principiella invändningen står kvar. Butiken anger 20 liter per dygn och 440 watt, och säger ingenting om vid vilken temperatur eller luftfuktighet något av det är uppmätt. Du kan alltså inte ställa den mot Meaco på annat än förhoppning. Det är därför den får 1,5 på öppen redovisning trots att allt annat på produktsidan är ovanligt utförligt.",
+      "Clas Ohlsons egen tjugolitersapparat kostar 2 499 kronor och har 416 kundomdömen på 4,5, alltså det bredaste vardagsunderlaget i hela jämförelsen.\n\nFör pengarna får du en ovanligt komplett funktionslista: display, ställbar fuktnivå, start- och stopptimer, avfrostning och slanganslutning för 13,5-millimetersslang. Den har tre fläktlägen på 41, 43 och 46 decibel, alltså ett steg fler än något annat här, och det låga läget är tyst nog för ett arbetsrum. Att 416 hushåll har satt 4,5 säger inget om hur mycket vatten den tar, men mycket om att den fortfarande går efter ett par år.\n\nElen är det dyra. 440 watt för 20 liter per dygn blir 22 watt per liter, dubbelt mot eeese Adam som kostar 200 kronor mer. Bruksanvisningen skriver dessutom att kapaciteten sjunker under 15 grader, och apparaten stannar helt vid 5, så den hör hemma i ett uppvärmt utrymme.\n\nKör du apparaten några veckor om året i ett uppvärmt rum är det här mest funktion per krona på hela sidan. Ska den gå hela hösten tar du eeese Adam, för de 200 kronorna har du tjänat in på elräkningen före jul.",
   },
   {
     id: "eeese-emil-10l",
@@ -550,18 +683,15 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "eeese Emil",
     brand: "eeese",
     image: productImage(AVFUKTARE.slug, "eeese-emil-10l"),
-    tagline: "155 watt mot 360 för samma tio liter.",
+    tagline: "11,3 kilo med grepp i sidorna, byggd för att flyttas.",
     scores: {
       avfuktning: 2.5,
       kyla: 3,
-      energi: 4,
-      redovisning: 1.5,
-      /* 3,0 och inte 3,5. Prisvärde är inte lägst pris: Clas Ohlsons
-         tjugolitersapparat ger dubbla kapaciteten för 350 kronor mer.
-         Justerat 2026-08-03 efter avläsning av den renderade tabellen, där
-         3,5 gav de två samma betyg. Den behöll budgetutmärkelsen när Clas
-         Ohlsons tioliters kom in på 1 499 kr, eftersom 155 watt mot 360 för
-         samma kapacitet gör den billigare att äga. */
+      /* 165 W på 10 l vid 30 ºC/80 % RH, alltså 16,5 W per liter. Höjt från
+         4,0 sedan tillverkarens tal ersatt butikens 155 W utan villkor. */
+      energi: 4.5,
+      /* 3,0 och inte 3,5. Prisvärde är inte lägst pris: eeese Adam ger dubbla
+         kapaciteten för 550 kronor mer och drar bara 90 watt mer. */
       prisvarde: 3,
     },
     price: 2149,
@@ -569,35 +699,50 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/eeese-Air-Care-Emil-luftavfuktare,-10-liter,-42-m2/p/36-20`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4, count: 6 },
-    award: "budget",
-    superlative: "155 W mot 360 för samma tio liter",
+    superlative: "Bäst för den som flyttar apparaten mellan rum",
     pros: [
-      "2 149 kronor för 10 liter per dygn på 155 watt",
-      "155 watt för 10 liter per dygn, låg förbrukning",
-      "Tvättbart filter, ingen förbrukningsdel att köpa",
-      "Barnlås, timer, två fläkthastigheter och integrerade handtag",
+      "11,3 kilo och 46 centimeter hög, med integrerade grepp i sidorna",
+      "36 dB(A) på låg fläkt, tyst nog för ett sovrum",
+      "165 watt för 10 liter, alltså 16,5 watt per liter och bättre än båda Wood's",
+      "Tvättbart filter, alltså ingen förbrukningsdel att köpa",
+      "Barnlås, timer 1 till 24 timmar och två fläkthastigheter",
     ],
     cons: [
-      "Inga villkor angivna för kapacitet eller effekt",
-      "Produktnamnet säger 42 m², spectabellen säger 40",
-      "Bara 2,6 liters tank, så ofta tömning utan slang",
-      "10 liter per dygn räcker inte till en källare",
-      "6 kundomdömen, tunt underlag",
+      "5 liter per dygn vid 27 °C och 60 % RH, alltså en apparat för ett rum",
+      "2,6 liters tank, så tömning varje dygn om du inte kopplar slang",
+      "eeese Adam ger dubbla kapaciteten för 550 kronor mer",
+      "77 m³/h på låg fläkt, alltså minst luft av alla apparaterna här",
     ],
     specs: [
       { label: "Pris", value: "2 149 kr", highlight: true },
-      { label: "Kapacitet", value: "10 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "155 W, villkor ej angivna", highlight: true },
-      { label: "Rumsyta", value: "40 m² i spectabellen", highlight: true },
+      /* eeese egen spectabell, läst 2026-08-06. */
+      { label: "Kapacitet", value: "10 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      { label: "Avfuktning i svalt", value: "5 l/dygn vid 27 °C / 60 % RH", highlight: true },
+      /* Rättat 2026-08-06: butiken anger 155 W, tillverkaren 165 W. */
+      { label: "Effekt", value: "165 W", highlight: true },
       { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
-      { label: "Tank", value: "2,6 liter" },
-      { label: "Luftflöde", value: "105 m³/h" },
+      /* Tillagt 2026-08-06 ur eeese spectabell. */
+      { label: "Ljudnivå", value: "36 och 40 dB(A)", highlight: true },
+      /* Rättat 2026-08-06: stod 105 m³/h. eeese anger 77 låg / 105 hög. */
+      { label: "Luftflöde", value: "77/105 m³/h", highlight: true },
+      { label: "Vikt", value: "11,3 kg", highlight: true },
+      { label: "Tank", value: "2,6 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      /* Tillverkarens spectabell gäller. Produktnamnet hos butiken säger
+         42 m². Konflikten står i .agent/research/avfuktare.md. */
+      { label: "Rumsyta", value: "40 m²" },
+      { label: "Timer", value: "1–24 timmar" },
       { label: "Filter", value: "Tvättbart" },
       { label: "Display", value: "Ja" },
+      { label: "Torkläge", value: "Ja" },
+      { label: "Köldmedium", value: "R290" },
+      { label: "Kapslingsklass", value: "IPX2" },
+      { label: "Mått", value: "463 x 300 x 250 mm (HxBxD)" },
       { label: "Garanti", value: "Upp till 3 år" },
+      { label: "Slanganslutning", value: "Ja, 14 mm (slang ingår ej)" },
     ],
     verdict:
-      "Budgetvalet ligger här och inte på det lägsta priset. 155 watt mot 360 för samma tio liter är skälet.\n\n2 149 kronor för 10 liter per dygn på 155 watt är en rimlig affär. Kvoten blir 15,5 watt per liter och dygn, bättre än både Clas Ohlsons egna och Wood's SW42FW. Filtret är tvättbart, så det finns ingen förbrukningsdel att köpa, och efter elen är det den enskilt viktigaste driftkostnaden.\n\nDen är också liten. 46 centimeter hög, integrerade handtag, barnlås och timer. Ska apparaten flyttas mellan sovrum och tvättstuga är det en verklig fördel framför Meacos 16 kilo.\n\nMen den har samma grundproblem som resten av eeese-sortimentet: ingenstans står det vid vilka villkor de 10 literna eller de 155 watten gäller. Och den har ett eget litet fel som säger något om hur noga uppgifterna hanteras. Produktnamnet hos Clas Ohlson säger 42 kvadratmeter. Butikens egen spectabell på samma sida säger 40.\n\nClas Ohlsons tiolitersapparat kostar 650 kronor mindre för samma tio liter, men drar mer än dubbelt så mycket el. Åt andra hållet kostar tjugolitersapparaten 350 kronor mer och ger dubbla kapaciteten, vilket håller prisvärdet nere på 3,0.",
+      "eeese Emil kostar 2 149 kronor, väger 11,3 kilo och är 46 centimeter hög, med grepp instansade i sidorna.\n\nDen är byggd för att flyttas, och det är dess bästa egenskap. Står den i sovrummet på natten går den på 36 decibel, vilket är tystare än allt utom Meacos två minsta, och på morgonen bär du den till tvättstugan utan att behöva två händer under kanten. Timern går mellan 1 och 24 timmar, det finns barnlås, och filtret tvättas i stället för att bytas, så det finns ingen förbrukningsdel att köpa.\n\n5 liter per dygn vid 27 grader och 60 procent är däremot lite. Det räcker för ett sovrum med kondens på rutorna eller ett badrum, men inte för en källare, och tanken på 2,6 liter betyder tömning varje dygn om du inte har ett avlopp att koppla den 14-millimeters slangen till.\n\nBehöver du en apparat som bor i ett rum i taget är den här rätt. Ska den stå still i en källare hela hösten kostar eeese Adam 550 kronor mer och tar dubbelt så mycket vatten.",
   },
   {
     id: "clas-ohlson-10l",
@@ -605,15 +750,13 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Clas Ohlson 10 L",
     brand: "Clas Ohlson",
     image: productImage(AVFUKTARE.slug, "clas-ohlson-10l"),
-    tagline: "Enda produkttexten som ger literantalet ett förbehåll.",
+    tagline: "1 499 kronor, och fuktnivån ställs i steg om fem procent.",
     scores: {
       avfuktning: 2.5,
       kyla: 2.5,
+      /* 360 W på 10 l, alltså 36,0 W per liter och sämst av alla tolv med bred
+         marginal. Oförändrat betyg. */
       energi: 1.5,
-      /* 2,0 enligt skalan i sidans fotnot: en vag reservation i löptext. Den
-         är sidans enda, och den ligger över dem som inget säger och under dem
-         som anger temperatur och luftfuktighet. */
-      redovisning: 2,
       prisvarde: 4,
     },
     price: 1499,
@@ -621,39 +764,43 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl: `${CLAS_OHLSON_BASE}/Luftavfuktare-10-liter,-31-m2/p/36-8321`,
     priceCheckedAt: PRICE_CHECKED,
     userRating: { value: 4.5, count: 374 },
-    superlative: "1 499 kr, lägsta priset här",
+    superlative: "Billigast av alla apparaterna",
     pros: [
       "1 499 kronor, lägsta priset bland de rankade",
       "374 kundomdömen på 4,5, näst bredaste underlaget",
-      "Enda produkttexten som ger ett förbehåll för literantalet",
       "Fuktnivån ställs 35 till 85 procent i steg om fem, finaste steget här",
+      "36 dB(A) på låg fläkt, tyst nog för ett sovrum, och 11,6 kilo att bära",
       "Minnesfunktion som startar om apparaten efter strömavbrott",
     ],
     cons: [
-      "360 watt för 10 liter, 36 watt per liter och dygn och sämst av de tolv apparaterna",
-      "eeese Emil ger samma 10 liter på 155 watt, mindre än halva",
-      "5 till 32 °C, snävast intervall av apparaterna i jämförelsen",
-      "1,6 liters tank, minst av apparaterna i jämförelsen, så tömning ofta utan slang",
-      "Förbehållet anger ingen temperatur och ingen luftfuktighet, bara cirka 15 grader",
+      "360 watt för 10 liter, alltså 36 watt per liter och sämst av alla apparaterna",
+      "eeese Emil ger samma 10 liter på 165 watt, mindre än halva",
+      "Kapaciteten sjunker under 15 °C enligt bruksanvisningen, och apparaten stannar vid 5",
+      "1,6 liters tank, minst av alla, så tömning flera gånger om dygnet utan slang",
     ],
     specs: [
       { label: "Pris", value: "1 499 kr", highlight: true },
-      { label: "Kapacitet", value: "10 l/dygn, vagt förbehåll i texten", highlight: true },
-      { label: "Effekt", value: "360 W, villkor ej angivna", highlight: true },
-      { label: "Rumsyta", value: "31 m²", highlight: true },
+      { label: "Kapacitet", value: "10 l/dygn", highlight: true },
+      { label: "Effekt", value: "360 W", highlight: true },
       { label: "Drifttemperatur", value: "5–32 °C", highlight: true },
+      /* Rättat 2026-08-06: stod 41 dB(A). Bruksanvisningen till 36-8321 anger
+         tre fläktlägen, 41/39/36 dB(A), precis som systermodellen 36-8322. */
+      { label: "Ljudnivå", value: "36, 39 och 41 dB(A)", highlight: true },
+      /* Tillagt 2026-08-06 ur bruksanvisningen till 36-8321. */
+      { label: "Vikt", value: "11,6 kg", highlight: true },
+      { label: "Tank", value: "1,6 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      { label: "Rumsyta", value: "16–31 m²" },
       { label: "Hygrostat", value: "35–85 %, steg om 5" },
-      { label: "Tank", value: "1,6 liter" },
-      { label: "Ljudnivå", value: "41 dB" },
       { label: "Slanganslutning", value: "Innerdiameter 13,5 mm" },
       { label: "Köldmedium", value: "R290, 45 g" },
       { label: "Display", value: "Ja" },
-      { label: "Timer", value: "Ja" },
+      { label: "Timer", value: "Ja, start och stopp" },
       { label: "Avfrostning", value: "Ja" },
-      { label: "Mått", value: "441 x 334 x 224 mm (HxBxD)" },
+      { label: "Mått", value: "440 x 330 x 220 mm (HxBxD)" },
     ],
     verdict:
-      "Billigast av apparaterna i jämförelsen, 1 499 kronor.\n\nClas Ohlson skriver: avfuktar upp till 10 liter per dygn \"vid optimala temperaturförhållanden, från cirka 15 grader och uppåt\". Det är ingen deklaration. Det anger varken luftfuktighet eller en mätpunkt, och cirka 15 grader är inte ett provvillkor. Men det är mer än någon annan produkttext här säger, och den får därför 2,0 på öppen redovisning i stället för 1,5.\n\nApparaten är marknadsförd för tvättstugor, uppvärmda källare och garage, och den anger 5 grader som undre driftgräns. Samtidigt säger tillverkaren att literantalet gäller från ungefär 15 grader och uppåt. Mellan 5 och 15 grader arbetar den alltså, men inte i närheten av tio liter. Det gäller med all sannolikhet varje kondensavfuktare i jämförelsen. Skillnaden är att den här skriver det.\n\nIngen av de andra elva reglerar lika fint. Fuktnivån ställs mellan 35 och 85 procent i steg om fem, finare steg än de flesta här erbjuder, och det finns display, timer, avfrostning och en minnesfunktion som startar om apparaten efter strömavbrott. 374 kundomdömen på 4,5 säger att den fungerar i vardagen.\n\nDet som sänker den är elen. **360 watt för 10 liter per dygn blir 36 watt per liter, den sämsta kvoten av alla apparaterna, med bred marginal.** eeese Emil gör samma tio liter på 155 watt. Meaco Arete One 25L ligger på 10,7. Kör du en avfuktare kontinuerligt under en fuktig höst är det där pengarna försvinner, inte i inköpspriset.\n\nTill det kommer det snävaste temperaturintervallet av de tolv, 5 till 32 grader, och den minsta tanken, 1,6 liter, som en apparat med tio liters kapacitet fyller flera gånger om dygnet.\n\nKöp den om du vill ha en billig apparat till ett uppvärmt rum och tänker koppla slang. Ska den gå mycket, räkna på elen först.",
+      "1 499 kronor är billigast av apparaterna i jämförelsen, och 374 kundomdömen på 4,5 säger att den fungerar i vardagen.\n\nIngen av de andra elva reglerar lika fint. Fuktnivån ställs mellan 35 och 85 procent i steg om fem procentenheter, vilket betyder att du kan sikta på 45 procent i stället för att välja mellan 40 och 50. Till det kommer display, start- och stopptimer, avfrostning och en minnesfunktion som startar apparaten igen efter ett strömavbrott. Den väger 11,6 kilo och går ner till 36 decibel på lägsta fläktläget, så den går att flytta och den går att sova bredvid.\n\nElen är invändningen, och den är stor. **360 watt för 10 liter per dygn blir 36 watt per liter, sämst av alla apparaterna med bred marginal.** eeese Emil gör samma tio liter på 165 watt, alltså mindre än halva, och kostar 650 kronor mer. Kör du apparaten kontinuerligt en fuktig höst är mellanskillnaden intjänad långt före våren, och tanken på 1,6 liter betyder dessutom flera tömningar om dygnet om du inte kopplar slang.\n\nKöp den om apparaten ska gå några veckor om året i ett uppvärmt rum och du vill lägga så lite som möjligt. Ska den stå på hela hösten är det här sidans dyraste apparat att äga.",
   },
   {
     id: "xiaomi-dehumidifier-lite",
@@ -661,12 +808,20 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     shortName: "Xiaomi Lite",
     brand: "Xiaomi",
     image: productImage(AVFUKTARE.slug, "xiaomi-dehumidifier-lite"),
-    tagline: "Appstyrd och tyst, men butiken talar knappt om vad den gör.",
+    tagline: "34 decibel i sovläge, tystast av alla apparaterna.",
     scores: {
-      avfuktning: 2.5,
+      /* 3,0 och inte 2,5. Kjells spectabell anger "Avfuktning vid 27 ºC,
+         60 % RH: 0,29 kg/h", alltså 7,0 liter per dygn vid samma villkor som
+         eeese mäter vid. Det är 40 procent mer än eeese Emil, som står på 2,5,
+         och klart under eeese Adams 11,5, som står på 3,5. Höjt 2026-08-06,
+         se lib/corrections.ts. */
+      avfuktning: 3,
       kyla: 1.5,
-      energi: 2,
-      redovisning: 1,
+      /* 4,5 och inte 2,0. Tvåan sattes för att effekten troddes saknas. Kjell
+         publicerar den: 190 W nominellt, 250 W max. 190 W på 13 l är 14,6 W
+         per liter, tredje bäst av alla tolv. Rättad 2026-08-06, se
+         lib/corrections.ts. */
+      energi: 4.5,
       prisvarde: 3,
     },
     price: 2490,
@@ -674,35 +829,51 @@ const SEEDS: Omit<Product, "score" | "rating">[] = [
     merchantUrl:
       "https://www.kjell.com/se/produkter/hem-fritid/inomhusklimat-uppvarmning/luftavfuktare/xiaomi-smart-dehumidifier-lite-avfuktare-13-ldygn-p47223",
     priceCheckedAt: PRICE_CHECKED,
-    superlative: "34 dB(A) i sovläge",
+    superlative: "Bäst för ett Xiaomi-hem",
     pros: [
-      "34 dB(A) i sovläge, bland de tystare här",
-      "Tre lägen: smart, torkning och sov",
+      "34 dB(A) i sovläge, tystast av alla apparaterna här",
+      "7 liter per dygn vid 27 °C och 60 % RH, mer än eeese Emil för samma pengar",
+      "190 watt för 13 liter, alltså 14,6 watt per liter och tredje bäst av alla",
+      "Ø290 millimeter och 11,1 kilo, alltså rundast och nätt intill en säng",
       "Styrs via Xiaomi Home, samma app som övrig Xiaomi-utrustning",
-      "3 liters tank och direktavlopp via slang",
+      "1 meters avloppsslang ingår, till skillnad från eeese och Wood's",
     ],
     cons: [
-      "Kjell anger varken effekt, driftstemperatur eller max rumsstorlek",
-      "Inga villkor angivna för de 13 literna",
-      "Utan effektuppgift går driftkostnaden inte att räkna alls",
-      "Inga kundomdömen publicerade",
-      "2 490 kronor för 13 liter är dyrt mot eeese Emil på 2 149 för 10",
+      "3 liters tank, som fylls på ett dygn i ett fuktigt rum",
+      "140 m³/h luftflöde, alltså minst av alla utom Meacos två minsta",
+      "Går ner till 5 °C, ingen apparat för ett kallt garage",
+      "2 490 kronor för 13 liter, mot 2 699 för eeese Adams 20",
     ],
     specs: [
       { label: "Pris", value: "2 490 kr", highlight: true },
-      { label: "Kapacitet", value: "13 l/dygn, villkor ej angivna", highlight: true },
-      { label: "Effekt", value: "Uppgift saknas", highlight: true },
-      { label: "Drifttemperatur", value: "Uppgift saknas", highlight: true },
-      { label: "Rumsyta", value: "Uppgift saknas", highlight: true },
-      { label: "Ljudnivå", value: "34 dB(A) i sovläge" },
-      { label: "Tank", value: "3 liter" },
+      /* Rättat 2026-08-06: stod "13 l/dygn" utan villkor. Kjells spectabell
+         anger "Avfuktningskapacitet: 13 liter/dygn (30 °C, 80 % RH)". */
+      { label: "Kapacitet", value: "13 l/dygn vid 30 °C / 80 % RH", highlight: true },
+      /* Tillagt 2026-08-06 ur samma spectabell: "Avfuktning vid 27 °C, 60 % RH:
+         0,29 kg/h", alltså 6,96 liter per dygn. Avrundat till 7,0. */
+      { label: "Avfuktning i svalt", value: "7,0 l/dygn vid 27 °C / 60 % RH", highlight: true },
+      /* Rättat 2026-08-06: stod "Uppgift saknas". Kjells egen spectabell för
+         artikel 47223 anger 190 W, maxeffekt 250 W. */
+      { label: "Effekt", value: "190 W (max 250 W)", highlight: true },
+      /* Rättat 2026-08-06: stod "Uppgift saknas". Kjell anger 5–35 °C. */
+      { label: "Drifttemperatur", value: "5–35 °C", highlight: true },
+      { label: "Ljudnivå", value: "34 dB(A) i sovläge, högst 38", highlight: true },
+      /* Tillagt 2026-08-06 ur Kjells spectabell. */
+      { label: "Luftflöde", value: "140 m³/h", highlight: true },
+      { label: "Vikt", value: "11,1 kg", highlight: true },
+      { label: "Tank", value: "3 liter", highlight: true },
+      { label: "Provad av Which?", value: "Nej", highlight: true },
+      { label: "Rumsyta", value: "5–20 m² beroende på rumstyp" },
       { label: "App", value: "Xiaomi Home" },
+      { label: "Röststyrning", value: "Google Assistant och Amazon Alexa" },
       { label: "Display", value: "Ja, med pekkontroll" },
+      { label: "Köldmedium", value: "R290, 38 g" },
       { label: "Filter", value: "Tvättbart antibakteriellt filter" },
+      { label: "Mått", value: "Ø290 x 520 mm" },
       { label: "Slanganslutning", value: "Ja, 1 m slang 13,5 mm ingår" },
     ],
     verdict:
-      "Sist av de rankade. Apparaten är inte problemet; det vi inte får veta om den är det.\n\nKjell anger 13 liter per dygn, 34 decibel i sovläge, tre liters tank, tre lägen och appstyrning. Sedan tar uppgifterna slut. Ingen effekt i watt. Ingen driftstemperatur. Ingen maximal rumsstorlek. Inga kundomdömen.\n\nUtan effektuppgift går driftkostnaden inte att räkna över huvud taget, och den är enligt Which? den enda meningsfulla axeln. Utan driftstemperatur vet du inte om den klarar en källare på åtta grader. Utan rumsstorlek vet du inte om 13 liter är mycket eller lite för ditt utrymme.\n\nDen får därför 1,0 på öppen redovisning, lägst av de tolv apparaterna, och låga poäng på både kyla och energi. Vi sätter inte en nolla där en uppgift saknas, vi skriver att den saknas, men en uppgift som saknas kan inte heller ge poäng.\n\nDet finns ett verkligt argument för den ändå. Har du redan Xiaomi Home och vill styra fukten i samma app som allt annat, och står apparaten i ett sovrum där 34 decibel spelar roll, då är den rimlig. För alla andra ger eeese Emil mer redovisad information för 341 kronor mindre.",
+      "Xiaomi Smart Dehumidifier Lite kostar 2 490 kronor, tar 7 liter vatten per dygn i ett normalvarmt rum och går på 34 decibel i sovläge.\n\n34 decibel är det tystaste läget i hela jämförelsen, en bit under Meacos 35 och långt under Clas Ohlsons 46. Det är skillnaden mellan en apparat som får stå i sovrummet över natten och en som måste stängas av vid läggdags. Den är rund, 29 centimeter i diameter och 52 höga, så den tar mindre golv än de fyrkantiga och ser inte ut som en maskin bredvid en säng. Den drar 190 watt för sina 13 liter, alltså 14,6 watt per liter, vilket bara eeese två slår, och en meters avloppsslang ligger i kartongen.\n\nLuftflödet är 140 kubikmeter i timmen, minst av alla utom Meacos två minsta. Det räcker till ett sovrum och ett badrum, men fukten i det ena hörnet av en källare når aldrig fram till apparaten i det andra.\n\nHar du redan Xiaomi Home och vill ha fukten i samma app som lamporna, och apparaten ska stå där någon sover, är det här rätt köp. Ska den ta hand om en hel källarplan tar du eeese Adam för 209 kronor mer.",
   },
 ];
 
@@ -713,7 +884,7 @@ export const AVFUKTARE_CONSIDERED: ConsideredProduct[] = [
     brand: "Duux",
     name: "Bora Smart",
     reason:
-      "En av de åtta modeller Which? rekommenderar, och den finns hos Elgiganten med artikelnummer 563304 och GTIN 8716164994575. Vi rankar den ändå inte, av ett enda skäl: ingen butik skriver ut vad den kostar. Elgiganten visar inget pris på sin produktsida, duux.se anger inget alls, och Electrolux Homes sida för märket är borta. Vi rankar bara produkter vars pris vi kan läsa hos säljaren och datera. Specifikationen är i övrigt bra: 20 liter per dygn, 420 watt, 40 kvadratmeter, hygrostat 40 till 80 procent i femstegsintervall, autofrost, WiFi och kolfilter. Villkoren för de 20 literna anges inte.",
+      "En av de åtta modeller Which? rekommenderar, och den finns hos Elgiganten med artikelnummer 563304 och GTIN 8716164994575. Vi rankar den ändå inte, av ett enda skäl: ingen butik skriver ut vad den kostar. Elgiganten visar inget pris på sin produktsida, duux.se anger inget alls, och Electrolux Homes sida för märket är borta. Vi rankar bara produkter vars pris vi kan läsa hos säljaren och datera. Specifikationen är i övrigt bra: 20 liter per dygn, 420 watt, 40 kvadratmeter, hygrostat 40 till 80 procent i femstegsintervall, autofrost, WiFi och kolfilter.",
     merchant: "Elgiganten",
     merchantUrl:
       "https://www.elgiganten.se/product/hem-hushall-tradgard/inomhusklimat-uppvarmning/luftkvalitet/luftavfuktare/duux-bora-smart-avfuktare-420-watt-vit/563304",
@@ -722,7 +893,7 @@ export const AVFUKTARE_CONSIDERED: ConsideredProduct[] = [
     brand: "Cleverio",
     name: "AD100 kompakt luftavfuktare",
     reason:
-      "Den ligger kvar här av ett skäl som inte är priset och inte lagret: den gör något annat än apparaterna vi rankar. Kjell anger 750 milliliter avfuktning per dag, 0,75 liter. Den minsta apparaten i rankningen tar 10 liter, den största 25. Det är en trettondel av den minsta, i en låda på 2,7 kilo avsedd för garderober och förrådsutrymmen upp till 20 kvadratmeter. Att ställa den mot en kondensavfuktare som flyttar 145 kubikmeter luft i timmen vore som att jämföra ett resestrykjärn med ett strykjärn. Kjell publicerar inte heller effekt eller driftstemperatur, så driftkostnaden går inte att räkna. 899 kronor, 69 kundomdömen på 3,5.",
+      "Den ligger kvar här av ett skäl som inte är priset och inte lagret: den gör något annat än apparaterna vi rankar. Kjell anger 750 milliliter avfuktning per dag, 0,75 liter. Den minsta apparaten i rankningen tar 10 liter, den största 25. Det är en trettondel av den minsta, i en låda på 2,7 kilo avsedd för garderober och förrådsutrymmen upp till 20 kvadratmeter. Att ställa den mot en kondensavfuktare som flyttar 145 kubikmeter luft i timmen vore som att jämföra ett resestrykjärn med ett strykjärn. 899 kronor, 69 kundomdömen på 3,5.",
     approxPrice: 899,
     merchant: "Kjell & Company",
     merchantUrl:
@@ -761,12 +932,12 @@ export const AVFUKTARE_FAQ = [
   {
     question: "Vilken avfuktare är bäst 2026?",
     answer:
-      "Meaco MeacoDry Arete One 25L för 4 299 kronor hos Bygghemma. Den är en av bara två apparater i svensk handel som brittiska Which? har provat och gett minst 80 procent av maxpoängen, och deras omdöme är att den har lägst driftkostnad av samtliga rekommenderade apparater och fungerar bra även i kyla. Det spelar roll eftersom Which? provar vid 21 grader och kallare, medan tillverkarnas egna literantal i regel är uppmätta vid 30 grader. Meaco redovisar dessutom effekten vid namngivna villkor, 267 watt vid 20 grader och 60 procent relativ fuktighet. Behöver du inte 25 liter är samma serie i 12-litersutförande för 2 999 kronor det klokare köpet, och den är också provad.",
+      "Meaco MeacoDry Arete One 25L för 4 299 kronor hos Bygghemma. Den tar 10,7 liter vatten per dygn vid 20 grader och 60 procents luftfuktighet, alltså mer än någon annan apparat i vår jämförelse gör i ett svalt rum, och den är en av bara två i svensk handel som brittiska Which? har provat och gett minst 80 procent av maxpoängen. Deras omdöme är att den har lägst driftkostnad av samtliga rekommenderade apparater och fungerar bra även i kyla. Behöver du inte den kapaciteten är samma serie i 12-litersutförande för 2 999 kronor det klokare köpet, och den är också provad. Vill du ha mest vatten per krona tar du eeese Adam för 2 699, som anger 11,5 liter per dygn vid 27 grader och 60 procent.",
   },
   {
     question: "Vad betyder liter per dygn på en avfuktare?",
     answer:
-      "Det är hur mycket vatten apparaten tar ur luften på ett dygn, men talet är nästan värdelöst utan de villkor det är uppmätt vid, och de anges sällan. Wood's anger sina tal vid 30 grader och 80 procent relativ fuktighet. Meaco anger effekten vid 20 grader och 60 procent men säger ingenting om vid vilka villkor literantalet i modellnamnet gäller. Clas Ohlsons egna apparater, eeese, Xiaomi och Duux anger inga villkor alls. Hur mycket det betyder syns bäst på Wood's LD40, som är den enda apparat i svensk handel som publicerar båda talen: 7,5 liter per dygn vid 20 grader och 70 procent, och 13 liter vid 30 grader och 80 procent. Samma apparat, 73 procents skillnad.",
+      "Det är hur mycket vatten apparaten tar ur luften på ett dygn vid ett bestämt klimat, och klimatet är nästan alltid 30 grader och 80 procents relativ luftfuktighet. Ett svenskt hus är inte det. Meaco publicerar hela kurvan för sina modeller, och den visar hur stor skillnaden är: apparaten som heter Arete One 25L tar 25 liter i det varma och fuktiga, 17,5 liter vid 20 grader och 80 procent, 10,7 liter vid 20 grader och 60 procent, och 3,5 liter vid 10 grader och 60 procent. Samma apparat, samma dygn, en femtedel så mycket vatten i den kallaste kolumnen. Wood's LD40 visar samma sak i två tal: 13 liter vid 30 grader och 80 procent, 7,5 liter vid 20 grader och 70 procent. Räkna alltså aldrig med talet i modellnamnet i en källare.",
   },
   {
     question: "Kondensavfuktare eller sorptionsavfuktare?",
@@ -781,17 +952,17 @@ export const AVFUKTARE_FAQ = [
   {
     question: "Fungerar en avfuktare i ett kallt garage eller en krypgrund?",
     answer:
-      "En kondensavfuktare fungerar sämre ju kallare det blir och slutar helt under sin angivna nedre gräns, som för de flesta apparater i vår jämförelse ligger på 5 grader. Wood's SW42FW och LD40 går ner till 2 grader tack vare avfrostning, och det är de enda i vår rankning som gör det. Under det behöver du en sorptionsavfuktare, som arbetar även i minusgrader. Tänk också på att kapacitetstalet på kartongen i regel är uppmätt vid 30 grader: en apparat som anger 25 liter per dygn tar ut betydligt mindre i ett garage som håller 6. Wood's LD40 visar storleksordningen genom att publicera båda talen, 13 liter vid 30 grader mot 7,5 vid 20.",
+      "En kondensavfuktare fungerar sämre ju kallare det blir och slutar helt under sin angivna nedre gräns, som för de flesta apparater i vår jämförelse ligger på 5 grader. Wood's SW42FW och LD40 går ner till 2 grader tack vare avfrostning, och det är de enda i vår rankning som gör det. Under det behöver du en sorptionsavfuktare, som arbetar även i minusgrader. Räkna också med att vattenmängden faller brant. Meacos egen tabell för Arete One 25L går från 17,5 liter per dygn vid 20 grader och 80 procent till 7,2 liter vid 10 grader och samma fuktighet, alltså mindre än hälften för tio graders skillnad, och den apparaten stannar ändå vid 5.",
   },
   {
     question: "Hur mycket el drar en avfuktare?",
     answer:
-      "Mellan 151 och 600 watt bland apparaterna i vår jämförelse, men det är fel sätt att räkna. Which?, den enda oberoende provningen i Europa, sätter förbrukningen i relation till mängden uppsamlat vatten i stället för till tiden, och motiverar det med att vissa apparater behöver dubbelt så lång drifttid för samma vattenmängd. Räknar man så blir spannet i vår jämförelse ungefär 10,7 watt per liter och dygn för Meaco Arete One 25L upp till 36 för Clas Ohlsons tiolitersapparat, mer än tre gånger. Var noga med att kvoten ärver samma problem som talen den bygger på: Meacos watt är uppmätta vid 20 grader och 60 procent, Wood's vid 30 och 80, och Clas Ohlsons vid ingenting angivet.",
+      "Mellan 151 och 600 watt bland apparaterna i vår jämförelse, men det är fel sätt att räkna. Which?, den enda oberoende provningen i Europa, sätter förbrukningen i relation till mängden uppsamlat vatten i stället för till tiden, och motiverar det med att vissa apparater behöver dubbelt så lång drifttid för samma vattenmängd. Räknar man watt per liter och dygn vid 30 grader och 80 procent blir spannet i vår jämförelse 11,6 för eeese Hugo upp till 36 för Clas Ohlsons tiolitersapparat, alltså mer än tre gånger. Och kvoten stiger när det blir kallare: Meacos Arete One 25L går från 16 watt per liter vid 20 grader och 80 procent till 62 vid 10 grader och 60, eftersom kompressorn drar nästan lika mycket medan vattnet nästan tar slut.",
   },
   {
     question: "Finns det en standard för hur avfuktare ska mätas?",
     answer:
-      "Ja, och den heter SS-EN 810. Den svenska titeln är Luftavfuktare med eldriven kompressor: provning av avfuktningsförmåga, märkning, funktionskrav och redovisning av tekniska data, vilket är precis det som gör talen ojämförbara. Hos SIS anges den som gällande, utgåva 1, fastställd 30 april 1997, 21 sidor, framtagen av kommittén för värmepumpar, och den kostar 1 097 kronor. Den är snart trettio år gammal och har aldrig fått en andra utgåva. Och den gäller enligt sin egen titel bara avfuktare med eldriven kompressor, inte sorptionsavfuktare, som är den typ som rekommenderas för kalla krypgrunder. Vi har inte köpt standarden och påstår därför ingenting om vilka provvillkor den föreskriver.",
+      "Ja, och den heter SS-EN 810. Den svenska titeln är Luftavfuktare med eldriven kompressor: provning av avfuktningsförmåga, märkning, funktionskrav och redovisning av tekniska data. Hos SIS anges den som gällande, utgåva 1, fastställd 30 april 1997, 21 sidor, framtagen av kommittén för värmepumpar, och den kostar 1 097 kronor. Den är snart trettio år gammal och har aldrig fått en andra utgåva. Och den gäller enligt sin egen titel bara avfuktare med eldriven kompressor, inte sorptionsavfuktare, som är den typ som rekommenderas för kalla krypgrunder. Vi har inte köpt standarden och påstår därför ingenting om vilka provvillkor den föreskriver.",
   },
   {
     question: "Behöver jag verkligen en avfuktare?",
@@ -801,26 +972,26 @@ export const AVFUKTARE_FAQ = [
   {
     question: "Vilken storlek på avfuktare behöver jag?",
     answer:
-      "Butikernas kvadratmetertal går inte att lita på, eftersom ingen anger hur de räknat. Clas Ohlson anger 52 kvadratmeter för sin tjugolitersapparat, medan eeese anger 100 kvadratmeter för samma 20 liter per dygn. Samma butik, samma hylla, nästan dubbla talet. Gå i stället efter hur stort utrymmet faktiskt är, hur kallt det blir där, och hur snabbt du behöver ha fukten borta. Ett rum eller ett badrum klarar sig med 10 till 12 liter per dygn. En normalstor källare eller tvättstuga du kör året runt bör ha 20. Ett stort eller uppdelat utrymme behöver 25 eller mer, och då ska du också titta på luftflödet i kubikmeter per timme, eftersom vatten som fälls ut i ett hörn inte hjälper i det andra.",
+      "Butikernas kvadratmetertal går inte att lita på, eftersom ingen anger hur de räknat. Clas Ohlson anger 52 kvadratmeter för sin tjugolitersapparat, medan eeese anger 100 kvadratmeter i butikstexten för samma 20 liter per dygn och 70 i sin egen spectabell. Gå i stället efter hur stort utrymmet faktiskt är, hur kallt det blir där, och hur snabbt du behöver ha fukten borta. Ett rum eller ett badrum klarar sig med 4 till 6 liter per dygn i verklig avfuktning. En normalstor källare eller tvättstuga du kör året runt bör ha 8 till 12. Ett stort eller uppdelat utrymme behöver mer, och då ska du också titta på luftflödet i kubikmeter per timme, eftersom vatten som fälls ut i ett hörn inte hjälper i det andra.",
   },
   {
     question: "Hur ofta måste jag tömma vattentanken?",
     answer:
-      "I ett fuktigt utrymme varje dygn, och det är oftare än de flesta räknar med. Tankarna i vår jämförelse rymmer mellan 2,6 och 11,4 liter, och en apparat som anger 20 liter per dygn fyller en trelitertank flera gånger om dagen om den verkligen arbetar. När tanken är full stannar apparaten, och en avfuktare som står stilla avfuktar ingenting. Har du golvbrunn eller avlopp i utrymmet ska du därför koppla slang för kontinuerlig dränering och sluta bry dig om tankstorleken helt. Kontrollera vilken koppling som gäller: Wood's tar en vanlig trädgårdsslang via halvtumskoppling, medan Clas Ohlsons egna apparater vill ha 13,5 millimeters innerdiameter.",
+      "I ett fuktigt utrymme varje dygn, och det är oftare än de flesta räknar med. Tankarna i vår jämförelse rymmer mellan 1,6 och 11,4 liter, och en apparat som tar 10 liter per dygn fyller en trelitertank tre gånger om dagen om den verkligen arbetar. När tanken är full stannar apparaten, och en avfuktare som står stilla avfuktar ingenting. Har du golvbrunn eller avlopp i utrymmet ska du därför koppla slang för kontinuerlig dränering och sluta bry dig om tankstorleken helt. Kontrollera vilken koppling som gäller: Wood's tar en vanlig trädgårdsslang via halvtumskoppling, Meaco en 12,5-millimeters trädgårdsslang, eeese en 14-millimeters som säljs separat, och Clas Ohlsons egna apparater vill ha 13,5 millimeters innerdiameter.",
   },
   {
     question: "Låter en avfuktare mycket? Kan den stå i sovrummet?",
     answer:
-      "De apparater vi jämför anger mellan 35 och 46 decibel, en skillnad som hörs tydligt. Meaco Arete One 10L är tystast med 35 och 38 dB(A) på sina två fläktlägen, och Clas Ohlsons tjugolitersapparat högst med 46. Som jämförelse brukar ett tyst sovrum ligga runt 30 decibel. En avfuktare är dessutom inte som en fläkt: kompressorn startar och stannar när hygrostaten slår till och från, och det är ofta växlingen snarare än ljudnivån som väcker folk. Ska den stå i ett sovrum, välj den lägsta angivna nivån du kan få och räkna med att köra den på lågt fläktläge.",
+      "De apparater vi jämför anger mellan 34 och 60 decibel, en skillnad som hörs tydligt. Xiaomi Smart Dehumidifier Lite är tystast med 34 dB(A) i sovläge, Meacos två minsta ligger på 35, och Wood's SW42FW högst med 60. Som jämförelse brukar ett tyst sovrum ligga runt 30 decibel. En avfuktare är dessutom inte som en fläkt: kompressorn startar och stannar när hygrostaten slår till och från, och det är ofta växlingen snarare än ljudnivån som väcker folk. Ska den stå i ett sovrum, välj den lägsta angivna nivån du kan få och räkna med att köra den på lågt fläktläge.",
   },
   {
     question: "Blir det billigare att torka tvätt med avfuktare än med torktumlare?",
     answer:
-      "Ofta ja, och skälet är att energin inte försvinner. En kondensavfuktare fäller ut vattnet ur luften och avger samtidigt värmen som frigörs, så en del av elen kommer tillbaka till rummet i stället för att blåsas ut. Wood's anger för LD40 att den återför 780 watt värme per liter vattenånga. Apparaterna i vår jämförelse drar mellan 151 och 600 watt, medan en torktumlare typiskt ligger på flera gånger det. Räkna dock med att det tar längre tid, och att du behöver stänga dörren till rummet, annars fuktar du resten av bostaden i stället för att torka tvätten.",
+      "Ofta ja, och skälet är att energin inte försvinner. En kondensavfuktare fäller ut vattnet ur luften och avger samtidigt värmen som frigörs, så en del av elen kommer tillbaka till rummet i stället för att blåsas ut. Wood's anger för LD40 att den återför 780 watt värme per liter vattenånga. Apparaterna i vår jämförelse drar mellan 151 och 600 watt, medan en torktumlare typiskt ligger på flera gånger det. Titta på luftflödet och inte bara på literantalet: det är luftströmmen över plaggen som torkar dem, och där ligger LD40 på 350 kubikmeter i timmen mot Meaco Arete One 25L:s 175. Räkna dock med att det tar längre tid, och att du behöver stänga dörren till rummet, annars fuktar du resten av bostaden i stället för att torka tvätten.",
   },
   {
     question: "Vad är R290, och är det farligt?",
     answer:
-      "R290 är propan, och det är köldmediet i samtliga kondensavfuktare i vår jämförelse. Det används för att det har mycket låg klimatpåverkan jämfört med äldre syntetiska köldmedier. Det är brandfarligt, och det är skälet till att mängden anges i gram i specifikationen: Clas Ohlsons tiolitersapparat innehåller 45 gram och deras tjugolitersapparat 70 gram, medan Meacos Arete One trappas upp med storleken: 35 gram i tiolitersmodellen, 45 i tolvan, 65 i tjugan och 90 i tjugofemman. Mängderna är små och systemet är slutet, men det förklarar varför tillverkarna anger en minsta rumsstorlek för vissa modeller och varför en skadad apparat inte ska köras vidare.",
+      "R290 är propan, och det är köldmediet i samtliga kondensavfuktare i vår jämförelse. Det används för att det har mycket låg klimatpåverkan jämfört med äldre syntetiska köldmedier. Det är brandfarligt, och det är skälet till att mängden anges i gram i specifikationen: Xiaomis apparat innehåller 38 gram, Clas Ohlsons tioliters 45 och deras tjugoliters 70, medan Meacos Arete One trappas upp med storleken från 35 gram i tiolitersmodellen till 90 i tjugofemman. Wood's LD40 ligger högst med 99 gram. Mängderna är små och systemet är slutet, men det förklarar varför tillverkarna anger en minsta rumsstorlek för vissa modeller och varför en skadad apparat inte ska köras vidare.",
   },
 ];

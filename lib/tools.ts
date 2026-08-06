@@ -64,6 +64,118 @@ export type Tool = {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "drifttid-skaftdammsugare",
+    name: "Drifttid skaftdammsugare",
+    title: "Drifttid skaftdammsugare: vad kartongens minuttal blir i turboläge",
+    description:
+      "Räknar om en skaftdammsugares angivna drifttid till vad batteriet räcker till i det läge du faktiskt städar i, med den kvot fem tillverkare själva publicerar.",
+    intro:
+      "Minuttalet på kartongen gäller ekoläget, och hos flera tillverkare dessutom ett tillbehör utan motor. Räknaren översätter talet till vad du får när borsten snurrar, och till hur stor yta det räcker till.",
+    sections: [
+      {
+        heading: "Fem tillverkare anger båda talen",
+        body: [
+          "De flesta publicerar bara ekotalet. Fem gör inte det: Bosch anger 80 minuter i ekoläge och 11 i turboläge för Unlimited 10, Philips 60 mot 15 för 5000 Series, Electrolux 40 mot 10 för Animal 700 och 45 mot 13 för Clean 500, och Xiaomi 45 mot 15 för G20 Lite.",
+          "Kvoterna blir 0,14, 0,25, 0,25, 0,29 och 0,33. Medianen är en fjärdedel, och det är vad räknaren använder. Att Bosch ligger lägst är väntat: en kraftigare motor tömmer samma batteri fortare när den går för fullt.",
+        ],
+      },
+      {
+        heading: "Ytan kommer från tillverkarna själva",
+        body: [
+          "Två av dem publicerar hur stor yta en laddning räcker till, och de är överens. Dreame anger 300 kvadratmeter på 90 minuter i ekoläge, alltså 3,3 kvadratmeter i minuten. Philips anger mer än 195 kvadratmeter på 60 minuter, alltså 3,25.",
+          "Räknaren använder 3,3 kvadratmeter i minuten oavsett läge. Det är en förenkling: Philips egna tal antyder att man rör sig snabbare i turboläge, men två uppgifter räcker inte för att skilja lägena åt.",
+        ],
+      },
+      {
+        heading: "Vad talet betyder när du väljer",
+        body: [
+          "Ett högre ekotal ger ett högre turbotal, så jämförelsen mellan maskiner håller. Det som inte håller är att läsa kartongens tal som städtid: 60 minuter blir omkring 15 med borsten igång, vilket räcker till ungefär 50 kvadratmeter.",
+          "Har du mest hårt golv och lite damm städar du i ekoläge större delen av tiden, och då gäller kartongens tal. Har du mattor, husdjur eller golvspringor i parkett behöver du turboläget, och då är det den fjärdedelen som avgör om du kommer runt på en laddning.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Hur länge räcker en skaftdammsugare i turboläge?",
+        answer:
+          "Ungefär en fjärdedel av talet på kartongen. En maskin angiven till 60 minuter håller omkring 15 med borsten igång på full effekt, och en angiven till 80 håller omkring 20. Kvoten kommer från de fem tillverkare som publicerar båda talen, och de landar mellan 0,14 och 0,33 gånger.",
+      },
+      {
+        question: "Varför anger tillverkarna drifttiden i ekoläge?",
+        answer:
+          "För att det är det längsta talet som är sant. Flera anger det dessutom med ett tillbehör utan motor, alltså utan den roterande borste maskinen normalt används med. Bosch skriver ut alla fyra talen för samma maskin: 80 minuter i ekoläge utan elektriskt tillbehör, 65 i ekoläge med golvmunstycket, 25 i autoläge och 11 i turboläge.",
+      },
+      {
+        question: "Räcker en laddning till en trea?",
+        answer:
+          "I ekoläge, ja, om maskinen anger 30 minuter eller mer. I turboläge behöver du omkring 25 minuter kvar efter omräkningen för att klara 80 kvadratmeter, vilket motsvarar ett angivet tal på runt 100 minuter. Det är fler minuter än någon skaftdammsugare i handeln anger, så en trea med mycket matta kräver antingen ett byte till ekoläge på hårt golv eller ett extra batteri.",
+      },
+      {
+        question: "Går det att köpa ett extra batteri?",
+        answer:
+          "På de flesta maskiner, och det är det billigaste sättet att fördubbla städtiden. Bosch använder Power for All 18V, samma batteri som deras trädgårds- och elverktyg, så paketet kan redan finnas i garaget. Samsung, Dyson, Philips och Electrolux säljer egna löstagbara batterier som reservdelar. Ett bytbart batteri betyder också att maskinen går att laga när cellerna tappat kapacitet.",
+      },
+    ],
+    usedOn: ["skaftdammsugare"],
+    updated: "2026-08-06",
+  },
+  {
+    slug: "rackvidd-babyvakt",
+    name: "Räckvidd babyvakt",
+    title: "Räckvidd babyvakt: vad tillverkarens metertal blir inomhus",
+    description:
+      "Räknar om en babyvakts angivna räckvidd i fri sikt till ungefär vad den når genom väggar, med den kvot fyra tillverkare själva publicerar.",
+    intro:
+      "En babyvakt anges alltid i fri sikt, alltså utomhus utan hinder. Det är därför en apparat avsedd för en trerumslägenhet står angiven till 800 meter. Räknaren översätter talet till något du kan hålla en tumstock mot.",
+    sections: [
+      {
+        heading: "Fyra tillverkare anger båda talen, och de är överens",
+        body: [
+          "De flesta publicerar bara frisiktstalet. Fyra gör inte det: Motorola anger 160 fot inomhus och 1 000 fot utomhus för sin PIP10, alltså 49 mot 305 meter. Philips Avent anger 50 mot 300 för SCD892. VTech anger 75 mot 460 för DM1212. Alecto anger 50 mot 300.",
+          "Kvoterna blir 6,2, 6,0, 6,1 och 6,0. Fyra fabrikat som inte har något med varandra att göra landar alltså inom två tiondelar av varandra, och det är därför räknaren delar med sex jämnt. Ett tal du kan göra i huvudet framför hyllan är mer värt än en tredje decimal fyra uppgifter inte kan bära.",
+        ],
+      },
+      {
+        heading: "Väggarna avgör resten",
+        body: [
+          "Radiovågor på 868 megahertz, DECT-bandet och 2,4 gigahertz dämpas alla av massa, och betong och plåt dämpar mer än gips och trä. En gjuten källartrappa är det värsta hindret i ett normalt hem, och ett sextiotalshus med betongbjälklag äter mer räckvidd än en villa från nittiotalet.",
+          "Nedskrivningen för tunga väggar är en marginal och inte en mätning. Ingen tillverkare anger vilken sorts vägg de provat genom, så använd resultatet som en storleksordning och köp marginal om du bor i betong.",
+        ],
+      },
+      {
+        heading: "Vad talet betyder när du väljer",
+        body: [
+          "Räckvidd är det enda tal hela kategorin publicerar, vilket gör det till den siffra marknadsföringen bygger på. Det är också skälet till att vi väger det lågt: 15 av 100 poäng, mot 25 för vad föräldraenheten gör när den tappar babyenheten.",
+          "I praktiken har varje babyvakt i vår jämförelse tillräcklig räckvidd för en lägenhet. Skillnaden märks först när du vill kunna gå ut i trädgården, ner i tvättstugan eller bort till förrådet.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Hur långt räcker en babyvakt inomhus?",
+        answer:
+          "Ungefär en sjättedel av talet på kartongen. En apparat angiven till 800 meter räcker omkring 130 meter genom väggar, och en angiven till 300 räcker omkring 50. Kvoten kommer från de fyra tillverkare som publicerar båda talen, och de landar alla mellan 6,0 och 6,2 gånger.",
+      },
+      {
+        question: "Varför anger tillverkarna räckvidd i fri sikt?",
+        answer:
+          "För att det är det enda villkor som går att upprepa. Räckvidd genom väggar beror på vad väggarna är gjorda av, hur många de är och vad annat som sänder i huset, alltså på förhållanden tillverkaren inte känner till. Frisiktstalet är därför riktigt, det är bara mätt i ett förhållande produkten aldrig används i.",
+      },
+      {
+        question: "Räcker 300 meter till en villa?",
+        answer:
+          "Ja, inom huset. 300 meter i fri sikt blir omkring 50 meter genom väggar, vilket täcker två plan och ut på altanen i ett normalt hus. Vill du kunna vara i garaget, i tvättstugan i källaren eller längst bort på tomten behöver du ett högre tal.",
+      },
+      {
+        question: "Vad händer när jag går utanför räckvidden?",
+        answer:
+          "Det beror på apparaten, och det är viktigare än metertalet. De flesta föräldraenheter larmar med ljud efter 20 till 30 sekunder. På ett par modeller är larmet en inställning i menyn som du själv måste slå på, och då tystnar apparaten utan att säga till. Kontrollera det innan du börjar använda den.",
+      },
+    ],
+    usedOn: ["babyvakt"],
+    updated: "2026-08-06",
+  },
+  {
     slug: "lumenraknare",
     name: "Lumenräknare",
     title: "Lumenräknare: hur mycket ljus behöver rummet?",
@@ -110,7 +222,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-belysning"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "elkostnad-lampor",
@@ -165,7 +277,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-belysning"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "protokollvaljare-smart-hem",
@@ -244,7 +356,7 @@ export const TOOLS: Tool[] = [
          avgör om du redan äger det eller måste köpa det. */
       "smart-termostat",
     ],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "fargtemperatur",
@@ -299,7 +411,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-belysning"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "watt-till-lumen",
@@ -348,7 +460,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-belysning"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "elkostnad-uttag",
@@ -367,10 +479,10 @@ export const TOOLS: Tool[] = [
         ],
       },
       {
-        heading: "Många tillverkare anger ingenting",
+        heading: "Siffran står i manualen, inte i butiken",
         body: [
-          "Av de produkter vi gått igenom uppger bara ett fåtal sin viloförbrukning. Varken Shelly, Philips eller Cleverio publicerar en siffra, vare sig i butiken eller i databladet. Att gissa åt dem vore att uppfinna en mätning, så räknaren låter dig i stället sätta talet själv.",
-          "Saknas uppgiften helt är 1 W en rimlig utgångspunkt för ett wifi-uttag. Bluetooth- och Zigbee-baserade uttag ligger som regel lägre, eftersom radion är enklare och inte behöver hålla en wifi-anslutning vid liv.",
+          "Butikssidan har den nästan aldrig, men tillverkarens specifikation eller den manual butiken länkar har den oftast. Plejd anger 0,3 W, TP-Link 1,48 W, och både Cleverio och Shelly anger under 1 W. Philips är den som inte publicerar något alls för sitt uttag.",
+          "Saknas uppgiften är 1 W en rimlig utgångspunkt för ett wifi-uttag, och räknaren låter dig sätta talet själv. Bluetooth- och Zigbee-baserade uttag ligger som regel lägre, eftersom radion är enklare och inte behöver hålla en wifi-anslutning vid liv.",
         ],
       },
       {
@@ -404,7 +516,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-plug"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "effektkoll-smart-plug",
@@ -465,7 +577,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["smart-plug"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "installationsguide-strombrytare",
@@ -527,8 +639,10 @@ export const TOOLS: Tool[] = [
           "De löser olika problem. En relämodul göms i dosan, din befintliga knapp fungerar som förut och huset ser likadant ut, men installationen kräver elektriker. En smart väggbrytare ersätter knappen, ger nya funktioner direkt på väggen och är ett brytarbyte som du får göra själv om du vet hur. Saknar du nolledare i dosan är brytaren dessutom det enda av de två som finns i en variant som fungerar.",
       },
     ],
+    /* Bumpad 2026-08-06: Nexa infälld lades till i verktygets produktlista,
+       där den saknats sedan den flyttade in i rankningen. */
     usedOn: ["smart-strombrytare"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     /* "monteringsvaljare-gardin" och inte bara "monteringsvaljare": slugen
@@ -556,7 +670,7 @@ export const TOOLS: Tool[] = [
         body: [
           "I Kjells kategori ligger \"Curtain Driver E1 Gardinkontroll för gardinstång\" och \"Curtain Driver E1 Gardinkontroll för U- och I-skena\" bredvid varandra. Hos Proshop heter samma sak \"Curtain Rod 3\" och \"Curtain U Rail 3\". Namnen skiljer sig på ett ord, produktbilderna är närmast identiska och priserna ligger inom hundralappen från varandra.",
           "Det gör att felköpet är lätt att göra även för den som vet vilken skena som sitter uppe. Rådet är enkelt: bestäm upphängningen först, leta upp artikelnumret sedan, och beställ på numret i stället för på modellnamnet.",
-          "En uppgift går dessutom isär mellan källorna. Kjell säljer Aqaras skenversion som avsedd för både U-skena och I-skena, medan flera engelskspråkiga jämförelser skriver att den inte passar I-skena. Vi har inte kunnat avgöra vilken uppgift som stämmer, och guiden räknar därför med det försiktiga alternativet. Har du I-skena är rådet att kontrollera mot butikens egen uppgift och behålla returrätten.",
+          "Har du I-skena finns det ett svar, och det är Aqara Curtain Driver E1 i skenversion. Den får sitta på både U-skena och I-skena, till skillnad från alla andra motorer här, och kravet är att I-skenans underkant är slät och bredare än 10 millimeter. Mät med en linjal innan du beställer.",
         ],
       },
       {
@@ -594,8 +708,10 @@ export const TOOLS: Tool[] = [
           "Om gardinerna möts på mitten och ska dras åt varsitt håll, ja. Varje motor drar en gardinhalva, så ett fönster med två våder kräver två enheter. Har du i stället en enda gardin som dras åt ett håll räcker en. Det är värt att räkna på innan du beställer, eftersom det dubblar kostnaden per fönster.",
       },
     ],
+    /* Bumpad 2026-08-06: I-skenefrågan var beskriven som olöst, och Aqaras egen
+       manual avgjorde den. Verktyget föreslår nu skenversionen för I-skena. */
     usedOn: ["elektrisk-rullgardin"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     /* "timervaljare-utomhus" och inte bara "timervaljare": slugen måste
@@ -662,7 +778,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["utomhustimer"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     /* "elkostnad-julbelysning" och inte "elkostnad": samma räknare finns redan
@@ -687,7 +803,7 @@ export const TOOLS: Tool[] = [
       {
         heading: "Timern sparar mindre än den lovar",
         body: [
-          "Skillnaden mellan att lysa åtta timmar och dygnet runt är tre gånger elen, men på en LED-uppsättning är utgångsläget så lågt att tre gånger fortfarande är litet. En timer på 49,90 kronor tjänar in sig, en smart plugg på 399 kronor gör det oftast inte på elen ensam.",
+          "Skillnaden mellan att lysa åtta timmar och dygnet runt är tre gånger elen, men på en LED-uppsättning är utgångsläget så lågt att tre gånger fortfarande är litet. En timer på 49,90 kronor tjänar in sig, en smart plugg på 259 kronor gör det oftast inte på elen ensam.",
           "Det verkliga argumentet för en timer är ett annat, och Elsäkerhetsverket formulerar det: timerfunktion och fjärrstyrning minskar risken att belysningen glöms tänd. Det handlar alltså om att slippa komma ihåg, och om att inte ha ström framme i onödan.",
           "En smart plugg drar dessutom själv runt 1 W dygnet runt för att kunna ta emot kommandot att slå på. På en uppsättning som bara lyser sex veckor om året kan pluggens egen viloförbrukning under resten av året äta upp en del av vinsten, vilket du kan pröva i räknaren genom att skriva in en viloförbrukning.",
         ],
@@ -715,11 +831,11 @@ export const TOOLS: Tool[] = [
       {
         question: "Lönar sig en timer till julbelysningen?",
         answer:
-          "På elen ensam lönar sig en mekanisk timer på femtio kronor, medan en smart plugg på fyra hundra sällan gör det för en LED-uppsättning. Det starkare skälet är att belysningen inte står tänd i onödan och att du slipper komma ihåg att släcka, vilket Elsäkerhetsverket lyfter som en säkerhetsvinst snarare än en besparing.",
+          "På elen ensam lönar sig en mekanisk timer på 49,90 kronor, medan en smart plugg på 259 sällan gör det för en LED-uppsättning. Det starkare skälet är att belysningen inte står tänd i onödan och att du slipper komma ihåg att släcka, vilket Elsäkerhetsverket lyfter som en säkerhetsvinst snarare än en besparing.",
       },
     ],
     usedOn: ["utomhustimer"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     /* Slugen namnger ämnet och inte funktionen, enligt namnregeln i filhuvudet:
@@ -767,11 +883,11 @@ export const TOOLS: Tool[] = [
       {
         question: "Varför frågar verktyget inte om RFID-skydd?",
         answer:
-          "Eftersom uppgiften inte skiljer produkterna åt. Ingen tillverkare publicerar hur mycket skyddet dämpar, vid vilken frekvens eller mot vilken standard, och både det billigaste och det dyraste fodralet i jämförelsen anger att kortfacken är RFID-skyddade. Ett filter på ett ja som alla har hade sett ut som ett urval utan att vara ett. Vad skyddet faktiskt gör står i köpguiden.",
+          "Eftersom uppgiften inte skiljer produkterna åt. Alla som anger ett RFID-skydd anger samma sak, ett ja utan dämpning, frekvens eller standard, och både det billigaste och det dyraste fodralet i jämförelsen anger det. Ett filter på ett ja som alla har hade sett ut som ett urval utan att vara ett. Vad skyddet faktiskt gör står i köpguiden.",
       },
     ],
     usedOn: ["iphone-fodral"],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     slug: "skaltypsvaljare",
@@ -807,7 +923,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Vad gör jag om inget skal uppfyller kraven?",
         answer:
-          "Då säger verktyget vilken kombination som inte går ihop, och det är oftast läder mot fallskydd. Det enda läderskalet i jämförelsen saknar både förstärkta hörn och kant runt kameran, vilket är ett medvetet val från tillverkaren och inte ett fel. Släpp det krav som betyder minst för dig, eller titta bland de skal vi övervägde men inte rankade.",
+          "Då säger verktyget vilken kombination som inte går ihop, och det är oftast läder mot fallskydd. Det enda läderskalet i jämförelsen är fullnarvigt läder rakt igenom, alltså utan den styva baksida som sprider kraften i ett hybridskal. Det är ett medvetet val från tillverkaren och inte ett fel. Släpp det krav som betyder minst för dig, eller titta bland de skal vi övervägde men inte rankade.",
       },
       {
         question: "Räknar väljaren in vilken iPhone jag har?",
@@ -816,7 +932,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["iphone-skal"],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     slug: "vattenlarmsvaljare",
@@ -871,7 +987,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Fungerar vattenlarm intill en varmvattenberedare?",
         answer:
-          "Bara om det är godkänt för temperaturen. De flesta anges till 0 till 40 grader, vilket är för lite intill en beredare. Aqara T1 är godkänd till 55 grader. Kontrollera arbetstemperaturen i specifikationen, för det står sällan i butiksrubriken.",
+          "Bara om det är godkänt för temperaturen. Nedis, Tapo T300 och Fibaro anges till 0 till 40 grader, vilket är för lite intill en beredare. Housegard WA201S tål mest med +60 grader, följt av Aqara T1 på +55 och X-Sense, SQ400B och Numens på +50. Kontrollera arbetstemperaturen i tillverkarens specifikation, för det står sällan i butiksrubriken.",
       },
       {
         question: "Hur många vattenlarm behöver jag?",
@@ -879,8 +995,15 @@ export const TOOLS: Tool[] = [
           "Ett per ställe där vatten kan komma ut, i praktiken tre till fyra i en villa. Läckan uppstår där du inte gissade, så ett enda larm skyddar bara den plats det ligger på. Det är därför paket med flera sensorer ofta blir billigare per skyddad plats än en lös sensor som ser billig ut.",
       },
     ],
+    /* 2026-08-06: FAQ-svaret om varmvattenberedare namngav Aqara T1 som enda
+       larm som klarar placeringen. Sex av nio gör det, och Housegard tål mest
+       med +60 °C. Väljarens hotSpot-flagga är rättad i samma pass.
+
+       Kommentaren står före `usedOn` med flit: check-refs matchar `updated`
+       direkt efter `usedOn` med bara `\s*` emellan, så en kommentar mellan dem
+       läses som ett saknat datum. */
     usedOn: ["vattenlarm"],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     /* "aterbetalning-vattenfelsbrytare" och inte "aterbetalning": dagen vi
@@ -934,7 +1057,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Vad kostar en vattenfelsbrytare installerad?",
         answer:
-          "Länsförsäkringar anger 6 000 till 10 000 kronor. Själva enheten kostar mindre, ofta runt 4 000 till 5 000 kronor, men den ska monteras på inkommande servisledning av rörmokare och det är arbetet som utgör skillnaden. Räknaren är förinställd på 8 000 kronor, mitten av bolagets eget spann.",
+          "Länsförsäkringar anger 6 000 till 10 000 kronor för arbetet. Ovanpå det kommer enheten, och de centrala brytarna kostar 5 373 till 8 495 kronor, kontrollerat 2026-08-04. En central vattenfelsbrytare landar alltså realistiskt på 12 000 till 18 000 kronor installerad. Räknaren är förinställd på 8 000 kronor, mitten av bolagets eget spann för arbetet.",
       },
       {
         question: "Vad kostar en vattenskada i genomsnitt?",
@@ -949,9 +1072,13 @@ export const TOOLS: Tool[] = [
     ],
     /* Bor på båda sidorna med flit. Frågan ställs av den som läser om larm och
        upptäcker att rabatten inte gäller dem, och av den som står inför att
-       betala 12 000 till 18 000 kronor för en brytare installerad. */
+       betala 12 000 till 18 000 kronor för en brytare installerad.
+
+       ⚠️ "Godkänd vattenfelsbrytare" i texterna nedan betyder typgodkänd enligt
+       CR 139. Vilka produkter som är det går att slå upp på cert.ri.se, se
+       /vattenfelsbrytare. Kontrollerat 2026-08-06. */
     usedOn: ["vattenlarm", "vattenfelsbrytare"],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     slug: "brandskydd-hemma",
@@ -1007,14 +1134,14 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["brandfilt", "brandvarnare", "brandslackare"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "behover-du-kolmonoxidvarnare",
     name: "Behöver du en kolmonoxidvarnare?",
     title: "Behöver du en kolmonoxidvarnare?",
     description:
-      "Kolmonoxid bildas bara där något förbränns. Ange vad du har i bostaden och var varnaren ska sitta, så får du veta om du behöver en och vilken del av EN 50291 den måste ange.",
+      "Kolmonoxid bildas bara där något förbränns. Ange vad du har i bostaden och var varnaren ska sitta, så får du veta om du behöver en och vilken del av EN 50291 den måste vara provad enligt.",
     intro:
       "Många svenska hem behöver ingen kolmonoxidvarnare, och det är sällan någon som säljer dem säger det. Gasen bildas vid ofullständig förbränning, så utan förbränningskälla finns ingen källa. Ange vad du har, så får du svaret och vilken del av standarden som gäller för din placering.",
     sections: [
@@ -1028,8 +1155,8 @@ export const TOOLS: Tool[] = [
       {
         heading: "Del 2 är inte en detalj",
         body: [
-          "Ska varnaren sitta i husvagn, husbil eller båt måste den ange EN 50291-2. Den delen provar varnaren för vibration, rörelse och temperaturväxlingar, precis det ett fordon utsätter den för och som ett vardagsrum aldrig gör.",
-          "Av de sex varnare vi rankar anger bara två den delen i gällande utgåva. Två anger den i en utgåva som drogs tillbaka 2021, och två anger den inte alls. Guiden filtrerar därför hårt när du väljer fordon.",
+          "Ska varnaren sitta i husvagn, husbil eller båt måste den vara provad enligt EN 50291-2. Den delen provar varnaren för vibration, rörelse och temperaturväxlingar, precis det ett fordon utsätter den för och som ett vardagsrum aldrig gör.",
+          "Fyra av de sex varnare vi rankar är provade enligt den delen, två är det inte. Guiden filtrerar därför bort de två när du väljer fordon. Står fordonet kallt om vintern är driftstemperaturen värd en titt också: en av varnarna fungerar först vid +4 °C.",
           "Har du gasol i fordonet behöver du dessutom en gasolvarnare. Den känner av oförbränd gasol som läcker, medan kolmonoxidvarnaren känner av vad som bildas när gasolen förbränns dåligt. Två sensorer för två olika faror.",
         ],
       },
@@ -1048,7 +1175,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Vilken kolmonoxidvarnare behövs i husvagn?",
         answer:
-          "En som anger EN 50291-2 i gällande utgåva, som är 2019. Den delen av standarden provar varnaren för vibration, rörelse och temperaturväxling, vilket är vad ett fordon utsätter den för. En varnare som bara anger del 1 är avsedd för bostäder och inte provad för uppgiften.",
+          "En som är provad enligt EN 50291-2, alltså den del av standarden som provar varnaren för vibration, rörelse och temperaturväxling. Det är vad ett fordon utsätter den för, och en varnare som bara är provad enligt del 1 är avsedd för bostäder. Kontrollera också driftstemperaturen om vagnen står kall på vintern.",
       },
       {
         question: "Var ska kolmonoxidvarnaren sitta?",
@@ -1057,7 +1184,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["kolmonoxidvarnare"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "co-halt-larmgrans",
@@ -1113,7 +1240,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["kolmonoxidvarnare"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "vilken-brandstege-passar",
@@ -1122,22 +1249,22 @@ export const TOOLS: Tool[] = [
     description:
       "Mät från marken till fönstrets underkant och mät karmen. Guiden visar vilka brandstegar som är långa nog och vilka vars krokar faktiskt hakar på just ditt fönster.",
     intro:
-      "Två mått avgör om en brandstege fungerar hemma hos dig, och båda går att mäta på en minut. Höjden från marken till fönstrets underkant avgör om stegen når. Fönsterkarmens tjocklek avgör om krokarna hakar fast. Butikerna publicerar det ena sporadiskt och det andra nästan aldrig.",
+      "Två mått avgör om en brandstege fungerar hemma hos dig, och båda går att mäta på en minut. Höjden från marken till fönstrets underkant avgör om stegen når. Fönsterkarmens tjocklek avgör om krokarna hakar fast. Mät båda innan du beställer, för en stege som inte hakar fast är inte en stege.",
     sections: [
       {
         heading: "Femmetersgränsen kommer från byggreglerna",
         body: [
           "Boverkets byggregler accepterar utrymning genom fönster om underkanten sitter högst 5,0 meter över marken, eller högst 8,0 meter om det finns en fast monterad stege. En stege som hängs över karmen räknas aldrig som fast monterad, oavsett hur lång den är.",
           "Under fem meter skriver Boverket rakt ut vad alternativet är: att man utrymmer genom att hoppa, och att man då riskerar att skadas. Det är det bästa argumentet för att ha en stege, och det är formulerat av en myndighet och inte av en butik.",
-          "Guiden lägger till en halv meter marginal mot stegens publicerade längd, så att den når hela vägen ner även på ojämn mark. Vi räknar inte fram någon egen nyttolängd per produkt, eftersom bara en av sex butiker publicerar en evakueringshöjd skild från längden.",
+          "Guiden lägger till en halv meter marginal mot stegens publicerade längd, så att den når hela vägen ner även på ojämn mark. Vi räknar inte fram någon egen nyttolängd per produkt, eftersom bara tre stegar publicerar en evakueringshöjd skild från längden och två av dem gör det bara i bruksanvisningen.",
         ],
       },
       {
         heading: "Karmmåttet är det billigaste förköpet du kan göra",
         body: [
-          "Krokarna hakas över karmen och har en gräns. Jula anger högst 28 centimeter, Nexa och Brandvarnare.se högst 30, och Housegard anger som enda tillverkare ett intervall: 15 till 34 centimeter.",
-          "Minimum spelar roll också, och det är Housegard ensam om att nämna. En alltför tunn karm ger krokarna för lite grepp. I ett hus med tjock isolering eller djup fönsternisch är det i stället taket som blir problemet.",
-          "Biltema anger ingen uppgift alls. Guiden lägger därför deras stege i en egen hög i stället för att anta att den passar, eftersom en okänd uppgift inte är samma sak som en godkänd.",
+          "Krokarna hakas över karmen och har en gräns, och den ligger på 30 centimeter för samtliga stegar. Housegard anger som enda tillverkare ett intervall i båda riktningarna: 15 till 30 centimeter.",
+          "Minimum spelar roll också. En alltför tunn karm ger krokarna för lite grepp, och Housegards gräns går vid 15 centimeter. I ett hus med tjock isolering eller djup fönsternisch är det i stället taket på 30 centimeter som blir problemet.",
+          "Tre av stegarna anger sitt karmmått bara i bruksanvisningen, alltså i det dokument du läser efter köpet. Guiden läser samma tal som tabellen bredvid, så du slipper leta upp manualen först.",
         ],
       },
     ],
@@ -1150,7 +1277,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Hur tjock fönsterkarm klarar en brandstege?",
         answer:
-          "Mellan 28 och 34 centimeter beroende på modell, och en av dem anger även ett minimum. Housegard anger 15 till 34 centimeter, Nexa och Brandvarnare.se högst 30, Jula högst 28, och Biltema anger ingenting. Mät karmen vid det fönster du tänkt utrymma genom innan du beställer.",
+          "Högst 30 centimeter, och det gäller alla stegarna i guiden. Housegard är ensam om att ange ett minimum också, 15 centimeter, eftersom en alltför tunn karm ger krokarna för lite grepp. Mät karmen vid det fönster du tänkt utrymma genom innan du beställer.",
       },
       {
         question: "Räknas en brandstege som utrymningsväg?",
@@ -1160,18 +1287,18 @@ export const TOOLS: Tool[] = [
       {
         question: "Vad gör man om fönstret sitter högre än fem meter?",
         answer:
-          "Då är en hängande stege fel produkt. Byggreglerna kräver en fast monterad stege på fasaden, och den typen kostar från cirka 1 300 kronor och uppåt och monteras i fasaden. Över åtta meter räknar reglerna inte med utrymning genom fönster med egen stege alls, utan med trapphus och med räddningstjänstens utrustning. En bärbar utskjutsstege når normalt elva meter från deras uppställningsplats.",
+          "Då är en hängande stege fel produkt. Byggreglerna kräver en fast monterad stege på fasaden, och den typen börjar på cirka 3 700 kronor och går upp mot 9 000. Över åtta meter räknar reglerna inte med utrymning genom fönster med egen stege alls, utan med trapphus och med räddningstjänstens utrustning. En bärbar utskjutsstege når normalt elva meter från deras uppställningsplats.",
       },
     ],
     usedOn: ["brandstege"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "godkand-utrymningshojd",
     name: "Vilken höjd är stegen godkänd för?",
     title: "Vilken utrymningsstege är godkänd för ditt fönster?",
     description:
-      "Fönstrets höjd över marken avgör vilken fast utrymningsstege som räcker, och vilken som faktiskt är godkänd för höjden. De två sakerna är inte samma, och bara ett fabrikat anger någon gräns alls.",
+      "Fönstrets höjd över marken avgör vilken fast utrymningsstege som räcker, och vilken som är godkänd för höjden. Räckvidd och godkännande är två olika saker, och bara Modum har en godkänd höjd.",
     intro:
       "Att en stege säljs i 5,7 meter betyder inte att någon sagt att den får användas från ett fönster 5,7 meter upp. Det är hela skillnaden mellan de fasta utrymningsstegarna, och den syns inte i längdtabellen. Mät höjden från marken till fönstrets underkant, så visar guiden vilka stegar som når, vilka som är godkända för höjden och vad den kortaste tillräckliga längden kostar.",
     sections: [
@@ -1180,7 +1307,7 @@ export const TOOLS: Tool[] = [
         body: [
           "Boverkets byggregler accepterar utrymning genom fönster om underkanten sitter högst 5,0 meter över marken, eller högst 8,0 meter om det finns en fast monterad stege. Det är den enda skillnaden regeltexten gör mellan en fast och en hängande stege, och den går bara åt ena hållet.",
           "Det enda fabrikat med ett tredjepartsgodkännande, Modum, får enligt sitt eget certifikat användas från fönster högst 5,0 meter över marken utan ryggbygel, och högst 7,5 meter med. Godkännandet slutar alltså innan byggreglerna gör det.",
-          "Övriga tre fabrikat anger ingen högsta användningshöjd över huvud taget, trots att de säljer stegar på upp till 6,0 meter. Guiden lägger dem i en egen hög i stället för att låta tystnad passera som en obegränsad gräns.",
+          "Övriga fabrikat når längre i ett stycke: Skeppshultstegen säljs i 5,7 meter och W.Steps 400 i 6,0, och båda går att skarva. Guiden visar dem separat, eftersom räckvidd och godkänd höjd är två olika saker och bara Modum har det senare.",
         ],
       },
       {
@@ -1188,7 +1315,7 @@ export const TOOLS: Tool[] = [
         body: [
           "En fast utrymningsstege ska sitta ungefär sju decimeter ovanför fönsterkarmen, så att du har något att greppa medan du kliver ut, och sluta en halv till en meter över marken så att den går att fälla ut även när det ligger snö. Housegard anger 50 till 100 centimeter, Modums certifikat minst 60 centimeter till nedersta steget.",
           "De två avstånden tar ungefär ut varandra, och därför jämför guiden stegens längd mot fönstrets höjd över marken rakt av i stället för att lägga på en marginal.",
-          "Om det finns risk att snö hindrar utfällningen bör stegen sitta högre än minimimåttet. Det är Housegards egen rekommendation, och den är den enda uppgiften som är skriven för svenska vintrar.",
+          "Om det finns risk att snö hindrar utfällningen bör stegen sitta högre än minimimåttet. Både Housegard och Skeppshultstegen skriver ut det i sina anvisningar.",
         ],
       },
       {
@@ -1196,7 +1323,7 @@ export const TOOLS: Tool[] = [
         body: [
           "Det som flyttar Modums godkända höjd från 5,0 till 7,5 meter är ryggbygeln, den korg som omsluter stegen bakifrån. Certifikatet beskriver den som en bygel monterad mellan två stegar, och den nedersta bygeln ska sluta 2,2 till 3,0 meter över marken.",
           "Everglow säljer bygeln, men listar den utan publicerat pris. Ska du utrymma från ett fönster högre än fem meter behöver du alltså begära offert innan du vet vad lösningen kostar.",
-          "Ingen av de tre övriga tillverkarna erbjuder någon motsvarighet, och ingen av dem anger heller någon höjd där en sådan skulle behövas.",
+          "Ingen av de övriga tillverkarna säljer någon ryggbygel. Vill du ha den sortens skydd på en hög montering är Modum enda vägen dit.",
         ],
       },
     ],
@@ -1214,25 +1341,25 @@ export const TOOLS: Tool[] = [
       {
         question: "Vad kostar en fast utrymningsstege?",
         answer:
-          "3 695 till 14 513 kronor i ungefär 3,9 meters längd, beroende på fabrikat. Housegard EL39 kostar 3 695 kronor hos Kjell, Skeppshultstegen 7 799 hos Bauhaus, Modum 9 621 hos Everglow och W.Steps 11 378 respektive 14 513 hos Stegfabriken. Priset följer inte dokumentationen: den dyraste anger varken maxlast eller standard.",
+          "3 695 till 14 513 kronor i ungefär 3,9 meters längd, beroende på fabrikat. Housegard EL39 kostar 3 695 kronor hos Kjell, Skeppshultstegen 7 799 hos Bauhaus, Modum 9 621 hos Everglow och W.Steps 11 378 respektive 14 513 hos Stegfabriken. Priset följer varken godkännandet eller stegbredden: den billigaste anger både maxlast och provning, och den dyraste har det bredaste steget.",
       },
       {
         question: "Vad gör jag om fönstret sitter högre än 7,5 meter?",
         answer:
-          "Då finns ingen lagerförd stege som täcker höjden. Byggreglerna tillåter fortfarande utrymning genom fönster upp till 8,0 meter med fast stege, men ingen av tillverkarna säljer en så lång stege som standardvara och inget godkännande sträcker sig dit. Kontakta tillverkaren för en stege efter mått, eller lös utrymningen på annat sätt.",
+          "Då finns ingen stege med ett godkännande som täcker höjden, men det finns stegar som når. W.Steps 400 säljs i 6,0 meter och får skarvas till 18, och Skeppshultstegen går att skarva till önskad längd. Byggreglerna tillåter utrymning genom fönster upp till 8,0 meter med fast stege. Över 7,5 meter köper du alltså räckvidd utan att någon tredje part provat produkten för höjden, och den avvägningen är din.",
       },
     ],
     usedOn: ["utrymningsstege"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "klarar-roboten-troskeln",
     name: "Klarar roboten din tröskel?",
     title: "Klarar robotdammsugaren din tröskel?",
     description:
-      "Nordiska trösklar var det största hindret när Ljud & Bild grupptestade fyra robotdammsugare, och en av fyra fick ge upp helt. Guiden visar om din tröskelhöjd ligger inom det de flesta robotar klarar, och vilka modeller som alls publicerar en passerhöjd att jämföra med.",
+      "Nordiska trösklar var det största hindret när Ljud & Bild grupptestade fyra robotdammsugare, och en av fyra fick ge upp helt. Guiden visar om din tröskelhöjd ligger inom det de flesta robotar klarar, och vad du behöver för chassi över den gränsen.",
     intro:
-      "Mät den högsta tröskeln mellan de rum roboten ska städa, innan du väljer modell. De flesta städrobotar klarar ungefär en till två centimeter enligt Ljud & Bilds köpguide, och över det behöver du en tillverkare som skriver ut en höjd i millimeter i stället för en som påstår sig vara bra på trösklar. Guiden skiljer på de två.",
+      "Mät den högsta tröskeln mellan de rum roboten ska städa, innan du väljer modell. De flesta städrobotar klarar ungefär en till två centimeter enligt Ljud & Bilds köpguide, och över den gränsen behöver du ett chassi som lyfter sig över listen. Guiden räknar på en tröskel i ett steg, alltså en vanlig dörrlist, och inte på det högre tal tillverkarna skyltar med.",
     sections: [
       {
         heading: "Varför trösklar är ett svenskt problem",
@@ -1245,9 +1372,9 @@ export const TOOLS: Tool[] = [
       {
         heading: "Talet är en uppgift, inte ett mätvärde",
         body: [
-          "Passerhöjden i millimeter kommer från tillverkaren själv. Ingen anger vid vilken metod den är uppmätt, och ingen oberoende provning publicerar siffran. Guiden säger därför aldrig att en robot klarar din tröskel, bara vad tillverkaren anger.",
+          "Passerhöjden i millimeter kommer från tillverkaren själv. Dreame, Roborock och Xiaomi anger alla att de mätt i eget labb, ingen använder en gemensam provmetod, och ingen oberoende provning publicerar siffran. Guiden säger därför aldrig att en robot klarar din tröskel, bara vad tillverkaren anger.",
           "Skillnaden mot sugkraften i pascal är ändå betydande. Stiftung Warentest kallar pascaltalet ett reklampåstående man lugnt kan bortse från, medan en passerhöjd i millimeter åtminstone går att hålla en tumstock mot.",
-          "Den som inte publicerar någon höjd hamnar i en egen hög med skälet utskrivet, i stället för att glida igenom som om den klarade allt. Annars hade guiden belönat den som skrivit minst.",
+          "Den fälla du ska se upp med är att talen kommer i par. Det högre gäller en tröskel med två steg, där roboten kan ta stödet i två omgångar, och det förutsätter dessutom att steget är brett nog. Det lägre gäller en vanlig list. Dreame säljer L50s Pro Ultra på 40 millimeter, och över en list i ett steg tar den sig 22.",
         ],
       },
     ],
@@ -1255,7 +1382,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Hur höga trösklar klarar en robotdammsugare?",
         answer:
-          "Ungefär en till två centimeter för de flesta modeller, enligt Ljud & Bilds köpguide. Över det behöver du en robot där tillverkaren skriver ut en passerhöjd i millimeter, och sådana är få. Ett chassi som lyfter sig över hindret klarar mer än hjul som bara rullar på, men eftersom ingen anger provmetod är talen uppgifter och inte mätvärden. Mät din högsta tröskel och jämför med det tal tillverkaren anger.",
+          "Ungefär en till två centimeter för de flesta modeller, enligt Ljud & Bilds köpguide. Över det behöver du ett chassi som lyfter sig över listen i stället för hjul som bara rullar på, och toppmodellerna tar sig 4,2 till 4,5 centimeter. Ett förbehåll som är lätt att gå på: tillverkarna publicerar två tal, och det högre gäller en tröskel med två steg som en skjutdörrsskena. Mät din högsta tröskel och jämför med det lägre talet. Talen kommer dessutom från tillverkarnas egna labb utan gemensam provmetod, så de är uppgifter och inte mätvärden.",
       },
       {
         question: "Vad gör jag om tröskeln är för hög?",
@@ -1269,7 +1396,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["robotdammsugare"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "vad-far-kameran-filma",
@@ -1293,15 +1420,15 @@ export const TOOLS: Tool[] = [
         body: [
           "En detekteringszon, ibland kallad aktivitetszon eller rörelsezon, styr vad kameran larmar om. Den stoppar notiser. Grannens tomt spelas fortfarande in.",
           "En sekretesszon, ibland kallad integritetszon, svartar ut området i själva bilden så att det varken syns i direktbild eller i inspelning. Det är den funktionen IMY pekar ut när de skriver att du kan rätta till saken genom att vinkla om kameran eller maskera området digitalt.",
-          "Arlo förklarar skillnaden själva i sin FAQ. De flesta butiker gör det inte, och två av tolv specifikationer vi läst hos Kjell skiljer alls på begreppen.",
+          "Skillnaden syns sällan i butikens specifikation, där båda ofta kallas zoner. Vill du veta vilken sorts zon en kamera har får du leta i tillverkarens beskrivning av funktionen, och det är värt en minut innan du betalar.",
         ],
       },
       {
         heading: "Alla har funktionen, alla har en brasklapp",
         body: [
-          "Vi läste alla fem tillverkares egen dokumentation. Sekretesszoner finns hos samtliga, och samtliga publicerar en begränsning som pekar åt samma håll: så fort kameran rör sig slutar masken täcka det den ritades över.",
+          "Sekretesszoner finns hos alla fem fabrikaten, men masken beter sig olika när kameran används, och begränsningarna pekar åt samma håll: så fort kameran rör sig slutar masken täcka det den ritades över.",
           "Arlo raderar zonerna automatiskt vid autospårning, vid ändrat synfält och vid rotering 180 grader, och på pan/tilt-modellerna försvinner zonen så fort kameran rör sig. TP-Link skriver att zonerna följer med vyn och inte längre täcker originalområdet. Reolinks statiska mask förskjuts vid panorering, och den dynamiska varianten finns bara på tre modeller som inte säljs i svensk handel.",
-          "Ring har två zoner men rörelsedetektorn känner av området ändå. eufy skriver att aktivitet i zonerna kanske inte helt kan undvikas från att spelas in, och deras modellista omfattar inte de kameror som säljs här.",
+          "Ring har två zoner, men rörelsedetektorn känner av området ändå, så larmen fortsätter komma från ytan du svartat ut. eufy går längst och anger att aktivitet i zonerna kanske inte helt kan undvikas från att spelas in.",
         ],
       },
     ],
@@ -1333,7 +1460,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["overvakningskamera"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "dorrklocka-lagenhet-eller-villa",
@@ -1342,7 +1469,7 @@ export const TOOLS: Tool[] = [
     description:
       "Bor du i lägenhet säger IMY att privatundantaget inte gäller. Bor du i villa avgör strömmen och signalenheten vilken dörrklocka som fungerar. Guiden svarar på båda frågorna.",
     intro:
-      "Två frågor avgör en dörrklocka med kamera, och ingen av dem handlar om megapixlar. Den första är boendeformen: Integritetsskyddsmyndigheten har ett eget exempel som säger att en dörrkamera på en lägenhetsdörr faller utanför privatundantaget. Den andra är om det ringer inne i bostaden eller bara i telefonen, vilket tre av sju modeller inte gör utan att du köper till en signalenhet.",
+      "Två frågor avgör en dörrklocka med kamera, och ingen av dem handlar om megapixlar. Den första är boendeformen: Integritetsskyddsmyndigheten har ett eget exempel som säger att en dörrkamera på en lägenhetsdörr faller utanför privatundantaget. Den andra är om det ringer inne i bostaden eller bara i telefonen, vilket tre av åtta modeller inte gör utan att du köper till en signalenhet.",
     sections: [
       {
         heading: "IMY:s exempel om lägenhetsdörren",
@@ -1356,14 +1483,14 @@ export const TOOLS: Tool[] = [
         heading: "Strömmen avgör vad som ens är möjligt",
         body: [
           "Många svenska villor har en ringklocktransformator bakom den gamla tamburklockan, på 8 till 24 volt. Finns den kan du driva dörrklockan därifrån och slipper ladda batterier två gånger om året.",
-          "Finns den inte faller vissa produkter bort helt. Yale Smart Video Doorbell saknar batteri och kan bara drivas med kabel eller med en strömadapter som säljs separat. Reolink D340W anges till 12 till 24 volt växelström. Tapo D235 och Aqara G410 klarar båda vägarna, och resten är batteridrivna.",
-          "Kontrollera vad du har innan du beställer. Det är fem minuters arbete med en skruvmejsel och det avgör om den billigaste dörrklockan i testet också är den billigaste för dig.",
+          "Finns den inte är det bara Yale Smart Video Doorbell som faller bort helt: den saknar batteri och kan bara drivas med kabel eller med en strömadapter som säljs separat. Reolink D340W saknar också batteri och vill ha 12 till 24 volt, men strömadaptern ligger i lådan tillsammans med förlängningskablar på 4,5 meter, så det räcker med ett eluttag inom räckhåll. Tapo D235, Aqara G410 och Imou 2S klarar båda vägarna, och resten är batteridrivna.",
+          "Kontrollera vad du har innan du beställer. Det är fem minuters arbete med en skruvmejsel, och det avgör om du kan slippa ladda batteri två gånger om året.",
         ],
       },
       {
         heading: "Ringklockan ingår inte alltid",
         body: [
-          "Aqara G410 levereras med en chime-hubb och sex AA-batterier. Tapo D235 och D230S1 levereras med en signalenhet som sätts i ett eluttag inomhus.",
+          "Aqara G410 levereras med en chime-hubb och sex AA-batterier. Tapo D235 och D230S1 levereras med en signalenhet som sätts i ett eluttag inomhus. Reolink D340W har en ringklocka på 433 MHz i lådan, och Imou 2S en som dessutom rymmer minneskortet och förstärker wifi vid dörren.",
           "Ring Battery Video Doorbell levereras med dörrklocka, kabel, monteringssats, ett demonteringsverktyg och en snabbstartsguide. Ingen signalenhet. Arlo och Google Nest gör likadant och säljer sina ringklockor som separata artiklar.",
           "Skillnaden märks inte i butiken men varje dag därefter. En dörrklocka vars enda signal är en notis fungerar inte när mobilen ligger på ljudlöst, laddar i ett annat rum eller saknar täckning, och den fungerar inte alls för den som inte bär telefonen på sig hemma.",
         ],
@@ -1392,7 +1519,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["dorrklocka-med-kamera"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "kamera-nar-nagon-arbetar-hemma",
@@ -1415,8 +1542,8 @@ export const TOOLS: Tool[] = [
         heading: "Ett skydd som syns är inte samma sak som ett läge i appen",
         body: [
           "När någon annan arbetar i hemmet räcker det inte att kameran går att stänga av. Den behöver gå att stänga av på ett sätt personalen kan se, för annars är avstängningen ett påstående som de ska ta på ditt ord.",
-          "Arlos Essential Indoor har ett motoriserat linsskydd som enligt tillverkaren automatiskt täcker linsen när kameran avlarmas, och som samtidigt stänger av rörelsedetektering, ljuddetektering och mikrofonen. TP-Links Tapo C125 och C225 har en fysisk knapp som fäller ner ett skydd eller vrider bort linsen. Ring lägger ett linsskydd i lådan.",
-          "Övriga kameror i vår jämförelse har bara ett läge i appen. TP-Link skriver att deras läge stänger av både bild och ljud, vilket är mer än många, men objektivet pekar fortfarande in i rummet och ingen som står framför kameran kan se om läget är på.",
+          "Arlo Essential 3 PTZ lutar ner objektivet mot foten så snart systemet står i standby eller hemmaläge, och stänger av rörelsedetektering och mikrofon samtidigt. Aqara Camera Hub G3 vrider bort linsenheten och visar ett sovande ansikte, antingen för hand eller via en regel du bygger själv. TP-Links Tapo C125 och C225 har en knapp på höljet som fäller ner ett skydd eller vrider bort linsen. Ring Pan-Tilt har ett inbyggt linsskydd, Indoor Cam Plus ett löst i förpackningen.",
+          "Övriga kameror i vår jämförelse har bara ett läge i appen. TP-Links läge stänger av både bild och ljud, vilket är mer än många, men objektivet pekar fortfarande in i rummet och ingen som står framför kameran kan se om läget är på.",
         ],
       },
       {
@@ -1437,7 +1564,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Räcker det att jag stänger av kameran i appen?",
         answer:
-          "Juridiskt kan det räcka, om bevakningen faktiskt är avstängd. Praktiskt är det svagare: den som arbetar i hemmet kan inte se om läget är på, utan får ta ditt ord för det. Ett fysiskt linsskydd gör avstängningen synlig, och Arlos motoriserade skydd gör den dessutom automatisk så att ingen behöver komma ihåg den.",
+          "Juridiskt kan det räcka, om bevakningen faktiskt är avstängd. Praktiskt är det svagare: den som arbetar i hemmet kan inte se om läget är på, utan får ta ditt ord för det. En fysisk avstängning gör den synlig, och hos Arlo och Aqara kan den dessutom ske automatiskt så att ingen behöver komma ihåg den.",
       },
       {
         question: "Vad gäller för en hantverkare som kommer en gång?",
@@ -1451,23 +1578,23 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["inomhuskamera"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "godkant-las-till-ytterdorr",
     name: "Vilket lås är godkänt?",
     title: "Vilket kodlås till ytterdörr är en godkänd låsenhet?",
     description:
-      "Certifikatet för det ledande låset gäller med blockerade användarkoder. Guiden visar vad som är belagt för just den öppningsmetod du tänkt använda, och vad som gäller i bostadsrätt.",
+      "Fem av sex lås är certifierade, och varje certifikat har ett villkorsfält som stänger av eller kräver något. Guiden visar vad som gäller för just den öppningsmetod du tänkt använda, och vad som gäller i bostadsrätt.",
     intro:
-      "En godkänd låsenhet är enligt Stöldskyddsföreningen hela enheten: låshus, cylinder, slutbleck och förstärkningsbehör, där varje del och helheten når klass 3. För digitala lås finns en egen norm, SSF 3523, och där gäller något som är lätt att missa: certifikatet kan omfatta vissa inställningar men inte alla. Välj hur du tänker låsa upp, så visar guiden vad som faktiskt är belagt för den vägen in.",
+      "En godkänd låsenhet är enligt Stöldskyddsföreningen hela enheten: låshus, cylinder, slutbleck och förstärkningsbehör, där varje del och helheten når klass 3. Certifikaten slutar dessutom med ett villkorsfält som är lätt att missa: låsenheten är certifierad med vissa, men inte alla, inställningar aktiverade. Välj hur du tänker låsa upp, så visar guiden vad som faktiskt är belagt för den vägen in.",
     sections: [
       {
         heading: "Certifikatet gäller en konfiguration, inte en produkt",
         body: [
-          "SBSC:s certifikat 21-537 för Yale Doorman L3 anger klass S3 enligt SSF 3523 och giltighet till den 27 november 2027. I fältet Additional står vad godkännandet omfattar: bortasäkert läge med blockerade användarkoder och låsöppning med nyckelbricka eller med appen Yale Home.",
-          "Den certifierade konfigurationen har alltså koderna blockerade, på en produkt som säljs i en kategori som heter kodlås. Det är Stöldskyddsföreningens allmänna varning gjord konkret: det finns begränsningar i vilka funktioner som får aktiveras för att uppfylla kraven för godkänd låsenhet.",
-          "Det betyder inte att låset blir osäkert av en kod, och det säger ingenting om vad ditt försäkringsbolag accepterar. Det betyder att den konfiguration som är provad inte är den de flesta använder, och att frågan är värd att ställa före köpet snarare än efter en inbrottsanmälan.",
+          "Samtliga fem certifierade lås i jämförelsen bär ett villkorsfält. Yale Doorman L3 kräver för sitt digitala S3-godkännande, certifikat 21-537, bortasäkert läge med blockerade användarkoder och upplåsning med nyckelbricka eller appen Yale Home. Nimly Code Pro och Nimly Code kräver koder på minst fyra siffror, påslagen anti-inbrottsfunktion, bortasäkert läge och tvåfaktorsinloggning, samt att kamouflagefunktionen är avstängd.",
+          "Yale Doorman Classic, certifikat 20-19, kräver integritetsswitchen i läge hög, automatisk låsning påslagen och upplåsning med nyckelbricka eller nyckelbricka plus kod. Yale Linus L2, certifikat 24-365, är godkänt tillsammans med Yale Dot. Skilj samtidigt på Yales två certifikat: det mekaniska 20-172 i klass 3 bär inga villkor om öppningssätt alls.",
+          "Det betyder inte att ett lås blir osäkert för att du slår på en funktion, och det säger ingenting om vad ditt försäkringsbolag accepterar. Det betyder att den konfiguration som är provad sällan är den som säljs in, och att frågan är värd att ställa före köpet snarare än efter en inbrottsanmälan.",
         ],
       },
       {
@@ -1475,15 +1602,15 @@ export const TOOLS: Tool[] = [
         body: [
           "SSF delar in låsenheter i klasserna 1A, 1B, 2A, 2B, 3, 4 och 5 enligt SSF 3522, och i S1, S2, S3 och S5 enligt SSF 3523 för digitala enheter. Klass 3 respektive S3 är grundkravet i samtliga skyddsklasser och den låsning SSF rekommenderar även för bostäder.",
           "Klass 2A har samma krav på inbrottsskydd från dörrens utsida som klass 3, men manövreringen från insidan underordnas utgång och utrymning. SSF:s eget exempel är lägenheter utan annan entréväg, och de skriver i samma mening att man ska kontrollera försäkringskraven. En godkänd låsenhet kräver klass 3.",
-          "CE-märkning är något helt annat. Den är tillverkarens egen försäkran om att produkten uppfyller tillämpliga EU-krav och säger ingenting om inbrottsskydd. Leta efter certifikatsmärket och ett certifikatnummer, inte efter CE.",
+          "Nimly Code visar varför varje del räknas: låshus och slutbleck är certifierade i klass 3, men mekatronikcylindern är klass 2A, och därmed blir hela enheten 2A. CE-märkning är något helt annat igen. Den är tillverkarens egen försäkran och säger ingenting om inbrottsskydd. Leta efter certifikatsnumret och klassen, inte efter CE.",
         ],
       },
       {
         heading: "I bostadsrätt och hyresrätt äger du sällan dörren",
         body: [
           "Ytterdörren tillhör normalt föreningen respektive hyresvärden, och den ingår ofta i ett låssystem med huvudnyckel för fastighetsskötsel. Att byta ut låsenheten kan därför kräva tillstånd även när du betalar för det själv.",
-          "Ett lås som monteras utanpå det befintliga vredet på insidan, som Yale Linus eller Danalock, rör inte den enhet som sitter i dörren. Det brukar vara enklare att få igenom, och det innebär i princip att en godkänd låsenhet som redan finns står kvar orörd.",
-          "Vi skriver i princip med flit. Vi har inte hittat något skriftligt besked från SSF om hur ett motoriserat vred på insidan påverkar bedömningen av låsenheten, och drar därför ingen slutsats åt dig. Fråga försäkringsbolaget.",
+          "Ett lås som monteras utanpå det befintliga vredet på insidan, som Yale Linus eller Danalock, rör inte den enhet som sitter i dörren. Det brukar vara enklare att få igenom, eftersom en godkänd låsenhet som redan finns står kvar orörd.",
+          "Yale Linus L2 har dessutom ett eget certifikat, 24-365 i klass 2A enligt SSF 3522, giltigt till den 11 februari 2030 och godkänt tillsammans med Yale Dot. Det gör frågan till styrelsen kortare: det finns ett nummer att hänvisa till.",
         ],
       },
     ],
@@ -1491,12 +1618,12 @@ export const TOOLS: Tool[] = [
       {
         question: "Gäller certifikatet om jag använder koden?",
         answer:
-          "Inte enligt certifikatet. SBSC:s certifikat 21-537 för Yale Doorman L3 anger att godkännandet gäller bortasäkert läge med blockerade användarkoder och låsöppning med nyckelbricka eller med appen Yale Home. Ring ditt försäkringsbolag och fråga specifikt om kodöppning innan du köper.",
+          "Det beror på vilket lås och vilket certifikat. Yale Doorman L3:s digitala certifikat 21-537 i klass S3 gäller bortasäkert läge med blockerade användarkoder, medan dess mekaniska certifikat 20-172 i klass 3 inte har några villkor om öppningssätt. Nimly Code Pro går åt andra hållet: klass 3-certifikaten gäller med koden påslagen, förutsatt att den har minst fyra siffror, men kräver att kamouflagefunktionen är avstängd. Ring ditt försäkringsbolag och fråga specifikt om den öppningsmetod du tänkt använda.",
       },
       {
         question: "Vad är en godkänd låsenhet?",
         answer:
-          "Hela enheten: låshus, låscylinder, säkerhetsslutbleck och förstärkningsbehör. För att vara godkänd ska hela enheten och varje ingående produkt var för sig nå klass 3 enligt SSF 3522 eller klass S3 enligt SSF 3523. Byter du ut en del kan godkännandet påverkas, och SSF skriver att man alltid ska kontrollera försäkringskraven innan man förändrar något.",
+          "Hela enheten: låshus, låscylinder, säkerhetsslutbleck och förstärkningsbehör. För att vara godkänd ska hela enheten och varje ingående produkt var för sig nå klass 3 enligt SSF 3522 eller klass S3 enligt SSF 3523. Nimly Code visar vad det innebär i praktiken: låshuset och slutblecket är klass 3, men cylindern är klass 2A, och därför blir enheten 2A. Byter du ut en del kan godkännandet påverkas, och SSF skriver att man alltid ska kontrollera försäkringskraven innan man förändrar något.",
       },
       {
         question: "Räcker CE-märkning?",
@@ -1515,7 +1642,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["kodlas-ytterdorr"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "vad-kostar-det-att-lamna-hemlarmet",
@@ -1531,7 +1658,7 @@ export const TOOLS: Tool[] = [
         body: [
           "Verisures allmänna villkor 2025:1 punkt 5 säger att de behåller äganderätten till alla monterade och uppkopplade komponenter, oavsett om dessa införskaffats via Verisures webbshop eller på annat sätt. Du kan alltså köpa en komponent av dem och ändå inte äga den, så länge den är uppkopplad i tjänsten.",
           "Sector Alarms avtalsvillkor SAS 2.1 punkt 8 går längre: larmsystemet är och ska vid var tid förbli företagets egendom, och kunden förvärvar ingen rätt till eller i larmsystemet utöver en nyttjanderätt under avtalstiden. Det finns ingen friköpsmöjlighet för larmsystemet alls, bara för elektroniska dörrlås enligt punkt 12.4 och till ett pris bolaget själv sätter.",
-          "Hos SecuritasHome, Svenska Alarm, Gardio, Garda Alarm och Safeland köper du hårdvaran i stället. Det tar bort hela frågan, och det är den viktigaste skillnaden mellan de två affärsmodellerna.",
+          "Hos SecuritasHome, Svenska Alarm, Gardio och Garda Alarm köper du hårdvaran i stället. Det tar bort hela frågan, och det är den viktigaste skillnaden mellan de två affärsmodellerna. Safeland hyr ut sitt system men binder dig inte: du säger upp hyresavtalet när du vill, monterar ned utrustningen själv och skickar tillbaka den.",
         ],
       },
       {
@@ -1555,7 +1682,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Hur lång är uppsägningstiden på ett hemlarm?",
         answer:
-          "Tre månader hos både Verisure och Sector Alarm. Verisures allmänna villkor 2025:1 punkt 13 anger löpande tre kalendermånader från uppsägning. Sector Alarms punkt 12.1 anger tre månader räknat från den första dagen i påföljande månad, vilket i praktiken kan bli upp till fyra. Gardios villkor anger normalt tre månader. Övriga bolag publicerar ingen uppsägningstid.",
+          "Det skiljer från ingen alls till fyra månader. Safeland har kortast: deras tjänstevillkor punkt 9 säger att avtalet varken har bindningstid eller uppsägningstid. SecuritasHome ger en månads varsel när de 24 bindningsmånaderna löpt ut enligt §4.1. Verisures allmänna villkor 2025:1 punkt 13 anger löpande tre kalendermånader från uppsägning, och Gardio, Svenska Alarm och Garda Alarm anger också tre. Längst har Sector Alarm, vars punkt 12.1 räknar tre månader från den första dagen i påföljande månad, vilket i praktiken kan bli upp till fyra. Avarn Security är det enda bolaget som inte publicerar någon uppsägningstid.",
       },
       {
         question: "Kan jag ta med mig larmet till ett annat bolag?",
@@ -1574,7 +1701,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["hemlarm"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     slug: "femarskostnad-larm",
@@ -1596,7 +1723,7 @@ export const TOOLS: Tool[] = [
       {
         heading: "Fyra av åtta bolag går inte att räkna på",
         body: [
-          "Räknaren kräver både en publicerad månadsavgift och en publicerad startavgift. Bara två av de åtta larmbolag vi jämför publicerar båda.",
+          "Räknaren kräver både en publicerad månadsavgift och en publicerad startavgift. Bara fyra av de åtta larmbolag vi jämför publicerar båda: SecuritasHome, Verisure, Gardio och Safeland.",
           "Vi tar ändå med de övriga i listan, med sin brist synlig. Att sålla bort dem hade dolt marknadens verkliga tillstånd, som är att en majoritet av bolagen inte skriver ut vad tjänsten kostar. Väljer du ett av dem svarar räknaren att den inte kan räkna, i stället för att gissa.",
           "En gissning ser lika trovärdig ut som en verklig siffra när den står i ett resultatfält. Därför gissar vi inte.",
         ],
@@ -1624,7 +1751,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Varför kan räknaren inte räkna på alla larmbolag?",
         answer:
-          "Därför att bolagen inte publicerar priset. Av de åtta larmbolag vi jämför publicerar fyra en månadsavgift och bara två publicerar hela priset, både månadsavgift och startavgift. Sector Alarm, Gardio, Garda Alarm och Safeland publicerar ingen månadsavgift alls utan hänvisar till en offert. Vi räknar bara när båda talen finns, eftersom en gissad summa är sämre än ett tomt fält.",
+          "Därför att hälften av bolagen inte publicerar hela priset. Av de åtta larmbolag vi jämför publicerar sju en löpande avgift men bara fyra både den och startavgiften: SecuritasHome, Verisure, Gardio och Safeland. Avarn Security och Svenska Alarm anger en månadsavgift men ingen startavgift, Garda Alarm tar 1 199 kronor om året i stället för en månadsavgift och publicerar inget hårdvarupris, och Sector Alarm anger bara ett startpaketspris. Vi räknar bara när båda talen finns, eftersom en gissad summa är sämre än ett tomt fält.",
       },
       {
         question: "Kan jag lägga till en larmcentral på ett larm utan abonnemang?",
@@ -1633,7 +1760,7 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["larm-utan-abonnemang", "hemlarm"],
-    updated: "2026-08-03",
+    updated: "2026-08-06",
   },
   {
     /* Luftklustrets enda verktyg, inbäddat på alla tre kategorisidorna.
@@ -1703,7 +1830,7 @@ export const TOOLS: Tool[] = [
       "hygrometer",
       "luftkvalitetsmatare",
     ],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
   },
   {
     /* Kabelsidans enda verktyg. Slugen bär inte ordet väljare, av samma skäl
@@ -1757,22 +1884,76 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["usb-c-kabel"],
-    updated: "2026-08-05",
+    updated: "2026-08-06",
+  },
+  {
+    /* Powerstationsidans enda verktyg. Slugen bär inte ordet väljare, eftersom
+       frågan är en dimensionering och inte ett val mellan produkter, och
+       eftersom "hur stor" är just den fråga kategorin ställer. */
+    slug: "hur-stor-powerstation",
+    name: "Hur stor powerstation behöver du?",
+    title: "Hur stor powerstation behöver du? Två tal, inte ett",
+    description:
+      "Välj vad stationen ska driva, om apparaterna går samtidigt och hur länge, så får du de två tal som ska stå i specifikationen: kontinuerlig effekt i watt och kapacitet i wattimmar, plus toppeffekten som avgör om en motor kommer igång.",
+    intro:
+      "En powerstation säljs med ett tal i modellnamnet, och köparen behöver två. Watt avgör vad som över huvud taget går att koppla in. Wattimmar avgör hur länge det kan gå. Ett stort batteri bakom en svag växelriktare startar aldrig vattenkokaren, och en stark växelriktare med litet batteri gör det i tio minuter. Räknaren översätter det du faktiskt ska driva till båda talen.",
+    sections: [
+      {
+        heading: "Watt och wattimmar svarar på olika frågor",
+        body: [
+          "Watt är effekt och beskriver ögonblicket. Klarar växelriktaren 500 watt startar ingenting som drar mer, hur stort batteriet än är. Wattimmar är energi och beskriver uthålligheten: 1 000 wattimmar räcker till 100 watt i tio timmar eller 1 000 watt i en timme.",
+          "Gränsen i praktiken går vid värme. Allt som ska laddas eller lysa håller sig under 250 watt. Allt som ska bli varmt, alltså vattenkokare, hårtork, kaffebryggare och mikrovågsugn, ligger mellan 1 000 och 2 000. Det är därför samma station kan kännas överdimensionerad och otillräcklig beroende på vad den ska göra.",
+        ],
+      },
+      {
+        heading: "Startrycket är ett tredje tal",
+        body: [
+          "En kompressor eller motor drar två till tre gånger sin märkeffekt under den första sekunden. Ett kylskåp som förbrukar 100 watt i drift kan kräva 400 för att komma igång, och en dränkbar pump på 400 watt kan kräva 1 000.",
+          "Det talet heter toppeffekt och står separat i specifikationen. En station som klarar driften kan alltså ändå vägra starta apparaten, och det är den vanligaste orsaken till att ett köp inte fungerar som tänkt.",
+        ],
+      },
+      {
+        heading: "Femton procent försvinner på vägen",
+        body: [
+          "Tillverkarnas wattimmar gäller batteriet, inte uttaget. Växelriktaren som gör 230 volt växelström av batteriets likspänning kostar energi, och en del försvinner dessutom som värme.",
+          "Räknaren lägger därför på 15 procent, vilket är den försiktiga änden av vad som är vanligt i kategorin. Räknar du själv på en produktsidas tal ska du dra av ungefär lika mycket innan du jämför med ditt behov.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Varför blir effektkravet inte summan av allt jag valt?",
+        answer:
+          "Därför att effekt är ett ögonblick och inte en mängd. Ska apparaterna gå en i taget behöver växelriktaren bara orka den som drar mest, och fem lampor på 20 watt som tänds efter varandra kräver alltså 20 watt och inte 100. Ska de gå samtidigt är summan rätt tal, och då frågar räknaren om det. Energikravet räknas däremot alltid på allt tillsammans, eftersom samma arbete kostar lika mycket energi oavsett i vilken ordning det utförs.",
+      },
+      {
+        question: "Räknaren säger att jag behöver mer än tusen wattimmar. Vad gör jag då?",
+        answer:
+          "Då är en bärbar powerstation fel produkt för behovet. Den klass som går att bära slutar runt tusen wattimmar, och över den finns hemreservklassen på två till fyra kilowattimmar som väger mellan 20 och 50 kilo. Behöver du ännu mer är alternativen ett fast installerat hembatteri eller ett elverk med förbränningsmotor. Ett elverk kräver bränsle, låter betydligt mer och får aldrig köras inomhus eller i ett garage, eftersom avgaserna innehåller kolmonoxid.",
+      },
+      {
+        question: "Kan jag lita på talen för apparaterna?",
+        answer:
+          "De är typiska värden och satta i den övre änden av vad som är vanligt, eftersom ett för lågt krav ger ett köp som inte fungerar medan ett för högt bara ger marginal. Din egen apparat har sitt tal tryckt på märkskylten, oftast på undersidan eller baksidan, och står angivet i watt eller som volt och ampere som du multiplicerar. Har du talet ska du använda det. Räknaren finns för att ge en storleksordning innan du står i butiken.",
+      },
+    ],
+    usedOn: ["powerstation"],
+    updated: "2026-08-06",
   },
   {
     slug: "vad-betyder-talet-pa-hygrometern",
     name: "Vad betyder talet på hygrometern?",
     title: "Hygrometern visar 58 procent. Vad betyder det egentligen?",
     description:
-      "Skriv in det mätaren visar och den noggrannhet tillverkaren anger, så räknas avläsningen om till det spann den faktiskt betyder, och du får veta vilka av gränserna 45, 50 och 60 procent talet kan avgöra.",
+      "Skriv in det mätaren visar och den noggrannhet bruksanvisningen anger, så räknas avläsningen om till det spann den faktiskt betyder, och du får veta vilka av gränserna 45, 50 och 60 procent talet kan avgöra.",
     intro:
-      "En hygrometer visar ett tal med en decimals självsäkerhet, men mätaren får visa fel och hur mycket står nästan aldrig på förpackningen. Med ± 5 procentenheter kan en avläsning på 58 i verkligheten vara 53 eller 63, på båda sidor om mögelgränsen. Verktyget räknar om talet till det spann det betyder och säger rakt ut när avläsningen inte räcker för att avgöra saken.",
+      "En hygrometer visar ett tal med en decimals självsäkerhet, men mätaren får visa fel och hur mycket står i bruksanvisningen snarare än på förpackningen. Med ± 5 procentenheter, som är vad de flesta anger, kan en avläsning på 58 i verkligheten vara 53 eller 63, på båda sidor om mögelgränsen. Verktyget räknar om talet till det spann det betyder och säger rakt ut när avläsningen inte räcker för att avgöra saken.",
     sections: [
       {
-        heading: "Mätområdet trycks alltid, avvikelsen aldrig",
+        heading: "Toleransen står i manualen, inte i spectabellen",
         body: [
-          "Av tretton mätare vi jämfört mellan 139,90 och 1 199 kronor anger två hur många procentenheter de får visa fel. Alla anger mätområdet, mellan vilka värden de över huvud taget visar något, och det säger ingenting om hur rätt de visar. Där en tolerans faktiskt står gäller den ofta temperaturen: Rubicsons produktblad anger ± 1 grad och sedan ingenting om fukten.",
-          "Priset förutsäger det inte. Den dyraste mätaren kostar 1 199 kronor och anger ingen tolerans alls, medan en för 219 anger ± 3 procentenheter. Väljer du mätare är frågan alltså inte hur mycket den kostar utan om tillverkaren vågar skriva ut vad den klarar.",
+          "Produktsidan anger mätområdet, alltså mellan vilka värden mätaren över huvud taget visar något. Det säger ingenting om hur rätt den visar. Felmarginalen står på sista uppslaget i bruksanvisningen, som PDF, en länk ned från samma sida. Öppna den innan du köper, och innan du utgår från att din nuvarande mätare inte har någon angiven.",
+          "Priset förutsäger inte talet. Rubicson Kompakt för 179,90 kronor, Beurer HM 16 för 199,90 och Beurer HM 22 för 269 anger alla ± 5 procentenheter mellan 40 och 80 procent och ± 8 utanför. Snävast av dem vi jämfört är Govee H5075 för 219 kronor med ± 3.",
         ],
       },
       {
@@ -1785,7 +1966,7 @@ export const TOOLS: Tool[] = [
       {
         heading: "När toleransen inte står någonstans",
         body: [
-          "Det är det vanliga fallet, så det finns ett eget val för det. Verktyget räknar då på ± 5 procentenheter och skriver ut att talet är ett antagande och inte en uppgift om just din mätare. Skälet att räkna alls är att ett spann säger mer än ett ensamt tal även när bredden är osäker; skälet att skriva ut det är att ett spann som ser exakt ut vore värre än inget.",
+          "Det finns ett eget val för det. Verktyget räknar då på ± 5 procentenheter och skriver ut att talet är ett antagande och inte en uppgift om just din mätare. Fem är valt därför att det är vad de flesta tillverkare anger i mellanspannet, och därför att de digitala mätare någon oberoende faktiskt mätt låg inom 4,4. Skälet att räkna alls är att ett spann säger mer än ett ensamt tal även när bredden är osäker; skälet att skriva ut antagandet är att ett spann som ser exakt ut vore värre än inget.",
           "En sak som gör spannet bredare än det ser ut: en analog visarmätare kan skilja sig kraftigt mellan enskilda exemplar av samma modell. Tyska mögelsaneringsförbundet fann upp till tolv procentenheters spridning mellan tre exemplar av en och samma analoga modell när de jämförde fjorton mätare mot ett kalibrerat referensinstrument. Har du en visarmätare är svaret här mer osäkert än vad verktyget visar.",
         ],
       },
@@ -1799,7 +1980,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Min mätare anger ingen noggrannhet. Är den dålig?",
         answer:
-          "Inte nödvändigtvis, och det är faktiskt vad mätningarna visar. Den mätare som klarade sig bäst i tyska mögelsaneringsförbundets provning låg inom en halv procentenhet och kostade knappt tio euro, och dess tillverkare anger ingen tolerans alls i sitt datablad. Ett utelämnat tal går alltså inte att läsa som ett dåligt tal. Det du förlorar är möjligheten att veta i förväg, och det är skäl nog att föredra en mätare som anger något.",
+          "Leta i bruksanvisningen först. Talet står nästan aldrig i spectabellen på produktsidan, men det ligger ofta på sista uppslaget i manualen, som brukar finnas som PDF hos butiken eller tillverkaren. Hittar du det ändå inte betyder det inte att mätaren är dålig: när tyska mögelsaneringsförbundet mätte åtta digitala mätare mellan 5,99 och 136 euro mot ett kalibrerat referensinstrument låg samtliga inom 4,4 procentenheter, alltså inom det branschen brukar utfästa. Är mätaren analog är läget ett annat, och där är svaret oftare ja.",
       },
       {
         question: "Är analoga hygrometrar sämre än digitala?",
@@ -1818,35 +1999,35 @@ export const TOOLS: Tool[] = [
       },
     ],
     usedOn: ["hygrometer"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
   {
     slug: "vilken-termostat-passar-min-ventil",
     name: "Vilken termostat passar min ventil?",
     title: "Vilken smart radiatortermostat passar min ventil?",
     description:
-      "Välj vad som står på ventilkroppen under vredet, så får du veta vilka av elva smarta radiatortermostater som anger att de passar, vilka som säljer adaptern separat och vilka som inte publicerar någon uppgift alls.",
+      "Välj vad som står på ventilkroppen under vredet, så får du veta vilka av elva smarta radiatortermostater som monteras på just den fattningen, vilka som säljer adaptern separat och vilka som inte når den alls.",
     intro:
-      "En radiatortermostat skruvas på den ventil som redan sitter där, och passar den inte hjälper varken pris eller protokoll. Uppgiften finns hos tillverkarna men nästan aldrig i butiken, där det står att termostaten passar en mängd olika tillverkare. Välj din fattning här, så får du veta vilka som faktiskt skriver ut det.",
+      "En radiatortermostat skruvas på den ventil som redan sitter där, och passar den inte hjälper varken pris eller protokoll. Spannet är femfaldigt: Netatmo når tio fattningar, Danfoss Ally RA når två. Ingen av uppgifterna står i butiken, där det bara sägs att termostaten passar en mängd olika tillverkare. Välj din fattning här.",
     sections: [
       {
         heading: "Tre svar, inte två",
         body: [
-          "Verktyget skiljer på tre saker: att tillverkaren namnger din fattning, att den namnger den men säljer adaptern separat, och att den inte säger någonting alls. Den tredje kategorin är den viktigaste. SONOFF namnger bara gängan M30x1,5 och lovar sedan adaptrar för de flesta värmesystem utan att räkna upp en enda, och Fibaro ersätter hela listan med påståendet att termostaten passar 98 procent av alla element. Vilka de återstående två procenten är står ingenstans.",
-          "Att sortera någon av dem som ett ja vore att gissa åt tillverkaren. Tystnad betyder inte att produkten är fel, den betyder att du inte kan kontrollera saken före köpet, och det är precis det köparen förlorar på. Därför får tystnaden en egen rubrik i stället för att skrivas om till ett nej eller tyst utelämnas.",
+          "Verktyget skiljer på att adaptern ligger i lådan, att den finns men säljs separat, och att fattningen inte täcks av tillverkarens underlag. Den sista kategorin är inte ett nej. Flera termostater levererar sannolikt adaptrar som aldrig räknas upp, och en lös adapter i metall från en VVS-butik löser ofta resten. Skillnaden är att du köper på hoppet i stället för på en uppgift.",
+          "Listorna byggdes om den 6 augusti 2026 och tre av dem var för korta. SONOFF låg på en enda fattning tills vi öppnade deras kompatibilitetsguide över 41 ventilmärken, Fibaro låg på noll tills vi läste första sidan i deras bruksanvisning, och Danfoss Eco låg på två mot fyra i Danfoss eget produktregister. Felet var vårt, inte tillverkarnas.",
         ],
       },
       {
-        heading: "Uppgiften finns, men aldrig där du köper",
+        heading: "Fyra fattningar räcker oftast, sju behövs ibland",
         body: [
-          "tado publicerar kategorins mest kompletta tabell: sex adaptrar som ingår i förpackningen och fyra som inte gör det, med Vaillant och Oventrop bland de senare. Den ligger i deras hjälpcenter. Butikstexten för samma produkt säger att termostaten passar termostatventiler från en mängd olika tillverkare, vilket inte går att kontrollera mot någonting.",
-          "Netatmo gör likadant och går ett steg längre: de skiljer på sex adaptrar som följer med och fyra som säljs separat i tiopack, och de förklarar hur du mäter gängan med en linjal. Aqara är den enda som lägger listan på själva produktsidan, och deras E1 är ensam om att namnge vad som inte fungerar alls.",
+          "Fyra fattningar betyder gängan M30x1,5 plus Danfoss RA, RAV och RAVL, alltså de klämfattningar som sitter på en stor del av det svenska beståndet. Fem av de elva termostaterna ligger där, och är alla dina element från samma årtionde behöver du sällan mer.",
+          "Sju behövs när elementen är från olika årtionden. Då dyker M28x1,5 och de italienska klämfattningarna Caleffi och Giacomini upp, och de klarar bara Aqara W600, tado X och SONOFF TRVZB. Netatmo når tio och är ensam om att över huvud taget nå Vaillant, om än mot en extra adapter som säljs i tiopack.",
         ],
       },
       {
         heading: "Två fällor som inte syns på produktbilden",
         body: [
-          "Den första är ventiltypen. En radiatortermostat reglerar värmen genom att trycka på ventilens stift, vilket förutsätter en termostatventil, alltså ett vred med siffror. På en manuell kran fungerar ingen av dem. I ett enrörssystem, där vattnet går i slinga mellan elementen, påverkar du flödet till alla element efter det du struper, och Aqara är den enda tillverkaren som tar upp frågan och svarar nej.",
+          "Den första är ventiltypen. En radiatortermostat reglerar värmen genom att trycka på ventilens stift, vilket förutsätter en termostatventil, alltså ett vred med siffror. På en manuell kran finns inget stift och ingen av dem fungerar. I ett enrörssystem, där vattnet går i slinga mellan elementen, påverkar du flödet till alla element efter det du struper, och Aqara E1 är den enda som anger det innan du beställer.",
           "Den andra är själva adaptern. Ljud & Bilds testare, som använt tado i flera år, skriver att de medföljande plastadaptrarna inte klarat trycket när termostaterna öppnat och stängt värmen, med följden att termostater fallit av och landat på golvet medan värmen stått fullt uppskruvad, ibland på natten. Hans råd är att köpa en adapter i metall hos en VVS-butik. Att en fattning står i tabellen säger alltså inget om hur väl den sitter.",
         ],
       },
@@ -1855,7 +2036,7 @@ export const TOOLS: Tool[] = [
       {
         question: "Hur tar jag reda på vilken ventil jag har?",
         answer:
-          "Skruva loss det befintliga vredet, för hand eller med en tång. Det läcker inte vatten när du gör det, eftersom vredet bara trycker på ett stift och inte håller tätt mot vattnet. Under sitter ventilkroppen, och där står oftast tillverkarens namn. Är fattningen gängad och 30 mm i diameter är det nästan alltid M30 x 1,5. Klickas vredet fast i stället för att skruvas är det sannolikt en Danfoss RA. Netatmo publicerar den enda mätanvisningen vi hittat: mät diametern med linjal eller skjutmått, och räkna tre gängtoppar för att få stigningen.",
+          "Skruva loss det befintliga vredet, för hand eller med en tång. Det läcker inte vatten när du gör det, eftersom vredet bara trycker på ett stift och inte håller tätt mot vattnet. Under sitter ventilkroppen, och där står oftast tillverkarens namn. Är fattningen gängad och 30 mm i diameter är det nästan alltid M30 x 1,5. Klickas vredet fast i stället för att skruvas är det sannolikt en Danfoss RA. Vill du mäta: ta diametern med linjal eller skjutmått, och räkna tre gängtoppar för att få stigningen. Är avståndet 3 mm är stigningen 1,5.",
       },
       {
         question: "Vad händer om jag köper fel adapter?",
@@ -1873,13 +2054,13 @@ export const TOOLS: Tool[] = [
           "En handdukstork som är ansluten till det vattenburna systemet har oftast en vanlig termostatventil och fungerar därmed likadant som ett element. En elektrisk handdukstork har det inte. Golvvärme styrs inte av en radiatortermostat alls utan av en rumstermostat i väggen eller av en fördelare, vilket är en annan produkt med en annan installation. Aqaras egen text för E1 nämner handdukstork och golvvärme, men den uppgiften kommer från butiken och gäller anslutningen till systemet, inte apparaten.",
       },
       {
-        question: "Varför står vissa termostater under Säger ingenting?",
+        question: "Varför saknas vissa termostater i listan för min fattning?",
         answer:
-          "Därför att deras tillverkare inte namnger just din fattning i något underlag vi kunnat läsa. Det är inte ett underkännande. Flera av dem levererar sannolikt adaptrar de aldrig räknar upp, och SONOFF skriver uttryckligen att adaptrar för de flesta värmesystem följer med utan att säga vilka. Skillnaden mot dem i den första listan är att du inte kan kontrollera saken i förväg, och att du får reda på svaret först när paketet är öppnat.",
+          "Därför att deras adaptrar inte täcker just den fattningen i tillverkarens eget underlag. Det är inte ett underkännande av produkten. Flera av dem levererar sannolikt fler adaptrar än de räknar upp, och en lös adapter i metall från en VVS-butik kostar under hundralappen och löser ofta saken. Skillnaden mot dem som står med är att du inte kan kontrollera det i förväg, och att svaret kommer först när paketet är öppnat.",
       },
     ],
     usedOn: ["smart-termostat"],
-    updated: "2026-08-04",
+    updated: "2026-08-06",
   },
 ];
 

@@ -39,10 +39,10 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/elektrisk-rullgardin/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, GTIN och butiks-URL:er är riktiga, lästa ur
- * butikernas egen JSON-LD på PRICE_CHECKED. Fortfarande inte publicerbar:
- * kriteriebetygen är redaktionell bedömning utifrån källorna snarare än
- * mätningar.
+ * Produkter, priser, GTIN och butiks-URL:er är lästa ur butikernas egen
+ * JSON-LD på PRICE_CHECKED. Kriteriebetygen är redaktionell bedömning utifrån
+ * källorna i lib/sources.ts; varje betyg har sitt skäl i en kommentar i
+ * lib/data/elektrisk-rullgardin.ts.
  *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
@@ -53,12 +53,12 @@ import Kopguide from "@/content/elektrisk-rullgardin/kopguide.mdx";
 
 const TEST_PAGE = ELEKTRISK_RULLGARDIN;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde åtta motorer för rullgardin, gardin och persienn på passform, ljudnivå och batteritid. Upphängningen avgör vad du kan köpa, och IKEA säljer inte längre några elektriska rullgardiner.",
+    "SwitchBot Curtain 3 vinner på 25 dB i tyst läge och 16 kg dragkraft, för 1 049 kr. Vi jämförde åtta motorer för rullgardin, gardin och persienn på passform, ljud och batteritid. IKEA säljer inte längre några elektriska rullgardiner.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -118,15 +118,15 @@ export default async function SmartaGardinerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde åtta motorer som gör rullgardinen, gardinen eller
-              persiennen du redan har elektrisk. Köpet avgörs inte av märket utan av
-              vad som hänger i fönstret, för motorerna säljs som
-              olika artikelnummer för kedja, skena och stång. Sedan kommer
-              ljudet, och där är det bara en tillverkare som talar om vad
-              produkten låter.
+              SwitchBot Curtain 3 är motorn vi rekommenderar: 25 decibel i tyst
+              läge, 16 kilo dragkraft och 1 049 kronor. Men vad du kan köpa
+              avgörs av vad som hänger i fönstret och inte av märket, för
+              motorerna säljs som olika artikelnummer för kedja, skena och
+              stång. Vi jämförde åtta av dem, från 599 kronor och uppåt.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -235,7 +235,7 @@ export default async function SmartaGardinerPage() {
         tone="muted"
         width="wide"
         title="Jämför alla åtta"
-        description="Filtrera på vad du har i fönstret. Att persienn bara ger en träff är inte en lucka i vår genomgång utan i det svenska utbudet."
+        description="Filtrera på vad du har i fönstret. Persienn och I-skena ger en träff var, och det är hela utbudet av eftermonterade motorer för dem."
       >
         <FilterableComparison
           products={products}
@@ -252,7 +252,7 @@ export default async function SmartaGardinerPage() {
         id="recensioner"
         width="wide"
         title="Recensioner av varje motor"
-        description="Två av åtta produkter saknar ett publicerat omdöme om just den modellen och får då Ej testat på den raden. Vi sätter hellre ingenting än ett gissat betyg, och vikten fördelas då på de övriga kriterierna."
+        description="Vad varje motor gör bäst, vad den kostar och vem som ska välja något annat. Sorterade efter betyg."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -297,7 +297,7 @@ export default async function SmartaGardinerPage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Aqara Roller Shade Driver E1 och Nedis SmartLife saknar publicerat test och bedöms därför på 90 av 100 viktpoäng, vilket står i deras recensioner. Priset i tabellen är priset hos butiken vi länkar till. Tre av produkterna finns billigare hos Inet, och eftersom prisvärdet räknas på priset i tabellen drar det ner deras poäng."
+          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Nedis SmartLife saknar både publicerat test och publicerad ljudnivå och bedöms därför på 72 av 100 viktpoäng. Priset i tabellen är priset hos butiken vi länkar till. Tre av produkterna finns billigare hos Inet, och eftersom prisvärdet räknas på priset i tabellen drar det ner deras poäng."
         />
       </Section>
 

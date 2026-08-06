@@ -93,9 +93,49 @@ export type LinkTarget = {
   affiliateUrl?: string;
 };
 
+/**
+ * Where on the page the link sits, and how far down the ranking.
+ *
+ * Read back off the query string by `lib/r9track/redirect.ts`. Until this
+ * existed the redirect looked for `?pl=` and `?pos=` that nothing ever set, so
+ * `placement` was null and `position` zero on every click ever recorded, and
+ * "does the winner card earn more than the comparison table" had no answer.
+ *
+ * The components already knew their own slot — `AffiliateCta` has taken a
+ * `placement` prop for as long as it has existed — but it only ever reached a
+ * `data-placement` attribute in the DOM and stopped there.
+ */
+export type LinkContext = {
+  /** Slot on the page: winner-card, comparison-table, considered, and so on. */
+  placement?: string;
+  /** 1-based rank within that slot. Omitted where ranking is meaningless. */
+  position?: number;
+};
+
+/** Query keys, matching the defaults in `createTillRoute`. */
+const PLACEMENT_PARAM = "pl";
+const POSITION_PARAM = "pos";
+
+function withContext(path: string, context?: LinkContext): string {
+  if (!context?.placement && !context?.position) return path;
+  const params = new URLSearchParams();
+  /* Trimmed to the same 60 characters the redirect will keep, so what we send
+     and what gets stored cannot disagree. */
+  if (context.placement) {
+    params.set(PLACEMENT_PARAM, context.placement.slice(0, 60));
+  }
+  /* Zero is the redirect's "no position", so only a real rank is sent. */
+  if (Number.isInteger(context.position) && (context.position as number) > 0) {
+    params.set(POSITION_PARAM, String(context.position));
+  }
+  const query = params.toString();
+  return query ? `${path}?${query}` : path;
+}
+
 export function resolveMerchantLink(
   target: LinkTarget,
   mode: LinkMode = LINK_MODE,
+  context?: LinkContext,
 ): OutboundLink {
   /* ⚠️ Both redirect modes below need `target.id`, and a caller that forgets
      `productId` would otherwise produce `/till/`, which 404s — a dead link
@@ -108,7 +148,7 @@ export function resolveMerchantLink(
      click is the whole point of the page. */
   if (mode === "redirect" && target.id) {
     return {
-      href: `${REDIRECT_PREFIX}/${target.id}`,
+      href: withContext(`${REDIRECT_PREFIX}/${target.id}`, context),
       rel: "sponsored nofollow noopener",
       monetised: true,
     };
@@ -129,7 +169,7 @@ export function resolveMerchantLink(
    * *ad disclosure* that would be a false statement, not the crawl hint. */
   if (mode === "tracked" && target.id) {
     return {
-      href: `${REDIRECT_PREFIX}/${target.id}`,
+      href: withContext(`${REDIRECT_PREFIX}/${target.id}`, context),
       rel: "nofollow noopener",
       monetised: false,
     };

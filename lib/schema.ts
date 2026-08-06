@@ -91,6 +91,8 @@ export type PageEntityOptions = {
   reviewer?: Person;
   /** ISO-datum för senaste genomgång. */
   reviewed?: string;
+  /** ISO-datum då sidan först publicerades. Blir `datePublished`. */
+  published?: string;
   /** Vad sidan handlar om. */
   about?: unknown;
   /** Sidans huvudsakliga innehåll, oftast en referens. */
@@ -124,6 +126,7 @@ export function pageEntity(options: PageEntityOptions) {
     ...(options.author ? { author: personNode(options.author) } : {}),
     ...(options.reviewer ? { reviewedBy: personNode(options.reviewer) } : {}),
     ...(options.reviewed ? { lastReviewed: options.reviewed, dateModified: options.reviewed } : {}),
+    ...(options.published ? { datePublished: options.published } : {}),
     ...(options.about ? { about: options.about } : {}),
     ...(options.mainEntity ? { mainEntity: options.mainEntity } : {}),
     ...(options.sections?.length

@@ -37,10 +37,14 @@ import { VerdictText } from "@/components/product/verdict-text";
 import Kopguide from "@/content/smart-strombrytare/kopguide.mdx";
 
 /*
- * ⚠️ Produkter, priser, maxlaster, mått, protokoll och butiks-URL:er är
- * riktiga, lästa ur butikernas egna sidor på PRICE_CHECKED. Ännu inte
- * publicerbar: kriteriebetygen är redaktionell bedömning utifrån källorna
- * snarare än mätningar.
+ * ⚠️ Produkter, priser, maxlaster, protokoll och butiks-URL:er är riktiga,
+ * lästa ur butikernas egna sidor på PRICE_CHECKED. Måtten är lästa hos
+ * tillverkarna 2026-08-06, med källa per produkt i lib/data. Kriteriebetygen är
+ * redaktionell bedömning utifrån källorna snarare än mätningar, vilket står i
+ * viktningen på sidan.
+ *
+ * Raden "Ännu inte publicerbar" stod kvar här långt efter att sidan gått live
+ * den 3 augusti. Den är borttagen 2026-08-06.
  *
  * Behörighetsuppgifterna är återgivna från Elsäkerhetsverkets egna sidor och
  * länkade i källistan. De är sammandrag, inte juridisk rådgivning, och sidan
@@ -56,12 +60,12 @@ import Kopguide from "@/content/smart-strombrytare/kopguide.mdx";
 
 const TEST_PAGE = SMART_STROMBRYTARE;
 const PAGE_URL = `/${TEST_PAGE.slug}`;
-const UPDATED = "2026-08-03";
+const UPDATED = "2026-08-06";
 
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde sex smarta strömbrytare och inbyggnadsreläer på nolledare, ekosystem och drift utan moln. Den typ alla rekommenderar kräver elektriker, och den du får montera själv nämns knappt.",
+    "Shelly 1 Gen4 för 269 kronor vinner: wifi, Bluetooth, Zigbee och Matter i samma modul, styrd lokalt utan molnkonto. Saknar dosan nolledare är Aqara H1 för 369 kronor den enda av de sex som fungerar ändå.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TEST_PAGE.title,
@@ -116,15 +120,15 @@ export default async function SmartStrombrytarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Vi jämförde sex smarta strömbrytare och inbyggnadsreläer, alltså
-              det som sitter i väggdosan och inte i uttaget. Appen och
-              röststyrningen skiljer mindre än marknadsföringen antyder.
-              Skillnaden ligger i två frågor som avgörs innan du valt märke: om
-              du har nolledare i dosan, och om produkten är något du får
-              installera själv.
+              Shelly 1 Gen4 kostar 269 kronor, talar wifi, Bluetooth, Zigbee
+              och Matter i samma modul och styrs lokalt utan molnkonto. Den
+              kräver nolledare i dosan, och saknas den bakom din knapp är Aqara
+              H1 för 369 kronor den enda av de sex som fungerar ändå. Den frågan
+              avgör köpet långt innan appen och röststyrningen gör det.
             </p>
             <UpdatedStamp
               date={UPDATED}
+              slug={TEST_PAGE.slug}
               testedCount={products.length}
               variant="bar"
               className="self-start"
@@ -190,7 +194,7 @@ export default async function SmartStrombrytarePage() {
         id="jamforelse"
         width="wide"
         title="Jämför alla sex"
-        description="Samma kriterier och samma viktning för alla sex. Raden Nolledare avgör mer än någon annan: saknas nolla i din dosa faller fyra av fem bort direkt."
+        description="Samma kriterier och samma viktning för alla sex. Raden Nolledare avgör mer än någon annan: saknas nolla i din dosa faller fem av sex bort direkt."
       >
         <ComparisonTable
           products={products}
@@ -206,7 +210,7 @@ export default async function SmartStrombrytarePage() {
         tone="muted"
         width="wide"
         title="Recensioner av varje produkt"
-        description="Fyra av sex saknar oberoende test och får då Ej testat på den raden. Det finns inget svenskt grupptest av inbyggnadsreläer, och de sidor som ser ut som ett har inte testat något själva. Vi sätter hellre ingenting än ett påhittat betyg, och vikten fördelas då på de övriga kriterierna."
+        description="Sex moduler mellan 149,90 och 639 kronor, från den som bara lyder en fjärrkontroll till den som talar fyra protokoll i samma dosa."
       >
         <div className="flex flex-col gap-block">
           {products.map((product, i) => (
@@ -252,7 +256,7 @@ export default async function SmartStrombrytarePage() {
           criteria={TEST_PAGE.criteria}
           intro={TEST_PAGE.methodology}
           variant="cards"
-          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Plejd CTR-01, Tapo S110E och Philips inbyggnadsrelä saknar oberoende test och bedöms därför på 85 av 100 viktpoäng, vilket står i deras recensioner. Omdöme i oberoende tester väger 15 här mot 30 på vår smart plug-sida, eftersom bara två av fem produkter har ett publicerat test."
+          footnote="Saknas ett kriteriebetyg för en produkt fördelas det kriteriets vikt på de övriga. Plejd CTR-01, Tapo S110E, Nexa infälld och Philips inbyggnadsrelä saknar oberoende test och bedöms därför på 85 av 100 viktpoäng. Omdöme i oberoende tester väger 15 här mot 30 på vår smart plug-sida, eftersom bara två av sex produkter har ett publicerat test."
         />
       </Section>
 
@@ -284,7 +288,7 @@ export default async function SmartStrombrytarePage() {
         tone="muted"
         width="default"
         title="Källor och andra tester"
-        description="Betygen bygger på specifikationer, på Elsäkerhetsverkets regler för vad du får göra själv, och på de oberoende tester som finns. Underlaget är tunnare i den här kategorin än i någon annan vi jämfört, och det står i klartext i stället för att döljas."
+        description="Betygen bygger på specifikationer, på Elsäkerhetsverkets regler för vad du får göra själv, och på de oberoende tester som finns."
       >
         <SourceList sources={SMART_STROMBRYTARE_SOURCES} title={null} />
       </Section>
