@@ -1,5 +1,8 @@
 import type { Product } from "@/lib/products";
 import type { Service } from "@/lib/services";
+import { ELTANDBORSTE_PRODUCTS } from "@/lib/data/eltandborste";
+import { KOMPAKTKAMERA_PRODUCTS } from "@/lib/data/kompaktkamera";
+import { PIZZAUGN_PRODUCTS } from "@/lib/data/pizzaugn";
 import { SKAFTDAMMSUGARE_PRODUCTS } from "@/lib/data/skaftdammsugare";
 import { BABYVAKT_PRODUCTS } from "@/lib/data/babyvakt";
 import { HEMLARM_SERVICES } from "@/lib/data/hemlarm";
@@ -48,6 +51,7 @@ import { IPHONE_SKARMSKYDD_PRODUCTS } from "@/lib/data/iphone-skarmskydd";
 import { BLUETOOTH_HOGTALARE_PRODUCTS } from "@/lib/data/bluetooth-hogtalare";
 import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
 import { POWERSTATION_PRODUCTS } from "@/lib/data/powerstation";
+import { SMARTWATCH_PRODUCTS } from "@/lib/data/smartwatch";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -70,6 +74,10 @@ import { POWERSTATION_PRODUCTS } from "@/lib/data/powerstation";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...ELTANDBORSTE_PRODUCTS,
+  ...SMARTWATCH_PRODUCTS,
+  ...KOMPAKTKAMERA_PRODUCTS,
+  ...PIZZAUGN_PRODUCTS,
   ...SKAFTDAMMSUGARE_PRODUCTS,
   ...BABYVAKT_PRODUCTS,
   ...POWERSTATION_PRODUCTS,

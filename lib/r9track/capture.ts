@@ -188,6 +188,12 @@ export function captureAndClean(
   if (config.captureRequiresConsent && !hasAdConsent(request, config)) {
     return passthrough();
   }
+  /* In `client` mode the parameter is not ours alone to remove. gtag writes
+     `_gcl_aw` only if it can read the click id off the URL, and that cookie is
+     what attributes the browser-side conversion to a campaign. Strip it here
+     and the event still fires but belongs to nothing. The browser cleans the
+     address instead, once gtag has had it. */
+  if (config.outboundConversion === "client") return passthrough();
 
   const clean = new URL(request.nextUrl);
   for (const param of CLICK_PARAMS) clean.searchParams.delete(param);

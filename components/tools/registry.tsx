@@ -56,6 +56,7 @@ import {
 } from "@/components/tools/co-need-picker";
 import { AirAppliancePicker } from "@/components/tools/air-appliance-picker";
 import { CableNeedPicker } from "@/components/tools/cable-need-picker";
+import { CameraNeedPicker } from "@/components/tools/camera-need-picker";
 import { PowerstationSizer } from "@/components/tools/powerstation-sizer";
 import { CoLevelScale } from "@/components/tools/co-level-scale";
 import { BRANDSTEGE_PRODUCTS } from "@/lib/data/brandstege";
@@ -548,6 +549,10 @@ export function AirAppliancePickerTool() {
 
 export function CableNeedPickerTool() {
   return <CableNeedPicker />;
+}
+
+export function CameraNeedPickerTool() {
+  return <CameraNeedPicker />;
 }
 
 export function PowerstationSizerTool() {
@@ -1062,6 +1067,7 @@ export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "femarskostnad-larm": FiveYearAlarmCostTool,
   "vilken-luftapparat": AirAppliancePickerTool,
   "vilken-usb-c-kabel": CableNeedPickerTool,
+  "sensor-eller-rackvidd": CameraNeedPickerTool,
   "klarar-roboten-troskeln": RobotThresholdTool,
   "vad-betyder-talet-pa-hygrometern": FuktavlasningTool,
   "vilken-termostat-passar-min-ventil": VentilpassningTool,

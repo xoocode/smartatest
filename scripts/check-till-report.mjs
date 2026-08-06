@@ -77,6 +77,7 @@ async function main() {
         R9_TRACK_SITE: "checkscript",
         R9_TRACK_SECRET: "checkscript-secret",
         R9_TRACK_ENABLED: "1",
+        R9_TRACK_OUTBOUND_CONVERSION: "server",
       },
       stdio: process.env.DEBUG_SITE ? "inherit" : "ignore",
       shell: process.platform === "win32",
@@ -122,6 +123,17 @@ async function main() {
     check("the rank is recorded", p.position === 3, `${p.position}`);
     check("it is not marked automated", p.isBot === false, `isBot ${p.isBot}`);
     check("the product is recorded", p.productId === PRODUCT, `${p.productId}`);
+    /* Which side is counting this click as a conversion. The platform reads
+       this per click rather than trusting a second switch of its own to be
+       kept in step, so it is the interlock against one click becoming two
+       conversions. Tested here because it needs a real request scope: the
+       report goes out through `after()`, which throws when the route is
+       called directly. */
+    check(
+      "the report says which side counts the conversion",
+      ["off", "client", "server"].includes(p.outboundConversion),
+      String(p.outboundConversion)
+    );
   }
 
   // ── The same URL fetched with no referrer, as the crawlers do ────────────

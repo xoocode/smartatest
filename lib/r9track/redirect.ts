@@ -254,6 +254,7 @@ export function createTillRoute(options: TillRouteOptions) {
             country: request.headers.get("x-vercel-ip-country"),
             deviceType: deviceType(userAgent),
             isBot: looksAutomated,
+            outboundConversion: config.outboundConversion,
           },
           config
         )

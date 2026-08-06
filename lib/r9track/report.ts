@@ -36,6 +36,14 @@ export type ClickReport = {
   country?: string | null;
   deviceType?: string | null;
   isBot?: boolean;
+  /**
+   * Which side is counting this click as a conversion, if either.
+   *
+   * Sent so the platform can decide per click rather than from a setting of
+   * its own that has to be kept in step. A click reported as `client` was
+   * already counted in the browser and must not be uploaded again.
+   */
+  outboundConversion?: "off" | "client" | "server";
 };
 
 /** How long to wait before giving up. The reader is already gone; be brief. */

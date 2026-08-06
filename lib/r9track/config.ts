@@ -58,12 +58,36 @@ export type R9TrackConfig = {
   clickIdParam: string;
   /** Query parameter the network accepts a Google click id in, if any. */
   gclidParam?: string;
+
+  /**
+   * Who counts the outbound click as a Google Ads conversion.
+   *
+   * `off`     nobody. No conversion action is fed at all.
+   * `client`  the browser, with a gtag event on the click.
+   * `server`  the platform, uploaded from its own record of the click.
+   *
+   * The two are alternatives and never both: one click must not become two
+   * conversions. The mode is sent with every click report, so the platform can
+   * see for itself which clicks it is meant to upload rather than relying on a
+   * second setting being kept in step by hand.
+   *
+   * It also decides who cleans the address bar. A gtag conversion is attributed
+   * through `_gcl_aw`, which Google only writes if it can read the click id off
+   * the URL, so in `client` mode the parameter has to survive the landing and
+   * is removed in the browser once gtag has started. In the other two modes the
+   * server strips it before the page is ever rendered, which is tidier and
+   * needs no JavaScript.
+   */
+  outboundConversion: "off" | "client" | "server";
 };
 
 const DEFAULTS = {
   enabled: true,
   /* Cautious by default. See the field's own note. */
   captureRequiresConsent: true,
+  /* Off by default: a project that drops the module in has no conversion
+     action to feed yet, and inventing one is not our call. */
+  outboundConversion: "off" as const,
   cookieName: "_r9c",
   cookieMaxAgeDays: 90,
   /* Adtraction calls its sub-id `epi`. Other networks use `subid`, `clickref`
@@ -71,6 +95,12 @@ const DEFAULTS = {
   clickIdParam: "epi",
   gclidParam: "gclid",
 } as const;
+
+/** Anything unrecognised is `off`, so a typo silences the feature rather than
+    quietly picking one of the two ways of counting. */
+function readMode(raw: string | undefined): R9TrackConfig["outboundConversion"] {
+  return raw === "client" || raw === "server" ? raw : DEFAULTS.outboundConversion;
+}
 
 let cached: R9TrackConfig | null = null;
 
@@ -97,6 +127,7 @@ export function getConfig(overrides: Partial<R9TrackConfig> = {}): R9TrackConfig
       cookieName: process.env.R9_TRACK_COOKIE ?? DEFAULTS.cookieName,
       cookieMaxAgeDays: DEFAULTS.cookieMaxAgeDays,
       captureRequiresConsent: DEFAULTS.captureRequiresConsent,
+      outboundConversion: readMode(process.env.R9_TRACK_OUTBOUND_CONVERSION),
       consentCookie: process.env.R9_TRACK_CONSENT_COOKIE || undefined,
       clickIdParam: process.env.R9_TRACK_CLICK_PARAM ?? DEFAULTS.clickIdParam,
       gclidParam: process.env.R9_TRACK_GCLID_PARAM ?? DEFAULTS.gclidParam,

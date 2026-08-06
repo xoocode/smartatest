@@ -13,6 +13,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { SiteSchema } from "@/components/site/site-schema";
 import { ConsentMode } from "@/components/site/consent-mode";
 import { CookieConsent } from "@/components/site/cookie-consent";
+import { OutboundConversion } from "@/components/site/outbound-conversion";
 
 const sans = Geist({
   variable: "--font-sans-brand",
@@ -71,6 +72,14 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false, address: false, email: false },
 };
 
+/* Klientläget måste vara `NEXT_PUBLIC_`, annars når det aldrig webbläsaren.
+   Serversidan läser samma beslut ur `R9_TRACK_OUTBOUND_CONVERSION`; de två
+   sätts tillsammans, och klickrapporten bär läget så att de inte kan glida
+   isär utan att det syns i datan. */
+const OUTBOUND_MODE = process.env.NEXT_PUBLIC_OUTBOUND_CONVERSION;
+const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+const OUTBOUND_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_OUTBOUND_LABEL;
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -125,6 +134,16 @@ export default async function RootLayout({
         {/* Först i body med flit. Consent Mode-defaults måste sättas innan
             någon Google-tagg hinner köra. Se components/site/consent-mode.tsx. */}
         <ConsentMode />
+        {/* Räknar utgående klick i webbläsaren, men bara i läget `client`.
+            Serverns läge skickas ändå med varje klickrapport, så plattformen
+            vet vilka klick den själv ska ladda upp. Se
+            `outboundConversion` i lib/r9track/config.ts. */}
+        <OutboundConversion
+          enabled={OUTBOUND_MODE === "client"}
+          sendTo={
+            ADS_ID && OUTBOUND_LABEL ? `${ADS_ID}/${OUTBOUND_LABEL}` : undefined
+          }
+        />
         <SiteSchema />
 
         {/* Hoppa till innehållet.

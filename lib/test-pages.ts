@@ -2894,6 +2894,86 @@ export const IPHONE_SKARMSKYDD: TestPage = {
   };
 /** * Bluetooth-högtalare, bärbara. * * Byggd 2026-08-05. Sidan rankar bara de bärbara, alltså under cirka två kilo; * partihögtalare får en egen systersida. * * ## ⚠️ Inget testomdömekriterium, och den här gången är det fastställt * * Ljud & Bild provade sju bärbara högtalare 2025-07-07. Samtliga sju enskilda * recensioner är hämtade och genomsökta efter betyg, poäng och stjärnor: * **noll av sju bär ett betyg.** De skriver prosarecensioner med faktaruta. * Deras omdömen återges per modell med publikationen namngiven och påverkar * inga poäng. * * ## ⚠️ Ljudet betygsätts inte * * Ingen har satt poäng på det, och vi har inte lyssnat. Det är den egenskap * köparen bryr sig mest om och den enda vi inte kan väga, och det ska stå rakt * ut i viktningen. * * ## ⚠️ Speltiden anges två gånger och talen är inte överens * * Betygen använder spectabellens lägre tal. Se lib/spec-schema.mjs. */
 
+/**
+ * Smartwatch, alltså vardagsklockan.
+ *
+ * Byggd 2026-08-06. Sidan rankar premiumhalvan från cirka 3 000 kronor efter
+ * användarbeslut. Träningsklockorna — Garmin Forerunner och Fēnix, Polar,
+ * Coros, Suunto — får en egen systersida, `/traningsklocka`, som också är den
+ * enda av de två som går att annonsera.
+ *
+ * ## ⚠️ Inget testomdömekriterium
+ *
+ * Råd & Rön har provat 57 modeller med riktig labbmetod, publicerat
+ * 2026-06-09. Testet kostar 59 kronor och köptes **inte**, efter
+ * användarbeslut. Vi vet alltså inte vilken modell som vann och påstår det
+ * aldrig. Metoden och de fritt publicerade allmänna slutsatserna återges.
+ * Samma läge som Råd & Rön på /mjolkskummare och Stiftung Warentest på
+ * /powerbank.
+ *
+ * ## ⚠️ GPS-uthållighet är ingen betygsatt egenskap
+ *
+ * Det är sidans starkaste enskilda uppgift och den får ändå inte bära vikt.
+ * Apple publicerar inget tal alls för batteritid med GPS igång — deras
+ * specifikationssidor anger normal användning och strömsparläge, punkt. Ett
+ * kriterium hade därför dragit av för en uppgift vi inte fått fram, vilket är
+ * precis vad `pnpm check:avdrag` finns för. Talet står som tabellrad hos dem
+ * som anger det och som streck hos de övriga.
+ *
+ * ## ⚠️ Tålighet är en grind och inte en axel
+ *
+ * Råd & Rön skriver att "majoriteten av klockorna får högsta betyg för hur
+ * reptåliga de är, hur bra de klarar att utsättas för vatten och hur de klarar
+ * att tappas i marken". Ett kriterium som alla klarar rankar ingenting. Vatten
+ * och glas står i tabellen och vägs in i `traningsmatning` bara där de avgör
+ * vad klockan får användas till, alltså simning och dykning.
+ */
+export const SMARTWATCH: TestPage = {
+  slug: "smartwatch",
+  label: "Smartwatch",
+  title: "Bäst i test smartwatch 2026",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi jämför elva smartklockor från cirka 3 000 kronor och uppåt på tillverkarnas egna publicerade uppgifter, lästa hos Apple, Samsung, Google, Garmin, Huawei, Withings och Amazfit. Alla klockor bedöms mot samma fem kriterier och samma viktning, och källorna finns länkade längre ner.\n\nBatteritiden är hämtad från tillverkarens tal för normal vardagsanvändning, alltså det läge alla elva publicerar. Det är också det tal butiken trycker. Klockan mäts däremot i flera lägen som skiljer sig kraftigt: Garmin anger tolv dagar i smartwatchläge och nio timmar med alla satellitsystem och musik för samma klocka, och Samsung anger hundra, åttio, sextio och fyrtioåtta timmar för Galaxy Watch Ultra i fyra rader av samma tabell. Övriga lägen står som egna rader i jämförelsetabellen, för de klockor där tillverkaren anger dem.\n\nUthållighet med GPS igång vägs inte in i något betyg, trots att det är den mest användbara siffran i kategorin. Skälet är att Apple inte publicerar något sådant tal för någon av sina tre modeller, och ett avdrag för en uppgift vi inte fått fram mäter vår efterforskning i stället för klockan. Samma sak gäller tålighet: den svenska labbprovning som finns kommer fram till att nästan alla klockor klarar repor, vatten och fall lika bra, och ett kriterium som ingen faller på rankar ingenting.\n\nVi har inte burit någon av klockorna och mäter ingenting själva. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "batteritid",
+      label: "Batteritid i vardagen",
+      weight: 25,
+      description:
+        "Hur länge klockan går mellan laddningarna vid normal användning, enligt tillverkarens eget tal. Väger tyngst eftersom spridningen är störst där och eftersom det är den egenskap du märker varje dag.\n\nSpannet är arton timmar till trettio dygn, alltså faktor fyrtio över elva produkter i samma prisklass. Apple Watch SE 3 ska i laddaren varje kväll, Withings ScanWatch 2 ungefär en gång i månaden. Det är samma sorts produkt och samma sorts pengar.\n\nBetyget använder vardagstalet och inte sparläget, eftersom sparläget stänger av funktioner du betalat för. Klockor som anger flera lägen betygsätts på samma rad som de som bara anger ett, och att publicera fler tal kan alltså varken höja eller sänka poängen.",
+    },
+    {
+      key: "halsosensorer",
+      label: "Hälsosensorer",
+      weight: 20,
+      description:
+        "Vilka sensorer klockan faktiskt har och vad de är godkända för att göra. EKG, syremättnad, hudtemperatur och blodtryck, vägt mot om funktionen är en godkänd medicinteknisk funktion eller en välmåendefunktion.\n\nSkillnaden är inte kosmetisk. Garmins EKG-app är en medicinteknisk enhet i klass IIa enligt EU:s förordning 2017/745 och får därmed säga något om förmaksflimmer. Apple beskriver tvärtom sin syremätning som inte avsedd för medicinsk användning, och Google begränsar sin EKG-app till vissa länder och till personer över tjugotvå år. Två klockor som båda mäter puls optiskt kan alltså göra helt olika saker med talet.\n\nSensorerna sitter i hårdvaran och går inte att uppgradera fram. En klocka utan elektrisk hjärtsensor kommer aldrig att kunna ta ett EKG, hur många uppdateringar den än får.",
+    },
+    {
+      key: "traningsmatning",
+      label: "Träningsmätning",
+      weight: 20,
+      description:
+        "Satellitmottagning, höjdmätare, kartor och vad vattenklassningen tillåter. Alltså vad klockan klarar när du faktiskt tränar med den.\n\nAvgörande är om GPS-mottagaren är enkelbands eller dubbelbands. Dubbla frekvenser, L1 och L5, ger märkbart bättre position mellan höga hus och under trädtak, vilket är där en löprunda i en stad eller ett skogsparti faktiskt mäts fel. Fem av elva klockor här har det.\n\nVattenklassningen vägs in där den avgör vad klockan får användas till: fem ATM räcker till bassäng och öppet vatten, tio ATM och en dykcertifiering till något mer. En klocka helt utan egen GPS, som lånar telefonens, kan inte mäta en runda utan att telefonen följer med.",
+    },
+    {
+      key: "telefon",
+      label: "Fungerar med din telefon",
+      weight: 15,
+      description:
+        "Vilka telefoner klockan går att använda med, och vilka funktioner som kräver en viss telefon.\n\nDet är den dyraste egenskapen att missa. Apple Watch fungerar bara med iPhone, och Galaxy Watch och Pixel Watch bara med Android. Byter du telefonsystem om två år följer klockan inte med, och all träningshistorik ligger kvar i ett system du lämnat. Garmin, Huawei, Withings och Amazfit fungerar med båda.\n\nEtt steg till finns inom Android. Samsungs EKG och blodtrycksmätning kräver inte bara Android utan en Samsung Galaxy-mobil med Samsung Health Monitor. På en annan Android-telefon är klockan alltså en annan produkt än den i butikens beskrivning.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Pris vägt mot betygen i övriga kriterier, inte mot varumärket. En dyr klocka kan få högt betyg om den levererar därefter, och en billig kan få lågt om den sparar in på fel saker.\n\nSpannet är knappt 3 000 till drygt 9 000 kronor, alltså en faktor tre. Det som skiljer i den övre halvan är oftast material och skärm snarare än vad klockan mäter.",
+    },
+  ],
+};
+
 export const BLUETOOTH_HOGTALARE: TestPage = {
     slug: "bluetooth-hogtalare",
     label: "Bluetooth-högtalare",
@@ -3033,6 +3113,87 @@ export const MJOLKSKUMMARE: TestPage = {
  * effekt hade byggt in en hälsohierarki vi inte kan belägga, och lägre effekt
  * betalas dessutom med kortare räckvidd, som redan vägs.
  */
+/**
+ * Kompaktkamera. Underlag i .agent/research/kompaktkamera.md.
+ *
+ * ## Varför sensor väger 30 och räckvidd 20
+ *
+ * De två kriterierna är kategorins motpoler och de mäter samma pengar från två
+ * håll. Under ungefär 7 000 kronor får köparen antingen en stor sensor eller
+ * lång zoom, aldrig båda: Sony ZV-1F kostar 5 790 med en sensor av 1,0-typ och
+ * ingen zoom alls, medan Canon SX740 HS Lite Edition kostar 6 549 med en
+ * 1/2,3-tums sensor och 40x. Sensorn väger tyngre därför att den är skälet att
+ * inte fotografera med telefonen. Zoomen är skälet att köpa den här sortens
+ * kamera i stället för en systemkamera, vilket är ett smalare skäl.
+ *
+ * ## Varför bildstabiliseringen betygsätter typen och inte stegtalet
+ *
+ * Canon publicerar inget stegtal för PowerShot V1 och Panasonic inget för
+ * TZ99. Ett kriterium som gav dem lägre betyg för det hade betygsatt vår egen
+ * research, vilket check:avdrag finns för att stoppa. Skalan graderar därför
+ * vad kameran har: sensor- eller objektivförskjutning över fyra steg högst,
+ * optisk utan publicerat stegtal i mitten, rent elektronisk lägst.
+ *
+ * ## Varför bärbarhet inte är ett kriterium
+ *
+ * Den prövades mot fältet först. Sex av tio kameror hamnade på 3,0 till 3,5,
+ * alltså en grind alla passerar snarare än en axel som rangordnar. Vikten står
+ * som rad i tabellen i stället, där spannet 146 till 426 gram syns utan att
+ * kosta viktpoäng.
+ *
+ * ## Varför inget kriterium för testomdöme
+ *
+ * Ljud & Bild har enskilda recensioner av fyra av de tio, skrivna av Lasse
+ * Svendsen mellan 2019 och 2026, och de bär prosaomdömen utan betyg. Samma
+ * läge som /bluetooth-hogtalare, där noll av sju recensioner bar ett betyg.
+ * Råd & Röns kameratest gäller systemkameror. Vi har inte provat något själva.
+ */
+export const KOMPAKTKAMERA: TestPage = {
+  slug: "kompaktkamera",
+  label: "Kompaktkamera",
+  title: "Kompaktkamera bäst i test 2026: tio modeller jämförda",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi jämför kompaktkameror på specifikationer hämtade hos tillverkarna själva: sensorstorlek, brännvidd omräknad till 35 mm-format, största bländare, stabilisering, videoformat och vikt. Priser, bilder och kundbetyg är lästa i butikernas egen produktdata samma dag.\n\nBrännvidden är alltid omräknad till 35 mm-format, eftersom 8,2 mm på en sensor av 1,4-typ och 4,3 mm på en 1/2,3-tums täcker helt olika bildvinklar. Vikten gäller kameran med batteri och minneskort. OM System publicerar bara vikten utan batteri för TG-7, och den cellen står tom hellre än att väga 249 gram mot andras 302.\n\nDe två tyngsta kriterierna drar åt var sitt håll, och det är avsiktligt. En stor sensor och lång zoom kostar båda pengar, och i det här prisspannet får du det ena.\n\nDet finns inget kriterium för testomdöme. Ljud & Bild recenserar fyra av de tio kamerorna, men skriver prosaomdömen utan betyg, och Råd & Röns kameratest gäller systemkameror. Vi har inte hållit i någon av kamerorna.\n\nAlla tio bedöms mot samma kriterier och samma viktning. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "sensor",
+      label: "Sensor och ljusstyrka",
+      weight: 30,
+      description:
+        "Sensorns yta tillsammans med hur ljusstarkt objektivet är. Tillsammans avgör de om bilden blir bättre än telefonens när ljuset tar slut, vilket är hela skälet att bära med sig en kamera till.\n\nEn sensor av 1,0-typ mäter 13,2 × 8,8 millimeter och har ungefär fyra gånger arean av en 1/2,3-tums. Högst betyg går till 1,0-typ eller större kombinerad med f/2,8 eller ljusare i vidvinkel. Lägst till en 1/2,3-tums som börjar på f/3,5 eller mörkare och slutar kring f/7.",
+    },
+    {
+      key: "rackvidd",
+      label: "Räckvidd",
+      weight: 20,
+      description:
+        "Hur långt objektivet når, i brännvidd omräknad till 35 mm-format. Det är skillnaden mellan att fota fasaden och att fota fönstret på tredje våningen.\n\n5,0 kräver 30 gångers optisk zoom eller mer, alltså 720 millimeter och uppåt. 1,0 går till fast brännvidd utan optisk zoom. Digital zoom räknas inte: den beskär bilden och gör samma sak som att beskära den efteråt.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Priset vägt mot de fyra andra kriterierna. Spannet är 4 675 till 12 890 kronor för kameror som alla ryms i en jackficka.\n\nDe två dyraste är sex och sju år gamla konstruktioner och kostar mer än flera av de nya, vilket är det som avgör kriteriet oftare än priset i sig.",
+    },
+    {
+      key: "video",
+      label: "Video och ljud",
+      weight: 15,
+      description:
+        "Vad kameran spelar in och vad du kan koppla in. 4K mot Full HD, bildfrekvensen, om skärmen går att vända mot dig och om det finns en 3,5-millimeters ingång för mikrofon.\n\nMikrofoningången väger tungt här, eftersom den inbyggda mikrofonen sitter centimeter från dina egna fingrar på kamerahuset och tar upp varje justering av zoomen.",
+    },
+    {
+      key: "stabilisering",
+      label: "Bildstabilisering",
+      weight: 15,
+      description:
+        "Vad kameran gör åt att handen skakar. Optisk stabilisering flyttar en lins eller sensorn fysiskt; elektronisk beskär bilden och flyttar utsnittet, vilket kostar bildvinkel och gör det inget alls åt stillbilder i skymning.\n\nHögst betyg till optisk eller sensorförskjutning med fyra stegs verkan eller mer, alltså fyra gånger längre slutartid på fri hand. Lägst till rent elektronisk. Kriteriet graderar vilken sorts stabilisering kameran har, inte hur utförligt tillverkaren beskrivit den.",
+    },
+  ],
+};
+
 export const BABYVAKT: TestPage = {
   slug: "babyvakt",
   label: "Babyvakt",
@@ -3075,6 +3236,81 @@ export const BABYVAKT: TestPage = {
       weight: 15,
       description:
         "Priset vägt mot betygen i övriga kriterier. Spannet är 399 till 3 899 kronor, alltså nästan tio gånger, för apparater som alla gör samma grundsak.\n\nVikten är ändå låg, eftersom den billigaste sällan är den vi rekommenderar och skillnaderna i de fyra kriterierna ovan betyder mer för hur nöjd du blir.",
+    },
+  ],
+};
+
+/**
+ * Pizzaugn. Underlag i .agent/research/pizzaugn.md.
+ *
+ * ## Varför jämn värme väger 30 och maxtemperaturen ingenting
+ *
+ * Femton ugnar av femton anger 500 °C, med Ninja Artisan på 370 som enda
+ * undantag. Ett kriterium på maxtemperatur hade alltså varit en grind varje
+ * produkt passerar, inte en axel som rangordnar dem. Samma fälla som
+ * `Larm när förbindelsen bryts` på /babyvakt, där nio av elva landade på samma
+ * betygssteg och trettio viktpoäng gick åt till att säga nästan ingenting.
+ *
+ * Talet som faktiskt skiljer ugnarna åt är **spridningen över stenen**, och
+ * den är belagd från tre håll: tek.no har mätt bak, mitt och fram efter 30
+ * minuter, och Ooni marknadsför andra generationen på just den siffran.
+ *
+ * ## Varför kriteriet betygsätter konstruktionen och inte mätvärdet
+ *
+ * Bara fyra modeller säljs i Sverige under exakt det namn tek.no provat, och
+ * Ooni Gen 2 är oprovad. Ett kriterium som satte betyg på mätvärdet hade låtit
+ * **provningsurvalet avgöra rankningen**: en ugn ingen råkat skicka provexemplar
+ * av kunde inte vinna hur bra den än vore. Det vore att betygsätta vem som fått
+ * ett provexemplar, alltså samma fel som redovisningskriterierna en nivå upp.
+ *
+ * Skalan graderar därför det som **orsakar** spridningen och går att läsa för
+ * hela fältet: roterande sten, dörr, brännarens geometri och stenens tjocklek.
+ * Mätningarna belägger att skalan mäter rätt sak. De ligger i tabellen för de
+ * fyra som har dem och lånas aldrig till en systermodell eller nästa
+ * generation — se `ALDRIG_BEDOMD` i lib/spec-schema.mjs.
+ */
+export const PIZZAUGN: TestPage = {
+  slug: "pizzaugn",
+  label: "Pizzaugn",
+  title: "Pizzaugn bäst i test 2026: alla anger 500 grader, ingen håller det",
+  category: KOK,
+  methodology:
+    "Sidan jämför fristående pizzaugnar mellan 2 100 och 8 990 kronor, drivna med gasol, ved, kol eller el. Murade och fast installerade ugnar från 19 000 kronor och uppåt är en annan produkt för en annan köpare och rankas inte.\n\nKategorin har en riktig oberoende provning. Norska tek.no har provat över 20 pizzaugnar för hand under tre år, med egen metod och publicerat betyg, och har mätt stentemperaturen på tre punkter efter 30 minuters uppvärmning. Den brittiska konsumentorganisationen Which? har provat sex mobila ugnar; vi har läst det referatet hos Stiftung Warentest och inte originalet, och skriver därför alltid ut att det är Which? som provat.\n\nDäremot finns inget kriterium för testomdöme. Fyra modeller säljs i Sverige under exakt det namn tek.no provat, och Ooni bytte generation efter provningen. Ett viktat testbetyg hade låtit provningsurvalet avgöra ordningen i stället för ugnarna. Omdömena återges per modell med publikationen namngiven och påverkar inga poäng.\n\nDet som i stället bär tyngst är hur jämnt ugnen fördelar värmen över stenen, satt på konstruktionen: roterande sten, dörr, brännarens geometri och stenens tjocklek. Priser, artikelnummer och kundbetyg är lästa hos butiken och daterade, och specifikationerna hos tillverkaren där de finns.\n\nVi har inte gräddat en enda pizza. Kriteriebetygen är vår bedömning, inte mätvärden. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "jamn-varme",
+      label: "Jämn värme över stenen",
+      weight: 30,
+      description:
+        "Skillnaden mellan bakre och främre kanten av pizzastenen, alltså det som avgör om pizzan gräddas färdig eller bränns i ena änden. Pizzan läggs in framtill, och framtill är nästan alltid kallast: en ugn utan dörr kan ha 480 grader längst bak och 220 längst fram.\n\nBetyget sätts på konstruktionen som styr spridningen, eftersom den går att läsa för varje ugn. Roterande sten tar bort problemet helt och ger 5,0. En dörr som håller värmen inne, eller dubbla brännare som värmer från två håll, ger 4,0 till 4,5. En enkel flamma längs bakkanten i en öppen kammare ger 3,0.\n\nStenens tjocklek väger in på samma sätt: 20 mm lagrar mer värme och återhämtar sig snabbare mellan pizzorna än 10 mm, vilket märks först när du gräddar den tredje.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 25,
+      description:
+        "Vad du får för pengarna, mätt mot vad samma bakyta och samma konstruktion kostar hos de andra. Spannet är fyra gånger, från 2 100 till 8 990 kronor.\n\nPriset följer prestandan sämre än man tror. Den dyraste gasolugnen kostar dubbelt mot en med roterande sten som gräddar jämnare, och två av de elektriska ligger över 6 000 kronor för en bakyta på 12 tum.\n\nHär väger också vad som behövs utöver ugnen. En gasolugn kräver gasolflaska och slang, och en multibränsleugn där gasbrännaren är tillbehör kostar 1 000 kronor extra innan den gör det den säljs på.",
+    },
+    {
+      key: "bakyta",
+      label: "Bakyta",
+      weight: 15,
+      description:
+        "Hur stor pizza som får plats, från 12 till 16 tum. Skillnaden är större än talen antyder: en 16-tumspizza har nästan dubbelt så stor yta som en 12-tums, alltså två portioner i stället för en.\n\nBakytan avgör också vad ugnen duger till utöver pizza. En 16-tums tar en hel kyckling eller ett bröd, en 12-tums tar en pizza och inget mer.\n\nTa den mot hushållet och inte mot ambitionen. Fyra personer som ska äta samtidigt vill ha 16 tum eller två zoner; två personer gräddar hellre två små efter varandra på 90 sekunder styck.",
+    },
+    {
+      key: "bransleflexibilitet",
+      label: "Bränsle och flexibilitet",
+      weight: 15,
+      description:
+        "Vad ugnen går på, och om du kan byta. Gasol ger kontroll med en ratt och är klart varmast igång snabbast. Ved och kol ger röksmaken men kräver att du matar elden medan du gräddar. El går inomhus och är det enda alternativet på en balkong där öppen låga inte är tillåten.\n\nEn ugn som klarar två bränslen betygsätts högre, eftersom den täcker både vardagen och helgen. Där gasbrännaren är ett tillbehör räknas den kostnaden in.\n\nEl betygsätts inte som sämre i sig, men de elektriska når 370 till 450 grader mot gasolens 500, och det märks på skorpan.",
+    },
+    {
+      key: "barbarhet",
+      label: "Bärbarhet",
+      weight: 15,
+      description:
+        "Om ugnen går att flytta, eller om den står där du ställde den. Spannet är från 9,5 till 43 kilo, alltså från något du bär i en hand till något två personer lyfter.\n\nHopfällbara ben, avtagbar skorsten och ett handtag som inte blir hett avgör om ugnen följer med till sommarstugan eller ställs undan i garaget över vintern. Which? rekommenderade Ooni Karu just för att den går att ta med.\n\nVikten spelar mindre roll för den som bygger in ugnen i ett utekök, och kriteriet väger därför inte tyngre än 15.",
     },
   ],
 };
@@ -3156,9 +3392,88 @@ export const SKAFTDAMMSUGARE: TestPage = {
   ],
 };
 
+/**
+ * Eltandborste. Underlag i .agent/research/eltandborste.md.
+ *
+ * ## Varför borsthuvudet väger 25 och inte noll
+ *
+ * Handtaget är en engångskostnad och borsthuvudet är en prenumeration. Oral-B
+ * skriver själva på sin svenska sajt att huvudet ska bytas var tredje månad,
+ * alltså fyra om året, och per styck går svensk handel från 44 kronor för
+ * Oral-B:s runda fattning till 175 för Philips A3 Premium. Över fem år är det
+ * 880 kronor mot 3 500 för samma sorts vara.
+ *
+ * Kriteriet graderar **varan och inte butiken**: vilken fattning handtaget har
+ * och vad det billigaste flerpacket av tillverkarens eget kompatibla huvud
+ * kostar. Två fysiskt identiska handtag får samma betyg.
+ *
+ * ## Varför laddning och batteri slogs ihop till ett kriterium på 35
+ *
+ * Ett utkast hade `Batteritid` på 20 och `Laddning och resa` på 15. Det gick
+ * inte att fylla: Philips publicerar dagar per modell, Oral-B publicerar ingen
+ * drifttid alls för iO-handtagen, och fyra av tio produkter hade stått utan
+ * betyg på ett kriterium som väger 20. Omfördelningen i `weightedRating` hade
+ * då avgjort placeringen för en tredjedel av fältet, alltså exakt felet
+ * IDÉ-007 dokumenterar på /smart-belysning.
+ *
+ * Laddtiden är däremot belagd tier A för samtliga tio, ur P&G:s egen
+ * kunskapsbas och Philips egen bruksanvisning, och spridningen är åtta gånger.
+ * Kriteriet väger båda och ingen produkt står utan betyg.
+ *
+ * ## Inget kriterium för testomdöme
+ *
+ * Råd & Rön har provat 24 eltandborstar med riktig labbmetod, publicerat
+ * 2026-01-23. Testet kostar 59 kronor och köptes INTE, efter användarbeslut.
+ * Vi vet alltså inte vilken modell som vann och påstår det aldrig. Metoden och
+ * de fritt publicerade slutsatserna är läsbara och används; resultaten per
+ * modell är det inte. Samma läge som Råd & Rön på /mjolkskummare och Stiftung
+ * Warentest på /powerbank.
+ */
+export const ELTANDBORSTE: TestPage = {
+  slug: "eltandborste",
+  label: "Eltandborste",
+  title: "Eltandborste bäst i test 2026: borsthuvudet kostar mer än borsten",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi jämför eltandborstar på fem saker: vilken borsthuvudsfattning handtaget har och vad huvudena kostar per styck, hur länge en laddning räcker, hur lång tid den tar, vad trycksensorn gör och hur många lägen du får välja mellan, och priset.\n\nTyngst väger batteri och laddning med 35. Skälet är att laddtiden skiljer åtta gånger mellan modellerna, från 3 timmar till 24, och att den inte följer priset. Borsthuvudets pris väger 25, eftersom fyra huvuden om året till 44 kronor styck och fyra till 175 skiljer 2 600 kronor på fem år, alltså mer än de flesta handtagen kostar.\n\nDrifttiden i dagar är tillverkarens egen uppgift och lånas aldrig mellan modeller. Philips anger den per modell; för Oral-B:s iO-handtag anger tillverkaren ingen. De cellerna står tomma och sänker inget betyg. Laddtiden är däremot publicerad för varenda modell i jämförelsen, i P&G:s egen kunskapsbas och i Philips egen bruksanvisning, och det är den som bär kriteriet.\n\nDet finns inget kriterium för testomdöme. Råd & Rön har provat 24 eltandborstar i labb och publicerade resultatet den 23 januari 2026, men resultaten per modell ligger bakom betalvägg och vi har inte köpt dem. Vi vet alltså inte vilken borste de utsåg till bäst och påstår det aldrig. Vi har inte heller haft någon av borstarna i handen.\n\nAlla tio bedöms mot samma kriterier och samma viktning. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "batteri",
+      label: "Batteri och laddning",
+      weight: 35,
+      description:
+        "Hur ofta du måste ladda, och hur lång tid laddningen tar. Det andra talet är det som märks: en borste som behöver ett dygn i stället för tre timmar är tom hela morgonen efter att du glömt sätta tillbaka den.\n\nSpridningen är åtta gånger och den följer inte priset. Oral-B iO 10 laddar fullt på 3 timmar, Oral-B iO 2 på 24, och varje Philips Sonicare tar upp till 24 timmar oavsett om den kostar 745 eller 2 301 kronor.\n\nSkalan: 5,0 för en borste som laddar fullt på under fem timmar eller går en månad mellan laddningarna, 4,5 för tre veckors angiven drifttid, 4,0 för två veckor, 3,0 för en som laddar över natten på ungefär 16 timmar, och 2,0 för en som behöver ett helt dygn.",
+    },
+    {
+      key: "borsthuvud",
+      label: "Borsthuvudets pris",
+      weight: 25,
+      description:
+        "Vad det billigaste flerpacket av ett kompatibelt borsthuvud från tillverkaren kostar per styck, och vilken fattning handtaget binder dig till. Oral-B anger själva att huvudet ska bytas var tredje månad, alltså fyra om året.\n\nOral-B:s runda fattning ligger på 44 kronor styck och tar dessutom huvuden från andra tillverkare, ner till 20 kronor. Philips Sonicare ligger på 81 och passar alla Sonicare-handtag utom Philips One och Kids, så du kan välja huvud efter pris. Oral-B iO ligger på 87 och passar bara iO-handtag.\n\nÖver fem år är skillnaden mellan 44 och 175 kronor per huvud 2 620 kronor, vilket är mer än nio av tio handtag i jämförelsen kostar.",
+    },
+    {
+      key: "kontroll",
+      label: "Borstkontroll",
+      weight: 20,
+      description:
+        "Vad borsten gör när du trycker för hårt, och hur många lägen du kan välja mellan. Tandköttet drar sig tillbaka av för hårt tryck och det syns inte förrän det är gjort, så en sensor som säger till är det enda skyddet du får.\n\nHögst betyg går till den som både varnar synligt och sänker hastigheten, och som har fem lägen eller fler. Lägre betyg till den som bara har ett läge, och lägst till den som inte känner av trycket alls.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Handtagets pris vägt mot de tre kriterierna ovan. Spannet är 285 till 3 189 kronor, alltså elva gånger, för borstar som alla gör samma grundsak.\n\nHär räknas femårskostnaden in, alltså handtaget plus tjugo borsthuvuden. Den dyraste borsten i jämförelsen kostar 4 929 kronor på fem år och den billigaste 1 165.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[
 
   ] = [
+    ELTANDBORSTE,
+    KOMPAKTKAMERA,
+    PIZZAUGN,
     SKAFTDAMMSUGARE,
     BABYVAKT,
     MJOLKSKUMMARE,

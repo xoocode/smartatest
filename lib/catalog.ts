@@ -192,6 +192,447 @@ export type TestPageEntry = {
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
+    /* `eltandborste` byggd 2026-08-06. Nionde sidan i Elektronik.
+
+       ⚠️ NY STÅENDE REGEL, beslutad här: **sajten länkar inte till apotek,
+       kosttillskottsbolag eller hälsokostbolag.** Peter har affärsförhållanden
+       som krockar med hela det fältet. Apotea, Apoteket, Apohem, MEDS, DOZ och
+       Apotek Hjärtat är därmed avförda som länkmål oavsett provision. De duger
+       fortfarande som researchkälla; det är länken utåt som är förbjuden.
+
+       Regeln kostade den här sidan sin bästa datakälla. Apotea publicerar
+       gtin13, pris, lager och XL-bild på varenda produktsida och för 126
+       artiklar i kategorin. Priserna därifrån ligger kvar i researchfilen som
+       referens och syns aldrig på sidan.
+
+       FYNDET: handtaget är en engångskostnad och borsthuvudet en
+       prenumeration. Oral-B skriver själva att huvudet ska bytas var tredje
+       månad, alltså fyra om året. Per styck kostar Oral-B:s runda fattning 44
+       kronor, Philips Sonicare 81, Oral-B iO 87 och Philips A3 Premium 175.
+       Över fem år är det 880 kronor mot 3 500 för samma sorts vara, och på nio
+       av tio modeller är huvudena dyrare än handtaget.
+
+       ANDRA FYNDET, och det som gör det första bindande: **iO-huvudena passar
+       bara iO-handtag.** Oral-B skriver det ordagrant på sin svenska sajt,
+       "Designad för att passa endast iO-handtag". Philips skriver det motsatta
+       på varje borsthuvud: "Kompatibel med alla Sonicare-handtag utom Philips
+       One och Kids". En Sonicare-ägare kan välja huvud efter pris, en
+       iO-ägare kan inte.
+
+       TREDJE: laddtiden skiljer åtta gånger och följer inte priset. P&G:s egen
+       kunskapsbas anger 3 timmar för iO 7 och uppåt, 16 för iO 3 till iO 6, 22
+       för Vitality Pro och 24 för iO 2. Philips egen bruksanvisning anger upp
+       till 24 timmar för hela Sonicare-serien oavsett pris.
+
+       FJÄRDE: Philips billigaste modell i fältet anger 21 dagars drifttid och
+       deras dyraste 14. Drifttiden faller när priset stiger.
+
+       FEMTE, ur P&G:s egen FAQ: siffran före modellnumret är batterikemin.
+       "When we upgraded the battery, we also changed the product name. For
+       example, our Pro 2000 brush was renamed Pro 2 2000." Pro 3000 är nickel
+       och räcker upp till 7 dagar; Pro 3 3000 är litium och räcker mer än två
+       veckor.
+
+       ⚠️ ORAL-B PUBLICERAR INGEN DRIFTTID FÖR iO-HANDTAGEN. Sökt på oralb.se,
+       .com, .co.uk, .de, P&G:s två kunskapsbasartiklar, den officiella
+       iO-bruksanvisningen och Icecat, som svarar "You are not allowed to have
+       Full Icecat access" på samtliga Oral-B-GTIN. Cellerna står tomma och
+       sänker inget betyg. Det var skälet till att `Batteritid` och `Laddning`
+       slogs ihop till ett kriterium på 35 i stället för två på 20 och 15.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Råd & Rön har provat 24 eltandborstar med
+       riktig labbmetod, publicerat 2026-01-23. Testet kostar 59 kr och köptes
+       INTE, efter användarbeslut. Metoden och två fritt publicerade slutsatser
+       bär köpguiden: att testet inte visar att oscillerande är bättre än
+       soniskt, och att en borste för 800 kronor ger lika rena tänder som den
+       mer än dubbelt så dyra uppkopplade testvinnaren. Vi vet inte vilken
+       modell som vann och påstår det aldrig. Samma läge som /mjolkskummare.
+
+       ⚠️ DENTAWORKS BÄR 25 % OCH SÄLJER NOLL TANDBORSTAR. Sajtens högsta
+       provision någonsin. Deras egen sökfunktion svarar "Det finns inga
+       produkter som matchade din sökning" på `tandborste`, och `tandborste`,
+       `eltandborste` och `sonisk` ger noll träffar över curl, r.jina.ai och
+       riktig webbläsare. Sortimentet är tandblekning. Kontrollera sortimentet,
+       inte katalogen.
+
+       PENGAR: Proshop 3,2 % / 7 d bär nio av tio, Teknikdelar 5 % / 30 d bär
+       vinnaren och är dessutom billigast på den. Elgiganten, Power, NetOnNet,
+       Clas Ohlson och MediaMarkt äger kategorin i handeln och har inget
+       program. Kjell, Elon, Komplett, Webhallen, CS Megastore, Estore och
+       Prylstaden för den inte. Lyko har 8 % men sex av nio artiklar slut och
+       priser 30–40 % över Proshop. ⚠️ Ingen av butikerna tillåter PPC.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `tandborst` över samtliga filer i
+       .agent/keywords/ ger noll träffar. Kör Keyword Planner på `eltandborste`,
+       `eltandborste bäst i test`, `elektrisk tandborste`, `bästa eltandborsten`
+       och `tandborsthuvuden`. Slugen är dock enkel: Elgiganten, Power,
+       NetOnNet, Clas Ohlson, Lyko, Råd & Rön och samtliga sex konkurrenter
+       säger eltandborste i ett ord.
+
+       Se .agent/research/eltandborste.md. */
+    href: "/eltandborste",
+    label: "Eltandborste",
+    category: ELEKTRONIK,
+    blurb:
+      "Handtaget köper du en gång. Borsthuvudet köper du fyra gånger om året.",
+    /* Live 2026-08-06. Alla tio priser, GTIN och lagerstatus lästa i Proshops
+       och Teknikdelars egen JSON-LD samma dag, samtliga laddtider hämtade i
+       P&G:s egen kunskapsbas och Philips egen bruksanvisning, och samtliga
+       drifttider hos tillverkaren. Tio packshots på plats.
+
+       ⚠️ NIO BILDER KOMMER FRÅN PROSHOP OCH EN FRÅN TEKNIKDELAR, i båda fallen
+       den butik produkten länkas till. Be Lucents packshot har mörk
+       bakgrund där de nio andra är vita. Det är tillverkarens egen bild och
+       rätt produkt, men den bryter mot radens visuella rytm. Byt vid nästa
+       prisrunda om butiken hunnit lägga upp en vit variant. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 10,
+  },
+  {
+    /* `pizzaugn` byggd 2026-08-06. Andra sidan i gruppen Kök.
+
+       AVGRÄNSNING efter användarbeslut: alla bränslen — gasol, ved, kol och el
+       — i ett spann från 2 100 till 8 990 kr. Murade och fast installerade
+       ugnar valdes bort: Gozney Dome 23 999, Dome XL 31 999 och Clementi
+       19 490 till 29 990 köps av en annan läsare. Att en elektrisk bänkugn för
+       2 100 kr gör mindre än ordet pizzaugn antyder syns bara om den får vara
+       med, samma resonemang som spannet 99 till 1 099 på /iphone-skal.
+
+       FYNDET: varje tillverkare anger 500 °C och ingen håller 500 °C över hela
+       stenen. tek.no har mätt stentemperaturen på tre punkter efter 30 minuter.
+       Ooni Koda 12 ger 480 grader längst bak och 220 längst fram, alltså 260
+       graders skillnad på samma sten. Koda 16 ger 500/420/310, Gozney Roccbox
+       470 mot 270, medan FCC Pizza Chef håller sig mellan 405 och 332.
+       **Fram är där pizzan läggs in**, och fram är nästan alltid kallast.
+
+       ANDRA FYNDET, och det som gör det oantastligt: **tillverkaren säljer
+       numera på samma tal.** Oonis egen produkttext för Koda 2 anger att den
+       nya brännaren sänker svängningarna i stentemperatur "from 175 °C to
+       85 °C", och Koda 2 Pro "from 180 °C to 45 °C", båda mot första
+       generationen. Ooni anger alltså själva att Koda 12 och Koda 16 hade 175
+       till 180 graders spridning. Två oberoende led pekar åt samma håll.
+
+       ⚠️ Oonis "by 420 % from 180 °C to 45 °C" är en kvot skriven som procent.
+       180/45 är fyra gånger. Iakttagelsen ligger i köpguiden och aldrig i ett
+       omdöme: den handlar om hur ett tal skrivs, inte om vad ugnen gör.
+
+       TREDJE: dörren gör mer än effekten. Ooni Karu 2 når cirka 400 grader
+       jämnt över hela stenen efter 15 minuter tack vare glasdörren, medan
+       Koda 12 utan dörr har 260 graders spridning efter 30. Samma märke,
+       samma storleksklass.
+
+       FJÄRDE: den roterande stenen måste rotera **under uppvärmningen**. Gör
+       den inte det blir innerkanten 500 grader och ytterkanten 300, enligt
+       tek.no. Det står inte på kartongen.
+
+       ⚠️ GENERATIONSSKIFTET STYR HELA URVALET. tek.no provade Ooni Koda 12,
+       Koda 16, Karu 12G, Karu 16 och Volt 12. Ooni säljer i dag Koda 2,
+       Koda 2 Pro, Koda 2 Max, Karu 2, Karu 2 Pro och Volt 2, och märker själva
+       sina sidor "1st Generation" mot "2nd Generation". Efter användarbeslut
+       rankar sidan **det som säljs**, och tek.nos betyg och mätvärden knyts
+       bara till de fyra modeller som säljs här under exakt det provade namnet:
+       Witt Piccolo Rotante 16", Sage SPZ820, Gozney Roccbox och Ooni Koda 16.
+       Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM, efter användarbeslut. tek.no publicerar
+       betyg 1–10 för 20 modeller från en riktig handpåläggning, men ett viktat
+       testbetyg hade låtit provningsurvalet avgöra ordningen: en oprovad
+       Koda 2 kunde inte vinna hur bra den än vore. Samma beslut som
+       /mjolkskummare, /bluetooth-hogtalare och /powerstation.
+
+       ⚠️ STIFTUNG WARENTEST HAR INTE PROVAT PIZZAUGNAR. Artikeln på test.de
+       refererar brittiska Which?, som provat sex mobila ugnar och utsett Gozney
+       Roccbox till testvinnare. Tillskriv alltid Which?. Which?-originalet
+       ligger bakom betalvägg vi inte betalat.
+
+       ⚠️ KÄLLORNA ÄR OENSE OM ROCCBOX, och det är sidans mest värdefulla
+       uppgift. Which? har den som testvinnare; tek.no ger den 7 av 10 och mätte
+       470 grader bak mot 270 fram. Vedeldad nådde den bara 370–400. Båda står
+       utskrivna.
+
+       ⚠️ GOZNEYS EGEN SUPPORTSIDA ANGER ROCCBOX PIZZASTEN TILL 190 MM, vilket
+       inte går ihop med att ugnsöppningen enligt samma sida är 88 mm hög.
+       Sannolikt 19 mm feltypat. Vi publicerar varken talet eller vår gissning.
+
+       ⚠️ MAXTEMPERATUREN BÄR INGEN VIKT. Femton av femton anger 500 °C, med
+       Ninja Artisan på 370 som enda undantag. Det är en grind, inte en axel.
+       Samma beslut som `Larm när förbindelsen bryts` på /babyvakt.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `pizza`, `ooni` och `gozney` över
+       samtliga keyword-CSV:er under .agent/ ger noll träffar. Kör Keyword
+       Planner på `pizzaugn`, `pizzaugn bäst i test`, `pizzaugn gasol`,
+       `vedeldad pizzaugn`, `elektrisk pizzaugn` och `ooni`. Slugen är dock
+       enkel: samtliga sju konkurrenter, Elgiganten, NetOnNet, Tretti och
+       Bagaren och Kocken säger alla `pizzaugn` i ett ord.
+
+       PENGAR: Bagaren och Kocken 5 % bär hela sortimentet och alla fjorton
+       priser, men har sajtens kortaste cookie på **5 dagar**, vilket är illa
+       för en produkt i den här prisklassen. KitchenTime 8 % / 15 d för Ooni
+       till samma priser och är därför länkmål där sortimentet räcker.
+       ⚠️ Ingen av dem tillåter PPC. Myoutdoorkitchen 8 % / 45 d finns i
+       Adtraction men för **bara två egna moduler** på 12 597 och 19 995 kr,
+       alltså inte den fristående kategorin. Proshop 3,2 % för Cozze.
+       Märkesprogram för Ooni, Witt och Gozney är INTE utredda på Awin,
+       Partner-ads, Adrecord eller Addrevenue.
+
+       ⚠️ INGA GTIN UTOM ETT. Bagaren och Kockens JSON-LD bär `sku` men inget
+       `gtin13`, och Icecat svarar `You are not allowed to have Full Icecat
+       access`, vilket betyder att uppgiften finns och att vi inte ser den.
+       Witt Piccolo Rotante 16" har EAN 5707582040862 ur Elgigantens egen
+       specifikationstabell. Sökträffar på "EAN" gav tal som visade sig vara
+       artikel-id hos Zendesk och användes inte.
+
+       Se .agent/research/pizzaugn.md. */
+    href: "/pizzaugn",
+    label: "Pizzaugn",
+    category: KOK,
+    blurb: "Alla anger 500 grader. Fram där pizzan läggs in mäts 220.",
+    /* Live 2026-08-06. Alla fjorton priser, artikelnummer, lagerstatus och
+       kundbetyg lästa i produktsidornas egen JSON-LD hos Bagaren och Kocken
+       och KitchenTime samma dag. Specifikationerna lästa hos tillverkaren:
+       Oonis EU-butik för sex modeller, Witts egen produktkatalog, Gozneys,
+       Sages, Ninjas och Arietes egna produktsidor. Fjorton packshots hämtade
+       och tolv på plats. Uppmätt vid 1440 och 390 px: noll pixlar sidscroll
+       vid någondera bredden och inget klippt superlativ.
+
+       ⚠️ SJU SUPERLATIV KORTADES efter mätning, det längsta från 47 till 27
+       tecken. Felet uppstod trots att taket på 35 står i skillen, och det är
+       sjätte gången det inträffar. Samtliga tolv ligger nu på 24 till 34.
+
+       ⚠️ INGA GTIN UTOM ETT, och det är inte en lucka i researchen utan i
+       källorna. Bagaren och Kockens JSON-LD bär `sku` men inget `gtin13`, och
+       Icecat svarar `You are not allowed to have Full Icecat access`.
+       Witt Piccolo Rotante 16" har EAN 5707582040862 ur Elgigantens egen
+       specifikationstabell, bekräftad mot Witts B2B-katalog. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 12,
+  },
+  {
+    /* `smartwatch` byggd 2026-08-06. Nionde sidan i Elektronik.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `klocka`, `smartwatch`, `garmin`,
+       `pulsklocka` och `apple watch` över samtliga sex keyword-CSV:er ger fyra
+       träffar och alla fyra gäller *dörrklocka*. Kör Keyword Planner på
+       `smartwatch`, `smartklocka`, `träningsklocka`, `pulsklocka`,
+       `sportklocka` och `smartwatch bäst i test` i samma körning.
+
+       SLUGEN ÄR GENUINT DELAD, till skillnad från de flesta tidigare fall.
+       Sex av tio konkurrenter säger `smartwatch` i URL:en (testproffs,
+       testkollen, bast-i-test, bygghemma, hobbyhallen, Elgiganten), fyra säger
+       `smartklocka` (test.se, teknikrad, TechRadar, Prisjakt). Redaktionella
+       rubriker lutar åt smartklocka, URL:er åt smartwatch. Kjell bär båda:
+       kategorin heter `Smartklockor och -ringar` och underkategorin
+       `Smartwatch`. Valet följer URL-bruket efter användarbeslut.
+
+       AVGRÄNSNING efter användarbeslut: premiumhalvan från cirka 3 000 kr.
+       Mibro, Hama och de skärmlösa armbanden på 499–1 149 kr faller bort.
+       `cirka` täcker Apple Watch SE 3 på 2 972 kr, som är Apples ingångsmodell.
+       Träningsklockorna får systersidan `/traningsklocka`.
+
+       FYNDET: `batteritid` är inte ett tal, det är ett läge. Garmin publicerar
+       sju lägen för Venu 4 45 mm i sin egen svenska handbok — 12 dagar i
+       smartwatchläge, 9 timmar med alla satellitsystem och musik, alltså
+       faktor 32 på samma klocka. Samsung publicerar fyra för Galaxy Watch
+       Ultra: 100 h energibesparing, 80 h AOD av, 60 h AOD på, 48 h
+       utomhusträning med GPS. Huawei fyra för Watch GT 6 Pro: 21 dagar lätt,
+       12 normal, 7 med AOD, 40 timmar utomhussport. Handeln trycker ett tal.
+
+       ANDRA FYNDET, och det shoppingbara: **Kjells egen hylla motsäger sig
+       själv.** Galaxy Watch Ultra (2025) bär bulleten `Upp till 100 h
+       batteritid` och den nyare Galaxy Watch Ultra2 bär `Upp till 60 timmars
+       normal användning`. Den äldre ser ut att hålla 67 procent längre. Talen
+       kommer från två olika rader i samma Samsung-tabell.
+
+       TREDJE: Komplett publicerar Pixel Watch 4 i två fält på samma sida.
+       `Batteri › Körtid` säger 72 timmar; `Körtidsinformation` säger ordagrant
+       "Alltid aktivt displayläge - upp till 40 timme/timmar, Batterisparläge -
+       upp till 72 timme/timmar". Rubrikfältet bär sparlägets tal.
+
+       FJÄRDE: recepten. Apples fotnot 15 anger 300 blickar, 90 notiser, 15
+       minuters appanvändning och 6 timmars sömnspårning över 24 timmar.
+       Withings 30-dagarsscenario anger `Up to 5 minutes per day of total
+       on-screen time`, syremätning av nattetid och ett EKG var tredje dag.
+
+       ⚠️ TVÅ AV SJU KONKURRENTER GÖR HALVA FYNDET. Testkollen har en kolumn
+       `Batteritid GPS-läge`, bast-i-test.se skriver "14 dagars batteritid i
+       smartwatch-läge, eller 26 timmar i GPS-läge". Påstå ALDRIG att ingen tar
+       upp det. Det ingen gör är att koppla villkoret till talet i sin egen
+       specifikationsruta, återge hela lägestabellen eller citera recepten.
+
+       ⚠️ TRE KONKURRENTER RANKAR UTGÅNGNA MODELLER på 2026-sidor: Fitbit
+       Charge 5, Apple Watch Series 6, Garmin Fenix 6 Pro Solar, Galaxy Watch6.
+       Samma fel som /elektrisk-rullgardin byggdes för att rätta.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Råd & Rön har provat 57 modeller med
+       riktig labbmetod, publicerat 2026-06-09, och testet kostar 59 kr. Köpt:
+       nej, efter användarbeslut. Metoden är fri och återges; resultaten aldrig.
+       Deras sidfot förbjuder dessutom all vidarepublicering.
+
+       ⚠️ GPS-BATTERITID BETYGSÄTTS ALDRIG, trots att det är sidans starkaste
+       uppgift. Apple publicerar inget sådant tal för någon av sina tre
+       modeller. Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       PENGAR: Kjell 5 % / 30 d bär Samsung, Amazfit, Withings och Garmin men
+       **inte Apples nuvarande generation** — underkategorin Apple Watch har 50
+       artiklar varav i praktiken tio klockor, alla Series 9 eller Ultra 2.
+       Apple, Garmin Venu 4, Huawei och Withings länkas därför till Proshop
+       3,2 %, och Pixel Watch 4 till Komplett 2,5 % eftersom Proshop har den som
+       Discontinued.
+       ⚠️ INGEN AV DEM TILLÅTER PPC. Enda ppc-tillåtna butiken i hela svepet är
+       Loparshop 4,5 % / ppc 2, som bara för träningsklockor. Sidan går alltså
+       inte att annonsera; systersidan /traningsklocka kanske gör det. Awin,
+       Adrecord, Addrevenue och Tradedoubler är osvepta.
+
+       Se .agent/research/smartwatch.md. */
+    href: "/smartwatch",
+    label: "Smartwatch",
+    category: ELEKTRONIK,
+    blurb: "Arton timmar och trettio dygn står under samma ord på hyllan.",
+    /* Live 2026-08-06. Samtliga elva priser, lagerstatus och artikelnummer
+       lästa på butikernas egna produktsidor samma dag, och varenda batteritid
+       hämtad hos tillverkaren: Apples tre specifikationssidor, Samsungs egna
+       spectabeller, Garmins svenska användarhandbok, Googles svenska
+       specifikationssida, Huaweis svenska spectabell, Withings supportartikel
+       om batteritid och Amazfits egna produktsidor. Elva packshots på plats,
+       kontrollerade mot artikelnummer och variant. Uppmätt vid 1440 och 390 px:
+       noll pixlar sidscroll vid någondera bredden, inget element utanför
+       dokumentbredden och ingen klippt text. Samtliga elva superlativ ligger på
+       30–34 tecken, alltså under taket på 35.
+
+       ⚠️ EN MARKERAD RAD LIGGER UNDER 50 %: `Batteritid med GPS` 5/11. Det är
+       avsiktligt och av samma sort som `Skumtemperatur` på /mjolkskummare.
+       Garmin, Samsung Ultra, Huawei och Amazfit T-Rex anger ett tal, Withings
+       anger `Ingen egen GPS` vilket är en egenskap, och Apple publicerar inget
+       alls för någon av sina tre modeller. Att fylla cellen åt de sex som tiger
+       raderar spridningen sidan finns för att visa.
+
+       ⚠️ GOOGLES EGEN UPPGIFT FLYTTADE PIXEL WATCH 4 TVÅ PLACERINGAR. Komplett
+       anger mottagaren som `GPS/GLONASS/Galileo`, Google själva som `GPS med
+       dubbla frekvenser`. Specifikationer hämtas hos tillverkaren. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 11,
+  },
+  {
+    /* `kompaktkamera` byggd 2026-08-06. Nionde sidan i Elektronik, och den
+       första som handlar om att fotografera.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner kamera; sidan är beställd direkt.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `kamera`, `kompakt`, `foto`,
+       `digitalkamera` och `objektiv` över samtliga sex keyword-CSV:er ger bara
+       övervakningskameratermer. Kör Keyword Planner på `kompaktkamera`,
+       `kompaktkamera bäst i test`, `digitalkamera`, `bästa kompaktkameran` och
+       `digicam`. Slugen är däremot enkel: samtliga åtta konkurrenter,
+       Scandinavian Photo, CyberPhoto, Elgiganten, Power och Canons egen
+       svenska sida säger alla kompaktkamera i ett ord.
+
+       AVGRÄNSNING efter användarbeslut: fickformat, ungefär 2 000–13 000 kr.
+       Leksakerna under 2 000 (Kodak Charmera 439, PixPro FZ45 1 489, Rollei
+       337) och premiumänden över 13 000 (Ricoh GR IV 16 930, Fujifilm X100VI
+       19 990, Leica D-Lux 8 19 990, GFX100RF 65 990) förklaras i köpguiden.
+       Tåliga kameror rankas, superzoom och direktbild gör det inte.
+
+       FYNDET: under ungefär 7 000 kronor får köparen sensor eller räckvidd,
+       aldrig båda, och priset säger inte vilket. Sony ZV-1F kostar 5 790 med
+       en sensor av 1,0-typ, alltså cirka fyra gånger arean av en 1/2,3-tums,
+       och har ingen zoom alls. Canon SX740 HS Lite Edition kostar 6 549 och
+       Panasonic TZ99 6 490, båda med den minsta sensorn och 40x respektive
+       30x. De två dyraste av de tre har alltså den sämsta sensorn.
+
+       ANDRA FYNDET: Canon PowerShot V1 kostar 9 490 och har en sensor av
+       1,4-tum. G7 X Mark III kostar 10 990 och har 1,0-typ. Den nyare och
+       billigare kameran har den större sensorn, och det är G7 X Mark III som
+       varenda svensk konkurrent rankar högt.
+
+       ⚠️ MODELLERNA ÄR INTE UTGÅNGNA, DE ÄR ÅTERUTGIVNA. Ett utkast skulle ha
+       påstått att fältets gamla kameror inte längre tillverkas. Canons egen
+       svenska sida säljer G7 X Mark III som aktuell produkt plus en
+       30-årsjubileumsutgåva, SX740 från 2018 som `Lite Edition` och IXUS 285
+       från 2016 som `285 HS A`. Vad suffixen skiljer mot originalet är INTE
+       fastställt och får inte påstås.
+
+       ⚠️ VIKTERNA MÄTS INTE LIKADANT. Canon, Sony, Fujifilm och Ricoh anger
+       vikten med batteri och minneskort. OM System anger 249 g `body only`
+       för TG-7. Raden är normaliserad och TG-7 står utan värde hellre än med
+       ett tal som inte är jämförbart.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ljud & Bild har enskilda recensioner av
+       fyra av de tio, skrivna av Lasse Svendsen, men de bär prosaomdömen utan
+       betyg — samma läge som /bluetooth-hogtalare. Råd & Röns kameratest
+       gäller systemkameror. Ljud & Bilds sidfot uppger att delar av artiklar
+       kan vara bearbetade med AI-verktyg, och det står i källnoten.
+
+       PENGAR: ⚠️ DE BUTIKER SOM BETALAR OSS SÄLJER LEKSAKERNA, OCH DE SOM
+       SÄLJER KAMERORNA BETALAR OSS INGET. Proshop 3,2 % för Rollei,
+       AgfaPhoto, Kodak och Pentax och har noll Canon PowerShot, Sony RX100,
+       Fujifilm X100 eller Ricoh GR. Elgigantens kompaktkamerakategori är
+       Kodak PixPro plus namnlösa marknadsplatsartiklar. Scandinavian Photo
+       (65 modeller) och CyberPhoto (60) bär hela det riktiga sortimentet och
+       finns inte i Adtraction.
+
+       ⚠️ Och det syns i konkurrenternas rankningar. testkompassen.se och
+       testra.se rankar Agfa Realishot C130, två Rollei och Kodak PixPro FZ45,
+       alltså fyra av fem produkter ur Proshops Adtraction-sortiment. De två
+       sajter som i stället tar Prisjakt och PriceRunner, alltså betalt per
+       klick oavsett butik, rankar Canon G7 X III och Fujifilm X100VI.
+
+       VÄGEN TILL JA: CyberPhoto har ett ÖPPET program hos Sovrn Commerce,
+       viglink.com/merchants/61165, `Program Approval: Open`. Provisionen är
+       inte publicerad. Det är enda konkreta vägen till kategorins näst bästa
+       sortiment och bör prövas. Scandinavian Photo: inget program hittat.
+
+       ⚠️ NIO AV TIO LÄNKAR GÅR TILL SCANDINAVIAN PHOTO, vilket bryter mot
+       vanan att sprida länkarna. Skälet är att bara två butiker för
+       sortimentet och SP har lägsta priset. Där CyberPhoto har exakt samma
+       pris — G7 X Mark III, X half, RX100 VII och IXUS 285 — är ett byte
+       fritt och bör göras vid nästa runda.
+
+       Se .agent/research/kompaktkamera.md. */
+    href: "/kompaktkamera",
+    label: "Kompaktkamera",
+    category: ELEKTRONIK,
+    blurb:
+      "Under 7 000 kronor får du stor sensor eller lång zoom. Priset säger inte vilket.",
+    /* Live 2026-08-06. Alla tio priser, bilder och kundbetyg lästa i
+       Scandinavian Photos och Proshops egen JSON-LD samma dag, och samtliga
+       specifikationer hämtade hos tillverkaren: Canon, Sony, Fujifilm,
+       Panasonic, Ricoh Imaging och OM System. Tio packshots på plats.
+
+       Uppmätt vid 1440 och 390 px mot dev-servern: noll pixlar sidscroll vid
+       någondera bredden, inget klippt superlativ och inga element utanför
+       viewporten utom jämförelsetabellen, som scrollar i sin egen behållare
+       som avsett.
+
+       ⚠️ `pnpm build` gick INTE att köra: app/pizzaugn/page.tsx importerar en
+       köpguide som ännu inte finns, och det är en annan sessions halvbyggda
+       sida. `tsc` och `eslint` är gröna. Kör om bygget när pizzaugnssidan är
+       klar.
+
+       ⚠️ `pnpm check` faller på check:emdash och check:bilder, båda enbart för
+       `smartwatch`, som också är en annan sessions sida. Samtliga tolv
+       kontroller kördes enskilt: kompaktkamera förekommer inte i någon av dem.
+
+       EGET VERKTYG: `sensor-eller-rackvidd`, tre frågor som översätter motivet
+       till vilken av de två egenskaperna som är värd pengarna. Det svarar
+       "behåll telefonen" när frågorna leder dit, alltså bort från ett köp.
+
+       ⚠️ FUJIFILM X HALF LIGGER SIST och det är räknat, inte tyckt. Den saknar
+       zoom, saknar stabilisering helt och stannar på Full HD, alltså tre av
+       fem kriterier. Att den ändå kostar 7 990 är en verklig avvägning som
+       omdömet skriver ut: den köps för hur det känns att fotografera med den. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 10,
+  },
+  {
     /* `mjolkskummare` byggd 2026-08-05. Öppnar gruppen Kök, sajtens femte.
        Rankar bara elektriska kannor med värmeelement; manuell pumpskummare och
        handhållen batterivisp förklaras i köpguiden, efter användarbeslut.

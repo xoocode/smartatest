@@ -1887,6 +1887,60 @@ export const TOOLS: Tool[] = [
     updated: "2026-08-06",
   },
   {
+    /* Kompaktkamerasidans enda verktyg. Slugen namnger avvägningen och inte
+       produkten, eftersom frågan "sensor eller räckvidd" gäller lika mycket
+       för en systemkamera och överlever att kategorin byggs ut. */
+    slug: "sensor-eller-rackvidd",
+    name: "Sensor eller räckvidd?",
+    title: "Sensor eller räckvidd? Tre frågor avgör vilken kamera du ska ha",
+    description:
+      "Tre frågor om vad du fotograferar, om du filmar och var kameran ska vara, så får du veta vilken av de två egenskaperna som är värd pengarna för just dig, och vad som ska stå i specifikationen.",
+    intro:
+      "En kompaktkamera under 7 000 kronor ger dig antingen en stor sensor eller lång zoom, aldrig båda, och priset avslöjar inte vilket. Den billigaste kameran i vår jämförelse med sensor av 1,0-typ kostar mindre än de två med minsta sensorn och längsta zoomen. Guiden översätter det du faktiskt fotograferar till den av egenskaperna som betyder något, och till de tal som ska stå på förpackningen.",
+    sections: [
+      {
+        heading: "Varför du inte kan få både stor sensor och lång zoom",
+        body: [
+          "Ett objektiv som ska nå 700 millimeter måste projicera bilden på en yta, och ju större den ytan är desto större blir linserna. Ett 30-gångers zoomobjektiv för en sensor av 1,0-typ blir därför så stort att kameran inte längre ryms i en ficka, vilket är hela poängen med en kompaktkamera.",
+          "Följden är att tillverkarna väljer åt dig. Kameror med sensor av 1,0-typ stannar på 100 till 200 millimeter eller saknar zoom helt, medan de som når 720 och 960 millimeter alla har 1/2,3-tums sensor. Skillnaden i sensoryta mellan de två klasserna är ungefär fyra gånger.",
+        ],
+      },
+      {
+        heading: "Sensorytan avgör allt som händer efter oktober",
+        body: [
+          "En sensor av 1,0-typ mäter 13,2 × 8,8 millimeter. En 1/2,3-tums mäter ungefär 6,2 × 4,6. Talen är gamla mått från tv-kamerarörens tid och anger inte diagonalen, vilket är skälet till att skillnaden ser mindre ut än den är: fyra gånger arean, inte drygt två.",
+          "Den ytan är allt som avgör i dåligt ljus, alltså varje inomhusmiljö en svensk vinterkväll. En kamera med liten sensor kan vara utmärkt i dagsljus och samtidigt ge sämre bilder än telefonen i fickan vid middagsbordet i november.",
+        ],
+      },
+      {
+        heading: "Vattentäthet utesluter frågan helt",
+        body: [
+          "Ska kameran under ytan är avvägningen redan gjord åt dig. Ingen tillverkare bygger en kamera med stor sensor som tål vatten, eftersom tätningen kräver ett litet hus och ett fast objektiv som inte skjuts ut. Valet står då mellan de två tåliga kameror som finns, och båda har 1/2,3-tums sensor.",
+          "Kontrollera vilket djup som anges i meter. Ett angivet djup på 1 eller 3 meter är gjort för poolkanten och regnet, medan 15 meter räcker till snorkling över ett rev. Ordet vattentät utan ett tal säger ingenting.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Kan jag inte bara zooma digitalt och behålla den stora sensorn?",
+        answer:
+          "Digital zoom beskär bilden och förstorar utsnittet, alltså precis det du själv kan göra i telefonen efteråt. Ingen detalj tillkommer. En kamera med 20 megapixel som beskärs till en fjärdedel ger en bild på 5 megapixel, vilket räcker till en skärm men inte till att se fjädrarna på fågeln. Optisk zoom flyttar linser och samlar verkligt ljus från motivet, och det är den enda zoom som ska stå i din jämförelse.",
+      },
+      {
+        question: "Guiden säger att jag ska behålla telefonen. Varför säljer ni då kameror?",
+        answer:
+          "Därför att svaret beror på vad du fotograferar. Fotar du rum, mat och personer på nära håll i dagsljus har en kamera med 1/2,3-tums sensor ungefär samma sensoryta som en bra mobil och sämre bildbehandling, och då är köpet inget steg upp. Steget upp finns vid 1,0-typ, eller när du behöver zoom en telefon inte kan låtsas ha. Vår jämförelse rankar tio kameror just därför att de löser olika problem.",
+      },
+      {
+        question: "Vad betyder talen 1,0-typ och 1/2,3 tum egentligen?",
+        answer:
+          "De kommer från diametern på de glasrör som satt i tv-kameror på femtiotalet, och de beskriver inte sensorn. En sensor av 1,0-typ har en diagonal på knappt 16 millimeter, alltså långt under en tum. Det enda du behöver veta är rangordningen och att skillnaden i yta är större än talen antyder: 1,4 tum är störst av dem som finns i fickformat, sedan 1,0-typ, och 1/2,3 tum är minst med ungefär en fjärdedel av arean.",
+      },
+    ],
+    usedOn: ["kompaktkamera"],
+    updated: "2026-08-06",
+  },
+  {
     /* Powerstationsidans enda verktyg. Slugen bär inte ordet väljare, eftersom
        frågan är en dimensionering och inte ett val mellan produkter, och
        eftersom "hur stor" är just den fråga kategorin ställer. */

@@ -5058,6 +5058,98 @@ export const POWERBANK_20000_SOURCES: Source[] = [
  * kontrollerat recension för recension och är skälet till att sidan inte har
  * något testomdömekriterium.
  */
+export const SMARTWATCH_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Träningsklockor och aktivitetsarmband – bäst i test",
+    url: "https://www.radron.se/tester/klader-vaskor-motion--fritid/pulsklockor-smartklockor-och-aktivitetsarmband/",
+    date: "2026-06-09",
+    market: "SE",
+    kind: "test",
+    note: "Kategorins enda svenska labbprovning, 57 modeller: pulsmätning i vila, gång, löpning och cykling, syremättnad, distans ur både steg och gps, stegräkning, användbarhet, repor, vatten och fall. Metoden är fritt läsbar och resultaten ligger bakom en betalvägg på 59 kronor.\n\n⚠️ Testet är inte köpt, efter användarbeslut. Vi vet alltså inte vilken modell som vann och påstår det aldrig, och sidan har därför inget testomdömekriterium. Deras sidfot förbjuder dessutom uttryckligen all vidarepublicering av testresultat och tabeller.\n\nTvå fritt publicerade slutsatser bär ändå sidan. De skriver att träningsfunktionerna vägt tyngst och att särskild vikt lagts vid pulsmätningen, men också att majoriteten får högsta eller näst högsta betyg och att det är de enskilda delbetygen som skiljer, eftersom vissa modeller har \"ganska stora avvikelser i till exempel hur bra de mäter puls under löpning\". Och de skriver att majoriteten får högsta betyg för repor, vatten och fall, vilket är skälet att tålighet inte är ett kriterium här.",
+  },
+  {
+    publisher: "Apple",
+    title: "Apple Watch Series 11, SE 3 och Ultra 3, tekniska specifikationer",
+    url: "https://www.apple.com/se/watch/compare/",
+    date: "2026-08-06",
+    note: "Tillverkarens egen publicering, läst på de tre modellernas svenska specifikationssidor. Batteri: 24, 18 respektive 42 timmars normal användning, och 38, 32 respektive 72 timmar i strömsparläge.\n\nJämförelsesidans fotnot 15 anger testreceptet ordagrant: \"se vad klockan är 300 gånger, få 90 notiser, använda appar i 15 minuter, träna i 60 minuter med musikuppspelning från Apple Watch via Bluetooth samt 6 timmars sömnspårning fördelat över 24 timmar\". Apple skriver också ut att testerna kördes av dem själva i juli och augusti 2025 på förhandsversioner.\n\nSensoruppräkningen skiljer modellerna åt: Series 11 och Ultra 3 listar elektrisk hjärtsensor och sensor för syrenivå i blodet, SE 3 listar optisk hjärtsensor. Ultra 3 är den enda med precisions-gps på två frekvenser, L1 och L5, och den enda med 100 meters vattentålighet enligt ISO 22810:2010.\n\n⚠️ Ingen av de tre sidorna anger batteritid med gps igång. Det är skälet att uthållighet under träning inte bär vikt på sidan.",
+  },
+  {
+    publisher: "Apple",
+    title: "Mät syrenivån i blodet med appen Syrenivå i blodet",
+    url: "https://support.apple.com/sv-se/guide/watch/apdaf17aa5ef/watchos",
+    date: "2026-08-06",
+    note: "Tillverkarens egen begränsning av vad funktionen får användas till, ordagrant: \"appen Syrenivå i blodet är inte avsedda för medicinsk användning\" och \"Appen Syrenivå i blodet är inte tillgänglig för användning av personer under 18 år\". EKG-appen är däremot en godkänd medicinteknisk funktion. Skillnaden mellan de två är det kriteriet för hälsosensorer väger.",
+  },
+  {
+    publisher: "Garmin",
+    title: "Venu 4-serien, användarhandbok: batteriinformation",
+    url: "https://www8.garmin.com/manuals/webhelp/GUID-2CF5620C-E585-4E0A-9CC3-9565533EEE4D/SV-SE/GUID-5B48351E-A637-46DE-A737-9A470C5D1B63.html",
+    date: "2026-06-01",
+    note: "Handboken i svensk språkversion, v4 juni 2026, med sju batterilägen för samma klocka. För 45-millimetersmodellen: 12 dagar i smartwatchläge, 25 dagar i batterisparläge, 20 timmar med endast gps, 19 timmar med alla satellitsystem, 17 timmar med flera band och 9 timmar med alla satellitsystem och musik.\n\nTolv dagar och nio timmar skiljer med faktor 32, och det är samma klocka i båda ändarna. Handeln trycker det första talet.\n\nGarmins produktsida anger dessutom att EKG-appen är \"en medicinteknisk enhet i klass IIa enligt EU:s förordning om medicintekniska produkter (EU) 2017/745\", vattenklassningen \"Simning, 5 ATM\", gps med flera band och SatIQ, och smartphonekompatibilitet med både iPhone och Android.",
+  },
+  {
+    publisher: "Samsung",
+    title: "Galaxy Watch8 och Galaxy Watch Ultra, specifikationer",
+    url: "https://www.samsung.com/se/watches/galaxy-watch/galaxy-watch-ultra-titanium-gray-lte-sm-l705fdaaeub/",
+    date: "2026-08-06",
+    note: "Tillverkarens egen svenska spectabell, som publicerar fyra batteritider för Galaxy Watch Ultra i fyra rader: \"Typisk användningstid (i energibesparing, timmar) Upp till 100\", \"Normal användning (Timmar, AOD Off) Upp till 80\", \"Normal användning (Timmar, AOD On) Upp till 60\" och \"Utomhusträning med GPS (i träningsenergibesparing, h) Upp till 48\". Galaxy Watch8 44 mm anger bara den första sorten, \"Normal användning (Timmar, AOD Off) Upp till 40\", på 435 mAh.\n\nSamsung anger också \"Utbytbart: Nej\" i klartext, och att blodtrycksmätningen kräver \"kalibrering var fjärde vecka med blodtrycksmätare och armmanchett\" samt \"en Samsung Galaxy-mobil med Android OS 12 eller senare och den senaste versionen av Samsung Health Monitor-appen\". Det sista är det som gör Samsung till en annan produkt på en Android-telefon som inte är en Galaxy.\n\n⚠️ Sidan för Galaxy Watch8 Classic motsäger sig själv mellan språkversionerna: den svenska texten säger 30 timmar med alltid på-skärm, den engelska i samma sidkälla säger 30 timmar med skärmen avstängd. Tabellen, som stämmer med sig själv, är den vi använder.",
+  },
+  {
+    publisher: "Huawei",
+    title: "Watch GT 6 Pro, specifikationer",
+    url: "https://consumer.huawei.com/se/wearables/watch-gt6-pro/specs/",
+    date: "2026-08-06",
+    note: "Fältets mest fullständiga batteriredovisning, ordagrant: \"Batteriet håller i upp till 21 dagar, upp till 12 dagar vid normal användning, upp till 7 dagar med AOD aktiverat och upp till 40 timmar i utomhussportläget.\" Huawei skriver också ut villkoret för varje tal: lätt användning mäts med skärmen aktiverad 200 gånger per dag, typisk med skärmen på totalt 30 minuter per dag, och utomhussport med \"GNSS alltid på, pulsmätning alltid på\".\n\n21 dagar och 40 timmar är samma klocka. Övriga uppgifter: GNSS på två band, L1 med gps, Glonass, Galileo, BDS och QZSS och L5 med gps, Galileo, BDS och QZSS; 5 ATM enligt ISO 22810:2010; EKG-sensor och djupsensor; 45,6 × 45,6 × 11,25 mm och cirka 54,7 gram utan armband; Android 9.0 eller senare och iOS 13.0 eller senare.",
+  },
+  {
+    publisher: "Withings",
+    title: "ScanWatch 2 – Battery life information",
+    url: "https://support.withings.com/hc/en-us/articles/17091601036689-ScanWatch-2-Battery-life-information",
+    date: "2026-08-06",
+    note: "Tillverkarens eget scenario bakom trettio dagar, och kategorins mest avslöjande dokument. Villkoren: 5 000 steg om dagen, 30 minuters träning i veckan med \"Screen Always On\" avstängt, Respiratory Scan av, automatisk syremättnadsmätning av under natten, ett EKG och en SpO2-mätning var tredje dag, fem notiser om dagen och \"Up to 5 minutes per day of total on-screen time\".\n\nWithings skriver också att \"use of connected GPS does not affect battery life\", vilket är sant av ett skäl köparen bör känna till: klockan har ingen egen gps utan använder telefonens.\n\nStällt mot Apples recept, 300 blickar och 90 notiser på ett dygn, är det tydligt att trettio dagar och tjugofyra timmar inte mäter samma sak.",
+  },
+  {
+    publisher: "Google",
+    title: "Pixel Watch 4, tekniska specifikationer",
+    url: "https://store.google.com/se/product/pixel_watch_4_specs?hl=sv",
+    date: "2026-08-06",
+    note: "Den enda tillverkaren i fältet vars rubriktal är det hårdare av två. Google anger för 45-millimetersmodellen \"455 mAh (normalt)\", \"Upp till 40 timmar med alltid aktiv skärm\" och \"Upp till 72 timmar med batterisparläge\", samt laddning på cirka 15 minuter till 50 procent, 25 minuter till 80 och 45 minuter till 100.\n\nGoogle begränsar också EKG-appen själva: \"EKG-appen är endast tillgänglig i vissa länder. Ej avsedd att användas av personer under 22 år.\"",
+  },
+  {
+    publisher: "Amazfit",
+    title: "Balance 2 och T-Rex 3 Pro, produktsidor",
+    url: "https://us.amazfit.com/products/t-rex-3-pro",
+    date: "2026-08-06",
+    note: "T-Rex 3 Pro publicerar tre lägen för 48-millimetersmodellen: 25 dagar med typisk användning, 38 timmar i noggrant gps-läge och 85 timmar i gps-batterisparläge. 44-millimetersmodellen anges till 17 dagar, 26 timmar och 60 timmar. Balance 2 anges till 21 dagar med typisk användning.\n\nAmazfit definierar också sina scenarier: typiskt är pulsmätning var femte minut, tungt är pulsmätning varje minut. Båda modellerna har 10 ATM, sex satellitsystem och safirglas, och T-Rex 3 Pro är certifierad för fridykning till 45 meter.\n\n⚠️ Ingen av de två har EKG. Det är fastställt ur tillverkarens egen uttömmande sensoruppräkning på båda produktsidorna: optisk pulssensor, accelerometer, gyroskop, barometer, ljussensor, geomagnetisk sensor och temperatursensor, och ingen elektrisk hjärtsensor, och inte ur en misslyckad sökning.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Smartklockor och -ringar",
+    url: "https://www.kjell.com/se/produkter/mobilt/smartklockor-och-ringar",
+    date: "2026-08-06",
+    market: "SE",
+    note: "Butiken fyra av de elva klockorna är prissatta hos, 254 artiklar i kategorin. Källa för pris, lagerstatus och kundbetyg.\n\n⚠️ Butikens batteribullets bär tillverkarens tal utan villkoret. Galaxy Watch8 står som \"Upp till 40 timmars batteritid\", vilket i Samsungs egen tabell är raden för alltid på-skärm avstängd. Skarpast syns det på två artiklar bredvid varandra: Galaxy Watch Ultra (2025) bär \"Upp till 100 h batteritid\" och den nyare Galaxy Watch Ultra2 \"Upp till 60 timmars normal användning\", vilket får den äldre att se ut att hålla 67 procent längre. Talen kommer från två olika rader i samma tabell.\n\nButiken gör tvärtom på en enda artikel: Garmin Forerunner 55 bär bulleten \"14 dagars batteritid (20 h i GPS-läge)\". Det är alltså tillverkarens underlag och inte butikens policy som slår igenom.\n\n⚠️ Butiken för inte Apples nuvarande generation. Underkategorin Apple Watch har 50 artiklar varav i praktiken tio klockor, samtliga Series 9 eller Ultra 2.",
+  },
+  {
+    publisher: "Proshop",
+    title: "Smartwatch, smartklockor och träningsklockor",
+    url: "https://www.proshop.se/Pulsmaetare-Stegraeknare",
+    date: "2026-08-06",
+    market: "SE",
+    note: "Butiken sex av de elva klockorna är prissatta hos, och en av få svenska handlare som för Apples nuvarande generation. Varje artikel bär streckkod och tillverkarens eget artikelnummer, vilket är det som gjort att varje rad i tabellen går att knyta till rätt storlek och färg.\n\n⚠️ En URL som byggdes för hand under researchen gav HTTP 200 på en helt annan produkt, en USB-hubb i stället för en Withings-klocka. Varje adress som används här är hämtad ur butikens egen sökning eller kategorilistning.",
+  },
+  {
+    publisher: "Komplett",
+    title: "Google Pixel Watch 4 45mm WiFi",
+    url: "https://www.komplett.se/product/1326843/mobil-tablets-klockor/smartwatches/google-pixel-watch-4-45mm-wifi-svart",
+    date: "2026-08-06",
+    market: "SE",
+    note: "Butiken Pixel Watch 4 är prissatt hos, eftersom Proshop för den som utgången.\n\n⚠️ Sidan publicerar två batteritider i två fält och rubrikfältet bär det generösare. \"Batteri › Körtid\" säger 72 timmar, medan \"Specifikationer för batterilivslängd › Körtidsinformation\" säger ordagrant \"Alltid aktivt displayläge - upp till 40 timme/timmar, Batterisparläge - upp till 72 timme/timmar\". Rubriktalet är alltså batterisparlägets, och villkoret står två rader längre ned på samma sida. Vår tabell använder tillverkarens 40 timmar för vardagsraden.",
+  },
+];
+
 export const BLUETOOTH_HOGTALARE_SOURCES: Source[] = [
   {
     publisher: "Europeiska unionen",
@@ -5670,6 +5762,146 @@ const MJOLKSKUMMARE_SOURCES: Source[] = [
  * Källan är med för att provningen finns och bär ett datum, aldrig för vad den
  * kom fram till.
  */
+/**
+ * Kompaktkamera. Underlag i .agent/research/kompaktkamera.md.
+ *
+ * ⚠️ Canons, Sonys och Panasonics egna sidor svarar 403 på curl men renderar
+ * normalt i en webbläsare och via r.jina.ai. Länkarna är alltså levande;
+ * `check:refs` och en 200-koll med curl säger emot varandra här, och curl har
+ * fel. Se scripts/fetch.mjs och stegtabellen i researchfilen.
+ *
+ * ⚠️ De tre Ljud & Bild-recensionerna bär INGA betyg. De har rubrikomdöme,
+ * plus- och minuslista och en faktaruta. Samma läge som /bluetooth-hogtalare,
+ * och skälet till att sidan saknar kriterium för testomdöme.
+ */
+export const KOMPAKTKAMERA_SOURCES: Source[] = [
+  {
+    publisher: "Ljud & Bild",
+    title: "Test: Sony Cybershot RX100 VII",
+    url: "https://www.ljudochbild.se/test/foto-video/sony-cybershot-rx100-vii/",
+    date: "2019-09-02",
+    market: "SE",
+    kind: "test",
+    note:
+      "Lasse Svendsen kallar den klassens snabbaste autofokus och den bästa allroundkameran, men bara nätt och jämnt, och sätter svag ljusstyrka och högt pris som invändningar.\n\nRiktpriset i testet är 13 000 kronor. Kameran kostar 12 890 i dag, alltså praktiskt taget detsamma sju år senare.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "Test: Sony ZV-1F",
+    url: "https://www.ljudochbild.se/test/foto-video/sony-zv-1f/",
+    date: "2022-12-17",
+    market: "SE",
+    kind: "test",
+    note:
+      "Bekräftar att både zoomen och bildstabiliseringen är rent digitala, och att kameran bara sparar JPEG. Berömmer 4K-kvaliteten och den vridbara pekskärmen, och invänder mot små knappar, avsaknaden av sökare och en tveksam autofokus.\n\nFaktarutan anger optiken till 22 mm f2,2 medan brödtexten säger fast 20 mm f2. Sony anger själva f = 7,6 mm, motsvarande 20 mm, och F2,0, och det är talen sidan använder.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "Test: Fujifilm X half",
+    url: "https://www.ljudochbild.se/test/foto-video/fujifilm-x-half/",
+    date: "2025-07-18",
+    market: "SE",
+    kind: "test",
+    note:
+      "Beskriver kameran som det närmaste man kommer film med en digital kamera, och sätter avsaknaden av både bildstabilisering och RAW som priset för det.\n\nAnger sensorns använda yta till 8,8 × 11,7 mm i stående 3:4, vilket är en annan sak än Fujifilms egen uppgift om sensorns totala 13,3 × 8,8 mm. Riktpriset i testet är 9 500 kronor; kameran kostar 7 990 i dag.",
+  },
+  {
+    publisher: "Canon",
+    title: "PowerShot G7 X Mark III – Specifications",
+    url: "https://www.canon.co.uk/cameras/powershot-g7-x-mark-iii/specifications/",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Anger 1,0-typ staplad CMOS med 20,1 effektiva megapixel, 8,8–36,8 mm motsvarande 24–100 mm, 4,2x optisk zoom, f/1,8–2,8 och objektivförskjutande stabilisering med ungefär fyra stegs verkan. Vikten är 304 gram med batteri och minneskort.\n\nCanons svenska sida för samma kamera lämnar specifikationsblocket tomt, vilket är skälet att den brittiska används.",
+  },
+  {
+    publisher: "Canon",
+    title: "PowerShot V1 – Specifikationer",
+    url: "https://www.canon.se/cameras/powershot-v1/specifications/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger en sensor av 1,4-tum med 22,3 effektiva megapixel, objektiv 8,2–25,6 mm med f/2,8 och optisk stabilisering. Det är den största sensorn bland de tio kamerorna på sidan.\n\nViktfältet och batterikapaciteten står tomma, och stegtalet för stabiliseringen anges inte.",
+  },
+  {
+    publisher: "Canon",
+    title: "PowerShot V1 – Bruksanvisning, Specifikationer",
+    url: "https://cam.start.canon/en/C016/manual/html/UG-11_Reference_0080.html",
+    kind: "standard",
+    note:
+      "Bruksanvisningen bär de tal produktsidan saknar: 426 gram med batteri och kort enligt CIPA, alltså kameran som väger mest på sidan.\n\nAnger också att 4K spelas in i 3840 × 2160 vid 29,97, 25 och 23,98 bilder per sekund, och att 59,94 bilder per sekund kräver beskuren bild.",
+  },
+  {
+    publisher: "Canon",
+    title: "PowerShot SX740 HS Lite Edition – Specifikationer",
+    url: "https://www.canon.se/cameras/powershot-sx740-hs-lite-edition/specifications/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger 4,3–172 mm motsvarande 24–960 mm, 40x optisk zoom, bakbelyst CMOS av 1/2,3-typ med 20,3 effektiva megapixel, 299 gram och stabilisering med ungefär 3,5 stegs verkan.\n\nSidan anger också ett slutdatum för säkerhetssupport, 28 april 2027. Ingen av de nio övriga kamerorna har ett motsvarande datum.",
+  },
+  {
+    publisher: "Canon",
+    title: "IXUS 285 HS A – Specifikationer",
+    url: "https://www.canon.se/cameras/ixus-285-hs-a/specifications/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger 4,5–54,0 mm motsvarande 25–300 mm, f/3,6–7,0, 146 gram och 99,6 × 58,0 × 22,8 millimeter. Det är den minsta och lättaste kameran på sidan, och den enda som är tunnare än 25 millimeter.\n\nFilmformatet stannar på 1 920 × 1 080 vid 29,97 bilder per sekund.",
+  },
+  {
+    publisher: "Sony",
+    title: "Cyber-shot DSC-RX100 VII – Specifikationer",
+    url: "https://www.sony.se/electronics/cyber-shot-kompaktkameror/dsc-rx100m7/specifications",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger sensorn till 13,2 × 8,8 millimeter, alltså det mått hela sidan använder för 1,0-typ, samt 24–200 mm, f/2,8–4,5, optisk SteadyShot motsvarande 4,0 stopp och 302 gram enligt CIPA.\n\nSökaren är en OLED-panel med 2 359 296 punkter, den enda elektroniska sökaren bland de tio.",
+  },
+  {
+    publisher: "Sony",
+    title: "ZV-1F Help Guide – Specifications",
+    url: "https://helpguide.sony.net/dc/2210/v1/en/contents/TP1000935823.html",
+    kind: "standard",
+    note:
+      "Anger ZEISS Tessar T* f = 7,6 mm, motsvarande 20 mm, med F2,0, en sensor på 13,2 × 8,8 millimeter och 256 gram med batteri och kort.\n\nStabiliseringen listas bara som SteadyShot för film med lägena Active och Off, och objektivavsnittet nämner ingen optisk stabilisering.",
+  },
+  {
+    publisher: "Fujifilm",
+    title: "X half (X-HF1) – Specifications",
+    url: "https://www.fujifilm-x.com/en-us/products/cameras/x-hf1/specifications/",
+    market: "US",
+    kind: "standard",
+    note:
+      "Anger sensorn till 13,3 × 8,8 millimeter med 17,74 effektiva megapixel, ett fast Fujinon-objektiv på 10,8 mm motsvarande 32 mm med F2,8, och 240 gram med batteri och kort.\n\nBatteritiden är 880 bilder enligt CIPA, den överlägset längsta på sidan. Video stannar på Full HD i 24 bilder per sekund, i stående format.",
+  },
+  {
+    publisher: "Panasonic",
+    title: "LUMIX DC-TZ99 – Specifikationer",
+    url: "https://www.panasonic.com/se/consumer/kamera-och-videokamera/lumix-kompaktkamera/tz-travel/dc-tz99.specs.html",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger 4,3–129 mm motsvarande 24–720 mm, 30x optisk zoom, F3,3–6,4, en MOS-sensor av 1/2,3-tum med 20,3 effektiva megapixel och 322 gram med batteri och kort.\n\nStabiliseringen kallas 5-axlig hybrid O.I.S.+ utan att något stegtal anges.",
+  },
+  {
+    publisher: "Ricoh Imaging",
+    title: "PENTAX WG-8 – Specifications",
+    url: "https://www.ricoh-imaging.co.jp/english/products/wg-8/spec/",
+    kind: "standard",
+    note:
+      "Anger vattentäthet motsvarande JIS klass 8 och dammtäthet motsvarande JIS klass 6, 5–25 mm motsvarande 28–140 mm, F3,5–5,5 och 242 gram med batteri och kort.\n\nStabiliseringen heter Pixel Track SR och är elektronisk. Batteriet räcker 340 bilder enligt tillverkarens egen mätning.",
+  },
+  {
+    publisher: "OM System",
+    title: "TG-7 – Tough camera",
+    url: "https://explore.omsystem.com/c/en/tg-7",
+    kind: "standard",
+    note:
+      "Anger vattentäthet till 15 meter samt damm-, köld- och stöttålighet, 25–200 mm med f/2,0–4,9, en CMOS-sensor med 12 megapixel och sensorförskjutande stabilisering med 2,5 EV.\n\nVikten anges till 249 gram utan batteri och minneskort, vilket är ett annat mått än de nio övriga tillverkarna använder.",
+  },
+];
+
 export const BABYVAKT_SOURCES: Source[] = [
   {
     publisher: "Råd & Rön",
@@ -5956,13 +6188,303 @@ const SKAFTDAMMSUGARE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Pizzaugn.
+ *
+ * Kategorin har en ovanligt stark oberoende provning, och den är norsk. tek.no
+ * har provat över 20 pizzaugnar för hand under tre år, publicerar betyg 1–10
+ * per modell och har mätt stentemperaturen på tre punkter efter 30 minuters
+ * uppvärmning. Den mätningen är hela sidans fynd.
+ *
+ * ⚠️ **Stiftung Warentest har inte provat pizzaugnar.** Artikeln refererar den
+ * brittiska systerorganisationen Which?, som provat sex mobila ugnar.
+ * Provningen tillskrivs alltid Which?, aldrig Warentest, och Which?-originalet
+ * ligger bakom betalvägg vi inte betalat. Samma disciplin som läsarkommentaren
+ * på test.de som /powerstation nästan tillskrev Warentest.
+ *
+ * ⚠️ **Källorna är oense om Gozney Roccbox.** Which? har den som testvinnare,
+ * tek.no ger den 7 av 10. Motsättningen står utskriven på sidan; den är det
+ * mest värdefulla vi kan publicera och ingen svensk konkurrent nämner den.
+ *
+ * ⚠️ Gozneys egen supportartikel anger Roccbox pizzasten till **190 mm tjock**,
+ * vilket inte kan stämma när ugnsöppningen enligt samma artikel är 88 mm hög.
+ * Talet är med all sannolikhet 19 mm feltypat. Vi publicerar varken 190 eller
+ * 19: en gissning åt tillverkaren är samma fabrikation som ett påhittat
+ * mätvärde. Cellen står tom och skälet står här.
+ */
+const PIZZAUGN_SOURCES: Source[] = [
+  {
+    publisher: "tek.no",
+    title: "Beste pizzaovn: Disse lager perfekt pizza på under to minutter",
+    url: "https://www.tek.no/samletest/i/qLamqL/pizzaovn",
+    date: "2025-05",
+    market: "NO",
+    kind: "test",
+    note: "Sidans huvudkälla, och den enda nordiska provningen med egen handpåläggning. Över 20 ugnar provade under tre år av Niklas Plikk och Ole Henrik Johansen, med napolitansk margherita som utgångspunkt och flera ugnar dessutom provade med naanbröd och calzone.\n\nDet avgörande är mätningen: stentemperaturen tagen längst bak, mitt på och längst fram efter 30 minuters uppvärmning. Ooni Koda 12 ligger på 480 grader bak och 220 fram, Gozney Roccbox på 470 mot 270, medan FCC Pizza Chef håller sig mellan 405 och 332. Redaktionen anger själv jämnheten i värmen som testets mest avgörande punkt.\n\nBetygen är publicerade 1–10 per modell. De återges där modellen säljs här under samma namn och påverkar inga poäng.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Pizzaöfen im Test: Zu Hause italienisch genießen",
+    url: "https://www.test.de/Pizzaoefen-im-Test-Zu-Hause-italienisch-geniessen-6024589-0/",
+    date: "2023-07-25",
+    market: "DE",
+    kind: "test",
+    note: "Referat av den brittiska konsumentorganisationen Which?, som provat sex mobila pizzaugnar för terrass och trädgård. Warentest har inte provat själva och skriver ut det.\n\nWhich? utsåg Gozney Roccbox till testvinnare och rekommenderade Ooni Karu 12 för den som vill kunna flytta ugnen. Samtliga sex godkändes. Resultat per modell hos Which? ligger bakom betalvägg vi inte betalat, så inget betyg härifrån knyts till en produkt.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Koda 2 Gas Powered Pizza Oven, 2nd Generation",
+    url: "https://eu.ooni.com/products/ooni-koda-2",
+    market: "UK",
+    kind: "standard",
+    note: "Tillverkaren anger själv spridningen över stenen som andra generationens huvudsakliga förbättring: den nya brännaren sänker svängningarna i stentemperatur från 175 till 85 grader jämfört med första generationen, och värmer om stenen 20 procent snabbare. Det är samma storhet tek.no mätt upp oberoende, angiven av tillverkaren.\n\nHärifrån kommer också 14-tumsstenen, vikten 16 kg, måtten 545 × 472 × 333 mm och stentjockleken 15 mm.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Koda 2 Pro Gas Powered Pizza Oven, 2nd Generation",
+    url: "https://eu.ooni.com/products/ooni-koda-2-pro",
+    market: "UK",
+    kind: "standard",
+    note: "Anger svängningarna i stentemperatur till 45 grader mot första generationens 180. Här kommer 18-tumsstenen, temperaturområdet 160 till 500 grader, vikten 30 kg och stentjockleken 20 mm ifrån.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Koda 2 Max Gas Powered Pizza Oven, 2nd Generation",
+    url: "https://eu.ooni.com/products/ooni-koda-2-max",
+    market: "UK",
+    kind: "standard",
+    note: "Två separat reglerade brännare och två temperaturzoner på en bakyta av 24 tum, alltså två pizzor på 12 tum samtidigt. Anger 43 kg, 20 mm sten och 30 minuter till 400 grader.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Karu 2 Multi-Fuel Pizza Oven, 2nd Generation",
+    url: "https://eu.ooni.com/products/ooni-karu-2",
+    market: "UK",
+    kind: "standard",
+    note: "Dörr i borosilikatglas, ved eller kol som standard och gasbrännare som tillbehör. Tillverkaren anger 450 grader på så lite som 15 minuter, alltså den snabbaste uppvärmningen bland de bränsleflexibla, och 36 procent lägre bränsleåtgång än föregående modell. Härifrån kommer 15,3 kg, 15 mm sten och den inbyggda termometern.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Koda 16 Gas Powered Pizza Oven, 1st Generation",
+    url: "https://eu.ooni.com/products/ooni-koda-16",
+    market: "UK",
+    kind: "standard",
+    note: "Tillverkaren märker själv ugnen som första generationen medan Koda 2 Pro säljs parallellt som andra. Den L-formade brännaren beskrivs som gjord för att pizzan bara ska behöva vridas en gång. Härifrån kommer 18,2 kg, 15 mm sten och måtten 63 × 58 × 37 cm.",
+  },
+  {
+    publisher: "Ooni",
+    title: "Ooni Volt 2 Electric Pizza Oven",
+    url: "https://eu.ooni.com/products/ooni-volt-2",
+    market: "UK",
+    kind: "standard",
+    note: "Elektrisk, upp till 450 grader och klar att grädda på 12 minuter. Anger 17,6 kg, 10 mm sten och en ugnsöppning på 9,1 cm, alltså den lägsta invändiga höjden bland de elektriska.",
+  },
+  {
+    publisher: "Witt",
+    title: "Witt Piccolo Rotante 16\" EU Black, artikel 100000310",
+    url: "https://b2b.witt.dk/en/item/100000310",
+    market: "DK",
+    kind: "standard",
+    note: "Tillverkarens egen produktkatalog, och den mest kompletta specifikationen i kategorin. Roterande sten driven av borstlös motor på fem AA-batterier, C-formad brännare på 7,0 kW, sten på 40,5 cm i kordierit med 15 mm tjocklek, 500 grader och klar på 15 minuter.\n\nWitt anger själva ugnen som inte bärbar, medan Elgigantens produktdata för samma artikelnummer anger motsatsen. Tillverkarens uppgift gäller.",
+  },
+  {
+    publisher: "Gozney",
+    title: "Roccbox portabel pizzaugn",
+    url: "https://eu.gozney.com/products/roccbox",
+    market: "UK",
+    kind: "standard",
+    note: "Gasolbrännare som standard och vedbrännare som tillbehör, alltså den omvända ordningen mot Ooni Karu. Infällbara ben, avtagbar brännare, inbyggd termometer och en silikonmantel som gör utsidan säker att ta i, vilket är ovanligt i kategorin. Flamman beskrivs som rullande för att fördela värmen.",
+  },
+  {
+    publisher: "Gozney",
+    title: "Arc pizzaugn",
+    url: "https://eu.gozney.com/products/arc",
+    market: "UK",
+    kind: "standard",
+    note: "Anger 21,5 kg och yttermått 480 × 564 × 342 mm, med en invändig bredd på 377 mm för pizzor på 14 tum. Brännaren beskrivs som en lateral rullande flamma som ska efterlikna en vedeldad ugn och minska hur ofta pizzan måste vridas.",
+  },
+  {
+    publisher: "Sage Appliances",
+    title: "the Smart Oven Pizzaiolo BPZ820",
+    url: "https://www.sageappliances.com/sv-fi/product/BPZ820",
+    market: "FI",
+    kind: "standard",
+    note: "Tillverkaren anger 400 grader och en färdig pizza på 2 minuter, med måtten 46,1 × 47,2 × 27 cm och plats för 30 cm pizza. Den beskrivs som den första bänkugnen som når 400 grader, vilket är den högsta temperaturen bland de elektriska ugnarna som får stå inomhus.",
+  },
+  {
+    publisher: "Ninja",
+    title: "Ninja Artisan Electric Outdoor Pizza Oven & Air Fryer MO201",
+    url: "https://www.ninjakitchen.ie/products/ninja-artisan-electric-outdoor-pizza-oven-air-fryer-mo201uk-zidmo201uk",
+    market: "UK",
+    kind: "standard",
+    note: "Den enda ugnen i jämförelsen vars tillverkare anger något annat än 500 grader: 370 är taket, och det står utskrivet. 1 760 watt, 11,9 kg, 12-tumssten och 2 års garanti. Ugnen är avsedd för utomhusbruk trots att den går på el, och gör även airfryer, bakplåt och grill.",
+  },
+  {
+    publisher: "Ariete",
+    title: "Da Gennaro professional pizza oven 3901/00",
+    url: "https://www.ariete.net/en/product/ariete-da-gennaro-professional-pizza-oven",
+    market: "IT",
+    kind: "standard",
+    note: "Anger 430 grader och en pizza på 2 minuter, med två separat reglerade värmeelement och tre lägen för var elementet arbetar. Invändigt 33 × 35 × 9 cm, utvändigt 46 × 44 × 29 cm och 9,49 kg, alltså den lättaste ugnen i jämförelsen. Eldfast sten som går att ta ur, dubbelglas och innerbelysning.",
+  },
+];
+
+/**
+ * Eltandborste. Underlag i .agent/research/eltandborste.md.
+ *
+ * Tyngdpunkten ligger på tillverkarnas egna uppgifter, och det är avsiktligt:
+ * hela sidan vilar på två tal som ingen butik publicerar bredvid varandra,
+ * borsthuvudets pris per styck och laddtiden till full laddning.
+ */
+export const ELTANDBORSTE_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Test: Eltandborstar",
+    url: "https://www.radron.se/tester/halsa--skonhet/eltandborstar/",
+    date: "2026-01-23",
+    market: "SE",
+    kind: "test",
+    note:
+      "Svensk laboratorieprovning av 24 eltandborstar. De mäter hur mycket plack borstarna tar bort, hur länge batteriet räcker och hur länge det behöver laddas, hur bekväma borstarna är och hur enkla de är att rengöra. Bara grundmodellen provas, med det borsthuvud som följer med paketet.\n\nResultaten per modell ligger bakom betalvägg och vi har inte köpt dem, så vi vet inte vilken borste som vann. Två slutsatser är fritt publicerade och bär vår köpguide: att testet inte visar att oscillerande är bättre än soniskt eller tvärtom, och att en borste för 800 kronor ger lika rena tänder som den mer än dubbelt så dyra testvinnaren.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Elektrische Zahnbürsten im Test",
+    url: "https://www.test.de/elektrische-Zahnbuersten-im-Test-4621863-0/",
+    market: "DE",
+    kind: "test",
+    note:
+      "48 modeller i databasen, 13 tillagda i november 2025. Fyra gruppbetyg: tandrengöring, hantering, hållbarhet och miljöegenskaper. Priserna sträcker sig från 12 euro till över 300.\n\nResultaten per modell ligger bakom betalvägg. Fritt läsbart är slutsatsen att bra modeller finns från 12 euro.",
+  },
+  {
+    publisher: "Oral-B",
+    title: "Eltandborstar, tandtråd och tandhälsa",
+    url: "https://www.oralb.se/sv-se",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens egen svenska sajt. Anger att borsthuvudet ska bytas var tredje månad, och att iO-huvudena är \"designad för att passa endast iO-handtag\". Den andra uppgiften är hela skälet till att fattningen väger 25 i vår viktning.\n\nAnger också två års garanti som standard och tre år vid registrering.",
+  },
+  {
+    publisher: "Oral-B",
+    title: "Elektriska tandborstar från Oral-B – iO Series",
+    url: "https://www.oralb.se/sv-se/produkt-samling/eltandborstar-oral-io",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Lägen, trycksensor, display och laddare per iO-modell. iO 10 har sju lägen och färgskärm, iO 6 fem lägen och svartvit display, iO 2 tre lägen och ingen display alls.\n\nAnger också att Series 7 och uppåt laddar fullt på tre timmar med magnetisk laddare, medan Series 6 och lägre \"laddas bäst över natten\".",
+  },
+  {
+    publisher: "Oral-B",
+    title: "Oral-B Vitality Pro eltandborste",
+    url: "https://www.oralb.se/sv-se/produkter/eltandborstar/oral-b-vitality-pro-eltandborste",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens produktsida. Anger 2D-teknik som oscillerar och roterar, tre borstlägen med Sensitive Plus som det skonsammaste, och en inbyggd kvadranttimer.",
+  },
+  {
+    publisher: "Procter & Gamble",
+    title: "How long does it take to charge my Oral-B electric toothbrush battery?",
+    url: "https://pg-lex.my.salesforce-sites.com/CarehubStandalone/articles/en_US/Knowledge/How-long-does-it-take-to-charge-my-Oral-B-electric-toothbrush-battery-62811-62826",
+    market: "US",
+    kind: "standard",
+    note:
+      "Tillverkarens egen laddtidstabell per modell, och den enda källa vi hittat som täcker hela Oral-B-sortimentet. iO 7 och uppåt tre timmar, iO 3 till iO 6 sexton timmar, iO 2 tjugofyra timmar, Vitality Pro tjugotvå.\n\nSpridningen är åtta gånger och den följer inte priset. Talen bär kriteriet Batteri och laddning.",
+  },
+  {
+    publisher: "Procter & Gamble",
+    title: "Oral-B: laddtid och batterityp per version",
+    url: "https://pg-lex.my.salesforce-sites.com/CarehubStandalone/articles/en_US/FAQ/How-long-does-it-take-to-charge-my-Oral-B-electric-toothbrush-battery",
+    market: "US",
+    kind: "standard",
+    note:
+      "Tabell över hur länge en laddning räcker vid två minuters borstning två gånger om dagen, uppdelad på nickelmetallhydrid och litiumjon. Nickelmodellerna räcker 5 till 12 dagar, litiummodellerna mer än två veckor.\n\nHär står också varför Pro 3000 och Pro 3 3000 är två olika borstar: \"When we upgraded the battery, we also changed the product name.\" Siffran före modellnumret är alltså batterikemin.",
+  },
+  {
+    publisher: "Oral-B",
+    title: "Information Requirements in accordance with Regulation (EU) 2023/826",
+    url: "https://assets.ctfassets.net/by12sj8qbpuw/75DeyrL4Nu7k6chu9uT067/a5b07d58d01e212d52b653bd12a7d318/Information_Requirements_2023_826_POC.pdf",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens deklaration av standbyeffekt enligt EU-förordning 2023/826. En iO Sense-laddare med wifi påslaget drar 1,2 watt dygnet runt, alltså 10,5 kilowattimmar om året, mot 0,1 watt med wifi avslaget och 0,24 till 0,26 watt för de enklare laddarna.",
+  },
+  {
+    publisher: "Philips",
+    title: "Sonicare Series 5300 HX7101/02",
+    url: "https://www.philips.co.uk/c-p/HX7101_02/",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Tillverkarens egen specifikation: 21 dagars borstning på en laddning, 62 000 borströrelser i minuten, optisk trycksensor som varnar med vibration, ett borstläge och två intensitetsnivåer, resefodral, samt BrushPacer var tjugonde sekund och SmartTimer på två minuter.",
+  },
+  {
+    publisher: "Philips",
+    title: "Sonicare Series 6500 HX7419/01",
+    url: "https://www.philips.co.uk/c-p/HX7419_01/",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Tillverkarens egen specifikation: 21 dagars borstning på en laddning, tre borstlägen, tre intensitetsnivåer, tryckvarning, S2 Sensitive-borsthuvud och resefodral.",
+  },
+  {
+    publisher: "Philips",
+    title: "Sonicare Series 7100 HX7421/01",
+    url: "https://www.philips.co.uk/c-p/HX7421_01/",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Tillverkarens egen specifikation: 21 dagars borstning på en laddning, fyra borstlägen, tre intensitetsnivåer, synlig tryckvarning, G3 Premium Gum Care-huvud och ett resefodral med inbyggd laddport.",
+  },
+  {
+    publisher: "Philips",
+    title: "Sonicare DiamondClean 9000 HX9911/09",
+    url: "https://www.philips.co.uk/c-p/HX9911_09/",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Tillverkarens egen specifikation: 14 dagars borstning på en laddning, fyra lägen, tre intensitetsnivåer, trycksensor, appuppkoppling, laddglas och ett kompakt resefodral.\n\nDe fjorton dagarna är sju kortare än vad Philips anger för sin billigaste modell i jämförelsen.",
+  },
+  {
+    publisher: "Philips",
+    title: "Sonicare – borsthuvuden och laddning",
+    url: "https://www.philips.se/c-p/HX7101_02/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens svenska sida, med formuleringen som avgör hela borsthuvudsfrågan för Philips: varje Sonicare-huvud är \"kompatibel med alla Sonicare-handtag utom Philips One och Kids\".\n\nDeras egna listpriser samma dag: A3 Premium All-in-One tvåpack 449 kronor, W2 Optimal White fyrpack 429 kronor. Här står också kundbetyget 4,6 av 5 på 273 recensioner.",
+  },
+  {
+    publisher: "Philips",
+    title: "Philips Sonicare – laddning och drifttid",
+    url: "https://images-na.ssl-images-amazon.com/images/I/81qIbjSjxFS.pdf",
+    market: "UK",
+    kind: "standard",
+    note:
+      "Tillverkarens bruksanvisning, med den uppgift som gäller hela serien: \"It can take up to 24 hours before your Philips Sonicare toothbrush is fully charged.\" Ingen Sonicare i jämförelsen laddar snabbare än så, oavsett pris.",
+  },
+  {
+    publisher: "Oral-B",
+    title: "Oral-B iO och iOsense – bruksanvisning",
+    url: "https://gzhls.at/blob/ldb/4/a/b/d/06f208b48dec79f98f57a7c414770361d909.pdf",
+    market: "DE",
+    kind: "standard",
+    note:
+      "Tillverkarens bruksanvisning för iO-serien. Anger tre timmars full laddning för de modeller som använder den magnetiska laddaren, timerns zonbyte var trettionde sekund och två års garanti.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/eltandborste": ELTANDBORSTE_SOURCES,
+  "/pizzaugn": PIZZAUGN_SOURCES,
   "/skaftdammsugare": SKAFTDAMMSUGARE_SOURCES,
   "/babyvakt": BABYVAKT_SOURCES,
   "/mjolkskummare": MJOLKSKUMMARE_SOURCES,
   "/powerstation": POWERSTATION_SOURCES,
   "/iphone-fodral": IPHONE_FODRAL_SOURCES,
   "/slackspray": SLACKSPRAY_SOURCES,
+  "/smartwatch": SMARTWATCH_SOURCES,
   "/bluetooth-hogtalare": BLUETOOTH_HOGTALARE_SOURCES,
   "/iphone-skarmskydd": IPHONE_SKARMSKYDD_SOURCES,
   "/iphone-skal": IPHONE_SKAL_SOURCES,
