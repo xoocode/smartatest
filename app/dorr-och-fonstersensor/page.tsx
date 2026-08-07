@@ -110,7 +110,7 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Shelly BLU Door/Window ZB vinner för 239 kronor: 35 millimeter lång, tre år på ett knappcellsbatteri och fri att koppla till vilken hubb du vill. Ska det kosta mindre gör Sonoff SNZB-04PR2 grundjobbet för 159. Och räkna med hubben: den billigaste sensorn här kräver en basstation som kostar mer än sensorn.",
+    "Bäst i test dörr- och fönstersensor 2026: tolv magnetkontakter jämförda från 129 kr. Bästa sensorn är 35 mm och håller tre år. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -165,10 +165,10 @@ export default async function DorrOchFonstersensorPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Shelly BLU Door/Window ZB för 239 kronor. Den är 35 millimeter
-              lång och får därför plats på en smal fönsterkarm, går tre år på ett
-              knappcellsbatteri och talar både Bluetooth och Zigbee, så du väljer
-              hubb i efterhand. Ska det kosta mindre gör Sonoff SNZB-04PR2
+              Vi rekommenderar Shelly BLU Door/Window ZB för 239 kronor, eftersom
+              den är 35 millimeter lång och därför får plats på en smal
+              fönsterkarm, med tre år på ett knappcellsbatteri. Den talar både Bluetooth och Zigbee, så hubben
+              väljs i efterhand. Ska det kosta mindre gör Sonoff SNZB-04PR2
               grundjobbet för 159 kronor. Och räkna med hubben innan du jämför
               priser: fyra av de tolv sensorerna fungerar bara med ett enda
               märkes basstation, och den billigaste sensorn här kräver en som

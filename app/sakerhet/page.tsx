@@ -35,11 +35,14 @@ const PAGE_URL = "/sakerhet";
 const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: "Säkerhet i hemmet: brandvarnare, vattenlarm och lås",
+  title: "Bäst i test 2026 brandvarnare, hemlarm och kodlås: 21 jämförelser",
   description:
     "Våra jämförelser av brandvarnare, vattenlarm, kameror och lås. Vi läser de tester som finns, redovisar viktningen och säger rakt ut när ingen har testat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: pageOpenGraph({ title: "Säkerhet i hemmet", path: PAGE_URL }),
+  openGraph: pageOpenGraph({
+    title: "Bäst i test 2026 brandvarnare, hemlarm och kodlås: 21 jämförelser",
+    path: PAGE_URL,
+  }),
 };
 
 const FAQ = [
@@ -116,7 +119,9 @@ export default function SakerhetPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             <p className="eyebrow text-brand">Kategori</p>
-            <h1 className="text-h1">Säkerhet i hemmet</h1>
+            <h1 className="text-h1">
+              Bäst i test 2026 brandvarnare, hemlarm och kodlås: 21 jämförelser
+            </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               De här produkterna köper man en gång och hoppas aldrig få höra.
               Det gör dem svåra att jämföra, och det gör också att marknaden är
@@ -155,7 +160,8 @@ export default function SakerhetPage() {
             Kategorin har ett problem som inte finns i belysning eller
             robotdammsugare: <strong>nästan ingen testar</strong>. Stiftung
             Warentest tänder eld i brandkammare, men på den tyska marknaden, och
-            deras vinnare säljs inte i Sverige. Vattenlarm har ingen provat alls.
+            deras vinnare säljs inte i Sverige. Vattenlarm har ingen provat
+            alls.
           </p>
           <p>
             Samtidigt är jämförelserna av de här produkterna fulla av rubriker
@@ -164,9 +170,9 @@ export default function SakerhetPage() {
           <p>
             Vår linje är därför enkel. Vi rankar på det som går att kontrollera:
             specifikationer lästa på butikens egen sida, med datum. Vi räknar in
-            vad andra jämförelser kommit fram till, men vi skriver ut vilka de är
-            och vad de faktiskt gjort. Och vi påstår aldrig en mätning vi inte
-            utfört.
+            vad andra jämförelser kommit fram till, men vi skriver ut vilka de
+            är och vad de faktiskt gjort. Och vi påstår aldrig en mätning vi
+            inte utfört.
           </p>
         </Prose>
       </Section>
@@ -181,10 +187,7 @@ export default function SakerhetPage() {
       </Section>
 
       <Container size="default" className="pad-section">
-        <LegalDisclaimer
-          items={["general", "pricing"]}
-          className="mb-block"
-        />
+        <LegalDisclaimer items={["general", "pricing"]} className="mb-block" />
       </Container>
     </>
   );

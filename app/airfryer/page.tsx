@@ -81,7 +81,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ninja Foodi FlexDrawer AF500EU vinner för 1 890 kronor: delaren lyfts ur och alla 2 470 watt går till en kammare på 10,4 liter. Lagar du åt en eller två räcker Philips 2000 Series för 859 kronor. En dubbelkorg delar sin effekt, och den andra lådan lägger till sjuttio watt, inte fjortonhundra.",
+    "Airfryer bäst i test 2026: tio korgfritöser jämförda från 859 kr. Två lådor ger 1 235 watt i varje, inte 2 470. Se vad du förlorar.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -135,9 +135,9 @@ export default async function AirfryerPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Ninja Foodi FlexDrawer AF500EU för 1 890 kronor. Delaren lyfts
-              ur, och då går alla 2 470 watt till en enda kammare på 10,4 liter i
-              stället för 1 235 watt till varje låda. Lagar du åt en eller två
+              Vi rekommenderar Ninja Foodi FlexDrawer AF500EU för 1 890 kronor,
+              eftersom den lägger alla 2 470 watt på en enda kammare när delaren
+              lyfts ur, där en fast dubbelkorg delar sina på två. Lagar du åt en eller två
               räcker Philips 2000 Series NA221/00 på 859 kronor, som lägger
               1 500 watt på en korg. Och läs inte literantalet som portioner:
               maten ska ligga i ett lager på botten, vilket tillverkarna skriver

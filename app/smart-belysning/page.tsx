@@ -57,7 +57,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Philips Hue Color Ambiance vinner på dimring och stabilitet och kostar 599 kronor. IKEA KAJPLATS ger bättre färgåtergivning för 99. Fem E27-lampor jämförda.",
+    "Bäst i test smart belysning 2026: fem E27-lampor jämförda från 99 kr. Lampan för 99 kr har bäst färgåtergivning. Se vinnaren här.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -110,9 +110,11 @@ export default async function SmartBelysningPage() {
           <div className="flex flex-col gap-row">
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Philips Hue Color Ambiance vinner för 599 kronor, på att den
-              dimras hela vägen ner utan att blinka och håller uppkopplingen
-              när lamporna blir trettio. Men färgerna återger den sämre än
+              Vår testvinnare är Philips Hue Color Ambiance för 599 kronor,
+              eftersom den går ner till 2 000 kelvin, levande ljus, där ingen
+              annan lampa här kommer under 2 200. Den håller dessutom
+              uppkopplingen när lamporna blir trettio. Men färgerna återger den
+              sämre än
               IKEA KAJPLATS, som kostar 99 och ger mer ljus i varmt läge.
               Färgåtergivningen följer inte priset i den här kategorin.
             </p>

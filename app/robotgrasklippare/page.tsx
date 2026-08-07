@@ -95,7 +95,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Dreame A1 Pro klipper 2 000 kvadratmeter och tar 45 procents lutning för 11 490 kronor, störst tomt per krona av åtta robotar från 1 999 till 16 089. Maxlutningen avgör oftare än priset om köpet fungerar.",
+    "Robotgräsklippare bäst i test 2026: åtta robotklippare jämförda från 1 999 kr. Maxlutningen avgör oftare än priset. Se vad din tomt kräver.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -149,9 +149,10 @@ export default async function RobotgrasklipparePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Dreame A1 Pro klipper 2 000 kvadratmeter och tar 45 procents
-              lutning för 11 490 kronor, vilket är den största gräsmattan här
-              till det lägsta priset per kvadratmeter. Men den siffra som oftast
+              Vår testvinnare är Dreame A1 Pro för 11 490 kronor, eftersom den
+              klipper 2 000 kvadratmeter till 5,75 kronor per kvadratmeter,
+              lägsta priset per yta av robotarna här. Den tar dessutom
+              45 procents lutning. Men den siffra som oftast
               gör att ett robotköp inte fungerar är inte priset utan
               maxlutningen, och en
               slänt som ser måttlig ut ligger ofta kring 25 procent. Vi jämförde

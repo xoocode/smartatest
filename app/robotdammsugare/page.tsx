@@ -72,7 +72,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Dreame Aqua10 Ultra Roller vinner för 14 890 kronor, med den enda moppen som sköljs ren medan den arbetar. Har du höga trösklar tar Roborock Saros 20 Sonic sig över 45 millimeter för 8 990. Sugkraften i pascal kan du strunta i: Stiftung Warentest kallar talet reklam. Sju robotdammsugare från 2 290 kronor.",
+    "Robotdammsugare bäst i test 2026: sju städrobotar jämförda från 2 290 kr. En enda mopp sköljs ren medan roboten kör. Se vilken det är.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -127,8 +127,9 @@ export default async function RobotdammsugarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Dreame Aqua10 Ultra Roller vinner för 14 890 kronor, med den enda
-              moppen som sköljs och skrapas ren medan roboten arbetar. Har du
+              Vår testvinnare är Dreame Aqua10 Ultra Roller för 14 890 kronor,
+              eftersom rullmoppen sköljs och skrapas ren medan roboten moppar, så
+              smutsen från hallen inte följer med in i köket. Har du
               lister mellan rummen tar Roborock Saros 20 Sonic sig över
               45 millimeters tröskel för 8 990. Talet du kan strunta i är
               sugkraften: Stiftung Warentest kallar den ett reklampåstående, och

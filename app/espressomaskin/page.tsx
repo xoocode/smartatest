@@ -84,7 +84,7 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Melitta Barista T Smart vinner för 8 550 kronor, med två bönkammare så koffeinfritt på kvällen kostar ett handgrepp. Vill du bara ha cappuccino med ett tryck räcker Philips 3300 LatteGo för 4 999. Det som växer med priset är mjölkautomatiken: den dyraste maskinen har sex malningssteg, den näst billigaste har tretton.",
+    "Espressomaskin bäst i test 2026: tolv helautomater jämförda. Maskinen för 14 888 kr har sex malningssteg, den för 3 159 har tretton. Se vinnaren.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -138,9 +138,9 @@ export default async function EspressomaskinPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Melitta Barista T Smart för 8 550 kronor. Den är den enda här
-              med två bönkammare, så koffeinfritt på kvällen kostar ett
-              handgrepp i stället för att du häller ur behållaren. Vill du bara
+              Vår testvinnare är Melitta Barista T Smart för 8 550 kronor,
+              eftersom den har två bönkammare, så du slipper hälla ur behållaren
+              när du vill ha koffeinfritt på kvällen. Vill du bara
               ha cappuccino med ett tryck räcker Philips 3300 LatteGo på
               4 999 kronor, som har samma kvarn som Philips maskiner för det
               dubbla. Och läs prislappen rätt: det som växer med den är

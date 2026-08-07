@@ -74,7 +74,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Spigen Rugged Armor MagFit för 349 kr vinner: stötdämpande skum i hörnen och ett kamerablock som ligger under skalets yta. Vi jämför tolv skal till iPhone 17 från 99 till 1 099 kronor på konstruktion, prisvärde och magnetring.",
+    "iPhone-skal bäst i test 2026: tolv skyddsskal jämförda från 99 kr. Fallhöjden spänner 3 till 7,6 meter. Se vad talen är värda.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -126,9 +126,10 @@ export default async function IphoneSkalPage() {
               99 till 1&nbsp;099 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Spigen Rugged Armor MagFit för 349 kronor vinner, därför att den
-              lägger stötdämpande skum i hörnen och bygger in hela kamerablocket
-              så linserna aldrig möter bordet. Vill du se telefonens färg kostar
+              Vår testvinnare är Spigen Rugged Armor MagFit för 349 kronor,
+              eftersom kamerablocket ligger under skalets yta, så linserna aldrig
+              tar i bordet när telefonen läggs ner. Den lägger dessutom
+              stötdämpande skum i hörnen. Vill du se telefonens färg kostar
               Spigen Ultra Hybrid MagFit 269 med samma magnetring, och ska skalet
               bara hålla repor borta räcker Trolsks matta för 99.
             </p>

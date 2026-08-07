@@ -64,7 +64,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Nomad Modern Leather Folio för 699 kr vinner: garvat läder och den enda kombinationen av magnetring och laddning genom fodralet. Vi jämför tolv uppfällbara plånboksfodral till iPhone 17 från 149 till 799 kronor på kortfack, konstruktion och laddning.",
+    "iPhone plånboksfodral bäst i test 2026: tolv fodral med kortfack jämförda från 149 kr. Bara fem laddar genom fodralet. Se vilka.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -118,8 +118,10 @@ export default async function IphoneFodralPage() {
               från 149 till 799 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Nomad Modern Leather Folio för 699 kronor vinner, därför att den
-              är ensam om att kombinera garvat läder med en magnetring som låter
+              Vår testvinnare är Nomad Modern Leather Folio för 699 kronor,
+              eftersom fullnarvigt läder från ett namngivet garveri mörknar och
+              blir vackrare med åren där konstläder spricker i vecket.
+              Magnetringen låter dessutom
               telefonen laddas kvar i fodralet. Vill du bara bära ett par kort
               gör Trolsks fodral för 199 samma sak. Sju av tolv fodral stänger av
               den trådlösa laddningen helt, och det står aldrig i produktnamnet.{" "}

@@ -69,7 +69,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Levoit Core 600S renar 147 kvadratmeter för 2 990 kronor och är bäst i test. Vi jämförde åtta luftrenare från 599 till 2 999 kronor på vad filtret fångar, hur mycket luft de orkar med, ljudnivån och vad ett utbytesfilter kostar.",
+    "Luftrenare bäst i test 2026: åtta HEPA-renare jämförda från 600 kr. Fyra av tjugo klarade inte ozongränsen. Se vilka som bara filtrerar.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -123,9 +123,11 @@ export default async function LuftrenarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Levoit Core 600S renar 147 kvadratmeter med ett H13-filter och
-              kostar 2 990 kronor, alltså nio kronor mindre än den halvt så
-              starka modellen i samma serie. Ska apparaten stå i ett sovrum är
+              Vår testvinnare är Levoit Core 600S för 2 990 kronor, eftersom den
+              renar med filter enbart, utan jonisering och utan UV-lampa, och
+              därför inte bildar någon ozon i rummet. Den tar 147 kvadratmeter
+              med ett H13-filter, nio kronor billigare än den halvt så starka
+              modellen i samma serie. Ska apparaten stå i ett sovrum är
               Core 300S Pro för 1 590 kronor tystare och räcker ändå till 50
               kvadratmeter. Vi jämförde åtta luftrenare från 599 till 2 999
               kronor på vad filtret fångar, hur mycket luft de orkar med och vad

@@ -81,7 +81,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Homey Pro talar åtta radior och kör allt lokalt, men kostar 4 999 kronor. Aqara Hub M3 når nästan lika långt för 1 729, och en Matter-controller för 329 samlar fler märken än en brygga för 899. Vi jämförde åtta hubbar på vad de faktiskt når.",
+    "Smart hem-hubb bäst i test 2026: åtta hubbar jämförda från 329 kr. En controller för 329 kr når fler märken än en brygga för 899. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -135,9 +135,10 @@ export default async function SmartHemHubbPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Athom Homey Pro samlar hela hemmet: åtta radior i samma låda,
-              inklusive infraröd och 433 MHz som når utrustningen du redan äger,
-              och all automation körs lokalt. Den kostar 4 999 kronor. Behöver
+              Vår testvinnare är Athom Homey Pro för 4 999 kronor, eftersom den
+              har åtta radior i lådan, infraröd och 433 MHz inräknade, så den når
+              utrustningen du redan äger och inte bara ny. All automation körs
+              dessutom lokalt. Behöver
               du inte Z-Wave når Aqara Hub M3 nästan lika långt för 1 729, och
               en Matter-controller för 329 kronor samlar fler märken än en
               brygga för 899. Vi jämförde åtta hubbar på vad de faktiskt når.

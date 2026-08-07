@@ -13,6 +13,10 @@ Det allmänna svenska hantverket ligger i den globala skillen
 `svensk-produktrecension-skrivstil`. Här står bara det som avgjorts för
 smartatest.se.
 
+Filerna i den här mappen tilltalar skribenten som `hen`. Det är instruktionstext,
+inte läsartext; i det köparen ser gäller den globala skillens regel att undvika
+`hen`.
+
 ---
 
 ## Recensionens fyra rörelser
@@ -49,7 +53,8 @@ osäker av att läsa oss, inte mindre.
 ### Öppningen namnger produkten och dess styrka
 
 Ingen uppvärmning, ingen fråga till läsaren, ingen scen. Omdömet får öppna
-platt, men aldrig subjektslöst och aldrig på ett dokument.
+platt, men aldrig subjektslöst och aldrig på ett dokument (allmänna formen står
+i globala skillen Del 2.1).
 
 | I stället för | Skriv |
 |---|---|
@@ -142,12 +147,10 @@ Bokstäver kvar där talet inte är ett mått: "ett par kilo", "de sju", "en end
 
 ## Betyget är ingen konsekvens
 
-Vi sätter kriteriebetyg och de är publicerade. Men "det kostar poäng på
-trösklar" säger läsaren ingenting, för poängen är vår interna valuta och hen ska
-fatta ett beslut, inte läsa ett protokoll.
-
-Omdömet får nämna betyget bara om samma mening säger vad det betyder för
-köparen. Skriv vad hen förlorar:
+Betyget är vår interna valuta. Står det ensamt som konsekvens, "det kostar poäng
+på trösklar", säger det läsaren ingenting; hen ska fatta ett beslut, inte läsa
+ett protokoll. Nämn det bara om samma mening säger vad det betyder för köparen,
+alltså vad hen förlorar (allmänna regeln: globala skillen Del 4.5):
 
 | I stället för | Skriv |
 |---|---|
@@ -160,12 +163,10 @@ fyra" förklarar vår sortering, inte produkten.
 
 ## Rubriker ska förtjäna läsningen
 
-En rubrik med ett tal eller en konkret konsekvens i sig gör det. En rubrik som
-namnger ett ämne gör det inte.
-
-"Sugkraften i pascal" är för vagt: det säger vilket ämne som kommer, inte varför
-någon ska läsa vidare. "10 000 pascal räcker till mattor, 4 000 gör det inte"
-gör båda.
+En rubrik ska bära ett tal eller en konkret konsekvens, inte bara namnge ett
+ämne (allmänna regeln: globala skillen Del 3). "Sugkraften i pascal" säger
+vilket ämne som kommer; "10 000 pascal räcker till mattor, 4 000 gör det inte"
+säger varför man läser vidare.
 
 En rubrik får inte heller handla om källäget. "200 kilo, 40 minuter, och
 tystnaden däremellan" är välskriven och fel: tystnaden är ett påstående om
@@ -174,7 +175,8 @@ tillverkarnas publicering, inte om vad läsaren får.
 ## Namnge varan, inte platsen
 
 Formuleringar som pekar på sidan i stället för på produkten är den vanligaste
-tomgången i våra egna texter, och de finns inte alls i referenskorpusen.
+tomgången i våra egna texter, och de finns inte alls i referenskorpusen
+(allmänna regeln, med varianten "av de N", står i globala skillen Del 5).
 
 | Vi skrev | Skriv |
 |---|---|
@@ -198,9 +200,6 @@ tester. En nackdel som är en förklädd fördel ("enda nackdelen är att den ä
 kraftfull att...") är värre än ingen alls, eftersom den avslöjar att listan är
 skriven för att sälja.
 
-En nackdel får peka vidare till produkten som löser problemet. Det är den
-nyttigaste sortens nackdel vi kan skriva.
-
 Bra nackdelar, alla från riktiga sidor:
 
 - "Bara två meter, så den som vill ha en kort kabel till väskan får leta hos någon annan"
@@ -210,9 +209,9 @@ Bra nackdelar, alla från riktiga sidor:
 
 Var och en säger vad ägaren råkar ut för. Det är testet.
 
-En nackdel får peka vidare till den produkt som löser problemet. Det är den
-mest användbara sortens nackdel vi kan skriva, eftersom den både är ärlig och
-för läsaren närmare ett beslut.
+En nackdel får peka vidare till den produkt som löser problemet. Det är den mest
+användbara sortens nackdel vi kan skriva, eftersom den både är ärlig och för
+läsaren närmare ett beslut.
 
 ## Taglines och superlativ
 
@@ -239,14 +238,10 @@ på utmärkelsebrickan, så kortet säger samma sak tre gånger och lägger noll
 information till. Skriv vem den passar i stället: `Bäst för uthyrning`,
 `Bäst för höga fönster`. `pnpm check:omdomen` listar de sidor som har kvar det.
 
-**Två produkter på samma sida får inte dela superlativ.** Den avvägande läsaren
-står mellan just de två, och två etiketter som pekar på samma köpare lämnar hen
-utan hjälp precis där hjälpen behövs. Samma kontroll fäller dubbletter.
-
-Två superlativ på samma sida får inte peka på samma köpare. "Bäst för många
-fönster i rad" och "Bäst för hela huset på en dag" lämnade läsaren som stod
-mellan just de två produkterna utan hjälp, vilket är precis den läsare
-superlativen finns för.
+**Två produkter på samma sida får inte dela superlativ, och inte peka på samma
+köpare.** "Bäst för många fönster i rad" och "Bäst för hela huset på en dag"
+lämnade den avvägande läsaren, som stod mellan just de två, utan hjälp precis
+där hjälpen behövs. Samma kontroll fäller dubbletter.
 
 ### Placeringar är inga utmärkelser
 
@@ -260,6 +255,31 @@ behöver skillnaden som avgör, inte en placering. Se `who-reads.md`.
 
 Kvar som fasta etiketter är `winner`, `budget`, `premium` och `editor`. De
 säger alla något om urvalet, inte om ordningen.
+
+## Rädsla är inget säljargument
+
+Halva sortimentet är säkerhetsprodukter, och rädsla är den känsla som lättast
+går att sälja på. En affiliatesida tjänar kortsiktigt på att förstärka den, och
+det är just därför vi inte gör det. Läsaren har redan föreställt sig katastrofen,
+det är därför hen är här. Beskriv skyddet, inte det som skyddet ska förhindra.
+
+| Upplysa | Utnyttja |
+|---|---|
+| "En varnare per plan är minimum, och de flesta hem har för få." | "De flesta hem är livsfarligt underskyddade." |
+| "Tioårsbatteriet kostar mer, men du slipper pipet klockan tre på natten." | "Ett tomt batteri kan kosta dig allt." |
+| "Ett larm utan abonnemang räcker för de flesta lägenheter." | "Utan larm är du ett självklart mål." |
+
+Vänstra spalten beskriver vad produkten gör. Högra beskriver vad som händer utan
+den, och där går gränsen.
+
+Två saker till för den här läsaren. Prisspannet ska vara ärligt både uppåt och
+nedåt, annars köper hen dyrare än nödvändigt av ren oro, och det billiga
+alternativet räcker oftare än branschen låter påskina. Och finns en svensk
+regel, en standard eller ett försäkringskrav, skriv ut den: det är den enda
+uppgiften på sidan som gör oron mindre i stället för större.
+
+Var på sidan ett katastroffynd får stå, under rekommendationen och aldrig före,
+avgörs i `.claude/references/page-anatomy.md`.
 
 ## Långa texter bryts i stycken
 
@@ -309,7 +329,7 @@ vinnarens omdöme åt till att en mantel inte stod angiven — och den stod angi
 TPE, i Delocks eget datablad. Två fel i samma stycke: fel research, och fel
 ämne.
 
-Fyra saker hör aldrig hemma i ett omdöme, av andra skäl:
+Det här hör aldrig hemma i ett omdöme, av andra skäl:
 
 - En upplevelse av produkten. Du har inte hållit i den.
 - Ett mätvärde vi inte hämtat från en namngiven källa.

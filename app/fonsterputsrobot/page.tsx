@@ -78,7 +78,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Kärcher RCW 2 vinner för 2 190 kronor: billigast av sju robotar och den som sitter kvar längst när strömmen går, 40 minuter. Är dina rutor mindre än 35 × 35 cm tar du Ecovacs Winbot Mini för 3 299 kronor, som kommer upp på 22 × 25. Vi jämförde sju fönsterputsrobotar från 2 190 till 6 026 kronor.",
+    "Fönsterputsrobot bäst i test 2026: sju fönsterrobotar jämförda från 2 190 kr. Billigaste roboten vinner, och sitter kvar längst. Se varför.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -132,9 +132,11 @@ export default async function FonsterputsrobotPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Kärcher RCW 2 för 2 190 kronor. Den är billigast av de sju
-              robotarna vi jämfört och sitter ändå kvar längst när strömmen går:
-              40 minuter på reservbatteriet, mot 20 för HOBOT-388. Är din minsta
+              Vi rekommenderar Kärcher RCW 2 för 2 190 kronor, eftersom den
+              sitter kvar 40 minuter på rutan om strömmen går, dubbelt mot
+              HOBOT-388 och nog för att någon ska hinna hem och lyfta ner den.
+              Den är dessutom billigast av de sju
+              robotarna vi jämfört. Är din minsta
               ruta mindre än 35 × 35 centimeter kommer den inte upp på den, och
               då är Ecovacs Winbot Mini för 3 299 kronor den enda som klarar
               22 × 25. Nedan står varför, och vad de andra fem kostar.

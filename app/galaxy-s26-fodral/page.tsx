@@ -74,7 +74,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Gear Plånboksfodral för 199 kr vinner: tre kortfack, eget sedelfack och trådlös laddning genom fodralet. Vi jämför tolv plånboksfodral till Galaxy S26 från 89 till 479 kronor.",
+    "Galaxy S26 plånboksfodral bäst i test 2026: tolv flipfodral jämförda från 89 kr. Två laddar telefonen genom fodralet. Se vilka.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -126,9 +126,10 @@ export default async function GalaxyS26FodralPage() {
               fodral, från 89 till 479 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Gear Plånboksfodral för 199 kronor vinner, därför att det har tre
-              kortfack, ett separat sedelfack och låter telefonen ligga kvar på
-              laddplattan. Ska plånboken rymmas billigare tar Tender tre fickor
+              Vår testvinnare är Gear Plånboksfodral för 199 kronor, eftersom
+              telefonen laddas trådlöst genom fodralet och därför kan ligga kvar
+              på plattan med korten i. Tre kortfack och ett separat sedelfack.
+              Ska plånboken rymmas billigare tar Tender tre fickor
               för 129 kronor. Och nästan varje fodral här utlovar en magnet som
               inte är den du tror.
             </p>

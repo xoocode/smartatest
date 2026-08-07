@@ -34,11 +34,16 @@ const PAGE_URL = "/hem-hushall";
 const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: "Hem & hushåll: luftrenare och maskinerna som gör jobbet",
+  title:
+    "Bäst i test 2026 luftrenare, avfuktare och robotdammsugare: 10 jämförelser",
   description:
     "Våra jämförelser av luftrenare och hushållsmaskiner. Vi läser myndigheternas granskningar och standarderna bakom orden på kartongen, redovisar viktningen och säger rakt ut när ingen har testat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: pageOpenGraph({ title: "Hem & hushåll", path: PAGE_URL }),
+  openGraph: pageOpenGraph({
+    title:
+      "Bäst i test 2026 luftrenare, avfuktare och robotdammsugare: 10 jämförelser",
+    path: PAGE_URL,
+  }),
 };
 
 const FAQ = [
@@ -111,7 +116,10 @@ export default function HemHushallPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             <p className="eyebrow text-brand">Kategori</p>
-            <h1 className="text-h1">Hem &amp; hushåll</h1>
+            <h1 className="text-h1">
+              Bäst i test 2026 luftrenare, avfuktare och robotdammsugare: 10
+              jämförelser
+            </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Maskiner som gör ett arbete du annars gör själv, eller inte alls.
               De köps på prestanda och inte på uppkoppling, och de säljs med ord
@@ -148,8 +156,10 @@ export default function HemHushallPage() {
         <Prose>
           <p>
             Kategorierna här har ett gemensamt problem:{" "}
-            <strong>orden på kartongen är inte reglerade på det sätt köparen tror</strong>.
-            HEPA låter som ett godkännande men är en standard med klasser, och
+            <strong>
+              orden på kartongen är inte reglerade på det sätt köparen tror
+            </strong>
+            . HEPA låter som ett godkännande men är en standard med klasser, och
             bara de två översta räknas. Samma sak gäller sugkraft i pascal och
             navigering med lidar: tal som går att skriva ut utan att någon
             kontrollerar dem.
@@ -157,13 +167,13 @@ export default function HemHushallPage() {
           <p>
             Vår linje är att läsa det som faktiskt binder tillverkaren.
             Standarden, om det finns en. Myndighetens granskning, om det gjorts
-            en. Butikens egen specifikation, med datum, om det är allt som finns.
-            Och att skriva ut vilket av de tre ett betyg vilar på.
+            en. Butikens egen specifikation, med datum, om det är allt som
+            finns. Och att skriva ut vilket av de tre ett betyg vilar på.
           </p>
           <p>
             På luftrenarsidan gav det ett resultat vi inte väntade oss: två
-            myndigheter hade granskat kategorin sju månader innan vi började, och
-            ingen av de sex svenska jämförelserna nämnde det.
+            myndigheter hade granskat kategorin sju månader innan vi började,
+            och ingen av de sex svenska jämförelserna nämnde det.
           </p>
         </Prose>
       </Section>
@@ -178,10 +188,7 @@ export default function HemHushallPage() {
       </Section>
 
       <Container size="default" className="pad-section">
-        <LegalDisclaimer
-          items={["general", "pricing"]}
-          className="mb-block"
-        />
+        <LegalDisclaimer items={["general", "pricing"]} className="mb-block" />
       </Container>
     </>
   );

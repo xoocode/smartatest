@@ -75,7 +75,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ringke Magnetic Fusion X för 229 kr vinner: luftkuddar i hörnen, förhöjda kanter och den magnetring som Galaxy S26 saknar. Vi jämför tolv skyddsskal till Galaxy S26 från 159 till 779 kronor på magnet, konstruktion och pris.",
+    "Galaxy S26-skal bäst i test 2026: tolv skyddsskal jämförda från 159 kr. Luftkuddar i hörnen och förhöjd kant. Se vilket som har båda.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -127,9 +127,10 @@ export default async function GalaxyS26SkalPage() {
               Galaxy S26, från 159 till 779 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Ringke Magnetic Fusion X för 229 kronor vinner, därför att den har
-              luftkuddar i hörnen, förhöjda kanter och den magnetring som
-              telefonen själv saknar. Galaxy S26 har nämligen inga inbyggda
+              Vår testvinnare är Ringke Magnetic Fusion X för 229 kronor,
+              eftersom den ger samma magnetring och samma förhöjda kanter som
+              Samsungs eget skal, 550 kronor billigare. Den har dessutom
+              luftkuddar i hörnen. Galaxy S26 har nämligen inga inbyggda
               magneter, så Samsungs egen powerbank och magnetladdare fäster bara
               om skalet bär ringen. Samma skal utan den kostar 30 kronor mindre
               och heter nästan likadant, och det är hela anledningen till att

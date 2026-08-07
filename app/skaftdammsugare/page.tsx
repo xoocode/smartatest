@@ -68,7 +68,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Bosch Unlimited 10 vinner för 6 498 kronor: batteriet lyfts ur och sitter i Power for All 18V, och motorn har tio års garanti. Vi jämförde åtta skaftdammsugare från 1 290 till 8 990 kronor och läste tillverkarnas egna datablad.",
+    "Skaftdammsugare bäst i test 2026: åtta sladdlösa dammsugare jämförda från 1 290 kr. En tar samma batteri som borrmaskinen. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -120,9 +120,11 @@ export default async function SkaftdammsugarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Bosch Unlimited 10 vinner för 6 498 kronor. Batteriet lyfts ur och
-              byts mot ett laddat, det sitter i samma Power for All 18V som
-              Boschs häcksax, och motorn har tio års garanti. Vi jämförde åtta
+              Vi rekommenderar Bosch Unlimited 10 för 6 498 kronor, eftersom den
+              både går 65 minuter i ekoläge med borsten igång och tar ett laddat
+              batteri när de minuterna är slut. Batteriet sitter i samma Power
+              for All 18V som Boschs häcksax, och motorn har tio års garanti.
+              Vi jämförde åtta
               skaftdammsugare från 1 290 till 8 990 kronor och läste
               tillverkarnas egna datablad, eftersom det är där drifttiden står
               för det läge du faktiskt städar i.

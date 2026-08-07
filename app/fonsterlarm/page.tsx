@@ -101,7 +101,7 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Luxorparts fyrpack vinner för 299 kronor: 130 decibel i 30 sekunder och en fjärrkontroll, till omkring 92 kronor per fönster. Ska bara ett fönster larmas är Clas Ohlsons lika högljudda larm 119,90. Och läs decibeltalet innan du köper: tre av sju larm här ligger på 85 dB trots att alla säljs som högljudda.",
+    "Bäst i test fönsterlarm 2026: sju fristående dörr- och fönsterlarm jämförda från 59 kr. Tre av sju larmar på 85 dB, inte 130. Se vilka.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -156,11 +156,11 @@ export default async function FonsterlarmPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Luxorparts fyrpack för 299 kronor. Det ger 130 decibel i 30
-              sekunder, en fjärrkontroll som flyttar av-knappen ur rummet, och
-              fyra larm för omkring 92 kronor per fönster med batterier
-              inräknade. Ska bara ett fönster larmas är Clas Ohlsons larm lika
-              högljutt för 119,90. Och läs decibeltalet innan du beställer: tre
+              Vi rekommenderar Luxorparts fyrpack för 299 kronor, omkring
+              92 kronor per fönster med batterier inräknade, eftersom det ger
+              130 decibel, mer än något annat larm här. Fjärrkontrollen flyttar av-knappen ur rummet. Ska bara
+              ett fönster larmas är Clas Ohlsons larm lika
+              högljutt för 120. Och läs decibeltalet innan du beställer: tre
               av de sju larmen här ligger på 85 dB, vilket är ungefär en
               dammsugare och går att sova igenom två rum bort.
             </p>

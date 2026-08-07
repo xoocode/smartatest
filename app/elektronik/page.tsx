@@ -34,16 +34,20 @@ const PAGE_URL = "/elektronik";
 const UPDATED = "2026-08-05";
 
 export const metadata: Metadata = {
-  title: "Elektronik: laddare och tillbehören som följer med dig",
+  title: "Bäst i test 2026 laddare, powerbanks och mobilskal: 15 jämförelser",
   description:
     "Våra jämförelser av laddare och elektroniktillbehör. Vi läser reglerna bakom orden på kartongen, redovisar viktningen öppet och säger rakt ut när ingen har provat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: pageOpenGraph({ title: "Elektronik", path: PAGE_URL }),
+  openGraph: pageOpenGraph({
+    title: "Bäst i test 2026 laddare, powerbanks och mobilskal: 15 jämförelser",
+    path: PAGE_URL,
+  }),
 };
 
 const FAQ = [
   {
-    question: "Varför har en jämförelsesajt för hemmet en grupp för elektronik?",
+    question:
+      "Varför har en jämförelsesajt för hemmet en grupp för elektronik?",
     answer:
       "Därför att frågorna liknar varandra mer än produkterna gör. En laddare säljs med ett wattal på kartongen som ingen kontrollerat, precis som en robotdammsugare säljs med ett pascaltal och en brandfilt med ett årtal. Vårt arbete är detsamma oavsett produkt: läsa regeln eller standarden bakom ordet, läsa den provning som finns, och skriva ut vad som är uppmätt och vad som är ett påstående. Gruppen öppnades i augusti 2026 med USB-C-laddare.",
   },
@@ -107,7 +111,9 @@ export default function ElektronikPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             <p className="eyebrow text-brand">Kategori</p>
-            <h1 className="text-h1">Elektronik</h1>
+            <h1 className="text-h1">
+              Bäst i test 2026 laddare, powerbanks och mobilskal: 15 jämförelser
+            </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Sakerna som följer med dig ut, och som säljs med tal på kartongen
               som låter exakta utan att vara kontrollerade av någon. Vi läser

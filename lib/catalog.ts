@@ -201,45 +201,48 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        AVGRÄNSNING: allt som är kapslat för utomhusbruk och reagerar på rörelse,
        både 230-voltsvakter och batteridrivna sensorer, i en rankning. Samma
        beslut som /utomhustimer. Strålkastare med inbyggd rörelsevakt ligger
-       utanför — då köper man en lampa, och Bygghemma delar själva sina två
+       utanför, då köper man en lampa, och Bygghemma delar själva sina två
        guider på exakt den gränsen. Rena skymningsreläer utan pyrodetektor
        ligger också utanför: Steinel NightMatic 3000 reagerar på ljus.
 
-       FYNDET: **wattalet på kartongen är en glödlampssiffra.** Fem tillverkare
-       delar upp belastningen på fem olika sätt och handeln plockar genomgående
-       det högsta talet:
+       FYNDET: **räckvidden i annonsen gäller den som går tvärs över synfältet.**
+       Rakt emot ser sensorn två till fyra gånger kortare, och två tillverkare
+       publicerar båda talen i sina egna datablad utan att handeln för dem
+       vidare:
 
-         Steinel IS 240      1 000 W resistiv · 132 µF · max 8 don · min 10 W
-         Steinel IS 3180     100 W av lampor < 2 W · 300 W av 2–8 W · 600 W av > 8 W
-         Steinel IS 2160 ECO 250 W LED
-         Schneider WDE008317 2 200 W resistiv · 200 W LED
-         Kjell 50614         1 200 W resistiv · 300 W induktiv · min 1 W
-         Biltema 46-207      1 000 W · 300 W lysrör
-         Anslut 422080       1 000 W glödljus · 500 W halogen · ingen LED-siffra
-         ESYLUX MD 120       1 000 W · max startström 4,5 A
+         Steinel IS 1         tangentiell 10 m    radiell   3 m     3,3 ggr
+         Steinel IS 2160 ECO  tangentiell 12 m    radiell   3 m     4,0 ggr
+         ESYLUX MD 120        vinkelrätt  12 m    framifrån 5 m     2,4 ggr
+         ESYLUX MD 200        vinkelrätt  Ø 20 m  framifrån Ø 10 m  2,0 ggr
+         ESYLUX RC 230i       vinkelrätt  Ø 40 m  framifrån Ø 16 m  2,5 ggr
 
-       Åtta belägg hos fem tillverkare, och det finns ingen omräkning mellan
-       enheterna. Mekanismen är startströmmen: varje LED-drivdon laddar en
-       kondensator i tändögonblicket, och det är antalet drivdon och inte summan
-       watt som avgör. Därför räknar Steinel mikrofarad och ESYLUX ampere.
+       Skälet är fysiskt: en pyrodetektor läser skillnaden mellan intilliggande
+       linssegment, så den som korsar synfältet passerar segment efter segment
+       medan den som kommer rakt emot fyller samma segment hela vägen in.
+       Tabellcellen bär därför båda talen.
 
-       ⚠️ **Steinel IS 3180 är det renaste belägget.** Samma sensor tar 100 W av
-       lampor under 2 W men 600 W av lampor över 8 W — sex gånger effekten ur
-       samma relä, avgjort av hur stor varje enskild lampa är.
+       ANDRA FYNDET: **wattalet gäller en lampa som inte säljs.** Steinels egna
+       datablad delar LED-lasten i tre steg efter hur stor varje enskild lampa
+       är, och anger dessutom kapacitansen:
 
-       ANDRA FYNDET: räckvidden gäller den som går **tvärs** över synfältet.
-       Både Bygghemma och Karl H Ström skriver ut "ej rakt emot sensorn", och
-       båda gör det i prosa och inte i specrutan. En pyrodetektor läser skillnad
-       mellan intilliggande linssegment, så den som kommer rakt emot fyller
-       samma segment hela vägen in.
+         IS 1 och IS 2160 ECO   under 2 W 100 W · 2–8 W 125 W · över 8 W 250 W
+                                kapacitiv last 88 µF
+         IS 1 glödljus 500 W · IS 2160 ECO glödljus 600 W
+         ESYLUX RC 230i         inkopplingsström 100 A i 200 µs
+         ESYLUX MD 120 och 200  inkopplingsström 30 A i 20 ms
+         Kjell 50614            1 200 W resistiv · 300 W induktiv · min 1 W
 
-       TREDJE: talen är inte mätta likadant. Steinel anger tvärgående räckvidd,
-       ESYLUX anger konens djup och bredd var för sig (12 m framåt, 10 m i
-       sidled), Nexa villkorar med både montagehöjd och lufttemperatur ("10 m,
-       100° vid montering 2 m upp i temp. under 20 °C"), och Biltema, Kjell och
-       Jula anger ett naket tal. Steinel säljer dessutom temperaturstabiliserad
-       räckvidd som en egenskap — samma fysik som Nexas villkor, från andra
-       hållet.
+       Mekanismen är kondensatorn i varje LED-drivdon, som är tom i
+       tändögonblicket. Det är antalet drivdon och inte summan watt som avgör,
+       vilket är skälet att Steinels tak är lägre för många små lampor än för få
+       stora.
+
+       ⚠️ PROFFSMAGASINET HAR ESYLUX RÄCKVIDDER BAKVÄNT. Deras specruta för
+       MD 120 säger "Max. räckvidd framåt 12 m" och "i sidled 10 m"; ESYLUX egen
+       svenska produktsida för samma artikelnummer säger vinkelrätt 12 m och
+       framifrån 5 m. Butiken har både kastat om riktningarna och ändrat det
+       mindre talet. Samma sida anger startströmmen till 4,5 A där tillverkaren
+       säger 30 A i 20 ms. Kontrollera ESYLUX-uppgifter mot esylux.se.
 
        ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen oberoende part har provat kategorin
        på någon nordisk marknad. Råd & Rön, Ljud & Bild och tek.no har
@@ -250,80 +253,74 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ⚠️ IP-KLASSEN ÄR ETT GOLV OCH INTE HELA AXELN. Elsäkerhetsverket sätter
        IP44 och varje rankad produkt klarar det, så ett kriterium som frågade
        "är den utomhusklassad" hade varit en grind alla passerar. Det som väger
-       är steget över — IP54 mot IP44, fyra mot fem — plus drifttemperaturen,
-       som skiljer femton grader mellan Nexa (−10 °C) och ESYLUX (−25 °C).
+       är steget över, alltså IP54 mot IP44, fyra mot fem, plus
+       drifttemperaturen som skiljer femton grader.
 
-       ⚠️ FYRA AV NIO ÄR STEINEL. Det speglar svensk handel: Bygghemma, Jula,
-       Proffsmagasinet och Karl H Ström leder alla sina kategorier med Steinel.
-       Det står utskrivet på sidan, som "nio av tretton är TP-Link" på
-       /wifi-repeater.
-
-       ⚠️ ANSLUT 422080 SAKNAR BETYG PÅ `last` MED FLIT. Julas produktsida och
-       manual anger glödljus och halogen. Vad reläet tål med elektroniska
-       drivdon har inte gått att belägga, och ett lågt betyg där hade betygsatt
-       vår research i stället för varan. Se `pnpm check:avdrag`.
-
-       ⚠️ PHILIPS HUE OUTDOOR SENSOR RANKAS INTE. Detekteringsvinkel och
+       ⚠️ PHILIPS HUE OUTDOOR SENSOR SAKNAR BETYG PÅ `bevakning`. Vinkel och
        räckvidd finns varken hos Philips, i bruksanvisningen eller i Icecats
-       42 egenskaper för GTIN 8719514342262. Sidans två tyngsta kriterier är
-       bevakning och last, och en sensor vars bevakning inte går att belägga
-       hör då hemma bland övervägda. ⚠️ Manualens "Range: 12 m indoor" är
-       **radioräckvidden**, inte detekteringen; Galaxus säljer den under
-       rubriken "12 m Motion sensors" och har sannolikt läst just den raden fel.
+       42 egenskaper för GTIN 8719514342262. Vikten fördelas om. Manualens
+       "Range: 12 m indoor" är **radioräckvidden**, inte detekteringen; Galaxus
+       säljer sensorn som "12 m Motion sensors" och har läst just den raden fel.
 
-       PENGAR: ⚠️ **SIDAN TJÄNAR NÄSTAN INGENTING, OCH DET ÄR KATEGORIN.**
-       Bygghemma bär tre av nio och finns inte i något nätverk vi kartlagt, och
-       inte Jula eller Biltema heller. Kvar blir Kjell 5 % / 30 d på en produkt,
-       Proffsmagasinet 2 % / 30 d på två och Elbutik, som ligger på Tradedoubler
-       där vi saknar konto. Ingen butik i fältet tillåter PPC. Samma bild som
-       /utomhustimer: butikerna som äger den billiga halvan saknas i Adtraction.
-       ⚠️ **P Lindberg 6 % med ppc 2 kontrollerades mot sortimentet och föll** —
-       en enda PIR-sensor i hela butiken. Byggstart gav noll träffar, och
-       Prylstadens träffar är strålkastare och spionkameror. Samma hägring som
-       AIVIQ på /mjolkskummare.
+       ⚠️ RANKNINGEN TÄCKER BARA BUTIKER MED PROGRAM, efter användarbeslut
+       2026-08-07. Kvar är Proffsmagasinet 2 %, Kjell 5 %, Proshop 3,2 % och
+       Teknikproffset 2 %. Sex produkter som bara säljs av Bygghemma, Jula,
+       Biltema eller Elbutik flyttades till övervägda **med pris och egenskaper
+       kvar**, och skälet står utskrivet i sektionsbeskrivningen på sidan. Det
+       gäller bland annat Steinel IS 240, kategorins bredaste 230-voltsvakt, och
+       de två vakterna under hundralappen. Att i stället hitta på en
+       produktinvändning hade varit det sämsta alternativet.
+
+       PENGAR: sju av nio länkar går till Proffsmagasinet, som bär hela
+       Steinel-, ESYLUX- och Niko-sortimentet med 348 artiklar. Satsen är låg
+       men de är enda betalande butiken som för proffsmärkena.
+       ⚠️ **Ingen butik i fältet tillåter PPC.** P Lindberg 6 % med ppc 2
+       kontrollerades mot sortimentet och föll på en enda PIR-sensor; Byggstart
+       gav noll träffar och Prylstadens träffar är strålkastare och
+       spionkameror. Samma hägring som AIVIQ på /mjolkskummare.
+       ⚠️ Steinel äger kategorin i handeln och har inget svenskt program.
+       Märkesansökan ligger i affiliate-ansokningar.md §5.
 
        ⚠️ BRAVE SEARCH VAR SLUT FÖR MÅNADEN. `scripts/sok.mjs` svarade 402 på
        varje fråga 2026-08-07, precis som under /espressomaskin samma dag. Hela
        researchen kördes på `--motor serper`.
 
-       ⚠️ ICECAT: 1 av 4 GTIN öppnade. Philips Hue Outdoor gav 42 egenskaper;
-       Steinel IS 1, ESYLUX MD 120 och Nexa SP-816 svarar alla "You are not
-       allowed to have Full Icecat access". Samtliga tre hämtades hos
-       tillverkaren eller distributören i stället.
+       ⚠️ ICECAT: 1 av 8 GTIN öppnade. Philips Hue Outdoor gav 42 egenskaper;
+       Steinel, ESYLUX, Nexa och Osram svarar alla "You are not allowed to have
+       Full Icecat access". Samtliga hämtades hos tillverkaren i stället.
 
        Se .agent/research/rorelsevakt-utomhus.md. */
     href: "/rorelsevakt-utomhus",
     label: "Rörelsevakt utomhus",
     category: SAKERHET,
-    blurb: "1 000 watt gäller glödlampor. Med LED räknas drivdon, inte watt.",
-    /* Live 2026-08-07. Samtliga nio priser, artikelnummer och kundbetyg lästa
-       i butikernas egen JSON-LD samma dag, och alla nio låg i lager.
-       Belastningsrader, luxområden, efterlystider och omgivningstemperaturer
-       hämtade hos Steinels svenska distributör Karl H Ström, hos Nexa själva,
-       i Biltemas egen bruksanvisning för 46-207 och i Proffsmagasinets
-       specifikationstabeller. Nio packshots på plats.
+    blurb: "Tolv meter gäller den som går tvärs. Rakt emot blir det tre.",
+    /* Live 2026-08-07. Samtliga nio priser, artikelnummer, GTIN och kundbetyg
+       lästa i butikernas egen JSON-LD samma dag, och alla nio låg i lager.
+       Räckvidder, LED-laster, luxområden, efterlystider och
+       omgivningstemperaturer hämtade i tillverkarnas egna datablad: Steinels
+       produktdatablad per EAN på steinel.de, ESYLUX svenska produktsidor per
+       artikelnummer, Nexas bruksanvisning för LMDT-810 och Icecat för Philips
+       Hue. Nio packshots på plats.
 
-       ⚠️ EN BILD LIGGER UNDER MASTERBREDDEN 1200 px. ESYLUX MD 120 är 480×480,
-       eftersom Proffsmagasinets bildserver svarar tomt på varje bredd över
-       480 och ESYLUX egen produktsida inte lämnar ut någon bild till vare sig
-       curl, jina eller playwright. Rätt produkt och rätt variant. Byt vid
-       nästa prisrunda.
+       ⚠️ TVÅ BILDER LIGGER UNDER MASTERBREDDEN 1200 px. Båda ESYLUX
+       MD-modellerna är 1000×1000, hämtade hos Eltric eftersom Proffsmagasinets
+       bildserver kapar vid 480 och esylux.se inte lämnar ut någon bild till
+       vare sig curl, jina eller playwright. Rätt produkter, kontrollerade i
+       kontaktkarta mot Proffsmagasinets egna bilder. Byt vid nästa prisrunda.
 
        ⚠️ PROFFSMAGASINET MOTSÄGER SIG SJÄLV OM STEINEL IS 1. Punktlistan säger
-       "500 W glödljus och halogen, max 3 st HF-don", specifikationsrutan på
-       samma sida säger "Max. omkopplingseffekt 1 000 W". Karl H Ström anger
-       88 µF, max 3 don och 300 W lysrör. Vi använder distributörens, som är den
-       enda fullständiga av de tre.
+       "500 W glödljus och halogen, max 3 st HF-don", specrutan på samma sida
+       säger "Max. omkopplingseffekt 1 000 W". Steinels eget datablad säger
+       500 W glödljus, 88 µF och LED-tabellen 100/125/250 W. Tillverkaren gäller.
 
        ⚠️ EN HANDBYGGD BYGGHEMMA-URL GAV KATEGORISIDAN I STÄLLET FÖR PRODUKTEN.
        `p-1554660` för IS 130-2 gissades ur syskonproduktens id och svarade
        HTTP 200 på sensorkategorin, utan Product-schema. Rätt adress är
-       `p-1554665-1554667`. Samma fälla som Kjell-URL:en i /new-page fas 4 och
-       Proshop-URL:en på /smoothiemixer.
+       `p-1554665-1554667`. Samma fälla som Kjell-URL:en i /new-page fas 4.
 
        ⚠️ EN BILD VAR FEL PRODUKT INNAN DEN KONTROLLERADES. Filen döptes till
-       IS 130-2 men var Bygghemmas packshot för IS 180-2, hämtad från fel
-       produktsida. Fångades i kontaktkarta före inläggning. Titta på bilderna.
+       IS 130-2 men var Bygghemmas packshot för IS 180-2. Fångades i
+       kontaktkarta före inläggning. Titta på bilderna.
 
        Mätt 2026-08-07 i Chromium på 1440 och 390 px: ingen horisontell
        sidscroll vid någondera bredden, jämförelsetabellen scrollar i sin egen

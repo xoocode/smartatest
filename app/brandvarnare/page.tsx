@@ -64,7 +64,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Housegard Luma vinner: 599 kronor för två varnare som larmar tillsammans på 868 MHz. Vi jämförde tio brandvarnare från 139 till 646 kronor. Tre larmar tillsammans, sju gör det inte.",
+    "Brandvarnare bäst i test 2026: tio brandvarnare jämförda från 139 kr. Sju av tio larmar var för sig. Se vilka som larmar ihop.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -116,9 +116,11 @@ export default async function BrandvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Housegard Luma i tvåpack vinner: 599 kronor för två varnare som
-              larmar tillsammans på 868 MHz, med förseglat batteri för hela
-              tioårsperioden. Vi jämförde tio brandvarnare från 139 till 646
+              Vår testvinnare är Housegard Luma i tvåpack för 599 kronor,
+              eftersom det förseglade batteriet räcker varnarens hela tioåriga
+              livslängd, så det aldrig behöver bytas. De två varnarna larmar
+              dessutom tillsammans på 868 MHz. Vi jämförde tio brandvarnare från
+              139 till 646
               kronor. Alla känner rök, alla klarar standardens 85 decibel och
               alla är optiska. Det som skiljer dem åt är om de larmar
               tillsammans, och tre av tio gör det. Det avgör om en brand i

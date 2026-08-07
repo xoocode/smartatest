@@ -40,14 +40,17 @@ import Kopguide from "@/content/rorelsevakt-utomhus/kopguide.mdx";
 
 /*
  * Produkter, priser, kundbetyg och butiks-URL:er är riktiga, lästa ur
- * butikernas egen JSON-LD på PRICE_CHECKED. Belastningsrader, luxområden och
- * omgivningstemperaturer hämtade hos tillverkaren eller hos Steinels svenska
- * distributör Karl H Ström. Kriteriebetygen är redaktionell bedömning utifrån
- * specifikationer och källor snarare än mätningar.
+ * butikernas egen JSON-LD på PRICE_CHECKED. Räckvidder, LED-laster, luxområden
+ * och omgivningstemperaturer hämtade i tillverkarnas egna datablad: Steinels
+ * produktdatablad per EAN, ESYLUX svenska produktsidor och Nexas bruksanvisning.
+ * Kriteriebetygen är redaktionell bedömning utifrån specifikationer och källor
+ * snarare än mätningar.
+ *
+ * ⚠️ Rankningen täcker bara Kjell, Proffsmagasinet, Proshop och Teknikproffset
+ * efter användarbeslut 2026-08-07. Sex produkter hos butiker utan program ligger
+ * bland övervägda, och skälet står utskrivet i den sektionens beskrivning.
  *
  * AFFILIATE-SWAP — läs lib/links.ts för vad LINK_MODE faktiskt står på i dag.
- * Ingen provision är avtalad för den här kategorin: Bygghemma, Jula och
- * Biltema saknas i varje nätverk vi kartlagt.
  */
 
 const TEST_PAGE = RORELSEVAKT_UTOMHUS;
@@ -57,14 +60,14 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Steinel IS 240 är bäst i test för 1 143 kronor och ser 240 grader, alltså två fasader från ett hörn. Talet att läsa noggrannast är lasten: 1 000 W gäller glödlampor, och med LED räknas drivdon i stället för watt.",
+    "Rörelsevakt utomhus bäst i test 2026: nio rörelsedetektorer jämförda från 200 kr. Bästa vakten bevakar 804 kvadratmeter. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [
   { id: "snabbt-svar", label: "Snabbt svar: vilken ska du köpa?" },
-  { id: "wattalet", label: "Wattalet gäller en lampa du inte kan köpa" },
+  { id: "rackvidden", label: "Räckvidden gäller tvärs, inte rakt emot" },
   { id: "jamforelse", label: "Jämför alla nio" },
   { id: "recensioner", label: "Recensioner av varje rörelsevakt" },
   { id: "andra-vakter", label: "Andra produkter vi övervägde" },
@@ -109,12 +112,13 @@ export default async function RorelsevaktUtomhusPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Steinel IS 240 är den rörelsevakt vi rekommenderar. Den kostar
-              1 143 kronor och ser 240 grader, alltså två fasader från ett enda
-              ytterhörn. Ska den bara tända över garageporten gör Steinel IS 1
-              samma jobb för 269 kronor. Vi jämförde nio stycken, och talet att
-              läsa noggrannast är lasten: 1 000 W gäller glödlampor, och för
-              LED-armaturer räknar tillverkarna drivdon i stället för watt.
+              Vår testvinnare är ESYLUX RC 230i för 1 645 kronor, eftersom den
+              bevakar 804 kvadratmeter, fyra gånger så mycket som näst bästa vakt
+              här. De två sensorhalvorna ställs dessutom var för sig. Ska den
+              bara tända över garageporten gör
+              Steinel IS 1 samma jobb för 269 kronor. Vi jämförde nio stycken,
+              och talet att läsa noggrannast är räckvidden: den gäller den som
+              går tvärs över synfältet, och rakt emot ser sensorn tre meter.
             </p>
             <UpdatedStamp
               date={UPDATED}
@@ -163,37 +167,41 @@ export default async function RorelsevaktUtomhusPage() {
       {/* Ligger högt med flit. Det är sidans enda verkliga nyhet, och den
           avgör vilken vakt läsaren ska köpa innan hen ser en tabell. */}
       <Section
-        id="wattalet"
+        id="rackvidden"
         width="default"
-        title="Wattalet gäller en lampa du inte kan köpa"
-        description="Åtta av åtta tillverkare delar upp belastningen, och handeln plockar det högsta talet. Med LED-armaturer räknas drivdon, mikrofarad eller startström i stället."
+        title="Tolv meter tvärs blir tre meter rakt emot"
+        description="Två tillverkare publicerar båda talen i sina egna datablad, och handeln för bara det större vidare. Skillnaden avgör var på huset sensorn ska sitta."
       >
         <Prose>
           <p>
-            Steinel IS 240 är märkt 1 000 W. Läser man hela raden gäller talet
-            resistiv last, alltså glödtråd, och för elektroniska drivdon stannar
-            samma detektor på 132 mikrofarad eller åtta armaturer. Schneider
-            skriver ut båda talen för en och samma detektor: 2 200 W resistivt
-            och 200 W LED. Det är en elftedel, i samma dosa.
+            En pyrodetektor mäter inte värme. Den mäter förändring i värme mellan
+            intilliggande segment i linsen. Går någon tvärs över synfältet
+            passerar kroppen segment efter segment och sensorn ser en tydlig
+            växling. Kommer någon rakt emot fyller kroppen samma segment hela
+            vägen in, och växlingen uteblir tills personen är nära.
           </p>
           <p>
-            Mekanismen är strömtoppen i tändögonblicket. Varje LED-armatur har
-            ett drivdon med en tom kondensator som under de första
-            millisekunderna beter sig ungefär som en kortslutning, och toppen kan
-            ligga tiotals gånger över armaturens märkeffekt. Det är den som
-            bränner ihop reläkontakterna, inte strömmen lampan drar när den
-            lyser. Därför räknar Steinel drivdon och ESYLUX ampere.
+            Steinel och ESYLUX skriver ut båda avstånden i sina produktdatablad.
+            Steinel IS 2160 ECO når 12 meter tvärs och 3 meter rakt emot; IS 1
+            når 10 respektive 3. ESYLUX MD 120 når 12 respektive 5, MD 200 Ø 20
+            mot Ø 10 och RC 230i Ø 40 mot Ø 16. Två tillverkare, fem produkter,
+            och kvoten ligger mellan två och fyra gånger.
           </p>
           <p>
-            Steinels nyare generation har slutat med omvägen. IS 3180 tar 100 W
-            om lamporna drar under 2 W, 300 W om de drar 2 till 8 W och 600 W om
-            de drar mer än 8 W. Sex gånger effekten ur samma relä, avgjort av hur
-            stor varje enskild lampa är.
+            <strong>
+              Rikta därför vakten så att den som närmar sig korsar synfältet.
+            </strong>{" "}
+            En sensor som tittar rakt ut längs uppfarten ser en bil som kommer i
+            det sämsta av alla lägen. Vrid den mot sidan i stället, så att
+            uppfarten passerar tvärs framför linsen.
           </p>
           <p>
-            Det finns ett golv också, och det överraskar fler. IS 240 slår inte
-            till under 10 watt, så en entrélykta med en LED-lampa på 5 W håller
-            den tyst. Kjells väggvakt går ned till 1 watt och tänder samma lampa.
+            Samma sak gäller wattalet. Det i annonsen är en glödlampssiffra:
+            Steinel IS 2160 ECO är märkt 600 W för glödljus men tar 100 W av
+            LED-lampor under 2 W, 125 W av lampor mellan 2 och 8 W och 250 W av
+            lampor över 8 W. Det är kondensatorn i varje drivdon som laddas i
+            tändögonblicket, så tio små lampor är hårdare mot reläet än två stora
+            med samma sammanlagda effekt.
           </p>
         </Prose>
       </Section>
@@ -217,7 +225,7 @@ export default async function RorelsevaktUtomhusPage() {
         tone="muted"
         width="wide"
         title="Jämför alla nio"
-        description="Filtrera på bevakningsvinkel. Kolumnen att läsa noggrannast är Last LED, och lägg märke till att fyra tillverkare anger den i fyra olika enheter. Räckvidden bär sitt villkor i cellen, eftersom talen inte är mätta likadant."
+        description="Filtrera på bevakningsvinkel. Räckviddsraden bär sitt villkor i cellen, eftersom tvärs och rakt emot är två olika tal. Raden Last LED anges av fyra tillverkare i fyra olika enheter, och de går inte att räkna om mellan sig."
       >
         <FilterableComparison
           products={products}
@@ -227,7 +235,7 @@ export default async function RorelsevaktUtomhusPage() {
           variant="bordered"
           caption={priceCaption(
             PRICE_CHECKED,
-            "Fyra av vakterna är Steinel, vilket speglar att Bygghemma, Jula, Proffsmagasinet och Karl H Ström alla leder sina kategorier med märket.",
+            "Rankningen täcker de butiker vi länkar till. Sex vakter som bara säljs på annat håll, däribland de två under hundralappen, ligger bland övervägda längre ned.",
           )}
         />
       </Section>
@@ -262,7 +270,7 @@ export default async function RorelsevaktUtomhusPage() {
         tone="muted"
         width="default"
         title="Andra produkter vi övervägde"
-        description="Sex produkter som fanns med i urvalet men inte i rankningen. En av dem är den mest sålda smarta sensorn i kategorin, utesluten av skäl som inte handlar om kvalitet."
+        description="Tio produkter som fanns med i urvalet men inte i rankningen. Sex av dem säljs bara av butiker vi inte länkar till, och de är alltså inte bortvalda på egenskaper: Steinel IS 240 är kategorins bredaste 230-voltsvakt, och de två billigaste kostar under hundralappen. Pris och specifikationer står kvar så att du kan köpa dem ändå."
       >
         <ConsideredList items={RORELSEVAKT_UTOMHUS_CONSIDERED} />
       </Section>

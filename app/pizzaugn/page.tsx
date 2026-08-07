@@ -82,7 +82,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ooni Karu 2 vinner för 3 499 kronor: glasdörren håller kvar värmen och den går på ved, kol eller gasol. Vill du grädda till fyra samtidigt kostar Witt Piccolo Rotante 16\" 5 290 kronor och snurrar stenen åt dig. Alla anger 500 grader, men fram där pizzan läggs in är stenen ofta 220.",
+    "Pizzaugn bäst i test 2026: tolv utomhusugnar jämförda från 2 100 kr. Fyra av tolv saknar termometer helt. Se vilka som har en.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -136,10 +136,12 @@ export default async function PizzaugnPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Ooni Karu 2 för 3 499 kronor. Den har en dörr i
-              borosilikatglas, vilket håller kvar värmen som andra ugnar blåser
-              ut framtill, och den går på ved, kol eller gasol med en brännare
-              som tillbehör. Ska fyra personer äta samtidigt tar du Witt Piccolo
+              Vi rekommenderar Ooni Karu 2 för 3 499 kronor, eftersom den eldas
+              med ved eller kol ur lådan och tar en gasbrännare som tillbehör,
+              så samma ugn duger till söndagsprojektet och till en vardagspizza.
+              Dörren i
+              borosilikatglas håller dessutom kvar värmen som andra ugnar blåser
+              ut framtill. Ska fyra personer äta samtidigt tar du Witt Piccolo
               Rotante 16&quot; för 5 290 kronor, som snurrar stenen åt dig. Och
               läs inte maxtemperaturen: nästan alla anger 500 grader, men
               framtill där pizzan läggs in är stenen ofta 220.

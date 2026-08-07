@@ -95,7 +95,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SONOFF TRVZB vinner: 361 kronor, billigast av elva, och sju ventilfattningar med adaptrarna i lådan. Vi jämförde elva radiatortermostater till vattenburna element på passform, dold kostnad och vad tre rum landar på.",
+    "Smart termostat bäst i test 2026: elva radiatortermostater jämförda från 361 kr. Adaptern till ditt element kan kosta extra. Se vilka som har den i lådan.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -150,9 +150,11 @@ export default async function SmartTermostatPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              SONOFF TRVZB vinner. Den kostar 361 kronor, billigast av alla
-              elva, och går ändå på sju ventilfattningar med adaptrarna i lådan,
-              lika många som termostater för tre gånger pengarna. Ska den sitta
+              Vi rekommenderar SONOFF TRVZB för 361 kronor, eftersom den duger
+              med vilken Zigbee-hubb som helst, även en USB-sticka för ett par
+              hundralappar, och går på sju ventilfattningar. Den är billigast av alla elva och har adaptrarna
+              i lådan, lika många fattningar som termostater för tre gånger
+              pengarna. Ska den sitta
               i ett sovrum tar du Aqara W600 för 559 i stället, som håller sig
               under 30 dB. Vi jämförde elva radiatortermostater till vattenburna
               element, där styckpriset spänner från 361 till 1 229 kronor och

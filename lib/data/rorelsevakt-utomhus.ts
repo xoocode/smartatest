@@ -9,61 +9,79 @@ import { productImage } from "@/lib/images";
 /**
  * Riktiga produkter för /rorelsevakt-utomhus.
  *
- * Priser, kundbetyg och lagerstatus lästa i butikernas egen JSON-LD på
- * PRICE_CHECKED. Belastningsrader, räckvidder, luxområden, efterlystider och
- * drifttemperaturer hämtade hos tillverkaren eller hos Steinels svenska
- * distributör Karl H Ström (khs.se), som publicerar hela den tekniska
- * databladstexten per modell.
+ * Priser, GTIN, kundbetyg och lagerstatus lästa i butikernas egen JSON-LD på
+ * PRICE_CHECKED. Specifikationerna hämtade i tillverkarnas egna datablad:
+ * Steinels produktdatablad per EAN på steinel.de, ESYLUX svenska produktsidor
+ * per artikelnummer, Nexas egen bruksanvisning för LMDT-810, och Icecat för
+ * Philips Hue.
  *
- * ## Sidans fynd, och varför `Last LED` är två kolumner och inte en
+ * ## Sidans fynd, och varför `Räckvidd` bär två tal
  *
- * Wattalet i annonsen gäller resistiv last, alltså glödlampa. Fem tillverkare
- * delar upp belastningen på fem olika sätt och handeln plockar genomgående det
- * högsta talet:
+ * **Räckvidden i annonsen gäller den som går tvärs över synfältet.** Kommer man
+ * rakt emot ser sensorn en tredjedel så långt, och tillverkarna publicerar
+ * båda talen i sina egna datablad utan att handeln för dem vidare:
  *
- * - Steinel räknar mikrofarad och antal drivdon (IS 240: 132 µF / 8 don)
- * - Steinels nyare generation räknar watt per lampstorlek (IS 3180: 100 W av
- *   lampor under 2 W, 300 W av 2–8 W, 600 W av lampor över 8 W)
- * - Schneider anger watt per lamptyp (200 W LED mot 2 200 W resistivt)
- * - ESYLUX anger startström i ampere (max 4,5 A)
- * - Kjell och Biltema skiljer resistivt från induktivt
- * - Jula anger glödljus och halogen och hoppar över LED
+ *   Steinel IS 1        tangentiell 10 m    radiell   3 m     3,3 ggr
+ *   Steinel IS 2160 ECO tangentiell 12 m    radiell   3 m     4,0 ggr
+ *   ESYLUX MD 120       vinkelrätt  12 m    framifrån 5 m     2,4 ggr
+ *   ESYLUX MD 200       vinkelrätt  Ø 20 m  framifrån Ø 10 m  2,0 ggr
+ *   ESYLUX RC 230i      vinkelrätt  Ø 40 m  framifrån Ø 16 m  2,5 ggr
  *
- * Det är samma begränsning uttryckt på fem sätt, och det finns ingen omräkning
- * mellan dem. Därför står enheten i värdet.
+ * Två tillverkare, fem produkter, samma sak. Skälet är fysiskt: en pyrodetektor
+ * läser skillnaden mellan intilliggande linssegment, så den som korsar
+ * synfältet passerar segment efter segment medan den som kommer rakt emot
+ * fyller samma segment hela vägen in.
  *
- * ## Fyra av nio är Steinel
+ * Därför står båda talen i cellen. Ett naket tal hade dolt hela fyndet.
  *
- * Det speglar svensk handel och inget annat. Bygghemma, Jula, Proffsmagasinet
- * och Karl H Ström leder alla sina kategorier med Steinel, och de tre modeller
- * Bygghemma rankar i sin egen jämförelse är två Steinel och en Sunwind. Det
- * står utskrivet på sidan, som "nio av tretton är TP-Link" på /wifi-repeater.
+ * ## Andra fyndet: wattalet gäller en lampa som inte säljs
  *
- * ## Butikerna betalar nästan ingenting, och det ändrar ingenting
+ * Steinels egna datablad delar LED-lasten i tre steg efter hur stor varje
+ * enskild lampa är, och anger dessutom kapacitansen:
  *
- * Bygghemma bär tre av nio och finns inte i något nätverk vi kartlagt. Jula och
- * Biltema likaså. Kvar blir Kjell 5 %, Proffsmagasinet 2 % och Elbutik, som
- * ligger på Tradedoubler där vi saknar konto. Samma bild som /utomhustimer:
- * butikerna som äger den billiga halvan av kategorin saknas i Adtraction.
+ *   IS 1 och IS 2160 ECO:  < 2 W lampor 100 W · 2–8 W 125 W · > 8 W 250 W
+ *                          kapacitiv last 88 µF
+ *   IS 1 glödljus 500 W · IS 2160 ECO glödljus 600 W
  *
- * Att i stället lyfta en dyrare produkt hos en butik som betalar vore precis
- * det förtroendebrott sajten finns för att undvika. Se
- * .agent/research/rorelsevakt-utomhus.md §6.
+ * ESYLUX uttrycker samma begränsning som startström med varaktighet: RC 230i
+ * tål 100 A i 200 µs, MD 200 tål 30 A i 20 ms. Kjell skiljer resistivt från
+ * induktivt och anger dessutom ett golv på 1 W.
  *
- * ## Anslut Rörelsevakt IP44 saknar betyg på `last` med flit
+ * Mekanismen är kondensatorn i varje LED-drivdon, som är tom i tändögonblicket.
+ * Det är antalet drivdon och inte summan watt som avgör.
  *
- * Julas produktsida och manual anger 1 000 W för glödljus och 500 W för
- * halogen. Vad reläet tål med elektroniska drivdon har inte gått att belägga,
- * och att sätta ett lågt betyg där hade betygsatt vår research i stället för
- * varan. Vikten fördelas om, se `redistributeMissing` i lib/products.ts.
+ * ## ⚠️ Proffsmagasinet har ESYLUX räckvidder bakvänt
  *
- * ## ⚠️ Proffsmagasinet motsäger sig själv om Steinel IS 1
+ * Deras specifikationsruta för MD 120 säger "Max. räckvidd framåt 12 m" och
+ * "Max. räckvidd i sidled 10 m". ESYLUX egen svenska produktsida för samma
+ * artikelnummer säger `Avkänningsräckvidd vinkelrätt 12 m` och
+ * `Avkänningsräckvidd framifrån 5 m`. Butiken har alltså både kastat om
+ * riktningarna och ändrat det mindre talet. Tillverkaren gäller.
  *
- * Punktlistan på deras produktsida säger "500 W glödljus och halogen, max 3 st
- * HF-don"; specifikationsrutan på samma sida säger "Max. omkopplingseffekt
- * 1 000 W". Karl H Ströms tekniska data för samma artikel säger 88 µF, max 3
- * don och 300 W lysrör. Vi använder distributörens, som är den enda av de tre
- * som är fullständig.
+ * Samma sida anger `Max inkopplingstid 5 min` där ESYLUX säger
+ * `Efterlystid 10 s...15 min`. Kontrollera ESYLUX-uppgifter mot esylux.se.
+ *
+ * ## Philips Hue Outdoor Sensor saknar betyg på `bevakning` med flit
+ *
+ * Detekteringsvinkel och räckvidd finns varken på Philips svenska eller
+ * brittiska produktsida, i bruksanvisningen eller bland Icecats 42 egenskaper
+ * för GTIN 8719514342262. Att sätta ett lågt betyg där hade betygsatt vår
+ * research i stället för varan, så kriteriet utelämnas och vikten fördelas om.
+ * Se `redistributeMissing` i lib/products.ts.
+ *
+ * ⚠️ Bruksanvisningens `Range: 12 m indoor` står bland radiovarningarna och är
+ * **Zigbee-räckvidden**, inte detekteringen. Galaxus säljer sensorn under
+ * rubriken "12 m Motion sensors" och har sannolikt läst just den raden fel.
+ * Använd inte det talet.
+ *
+ * ## Rankningen täcker de butiker vi länkar kommersiellt
+ *
+ * Efter användarbeslut 2026-08-07 ligger bara produkter hos Kjell,
+ * Proffsmagasinet, Proshop och Teknikproffset i rankningen. Sex produkter som
+ * bara säljs av Bygghemma, Jula, Biltema och Elbutik flyttades till övervägda
+ * med pris och egenskaper kvar, däribland Steinel IS 240 och de två vakterna
+ * under hundralappen. Det står utskrivet i avsnittet om övervägda produkter,
+ * eftersom en läsare annars tror att de blev bortvalda på egenskaper.
  *
  * Kriteriebetygen är redaktionell bedömning utifrån specifikationer och
  * källorna i lib/sources.ts, inte mätningar.
@@ -76,102 +94,155 @@ export const PRICE_CHECKED = "2026-08-07";
 
 const SEEDS: ProductSeed[] = [
   {
-    id: "steinel-is-240",
-    brand: "Steinel",
-    name: "IS 240 rörelsevakt",
-    shortName: "IS 240",
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "steinel-is-240"),
-    tagline: "240 grader, alltså hela hörnet och båda väggarna från en dosa.",
+    id: "esylux-rc-230i",
+    brand: "ESYLUX",
+    name: "RC 230i rörelsedetektor",
+    shortName: "RC 230i",
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "esylux-rc-230i"),
+    tagline: "Två sensorhuvuden på 115 grader som ställs var för sig.",
     scores: {
       last: 4.5,
       bevakning: 5,
-      vaderskydd: 4.5,
-      installningar: 4.5,
-      prisvarde: 2.5,
+      vaderskydd: 5,
+      installningar: 5,
+      prisvarde: 2,
     },
-    price: 1143,
+    price: 1645,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Bygghemma",
+    merchant: "Proffsmagasinet",
     merchantUrl:
-      "https://www.bygghemma.se/hus-och-bygg/elmaterial-och-energi/elartiklar-och-elprodukter/sensor-och-rela/rorelsevakt-steinel-is-240/p-1554658-1554659",
+      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/esylux-rc-230i-rorelsesensor-230-vit-3084810",
     award: "winner",
-    superlative: "Bäst för hörnet på en gårdsplan",
+    superlative: "Bäst för en stor tomt",
     pros: [
-      "240 graders bevakning, så ett ytterhörn täcker två fasader med en enhet",
-      "Åtta drivdon eller 132 mikrofarad, mest elektronisk last i jämförelsen",
-      "Linsen finjusteras 160 grader i sidled, så gatan går att skärma bort",
+      "804 kvadratmeter bevakning, fyra gånger så mycket som näst bästa",
+      "Två halvor på 115 grader ställs var för sig, så gatan skärmas bort",
+      "Tål 100 ampere i 200 mikrosekunder, alltså gott om marginal för LED",
     ],
     cons: [
-      "Slår inte till under 10 W, så en ensam LED-lampa på 5 W håller den tyst",
-      "Nästan tretton gånger dyrare än Biltemas, som ser 180 grader",
-      "Justervreden sitter dolt under kåpan och kräver att fronten öppnas",
+      "1 645 kronor, åtta gånger Kjells vakt som täcker en normal villafasad",
+      "Fjärrkontrollen som gör den snabb att ställa in säljs separat",
+      "230 grader räcker inte runt ett hörn, där Niko tar 300",
     ],
     specs: [
       { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "240°", highlight: true },
-      { label: "Räckvidd", value: "12 m tvärs över synfältet", highlight: true },
-      { label: "Last LED", value: "132 µF, max 8 drivdon", highlight: true },
-      { label: "Last glödljus", value: "1 000 W resistiv last", highlight: true },
-      { label: "Minsta last", value: "10 W" },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "230° (2 × 115°) + 360° underkrypskydd", highlight: true },
+      { label: "Räckvidd", value: "Ø 40 m vinkelrätt, Ø 16 m framifrån", highlight: true },
+      { label: "Last LED", value: "Startström 100 A i 200 µs", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
-      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 50 °C", highlight: true },
-      { label: "Efterlystid", value: "10 s till 15 min", highlight: true },
-      { label: "Skymningsnivå", value: "2–2 000 lux" },
-      { label: "Montering", value: "Vägg, ytterhörn, stolpe eller mast" },
-      { label: "Justering", value: "Linsen 160° i sidled, avskärmningar medföljer" },
-      { label: "Strömförsörjning", value: "230/240 V AC, 50 Hz" },
-      { label: "Mått", value: "100 × 90 × 60 mm" },
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−25 till 55 °C", highlight: true },
+      { label: "Efterlystid", value: "15 s till 30 min", highlight: true },
+      { label: "Bevakningsområde", value: "Upp till 804 m²" },
+      { label: "Underkrypskydd", value: "Ja, 360° med Ø 6 m räckvidd" },
+      { label: "Justering", value: "Elektroniskt och mekaniskt, per sensorhalva" },
+      { label: "Inställning", value: "Fjärrkontroll eller potentiometer" },
+      { label: "Effektförbrukning", value: "0,3 W" },
+      { label: "Montering", value: "Vägg" },
+      { label: "Strömförsörjning", value: "230 V, insticksanslutning" },
     ],
     verdict:
-      "Steinel IS 240 ser 240 grader, vilket är det bredaste synfältet här, och kostar 1 143 kronor.\n\nDe extra graderna är hela argumentet för att betala så mycket. Sätter du den på ett ytterhörn täcker en enhet både uppfarten och gaveln, och du slipper dra fram en andra dosa på andra sidan huset. Linsen går dessutom att finjustera 160 grader i sidled med avskärmningar som följer med, så gatan utanför tomten kan skäras bort utan att du tappar entrén. På elsidan tar den åtta drivdon eller 132 mikrofarad, mer elektronisk last än något annat här, vilket i praktiken betyder att du kan hänga fyra LED-armaturer på den utan att fundera.\n\n**Golvet är det som överraskar: under 10 watt slår reläet inte till alls.** En modern LED-lampa på 5 W räcker inte för att hålla den igång, så en ensam liten entrélykta är fel last för den här vakten.\n\nKöp den om du ska bevaka ett hörn eller två fasader från samma punkt. Ska du bevaka en rak vägg räcker IS 180-2 för 164 kronor mindre, och ska du bara tända över garageporten gör IS 1 samma jobb för 269.",
+      "ESYLUX RC 230i bevakar upp till 804 kvadratmeter och kostar 1 645 kronor.\n\nDen ytan är fyra gånger vad näst bästa vakten klarar, och den kommer av att sensorn är två separata halvor på 115 grader som ställs var för sig. På en tomt där uppfarten går åt ett håll och altandörren åt ett annat kan du alltså rikta den ena halvan mot grinden och den andra mot huset, utan att den mellanliggande gatan tänder lampan hela kvällen. Underkrypskyddet går runt hela 360 grader med sex meters räckvidd, så ingen kan gå in tätt längs fasaden utan att synas. Elektriskt tål den 100 ampere i 200 mikrosekunder, den högsta startström någon tillverkare här anger.\n\n**Fjärrkontrollen som gör den snabb att ställa in ingår inte.** Utan den ställs allt med potentiometrar under kåpan, och då är mycket av poängen med de två halvorna borta.\n\nKöp den om du har en tomt med två håll att bevaka och tänker göra det ordentligt. Ska du bara lysa upp en fasad är det åtta gånger för mycket produkt, och Kjells väggvakt gör jobbet.",
   },
   {
-    id: "steinel-is-180-2",
-    brand: "Steinel",
-    name: "IS 180-2 rörelsevakt",
-    shortName: "IS 180-2",
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "steinel-is-180-2"),
-    tagline: "Linsen sitter i två lägen: 5 meter för entrén, 12 för uppfarten.",
+    id: "niko-351-26570",
+    brand: "Niko",
+    name: "351-26570 rörelsesensor",
+    shortName: "Niko 351-26570",
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "niko-351-26570"),
+    tagline: "300 grader, alltså runt ett hörn utan en andra enhet.",
     scores: {
       last: 4,
-      bevakning: 4,
+      bevakning: 4.5,
       vaderskydd: 4.5,
       installningar: 4.5,
       prisvarde: 2.5,
     },
-    price: 979,
+    price: 1244,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Bygghemma",
+    merchant: "Proffsmagasinet",
     merchantUrl:
-      "https://www.bygghemma.se/hus-och-bygg/elmaterial-och-energi/elartiklar-och-elprodukter/sensor-och-rela/rorelsevakt-steinel-is-180-2/p-1554661",
-    superlative: "Bäst för en lång rak fasad",
+      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/niko-351-26570-rorelsesensor-16-m-300-vit-3094485",
+    award: "premium",
+    superlative: "Bäst för den långa uppfarten",
     pros: [
-      "Linsen flyttas mellan 5 och 12 meter, så räckvidden kortas utan täckskal",
-      "Sex drivdon och 132 mikrofarad, näst mest elektronisk last här",
-      "Flatast av Steinel-modellerna, 56 mm ut från väggen",
+      "300 grader, bredast här och nog för ett ytterhörn med två fasader",
+      "Potentialfri kontakt, så den kan styra en kontaktor och därmed vad som helst",
+      "Ställs in i Niko Sensor Tool-appen i stället för med vred under kåpan",
     ],
     cons: [
-      "180 grader, så ett ytterhörn kräver två enheter i stället för en",
-      "Efterlystiden stannar vid 15 minuter mot 35 på IS 130-2",
-      "979 kronor för ett synfält Biltemas 89,90-kronorsvakt också har",
+      "16 meter är ett enda tal, utan uppgift om hur långt den ser rakt emot",
+      "148 millimeter djup, den klumpigaste av alla på fasaden",
+      "1 244 kronor, och hörnfästet är det enda tillbehör som följer med",
     ],
     specs: [
       { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "180°", highlight: true },
-      { label: "Räckvidd", value: "5 eller 12 m tvärs, två linslägen", highlight: true },
-      { label: "Last LED", value: "132 µF, max 6 drivdon", highlight: true },
-      { label: "Last glödljus", value: "400 W lysrör", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "0–300°", highlight: true },
+      { label: "Räckvidd", value: "16 m", highlight: true },
+      { label: "Last LED", value: "Potentialfri kontakt, styr valfri kontaktor", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 50 °C", highlight: true },
-      { label: "Efterlystid", value: "10 s till 15 min", highlight: true },
-      { label: "Skymningsnivå", value: "2–2 000 lux" },
-      { label: "Montering", value: "Vägg" },
-      { label: "Justering", value: "Linsen i två lägen, avskärmningar medföljer" },
-      { label: "Strömförsörjning", value: "230/240 V AC, 50 Hz" },
-      { label: "Mått", value: "120 × 76 × 56 mm" },
+      { label: "Efterlystid", value: "Upp till 20 min", highlight: true },
+      { label: "Skymningsnivå", value: "5–2 000 lux" },
+      { label: "Underkrypskydd", value: "Ja" },
+      { label: "Inställning", value: "Manuellt eller via Niko Sensor Tool-appen" },
+      { label: "Montering", value: "Vägg eller tak, hörnfäste medföljer" },
+      { label: "Mått", value: "105 × 112 × 148 mm" },
     ],
     verdict:
-      "Steinel IS 180-2 är den flataste vakten här, 56 millimeter ut från väggen, och kostar 979 kronor.\n\nDet som skiljer den från resten av 180-gradersfältet sitter i linsen. Den kan sättas i två lägen, ett på 5 meter och ett på 12, vilket betyder att du kortar räckvidden med ett handgrepp i stället för att klippa till täckskal. På en entré där du inte vill att lampan tänds av folk som passerar på trottoaren är det skillnaden mellan en vakt som fungerar och en som irriterar. Sex drivdon och 132 mikrofarad räcker till tre eller fyra LED-armaturer på samma krets.\n\n**Synfältet är ändå bara 180 grader, och det får du för 89,90 kronor hos Biltema.** Det du betalar de återstående niohundra för är linsen, kapslingen och att den håller −20 grader utan att bli trög.\n\nSka du bevaka en rak fasad och slippa att lampan tänds av gatan är det här rätt vakt. Ska du täcka ett hörn tar du IS 240, och letar du billigast möjliga 180-gradersvakt står Biltema längre ned i listan.",
+      "Niko 351-26570 ser 300 grader och kostar 1 244 kronor.\n\nDe trehundra graderna är det ingen annan här kommer i närheten av, och de gör en verklig sak: sätter du den på ett ytterhörn med det medföljande hörnfästet täcker en enhet både uppfarten och gaveln, och du slipper dra fram en andra dosa. Utgången är dessutom en potentialfri kontakt, alltså en ren brytare utan egen spänning, och det betyder att den kan styra en kontaktor och därmed hur mycket belysning som helst. Inställningarna görs i Niko Sensor Tool-appen i stället för med vred under en kåpa i mörkret.\n\n**Räckvidden anges som ett enda tal, sexton meter.** Steinel och ESYLUX skriver ut både det tvärgående och det raka avståndet för sina sensorer, och skillnaden mellan dem är två till fyra gånger. Vad Nikos sexton meter blir för den som kommer rakt emot står inte att läsa.\n\nSka du bevaka ett hörn eller en lång uppfart och vill kunna hänga på mer belysning senare är det här rätt vakt. Räcker en fasad tar du Steinel IS 2160 ECO för 535 kronor mindre.",
+  },
+  {
+    id: "steinel-is-2160",
+    brand: "Steinel",
+    name: "IS 2160 ECO rörelsevakt",
+    shortName: "IS 2160 ECO",
+    userRating: { value: 4, count: 1, checkedAt: PRICE_CHECKED },
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "steinel-is-2160"),
+    tagline: "Delar LED-lasten i tre steg efter hur stor varje lampa är.",
+    scores: {
+      last: 4,
+      bevakning: 3.5,
+      vaderskydd: 4.5,
+      installningar: 4.5,
+      prisvarde: 3.5,
+    },
+    price: 709,
+    priceCheckedAt: PRICE_CHECKED,
+    merchant: "Proffsmagasinet",
+    merchantUrl:
+      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/steinel-4007841606015-rorelsesensor-ip54-2-2000-lx-vit-3025541",
+    superlative: "Bäst för entrén och vedboden",
+    pros: [
+      "260 bevakningszoner i linsen, alltså fint raster och färre missar",
+      "Fem års garanti, längst av alla vakterna här",
+      "Efterlystid upp till 35 minuter, så en armatur hinner komma upp i ljus",
+    ],
+    cons: [
+      "Tre meter rakt emot, mot tolv för den som går tvärs över synfältet",
+      "160 grader räcker inte runt ett hörn, där Niko tar 300",
+      "Ideal monteringshöjd är 2 meter, alltså lägre än många vill sätta den",
+    ],
+    specs: [
+      { label: "Typ", value: "230 V-vakt", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "160°", highlight: true },
+      { label: "Räckvidd", value: "12 m tvärs, 3 m rakt emot", highlight: true },
+      { label: "Last LED", value: "100 W av lampor under 2 W, 125 W av 2–8 W, 250 W över 8 W", highlight: true },
+      { label: "Last glödljus", value: "600 W" },
+      { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 50 °C", highlight: true },
+      { label: "Efterlystid", value: "8 s till 35 min", highlight: true },
+      { label: "Kapacitiv last", value: "88 µF" },
+      { label: "Bevakningsområde", value: "201 m² tvärs, 13 m² rakt emot" },
+      { label: "Bevakningszoner", value: "260" },
+      { label: "Skymningsnivå", value: "2–2 000 lux" },
+      { label: "Underkrypskydd", value: "Ja" },
+      { label: "Justering", value: "40° i sidled, 70° i höjdled, täckfilm medföljer" },
+      { label: "Montagehöjd", value: "2 m" },
+      { label: "Mått", value: "73 × 78 × 113 mm" },
+      { label: "Garanti", value: "5 år" },
+    ],
+    verdict:
+      "Steinel IS 2160 ECO kostar 709 kronor och är den enda vakten här vars tillverkare skriver ut vad den tål med LED.\n\nDen delar lasten i tre steg efter hur stor varje enskild lampa är: 100 watt om lamporna drar under 2 W, 125 watt om de drar 2 till 8, och 250 watt om de drar mer än 8. Det låter bakvänt tills man vet varför. Det är kondensatorn i varje drivdon som laddas i tändögonblicket, så tio små lampor är hårdare mot reläet än två stora med samma sammanlagda effekt. Linsen har 260 bevakningszoner, alltså ett fint raster som gör en person mellan zonerna svår att missa, och garantin är fem år.\n\n**Rakt emot ser den tre meter.** Tolvmeterstalet gäller den som går tvärs över synfältet, och den skillnaden avgör var på huset den ska sitta.\n\nSka du bevaka en entré, en vedbod eller en garageport och vill veta exakt hur mycket belysning du får hänga på är den här svaret. Behöver du täcka två väggar från samma punkt går du till Niko.",
   },
   {
     id: "steinel-is-1",
@@ -182,10 +253,10 @@ const SEEDS: ProductSeed[] = [
     image: productImage(RORELSEVAKT_UTOMHUS.slug, "steinel-is-1"),
     tagline: "Håller lampan tänd i 35 minuter, längre än vakterna för tusen.",
     scores: {
-      last: 3,
+      last: 3.5,
       bevakning: 3,
       vaderskydd: 4.5,
-      installningar: 5,
+      installningar: 4,
       prisvarde: 5,
     },
     price: 269,
@@ -196,83 +267,36 @@ const SEEDS: ProductSeed[] = [
     award: "editor",
     superlative: "Bäst för uppfarten till garaget",
     pros: [
-      "IP54 för 269 kronor, samma kapsling som vakterna för fyra gånger pengarna",
-      "Efterlystid upp till 35 minuter, så en armatur hinner komma upp i ljus",
-      "Underkrypskydd i linsen, alltså ett segment rakt ned längs väggen",
+      "IP54 för 269 kronor, samma kapsling som vakterna för sex gånger pengarna",
+      "Samma LED-tabell som storebrorsan, alltså 250 watt av lampor över 8 W",
+      "Sensorn vrids 30 grader horisontellt och hela 180 vertikalt",
     ],
     cons: [
-      "120 grader och 10 meter, minst av 230-voltsvakterna här",
-      "Tre drivdon, så fler än ett par LED-armaturer blir för mycket",
-      "Sitter 120 mm ut från väggen trots att den är den minsta i övrigt",
+      "Tre meter rakt emot, mot tio för den som går tvärs",
+      "Skymningsreläet stannar vid 1 000 lux mot 2 000 hos IS 2160 ECO",
+      "Tre års garanti, mot fem på IS 2160 ECO",
     ],
     specs: [
       { label: "Typ", value: "230 V-vakt", highlight: true },
       { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "120°", highlight: true },
-      { label: "Räckvidd", value: "10 m tvärs över synfältet", highlight: true },
-      { label: "Last LED", value: "88 µF, max 3 drivdon", highlight: true },
-      { label: "Last glödljus", value: "300 W lysrör", highlight: true },
+      { label: "Räckvidd", value: "10 m tvärs, 3 m rakt emot", highlight: true },
+      { label: "Last LED", value: "100 W av lampor under 2 W, 125 W av 2–8 W, 250 W över 8 W", highlight: true },
+      { label: "Last glödljus", value: "500 W" },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 50 °C", highlight: true },
-      { label: "Efterlystid", value: "10 s till 35 min", highlight: true },
-      { label: "Skymningsnivå", value: "2–2 000 lux" },
+      { label: "Efterlystid", value: "5 s till 35 min", highlight: true },
+      { label: "Kapacitiv last", value: "88 µF" },
+      { label: "Bevakningsområde", value: "105 m² tvärs, 9 m² rakt emot" },
+      { label: "Bevakningszoner", value: "260" },
+      { label: "Skymningsnivå", value: "2–1 000 lux" },
       { label: "Underkrypskydd", value: "Ja" },
+      { label: "Justering", value: "30° horisontellt, 180° vertikalt, täckskal medföljer" },
       { label: "Montering", value: "Vägg eller tak" },
-      { label: "Justering", value: "Höjd och sidled, täckskal medföljer" },
-      { label: "Strömförsörjning", value: "230/240 V AC, 50 Hz" },
-      { label: "Mått", value: "50 × 80 × 120 mm" },
+      { label: "Mått", value: "120 × 80 × 50 mm" },
+      { label: "Garanti", value: "3 år" },
     ],
     verdict:
-      "Steinel IS 1 kostar 269 kronor och har samma IP54-kapsling som modellerna för fyra gånger pengarna.\n\nDen är byggd för en punkt, inte för en gårdsplan: 120 grader och 10 meter räcker till en garageport, en altandörr eller en trappa upp till entrén. Linsen har underkrypskydd, alltså ett segment som tittar rakt ned längs väggen, vilket är det som avgör om någon kan gå in tätt under sensorn utan att den märker det. Efterlystiden går upp till 35 minuter, längre än på både IS 240 och IS 180-2, och det är den inställning som gör att en armatur som behöver tid för att komma upp i fullt ljus slipper slås av och på hela kvällen.\n\n**Tre drivdon är taket.** Hänger du fyra LED-strålkastare på den ligger du över, och då är det IS 240 eller en kontaktor som gäller.\n\nHar du ett ställe att lysa upp och en eller två armaturer att göra det med finns det ingen anledning att betala mer. Ska du täcka två väggar från samma punkt är IS 240 svaret i stället.",
-  },
-  {
-    id: "steinel-is-130-2",
-    brand: "Steinel",
-    name: "IS 130-2 rörelsevakt",
-    shortName: "IS 130-2",
-    userRating: { value: 5, count: 3, checkedAt: PRICE_CHECKED },
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "steinel-is-130-2"),
-    tagline:
-      "Riktas om efter uppsättning, när du sett var ljuset faktiskt faller.",
-    scores: {
-      last: 3.5,
-      bevakning: 3.5,
-      vaderskydd: 4.5,
-      installningar: 5,
-      prisvarde: 3,
-    },
-    price: 549,
-    priceCheckedAt: PRICE_CHECKED,
-    merchant: "Bygghemma",
-    merchantUrl:
-      "https://www.bygghemma.se/hus-och-bygg/elmaterial-och-energi/elartiklar-och-elprodukter/sensor-och-rela/rorelsevakt-steinel-is-130-2/p-1554665-1554667",
-    superlative: "Bäst för en smal passage",
-    pros: [
-      "Sensorhuvudet vrids 50 grader i sidled och 90 i höjdled efter montering",
-      "Efterlystid upp till 35 minuter, längst tillsammans med IS 1",
-      "Fyra drivdon och 88 mikrofarad, mer än Kjells och Biltemas vakter tar",
-    ],
-    cons: [
-      "130 grader, alltså smalast av 230-voltsvakterna i jämförelsen",
-      "Dubbelt så dyr som IS 1, som ser tio meter mot samma tolv",
-      "80 mm djup, den klumpigaste av de tre Steinel-modellerna på fasaden",
-    ],
-    specs: [
-      { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "130°", highlight: true },
-      { label: "Räckvidd", value: "12 m tvärs över synfältet", highlight: true },
-      { label: "Last LED", value: "88 µF, max 4 drivdon", highlight: true },
-      { label: "Last glödljus", value: "400 W lysrör", highlight: true },
-      { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
-      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 50 °C", highlight: true },
-      { label: "Efterlystid", value: "10 s till 35 min", highlight: true },
-      { label: "Skymningsnivå", value: "2–2 000 lux" },
-      { label: "Montering", value: "Vägg" },
-      { label: "Justering", value: "50° i sidled, 90° i höjdled" },
-      { label: "Strömförsörjning", value: "230/240 V AC, 50 Hz" },
-      { label: "Mått", value: "120 × 50 × 80 mm" },
-    ],
-    verdict:
-      "Steinel IS 130-2 ser 130 grader på 12 meter och kostar 549 kronor.\n\nDet smala synfältet är poängen och inte en brist. En passage mellan hus, en gång längs en tomtgräns eller ett cykelförråd bevakas bättre av en vakt som tittar rakt fram än av en som tar in grannens uppfart på köpet. Sensorhuvudet vrids dessutom 50 grader i sidled och 90 i höjdled efter att den suttit uppe, vilket betyder att du kan rikta om den när du sett var den faktiskt tänder. Fyra drivdon räcker till tre LED-armaturer.\n\n**Prislappen är svår att försvara mot IS 1.** För 269 kronor får du samma IP54, samma 35 minuter och samma märke, mot 10 meter i stället för 12 och 120 grader i stället för 130.\n\nTa den om du ska rikta om vakten efter uppsättning och vet att du kommer att behöva det. Vet du redan var ljuset ska falla gör IS 1 samma sak för halva priset.",
+      "Steinel IS 1 kostar 269 kronor och har samma IP54-kapsling som vakterna för sex gånger pengarna.\n\nDen bär också samma LED-tabell som storebrorsan: 100 watt av lampor under 2 W, 125 av 2 till 8, och 250 av lampor över 8 W. Det är alltså inte en enklare elektrisk konstruktion utan en mindre lins, 120 grader i stället för 160, och det räcker gott till en garageport, en altandörr eller trappan upp till entrén. Sensorhuvudet vrids 30 grader horisontellt och hela 180 vertikalt, så du kan rikta ned den mot marken där du faktiskt vill ha ljuset. Efterlystiden går upp till 35 minuter.\n\n**Rakt emot ser den tre meter.** Den som kommer gående längs uppfarten rakt mot huset upptäcks alltså först på tre meters håll, och det avgör om vakten ska sitta på fasaden eller vridas mot sidan.\n\nHar du ett ställe att lysa upp finns det ingen anledning att betala mer. Ska du täcka en hel gårdsplan börjar det på 709 kronor med IS 2160 ECO.",
   },
   {
     id: "kjell-rorelsevakt-vagg",
@@ -297,13 +321,13 @@ const SEEDS: ProductSeed[] = [
     award: "budget",
     superlative: "Bäst för dig som bytt till LED",
     pros: [
-      "Minsta last 1 W, lägsta golvet här och tio gånger under Steinels",
-      "300 W induktiv last, alltså gott om marginal för LED-drivdon",
+      "Minsta last 1 W, lägsta golvet här och den enda som tänder en 5-wattslampa",
+      "300 W induktiv last, alltså gott om marginal för ett par LED-armaturer",
       "180 grader på 12 meter för 199,90 kronor",
     ],
     cons: [
       "IP44 i stället för IP54, så en fasad utan tak över sig är fel plats",
-      "Efterlystiden stannar vid 7 minuter mot 35 hos Steinel",
+      "Efterlystiden stannar vid 7 minuter mot 35 hos de båda Steinel-vakterna",
       "Kräver neutralledare i dosan, vilket äldre hus sällan har framdraget",
     ],
     specs: [
@@ -311,108 +335,115 @@ const SEEDS: ProductSeed[] = [
       { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "180°", highlight: true },
       { label: "Räckvidd", value: "12 m", highlight: true },
       { label: "Last LED", value: "300 W induktiv last", highlight: true },
-      { label: "Last glödljus", value: "1 200 W resistiv last", highlight: true },
-      { label: "Minsta last", value: "1 W" },
+      { label: "Last glödljus", value: "1 200 W resistiv last" },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "Ej angiven av tillverkaren", highlight: true },
       { label: "Efterlystid", value: "10 s till 7 min", highlight: true },
+      { label: "Minsta last", value: "1 W" },
       { label: "Skymningsnivå", value: "3–2 000 lux" },
       { label: "Montering", value: "Vägg" },
       { label: "Strömförsörjning", value: "230 V, skruvplint, kräver neutralledare" },
       { label: "Mått", value: "121 × 73 × 82 mm" },
     ],
     verdict:
-      "Kjells väggvakt kostar 199,90 kronor och slår till redan vid 1 watt.\n\nGolvet är det som gör den intressant, och det är precis tvärtemot vad man förväntar sig av den billigaste halvan. Steinel IS 240 behöver 10 watt för att reläet ska dra, så en ensam LED-lampa på 5 W håller den tyst; den här tänder samma lampa. Uppåt tar den 300 watt induktiv last, vilket räcker till ett par LED-strålkastare, och 180 grader på 12 meter täcker en normal villafasad. 108 kunder hos Kjell har satt 4,5 av 5.\n\n**Kapslingen är IP44 och inte IP54.** Det betyder stänk från alla håll men inte vattenstråle, så en helt oskyddad gavelvägg mot väster är fel plats för den.\n\nHar du bytt ut hela utebelysningen mot LED och undrar varför den gamla vakten inte längre tänder är det här svaret för tvåhundralappen. Sitter vakten under bar himmel tar du en Steinel med IP54 i stället.",
+      "Kjells väggvakt kostar 199,90 kronor och slår till redan vid 1 watt.\n\nGolvet är det som gör den intressant, och det går tvärtemot vad man förväntar sig av den billigaste. Steinel-vakterna behöver mer för att reläet ska dra, så en ensam LED-lampa på 5 watt i en entrélykta håller dem tysta; den här tänder samma lampa. Uppåt tar den 300 watt induktiv last, vilket räcker till ett par LED-strålkastare, och 180 grader på 12 meter täcker en normal villafasad. 108 kunder hos Kjell har satt 4,5 av 5, vilket är det största betygsunderlaget i jämförelsen med god marginal.\n\n**Kapslingen är IP44 och inte IP54.** Det betyder stänk från alla håll men inte vattenstråle, så en helt oskyddad gavelvägg mot väster är fel plats för den.\n\nHar du bytt ut hela utebelysningen mot LED och undrar varför den gamla vakten inte längre tänder är det här svaret för tvåhundralappen. Sitter vakten under bar himmel tar du Steinel IS 1 för 69 kronor mer.",
   },
   {
-    id: "biltema-rorelsevakt-ip44",
-    brand: "Biltema",
-    name: "Rörelsevakt IP44 (46-207)",
-    shortName: "Biltema 46-207",
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "biltema-rorelsevakt-ip44"),
-    tagline: "Samma 180 grader och 12 meter som vakterna för tusenlappen.",
+    id: "esylux-md-200",
+    brand: "ESYLUX",
+    name: "MD 200 rörelsedetektor",
+    shortName: "MD 200",
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "esylux-md-200"),
+    tagline: "Bevakar 175 kvadratmeter från en punkt på väggen.",
     scores: {
       last: 3.5,
-      bevakning: 3.5,
-      vaderskydd: 3,
-      installningar: 2,
-      prisvarde: 4.5,
+      bevakning: 4,
+      vaderskydd: 4,
+      installningar: 2.5,
+      prisvarde: 3,
     },
-    price: 89.9,
+    price: 670,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Biltema",
+    merchant: "Proffsmagasinet",
     merchantUrl:
-      "https://www.biltema.se/bygg/elinstallationer/rorelsevakter/rorelsevakt-ip44-2000023280",
-    superlative: "Bäst för ett enkelt garageljus",
+      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/esylux-md-200-rorelsesensor-200-vit-3084804",
+    superlative: "Bäst för carporten",
     pros: [
-      "89,90 kronor, billigast i jämförelsen med god marginal",
-      "300 W för lysrör och lågenergilampor, samma tak som Kjells vakt",
-      "Monteringshöjden står angiven, 1,8 till 2,5 meter",
+      "200 grader och 175 kvadratmeter, näst bredast av 230-voltsvakterna",
+      "Går ned till −25 grader, fem lägre än båda Steinel-vakterna",
+      "Sensorkulan böjs upp till 60 grader, så konen riktas efter montering",
     ],
     cons: [
-      "Efterlystiden går bara till 4 minuter, kortast här",
-      "Skymningsreläet stannar vid 200 lux, så den tänder sent i skymningen",
-      "IP44 och inget mer, alltså ingen plats på en oskyddad gavel",
+      "IP44, alltså ett steg under Steinel och Niko på en oskyddad vägg",
+      "Startströmmen får inte passera 30 ampere, en tredjedel av RC 230i",
+      "670 kronor för en vakt utan fjärrkontroll eller app",
     ],
     specs: [
       { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "180°", highlight: true },
-      { label: "Räckvidd", value: "12 m", highlight: true },
-      { label: "Last LED", value: "300 W lysrör och lågenergilampor", highlight: true },
-      { label: "Last glödljus", value: "1 000 W", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "200°, vridbar ±90°", highlight: true },
+      { label: "Räckvidd", value: "Ø 20 m vinkelrätt, Ø 10 m framifrån", highlight: true },
+      { label: "Last LED", value: "Startström 30 A i 20 ms", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
-      { label: "Efterlystid", value: "10 s till 4 min", highlight: true },
-      { label: "Skymningsnivå", value: "5–200 lux" },
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−25 till 55 °C", highlight: true },
+      { label: "Efterlystid", value: "10 s till 15 min", highlight: true },
+      { label: "Bevakningsområde", value: "Upp till 175 m²" },
+      { label: "Justering", value: "Kulled, böjs upp till 60°" },
+      { label: "Effektförbrukning", value: "0,5 W" },
+      { label: "Material", value: "UV-stabiliserat polykarbonat" },
       { label: "Montering", value: "Vägg" },
-      { label: "Montagehöjd", value: "1,8–2,5 m" },
-      { label: "Strömförsörjning", value: "230 V AC, 50 Hz" },
+      { label: "Strömförsörjning", value: "230 V, snabbanslutning" },
     ],
     verdict:
-      "Biltemas rörelsevakt kostar 89,90 kronor och ser 180 grader på 12 meter.\n\nFör en tiondel av vad IS 240 kostar får du samma synfält och samma räckvidd, och 300 watt för lysrör och lågenergilampor är exakt samma tak som Kjells vakt för dubbla priset. Den anger dessutom monteringshöjden, 1,8 till 2,5 meter, vilket är det som avgör hur konen faller på marken och som resten av det billiga fältet lämnar åt dig att gissa. Till ett garageljus, en vedbod eller en soptunnesida gör den precis vad den ska.\n\n**Efterlystiden går bara till 4 minuter.** Står du och lastar ur bilen slocknar den mitt i, och du får vifta med armen för att få tillbaka ljuset.\n\nSka lampan tändas när du kliver ur bilen och slockna strax efter är det här hela produkten du behöver. Ska du stå kvar och göra något under lampan tar du Steinel IS 1 för 269 kronor, som håller den tänd i upp till 35 minuter.",
+      "ESYLUX MD 200 bevakar upp till 175 kvadratmeter och kostar 670 kronor.\n\nTvåhundra grader från en punkt på väggen räcker till en carport med infart, en gårdsplan eller en altan med två sidor, och sensorkulan böjs upp till 60 grader så att konen kan riktas ned mot marken efter att kabeln redan sitter. Kylan är den andra styrkan: −25 grader är fem lägre än båda Steinel-vakterna klarar, och plasten är UV-stabiliserad polykarbonat och inte vanlig vit ABS som gulnar mot en sydvägg.\n\n**Startströmmen får inte passera 30 ampere.** Det är en tredjedel av vad RC 230i tål, och det är den toppen som svetsar ihop reläkontakter när flera LED-armaturer tänds samtidigt.\n\nSka vakten sitta på en carport eller en fasad där kylan är det verkliga problemet gör den jobbet. Vill du ha IP54 på samma vägg är Steinel IS 2160 ECO 39 kronor dyrare och tål vattenstråle i stället för bara stänk.",
   },
   {
-    id: "anslut-rorelsevakt-ip44",
-    brand: "Anslut",
-    name: "Rörelsevakt IP44 (422080)",
-    shortName: "Anslut 422080",
-    userRating: { value: 3.9, count: 216, checkedAt: PRICE_CHECKED },
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "anslut-rorelsevakt-ip44"),
-    tagline: "Svart hölje, så den försvinner mot en tjärad eller falurött fasad.",
+    id: "philips-hue-outdoor",
+    brand: "Philips Hue",
+    name: "Outdoor Sensor rörelsesensor",
+    shortName: "Hue Outdoor",
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "philips-hue-outdoor"),
+    tagline: "Mäter både ljus och temperatur, och kan tända olika ljus per timme.",
     scores: {
-      bevakning: 3.5,
-      vaderskydd: 3,
-      installningar: 2.5,
-      prisvarde: 4,
+      last: 2,
+      vaderskydd: 4,
+      installningar: 4,
+      prisvarde: 3,
     },
-    price: 99.9,
+    price: 557,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Jula",
-    merchantUrl:
-      "https://www.jula.se/catalog/el-och-belysning/elinstallation/belysningstillbehor/rorelsevakter-och-skymningsrela/rorelsevakt-422080/",
-    superlative: "Bäst för en mörk träfasad",
+    merchant: "Proshop",
+    merchantUrl: "https://www.proshop.se/Smarta-Hem/Philips-Hue-Outdoor-Sensor/2990979",
+    superlative: "Bäst för dig som redan har Hue ute",
     pros: [
-      "Svart hölje, enda mörka vakten här och osynlig mot en tjärad fasad",
-      "180 grader på 12 meter för 99,90 kronor",
-      "Går ned till −20 grader, tio grader lägre än Nexas smarta sensor",
+      "Batteridriven, så den kan sitta där ingen kabel går att dra",
+      "Inbyggd temperaturgivare vid sidan av ljussensorn, unik i jämförelsen",
+      "Programvaran uppdateras, så sensorn får nya funktioner efter köpet",
     ],
     cons: [
-      "3,9 av 5 från 216 kunder, lägsta kundbetyget i jämförelsen",
-      "Efterlystiden går till 7 minuter och ljusnivån ställs på ett vred utan skala",
-      "1 000 W gäller glödljus och 500 W halogen, alltså inga tal du kan handla LED på",
+      "Tänder bara Hue-lampor, och bara genom en Hue Bridge som säljs separat",
+      "Två AA-batterier räcker ungefär två år och byts uppe på väggen",
+      "Stannar vid +45 grader, lägst tak av alla vakterna här",
     ],
     specs: [
-      { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "180°", highlight: true },
-      { label: "Räckvidd", value: "12 m", highlight: true },
-      { label: "Last glödljus", value: "1 000 W glödljus, 500 W halogen", highlight: true },
-      { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
+      { label: "Typ", value: "Batteridriven sensor", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "Ej angiven av tillverkaren", highlight: true },
+      { label: "Räckvidd", value: "Ej angiven av tillverkaren", highlight: true },
+      { label: "Last LED", value: "Bryter ingen ström, kräver Hue Bridge", highlight: true },
+      { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP54", highlight: true },
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 45 °C", highlight: true },
-      { label: "Efterlystid", value: "5 s till 7 min", highlight: true },
-      { label: "Montering", value: "Vägg" },
-      { label: "Färg", value: "Svart" },
-      { label: "Strömförsörjning", value: "230 V" },
+      { label: "Efterlystid", value: "Ställs fritt i Hue-appen", highlight: true },
+      { label: "Strömförsörjning", value: "2 × AA, ingår" },
+      { label: "Batteritid", value: "Cirka 2 år" },
+      { label: "Sensorer", value: "Rörelse, ljusnivå och temperatur" },
+      { label: "Styrning", value: "Zigbee via Hue Bridge, app och röstassistent" },
+      { label: "Montering", value: "Vägg eller stående" },
+      { label: "Luftfuktighet", value: "5–95 %, icke-kondenserande" },
+      { label: "Mått", value: "76 × 56 × 76 mm" },
+      { label: "Vikt", value: "186 g" },
+      { label: "Garanti", value: "2 år" },
     ],
     verdict:
-      "Julas Anslut-vakt kostar 99,90 kronor och är den enda svarta i jämförelsen.\n\nFärgen är ett verkligt argument och inte en detalj. En vit plastvakt på en falurött eller tjärad fasad syns från gatan och drar blicken till precis det du helst ville ha diskret; den här försvinner. I övrigt gör den vad den ska: 180 grader på 12 meter, ned till −20 grader och 5 sekunder till 7 minuters efterlystid. 216 kunder har satt betyg, fler än på någon annan produkt här.\n\n**Betyget de satt är 3,9 av 5, lägst i jämförelsen.** Det är inte ett underkännande, men det är en påtaglig marginal ned till Kjells 4,5 för dubbla priset.\n\nSka vakten sitta på en mörk fasad och kosta under hundralappen är den svår att gå förbi. Vill du ha kundernas eget omdöme på din sida lägger du hundra kronor till och tar Kjells väggvakt.",
+      "Philips Hue Outdoor Sensor kostar 557 kronor och är den enda sensorn här som mäter mer än rörelse.\n\nVid sidan av pyrodetektorn sitter både en ljusgivare och en temperaturgivare, och det öppnar automationer ingen 230-voltsvakt kan göra. Du kan låta samma rörelse tända varmt och svagt efter midnatt men fullt ljus vid åttatiden, eller koppla temperaturen till något helt annat i huset. Programvaran uppdateras över Bridgen, så sensorn kan få funktioner den inte hade när du köpte den. Kapslingen är IP54, alltså samma klass som Steinel och Niko, och två AA-batterier ingår och räcker ungefär två år.\n\n**Den bryter ingen ström.** Strålkastaren du redan har på väggen tänds inte av den här sensorn, och Hue Bridge som krävs för att den ska göra något alls säljs separat.\n\nHar du redan Hue-armaturer ute är det här den självklara sensorn, och den enda som ger dig olika ljus vid olika tider på natten. Ska du få en vanlig lampa att tända är även den billigaste 230-voltsvakten ett bättre köp.",
   },
   {
     id: "esylux-md-120",
@@ -421,93 +452,96 @@ const SEEDS: ProductSeed[] = [
     shortName: "MD 120",
     userRating: { value: 4.5, count: 2, checkedAt: PRICE_CHECKED },
     image: productImage(RORELSEVAKT_UTOMHUS.slug, "esylux-md-120"),
-    tagline: "Klarar −25 grader, fem lägre än hela Steinel-serien.",
+    tagline: "Klarar −25 grader, fem lägre än båda Steinel-vakterna.",
     scores: {
-      last: 3,
-      bevakning: 3.5,
+      last: 3.5,
+      bevakning: 3,
       vaderskydd: 4,
-      installningar: 2.5,
-      prisvarde: 2.5,
+      installningar: 3,
+      prisvarde: 2,
     },
     price: 505,
     priceCheckedAt: PRICE_CHECKED,
     merchant: "Proffsmagasinet",
     merchantUrl:
       "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/esylux-md-120-rorelsesensor-120-3084766",
-    superlative: "Bäst för fjällstugans vindsida",
+    superlative: "Bäst för en dörr i taget",
     pros: [
-      "−25 till 55 grader, bredaste temperaturspannet i jämförelsen",
-      "Kulled som vrids och böjs, så konen riktas fritt efter montering",
-      "Anger både djup och bredd på bevakningsområdet, 12 respektive 10 meter",
+      "−25 till 55 grader, bredaste temperaturspannet tillsammans med MD 200",
+      "Sensorn vrids ±90 grader horisontellt efter att kabeln sitter",
+      "UV-stabiliserat polykarbonat, som inte gulnar mot en sydvägg",
     ],
     cons: [
-      "Efterlystiden går bara till 5 minuter, näst kortast här",
-      "Startströmmen får inte överstiga 4,5 A, vilket är snålt för LED-strålkastare",
-      "IP44 och 505 kronor, medan Steinel IS 1 ger IP54 för 269",
+      "Fem meter rakt emot, kortaste raka räckvidden av 230-voltsvakterna",
+      "Efterlystiden stannar vid 15 minuter mot 35 hos båda Steinel-vakterna",
+      "505 kronor mot Steinel IS 1:s 269, för ett steg sämre kapsling",
     ],
     specs: [
       { label: "Typ", value: "230 V-vakt", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "120°", highlight: true },
-      { label: "Räckvidd", value: "12 m framåt, 10 m i sidled", highlight: true },
-      { label: "Last LED", value: "Startström max 4,5 A", highlight: true },
-      { label: "Last glödljus", value: "1 000 W", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "120°, vridbar ±90°", highlight: true },
+      { label: "Räckvidd", value: "12 m vinkelrätt, 5 m framifrån", highlight: true },
+      { label: "Last LED", value: "Inkopplingsström 30 A i 20 ms", highlight: true },
+      { label: "Last glödljus", value: "1 000 W" },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
       { label: "Drifttemperatur", shortLabel: "Kyla", value: "−25 till 55 °C", highlight: true },
-      { label: "Efterlystid", value: "Upp till 5 min", highlight: true },
+      { label: "Efterlystid", value: "10 s till 15 min", highlight: true },
+      { label: "Bevakningsområde", value: "Upp till 151 m²" },
       { label: "Skymningsnivå", value: "2–1 000 lux" },
       { label: "Underkrypskydd", value: "Ja" },
-      { label: "Montering", value: "Vägg" },
       { label: "Justering", value: "Vrid- och böjbar kulled" },
-      { label: "Strömförsörjning", value: "230 V, snabbanslutning" },
+      { label: "Montagehöjd", value: "2,5 m" },
+      { label: "Effektförbrukning", value: "0,5 W" },
+      { label: "Material", value: "UV-stabiliserat polykarbonat" },
     ],
     verdict:
-      "ESYLUX MD 120 går ned till −25 grader och kostar 505 kronor.\n\nFem grader lägre än hela Steinel-serien låter marginellt och är det inte i Jämtland eller norrut, där en normal februarinatt ligger under −20 och en kall vecka ligger under −25. Uppåt går den till 55 grader, vilket spelar roll på en söderfasad i plåt. Kulleden är den andra styrkan: hela sensorhuvudet både vrids och böjs, så konen kan riktas ned mot en trappa eller ut mot en grind efter att kabeln redan är dragen. Området anges dessutom både på djupet och på bredden, 12 meter framåt och 10 i sidled.\n\n**Startströmmen får inte passera 4,5 ampere.** En LED-strålkastare drar långt mer än sin märkeffekt i det ögonblick den slår på, och det är den toppen som svetsar ihop reläkontakter.\n\nSitter vakten där kylan är det verkliga problemet är det här den som håller längst. Ska den bara sitta på en villafasad i södra Sverige får du IP54, längre efterlystid och 236 kronor kvar i fickan med Steinel IS 1.",
+      "ESYLUX MD 120 går ned till −25 grader och kostar 505 kronor.\n\nFem grader lägre än båda Steinel-vakterna låter marginellt och är det inte i Jämtland eller norrut, där en normal februarinatt ligger under −20. Uppåt går den till 55 grader, vilket spelar roll på en söderfasad i plåt, och höljet är UV-stabiliserat polykarbonat i stället för vanlig vit plast som gulnar. Kulleden gör att hela sensorhuvudet både vrids ±90 grader och böjs, så konen kan riktas mot en trappa eller en grind efter att kabeln redan är dragen.\n\n**Rakt emot ser den fem meter.** Tolvmeterstalet gäller den som passerar tvärs över synfältet, och fem meter är den kortaste raka räckvidden bland 230-voltsvakterna här.\n\nSitter vakten där kylan är det verkliga problemet och du bara har en dörr att bevaka gör den jobbet. Ska den bara sitta på en villafasad i södra Sverige får du IP54, längre efterlystid och 236 kronor kvar i fickan med Steinel IS 1.",
   },
   {
-    id: "nexa-sp-816",
+    id: "nexa-lmdt-810",
     brand: "Nexa",
-    name: "SP-816 Z-Wave rörelsevakt",
-    shortName: "SP-816",
-    image: productImage(RORELSEVAKT_UTOMHUS.slug, "nexa-sp-816"),
-    tagline: "Batteridriven, så den sätts upp där ingen kabel går att dra.",
+    name: "LMDT-810 trådlös rörelsevakt",
+    shortName: "LMDT-810",
+    image: productImage(RORELSEVAKT_UTOMHUS.slug, "nexa-lmdt-810"),
+    tagline: "Linsskyddet klipps till, så vinkeln snävas från 110 till 20 grader.",
     scores: {
       last: 2,
       bevakning: 2.5,
-      vaderskydd: 2,
-      installningar: 3.5,
-      prisvarde: 2,
+      vaderskydd: 2.5,
+      installningar: 2.5,
+      prisvarde: 3,
     },
-    price: 389,
+    price: 268,
     priceCheckedAt: PRICE_CHECKED,
-    merchant: "Elbutik",
-    merchantUrl: "https://www.elbutik.se/product.html/nexa-z-wave-rorelsevakt-sp-816",
-    superlative: "Bäst för dig som redan kör Z-Wave",
+    merchant: "Teknikproffset",
+    merchantUrl:
+      "https://www.teknikproffset.se/hem-hushall-tradgard/larm-sakerhet/rorelsesensorer/nexa-tradlos-rorelsevakt-for-utomhusbruk-ip-44-sjalvlarande-koder-lmdt-810",
+    superlative: "Bäst där ingen kabel går att dra",
     pros: [
-      "Batteridriven, så den kan sitta på ett staket eller ett uthus utan el",
-      "Z-Wave Plus, alltså inte låst till en enda tillverkares lampor",
-      "Sabotagelarm och varning för svagt batteri, ingen annan här har det",
+      "Batteridriven och trådlös, så den kan sitta på ett staket eller ett uthus",
+      "Linsskyddet klipps till och snävar vinkeln från 110 ned till 20 grader",
+      "Kan också ringa en Nexa dörrklocka i stället för att tända en lampa",
     ],
     cons: [
-      "Bryter ingen ström själv, så strålkastaren du redan har tänds inte av den",
-      "Stannar vid −10 grader, femton grader sämre än ESYLUX",
-      "Kräver en Z-Wave-styrenhet, som kostar mer än vakten",
+      "Bryter ingen ström, så den kräver en Nexa-mottagare i uttaget",
+      "Stannar vid +40 grader och batterierna följer inte med",
+      "Fyra fasta efterlystider, 5 sekunder eller 1, 5 och 10 minuter",
     ],
     specs: [
       { label: "Typ", value: "Batteridriven sensor", highlight: true },
-      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "100°", highlight: true },
-      { label: "Räckvidd", value: "10 m vid 2 m montagehöjd under 20 °C", highlight: true },
-      { label: "Last LED", value: "Bryter ingen ström, kräver styrenhet", highlight: true },
+      { label: "Bevakningsvinkel", shortLabel: "Vinkel", value: "110°, kan snävas till 20°", highlight: true },
+      { label: "Räckvidd", value: "10 m", highlight: true },
+      { label: "Last LED", value: "Bryter ingen ström, kräver Nexa-mottagare", highlight: true },
       { label: "Kapslingsklass", shortLabel: "IP-klass", value: "IP44", highlight: true },
-      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−10 till 50 °C", highlight: true },
-      { label: "Efterlystid", value: "5 s till 12 min", highlight: true },
-      { label: "Montering", value: "Vägg eller tak" },
-      { label: "Strömförsörjning", value: "3 × AA, ingår" },
-      { label: "Batteritid", value: "1 år vid 10 detektioner per dygn" },
-      { label: "Styrning", value: "Z-Wave Plus, 868,42 MHz, 30 m radioräckvidd" },
-      { label: "Mått", value: "101 × 95 × 95 mm" },
+      { label: "Drifttemperatur", shortLabel: "Kyla", value: "−20 till 40 °C", highlight: true },
+      { label: "Efterlystid", value: "5 s, 1, 5 eller 10 min", highlight: true },
+      { label: "Strömförsörjning", value: "2 × AAA, ingår ej" },
+      { label: "Styrning", value: "433 MHz till System Nexa och Nexa Bridge" },
+      { label: "Radioräckvidd", value: "Upp till 30 m" },
+      { label: "Ljuslägen", value: "Dygnet runt, skymning och gryning, eller natt" },
+      { label: "Montagehöjd", value: "2–3 m" },
     ],
     verdict:
-      "Nexa SP-816 är den enda batteridrivna vakten i jämförelsen och kostar 389 kronor.\n\nDen löser ett problem ingen av de andra kan röra: ett staketstolpe, ett uthus eller en grind dit det inte går någon kabel. Sensorn skickar i stället en Z-Wave-signal upp till 30 meter till en styrenhet, som tänder vad du vill. Att den kör Z-Wave Plus och inte ett eget protokoll betyder att den fungerar med Nexa Bridge X likaväl som med Homey eller Home Assistant, alltså inte låst till en tillverkares lampor. Tre AA-batterier ingår och räcker ett år vid tio detektioner om dygnet.\n\n**Den bryter ingen ström.** Har du redan en strålkastare på väggen tänds den inte av den här sensorn förrän du också köpt en styrenhet och ett relä, och då kostar lösningen tre gånger vad Kjells väggvakt gör.\n\nHar du redan en Z-Wave-styrenhet i huset och ett ställe utan framdragen el är det här rätt produkt. Ska du bara få lampan över garageporten att tända går du till Steinel IS 1 eller Kjells väggvakt i stället.",
+      "Nexa LMDT-810 kostar 268 kronor och är den billigaste vägen till en vakt där ingen kabel går.\n\nEn staketstolpe, ett uthus eller en grind långt från huset får ström från två AAA-batterier och skickar i stället en radiosignal upp till trettio meter till en Nexa-mottagare inne. Det medföljande linsskyddet är den smartaste detaljen: det klipps till och snävar bevakningsvinkeln från 110 grader ned till 20, så du kan låta vakten se grinden och ingenting av gatan bakom. Den kan dessutom ringa en Nexa dörrklocka i stället för att tända en lampa, vilket gör den till en billig avisering när någon svänger in på tomten.\n\n**Den bryter ingen ström.** Utan en Nexa-mottagare i uttaget gör den ingenting alls, och med en kostar lösningen mer än Kjells inkopplade vakt.\n\nHar du redan System Nexa i huset och ett ställe utan el är den svår att slå på priset. Ska lampan över garageporten tända går du till Steinel IS 1 eller Kjells väggvakt i stället.",
   },
 ];
 
@@ -520,135 +554,166 @@ export const RORELSEVAKT_UTOMHUS_PRODUCTS = resolveProducts(
  * Filtret delar på bevakningsvinkel och inte på pris eller märke.
  *
  * Det är den enda uppdelning som svarar mot ett beslut läsaren redan fattat
- * innan hen kommer hit: ska ljuset täcka en gårdsplan eller en dörr. Ett filter
- * på IP-klass hade delat fältet fyra mot fem men inte hjälpt någon välja, och
- * ett på produkttyp hade blivit åtta mot en.
+ * innan hen kommer hit: ska ljuset täcka en gårdsplan eller en dörr.
  */
 export const RORELSEVAKT_UTOMHUS_FILTERS = [
   {
     key: "bred",
     label: "180 grader och bredare",
     ids: [
-      "steinel-is-240",
-      "steinel-is-180-2",
+      "esylux-rc-230i",
+      "niko-351-26570",
+      "esylux-md-200",
       "kjell-rorelsevakt-vagg",
-      "biltema-rorelsevakt-ip44",
-      "anslut-rorelsevakt-ip44",
     ],
   },
   {
     key: "smal",
     label: "Smalare än 180 grader",
-    ids: ["steinel-is-130-2", "steinel-is-1", "esylux-md-120"],
+    ids: ["steinel-is-2160", "steinel-is-1", "esylux-md-120"],
   },
   {
     key: "batteri",
     label: "Batteridriven",
-    ids: ["nexa-sp-816"],
+    ids: ["philips-hue-outdoor", "nexa-lmdt-810"],
   },
 ];
 
 export const RORELSEVAKT_UTOMHUS_FAQ = [
   {
+    question: "Varför tänds lampan inte när jag går rakt mot sensorn?",
+    answer:
+      "För att en pyrodetektor läser skillnaden mellan intilliggande segment i linsen. Går du tvärs över synfältet passerar din kropp segment efter segment och sensorn ser en tydlig växling. Går du rakt emot fyller du samma segment hela vägen in, och växlingen uteblir tills du är nära. Tillverkarna anger båda talen i sina datablad: Steinel IS 2160 ECO ser 12 meter tvärs men 3 meter rakt emot, ESYLUX MD 120 ser 12 respektive 5. Talet i annonsen är alltid det större. Rikta därför sensorn så att den som närmar sig korsar synfältet i stället för att gå längs det.",
+  },
+  {
     question: "Vad betyder wattalet på en rörelsevakt?",
     answer:
-      "Det gäller resistiv last, alltså glödlampa. Steinel IS 240 är märkt 1 000 W, men för elektroniska drivdon stannar samma detektor på 132 mikrofarad eller åtta armaturer, och Kjells vakt på 1 200 W tar 300 W induktivt. Schneider skriver ut båda talen för samma detektor: 2 200 W resistivt och 200 W LED. Leta efter LED-talet, antalet drivdon eller startströmmen i ampere, för det är de tal som gäller den belysning du faktiskt köper.",
+      "Det gäller nästan alltid glödljus. Steinel IS 2160 ECO är märkt 600 W för glödlampor, men samma detektor tar 100 W av LED-lampor under 2 W, 125 W av lampor mellan 2 och 8 W och 250 W av lampor över 8 W. Kjells vakt klarar 1 200 W resistivt och 300 W induktivt. ESYLUX anger i stället en högsta startström: 30 ampere för MD 200 och 100 ampere för RC 230i. Leta efter LED-talet, kapacitansen i mikrofarad eller startströmmen, för det är de tal som gäller den belysning du faktiskt köper.",
   },
   {
     question: "Kan jag koppla LED-strålkastare till en rörelsevakt?",
     answer:
-      "Ja, men räkna på antalet armaturer i stället för på summan watt. Varje LED-drivdon har en kondensator som laddas i det ögonblick strömmen slås på, och den strömtoppen kan vara tiotals gånger armaturens märkeffekt under några millisekunder. Det är den toppen som svetsar ihop reläkontakterna, inte den ström lampan drar sedan. Därför räknar Steinel drivdon och mikrofarad, och därför anger ESYLUX en högsta startström på 4,5 A i stället för ett watt-tal.",
-  },
-  {
-    question: "Varför tänds lampan inte när jag går rakt mot sensorn?",
-    answer:
-      "För att en pyrodetektor läser skillnaden mellan intilliggande segment i linsen. Går du tvärs över synfältet passerar din kropp segment efter segment och sensorn ser en tydlig växling. Går du rakt emot fyller du samma segment hela vägen in, och växlingen uteblir tills du är nära. Räckvidden i annonsen gäller det första fallet: Steinels tolv meter mäts för gående personer som inte kommer rakt emot sensorn. Rikta därför sensorn så att den som kommer korsar synfältet i stället för att gå längs det.",
+      "Ja, men räkna på antalet armaturer i stället för på summan watt. Varje LED-drivdon har en kondensator som är tom när strömmen slås på, och den laddas med en strömtopp som kan ligga tiotals gånger över armaturens märkeffekt under några millisekunder. Det är den toppen som svetsar ihop reläkontakterna, inte strömmen lampan drar sedan. Därför är Steinels tak lägre för många små lampor än för få stora, och därför anger ESYLUX 30 respektive 100 ampere i stället för ett watt-tal.",
   },
   {
     question: "Vilken IP-klass behöver en rörelsevakt utomhus?",
     answer:
-      "Minst IP44. Elsäkerhetsverket sätter IP44 eller högre som gräns för det som placeras utomhus, och fyran i andra positionen betyder att produkten tål vatten som stänker från alla riktningar. IP54 lägger till bättre dammskydd och tål vatten som sprutar, vilket är värt något på en gavelvägg utan tak över sig. Av de nio vakterna i jämförelsen har fyra IP54 och fem IP44.",
+      "Minst IP44. Elsäkerhetsverket sätter IP44 eller högre som gräns för det som placeras utomhus, och fyran i andra positionen betyder att produkten tål vatten som stänker från alla riktningar. IP54 lägger till bättre dammskydd och tål vatten som sprutar, vilket är värt något på en gavelvägg utan tak över sig. Av de nio vakterna här har fyra IP54 och fem IP44.",
   },
   {
     question: "Hur högt ska en rörelsevakt sitta?",
     answer:
-      "Mellan 1,8 och 2,5 meter för de flesta väggvakter, vilket är det spann Biltema anger för sin. Höjden avgör hur bevakningskonen faller på marken: för lågt och konen når bara några meter, för högt och den missar någon som går tätt intill väggen. Steinel IS 3180 anger sina 20 meter vid just 2,5 meters montagehöjd och hänvisar till en tabell i bruksanvisningen för andra höjder. Har linsen underkrypskydd, alltså ett segment som tittar rakt ned längs fasaden, spelar höjden mindre roll för den som kommer tätt inpå.",
+      "Runt två meter för de flesta väggvakter. Steinel anger ideal monteringshöjd 2 meter för både IS 1 och IS 2160 ECO, ESYLUX rekommenderar 2,5 meter för MD 120, och Nexa vill ha LMDT-810 mellan 2 och 3 meter över marknivå. Höjden avgör hur bevakningskonen faller på marken: för lågt och konen når bara några meter ut, för högt och den tittar ned framför fasaden och missar den som närmar sig. Har linsen underkrypskydd, alltså ett segment som ser rakt ned längs väggen, spelar höjden mindre roll för den som kommer tätt inpå.",
   },
   {
     question: "Varför tänds lampan mitt på dagen?",
     answer:
-      "Skymningsreläet är inställt för högt. Vreden märkta LUX eller en soloch månsymbol bestämmer vid vilken ljusnivå vakten börjar reagera på rörelse alls. Steinel-modellerna går från 2 till 2 000 lux, vilket täcker allt från mörk natt till mulen dag, medan Biltemas stannar vid 200 lux och alltså håller sig tystare i dagsljus. Vrid mot månsymbolen och gör om gångtestet i skymningen, inte mitt på dagen.",
+      "Skymningsreläet är inställt för högt. Vredet märkt LUX eller med en sol och en måne bestämmer vid vilken ljusnivå vakten börjar reagera på rörelse alls. Steinel IS 2160 ECO går från 2 till 2 000 lux, vilket täcker allt från mörk natt till mulen dag, medan IS 1 stannar vid 1 000 och Niko börjar först vid 5. Vrid mot månsymbolen och gör om gångtestet i skymningen, inte mitt på dagen.",
   },
   {
     question: "Fungerar en rörelsevakt i kyla?",
     answer:
-      "De flesta gör det, men spannet skiljer femton grader. ESYLUX MD 120 anger −25 till 55 grader, hela Steinel-serien −20 till 50, och Nexa SP-816 stannar vid −10. Kylan gör dessutom detektionen bättre snarare än sämre: en pyrodetektor mäter skillnaden mellan människan och bakgrunden, och den skillnaden växer när det är kallt. Nexa anger därför sina tio meter vid temperaturer under tjugo grader, och Steinel bygger in kompensation som de kallar temperaturstabiliserad räckvidd.",
+      "De flesta gör det, och kylan gör faktiskt detektionen bättre. En pyrodetektor mäter skillnaden mellan människan och bakgrunden, och den skillnaden växer när bakgrunden är kall. Den svåra situationen är en varm sommarkväll när muren bakom personen håller kroppstemperatur. Elektroniken har däremot en gräns: båda ESYLUX-vakterna går till −25 grader, Steinel och Niko till −20, och Nexa LMDT-810 har ett tak på bara +40.",
   },
   {
     question: "Får jag installera en rörelsevakt själv?",
     answer:
-      "Nej, inte en som kopplas till 230 volt. En sådan vakt kräver installation av behörig elinstallatör, och Elsäkerhetsverket kräver dessutom skyddsjordade uttag utomhus och jordfelsbrytare för nya installationer. En batteridriven sensor som Nexa SP-816 sätter du upp själv med två skruvar, eftersom ingenting där går på nätspänning.",
+      "Nej, inte en som kopplas till 230 volt. En sådan vakt kräver behörig elinstallatör, och Elsäkerhetsverket kräver dessutom skyddsjordade uttag utomhus och jordfelsbrytare för nya installationer. En batteridriven sensor som Philips Hue Outdoor eller Nexa LMDT-810 sätter du upp själv med två skruvar, eftersom ingenting där går på nätspänning.",
   },
 ];
 
+/**
+ * Tittade på, valde bort.
+ *
+ * ⚠️ Sex av dem ligger här av **kommersiella** skäl och inte redaktionella: de
+ * säljs bara av butiker vi inte länkar till, efter användarbeslut 2026-08-07.
+ * Pris och egenskaper står kvar så att läsaren kan köpa dem ändå, och skälet
+ * står utskrivet i sektionsbeskrivningen på sidan. Att i stället hitta på en
+ * produktinvändning hade varit det sämsta av alternativen.
+ */
 export const RORELSEVAKT_UTOMHUS_CONSIDERED: ConsideredProduct[] = [
   {
-    brand: "Philips",
-    name: "Hue Outdoor Sensor",
+    brand: "Steinel",
+    name: "IS 240 rörelsevakt",
     reason:
-      "Tänder bara Hue-lampor, och bara genom en Hue Bridge. Strålkastaren du redan har på väggen berörs inte, vilket är fel svar på frågan sidan handlar om. Har du redan Hue ute är den däremot en bra sensor: IP54, två AA-batterier och ned till −20 grader.",
-    approxPrice: 557,
-    merchant: "Proshop",
-    merchantUrl: "https://www.proshop.se/Smarta-Hem/Philips-Hue-Outdoor-Sensor/2990979",
+      "Kategorins bredaste 230-voltsvakt med 240 graders bevakning, tolv meter tvärs och IP54, och den enda som får sitta på ett ytterhörn och täcka två fasader. Slår inte till under 10 watt, så en ensam LED-lampa på 5 W håller den tyst. Säljs i Sverige bara inom Bygghemmakoncernen.",
+    approxPrice: 1143,
+    merchant: "Bygghemma",
+  },
+  {
+    brand: "Steinel",
+    name: "IS 180-2 rörelsevakt",
+    reason:
+      "Den flataste vakten vi hittade, 56 millimeter ut från väggen, och linsen sitter i två lägen med räckvidd 5 eller 12 meter. Samma butiksläge som IS 240.",
+    approxPrice: 979,
+    merchant: "Bygghemma",
+  },
+  {
+    brand: "Steinel",
+    name: "IS 130-2 rörelsevakt",
+    reason:
+      "Smal lins på 130 grader för en passage eller en gång längs tomtgränsen, och sensorhuvudet vrids 50 grader i sidled och 90 i höjdled efter uppsättning. Samma butiksläge som IS 240.",
+    approxPrice: 549,
+    merchant: "Bygghemma",
   },
   {
     brand: "Steinel",
     name: "IS 3180 rörelsevakt",
     reason:
-      "Ser 20 meter över 180 grader vid 2,5 meters montagehöjd, längst av allt vi hittade, och delar upp lasten efter lampstorlek: 100 W av lampor under 2 W, 300 W av 2 till 8 W och 600 W av lampor över 8 W. Byggd för lastkaj och parkering snarare än för villafasad, och priset följer med dit.",
-    approxPrice: 1441,
+      "Ser 20 meter över 180 grader vid 2,5 meters montagehöjd, längst av allt vi hittade, och delar upp lasten efter lampstorlek precis som IS 2160 ECO fast med taket 600 watt. Restnoterad hos Proffsmagasinet vid priskontrollen.",
+    approxPrice: 1579,
     merchant: "Proffsmagasinet",
     merchantUrl:
-      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter",
+      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter/steinel-10508-rorelsesensor-0-180-2-10000-lx-ip54-3026011",
   },
   {
-    brand: "Steinel",
-    name: "IS 2160 ECO",
+    brand: "Osram",
+    name: "SMART+ Outdoor Motion Sensor WiFi",
     reason:
-      "Anger 250 W LED rakt av, utan omvägen över mikrofarad, och har underkrypskydd med 160 graders vinkel. Såld i två utföranden med skilda artikelnummer som butiken inte skiljer åt i texten, så vilken variant du får är oklart tills paketet öppnas.",
-    approxPrice: 709,
-    merchant: "Proffsmagasinet",
+      "Wifi i stället för Zigbee, alltså ingen bridge alls, och 292 kronor gör den till den billigaste smarta sensorn vi hittade. Restnoterad hos Proshop vid priskontrollen, och den enda i urvalet som inte gick att köpa samma dag.",
+    approxPrice: 292,
+    merchant: "Proshop",
     merchantUrl:
-      "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter",
+      "https://www.proshop.se/Smarta-Hem/Osram-SMART-Outdoor-Motion-Sensor-WiFi-grey/3409986",
   },
   {
-    brand: "Steinel",
-    name: "NightMatic 3000 Vario",
+    brand: "Nexa",
+    name: "SP-816 Z-Wave rörelsevakt",
     reason:
-      "Tänder på mörker och inte på rörelse. Den lyser alltså hela natten, vilket är en annan produkt än en rörelsevakt även om butikerna lägger dem i samma hylla. 399 kronor hos Jula.",
-    approxPrice: 399,
+      "Z-Wave Plus i stället för Nexas eget 433 MHz, alltså inte låst till en tillverkares mottagare, med sabotagelarm och batterivarning. Räckvidden anges till tio meter vid två meters montagehöjd under tjugo grader, vilket är den ärligaste räckviddsuppgiften i kategorin. Säljs av Elbutik.",
+    approxPrice: 389,
+    merchant: "Elbutik",
+  },
+  {
+    brand: "Biltema",
+    name: "Rörelsevakt IP44 (46-207)",
+    reason:
+      "180 grader på 12 meter för 89,90 kronor, alltså det billigaste sättet att få ljus över en garageport. Anger 1 000 W glödljus och 300 W för lysrör och lågenergilampor, och som enda billiga vakt även monteringshöjden 1,8 till 2,5 meter. Efterlystiden går bara till 4 minuter.",
+    approxPrice: 89.9,
+    merchant: "Biltema",
+  },
+  {
+    brand: "Anslut",
+    name: "Rörelsevakt IP44 (422080)",
+    reason:
+      "Den enda svarta vakten vi hittade, vilket gör den osynlig mot en tjärad eller falurött fasad. 180 grader, 12 meter och ned till −20 grader för 99,90 kronor, men 3,9 av 5 från 216 kunder är det lägsta betyget i hela urvalet. Säljs av Jula.",
+    approxPrice: 99.9,
     merchant: "Jula",
-    merchantUrl:
-      "https://www.jula.se/catalog/el-och-belysning/elinstallation/belysningstillbehor/rorelsevakter-och-skymningsrela/",
   },
   {
     brand: "Clas Ohlson",
     name: "Batteridriven rörelsesensor och eluttag",
     reason:
-      "Sensor och trådlöst utomhusuttag i samma paket, 25 meter mellan delarna. Bra tanke för den som vill slippa elektriker, men 7 meters räckvidd och 110 graders vinkel är minst av allt vi tittade på.",
+      "Sensor och trådlöst utomhusuttag i samma paket, 25 meter mellan delarna, för den som vill slippa elektriker helt. 7 meters räckvidd och 110 graders vinkel är minst av allt vi tittade på.",
     approxPrice: 179.9,
     merchant: "Clas Ohlson",
-    merchantUrl:
-      "https://www.clasohlson.com/se/Batteridriven-rorelsesensor-och-eluttag,-utomhus/p/46-1262",
   },
   {
-    brand: "Malmbergs",
-    name: "Gamma rörelsesensor 500 W",
+    brand: "Steinel",
+    name: "NightMatic 3000 Vario",
     reason:
-      "Infälld i apparatdosa och byggd för inomhusbruk, så kapslingen tål varken slagregn eller kyla. 192 kronor hos Bygghemma, och den billigaste vägen till en rörelsevakt som inte får sitta ute.",
-    approxPrice: 192,
-    merchant: "Bygghemma",
-    merchantUrl:
-      "https://www.bygghemma.se/hus-och-bygg/elmaterial-och-energi/elartiklar-och-elprodukter/sensor-och-rela/",
+      "Tänder på mörker och inte på rörelse, alltså en annan produkt även om butikerna lägger dem i samma hylla. Lyser hela natten i stället för i minuter.",
+    approxPrice: 399,
+    merchant: "Jula",
   },
 ];

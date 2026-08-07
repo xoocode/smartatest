@@ -58,7 +58,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SwitchBot Curtain 3 vinner på 25 dB i tyst läge och 16 kg dragkraft, för 1 049 kr. Vi jämförde åtta motorer för rullgardin, gardin och persienn på passform, ljud och batteritid. IKEA säljer inte längre några elektriska rullgardiner.",
+    "Elektrisk rullgardin och gardinmotor bäst i test 2026: åtta motorer jämförda från 599 kr. Persienner har ett enda alternativ. Se vilket.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -114,8 +114,10 @@ export default async function SmartaGardinerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              SwitchBot Curtain 3 är motorn vi rekommenderar: 25 decibel i tyst
-              läge, 16 kilo dragkraft och 1 049 kronor. Men vad du kan köpa
+              Vår testvinnare är SwitchBot Curtain 3 för 1 049 kronor, eftersom
+              den går ner till 25 decibel i tyst läge, lägst av motorerna här,
+              och därför kan öppna gardinen utan att väcka rummet. Den orkar
+              16 kilo gardin. Men vad du kan köpa
               avgörs av vad som hänger i fönstret och inte av märket, för
               motorerna säljs som olika artikelnummer för kedja, skena och
               stång. Vi jämförde åtta av dem, från 599 kronor och uppåt.

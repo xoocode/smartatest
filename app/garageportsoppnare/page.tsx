@@ -59,7 +59,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Hard Head 377011 vinner för 499 kronor: 700 newton, 100 kilo port och byggd mot portstandarderna EN 12453 och EN 13241. Har du småbarn i garaget tar du Chamberlain ML810EV, som sätter ett tak för hur hårt porten får trycka när den stänger. Vi jämförde fem garageportsöppnare från 499 till 2 541 kronor.",
+    "Garageportsöppnare bäst i test 2026: fem portöppnare jämförda från 499 kr. 700 newton drar en port på 100 kilo. Se vilken som räcker.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -115,9 +115,10 @@ export default async function GarageportsoppnarePage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Hard Head 377011 för 499 kronor. Den drar en port på 100 kilo
-              och 5 meters bredd, alltså även en dubbelport, och den är byggd
-              mot EN 12453 och EN 13241, standarderna för maskindrivna portar.
+              Vi rekommenderar Hard Head 377011 för 499 kronor, eftersom den drar
+              700 newton och en port på 100 kilo, det billigaste sättet att få
+              den kraften till en dubbelport. Den är byggd mot EN 12453 och EN 13241, standarderna
+              för maskindrivna portar.
               Har du småbarn som rör sig i garaget tar du Chamberlain ML810EV,
               som är den enda här som sätter ett tak för hur hårt porten får
               trycka på vägen ner. Räkna in en fotocell oavsett vilken du väljer:

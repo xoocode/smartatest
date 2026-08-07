@@ -62,7 +62,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "TP-Link Tapo P410M är bäst i test för 259 kronor, ensam om IP54 och 16 A i samma utomhusplugg. Ska den bara tända julbelysningen räcker Julas mekaniska timer för 49,90.",
+    "Utomhustimer bäst i test 2026: tio kopplingsur jämförda från 50 kr. Några är bara godkända till 10 minusgrader. Se vilka som tål vintern.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -114,11 +114,13 @@ export default async function UtomhustimerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              TP-Link Tapo P410M är den utomhustimer vi rekommenderar. Den kostar
-              259 kronor och är ensam om att klara 16 A bakom en kapsling på
-              IP54, alltså både motorvärmaren och en fasad utan tak över sig.
+              Vi rekommenderar TP-Link Tapo P410M för 259 kronor, eftersom den
+              går ner till −20 grader bakom IP54, ett steg bättre skydd än någon
+              annan timer här. Den är dessutom ensam om att klara 16 A bakom
+              den kapslingen, så både motorvärmaren och en fasad utan tak över
+              sig går att koppla in.
               Ska timern bara tända julbelysningen räcker Julas mekaniska för
-              49,90 kronor, som tar mer last än de båda Shelly-pluggarna.
+              50 kronor, som tar mer last än de båda Shelly-pluggarna.
               Vi jämförde tio stycken, och kylan är den siffra att läsa
               noggrannast: spannet går från −25 °C till −10 °C.
             </p>

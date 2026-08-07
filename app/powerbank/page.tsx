@@ -62,7 +62,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Anker Nano 45 W vinner för 699 kronor: 45 watt räcker till en bärbar dator, kabeln rullas ut ur enheten och 37 wattimmar laddas fulla på två timmar. Vill du ha mest energi per krona kostar Linocell 10000 249,90 och rymmer lika många wattimmar. Räkna med två telefonladdningar av 10 000 mAh, inte tre.",
+    "Powerbank bäst i test 2026: åtta reservbatterier jämförda från 149 kr. 60 till 70 procent av mAh-talet når telefonen. Se vad du får.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -117,11 +117,11 @@ export default async function PowerbankPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Anker Nano 45 W för 699 kronor. Den ger 45 watt ut, vilket
-              räcker till en lättare bärbar dator och inte bara till telefonen,
-              kabeln dras ut ur enheten och rullas in själv, och dess 37
-              wattimmar fylls på två timmar. Ska pengarna räcka längst rymmer
-              Linocell 10000 lika många wattimmar för 249,90. Räkna med att
+              Vi rekommenderar Anker Nano 45 W för 699 kronor, eftersom den har
+              laddkabeln inbyggd och utdragbar ur enheten, så den kan inte
+              glömmas hemma, och ger 45 watt till datorn. De 37 wattimmarna fylls på två timmar. Ska
+              pengarna räcka längst rymmer
+              Linocell 10000 lika många wattimmar för 250. Räkna med att
               10 000 mAh ger en telefon två laddningar, inte tre.
             </p>
             <UpdatedStamp

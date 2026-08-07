@@ -51,7 +51,8 @@ förstå kategorin för att köpa senare eller hjälpa någon annan. Den nyfikne
 ingen intäkt i dag, men hen är skälet till att sidan blir länkad till och
 citerad, och därmed till att köparen hittar hit alls.
 
-(Etiken kring rädsla och säkerhetsprodukter ligger i `rulings.md`.)
+(Hantverket kring det, hur du skriver skyddet i stället för katastrofen, ligger
+i `writing-guide.md`.)
 
 ## En sak om upprepning
 

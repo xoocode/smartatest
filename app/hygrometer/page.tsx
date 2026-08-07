@@ -79,7 +79,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Govee H5075 för 219 kronor håller sig inom 3 procentenheter, snävast av sju hygrometrar vi jämfört. Tre mätare mellan 179,90 och 269 kronor anger identiska ± 5, och mögelgränsen ligger bara femton enheter från den nivå du ska agera vid.",
+    "Hygrometer bäst i test 2026: sju fuktmätare jämförda från 150 kr. Tre mätare i olika prisklass anger samma ± 5. Se vilken som är snävare.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -133,9 +133,11 @@ export default async function HygrometerPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              <strong>Govee H5075 för 219 kronor</strong> håller sig inom 3
-              procentenheter, snävast av mätarna, och loggar dessutom fukten
-              över tid. Tre andra, mellan 179,90 och 269 kronor, anger
+              Vår testvinnare är <strong>Govee H5075 för 219 kronor</strong>,
+              eftersom displayen är tre tum med stora siffror, så värdet går att
+              läsa tvärs över ett rum utan att du böjer dig ner. Den håller sig
+              inom 3 procentenheter, snävast av mätarna, och loggar dessutom
+              fukten över tid. Tre andra, mellan 180 och 269 kronor, anger
               identiska ± 5 procentenheter, och mögelgränsen ligger femton
               enheter från den nivå våra andra sidor ber dig agera vid. Vi
               jämförde sju mätare på hur rätt de visar och på var du orkar

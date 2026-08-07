@@ -146,7 +146,7 @@ escalation, `--gtin` for Icecat, PDF extraction).
 `CLAUDE.md` is a router, not a manual. It points at `.claude/context/` for
 department rules (research, data, money, build, seo, ship, traps) and
 `.claude/skills/` for the three page workflows: `new-page`, `fix-page`,
-`update-page`.
+`update-pages`.
 
 **This file is a summary, not a source.** Everything below is stated properly
 in `.claude/context/`; where the two disagree, that is a bug in this file. Read

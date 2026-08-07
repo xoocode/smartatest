@@ -70,7 +70,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Philips 5000 för 1 999 kronor vinner: enda apparaten som låter dig ställa målfukten fritt mellan 30 och 70 procent på maskinen själv, och den avdunstar i stället för att spruta ut tankens innehåll. Tolv luftfuktare från 399 kronor, vägda på fuktreglering och hygien.",
+    "Luftfuktare bäst i test 2026: tolv luftfuktare jämförda från 400 kr. Fem av åtta provade spred bakterier i rummet. Se vilken teknik som håller dem kvar i filtret.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -124,13 +124,14 @@ export default async function LuftfuktarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              <strong>Philips 5000 för 1 999 kronor</strong> är den enda av tolv
-              luftfuktare där du ställer målfukten fritt, 30 till 70 procent i
-              steg om fem, på maskinen själv. Den avdunstar dessutom vattnet i
-              stället för att finfördela tankens innehåll ut i rummet, och drar
-              8 watt, lägst av alla. Vi jämförde tolv apparater från 399 kronor
-              på två frågor: om den kan sluta fukta, och om den skickar ut
-              tankens innehåll i rummet. Och på en tredje, som ingen ställer:
+              Vår testvinnare är <strong>Philips 5000 för 1 999 kronor</strong>,
+              eftersom den avdunstar vattnet och därför inte sprider tankens
+              innehåll ut i rummet. Den är också den enda av tolv luftfuktare där
+              du ställer målfukten fritt, 30 till 70 procent i steg om fem, på
+              maskinen själv, och den drar 8 watt, lägst av alla.
+              Vi jämförde tolv apparater från 399 kronor
+              på två frågor: om den kan sluta fukta, och om den avdunstar vattnet
+              eller finfördelar det. Och på en tredje, som ingen ställer:
               svenska föreningen för inomhusmiljö avråder från konstgjord
               befuktning över huvud taget.
             </p>

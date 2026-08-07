@@ -97,7 +97,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Airthings View Plus vinner för 2 856 kronor och är ensam om att mäta partiklar. Tre av åtta mätare saknar koldioxidgivare helt och en fjärde anger eCO2. Vi jämförde sju mätare från 729 kronor på vad de faktiskt mäter.",
+    "Luftkvalitetsmätare bäst i test 2026: sju inomhusmätare jämförda från 729 kr. Tre av sju mäter ingen koldioxid alls. Se vilka som gör det.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -151,12 +151,14 @@ export default async function LuftkvalitetsmatarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
+              Vår testvinnare är{" "}
               <strong className="text-foreground">
-                Airthings View Plus mäter radon, partiklar och koldioxid i samma
-                apparat för 2 856 kronor
-              </strong>{" "}
-              och är den enda i jämförelsen som mäter partiklar. Den frågan
-              avgör kategorin: tre av de åtta mätare vi kartlagt saknar
+                Airthings View Plus för 2 856 kronor
+              </strong>
+              , eftersom den mäter sju olika värden i samma apparat, radon och
+              partiklar inräknade, där resten kräver två separata köp. Vilka
+              givare som sitter i lådan avgör kategorin: tre av de åtta mätare vi
+              kartlagt saknar
               koldioxidgivare, och två av dem kostar över tusen kronor. En
               fjärde anger eCO2, ett tal som räknas fram ur luftens innehåll av
               organiska ämnen i stället för att mätas. Vi jämförde sju mätare

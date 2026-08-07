@@ -74,7 +74,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "SecuritasHome LILLA vinner: 349 kr i månaden och 1 995 kr för villapaketet, runt 22 900 kronor över fem år mot Verisures 39 900. Vi läste avtalsvillkoren för alla åtta bolagen i original, med utgåva och punktnummer, och räknade ut vad det kostar att lämna vart och ett.",
+    "Hemlarm bäst i test 2026: åtta villalarm med larmcentral jämförda. Fem år kostar 22 900 kr eller 39 900. Se vilket som är vilket.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -125,9 +125,10 @@ export default function HemlarmPage() {
           <h1 className="text-h1">{TEST_PAGE.title}</h1>
           <AffiliateDisclosure variant="balk" />
           <p className="max-w-2xl text-lg text-muted-foreground">
-            SecuritasHome LILLA vinner: 349 kronor i månaden och 1 995 för
-            villapaketet, alltså runt 22 900 kronor över fem år mot Verisures
-            39 900, och du köper hårdvaran i stället för att hyra den. Bara
+            Vår testvinnare är SecuritasHome LILLA för 349 kronor i månaden,
+            eftersom fem år landar på runt 22 900 kronor mot Verisures 39 900,
+            och hårdvaran blir din, inte hyrd. Villapaketet
+            kostar 1 995 kronor. Bara
             hälften av bolagen skriver ut hela vad tjänsten kostar, så vi läste
             avtalsvillkoren i original och räknade på det ingen annan räknar
             på: vad det kostar att sluta.

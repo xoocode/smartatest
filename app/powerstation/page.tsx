@@ -62,7 +62,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "EcoFlow Delta 3 vinner för 8 799 kronor: 1 800 watt kontinuerligt, fyra vägguttag, 1 024 wattimmar och 4 000 laddcykler. Ska den bäras kostar EcoFlow River 3 Plus 3 790 och väger 4,7 kilo. Talet i modellnamnet är ibland watt och ibland wattimmar, så läs aldrig kapaciteten ur namnet.",
+    "Powerstation bäst i test 2026: tio portabla kraftstationer jämförda från 1 999 kr. Vid 1 800 watt startar mikron. Se vilka som klarar det.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -117,9 +117,11 @@ export default async function PowerstationPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp EcoFlow Delta 3 för 8 799 kronor. Den lämnar 1 800 watt
-              kontinuerligt, har fyra vägguttag, rymmer 1 024 wattimmar och
-              anger 4 000 laddcykler till 80 procents kapacitet. Ska stationen
+              Vi rekommenderar EcoFlow Delta 3 för 8 799 kronor, eftersom den
+              klarar 1 800 watt kontinuerligt, nog för kylskåp, vattenkokare och
+              elverktyg. Fyra vägguttag,
+              1 024 wattimmar och 4 000 laddcykler till 80 procents kapacitet.
+              Ska stationen
               bäras kostar EcoFlow River 3 Plus 3 790 och väger 4,7 kilo mot
               Delta 3:s 12,5. Och läs aldrig kapaciteten ur modellnamnet: talet
               där är ibland watt, ibland wattimmar och ibland ingetdera.

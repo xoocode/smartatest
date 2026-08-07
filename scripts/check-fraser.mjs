@@ -110,8 +110,9 @@ if (softTotal) {
     if (hits.length) console.log(`    ${String(hits.length).padStart(4)}  ${label}`);
   }
   console.log(
-    `\n  Referensen står på noll för samtliga. Enskilda fall kan vara rätt;\n` +
-      `  ett tal som stiger är däremot en formel som sprider sig.\n` +
+    `\n  Referensen står på noll för samtliga. Talet är summan av enskilda fel,\n` +
+      `  inte ett mått på upprepning: att återanvända en bra formulering mellan\n` +
+      `  sidor är gratis, men var och en av de här är fel på sin egen sida.\n` +
       `  Kör \`pnpm sprak "<fras>"\` innan du ersätter, och mät ersättningen också.\n`,
   );
 }

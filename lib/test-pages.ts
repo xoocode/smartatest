@@ -459,28 +459,38 @@ export const UTOMHUSTIMER: TestPage = {
  *
  * Allt som är kapslat för utomhusbruk och reagerar på rörelse. Både de som
  * bryter 230 volt själva och de batteridrivna som skickar en signal till en
- * hubb, i **en** rankning — samma beslut som på /utomhustimer, och av samma
- * skäl: det är den jämförelsen läsaren faktiskt behöver och ingen svensk sida
- * gör den. diginytt rankar åtta smarta sensorer varav sex är inomhussensorer,
- * bygghemma tre 230-voltsvakter, och ingen av dem ställer de två mot varandra.
+ * hubb, i **en** rankning, av samma skäl som på /utomhustimer: det är den
+ * jämförelsen läsaren faktiskt behöver och ingen svensk sida gör den. diginytt
+ * rankar åtta smarta sensorer varav sex är inomhussensorer, bygghemma tre
+ * 230-voltsvakter, och ingen av dem ställer de två mot varandra.
  *
  * Strålkastare med inbyggd rörelsevakt ligger utanför. Då köper man en lampa,
  * och Bygghemma delar själva sina två guider på exakt den gränsen. Rena
  * skymningsreläer utan pyrodetektor ligger också utanför: Steinel NightMatic
  * 3000 reagerar på ljus och inte på rörelse.
  *
- * ## Varför `last` väger tyngst tillsammans med `bevakning`
+ * ⚠️ **Rankningen täcker bara butiker vi länkar kommersiellt**, efter
+ * användarbeslut 2026-08-07: Kjell, Proffsmagasinet, Proshop och
+ * Teknikproffset. Sex produkter som bara säljs av Bygghemma, Jula, Biltema
+ * eller Elbutik ligger bland övervägda med pris och egenskaper kvar, och skälet
+ * står utskrivet på sidan.
  *
- * Det är sidans fynd. Wattalet i annonsen gäller resistiv last, alltså
- * glödlampa, och den lampan säljs inte längre. Fem tillverkare delar upp
- * belastningen på fem olika sätt — Steinel i mikrofarad och antal don,
- * Schneider i watt per lamptyp, ESYLUX i startström, Kjell och Biltema i
- * resistivt mot induktivt, Jula i glödljus och halogen — och handeln plockar
- * genomgående det högsta talet. Steinels egen nyare IS 2160 ECO anger
- * `250 W LED` där den äldre IS 240 anger `1 000 W resistiv last`.
+ * ## Varför `bevakning` och `last` väger tyngst
  *
- * Steinel skriver dessutom ut ett golv, minsta last 10 W, som en modern
- * LED-lampa på 5 W ligger under.
+ * Båda är sidans fynd, och båda vilar på tillverkarnas egna datablad.
+ *
+ * **Räckvidden i annonsen gäller den som går tvärs över synfältet.** Rakt emot
+ * ser sensorn två till fyra gånger kortare, och tillverkarna publicerar båda
+ * talen utan att handeln för dem vidare: Steinel IS 1 tangentiellt 10 m mot
+ * radiellt 3, IS 2160 ECO 12 mot 3, ESYLUX MD 120 12 mot 5, MD 200 Ø 20 mot
+ * Ø 10, RC 230i Ø 40 mot Ø 16.
+ *
+ * **Wattalet gäller glödljus.** Steinels datablad delar LED-lasten i tre steg
+ * efter hur stor varje enskild lampa är — 100 W av lampor under 2 W, 125 W av
+ * 2 till 8 W, 250 W av lampor över 8 W — och anger kapacitansen till 88 µF.
+ * ESYLUX uttrycker samma gräns som startström med varaktighet, 30 A i 20 ms
+ * respektive 100 A i 200 µs. Kjell skiljer resistivt från induktivt och anger
+ * dessutom ett golv på 1 W.
  *
  * ## Varför det inte finns något `testomdome`
  *
@@ -495,13 +505,13 @@ export const UTOMHUSTIMER: TestPage = {
  * Elsäkerhetsverket sätter IP44 för det som sitter ute, och varje rankad
  * produkt klarar den gränsen. Ett kriterium som bara frågade "är den
  * utomhusklassad" hade varit en grind som alla passerar. Det som väger är
- * steget över — IP54 mot IP44 — tillsammans med drifttemperaturen, som skiljer
- * femton grader mellan Nexa och ESYLUX.
+ * steget över, alltså IP54 mot IP44, tillsammans med drifttemperaturen som
+ * skiljer femton grader mellan Nexa LMDT-810 och de båda ESYLUX-vakterna.
  */
 export const RORELSEVAKT_UTOMHUS: TestPage = {
   slug: "rorelsevakt-utomhus",
   label: "Rörelsevakt utomhus",
-  title: "Rörelsevakt utomhus bäst i test 2026: vad den orkar tända",
+  title: "Rörelsevakt utomhus bäst i test 2026: vad den faktiskt ser",
   category: SAKERHET,
   methodology:
     "Vi jämför rörelsevakter för utomhusbruk på tillverkarnas och distributörernas egna specifikationer, på Elsäkerhetsverkets krav för el utomhus, och på de betyg butikernas egna kunder satt. Alla produkter bedöms mot samma kriterier och samma viktning, oavsett om de bryter 230 volt själva eller skickar en signal till en hubb.\n\nVi har inte provat någon produkt själva, och vi har inte hittat något oberoende test av kategorin på någon nordisk marknad. Därför finns här inget kriterium för testomdöme, till skillnad från flera andra sidor på sajten. Källorna ligger länkade längre ner.\n\nSaknas en uppgift står den som saknad och sänker inget betyg. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
@@ -511,35 +521,35 @@ export const RORELSEVAKT_UTOMHUS: TestPage = {
       label: "Last och lampor",
       weight: 25,
       description:
-        "Vad rörelsevakten orkar tända. Talet i annonsen gäller nästan alltid glödljus, och den lampan går inte att köpa längre. Steinel IS 240 är märkt 1 000 W, men för elektroniska don stannar samma detektor på 132 mikrofarad eller åtta armaturer. Schneiders detektor klarar 2 200 W resistivt och 200 W LED, alltså en elftedel, i samma dosa.\n\nVi väger taket som gäller för LED, eftersom LED är det som sitter i armaturen. Startström i ampere och antal don räknas som samma sak, för det är samma begränsning uttryckt på tre sätt. Golvet väger också: IS 240 slår inte till under 10 W, och en LED-lampa på 5 W ligger under den gränsen.\n\nBatteridrivna sensorer bryter ingen ström alls. De skickar en signal till en hubb, som tänder lampor som lyder just den hubben. Strålkastaren du redan har på väggen tänds inte av dem.",
+        "Vad rörelsevakten orkar tända. Talet i annonsen gäller nästan alltid glödljus, och den lampan går inte att köpa längre. Steinel IS 2160 ECO är märkt 600 W för glödlampor men delar LED-lasten i tre steg efter hur stor varje enskild lampa är: 100 W av lampor under 2 W, 125 W av 2 till 8 W och 250 W av lampor över 8 W.\n\nVi väger taket som gäller för LED, eftersom LED är det som sitter i armaturen. Kapacitans i mikrofarad och startström i ampere räknas som samma sak, för det är samma begränsning uttryckt på tre sätt. Golvet väger också: Kjells vakt slår till redan vid 1 watt, och det avgör om en ensam LED-lampa på 5 W tänds alls.\n\nBatteridrivna sensorer bryter ingen ström. De skickar en signal till en hubb, som tänder lampor som lyder just den hubben. Strålkastaren du redan har på väggen tänds inte av dem.",
     },
     {
       key: "bevakning",
       label: "Bevakningsområde",
       weight: 25,
       description:
-        "Hur stor yta detektorn ser, och varifrån. Vinkeln spänner från 100 grader till 240 och räckvidden från 10 meter till 12, men de två följs inte åt: Nexa SP-816 ser 10 meter över 100 grader, Steinel IS 240 ser 12 meter över 240.\n\nRäckvidden gäller någon som går tvärs över synfältet. En pyrodetektor läser skillnaden mellan intilliggande linssegment, så den som kommer rakt emot fyller samma segment hela vägen in och upptäcks långt senare. Det avgör var på huset sensorn ska sitta, och sitter den fel går det inte att ställa bort efteråt.\n\nHit räknas också hur långt sensorhuvudet går att vrida i höjd och sidled, och om linsen har ett segment som tittar rakt ned längs väggen. Det kallas underkrypskydd och avgör om någon kan gå in under bevakningen.",
+        "Hur stor yta detektorn ser, och varifrån. Vinkeln spänner från 110 grader till 300 och den bevakade ytan från 105 kvadratmeter till 804, alltså en faktor åtta.\n\nRäckvidden gäller någon som går tvärs över synfältet. En pyrodetektor läser skillnaden mellan intilliggande linssegment, så den som kommer rakt emot fyller samma segment hela vägen in och upptäcks långt senare. Steinel IS 2160 ECO ser 12 meter tvärs men 3 meter rakt emot, ESYLUX MD 120 ser 12 respektive 5. Vi väger båda talen, eftersom det raka avgör var på huset sensorn ska sitta.\n\nHit räknas också hur långt sensorhuvudet går att vrida i höjd och sidled, och om linsen har ett segment som tittar rakt ned längs väggen. Det kallas underkrypskydd och avgör om någon kan gå in under bevakningen.",
     },
     {
       key: "vaderskydd",
       label: "Väderskydd och kyla",
       weight: 20,
       description:
-        "Kapslingsklass och drifttemperatur. Elsäkerhetsverket sätter IP44 som golv för det som sitter ute och varje produkt här klarar det, så frågan är vad som ligger över. IP54 tål vatten som sprutar från alla riktningar, IP44 bara stänk, och skillnaden märks på en fasad utan tak över sig.\n\nKylan är den andra halvan, och den säger IP-klassen ingenting om. ESYLUX MD 120 går till −25 grader, hela Steinel-serien till −20, och Nexa SP-816 stannar vid −10, vilket ligger innanför en vanlig januarinatt norr om Mälardalen.\n\nKylan ändrar dessutom vad sensorn ser. En pyrodetektor mäter skillnaden mellan en människa och bakgrunden, och den skillnaden är som störst när det är kallt. Nexas tio meter gäller under tjugo grader; Steinel bygger in kompensation för det och kallar den temperaturstabiliserad räckvidd.",
+        "Kapslingsklass och drifttemperatur. Elsäkerhetsverket sätter IP44 som golv för det som sitter ute och varje produkt här klarar det, så frågan är vad som ligger över. IP54 tål vatten som sprutar från alla riktningar, IP44 bara stänk, och skillnaden märks på en fasad utan tak över sig. Fyra av nio har IP54.\n\nKylan är den andra halvan, och den säger IP-klassen ingenting om. Båda ESYLUX-vakterna går till −25 grader, Steinel och Niko till −20, och Nexa LMDT-810 har dessutom ett tak på bara +40.\n\nKylan ändrar också vad sensorn ser, men åt andra hållet. En pyrodetektor mäter skillnaden mellan en människa och bakgrunden, och den skillnaden är som störst när det är kallt. Den svåra situationen är en varm sommarkväll när muren bakom personen håller kroppstemperatur.",
     },
     {
       key: "installningar",
       label: "Inställningar",
       weight: 15,
       description:
-        "Efterlystid, ljusnivå och hur mycket som går att ställa på plats. Efterlystiden spänner från sju minuter till trettiofem, och det är ingen detalj: en armatur som behöver tid för att komma upp i fullt ljus mår illa av att slås av och på var sjunde minut, och det är skälet Steinel lägger taket så högt.\n\nSkymningsnivån avgör om lampan tänds mitt på dagen. Steinel-serien går från 2 till 2 000 lux, ESYLUX från 2 till 1 000, och längst ned i fältet sitter ett vred utan skala.\n\nMedföljande täckskal räknas hit. Det är plastbitarna du klipper till för att skärma bort gatan, grannens uppfart eller den vajande grenen, och utan dem tänds lampan hela natten.",
+        "Efterlystid, ljusnivå och hur mycket som går att ställa på plats. Efterlystiden spänner från sju minuter till trettiofem, och det är ingen detalj: en armatur som behöver tid för att komma upp i fullt ljus mår illa av att slås av och på var sjunde minut, och det är skälet Steinel lägger taket så högt.\n\nSkymningsnivån avgör om lampan tänds mitt på dagen. Steinel IS 2160 ECO går från 2 till 2 000 lux, IS 1 stannar vid 1 000 och Niko börjar först vid 5.\n\nHit räknas också hur inställningen görs. Niko har en app och ESYLUX RC 230i en fjärrkontroll, medan resten har vred under en kåpa. Och de medföljande täckskalen, alltså plastbitarna du klipper till för att skärma bort gatan eller den vajande grenen, utan vilka lampan tänds hela natten.",
     },
     {
       key: "prisvarde",
       label: "Prisvärde",
       weight: 15,
       description:
-        "Pris vägt mot betygen i övriga kriterier. Spannet är nästan tretton gånger, från 89,90 till 1 143 kronor, och det du betalar över tvåhundralappen är vinkel, justermöjligheter och ett relä som tål fler drivdon. Priset är det du betalar hos butiken vi länkar till, inte marknadens lägsta.",
+        "Pris vägt mot betygen i övriga kriterier. Spannet är drygt åtta gånger, från 199,90 till 1 645 kronor, och det du betalar över tvåhundralappen är bevakad yta, justermöjligheter och ett relä som tål fler drivdon. Priset är det du betalar hos butiken vi länkar till, inte marknadens lägsta.",
     },
   ],
 };

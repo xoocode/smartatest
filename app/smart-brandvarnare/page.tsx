@@ -61,7 +61,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Housegard Luma-systemet vinner för 1 098,90 kronor: varnarna larmar ihop över egen radio även utan hubb, app och internet. Nio uppkopplade brandvarnare jämförda på app, oberoende och pris per skyddat rum.",
+    "Smart brandvarnare bäst i test 2026: nio uppkopplade brandvarnare jämförda från 179 kr. Några larmar ihop utan app och internet. Se vilka.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -113,11 +113,11 @@ export default async function SmartBrandvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Housegard Luma-systemet är bäst i test för 1 098,90 kronor. Det
-              är den enda lösningen här där varnarna larmar ihop över egen
-              radio helt utan hubben, alltså tjuter det i sovrummet när det
-              brinner i källaren även vid strömavbrott och även den dag appen
-              stängs av. Ska fler än fyra rum täckas är X-Sense FS61 billigare:
+              Vi rekommenderar Housegard Luma-systemet för 1 099 kronor,
+              eftersom varnarna larmar ihop över egen radio utan hubben, så det
+              tjuter i sovrummet även vid strömavbrott. Det är den enda lösningen här som klarar det,
+              och den fungerar även den dag appen stängs av. Ska fler än fyra
+              rum täckas är X-Sense FS61 billigare:
               316 kronor per skyddat rum mot 549.
             </p>
             <UpdatedStamp

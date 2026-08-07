@@ -64,7 +64,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ugreen 200 W vinner: två datorer på 100 W var samtidigt, sex portar, 1 699 kr. Billigast per watt är IKEA SJÖSS för 179. Vi rankar tretton väggladdare på effekt per port, pris per watt och plats i uttaget.",
+    "USB-C-laddare bäst i test 2026: tretton snabbladdare jämförda från 179 kr. Andra porten toppar kring 48 watt. Se vilka som delar jämnt.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -118,9 +118,11 @@ export default async function UsbCLaddarePage() {
               1&nbsp;699 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Ugreen 200&nbsp;W vinner för 1&nbsp;699 kronor: två portar på
-              100&nbsp;W var räcker till två datorer på full fart samtidigt, och
-              ingen annan här klarar det. Ska du bara ladda en telefon kostar
+              Vår testvinnare är Ugreen 200&nbsp;W för 1&nbsp;699 kronor,
+              eftersom 200 watt räcker till sex enheter samtidigt från ett enda
+              vägguttag, utan att någon av dem tappar fart. Två av portarna ger
+              100&nbsp;W var, och ingen annan laddare här klarar det. Ska du bara
+              ladda en telefon kostar
               IKEA SJÖSS 179 kronor och är billigast per watt. Wattalet på en
               kartong är nämligen nästan alltid summan över alla portar, inte
               vad din enhet får.

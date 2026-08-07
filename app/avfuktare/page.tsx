@@ -72,7 +72,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Meaco Arete One 25L för 4 299 kr vinner: 10,7 liter per dygn vid 20 °C och toppbetyg hos Which?. Vi jämförde tolv avfuktare från 1 499 till 7 890 kronor på vad de tar upp i svalt, hur djupt ned i kyla de arbetar och vad de drar per liter vatten.",
+    "Avfuktare bäst i test 2026: tolv luftavfuktare jämförda från 1 499 kr. En 25-litersapparat tar 10,7 liter vid 20 grader. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -126,9 +126,11 @@ export default async function AvfuktarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Meaco Arete One 25L för 4 299 kronor tar 10,7 liter vatten per
-              dygn i ett rum på 20 grader, mer än någon annan apparat här, och
-              den är den enda som en oberoende provning gett toppbetyg. Vill du
+              Vår testvinnare är Meaco Arete One 25L för 4 299 kronor, eftersom
+              Which? ger den lägst driftkostnad av alla apparater de
+              rekommenderar och den fungerar bra även i kyla. Den tar 10,7 liter
+              vatten per dygn i ett rum på 20 grader, mer än någon annan apparat
+              här. Vill du
               ha mest vatten per krona kostar eeese Adam 2 699. Räkna däremot
               aldrig med talet i modellnamnet: det är uppmätt vid 30 grader och
               80 procents luftfuktighet, och i en sval källare får du ungefär 40

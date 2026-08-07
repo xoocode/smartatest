@@ -34,8 +34,25 @@ export type Tool = {
   name: string;
   /** H1 on the tool's own page. */
   title: string;
-  /** Meta description and the blurb on the index. */
+  /**
+   * Blurb på `/guider` och fallback för sökmotorernas utdrag.
+   *
+   * Renderas som synlig korttext i rutnätet och matar dessutom två
+   * schemablock och sökindexet. Skriv den för läsaren som skummar listan.
+   */
   description: string;
+  /**
+   * Sökmotorernas utdrag, när det behöver skilja sig från kortets text.
+   *
+   * De två fälten låg ihop till 2026-08-07 och drog åt olika håll: kortet vill
+   * ha en lugn beskrivning i ett rutnät, utdraget vill ha sökfrasen först och
+   * en uppmaning sist. `Se vinnaren här.` mitt i en kortlista är resultatet av
+   * att låta ett fält göra båda jobben.
+   *
+   * Utelämnas fältet används `description`, alltså är ingen befintlig sida
+   * påverkad. Skill `fix-meta-descriptions` fyller i det.
+   */
+  metaDescription?: string;
   /** Lead paragraph above the widget. */
   intro: string;
   /** Editorial copy below the widget. */

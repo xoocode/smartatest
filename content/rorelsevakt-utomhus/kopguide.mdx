@@ -3,35 +3,72 @@
   h2, så rubrikerna här är ###. Prosan innehåller aldrig pris, butik eller URL:
   produktomnämnanden går via <ProductRef id="..." /> som läser produktdatan.
 
-  Ordningen följer vad som stoppar ett köp. Lasten först, eftersom det är den
-  fråga som faktiskt gör att en vakt slutar fungera efter ett halvår, sedan
-  monteringen, sedan kylan.
+  Ordningen följer vad som stoppar ett köp. Räckvidden först, eftersom den
+  avgör var vakten ska sitta och är sidans fynd, sedan lasten, sedan kylan.
 */}
 
 En rörelsevakt är den billigaste utebelysning du kan köpa, eftersom den gör
 lampan du redan har till något som tänds när det behövs. Den är också den enda
-elprodukt i huset där talet på förpackningen gäller en lampa som inte längre
-säljs.
+elprodukt i huset där de två viktigaste talen på förpackningen båda gäller något
+annat än vad du tror.
 
 Guiden går igenom vad som skiljer vakterna åt, i den ordning frågorna stoppar
 ett köp.
 
-### 1 000 watt gäller glödlampor
+### Tolv meter tvärs blir tre meter rakt emot
+
+En pyrodetektor mäter inte värme. Den mäter *förändring* i värme mellan
+intilliggande segment i linsen. Går någon tvärs över synfältet passerar kroppen
+segment efter segment och sensorn ser en tydlig växling. Kommer någon rakt emot
+fyller kroppen samma segment hela vägen in, och växlingen uteblir tills personen
+är nära.
+
+Steinel och ESYLUX skriver ut båda avstånden i sina egna datablad.
+<ProductRef id="steinel-is-2160" /> når 12 meter tvärs och 3 meter rakt emot,
+<ProductRef id="steinel-is-1" /> når 10 respektive 3, och
+<ProductRef id="esylux-md-120" /> 12 respektive 5. Handeln för bara det större
+talet vidare, vilket är skälet att så få känner till det.
+
+Praktiskt betyder det en sak: **rikta vakten så att den som närmar sig korsar
+synfältet.** En sensor som tittar rakt ut längs uppfarten ser en bil som kommer i
+det sämsta av alla lägen. Vrid den mot sidan i stället, så att uppfarten passerar
+tvärs framför linsen.
+
+### Tre sätt att ange räckvidd, alla i bruk samtidigt
+
+- **Steinel** anger tangentiellt och radiellt avstånd, alltså tvärs och rakt
+  emot, och räknar om båda till kvadratmeter.
+- **ESYLUX** anger vinkelrätt och framifrån, vilket betyder samma sak, och
+  lägger till hur stor yta det blir totalt.
+- **Niko och Kjell** anger ett tal utan villkor.
+
+Talen går alltså inte att jämföra rakt av. En jämförelsetabell som staplar dem i
+en kolumn utan villkoret ger fel bild, och vår tabell bär därför villkoret i
+cellen.
+
+Ytan är det ärligaste måttet när det finns.
+<ProductRef id="esylux-rc-230i" /> bevakar upp till 804 kvadratmeter,
+<ProductRef id="esylux-md-200" /> 175 och <ProductRef id="steinel-is-1" /> 105.
+Det är en faktor åtta mellan ytterlägena, och den skillnaden syns inte alls i
+gradtalen.
+
+### 600 watt gäller glödlampor, 100 watt gäller små LED
 
 Det står ett watt-tal på varje kartong och det är nästan alltid det största
-talet tillverkaren kunde skriva. <ProductRef id="steinel-is-240" /> är märkt
-1 000 W. Läser man hela raden gäller talet resistiv last, alltså glödtråd, och
-för elektroniska drivdon stannar samma detektor på 132 mikrofarad eller åtta
-armaturer.
+talet tillverkaren kunde skriva. <ProductRef id="steinel-is-2160" /> är märkt
+600 W. Det gäller resistiv last, alltså glödtråd, och den lampan går inte att
+köpa längre.
 
-Skillnaden är inte kosmetisk. Schneider skriver ut båda talen för en och samma
-detektor: 2 200 W resistivt och 200 W LED. Det är en elftedel, i samma dosa, på
-samma rad.
+Steinels eget datablad delar i stället LED-lasten i tre steg efter hur stor
+varje enskild lampa är: 100 watt om lamporna drar under 2 W, 125 watt om de drar
+2 till 8, och 250 watt om de drar mer än 8. Samma relä, två och en halv gånger
+effekten, avgjort av lampstorleken och inte av summan. Kapacitansen anges
+samtidigt till 88 mikrofarad, vilket är samma gräns uttryckt på ett annat sätt.
 
-Steinels nyare generation har slutat med omvägen. IS 3180 delar upp lasten efter
-hur stor varje enskild lampa är: 100 W om lamporna drar under 2 W, 300 W om de
-drar 2 till 8 W, och 600 W om de drar mer än 8 W. Samma relä, sex gånger
-effekten, avgjort av lampstorleken och inte av summan.
+Skillnaden är inte kosmetisk. Ett tak på 100 watt betyder att femtio små
+LED-spotar på 2 watt ligger över gränsen medan tolv strålkastare på 20 watt inte
+gör det, trots att den senare gruppen drar mer än dubbelt så mycket ström när
+den väl lyser.
 
 ### Varför antalet lampor spelar större roll än deras watt
 
@@ -41,71 +78,45 @@ millisekunderna beter den sig ungefär som en kortslutning. Toppen kan ligga
 tiotals gånger över armaturens märkeffekt, och det är den som bränner ihop
 reläkontakterna, inte strömmen lampan drar när den väl lyser.
 
-Därför räknar Steinel drivdon och mikrofarad. Därför anger
-<ProductRef id="esylux-md-120" /> en högsta startström på 4,5 ampere i stället
-för ett watt-tal. Och därför är det rimliga sättet att välja att räkna
-armaturer: <ProductRef id="steinel-is-1" /> tar tre,
-<ProductRef id="steinel-is-130-2" /> fyra, IS 240 åtta.
+Därför räknar Steinel i mikrofarad och i lampstorlek. Därför anger
+<ProductRef id="esylux-md-200" /> en högsta startström på 30 ampere under 20
+millisekunder, och <ProductRef id="esylux-rc-230i" /> hela 100 ampere under 200
+mikrosekunder.
 
-Behöver du fler än så är svaret inte en dyrare vakt utan en kontaktor: ett relä
-som vakten styr, och som i sin tur bär lasten.
+Behöver du mer än vakten tål är svaret inte en dyrare vakt utan en kontaktor:
+ett relä som vakten styr och som i sin tur bär lasten.
+<ProductRef id="niko-351-26570" /> har redan en potentialfri kontakt och är
+byggd för just det.
 
-### Under 10 watt tänder IS 240 ingenting alls
+### Golvet: en lampa kan vara för liten för vakten
 
-Det finns en undre gräns också, och den överraskar fler. IS 240 slår inte till
-under 10 watt. Har du bytt entrélyktan mot en LED-lampa på 5 W kommer vakten
-inte att tända den, och felet ser ut som en trasig sensor.
+Det finns en undre gräns också, och den överraskar fler. Ett relä behöver en
+viss ström för att slå till och hålla, och en modern LED-lampa drar knappt
+någon. Har du bytt entrélyktan mot en lampa på 5 watt kan vakten sluta tända
+den, och felet ser ut som en trasig sensor.
 
-<ProductRef id="kjell-rorelsevakt-vagg" /> går ned till 1 watt, tio gånger
-lägre. På en fasad med en enda liten lampa är det skillnaden mellan en produkt
-som fungerar och en som inte gör det, och det är den billigare av de två.
-
-### Räckvidden gäller den som går tvärs, inte den som kommer emot
-
-En pyrodetektor mäter inte värme. Den mäter *förändring* i värme mellan
-intilliggande segment i linsen. Går någon tvärs över synfältet passerar kroppen
-segment efter segment och sensorn ser en tydlig växling. Kommer någon rakt emot
-fyller kroppen samma segment hela vägen in, och växlingen uteblir tills personen
-är nära.
-
-Det är därför Steinel skriver ut sina tolv meter som "för gående personer, ej
-rakt emot sensorn". Bygghemma skriver samma sak i sin egen jämförelse. Båda gör
-det i löptext och ingen av dem i specifikationsrutan, vilket är skälet att så få
-känner till det.
-
-Praktiskt betyder det en sak: **rikta vakten så att den som närmar sig korsar
-synfältet.** En sensor som tittar rakt ut längs uppfarten ser en bil som kommer
-sämst av alla lägen. Vrid den mot sidan i stället, så att uppfarten passerar
-tvärs framför linsen.
-
-### Tolv meter framåt eller tolv meter tvärs, beroende på märke
-
-Fyra sätt att ange räckvidd, alla i bruk samtidigt:
-
-- **Steinel** anger det tvärgående avståndet, med villkoret utskrivet.
-- **ESYLUX** anger konens djup och bredd var för sig, 12 meter framåt och 10 i
-  sidled.
-- **Nexa** anger tio meter vid två meters montagehöjd och under tjugo grader.
-- **Biltema, Kjell och Jula** anger ett tal utan villkor.
-
-Talen går inte att jämföra rakt av, och en jämförelsetabell som staplar dem i en
-kolumn utan villkoret ger fel bild. Vår tabell bär villkoret i cellen.
+<ProductRef id="kjell-rorelsevakt-vagg" /> anger sitt golv till 1 watt, och den
+är ensam här om att skriva ut ett tal så lågt. På en fasad med en enda liten
+lampa är det skillnaden mellan en produkt som fungerar och en som inte gör det,
+och det är dessutom den billigaste i hela jämförelsen.
 
 ### Höjden avgör var konen landar
 
-Biltema är ensamma i det billiga fältet om att skriva ut monteringshöjden: 1,8
-till 2,5 meter. Det är ingen detalj. Sitter vakten för lågt når konen bara några
-meter ut; sitter den för högt tittar den ned i marken framför fasaden och missar
-den som närmar sig.
+Steinel anger ideal monteringshöjd 2 meter för både IS 1 och IS 2160 ECO,
+ESYLUX rekommenderar 2,5 för MD 120, och Nexa vill ha LMDT-810 mellan 2 och 3
+meter över marknivå. Det är ingen detalj. Sitter vakten för lågt når konen bara
+några meter ut; sitter den för högt tittar den ned i marken framför fasaden och
+missar den som närmar sig.
 
 Steinel IS 3180 anger sina tjugo meter vid exakt 2,5 meters montagehöjd och
-hänvisar till en tabell i bruksanvisningen för andra höjder. Det är den ärligaste
-formen: räckvidd och höjd är samma uppgift.
+hänvisar till en tabell i bruksanvisningen för andra höjder. Det är den
+ärligaste formen: räckvidd och höjd är samma uppgift.
 
 Underkrypskydd är den andra halvan av samma fråga. Det är ett segment i linsen
 som tittar rakt ned längs väggen, så att någon som går tätt intill fasaden inte
-kan passera under bevakningen. <ProductRef id="steinel-is-1" /> och ESYLUX
-MD 120 har det.
+kan passera under bevakningen. <ProductRef id="steinel-is-1" />,
+<ProductRef id="esylux-md-120" /> och <ProductRef id="niko-351-26570" /> har
+det, och RC 230i har det runt hela 360 grader med sex meters räckvidd.
 
 ### IP44 är golvet, IP54 är steget över
 
@@ -118,7 +129,8 @@ Det som skiljer är femman: IP54 tål vatten som *sprutar*, inte bara stänker, 
 har dessutom bättre dammskydd. På en gavelvägg utan tak över sig, där slagregn
 kommer vågrätt, är det en verklig skillnad. Under en takfot är det det inte.
 
-Fyra av vakterna här har IP54 och samtliga fyra är Steinel. Fem har IP44.
+Fyra av vakterna här har IP54: båda Steinel-modellerna, Niko och ESYLUX
+RC 230i. Fem har IP44.
 
 ### Kylan gör detektionen bättre, inte sämre
 
@@ -128,55 +140,69 @@ kall. En vinternatt är alltså den lättaste situationen en pyrodetektor kan r�
 ut för. Den svåra är en varm sommarkväll när muren bakom personen håller
 kroppstemperatur.
 
-Nexa anger därför sina tio meter vid temperaturer under tjugo grader, och
-Steinel bygger in kompensation som de kallar temperaturstabiliserad räckvidd.
-Två tillverkare som beskriver samma fysik från var sitt håll.
-
-Elektroniken har däremot en gräns. <ProductRef id="esylux-md-120" /> går till
-−25 grader, Steinel-serien till −20, och <ProductRef id="nexa-sp-816" /> stannar
-vid −10. Det sista ligger innanför en vanlig januarinatt norr om Mälardalen.
+Elektroniken har däremot en gräns. Båda ESYLUX-vakterna går till −25 grader och
+Steinel och Niko till −20. Taket spelar också roll:
+<ProductRef id="nexa-lmdt-810" /> stannar vid +40 och
+<ProductRef id="philips-hue-outdoor" /> vid +45, vilket en plåtfasad mot söder
+kan nå en julidag.
 
 ### Efterlystiden är längre än du tror att du vill ha den
 
 Vreden märkta TIME styr hur länge lampan lyser efter sista rörelse.
-<ProductRef id="biltema-rorelsevakt-ip44" /> går till fyra minuter, Steinel
-IS 130-2 och IS 1 till trettiofem.
+<ProductRef id="kjell-rorelsevakt-vagg" /> går till sju minuter,
+<ProductRef id="esylux-md-120" /> till femton, och båda Steinel-vakterna till
+trettiofem.
 
 Trettiofem minuter låter absurt tills man vet varför de finns. Vissa armaturer
 behöver tid för att komma upp i fullt ljus, och en vakt som slår av dem var
-fjärde minut håller dem i ett ständigt uppstartsläge. Den andra anledningen är
+sjunde minut håller dem i ett ständigt uppstartsläge. Den andra anledningen är
 enklare: står du och lastar ur bilen eller stackar ved vill du inte vifta med
-armarna var fjärde minut.
+armarna var sjunde minut.
 
 ### Skymningsreläet, och varför lampan tänds mitt på dagen
 
-Varje vakt här har ett inbyggt skymningsrelä, alltså vredet märkt LUX eller med en sol
-och en måne. Det bestämmer vid vilken ljusnivå vakten börjar reagera på rörelse
-alls.
+Varje vakt här har ett inbyggt skymningsrelä, alltså vredet märkt LUX eller med
+en sol och en måne. Det bestämmer vid vilken ljusnivå vakten börjar reagera på
+rörelse alls.
 
-Steinel-modellerna går från 2 till 2 000 lux, alltså från mörk natt till mulen
-dag. Biltemas stannar vid 200 lux och håller sig därmed tystare i dagsljus. Är
-vredet vridet mot solsymbolen tänder vakten mitt på dagen, och det är den
-vanligaste installationsmissen i kategorin.
+<ProductRef id="steinel-is-2160" /> går från 2 till 2 000 lux, alltså från mörk
+natt till mulen dag, medan <ProductRef id="steinel-is-1" /> stannar vid 1 000
+och Niko börjar först vid 5. Är vredet vridet mot solsymbolen tänder vakten mitt
+på dagen, och det är den vanligaste installationsmissen i kategorin.
 
 Gör gångtestet i skymningen och inte på eftermiddagen. Vrider du mot månen på en
 solig dag ser du ingenting hända och tror att vakten är trasig.
 
+### Vred under en kåpa, eller en app
+
+De flesta vakter ställs in med två små potentiometrar under en kåpa som sitter
+med en skruv, och du gör det stående på en stege i mörkret eftersom det är då du
+märker att inställningen är fel.
+
+Två här gör det annorlunda. <ProductRef id="niko-351-26570" /> ställs in i Niko
+Sensor Tool-appen, och <ProductRef id="esylux-rc-230i" /> med en fjärrkontroll
+som du riktar mot sensorn från marken. Fjärrkontrollen till RC 230i säljs
+separat, vilket är värt att veta innan du står där.
+
+De medföljande täckskalen räknas hit också. Det är plastbitarna du klipper till
+för att skärma bort gatan, grannens uppfart eller den vajande grenen, och utan
+dem tänds lampan hela natten.
+
 ### Batteridrivet eller inkopplat
 
-<ProductRef id="nexa-sp-816" /> är den enda batteridrivna vakten i rankningen,
-och den löser ett problem ingen av de andra kan röra: ett staket, ett uthus
-eller en grind dit ingen kabel går. Den skickar en Z-Wave-signal upp till trettio
-meter till en styrenhet i huset.
+<ProductRef id="nexa-lmdt-810" /> och <ProductRef id="philips-hue-outdoor" />
+löser ett problem ingen av de andra kan röra: ett staket, ett uthus eller en
+grind dit ingen kabel går. Nexa skickar en radiosignal upp till trettio meter
+till en mottagare i huset, Hue en Zigbee-signal till sin Bridge.
 
-Men den bryter ingen ström. Har du redan en strålkastare på väggen tänds den
-inte av en batterisensor förrän du också köpt en styrenhet och ett relä, och då
-kostar lösningen tre gånger vad en inkopplad vakt gör. Philips Hue Outdoor Sensor
-har samma begränsning i skarpare form: den styr Hue-lampor och ingenting annat.
+Men de bryter ingen ström. Har du redan en strålkastare på väggen tänds den inte
+av en batterisensor förrän du också köpt en mottagare, och då kostar lösningen
+mer än en inkopplad vakt. Hue är den snävare av de två: den styr Hue-lampor och
+ingenting annat. Till gengäld mäter den både ljusnivå och temperatur, så samma
+rörelse kan ge olika ljus vid olika tider på natten.
 
-Regeln är enkel. Har du redan ett smart hem med en styrenhet och lampor som lyder
-den är en batterisensor rätt. Har du en lampa på en vägg är en 230-voltsvakt
-rätt.
+Regeln är enkel. Har du redan ett smart hem med lampor som lyder en hubb är en
+batterisensor rätt. Har du en lampa på en vägg är en 230-voltsvakt rätt.
 
 ### Installationen är inte ett gör-det-själv-jobb
 
@@ -184,17 +210,17 @@ En rörelsevakt som kopplas till 230 volt ska installeras av behörig
 elinstallatör. Elsäkerhetsverket kräver dessutom att uttag utomhus är
 skyddsjordade, och för nya uttag gäller krav på jordfelsbrytare.
 
-Räkna in det i priset. En vakt för 89,90 kronor och en elektriker på plats
-kostar tillsammans betydligt mer än skillnaden mellan den billigaste och den
-dyraste vakten på den här sidan, vilket är ett argument för att köpa den som
-räcker hela vägen första gången.
+Räkna in det i priset. En vakt för 200 kronor och en elektriker på plats kostar
+tillsammans mer än den dyraste vakten i jämförelsen gör ensam, vilket är ett
+argument för att köpa den som räcker hela vägen första gången i stället för att
+byta om två år.
 
 En batteridriven sensor sätter du däremot upp själv med två skruvar. Där går
 ingenting på nätspänning.
 
 ### Undvik att montera vakten mot varm luft
 
-Biltemas bruksanvisning bär ett råd som inte står på någon produktsida: montera
+Ett råd som står i bruksanvisningarna men inte på någon produktsida: montera
 inte vakten där det finns stora temperaturvariationer, till exempel nära utsläpp
 från luftkonditionering, värmepump eller ventilation.
 

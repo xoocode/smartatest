@@ -65,7 +65,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Shelly 1 Gen4 för 269 kronor vinner: wifi, Bluetooth, Zigbee och Matter i samma modul, styrd lokalt utan molnkonto. Saknar dosan nolledare är Aqara H1 för 369 kronor den enda av de sex som fungerar ändå.",
+    "Smart strömbrytare bäst i test 2026: sex väggbrytare och reläer jämförda från 150 kr. En av sex får du byta själv. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -116,8 +116,10 @@ export default async function SmartStrombrytarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Shelly 1 Gen4 kostar 269 kronor, talar wifi, Bluetooth, Zigbee
-              och Matter i samma modul och styrs lokalt utan molnkonto. Den
+              Vår testvinnare är Shelly 1 Gen4 för 269 kronor, eftersom den styrs
+              lokalt utan molnkonto och därför tänder lampan även den kvällen som
+              internet ligger nere. Den talar wifi, Bluetooth, Zigbee och Matter
+              i samma modul. Den
               kräver nolledare i dosan, och saknas den bakom din knapp är Aqara
               H1 för 369 kronor den enda av de sex som fungerar ändå. Den frågan
               avgör köpet långt innan appen och röststyrningen gör det.

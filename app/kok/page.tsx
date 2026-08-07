@@ -33,11 +33,14 @@ const PAGE_URL = "/kok";
 const UPDATED = "2026-08-05";
 
 export const metadata: Metadata = {
-  title: "Kök: apparaterna som står framme på bänken",
+  title: "Bäst i test 2026 köksapparater: åtta jämförelser",
   description:
     "Våra jämförelser av köksapparater. Vi läser vad tillverkaren faktiskt anger om just sin modell, redovisar viktningen öppet och säger rakt ut när vi inte vet vad en provning kom fram till.",
   alternates: { canonical: PAGE_URL },
-  openGraph: pageOpenGraph({ title: "Kök", path: PAGE_URL }),
+  openGraph: pageOpenGraph({
+    title: "Bäst i test 2026 köksapparater: åtta jämförelser",
+    path: PAGE_URL,
+  }),
 };
 
 const FAQ = [
@@ -106,7 +109,9 @@ export default function KokPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             <p className="eyebrow text-brand">Kategori</p>
-            <h1 className="text-h1">Kök</h1>
+            <h1 className="text-h1">
+              Bäst i test 2026 köksapparater: åtta jämförelser
+            </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Apparaterna som står framme på bänken, och som säljs med ett tal i
               modellnamnet som sällan betyder det köparen tror. Vi läser vad
@@ -143,8 +148,8 @@ export default function KokPage() {
           <p>
             Köket skiljer sig från resten av sajten på en punkt, och det är en
             fördel för läsaren:{" "}
-            <strong>här finns faktiskt svenska labbprovningar</strong>. Råd &amp;
-            Rön provar köksmaskiner löpande och gör det ordentligt, med
+            <strong>här finns faktiskt svenska labbprovningar</strong>. Råd
+            &amp; Rön provar köksmaskiner löpande och gör det ordentligt, med
             mätvärden och ett provprogram som står utskrivet. Det är mer än vi
             kan säga om brandstegar, nyckelskåp eller mobilskal.
           </p>
@@ -157,8 +162,8 @@ export default function KokPage() {
           </p>
           <p>
             Det andra vi tar med oss hit är vanan att läsa talet på kartongen en
-            gång till. Mjölkskummarsidan blev byggd kring en enda upptäckt: talet
-            i modellnamnet är hur mycket mjölk apparaten värmer, medan den
+            gång till. Mjölkskummarsidan blev byggd kring en enda upptäckt:
+            talet i modellnamnet är hur mycket mjölk apparaten värmer, medan den
             skummar ungefär hälften. Samma sorts fynd som pascaltalet på
             robotdammsugarna och årtalet efter EN 1869 på brandfiltarna.
           </p>

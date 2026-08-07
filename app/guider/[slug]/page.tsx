@@ -32,7 +32,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     title: tool.title,
-    description: tool.description,
+    /* `description` renderas som synlig korttext på /guider. Utdraget får
+       skilja sig, och gör det bara om verktyget satt `metaDescription`. */
+    description: tool.metaDescription ?? tool.description,
     alternates: { canonical: toolHref(tool) },
     openGraph: pageOpenGraph({ title: tool.title, path: toolHref(tool) }),
   };

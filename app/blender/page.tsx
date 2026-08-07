@@ -141,9 +141,10 @@ export default async function BlenderPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Ninja Detect Power Mixer Pro för 2 279 kronor. Den hackar
-              nötter jämnare än någon annan maskin här, gör smoothien på 55
-              sekunder och kannan går i diskmaskinen. Ska det kosta mindre tar
+              Vi rekommenderar Ninja Detect Power Mixer Pro för 2 279 kronor,
+              eftersom den hackar nötter jämnare än någon annan blender här, och
+              det är momentet de flesta misslyckas med. Smoothien tar 55 sekunder och kannan går i
+              diskmaskinen. Ska det kosta mindre tar
               du Wilfa Xplode 1500 för 1 222 kronor, som är billigaste vägen
               till en glaskanna. Och läs inte watt-talet: de två svagaste
               motorerna i laboratorietestet gjorde de två snabbaste

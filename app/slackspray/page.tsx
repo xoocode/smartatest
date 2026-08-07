@@ -66,7 +66,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Housegard FireStopper vinner för 299 kronor: 5A 21B 5F är det största testbål någon spray här är provad mot, och 600 ml räcker i 30 sekunder. Vill du bara ha en burk i bilen kostar Biltemas 99,90. Fem sprayer jämförda på klass, släckmedel, kastlängd och tömningstid.",
+    "Släckspray bäst i test 2026: fem brandsprayer jämförda från 100 kr. Klassen på burken säger vilken brand den släcker. Se vilken du behöver.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -117,9 +117,11 @@ export default async function SlacksprayPage() {
               burken
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Housegard FireStopper är den kraftigaste sprayen här och kostar
-              299 kronor: 5A 21B 5F på burken, 600 ml och 30 sekunders insats.
-              Ska den bara ligga i bilen räcker Biltemas för 99,90. Men läs 43A
+              Vår testvinnare är Housegard FireStopper för 299 kronor, eftersom
+              den håller 20 till 30 sekunder på sina 600 ml, längst av
+              sprayerna, så du hinner rikta om en gång. På burken står 5A 21B 5F,
+              det största testbål någon spray här är provad mot.
+              Ska den bara ligga i bilen räcker Biltemas för 100. Men läs 43A
               först, för det är klassen som rekommenderas till hemmet, och dit
               når ingen spray.
             </p>

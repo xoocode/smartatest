@@ -54,7 +54,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Canon PowerShot V1 vinner med sidans största sensor för 9 490 kronor. Sony ZV-1F ger samma sensorklass för 5 790 men saknar zoom. Tio kompaktkameror jämförda.",
+    "Kompaktkamera bäst i test 2026: tio fickkameror jämförda från 4 675 kr. Zoomen spänner från ingen alls till 40x. Se vilken du behöver.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -103,9 +103,10 @@ export default async function KompaktkameraPage() {
           <div className="flex flex-col gap-row">
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Canon PowerShot V1 vinner för 9 490 kronor, på att den har
-              sensorn på 1,4 tum som är störst här och som enda kamera både
-              mikrofoningång och hörlursuttag. Den väger 426 gram och når bara
+              Vår testvinnare är Canon PowerShot V1 för 9 490 kronor, eftersom
+              den både har den största sensorn här på 1,4 tum och är ensam om
+              att ha både mikrofoningång och hörlursuttag. Den väger 426 gram
+              och når bara
               50 millimeter, så den som vill zooma får välja en annan.
             </p>
             <p className="max-w-2xl text-lg text-muted-foreground">

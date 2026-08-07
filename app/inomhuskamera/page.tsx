@@ -75,7 +75,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Vi jämförde sju inomhuskameror från 279 till 1 299 kronor. Tapo C225 vinner: 599 kronor, en knapp som vrider bort objektivet, hela rummet i 2K och inget abonnemang.",
+    "Inomhuskamera bäst i test 2026: sju wifi-kameror jämförda från 279 kr. Hemtjänst i hemmet ändrar vad du får filma. Se vad som gäller då.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -130,14 +130,15 @@ export default async function InomhuskameraPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Inomhus är kamerabevakning oftast tillåten, även kopplad till en
-              larmcentral. Men får du regelbundet besök av hemtjänst gäller
-              inte privatundantaget, eftersom personalen bevakas under sin
-              arbetstid. Då räcker det inte att kameran går att stänga av. Den
-              måste gå att stänga av på ett sätt som syns, och det klarar fem
-              av de sju kameror vi jämförde. Bäst är TP-Link Tapo C225 för 599
-              kronor: en knapp på höljet vrider bort objektivet, den täcker
-              hela rummet i 2K och ingenting kräver abonnemang.
+              Vår testvinnare är TP-Link Tapo C225 för 599 kronor, eftersom den
+              både vrider bort objektivet med en knapp på höljet och täcker hela
+              rummet i 2K utan att kräva ett abonnemang. Inomhus är
+              kamerabevakning oftast tillåten, även kopplad till en larmcentral.
+              Men får du regelbundet besök av hemtjänst gäller inte
+              privatundantaget, eftersom personalen bevakas under sin arbetstid.
+              Då räcker det inte att kameran går att stänga av. Den måste gå att
+              stänga av på ett sätt som syns, och det klarar fem av de sju
+              kameror vi jämförde.
             </p>
             <UpdatedStamp
               date={UPDATED}

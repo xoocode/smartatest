@@ -88,7 +88,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "OBH Nordica InfinyForce Pro vinner för 1 490 kronor: steglös fart, puréfot och reservdelar utlovade i 15 år. Vill du ha en kniv som rör sig upp och ner kostar Braun MultiQuick 9 MQ 9135XI 1 573 kronor. Och läs inte watt-talet: bamix drar 200 W och snurrar fortare än en maskin på 800.",
+    "Stavmixer bäst i test 2026: tolv mixerstavar jämförda från 549 kr. En stav på 200 watt snurrar fortare än en på 800. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -142,9 +142,10 @@ export default async function StavmixerPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp OBH Nordica InfinyForce Pro för 1 490 kronor. Den har steglös
-              hastighet under tummen, puréfot i lådan och reservdelar utlovade i
-              15 år efter inköpsdatum. Vill du ha en kniv som rör sig upp
+              Vi rekommenderar OBH Nordica InfinyForce Pro för 1 490 kronor,
+              eftersom den har steglös fart under tummen och därför startar
+              långsamt i majonnäsen och går upp i frysta bär. Puréfot i lådan, och reservdelar utlovade i 15 år
+              efter inköpsdatum. Vill du ha en kniv som rör sig upp
               och ner genom frysta bär tar du Braun MultiQuick 9 MQ 9135XI för
               1 573 kronor. Och hoppa över watt-talet i hyllan: bamix drar 200
               watt och snurrar 50 procent fortare än en maskin på 800.

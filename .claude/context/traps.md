@@ -184,3 +184,35 @@ Use `getStyle()` from `lib/style-server.ts`, which is gated on
 ### `pnpm build` kills `pnpm dev`
 
 Both write `.next`. Restart the dev server after every build.
+
+### `og:description` is filled automatically, and the docs read as if it is not
+
+`pageOpenGraph()` in `lib/metadata.ts` takes no `description` and **must not be
+given one.** Next fills `openGraph.description` from `metadata.description`
+whenever the resolved openGraph block lacks it. Verified on the rendered
+`<head>` 2026-08-07 across a test page, a category, a tool, `/om-oss` and the
+front page: `og:description` and `twitter:description` are both present and both
+carry the page's own description.
+
+This is the one trap here that did **not** fail silently — nothing is broken.
+It is written down because the *documentation* is the trap. The "Inheriting
+fields" example in `node_modules/next/dist/docs/01-app/03-api-reference/04-functions/generate-metadata.md`
+ends with *"Note the absence of `openGraph.description`"*, which is about a
+**layout's** description not reaching a page that sets its own `openGraph`. Read
+as a statement about page-level `description`, it produces a confident plan to
+add an argument to `lib/metadata.ts` and repeat the same Swedish string twice in
+each of 76 files, to change nothing. That plan was written on 2026-08-07 and
+only died because the `<head>` was checked.
+
+**The general rule this earns: check the rendered `<head>` before concluding
+anything about metadata.** Peter keeps a dev server on port 3000. Never start
+your own — if it is down, stop and ask.
+
+```bash
+curl -s http://localhost:3000/robotdammsugare | grep -o '<meta property="og:[^>]*>'
+```
+
+The helper's own doc comment covers the neighbouring rule that *is* a real
+trap: a page setting `openGraph` replaces the parent block whole, so `siteName`
+and `locale` have to be repeated. Both facts are true and they are easy to
+merge into one wrong belief.

@@ -60,7 +60,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Linocell 25 000 vinner för 999 kronor: 140 watt ur en port, 508 gram och 27 millimeter tunn, alltså den som faktiskt följer med i datorväskan. Vill du ha maximal kapacitet inför flyget ger Linocell 165 W 99,36 wattimmar för samma pris. En powerbank får aldrig checkas in, oavsett storlek.",
+    "Powerbank 20 000 mAh bäst i test 2026: åtta reservbatterier jämförda från 349 kr. Största ligger 0,64 Wh under flyggränsen. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -114,10 +114,12 @@ export default async function Powerbank20000Page() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Linocell 25 000 för 999 kronor. Den ger 140 watt ur en
-              USB-C-port, alltså full fart till en bärbar dator, väger 508 gram
-              och är 27 millimeter tjock, så den ligger platt bredvid datorn i
-              väskan. Vill du ha maximal kapacitet inför den långa resan rymmer
+              Vi rekommenderar Linocell 25 000 för 999 kronor, eftersom den
+              rymmer 90 wattimmar, nog för en dator plus telefon för en lång
+              resa. Den ger 140 watt ur en
+              USB-C-port, väger 508 gram och är 27 millimeter tjock, så den
+              ligger platt bredvid datorn i väskan. Vill du ha maximal
+              kapacitet inför den långa resan rymmer
               Linocell 165 W 27 600 mAh och 99,36 wattimmar för samma pris, men
               väger 117 gram mer. En powerbank får aldrig checkas in, oavsett
               storlek.

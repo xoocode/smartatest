@@ -155,3 +155,40 @@ vi anger fortfarande varje källa.
 letar produktegenskaper, inte för att uppgifterna saknats i världen. Tiering och
 regeln att andra testsajter är ett spår och aldrig en källa står i
 `.claude/references/spec-sourcing.md`.
+
+## 2026-08-07, omskrivningen av rösten
+
+**Gäller generaliseringen om okända uppgifter från den 4 augusti?**
+Nej, den utgår: *"en okänd uppgift beskrivs som produktens egenskap ('hålltiden
+är okänd'), aldrig som tillverkarens beteende"*.
+
+*Skälet:* omskrivningen tog bort ordet *tillverkaren* och behöll allt annat.
+Meningen handlade fortfarande om ett tomt fält men såg ut som en
+produktegenskap, och gick därmed förbi varje kontroll vi hade. På
+`/usb-c-kabel` ägnade vinnarens omdöme två av fyra stycken åt att en mantel
+inte stod angiven. Manteln fanns, TPE, i Delocks eget datablad, och kabeln
+fungerade likadant vare sig vi läst det eller inte.
+
+*Vad som gäller nu:* en lucka i researchen är inget ämne alls. Den ligger som
+ett streck i tabellen, och stycket den skulle ha tagit ägnas åt något som
+hjälper läsaren att välja. Undantaget är när frånvaron är något läsaren själv
+stöter på: ett larmpris som inte går att få utan säljarbesök hindrar hen, en
+mantel som saknas i ett datablad hindrade bara oss. Se `writing-guide.md`,
+*Vad ett omdöme är till för* och *När en saknad uppgift ändå är nyheten*.
+
+*Åt andra hållet:* källan får vara meningens subjekt när poängen är att talet
+inte går att jämföra. "Tolv dagar" och "trettio dagar" betyder inte samma sak
+när tillverkarna mäter batteritiden olika, och då ska mätsättet fram. Se
+`who-you-are.md`, *Du visar hur siffran är gjord*, och globala skillen Del 6.
+
+**Vad heter avsnittet om att sälja?**
+*Du säljer, och det är ärligheten som säljer*, i `who-you-are.md`.
+
+*Skälet:* rubriken har bytt namn två gånger och posten den 4 augusti pekar på
+det mellersta namnet. *Du säljer inte* lästes som att all övertygande text vore
+misstänkt, och gav omdömen som redovisade i stället för att rekommendera. *Du
+säljer produkten, inte kategorin* rättade riktningen men bar kvar en negation i
+rubriken. Den nuvarande säger vad som faktiskt gäller: ärligheten är inget
+förbehåll mot säljet, den är skälet till att rekommendationen går att lita på.
+Sakregeln är oförändrad sedan den 4 augusti — gränsen går vid att påstå något
+vi inte vet, inte vid att övertyga.

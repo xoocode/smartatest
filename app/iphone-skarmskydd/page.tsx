@@ -67,7 +67,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Spigen Glas.tR EZ Fit för 249 kr vinner: två glas, en monteringsbygel och skydd även över sensorerna. Vi jämför femton skärmskydd till iPhone 17 Pro från 69 till 399 kronor på täckning, montering och pris per skydd.",
+    "iPhone skärmskydd bäst i test 2026: femton skydd i härdat glas jämförda från 69 kr. Tio av femton anger samma 9H. Se vad talet är värt.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -119,10 +119,11 @@ export default async function IphoneSkarmskyddPage() {
               Pro, från 69 till 399 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Spigen Glas.tR EZ Fit för 249 kronor vinner, därför att asken
-              innehåller två glas och en bygel som lägger dem rakt första
-              gången, och för att skyddet också täcker sensorerna ovanför
-              skärmen. Ska det bara bli billigt kostar Enkays tvåpack 99,50
+              Vår testvinnare är Spigen Glas.tR EZ Fit för 249 kronor, eftersom
+              monteringsbygeln gör att glaset bara kan hamna rätt, och asken
+              innehåller två så första försöket får misslyckas. Skyddet täcker
+              också sensorerna ovanför skärmen. Ska det bara bli billigt kostar
+              Enkays tvåpack 100
               kronor per glas. Talet 9H som står på tio av femton kartonger säger
               mindre än du tror, och det är hela anledningen till att sidan
               finns.

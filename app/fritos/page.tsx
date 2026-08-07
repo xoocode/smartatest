@@ -83,7 +83,7 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Tefal Versalio Deluxe vinner för 1 112 kronor: 1,3 kilo mat på 2 liter olja, minst olja per kilo i jämförelsen. Bästa köpet är Tefal Easy Pro för 679 kronor. Litertalet på kartongen är oljan du köper och slänger, inte maten du lagar. Tre maskiner tar 3 liter och gör 1,2 kilo, 600 gram respektive 400 gram.",
+    "Fritös bäst i test 2026: elva oljefritöser jämförda från 412 kr. Mest mat på minst olja: 1,3 kilo på 2 liter. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -138,9 +138,9 @@ export default async function FritosPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Tefal Versalio Deluxe för 1 112 kronor. Den friterar 1,3 kilo
-              mat på 2 liter olja, alltså både den största matmängden och den
-              minsta oljemängden här. Ska du lägga mindre är Tefal Easy Pro för
+              Vi rekommenderar Tefal Versalio Deluxe för 1 112 kronor, eftersom
+              den friterar 1,3 kilo mat på 2 liter olja, minst olja per kilo av
+              alla elva. Ska du lägga mindre är Tefal Easy Pro för
               679 kronor bästa köpet, med 1,2 kilo mat på 3 liter. Och läs inte
               litertalet som portioner: tre av maskinerna här tar exakt 3 liter
               olja och friterar 1,2 kilo, 600 gram respektive 400 gram mat.

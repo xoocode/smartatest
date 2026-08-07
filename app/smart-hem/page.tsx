@@ -29,12 +29,12 @@ const PAGE_URL = SMART_HEM.href;
 const UPDATED = "2026-08-04";
 
 export const metadata: Metadata = {
-  title: "Smart hem: så väljer du rätt produkter",
+  title: "Bäst i test 2026 smart hem: åtta jämförelser",
   description:
     "Läs experttesterna innan du köper. Vi har gått igenom dem åt dig och sammanställt vad de faktiskt är överens om, plus hur väl Matter, Zigbee och Thread fungerar ihop idag.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({
-    title: "Smart hem: så väljer du rätt produkter",
+    title: "Bäst i test 2026 smart hem: åtta jämförelser",
     path: PAGE_URL,
   }),
 };
@@ -134,7 +134,9 @@ export default function SmartHemPage() {
         <div className="grid gap-block lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="flex flex-col gap-row">
             <p className="eyebrow text-brand">Kategori</p>
-            <h1 className="text-h1">Smart hem: så väljer du rätt produkter</h1>
+            <h1 className="text-h1">
+              Bäst i test 2026 smart hem: åtta jämförelser
+            </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
               Ingen redaktion i Sverige testar allt. Det som finns är dussintals
               seriösa experttester som var för sig täcker en handfull produkter,

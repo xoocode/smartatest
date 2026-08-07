@@ -76,7 +76,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Bäst i test är Brandvarnare.se Räddningsstege 7 m för 1 294 kronor, den enda under tvåtusen som når ner från tredje våningen. Har du två våningar tar du Housegard EL45A för 849, den enda av åtta stegar du får öva med mer än en gång.",
+    "Brandstege bäst i test 2026: åtta räddningsstegar jämförda från 699 kr. Bara en når ner från tredje våningen under 2 000 kr. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -131,10 +131,11 @@ export default async function BrandstegePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Bäst i test är Brandvarnare.se Räddningsstege 7 m för 1 294 kronor.
-              Den är den enda stegen under tvåtusen som når ner från ett fönster
-              på tredje våningen, och distanserna på fotstegen håller ut den från
-              fasaden så att foten får plats. Har du två våningar tar du
+              Vi rekommenderar Brandvarnare.se Räddningsstege 7 m för
+              1 294 kronor, eftersom den når ner från ett fönster på tredje
+              våningen, och närmaste stege med samma räckvidd kostar
+              955 kronor mer. Distanserna på fotstegen håller ut
+              den från fasaden så att foten får plats. Har du två våningar tar du
               Housegard EL45A för 849 kronor i stället: sex av de åtta stegarna
               ska enligt sin egen bruksanvisning kasseras efter en enda
               utlösning, och Housegards är den du får hänga upp, klättra i och

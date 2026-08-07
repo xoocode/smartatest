@@ -71,7 +71,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Huawei Watch GT 6 Pro för 3 890 kr vinner: tolv dagars batteritid, satellit på två band och fungerar med både iPhone och Android. Vi jämför elva smartklockor från 2 972 till 9 294 kronor på batteri, hälsosensorer och träningsmätning.",
+    "Bäst i test smartwatch 2026: elva smartklockor jämförda från 2 972 kr. Samma klocka håller 12 dagar eller 9 timmar. Se vad som gäller.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -123,11 +123,11 @@ export default async function SmartwatchPage() {
               9&nbsp;294 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Huawei Watch GT 6 Pro för 3 890 kronor vinner: tolv dagar mellan
-              laddningarna där de flesta klarar ett eller två dygn,
-              satellitmottagning på två band och EKG-sensor, och den fungerar
-              med både iPhone och Android, vilket varken Apple, Samsung eller
-              Google gör. Tränar du på riktigt är Garmin Venu 4 för 5 250
+              Vår testvinnare är Huawei Watch GT 6 Pro för 3 890 kronor, eftersom
+              den har både EKG-sensor och satellitmottagning på två band, och
+              ändå går tolv dagar mellan laddningarna. Den fungerar dessutom med
+              både iPhone och Android, vilket varken Apple, Samsung eller Google
+              gör. Tränar du på riktigt är Garmin Venu 4 för 5 250
               kronor den enda här med ett EKG godkänt i klass IIa, och ska varje
               krona räknas ger Amazfit Balance 2 tjugoen dagar och 10 ATM för
               3&nbsp;490.

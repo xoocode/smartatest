@@ -81,7 +81,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ninja QB3001 vinner för 925 kronor: 700 watt, två muggar på 470 ml och allt utom motordelen i diskmaskinen. Vill du mixa utan uttag kostar Ninja Blast Max 1 189 kronor och ger 12 minuters mixtid. Batteriet anges i mixningar, och en mixning är 30 sekunder.",
+    "Smoothiemixer bäst i test 2026: elva personliga mixrar jämförda från 279 kr. Flest mixningar ger inte längst mixtid. Se vilken som räcker längst.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -135,8 +135,10 @@ export default async function SmoothiemixerPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Ninja QB3001 för 925 kronor. Den ger 700 watt ur vägguttaget,
-              två muggar på 470 milliliter och allt utom motordelen får gå i
+              Vi rekommenderar Ninja QB3001 för 925 kronor, eftersom den ger
+              700 watt ur vägguttaget, näst mest kraft här, och tar frysta bär
+              hela vägen till slät smoothie. Två
+              muggar på 470 milliliter, och allt utom motordelen får gå i
               diskmaskinen. Ska mixern följa med utan uttag tar du Ninja Blast
               Max för 1 189 kronor, som ger 12 minuter och 30 sekunders mixtid
               per laddning. Och läs inte antalet mixningar rakt av: en mixning

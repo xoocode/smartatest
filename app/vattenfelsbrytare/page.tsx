@@ -68,7 +68,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "LK CubicSecure vinner för 5 373 kronor: typgodkänd enligt CR 139, stänger av hela huset och mäter trycket varje natt. Sex produkter är godkända i dag och siffran två är fyra år gammal. Vi jämförde fem brytare från 819 till 8 495 kronor mot RISE eget register.",
+    "Vattenfelsbrytare bäst i test 2026: fem läckagebrytare jämförda från 819 kr. Sedan januari krävs typgodkännande enligt CR 139. Se vilka som har det.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -120,10 +120,12 @@ export default async function VattenfelsbrytarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp LK CubicSecure för 5 373 kronor. Den stänger av vattnet till
-              hela huset, mäter trycket en gång per dygn och hittar därmed
-              droppläckaget bakom väggen, och den är typgodkänd enligt CR 139 så
-              att installationen kan intygas och försäkringsrabatten gäller. Ska
+              Vi rekommenderar LK CubicSecure för 5 373 kronor, eftersom den
+              stänger ventilen en gång per dygn och mäter trycket, och därmed
+              hittar droppläckaget bakom väggen där ingen sensor ligger. Den
+              stänger av vattnet till hela huset
+              och är typgodkänd enligt CR 139, så att installationen kan intygas
+              och försäkringsrabatten gäller. Ska
               du bara klara det nya kökskravet snäpps Vatette Läckagebrytare fast
               för hand på en ventil du redan har och kostar 3 465. Sex produkter
               är godkända i dag, inte två.

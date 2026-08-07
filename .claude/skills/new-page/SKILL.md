@@ -1,6 +1,6 @@
 ---
 name: new-page
-description: Build a complete "bäst i test" test page for smartatest.se, from competitor research through sourced products, buying guide, tools and verification. Finishes by setting the page live in the catalog without asking — it holds only when told to, or when something on the page could mislead a buyer. Never deploys and never pushes. Use when creating a new test page, adding one to the catalog, or rebuilding an existing test page to the current template.
+description: Build a complete "bäst i test" test page for smartatest.se, from competitor research through sourced products, buying guide, tools and verification. Asks the user to choose the subject, then the ingress, the H1 and the search snippet in that order, so the snippet is built on the USP the chosen ingress commits to; settles everything else from the sources. Finishes by setting the page live in the catalog without asking — it holds only when told to, or when something on the page could mislead a buyer. Never deploys and never pushes. Use when creating a new test page, adding one to the catalog, or rebuilding an existing test page to the current template.
 ---
 
 # New "bäst i test" page
@@ -30,8 +30,9 @@ not up front.
 
 ## Phase 0: Orient and pick the subject
 
-Read all five before you ask anything. The one question this skill asks lives at
-the end of this phase.
+Read all five before you ask anything. The subject question lives at the end of
+this phase; the only other questions are the three in phase 5, where the user
+chooses the H1, the ingress and the search snippet.
 
 1. **`.agent/testsidor-tackning.md`** — the coverage map. Which pages exist per
    category, which are missing, and which have already been rejected and why.
@@ -491,12 +492,253 @@ Three more mechanical habits:
 4. `lib/data/{slug}.ts` products, considered list, FAQ — and **spread it into
    `ALL_PRODUCTS`**
 5. `content/{slug}/kopguide.mdx`, about 12 sections, roughly 1 800 words
-6. Tools, if the test page needs any beyond the shared ones
-7. `app/{slug}/page.tsx`, composed from existing components
+6. Tools, if the test page needs any beyond the shared ones. A new tool needs
+   **both** description fields in `lib/tools.ts`: `description` is the card text
+   on `/guider` and feeds two schema blocks and the search index, and
+   `metaDescription` is the search snippet. Without the second, `generateMetadata`
+   falls back to the card text and the tool ships with a snippet written for
+   someone already browsing. A tool description takes **no `bäst i test` and no
+   year** — it answers an informational query, not a buying one. Skill
+   `fix-meta-descriptions` has the shape
+7. `app/{slug}/page.tsx`, composed from existing components — and its
+   `metadata.description`, which has its own four rules and is the one string on
+   the page written for a stranger who has not arrived yet. See below.
 8. `app/{slug}/opengraph-image.tsx`, about fifteen lines, copied from a
    neighbouring page. It is on most but not all live pages, which makes its
    absence read as deliberate when it is not. Build it.
 9. A `/styleguide` bench for anything genuinely new
+
+### The ingress, the H1 and the description are the user's call
+
+This skill decides everything else from the evidence and publishes without
+asking. **These three are the exception**, and they are asked with
+`AskUserQuestion`, one question each, in this order — the order is the point:
+
+| # | String | Rules and option format | What it inherits |
+|---|---|---|---|
+| 1 | The ingress | Skill `fix-ingress` | nothing — it chooses the USP |
+| 2 | The H1 | Skill `fix-h1` | nothing — it sets the word order |
+| 3 | `metadata.description` | Skill `fix-meta-descriptions` | **the USP from 1, the word order from 2** |
+
+**The ingress goes first because its `eftersom` clause is where the page commits
+to a property.** Once the user has picked it, that property is settled and the
+snippet is written to it rather than beside it. Getting this order wrong is how
+a page ships selling one thing in search and arguing another on arrival.
+
+#### The three description candidates all sell the chosen USP
+
+This overrides one line in `fix-meta-descriptions`. That skill says to **vary
+what the lure is**, which is right when it runs alone — there is no ingress
+being written in the same pass, so the lure is free. **Here it is not.** The
+user has just chosen the property the first paragraph argues, so all three
+candidates carry that property and differ on everything else: where the lure
+sits, whether it is a figure or a claim, the call to action, and whether the
+count and the price floor both appear.
+
+Three candidates selling three different properties would offer the user a
+mismatch as a choice, and two of the three would be wrong before being read.
+
+If the chosen USP is true of the winner but too narrow to earn an impression,
+say so above the form and keep the snippet honest by pointing the call to action
+at the winner instead of at a list — `Se vinnaren här` promises exactly what the
+ingress delivers.
+
+Each is one question with **three genuinely different candidates**, plus a
+fourth option that changes nothing — **`Do nothing` always last.** The candidate
+itself goes in the option's `description`, verbatim and whole, with its
+character count in the `label`; `preview` stays unset. The three fix skills
+carry the full option rules and this file does not restate them — read the one
+you are on before you write.
+
+On a brand new page the fourth option is the draft you would otherwise have
+shipped, so the question costs the user one keystroke when your draft is right
+and saves a repair run when it is not. Write the three candidates before you
+have a favourite: the first shape to mind is the flattest, and a page whose
+three strings were never compared against alternatives is how a template gets
+onto the site.
+
+**Ask the three together, once you have drafts of all of them** — not scattered
+through the build as each file is written. `lib/test-pages.ts` carries the
+`title` and is authored early in the list above, so draft it, keep going, and
+put all three questions when the page's copy is otherwise finished. Three
+interruptions at three different moments cost more than they buy, and question 3
+cannot be written before question 1 is answered anyway.
+
+The rules for each live in different places in this file: the ingress house form
+is **fault 1** in "The eight faults" below, and the H1 and the description have
+their own sections immediately after this one.
+
+**These are the only questions in phase 5.** Verdicts, taglines, criteria,
+weights and rows are yours to settle from the sources, exactly as before.
+
+### The H1 is written once, in `lib/test-pages.ts`
+
+**Render `{TEST_PAGE.title}` in the page file. Never hardcode the heading.**
+
+Both work and the page looks identical, which is why 27 of 62 live pages carry
+a literal `<h1>` while `metadata.title` still reads `TEST_PAGE.title`. That is
+two strings with nothing keeping them equal, and **nine of the 27 had drifted**
+by 2026-08-07: three in word order, five in wording, and `/garageportsoppnare`
+in fact, where the H1 said `fem motorer`, the title said `sex` and `count: 5`
+settled that the H1 was right. `pnpm check:refs` compares dates, not titles, so
+none of it failed a build. One string costs nothing and cannot drift.
+
+`node scripts/h1-inventory.mjs {slug}` prints the H1, the title and any drift.
+
+**Word order: `{Kategori} bäst i test 2026: {det som avgör}`.** Sixty of 62
+pages. The two that still open `Bäst i test {kategori} 2026` are legacy and are
+being flipped, so do not copy them. The year is always there, and
+`metadata.description` takes its word order from here.
+
+**After the colon goes something the buyer can act on.** Not "a finding with a
+number" — four tails work, and the fourth is the one most often written badly:
+
+| Tail | Example | What it does |
+|---|---|---|
+| The plain promise | `vad den faktiskt ser` · `vilken du ska ha hemma` | Frames the question the reader arrived with |
+| The corrected assumption | `hubben avgör, inte sensorn` | Kills a wrong belief in six words |
+| The mechanism | `dimringen är där de billiga lamporna blinkar` | Says where the money actually goes |
+| Scope **with fit or audience** | `fem motorer till villagaraget` · `tolv skal till iPhone 17, från 99 till 1 099 kr` | Answers "does this page cover my case" |
+
+The `blurb` you write in `lib/catalog.ts` is usually the best tail you have.
+`/smartwatch` had `Arton timmar och trettio dygn står under samma ord på hyllan`
+in its blurb while its H1 listed eleven watches and a price range.
+
+Three ways a new H1 goes wrong, all seen on live pages:
+
+- **Scope with no fit and no audience.** `elva klockor från 2 972 till 9 294 kr`
+  is a stock list. `tolv skal till iPhone 17` is the same shape, but the model
+  tells a buyer whether the page is about their phone.
+- **A code the reader does not know yet.** `55A eller 43A, och vad siffran
+  betyder` was rejected in favour of `vilken du ska ha hemma`. Codes belong in
+  the table and the buying guide, never in the heading.
+- **A word repeated from the H1's own prefix.** `Galaxy S26-skal … till Samsung
+  Galaxy S26` and `iPhone-skal … tolv skyddsskal`. Always worth cutting, and it
+  usually fixes the length on its own.
+
+54 to 80 characters as a guide, no check. Length is not itself a fault; the
+longest H1 on the site was 95 and its problem was the repetition, not the count.
+
+Note what is **not** a fault here: `A, inte B` is the site's clearest prose tic
+in `writing-guide.md` at 18,4x the corpus, and it stays in headings. A paragraph
+has room to state the thing positively; a heading has one line. Skill `fix-h1`
+carries the full version and the eight rulings it is drawn from.
+
+### Prices in prose are rounded to whole kronor
+
+Everywhere a visitor reads a sentence: the ingress, the verdicts, the section
+descriptions, the captions, the FAQ answers, the buying guide. `449,90` is
+written `450 kronor`, `1 098,90` is written `1 099 kronor`, `99,50` is written
+`100 kronor`. Settled by Peter 2026-08-07.
+
+The öre are noise in a sentence, they read as a shop's price tag rather than as
+our judgement, and they go stale faster than the krona does.
+
+**The data stays exact.** Do not round `price` in `lib/data/{slug}.ts`, the
+comparison table, the winner card or anything `priceCaption` renders. The table
+is where a buyer checks the number before paying, and `450 kr` where the shop
+charges 449,90 is a wrong price. Round in prose, keep the data exact — the
+rounded figure is a reading of the exact one, not a replacement for it.
+
+`<ProductRef id="…" />` reads the exact price from the data and is therefore
+unaffected. It stays the right way to put a price in guide prose, and the rule
+that guide prose never hard-codes a price is unchanged.
+
+### The `metadata.description` is not a short ingress
+
+It is the only string on the page written for someone who has **not arrived
+yet** — someone reading a list of ten blue links. That makes it the one field
+where the search phrase outranks the writing, and it is why every page built
+before 2026-08-07 got it wrong: all 76 read as a compressed ingress, none opened
+with the phrase a buyer types, and none asked for the click.
+
+Four requirements, in the order you fill them:
+
+1. **The search phrase, first**, in the page's own `title` word order — which
+   on a page you are building now is `Luftrenare bäst i test 2026:`, per the
+   section above. The snippet and the H1 must agree; a snippet that reorders its
+   own heading looks like a different page. The year is always there.
+2. **One broader search word** — `jämförda`, `jämförelse`, `köpguide`. One, not
+   three; `jämförda` usually rides along with the count.
+3. **One synonym for the topic** that people actually shop on: `städrobot`,
+   `varmluftsfritös`, `CO-varnare`. Never a concept — nobody searches `smart`.
+4. **A crisp call to action**: `Se vinnaren här`, `Se vad filtret kostar per
+   år`, `Se vilka som föll`.
+
+Between 3 and 4 goes the page's strongest finding, rewritten so it is not word
+for word the `title`.
+
+> Luftrenare bäst i test 2026: åtta luftrenare med HEPA-filter jämförda, från 599 kr. Fyra av tjugo klarade inte ozongränsen. Se vilka.
+
+**Read the prefix out of your own `title`, never off that example.** Five of the
+six examples in `fix-meta-descriptions` carried the wrong word order until
+2026-08-07 precisely because they were copied from each other. 43 of 48 titles
+are `{Kategori} bäst i test 2026`.
+
+Two rules that were trade-offs until 2026-08-07 and are now settled:
+
+- **The price is a floor, never a range.** `från 599 kr`, not
+  `599 till 2 999 kr`, and never öre — round to the krona. The top of a range
+  answers a question nobody typing `bäst i test luftrenare` is asking, goes
+  stale first, and makes the category look expensive at the moment you want the
+  click.
+- **The winner's name does not go in.** Not "goes last", not "cut it first" —
+  it does not go in. Offered on eleven pages in a row, Peter picked it zero
+  times. A product name is the one thing in the sentence nobody searches for
+  and the page will show them anyway. Its **reason** is excellent lure material;
+  its name is not. Write the property that won it and point the call to action
+  at it: `Se vilken det är`.
+
+120 to 150 characters as a guide, no check. Priority when it will not fit:
+search phrase → call to action → finding → synonym → price floor.
+
+The hard line is the same one as everywhere: `vårt test`, `testet hos oss`,
+`vi testade` are out. `bäst i test` as the category phrase is fine. And no
+`Läs mer` — anyone selling the product could write it.
+
+### It must sell the same property as the ingress
+
+The lure and call to action make a promise; the ingress's `eftersom` clause is
+what the reader meets when they act on it. **Write them to sell the same
+property.** A snippet promising *"Fyra av tolv saknar termometer helt. Se vilka
+som har en."* above an ingress arguing wood-or-charcoal fuel spends a click on a
+question the first paragraph never answers.
+
+You are the only one who gets this for free. `fix-meta-descriptions` and
+`fix-ingress` ran as separate passes and could not see each other, and of the 32
+pages where both had landed by 2026-08-07, **21 shared no content word between
+lure and reason.** Every one of those is now a decision someone has to make
+twice. You are writing both strings in the same build, so make them agree the
+first time and the page never enters that queue.
+
+Two ways to get it wrong while trying:
+
+- **Do not move the ingress onto a property the winner does not have.** If the
+  lure is a field-wide finding — *"tre av nio når aldrig din telefon"* — it is
+  about the category, not the winner, and an ingress claiming it would be false.
+  Pick a lure the winner can carry, or let the call to action point at the
+  winner instead of at a list.
+- **Do not weaken the lure to make the match easy.** The lure still has to earn
+  the impression. If the winner's decisive property is also the category's
+  sharpest finding, you have the ideal page and should say it in both places.
+
+The call to action is the cheap lever. `Se vinnaren här` and `Se vilken det är`
+promise what any ingress delivers; `Se vilka som har en` promises a list, and
+only some pages answer that above the fold. Skill `align-usps` repairs pages
+where this was missed and carries the full version.
+
+Skill `fix-meta-descriptions` carries the full version, including the different
+rules for a category page and for a tool, where there is **no `bäst i test` and
+no year at all**.
+
+### `og:description` needs nothing from you
+
+`pageOpenGraph()` takes no description and must not be given one — Next fills
+`og:description` and `twitter:description` from `metadata.description` by
+itself. The Next docs read as if it does not, which is a trap with a cost
+attached: `.claude/context/traps.md`, "Next.js". Read it before you touch
+`lib/metadata.ts` for any reason, and check the rendered `<head>` on port 3000
+before concluding anything about metadata.
 
 ### The eight faults every new page has reinvented
 
@@ -505,8 +747,45 @@ the browser, and each has shipped on a brand new page after being removed from
 the previous one:
 
 1. **The ingress names no product.** It must name the winner, what it is best
-   at and what it costs — same for `metadata.description`. See
-   `.claude/references/page-anatomy.md`.
+   at and what it costs. See `.claude/references/page-anatomy.md`. It is **not**
+   the same job as `metadata.description`, which leads on the search phrase and
+   often drops the winner entirely — the section above this list has that one.
+
+   **The first sentence has one house form, and this is it:**
+
+   ```
+   Vår testvinnare är {produkt} för {pris} kronor, eftersom den {skäl}.
+   ```
+
+   Settled by Peter mid-run on 2026-08-07 and **the only opening you may
+   write.** Do not write `Vi rekommenderar`, do not write
+   `X är den {kategori} vi rekommenderar`, and never open with the imperative
+   `Köp {produkt} för {pris} kronor.` — that last one is a command anyone
+   selling the product could have written, which is the third question in
+   `swedish-voice`, and 20 of 63 live pages opened with it before the run.
+
+   A single frame is right here even though a single frame is wrong almost
+   everywhere else on this site. `eftersom` is a subordinating conjunction, so
+   the sentence is **grammatically unfinished until a reason arrives** — the
+   frame is uniform and the substance differs on every page, which is the
+   opposite of a template. The shapes that were banned let the writer name a
+   product and stop.
+
+   Permitted variation inside the frame: `eftersom den både … och …` when the
+   second reason answers the objection the first raises; `eftersom {plural}`
+   when the winner is a system or a multipack and `den` has no referent; an
+   appositive before `eftersom` when the price needs its comparison attached.
+
+   Two things the frame does not excuse. The **product** stays the subject of
+   the consequence clause — `så den startar långsamt i majonnäsen`, never
+   `så du startar långsamt`, unless the consequence is something the reader is
+   spared. And the reason still carries its follow-through: `eftersom den gör
+   688 Mbit/s` is a specification, and specifications are already in the table.
+
+   Skill `fix-ingress` carries the full ruling and the two dozen live pages that
+   keep an older form on purpose. **Do not copy an opening off a live page** —
+   26 of them carry the superseded `Vi rekommenderar … eftersom den …` and stay
+   that way deliberately.
 2. **Verdicts written as one block.** Four movements, four paragraphs,
    separated by a blank line in the string. `pnpm check:omdomen`.
 3. **Source state in reader-facing strings**, including `description=` on a
@@ -555,6 +834,19 @@ rest belongs to `/fix-page`. A new page should add **nothing** to any of the
 four — if your slug appears, it shipped with a fault the last six repair runs
 were spent removing.
 
+Then read your snippet and your ingress side by side:
+
+```bash
+node scripts/usp-pairs.mjs {slug}
+```
+
+It prints the lure, the call to action and the `eftersom` clause together. The
+shared-word count it prints is a **ranking aid and not a verdict** — a pair can
+share nothing and be perfectly aligned — so read the three lines and answer the
+question yourself: *does the first paragraph deliver what the snippet promised?*
+A new page that answers no has created work for `align-usps` that cost nothing
+to avoid here.
+
 ## Flip to live
 
 **Publish it. Do not ask.** A page that passes phase 7 is done, done means
@@ -566,6 +858,41 @@ and `pnpm build` green, both widths measured.
 Set `published` on the catalog entry to the date you built it, and flip the row
 in `.agent/testsidor-tackning.md` to ✅. Then run `pnpm check:sidkarta`, which
 compares the map against the catalog and says so when the two disagree.
+
+### Then bump the count on the category hub. Every run ends here.
+
+**Flipping a page to live makes its category page wrong.** All five hubs publish
+their own comparison count, and it appears in **four strings** on
+`app/{kategori}/page.tsx`:
+
+| String | Example |
+|---|---|
+| The `<h1>` | `Bäst i test 2026 köksapparater: åtta jämförelser` |
+| `metadata.title` | the same string |
+| `openGraph` `title` | the same string again |
+| `metadata.description` | `… 15 jämförelser med priser och vinnare. Välj din.` |
+
+All four move together, and the H1 form is `fix-h1`'s, the description
+`fix-meta-descriptions`'. You are not rewriting either — you are changing one
+number in four places. Spelled out below ten, digits from ten: a group going
+from `åtta` to `nio` is a word change, from `nio` to `10` a digit.
+
+```bash
+node scripts/h1-inventory.mjs category
+```
+
+It reads the live count out of `lib/catalog.ts` and flags every string whose
+number disagrees, so run it **after** you flip `status` and fix what it names.
+`0 med fel antal` is the finish line.
+
+Nothing else notices. `pnpm check` does not count group members, `check:refs`
+compares dates, and `check:sidkarta` reconciles the map against the catalog
+without looking at a hub's prose. This is the one step no other check covers,
+which is why it is written here rather than left to be remembered.
+
+A new **category** is a different job: the hub needs an H1, a title, an OG title
+and a description written from scratch. Skills `fix-h1` and
+`fix-meta-descriptions` carry the forms for both.
 
 Do not invent an extra condition. An affiliate programme we have not joined and
 a page we cannot advertise are **not** blockers — they are follow-up work,
@@ -710,6 +1037,7 @@ Byggde /{slug}. {En mening om sidans vinkel — det fyndet som gör den värd at
 | Verktyg | /guider/rackvidd-babyvakt |
 | Köpguide | 1 590 ord, 12 avsnitt |
 | Provision | ~4 % hos Kjell, ca 56 kr per såld vinnare |
+| Kategorisidan | /sakerhet uppräknad 21 → 22, fyra strängar |
 | Kontroller | check, typecheck, lint, build gröna |
 ```
 

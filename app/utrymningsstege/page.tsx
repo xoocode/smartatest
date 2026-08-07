@@ -79,7 +79,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Modum Original är den enda stege som är provad och godkänd för utrymning, och 3,9 meter kostar 9 621 kronor. Housegard EL39 gör jobbet för 3 695. Vi jämförde fem fasta fasadstegar på stegbredd, räckvidd och vilka väggar de går upp på.",
+    "Utrymningsstege bäst i test 2026: fem fasadstegar jämförda från 3 695 kr. En av fem är provad av någon annan än säljaren. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -134,10 +134,11 @@ export default async function UtrymningsstegePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              <strong>Modum Original</strong> är den enda stegen i svensk handel
-              som en tredje part provat och godkänt för utrymning, den finns i
-              sexton längder så att den slutar där fönstret börjar, och 3,9 meter
-              kostar 9 621 kronor. Har du inte 9 621 kronor gör{" "}
+              Vår testvinnare är <strong>Modum Original</strong> för
+              9 621 kronor, eftersom den finns i sexton längder från 0,9 till
+              5,4 meter, så stegen slutar där fönstret börjar utan att kapas.
+              Den är dessutom den enda stegen i svensk handel som en tredje part
+              provat och godkänt för utrymning. Har du inte 9 621 kronor gör{" "}
               <strong>Housegard EL39</strong> samma jobb för 3 695. Vi jämförde
               fem fabrikat på stegbredden du sätter foten på, hur högt de når och
               vilka väggar de går upp på.

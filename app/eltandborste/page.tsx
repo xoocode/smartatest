@@ -69,7 +69,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Oral-B Pro 3 3000 vinner för 494 kronor: borsthuvuden för 44 kronor styck och full laddning på 12 timmar. Vi jämförde tio eltandborstar från 285 till 3 189 kronor och räknade ut vad de kostar på fem år.",
+    "Eltandborste bäst i test 2026: tio elektriska tandborstar jämförda från 285 kr. En öppen fattning ger borsthuvuden från 20 kr. Se vilka som har den.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -121,10 +121,11 @@ export default async function EltandborstePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Oral-B Pro 3 3000 vinner för 494 kronor. Den tar borsthuvuden för
-              44 kronor styck, laddar fullt på 12 timmar och har trycksensor,
-              vilket gör den till den billigaste borsten att äga av dem som
-              skyddar tandköttet. Vi jämförde tio eltandborstar från 285 till
+              Vi rekommenderar Oral-B Pro 3 3000 för 494 kronor, eftersom den har
+              trycksensor och tre borstlägen, samma skydd för tandköttet som
+              borstar för fyra gånger priset ger. Borsthuvudena kostar 44 kronor styck, vilket gör den
+              till den billigaste borsten att äga av dem som skyddar tandköttet.
+              Vi jämförde tio eltandborstar från 285 till
               3 189 kronor och räknade på handtaget plus tjugo borsthuvuden,
               eftersom det är huvudena som kostar pengarna.
             </p>

@@ -59,7 +59,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Meross MSG100 vinner för 499 kronor: den fungerar med Apple HomeKit, Google, Alexa och SmartThings, är provad mot 1 600 portöppnarmodeller och har jämförelsens starkaste kontoskydd. Bygger du på Matter tar du SwitchBot för 483. Kontrollera strömförsörjningen först: de två billigaste modulerna kräver elinstallatör.",
+    "Smart garageportsöppnare bäst i test 2026: sex wifi-moduler till öppnaren du redan har, jämförda från 374 kr. Se vilken som passar din port.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -115,12 +115,14 @@ export default async function SmartGarageportsoppnarePage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Meross MSG100 för 499 kronor. Den fungerar med Apple HomeKit,
+              Vår testvinnare är Meross MSG100 för 499 kronor, eftersom den går
+              på 5 volt över USB, så monteringen är två kablar och en skruvmejsel
+              och inte ett besök av elfirman. Den fungerar med Apple HomeKit,
               Google, Alexa och SmartThings utan tillbehör, den är provad mot
               1 600 portöppnarmodeller ner till 90-talet, och inloggningskoden
-              genereras i en autentiseringsapp och skickas aldrig som sms, vilket är
-              jämförelsens starkaste skydd för ett konto som kan öppna ditt
-              garage. Monteringen är två kablar och en USB-adapter. Bygger du
+              genereras i en autentiseringsapp och skickas aldrig som sms, vilket
+              är det starkaste skyddet här för ett konto som kan öppna ditt
+              garage. Bygger du
               medvetet ett hem på Matter tar du SwitchBot för 483 kronor.
               Kontrollera strömförsörjningen först: de två billigaste modulerna
               matas med 230 volt och kräver elinstallatör.

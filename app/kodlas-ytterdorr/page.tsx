@@ -77,7 +77,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Yale Doorman L3S Flex för 5 488 kronor vinner: enda låset certifierat i både klass 3 och S3, alltså även prövat på hur appen hanterar nycklarna. Nimly Code Pro tar 999 koder för 4 490. Sex kodlås till ytterdörr, elva certifikat lästa i original.",
+    "Kodlås till ytterdörr bäst i test 2026: sex elektroniska dörrlås jämförda från 1 990 kr. Ett lås är certifierat i vissa lägen, inte alla. Se villkoren.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -132,9 +132,11 @@ export default async function KodlasPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Yale Doorman L3S Flex vinner för 5 488 kronor, som enda låset
-              certifierat i två normer och därmed prövat även på hur appen
-              hanterar dina nycklar. Men varje certifikat kommer med villkor:
+              Vår testvinnare är Yale Doorman L3S Flex för 5 488 kronor, eftersom
+              den håller klass 3 enligt SSF 3522, den nivå försäkringsbolaget
+              kräver för en godkänd låsenhet. Den är dessutom det enda låset här
+              som prövats även på hur appen hanterar dina nycklar.
+              Men varje certifikat kommer med villkor:
               Yales digitala godkännande gäller med användarkoderna blockerade,
               och Nimlys klass 3 kräver att kamouflagefunktionen är avstängd.
               Vi läste normen och samtliga elva certifikat i original, och

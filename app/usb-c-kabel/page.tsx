@@ -70,7 +70,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Delock 240 W för 199 kr vinner: 40 Gbps och 8K-video till priset av en kabel som bara laddar. Vi jämför tretton USB-C-kablar från 59 till 1 099 kronor på datahastighet, pris per meter och effekt.",
+    "USB-C-kabel bäst i test 2026: tretton laddkablar jämförda från 59 kr. Sju av tretton kör USB 2-fart. Se vilka som är snabbare.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -125,9 +125,10 @@ export default async function UsbCKabelPage() {
               ändar, från 59 till 1&nbsp;099 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Delock 240 W för 199 kronor vinner, därför att den gör 40 gigabit i
-              sekunden och driver en 8K-skärm till samma pris som kablar som bara
-              laddar. Ska sladden enbart ladda en telefon räcker IKEA:s för 59
+              Vår testvinnare är Delock 240 W för 199 kronor, eftersom den
+              överför 40 gigabit i sekunden och tål 240 watt, till samma pris som
+              kablarna som bara laddar. Den driver dessutom en 8K-skärm.
+              Ska sladden enbart ladda en telefon räcker IKEA:s för 59
               kronor, och skillnaden mellan de två syns inte på kontakten.
             </p>
             <UpdatedStamp

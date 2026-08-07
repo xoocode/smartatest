@@ -74,7 +74,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Wilfa Silky MF1B-250 vinner för 699 kronor: skummar 150 till 250 ml, fem program med egen temperatur och ett eget läge för havredryck. Vill du ha mest skum kostar Severin Spuma 700 1 290 kronor och gör 350 ml. Räkna med 60 ml skum per cappuccino, och läs skumtalet och inte namnet.",
+    "Mjölkskummare bäst i test 2026: tio elektriska skummare jämförda från 392 kr. En cappuccino tar 60 ml skum. Se vilka som räcker till fyra.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -129,10 +129,11 @@ export default async function MjolkskummarePage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Wilfa Silky MF1B-250 för 699 kronor. Den skummar 150 till
-              250 ml, alltså upp till fyra koppar, och har fem program med egen
-              temperatur för varje: 65 grader till cappuccino, 60 till latte
-              art. Den är också den enda här med ett eget läge för havredryck.
+              Vi rekommenderar Wilfa Silky MF1B-250 för 699 kronor, eftersom den
+              skummar 150 till 250 milliliter i en körning, så två till fyra
+              koppar blir klara samtidigt. Fem program med egen temperatur för varje: 65 grader
+              till cappuccino, 60 till latte art. Den är också den enda här med
+              ett eget läge för havredryck.
               Ska du servera fler samtidigt gör Severin Spuma 700 350 ml för
               1 290 kronor. Räkna med 60 ml skum per cappuccino, och läs
               skumtalet i stället för talet i modellnamnet.

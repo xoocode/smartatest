@@ -84,7 +84,7 @@ const UPDATED = "2026-08-07";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "TP-Link RE235BE vinner för 899 kronor med 2 882 Mbit/s och ett nätverksuttag på 2,5 gigabit. Mercusys ME80X ger Wi-Fi 6 och gigabit för 599. Talet AC1750 är två band ihopräknade, och en klient sitter på ett i taget.",
+    "Wifi-repeater bäst i test 2026: tretton wifi-förstärkare jämförda från 301 kr. Din telefon sitter på ett band i taget. Se vilket tal som gäller.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -139,9 +139,11 @@ export default async function WifiRepeaterPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp TP-Link RE235BE för 899 kronor. Den går 2 882 Mbit/s på 5 GHz
-              och har ett nätverksuttag på 2,5 gigabit, så en tv eller dator i
-              sladd aldrig bromsas av repeatern. Räcker 599 kronor tar du
+              Vi rekommenderar TP-Link RE235BE för 899 kronor, eftersom den gör
+              688 Mbit/s på 2,4 GHz, mer än dubbelt mot de fyra billigaste, och
+              2,4 är bandet som tar sig genom väggarna. Den går 2 882 Mbit/s på 5 GHz och har ett
+              nätverksuttag på 2,5 gigabit, så en tv eller dator i sladd aldrig
+              bromsas av repeatern. Räcker 599 kronor tar du
               Mercusys ME80X, som ger Wi-Fi 6 och gigabituttag för nästan
               trehundra mindre.
             </p>

@@ -65,7 +65,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "CAPiDi Premium Baby Alarm vinner för 1 399 kronor: 1 000 meter räckvidd och larm med ljud och ljus efter 30 sekunder om babyenheten tystnar. Vi jämförde elva babyvakter från 399 till 3 899 kronor och läste tillverkarnas egna manualer.",
+    "Babyvakt bäst i test 2026: elva babymonitorer jämförda från 399 kr. Hos två är larmet vid bruten kontakt avstängt från start. Se vilka.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -117,10 +117,11 @@ export default async function BabyvaktPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              CAPiDi Premium Baby Alarm vinner för 1 399 kronor. Den når längst
-              av alla, 1 000 meter i fri sikt, och larmar med både ljud och
-              blinkande ikon efter 30 sekunder om kontakten med babyenheten
-              bryts. Vi jämförde elva babyvakter från 399 till 3 899 kronor och
+              Vi rekommenderar CAPiDi Premium Baby Alarm för 1 399 kronor,
+              eftersom den når 1 000 meter i fri sikt, ungefär 165 genom väggar
+              och ut till förrådet. Den larmar med både ljud och blinkande ikon
+              efter 30 sekunder om kontakten med babyenheten bryts.
+              Vi jämförde elva babyvakter från 399 till 3 899 kronor och
               läste tillverkarnas egna manualer, eftersom det är där svaret står
               på vad apparaten gör den stund den slutar fungera.
             </p>

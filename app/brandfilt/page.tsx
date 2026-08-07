@@ -86,7 +86,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Brandvarnare.se:s 120 × 180 i hård box, 199 kronor, är den enda filten som är stor nog att svepa om en vuxen, provad mot brand i vätska och öppnas med ett grepp. Vi jämförde åtta brandfiltar från 99,90 till 299,90 kronor. Tre av dem är provade mot den version av EN 1869 som drogs tillbaka 2020.",
+    "Brandfilt bäst i test 2026: åtta släckfiltar jämförda från 100 kr. Årtalet i EN 1869 avgör om vätskebrand ingår. Se vilken.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -139,9 +139,10 @@ export default async function BrandfiltPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp Brandvarnare.se:s 120 × 180 i hård box för 199 kronor. Den är
-              den enda av de åtta filtarna som är stor nog att svepa om en vuxen,
-              provad mot brand i vätska och öppnas med ett grepp. Storleken ska
+              Vi rekommenderar Brandvarnare.se:s 120 × 180 i hård box för
+              199 kronor, eftersom den är stor nog att svepa om en vuxen, måttet
+              räddningstjänsterna pekar ut. Den är provad mot brand i vätska och öppnas med ett
+              grepp. Storleken ska
               vara 120 × 180 centimeter och provningen EN 1869:2019, eftersom
               bara den versionen omfattar brinnande vätska och inte bara matolja.
               Tre av filtarna är provade mot 1997 års version, som drogs tillbaka

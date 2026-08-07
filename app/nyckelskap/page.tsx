@@ -57,7 +57,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "ABUS KeyGarage 787 vinner för 490 kronor: satt kvar längst mot skruvmejsel av de skåp som brutits upp, och tar 20 nycklar. Hyr du ut tar du Master Lock Select Access Smart. Vi jämförde fem nyckelskåp från 349 till 2 599 kronor.",
+    "Nyckelskåp bäst i test 2026: fem nyckelboxar jämförda från 349 kr. Provade skåp höll 38 sekunder till 3 minuter. Se vilket som höll längst.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -113,10 +113,9 @@ export default async function NyckelskapPage() {
             </h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Köp ABUS KeyGarage 787 för 490 kronor. Den satt kvar längst av
-              alla mot skruvmejsel när fyra nyckelskåp bröts upp under
-              kontrollerade former, den tar 20 nycklar och den kostar en
-              femtedel av det dyraste skåpet här. Hyr du ut och vill ge varje
+              Vi rekommenderar ABUS KeyGarage 787 för 490 kronor, en femtedel av
+              det dyraste skåpet här, eftersom den ändå höll emot längst av de
+              fyra som bröts upp mot skruvmejsel. Den tar 20 nycklar. Hyr du ut och vill ge varje
               gäst en egen kod är Master Lock Select Access Smart värd sina
               2 599 kronor. Räkna med skydd mot tillfället, inte mot ett
               planerat inbrott.

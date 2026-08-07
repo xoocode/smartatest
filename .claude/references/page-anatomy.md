@@ -106,14 +106,26 @@ price or a recommendation. Both read as an introduction to our method, which is
 the single most expensive misordering on this kind of page and the one that
 feels most reasonable to write, because the method is what we are proud of.
 
-The same applies to `metadata.description`, which is the ingress a searcher sees
-before deciding whether to click at all.
+**It recommends rather than orders.** Naming a product and a price satisfies the
+rule above on paper — `Köp Tefal Versalio Deluxe för 1 112 kronor.` names both —
+and still gives the reader an advertisement. The product is the subject of a
+recommendation we are answerable for, in the category noun that was searched on:
+`Steinel IS 240 är den rörelsevakt vi rekommenderar.` Measured 2026-08-07, 20 of
+63 live test pages opened with the imperative. Skill `fix-ingress` walks them one
+at a time; the worked contrast and the warning against turning one good
+construction into a site-wide formula are in skill `new-page`, fault 1.
+
+`metadata.description` is **not** governed by this. It is a search result rather
+than an opening paragraph, it leads with the phrase that was typed, and its call
+to action is imperative on purpose. Skill `fix-meta-descriptions` carries it.
 
 **In a security category, do not open on the catastrophe.** Half the portfolio
-is fear-motivated, and `who-reads.md` is explicit for den oroliga: describe the
-protection, not the disaster. A finding like *all four were broken open* is
-honest and belongs on the page — below the recommendation, not in front of it.
-Lead with what to buy, then say what it does and does not protect against.
+is fear-motivated, and `who-reads.md` covers den oroliga. The phrasing rule,
+describe the protection and not the disaster, lives in the `swedish-voice`
+`writing-guide.md` under *Rädsla är inget säljargument*. A finding like *all
+four were broken open* is honest and belongs on the page, below the
+recommendation, not in front of it. Lead with what to buy, then say what it does
+and does not protect against.
 
 ## The page needs a finding between the verdict and the table
 

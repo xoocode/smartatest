@@ -77,7 +77,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Reolink W330 4K vinner för 999 kronor: 4K dygnet runt på minneskort, inget abonnemang, och en mask som ligger kvar där du ritade den. Vi jämförde sju utomhuskameror från 999 till 2 099 kronor mot det som avgör om kameran får sitta där du tänkt.",
+    "Övervakningskamera bäst i test 2026: sju utomhuskameror jämförda från 999 kr. Alla kan maskera, alla har en brasklapp. Se vilken som håller.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -132,10 +132,11 @@ export default async function OvervakningskameraPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Reolink W330 4K kostar 999 kronor, spelar in i 4K dygnet runt på
-              ett kort i kameran och kräver inget abonnemang. Framför allt
-              ligger maskeringen kvar när kameran används, vilket den inte gör
-              på de roterande kamerorna. Vi jämförde sju utomhuskameror från
+              Vår testvinnare är Reolink W330 4K för 999 kronor, eftersom den är
+              billigast av de sju kamerorna och ändå den enda vars maskering
+              ligger kvar när kameran används. Den spelar in i 4K dygnet runt på
+              ett kort i kameran och kräver inget abonnemang. Vi jämförde sju
+              utomhuskameror från
               999 till 2 099 kronor mot det som avgör om kameran alls får sitta
               där du tänkt.
             </p>

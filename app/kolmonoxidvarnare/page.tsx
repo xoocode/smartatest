@@ -74,7 +74,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Housegard CA108 för 449,90 vinner: provad för både bostad och husvagn, tio år på sensorn och halten i klartext på displayen. Vi jämförde sex kolmonoxidvarnare från 399 till 1 099 kronor mot tillverkarnas egna dokument.",
+    "Kolmonoxidvarnare bäst i test 2026: sex CO-varnare jämförda från 399 kr. Del 2 av EN 50291 avgör om den får följa med. Se vilka som har den.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -128,8 +128,10 @@ export default async function KolmonoxidvarnarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Housegard CA108 för 449,90 kronor är den billigaste varnaren som är
-              provad för både bostaden och husvagnen. Sensorn håller tio år,
+              Vår testvinnare är Housegard CA108 för 450 kronor, eftersom den är
+              provad enligt både EN 50291-1 och -2 och därmed gäller i bostaden,
+              husvagnen och båten på samma köp. Den är också den billigaste
+              varnaren som klarar det. Sensorn håller tio år,
               batterierna är två vanliga AA, och displayen visar halten i ppm
               plus högsta uppmätta värde i sju dagar. Standardens del 2 avgör om
               varnaren får sitta i ett fordon, och två av de sex vi jämförde är

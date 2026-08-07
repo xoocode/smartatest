@@ -57,7 +57,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Cleverio IP200 kostar 99 kronor och är det enda uttaget som både driver ett element och visar vad elementet kostar. Ska uttaget sitta i garaget är Shelly det enda av de fem som är godkänt för kyla.",
+    "Bäst i test smart plug 2026: fem fjärrströmbrytare jämförda från 99 kr. Billigaste uttaget både driver elementet och mäter det. Se vilket.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -108,11 +108,11 @@ export default async function SmartPlugPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Cleverio IP200 kostar 99 kronor och är det enda av fem smarta
-              uttag som både är märkt för 16 A och mäter förbrukningen. Det
-              betyder att den får driva ett element eller ett torkskåp och
-              samtidigt visa vad de kostar, vilket är hela skälet att köpa ett
-              smart uttag i Sverige. Ska uttaget sitta i ett ouppvärmt garage
+              Vår testvinnare är Cleverio IP200 för 99 kronor, eftersom den tar
+              16 ampère och därmed kan driva ett element eller ett torkskåp,
+              vilket de flesta smarta uttag inte kan. Den mäter samtidigt vad de
+              kostar, vilket är hela skälet att köpa ett smart uttag i Sverige.
+              Ska uttaget sitta i ett ouppvärmt garage
               är Shelly Plug S Gen3 det enda här som är godkänt för kylan.
             </p>
             <UpdatedStamp

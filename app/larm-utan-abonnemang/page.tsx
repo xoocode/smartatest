@@ -69,7 +69,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Ajax Hub 2 Plus för 8 259 kronor är enda larmet där reservuppkopplingen ingår i priset, men Ring Alarm för 2 899 är köpet för de flesta. Vi jämförde fem larmpaket från 629 till 8 259 kronor mot SSF 140 och tillverkarnas egna specifikationer.",
+    "Larm utan abonnemang bäst i test 2026: fem larmpaket jämförda från 629 kr. Ett av fem klarar sig utan abonnemang när bredbandet dör. Se vilket.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -124,8 +124,11 @@ export default async function LarmUtanAbonnemangPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Ajax Hub 2 Plus-paket för 8 259 kronor är det enda larmet här som
-              fortfarande når dig när någon klipper uppkopplingen. Ska det bara
+              Vår testvinnare är Ajax Hub 2 Plus-paket för 8 259 kronor, eftersom
+              hubben kollar varje sensor var tolfte sekund och går på
+              reservbatteri i upp till 15 timmar. Det är också det enda larmet
+              här som fortfarande når dig när någon klipper uppkopplingen. Ska
+              det bara
               skydda ett hem med stabilt bredband räcker Ring Alarm för 2 899,
               med den högsta sirenen och det längsta reservbatteriet av alla
               fem. Vi jämförde fem larmpaket från 629 till 8 259 kronor mot

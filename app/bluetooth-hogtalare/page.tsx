@@ -67,7 +67,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "JBL Charge 6 för 1 690 kr vinner: 34 wattimmar batteri, IP68 och powerbank i samma paket. Vi jämför tio bärbara Bluetooth-högtalare från 790 till 3 490 kronor på batteri, tålighet och vikt.",
+    "Bluetooth-högtalare bäst i test 2026: tio bärbara högtalare jämförda från 790 kr. Största batteriet är sju gånger större än det minsta. Se vilket du får.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -119,9 +119,11 @@ export default async function BluetoothHogtalarePage() {
               3&nbsp;490 kr
             </h1>
             <p className="max-w-2xl text-lg text-muted-foreground">
-              JBL Charge 6 för 1 690 kronor vinner: 34 wattimmar batteri mot de
-              flestas 12 till 18, 24 timmars speltid och IP68, den högsta
-              kapslingsklassen i jämförelsen. Den laddar dessutom telefonen ur
+              Vår testvinnare är JBL Charge 6 för 1 690 kronor, eftersom den bär
+              34 wattimmar batteri där de flesta högtalare här ligger på 12 till
+              18, och spelar 24 timmar på dem. Den tål IP68, den högsta
+              kapslingsklassen bland högtalarna här, och laddar dessutom
+              telefonen ur
               samma batteri, vilket räddar kvällen när mobilen står på tjugo
               procent. Ska högtalaren i stället klippas fast i en ryggsäcksrem
               tar du JBL Clip 5 för 790 kronor, och ska varje krona räknas ger

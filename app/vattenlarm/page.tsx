@@ -66,7 +66,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "X-Sense SWS54 är bäst i test: tre sensorer och basstation för 876 kronor, utan hubb och utan abonnemang. Vi jämförde nio vattenlarm från 179 kronor, varav tre aldrig når din telefon.",
+    "Vattenlarm bäst i test 2026: nio läckagesensorer jämförda från 179 kr. Några når telefonen bara om du äger rätt hubb. Se vilka som klarar sig själva.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -118,10 +118,11 @@ export default async function VattenlarmPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              X-Sense SWS54 är bäst i test. För 876 kronor får du tre sensorer
-              och en basstation, alltså det enda köpet här som täcker kök, tvätt
-              och beredare på en gång och når din telefon utan att du äger en
-              hubb sedan tidigare. Vi jämförde nio vattenlarm från 179 till 876
+              Vi rekommenderar X-Sense SWS54 för 876 kronor, eftersom den tjuter
+              både där sensorn ligger och i telefonen, och gör det även med
+              basstationen urkopplad eller strömmen borta. Tre sensorer och en basstation ingår, så kök,
+              tvätt och beredare täcks på en gång utan en hubb sedan tidigare.
+              Vi jämförde nio vattenlarm från 179 till 876
               kronor, och det avgörande är vad som händer när de känner vatten:
               tre tjuter bara där de ligger, tre kräver en hubb som kostar mer
               än larmet självt, och ett skickar ingen notis förrän du byggt en

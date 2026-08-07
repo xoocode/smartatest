@@ -1,11 +1,11 @@
 ---
 name: fix-page
-description: Bring an existing test page on smartatest.se up to the current standard — a full repair. Rewrite verdicts that review the documentation instead of the product, research and fill every thin spec row, add rows the table is missing, and fix criteria that score publication rather than the goods. Runs unattended — it picks the page, makes the judgement calls from the sources and logs them, and only asks when evidence cannot settle the question. Use when a live page reads like an older standard, when the checks report debt on it, or when asked to fix, upgrade, repair or rework a page. For a price round use update-page; for a brand new page use new-page.
+description: Bring an existing test page on smartatest.se up to the current standard — a full repair. Rewrite the H1, the ingress and the search snippet, rewrite verdicts that review the documentation instead of the product, research and fill every thin spec row, add rows the table is missing, and fix criteria that score publication rather than the goods. Asks the user to choose the ingress, the H1 and the description in that order, so the description is built on the USP the chosen ingress commits to; makes every other judgement call from the sources and logs it. Use when a live page reads like an older standard, when the checks report debt on it, or when asked to fix, upgrade, repair or rework a page. For a price round use update-pages; for a brand new page use new-page.
 ---
 
 # Repair an existing page to the current standard
 
-`new-page` builds from nothing. `update-page` keeps a page **true** — prices,
+`new-page` builds from nothing. `update-pages` keeps a page **true** — prices,
 dead links, a discontinued product. This skill makes a page **good**, and good
 now means three things at once:
 
@@ -87,14 +87,125 @@ clean page still fails.** `/garageportsoppnare` scored 0 on the first three and
 criterion on the site at weight 25. If you only look at verdicts and cells you
 will call that page finished.
 
-### 2. The ingress and the metadata description
+### Prices in prose are rounded to whole kronor
 
-Both must name the winner, what it is best at and what it costs. This is the
-most valuable single edit on most pages, and the one most often missing.
+Everywhere a visitor reads a sentence: the ingress, the verdicts, the section
+descriptions, the captions, the FAQ answers, the buying guide. `449,90` is
+written `450 kronor`, `1 098,90` is written `1 099 kronor`, `99,50` is written
+`100 kronor`. Settled by Peter 2026-08-07.
+
+The öre are noise in a sentence, they read as a shop's price tag rather than as
+our judgement, and they go stale faster than the krona does.
+
+**The data stays exact.** Do not round `price` in `lib/data/{slug}.ts`, the
+comparison table, the winner card or anything `priceCaption` renders. The table
+is where a buyer checks the number before paying, and `450 kr` where the shop
+charges 449,90 is a wrong price. Round in prose, keep the data exact — the
+rounded figure is a reading of the exact one, not a replacement for it.
+
+`<ProductRef id="…" />` in the buying guide reads the exact price from the data
+and is therefore unaffected; that is the point of it, and it stays the right way
+to put a price in guide prose.
+
+### 2. The H1, the ingress and the search snippet
+
+The page's shopfront. All three are rewritten here and **all three are put to
+the user** — the format is at the end of this step.
+
+The ingress must name the winner, what it is best at and what it costs. This is
+the most valuable single edit on most pages, and the one most often missing.
+The H1's rules are in `fix-h1`: the search phrase first, then a colon and
+something the buyer can act on, and no word repeated from its own prefix.
 
 Fails that have shipped: an ingress about our method or our sourcing rather than
 about a product; in a security category, an opening on the catastrophe rather
 than the protection.
+
+**The opening has one house form**, and it is not a matter of taste:
+
+```
+Vår testvinnare är {produkt} för {pris} kronor, eftersom den {skäl}.
+```
+
+Skill `fix-ingress` carries the ruling, the permitted variations and the 26
+live pages that keep an older form on purpose. Do not copy an opening off a
+live page and do not invent a fourth shape.
+
+**The metadata `description` follows different rules and you rewrite it here
+too.** It leads with the search phrase, carries the category's synonyms and ends
+on a call to action, the price is a floor and never a range, and the winner's
+name never goes in. `fix-meta-descriptions` owns the *rules*; this skill is
+allowed to apply them, because a repair that leaves the snippet behind has
+repaired the half of the page nobody sees first.
+
+**Read it before you touch the ingress, because you can break it.** The
+description ends on a lure and a call to action — *"Fyra av tolv saknar
+termometer helt. Se vilka som har en."* — and if your new `eftersom` clause
+argues a different property, a reader who clicked for the first one lands on the
+second. Measured 2026-08-07: 21 of 32 pages where both texts had been rewritten
+shared no content word between the two.
+
+Since you are writing both strings on this run, make them agree the first time.
+Where the snippet's promise is genuinely true of the winner, put it in the
+ingress; where the lure is a field-wide finding the winner cannot carry, let the
+call to action point at the winner instead of at a list. **Never rewrite the
+ingress onto a property the winner does not have to make the pair match** — a
+mismatch is cheaper than an invention. `align-usps` carries the full version.
+
+### These three are the user's call, not yours
+
+The H1, the ingress and the `description` decide whether the page is found, is
+clicked and is read past the first line. **Ask about all three with
+`AskUserQuestion`, one question each, in this order — the order is the point:**
+
+| # | String | Rules | What it inherits |
+|---|---|---|---|
+| 1 | The ingress | `fix-ingress` | nothing — it chooses the USP |
+| 2 | The H1 | `fix-h1` | nothing — it sets the word order |
+| 3 | The `description` | `fix-meta-descriptions` | **the USP from 1, the word order from 2** |
+
+**The ingress goes first because its `eftersom` clause is where the page commits
+to a property.** Once the user has picked it, that property is settled, and
+everything downstream is written to it rather than beside it.
+
+Each is one question, three written candidates plus a fourth that changes
+nothing, **`Do nothing` always last**. The candidate goes in `description`
+verbatim and whole with its character count in the `label`; `preview` stays
+unset. The three fix skills carry the full option rules and this skill does not
+restate them — read the one you are on.
+
+#### The three description candidates all sell the chosen USP
+
+This is where the alignment is won, and it overrides one line in
+`fix-meta-descriptions`. That skill tells you to **vary what the lure is**,
+which is right when it runs alone: there is no ingress being written in the same
+pass, so the lure is free. **Here it is not free.** The user has just chosen the
+property the first paragraph argues, so all three candidates carry that same
+property and differ on everything else:
+
+| Vary | Do not vary |
+|---|---|
+| Where the lure sits in the sentence | **Which property the lure is about** |
+| Whether it is a figure or a claim | |
+| The call to action, short against information-bearing | |
+| Whether the count and the price floor both appear | |
+
+Three candidates selling three different properties would put the mismatch back
+in front of the user as a choice, and two of the three would be wrong before
+they were read.
+
+If the chosen USP genuinely cannot carry a snippet — it is true of the winner
+but too narrow to earn an impression — say so above the form and offer a lure
+that stays honest by pointing the call to action at the winner rather than at a
+list. `Se vinnaren här` costs nothing and promises what the ingress delivers.
+
+**This is a deliberate exception to "this skill does not stop to ask" below.**
+That rule was written about weights, scales, rows and scores, where evidence
+settles it. These three are the page's shopfront, keeping the current text is
+frequently the right answer, and the user's judgement is the product rather than
+overhead. Under `auto` or a night run, follow `page-runs.md`: write all four
+candidates, take the one you would have put first — **including the keep** — and
+log the three you set aside.
 
 ### 3. Rewrite the verdicts
 
@@ -333,7 +444,13 @@ whether the two verdicts can still be told apart.
 ```bash
 pnpm check
 pnpm build
+node scripts/usp-pairs.mjs {slug}
 ```
+
+The last one prints your new ingress next to the snippet's lure and call to
+action. You rewrote one of the pair in step 2, so this is where you find out
+whether the other still points at it. The shared-word count is a ranking aid and
+not a verdict — read the three lines and answer it yourself.
 
 Bump `const UPDATED` **and** `updated` in `lib/catalog.ts`; `check:refs` fails
 if they disagree, and it also fails on any **tool** that builds on the page, so
@@ -364,14 +481,16 @@ eller inte körde `git add .`. Det är så här skillen alltid arbetar, och
 förväntat beteende är inte en nyhet. Inte heller research du inte hann med —
 den hör hemma i `.agent/research/{slug}.md`.
 
-Tre saker hör dit, och bara när de faktiskt inträffat: en rankning som kastades
+Fyra saker hör dit, och bara när de faktiskt inträffat: en rankning som kastades
 om, en delad fil som lämnats ocommittad för att en annan session höll på i den,
-och ett beslut du fattade i stället för en `AskUserQuestion` som en förnuftig
-person kunde ha fattat annorlunda.
+ett beslut du fattade i stället för en `AskUserQuestion` som en förnuftig person
+kunde ha fattat annorlunda, och **ett löfte i utdraget som ingressen inte
+längre infriar** — den sista bara när du valde att lämna det, alltså namnge
+sidan för `align-usps` i stället för att tysta uppmaningen.
 
 ## What this skill does not do
 
-- **Not a price round.** Use `update-page`. Only touch a price if you happened
+- **Not a price round.** Use `update-pages`. Only touch a price if you happened
   to verify it.
 - **Not a rebuild.** Keep the ranking unless the rewrite or the research exposes
   a scoring error. If it does, fix it and log the correction.
@@ -446,10 +565,17 @@ pages into history.
 
 ## Decide it yourself, then write it down
 
-**This skill does not stop to ask.** Earlier versions put the plan to the user
-with `AskUserQuestion` before the big edits. That gate is gone: it stalled every
-unattended run, and six night runs showed the judgement calls are almost always
-resolvable from evidence rather than taste.
+**This skill does not stop to ask, with one named exception.** Earlier versions
+put the whole plan to the user with `AskUserQuestion` before the big edits. That
+gate is gone: it stalled every unattended run, and six night runs showed the
+judgement calls are almost always resolvable from evidence rather than taste.
+
+**The exception is the H1, the ingress and the `description`** — step 2 asks
+about all three, one question each. Those are not evidence questions. Keeping
+the current text is frequently the right answer, the shapes are a matter of
+taste the user has been calibrating page by page, and they decide whether
+anybody reads the rest of the work. Everything below is about the other
+decisions.
 
 So: pick the page, rewrite the verdicts, fill or swap the rows, remove or rework
 the criterion, and recompute the ranking. Take the option you would have
@@ -471,7 +597,7 @@ A change nobody can trace is worse than a change nobody approved.
 
 The test is not "is this important" — changing the winner is important and you
 should just do it, with a correction logged. The test is **whether evidence can
-settle it.** Ask only when it cannot:
+settle it.** Ask only when it cannot, and beyond the three strings in step 2:
 
 - **Scope.** Dropping a ranked product, adding one, splitting the page, changing
   the slug. What the page compares is the user's call.
@@ -481,7 +607,7 @@ settle it.** Ask only when it cannot:
   disagree and the choice changes a placement. Say what each source says and let
   the user pick.
 - **The page turns out to be the wrong tool for the job**, e.g. half the
-  products are discontinued and it needs `update-page` instead.
+  products are discontinued and it needs `update-pages` instead.
 
 Everything else — wording, weights, scales, which row to swap out, whether a
 criterion grades documentation — you settle from the sources and record.

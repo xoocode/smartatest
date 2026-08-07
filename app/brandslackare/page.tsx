@@ -71,7 +71,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Housegards röda sexkilos har högsta effektklassen 55A, är godkänd för utomhusbruk och kostar 699 kronor. Samma klass i vitt kostar 579, men får inte hänga i trapphuset. Sju släckare jämförda, 349 till 699 kronor.",
+    "Brandsläckare bäst i test 2026: sju handbrandsläckare jämförda från 349 kr. 43A når 4,3 meter, 55A når 5,5. Se vilken du behöver.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -123,8 +123,10 @@ export default async function BrandslackarePage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Housegards röda sexkilos klarar högsta effektklassen 55A, är den
-              enda som är godkänd för utomhusbruk och kostar 699 kronor. Samma
+              Vår testvinnare är Housegards röda sexkilos för 699 kronor,
+              eftersom den når 55A 233B C, högsta effektklassen en sexkilos
+              släckare kommer upp i. Den är dessutom den enda här som är godkänd
+              för utomhusbruk. Samma
               släckeffekt finns i vitt för 579, men färgen avgör var släckaren
               får sitta: standarden kräver rött, och en vit släckare får bara
               hänga innanför din egen dörr. Vi jämförde sju släckare från 349

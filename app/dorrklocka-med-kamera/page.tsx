@@ -73,7 +73,7 @@ const UPDATED = "2026-08-06";
 export const metadata: Metadata = {
   title: TEST_PAGE.title,
   description:
-    "Reolink D340W för 1 199 kronor är billigast av åtta och den enda som har både ringklocka och strömadapter i lådan. Den döljer också grannens dörr i inspelningen, vilket avgör var du får sätta upp den: IMY:s eget exempel säger att privatundantaget inte gäller på en lägenhetsdörr.",
+    "Dörrklocka med kamera bäst i test 2026: åtta videodörrklockor jämförda från 990 kr. I lägenhet gäller inte privatundantaget. Se vad som krävs.",
   alternates: { canonical: PAGE_URL },
   openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
@@ -128,9 +128,12 @@ export default async function DorrklockaPage() {
             <h1 className="text-h1">{TEST_PAGE.title}</h1>
             <AffiliateDisclosure variant="balk" />
             <p className="max-w-2xl text-lg text-muted-foreground">
-              Reolink D340W kostar 1 199 kronor, är billigast av de åtta och
-              den enda där både ringklockan och strömadaptern redan ligger i
-              lådan. Den svartar dessutom ut grannens dörr i inspelningen, och
+              Vår testvinnare är Reolink D340W för 1 199 kronor, eftersom den
+              spelar in sex sekunder före händelsen, så du ser vad som hände
+              innan det ringde och inte först när någon står där. Den är
+              billigast av de åtta, och både ringklockan och strömadaptern ligger
+              redan i lådan. Den svartar dessutom ut grannens dörr i
+              inspelningen, och
               det avgör mer än man tror: Integritetsskyddsmyndigheten har ett
               färdigt exempel som säger att privatundantaget inte gäller för en
               dörrkamera på en lägenhetsdörr. Vi jämförde åtta dörrklockor från
