@@ -13,7 +13,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { NOT_STATED, priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -73,11 +73,7 @@ export const metadata: Metadata = {
   description:
     "Housegards röda sexkilos har högsta effektklassen 55A, är godkänd för utomhusbruk och kostar 699 kronor. Samma klass i vitt kostar 579, men får inte hänga i trapphuset. Sju släckare jämförda, 349 till 699 kronor.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

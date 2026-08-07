@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import {
   GLOSSARY,
   GLOSSARY_GROUPS,
@@ -51,11 +52,7 @@ export const metadata: Metadata = {
   description:
     "CRI, lumen, kelvin, Zigbee, Thread, Matter, IP-klass och nolledare. Korta förklaringar av orden som avgör vilken produkt du bör välja.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Ordlista",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Ordlista", path: PAGE_URL }),
 };
 
 /** Verktyg alltid, kategorier bara när de är publicerade. */

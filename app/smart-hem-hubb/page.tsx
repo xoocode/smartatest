@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -83,11 +83,7 @@ export const metadata: Metadata = {
   description:
     "Homey Pro talar åtta radior och kör allt lokalt, men kostar 4 999 kronor. Aqara Hub M3 når nästan lika långt för 1 729, och en Matter-controller för 329 samlar fler märken än en brygga för 899. Vi jämförde åtta hubbar på vad de faktiskt når.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

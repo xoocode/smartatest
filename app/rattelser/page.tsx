@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { sortedCorrections } from "@/lib/corrections";
 import { DEFAULT_REVIEWER } from "@/lib/people";
 import { graph, pageEntity } from "@/lib/schema";
@@ -39,11 +40,7 @@ export const metadata: Metadata = {
   description:
     "Sakfel vi rättat, vad som stod fel och när det ändrades. Rättelser som påverkat en placering märks ut särskilt.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Rättelser",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Rättelser", path: PAGE_URL }),
 };
 
 export default function RattelserPage() {

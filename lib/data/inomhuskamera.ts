@@ -41,11 +41,6 @@ import { INOMHUSKAMERA } from "@/lib/test-pages";
  * Indoor, inte på panoreringsmodellen vi rankar, och Aqara skriver själva att
  * G3 har ett hårdvaruläge som går att slå på för hand eller automatiskt.
  *
- * ## ⚠️ Sökvolymen är inte mätt
- *
- * `inomhuskamera` finns inte i någon av våra Keyword Planner-körningar. Sidan
- * bygger på ett antagande om intention inom `övervakningskamera`. Se
- * research-filen §1. Det är sidans största osäkerhet och ska mätas.
  */
 
 /** Alla priser lästa på butikens egen sida detta datum. */

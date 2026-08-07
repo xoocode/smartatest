@@ -12,7 +12,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { NOT_STATED, priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -88,11 +88,7 @@ export const metadata: Metadata = {
   description:
     "Brandvarnare.se:s 120 × 180 i hård box, 199 kronor, är den enda filten som är stor nog att svepa om en vuxen, provad mot brand i vätska och öppnas med ett grepp. Vi jämförde åtta brandfiltar från 99,90 till 299,90 kronor. Tre av dem är provade mot den version av EN 1869 som drogs tillbaka 2020.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

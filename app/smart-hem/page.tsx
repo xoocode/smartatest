@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, pageEntity } from "@/lib/schema";
 import { SMART_HEM, testPagesInCategory, isBrowsable } from "@/lib/catalog";
 import { groupSources, SMART_HEM_SOURCES } from "@/lib/sources";
@@ -32,11 +33,10 @@ export const metadata: Metadata = {
   description:
     "Läs experttesterna innan du köper. Vi har gått igenom dem åt dig och sammanställt vad de faktiskt är överens om, plus hur väl Matter, Zigbee och Thread fungerar ihop idag.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Smart hem: så väljer du rätt produkter",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+    path: PAGE_URL,
+  }),
 };
 
 const TOC = [

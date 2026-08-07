@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -62,11 +62,6 @@ import Kopguide from "@/content/inomhuskamera/kopguide.mdx";
  * Arlos CVR-brasklapp: den gäller Privacy Shield på den fasta Essential
  * Indoor, inte den PTZ-modell den här sidan rankar.
  *
- * ⚠️ Sökvolymen för `inomhuskamera` är inte mätt i Keyword Planner. Sidan
- * bygger på ett antagande om intention inom `övervakningskamera`. Det är
- * sidans största osäkerhet, det står i research-filen §1, och termen ska med
- * i nästa mätning.
- *
  * AFFILIATE-SWAP — LINK_MODE är `tracked`: länkarna går via /till/{id} som
  * 302:ar vidare till butiken och räknar klicket. Ingen provision, alltså
  * varken rel="sponsored" eller annonsmärkning, och balken högst upp
@@ -82,11 +77,7 @@ export const metadata: Metadata = {
   description:
     "Vi jämförde sju inomhuskameror från 279 till 1 299 kronor. Tapo C225 vinner: 599 kronor, en knapp som vrider bort objektivet, hela rummet i 2K och inget abonnemang.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

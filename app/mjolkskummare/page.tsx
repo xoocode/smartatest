@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -76,11 +76,7 @@ export const metadata: Metadata = {
   description:
     "Wilfa Silky MF1B-250 vinner för 699 kronor: skummar 150 till 250 ml, fem program med egen temperatur och ett eget läge för havredryck. Vill du ha mest skum kostar Severin Spuma 700 1 290 kronor och gör 350 ml. Räkna med 60 ml skum per cappuccino, och läs skumtalet och inte namnet.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

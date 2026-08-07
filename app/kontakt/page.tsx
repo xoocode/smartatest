@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Mail, MapPin, Clock } from "lucide-react";
 
 import { PUBLISHER, SITE, publisherAddress } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, orgRef, pageEntity } from "@/lib/schema";
 import { Container } from "@/components/site/container";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
@@ -28,11 +29,11 @@ export const metadata: Metadata = {
   description:
     "Hör av dig om ett faktafel, ett produkttips eller ett samarbete. Vi svarar normalt inom två arbetsdagar.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Kontakt",
-    url: `${SITE.url}${PAGE_URL}`,
+    path: PAGE_URL,
     type: "website",
-  },
+  }),
 };
 
 export default function KontaktPage() {

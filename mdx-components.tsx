@@ -42,6 +42,7 @@ import { ToolWidget } from "@/components/tools/registry";
 const TOOL_SLUGS: Record<string, string> = {
   VacuumRuntime: "drifttid-skaftdammsugare",
   BabyMonitorRange: "rackvidd-babyvakt",
+  OilCostCalculator: "oljekostnad-fritos",
   LumenCalculator: "lumenraknare",
   RunningCostCalculator: "elkostnad-lampor",
   ProtocolPicker: "protokollvaljare-smart-hem",

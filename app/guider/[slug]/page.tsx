@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { TEST_PAGE_INDEX } from "@/lib/catalog";
 import { TOOLS, findTool, toolHref } from "@/lib/tools";
 import { DEFAULT_REVIEWER } from "@/lib/people";
@@ -33,11 +34,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: tool.title,
     description: tool.description,
     alternates: { canonical: toolHref(tool) },
-    openGraph: {
-      title: tool.title,
-      url: `${SITE.url}${toolHref(tool)}`,
-      type: "article",
-    },
+    openGraph: pageOpenGraph({ title: tool.title, path: toolHref(tool) }),
   };
 }
 

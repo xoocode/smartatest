@@ -10,7 +10,7 @@ import {
 } from "@/lib/data/utrymningsstege";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -81,11 +81,7 @@ export const metadata: Metadata = {
   description:
     "Modum Original är den enda stege som är provad och godkänd för utrymning, och 3,9 meter kostar 9 621 kronor. Housegard EL39 gör jobbet för 3 695. Vi jämförde fem fasta fasadstegar på stegbredd, räckvidd och vilka väggar de går upp på.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

@@ -51,8 +51,58 @@ Short on purpose, and none of it is operational:
 - A price we cannot establish **at all**, as opposed to one that changes.
 - Ranking, weights or scores moved by what a merchant pays.
 - A product that is not actually for sale in Sweden.
+- **A spärrad butik eller kategori.** Se nedan. Den enda spärren som inte är
+  redaktionell, och den går inte att förhandla bort med bättre research.
 
 Everything else is engineering, and engineering is what we are here to do.
+
+### Spärrade kategorier och butiker
+
+Ägaren har affärsförhållanden som krockar med två områden. Det här är en
+**intressekonfliktsspärr, inte ett redaktionellt omdöme** — produkterna är inte
+sämre, vi kan bara inte tjäna pengar på dem. Beslut 2026-08-07.
+
+**1. Kosttillskott och sportnutrition, som kategori och som butik.**
+
+Aldrig som länkmål, aldrig som testsida:
+
+| Spärrad | |
+|---|---|
+| `svenskhalsokost.se` | direkt konflikt |
+| `svensktkosttillskott.se` | direkt konflikt |
+| Gymgrossisten, MM Sports, Bodystore, Bodylab, Tyngre, Sportkost, Great Earth, Greatlife, Eco Supplements, Närokällan, Nyttoteket, Vital, VitaePro, Flexovital, Maxulin | deras direkta konkurrenter |
+
+Listan är exempel och inte uttömmande. Testet är **vad butiken lever på**: är
+kosttillskott eller sportnutrition kärnan i affären är den spärrad.
+
+**2. Gym- och träningsutrustning.** Löpband, motionscykel, crosstrainer,
+roddmaskin, multigym, hantlar, skivstång, kettlebell, träningsbänk,
+träningsband, vibrationsplatta, yogamatta. Struket ur
+`.agent/testsidor-tackning.md` 2026-08-07.
+
+⚠️ **Spärren är smalare än den först skrevs.** En första läsning tog hela
+Adtractions vertikal `Sport & Outdoors` med sig och strök 48 rader, däribland
+friluft, fiske, jakt och vattensport. Det var fel: **outdoor är inte spärrat**,
+och inte heller `/traningsklocka`, som ligger kvar som `ready` med Löparshop som
+kommersiellt motiv. En träningsklocka är en klocka.
+
+Det som är spärrat är alltså **tillskotten och gymutrustningen**, inte allt som
+råkar ligga i en sportvertikal hos ett affiliatenätverk. Kategorinamnet duger
+inte som filter här heller.
+
+#### Vad spärren inte betyder
+
+**Den träffar butikens affär, inte varje produkt butiken råkar sälja.** Apotea
+säljer babyvakter och rakapparater vid sidan av tillskotten, och en rakapparat
+hos Apotea är inte ett tillskottsköp. Sajten har i dag **10 Apotea-länkar**, nio
+babyvakter och en luftfuktare, och ingen av dem rör en spärrad vara.
+
+**Apotea duger för sådant, avgjort 2026-08-07.** De tio befintliga länkarna
+står kvar och fler får sättas, så länge varan inte är ett tillskott. Samma sak
+gäller andra apotek: det är butikens affär som avgör, och ett apotek lever inte
+på sportnutrition.
+
+Ingen annan butik på listan är gränsfall — de säljer i princip bara tillskott.
 
 ### Say what it is worth before you say it is hard
 
@@ -80,6 +130,20 @@ merchant every product links to. Two searches, every test page, never skipped:
 That is literally all it took to surface a 10 % Levoit programme that no amount
 of reading competitor HTML had revealed. `node scripts/sok.mjs --brand {namn}`
 runs the whole brand sweep for you.
+
+### Every programme the sweep finds goes in the tracker
+
+`.agent/plans/affiliate-ansokningar.md` is the standing list, with a status
+column Peter fills in. Add any programme that is not already there, in the same
+pass, with status `–` — including the ones you reject, since a row saying *wrong
+assortment* stops the next build re-checking it.
+
+**Never fill in Status, Datum or Kommentar.** Applying is a business relation in
+Peter's name. Writing `Ansökt` invents a task nobody did.
+
+A finding that only reaches `.agent/research/{slug}.md` is a finding that dies
+there. Coffee Friend at 10 % with PPC allowed was found on `/mjolkskummare` and
+found again from scratch on `/smoothiemixer` the next day.
 
 ### Mine the competitors' outbound links first
 

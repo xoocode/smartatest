@@ -205,15 +205,9 @@ That list is complete. **A page that meets it is publishable, and `status:
 
 ## What does not block going live
 
-Three things have been reported as blockers and are not. Each is ordinary work
-that continues after publication, and none of them changes whether the page is
-true.
+Two things have been reported as blockers and are not. Each is ordinary work
+that continues after publication, and neither changes whether the page is true.
 
-- **Unmeasured search volume.** Keyword Planner tells us what a page is worth,
-  not whether it is right. A page with a good slug and no volume figure earns
-  nothing while it sits unpublished, and it cannot start ageing in the index
-  either. Measure when convenient and rename only if the gap is big enough to
-  pay for redirects. Never hold a finished page for it.
 - **An affiliate programme we have not joined.** `LINK_MODE` is `"direct"` on
   every page on the site; we hold no programmes at all. Waiting for one would
   hold every page forever. Joining later is one constant plus `affiliateUrl`

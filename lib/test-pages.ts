@@ -453,6 +453,98 @@ export const UTOMHUSTIMER: TestPage = {
 };
 
 /**
+ * Rörelsevakt utomhus. Sensorn som sitter på fasaden och tänder lampan.
+ *
+ * ## Avgränsningen
+ *
+ * Allt som är kapslat för utomhusbruk och reagerar på rörelse. Både de som
+ * bryter 230 volt själva och de batteridrivna som skickar en signal till en
+ * hubb, i **en** rankning — samma beslut som på /utomhustimer, och av samma
+ * skäl: det är den jämförelsen läsaren faktiskt behöver och ingen svensk sida
+ * gör den. diginytt rankar åtta smarta sensorer varav sex är inomhussensorer,
+ * bygghemma tre 230-voltsvakter, och ingen av dem ställer de två mot varandra.
+ *
+ * Strålkastare med inbyggd rörelsevakt ligger utanför. Då köper man en lampa,
+ * och Bygghemma delar själva sina två guider på exakt den gränsen. Rena
+ * skymningsreläer utan pyrodetektor ligger också utanför: Steinel NightMatic
+ * 3000 reagerar på ljus och inte på rörelse.
+ *
+ * ## Varför `last` väger tyngst tillsammans med `bevakning`
+ *
+ * Det är sidans fynd. Wattalet i annonsen gäller resistiv last, alltså
+ * glödlampa, och den lampan säljs inte längre. Fem tillverkare delar upp
+ * belastningen på fem olika sätt — Steinel i mikrofarad och antal don,
+ * Schneider i watt per lamptyp, ESYLUX i startström, Kjell och Biltema i
+ * resistivt mot induktivt, Jula i glödljus och halogen — och handeln plockar
+ * genomgående det högsta talet. Steinels egen nyare IS 2160 ECO anger
+ * `250 W LED` där den äldre IS 240 anger `1 000 W resistiv last`.
+ *
+ * Steinel skriver dessutom ut ett golv, minsta last 10 W, som en modern
+ * LED-lampa på 5 W ligger under.
+ *
+ * ## Varför det inte finns något `testomdome`
+ *
+ * Ingen oberoende part har provat kategorin på någon nordisk marknad. Råd &
+ * Rön, Ljud & Bild och tek.no har ingenting. De fem svenska sidorna i
+ * sökresultatet är affiliatelistor, utom Bygghemmas som är en butiks
+ * jämförelse av det egna sortimentet. Samma läge som /utomhustimer, och här
+ * finns ingen täckning alls att tunna ut.
+ *
+ * ## ⚠️ IP-klassen är ett golv och inte hela axeln
+ *
+ * Elsäkerhetsverket sätter IP44 för det som sitter ute, och varje rankad
+ * produkt klarar den gränsen. Ett kriterium som bara frågade "är den
+ * utomhusklassad" hade varit en grind som alla passerar. Det som väger är
+ * steget över — IP54 mot IP44 — tillsammans med drifttemperaturen, som skiljer
+ * femton grader mellan Nexa och ESYLUX.
+ */
+export const RORELSEVAKT_UTOMHUS: TestPage = {
+  slug: "rorelsevakt-utomhus",
+  label: "Rörelsevakt utomhus",
+  title: "Rörelsevakt utomhus bäst i test 2026: vad den orkar tända",
+  category: SAKERHET,
+  methodology:
+    "Vi jämför rörelsevakter för utomhusbruk på tillverkarnas och distributörernas egna specifikationer, på Elsäkerhetsverkets krav för el utomhus, och på de betyg butikernas egna kunder satt. Alla produkter bedöms mot samma kriterier och samma viktning, oavsett om de bryter 230 volt själva eller skickar en signal till en hubb.\n\nVi har inte provat någon produkt själva, och vi har inte hittat något oberoende test av kategorin på någon nordisk marknad. Därför finns här inget kriterium för testomdöme, till skillnad från flera andra sidor på sajten. Källorna ligger länkade längre ner.\n\nSaknas en uppgift står den som saknad och sänker inget betyg. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "last",
+      label: "Last och lampor",
+      weight: 25,
+      description:
+        "Vad rörelsevakten orkar tända. Talet i annonsen gäller nästan alltid glödljus, och den lampan går inte att köpa längre. Steinel IS 240 är märkt 1 000 W, men för elektroniska don stannar samma detektor på 132 mikrofarad eller åtta armaturer. Schneiders detektor klarar 2 200 W resistivt och 200 W LED, alltså en elftedel, i samma dosa.\n\nVi väger taket som gäller för LED, eftersom LED är det som sitter i armaturen. Startström i ampere och antal don räknas som samma sak, för det är samma begränsning uttryckt på tre sätt. Golvet väger också: IS 240 slår inte till under 10 W, och en LED-lampa på 5 W ligger under den gränsen.\n\nBatteridrivna sensorer bryter ingen ström alls. De skickar en signal till en hubb, som tänder lampor som lyder just den hubben. Strålkastaren du redan har på väggen tänds inte av dem.",
+    },
+    {
+      key: "bevakning",
+      label: "Bevakningsområde",
+      weight: 25,
+      description:
+        "Hur stor yta detektorn ser, och varifrån. Vinkeln spänner från 100 grader till 240 och räckvidden från 10 meter till 12, men de två följs inte åt: Nexa SP-816 ser 10 meter över 100 grader, Steinel IS 240 ser 12 meter över 240.\n\nRäckvidden gäller någon som går tvärs över synfältet. En pyrodetektor läser skillnaden mellan intilliggande linssegment, så den som kommer rakt emot fyller samma segment hela vägen in och upptäcks långt senare. Det avgör var på huset sensorn ska sitta, och sitter den fel går det inte att ställa bort efteråt.\n\nHit räknas också hur långt sensorhuvudet går att vrida i höjd och sidled, och om linsen har ett segment som tittar rakt ned längs väggen. Det kallas underkrypskydd och avgör om någon kan gå in under bevakningen.",
+    },
+    {
+      key: "vaderskydd",
+      label: "Väderskydd och kyla",
+      weight: 20,
+      description:
+        "Kapslingsklass och drifttemperatur. Elsäkerhetsverket sätter IP44 som golv för det som sitter ute och varje produkt här klarar det, så frågan är vad som ligger över. IP54 tål vatten som sprutar från alla riktningar, IP44 bara stänk, och skillnaden märks på en fasad utan tak över sig.\n\nKylan är den andra halvan, och den säger IP-klassen ingenting om. ESYLUX MD 120 går till −25 grader, hela Steinel-serien till −20, och Nexa SP-816 stannar vid −10, vilket ligger innanför en vanlig januarinatt norr om Mälardalen.\n\nKylan ändrar dessutom vad sensorn ser. En pyrodetektor mäter skillnaden mellan en människa och bakgrunden, och den skillnaden är som störst när det är kallt. Nexas tio meter gäller under tjugo grader; Steinel bygger in kompensation för det och kallar den temperaturstabiliserad räckvidd.",
+    },
+    {
+      key: "installningar",
+      label: "Inställningar",
+      weight: 15,
+      description:
+        "Efterlystid, ljusnivå och hur mycket som går att ställa på plats. Efterlystiden spänner från sju minuter till trettiofem, och det är ingen detalj: en armatur som behöver tid för att komma upp i fullt ljus mår illa av att slås av och på var sjunde minut, och det är skälet Steinel lägger taket så högt.\n\nSkymningsnivån avgör om lampan tänds mitt på dagen. Steinel-serien går från 2 till 2 000 lux, ESYLUX från 2 till 1 000, och längst ned i fältet sitter ett vred utan skala.\n\nMedföljande täckskal räknas hit. Det är plastbitarna du klipper till för att skärma bort gatan, grannens uppfart eller den vajande grenen, och utan dem tänds lampan hela natten.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Pris vägt mot betygen i övriga kriterier. Spannet är nästan tretton gånger, från 89,90 till 1 143 kronor, och det du betalar över tvåhundralappen är vinkel, justermöjligheter och ett relä som tål fler drivdon. Priset är det du betalar hos butiken vi länkar till, inte marknadens lägsta.",
+    },
+  ],
+};
+
+/**
  * Vattenlarm. Första sidan i gruppen Säkerhet.
  *
  * ## Varför inget testomdöme-kriterium
@@ -1830,12 +1922,6 @@ export const ROBOTGRASKLIPPARE: TestPage = {
 
 /**
  * Fönsterputsrobot. Femte maskinsidan i Hem & hushåll.
- *
- * ## Sökvolymen är inte uppmätt, och det spelar ingen roll
- *
- * `fönsterputsrobot` finns inte i våra keyword-CSV:er. Det är en upplysning
- * och inte ett hinder: sidan står på att den svarar på en fråga ingen annan
- * svarar på, och en mätning hade inte ändrat en rad i den.
  *
  * ## Sidans fynd: tre säkerhetstal, ojämnt publicerade
  *
@@ -3269,6 +3355,105 @@ export const BABYVAKT: TestPage = {
  * fyra som har dem och lånas aldrig till en systermodell eller nästa
  * generation — se `ALDRIG_BEDOMD` i lib/spec-schema.mjs.
  */
+/**
+ * Blender. Underlag i .agent/research/blender.md.
+ *
+ * ## Varför inget kriterium för testomdöme, trots det bästa källäget hittills
+ *
+ * Testfakta lät Applitest GmbH i Nürnberg provköra nio blendrar under 4 000
+ * kr, och till skillnad från Råd & Rön, Stiftung Warentest och Which? ligger
+ * hela resultattabellen fritt läsbar, med delbetyg per moment. Det är det
+ * starkaste underlag någon sida på sajten har haft.
+ *
+ * Ändå finns inget viktat testbetyg, av samma skäl som på /pizzaugn: fyra av
+ * tretton rankade produkter ingick inte i provningen, och ett kriterium byggt
+ * på totalbetyget hade låtit provningsurvalet avgöra ordningen. Delmomenten
+ * bär i stället kriteriet `Mixningsresultat`, eftersom de mäter vad som kommer
+ * ur kannan och inte vad en redaktion tyckte.
+ *
+ * ## Varför alla tretton har betyg på alla fem kriterier
+ *
+ * Efter användarbeslut. Alternativet var streck på labbraderna, och det hade
+ * utlöst felet som står dokumenterat i lib/products.ts rad 241: förvalet
+ * fördelar om ett saknat kriteriums vikt och delar därmed ut den gratis. På
+ * /smart-belysning vände det rankningen — tre av fem lampor saknade
+ * testomdömet och de billigaste passerade Råd & Röns testvinnare utan att ha
+ * vunnit ett enda kriterium de faktiskt mätts på.
+ *
+ * De fyra otestade får därför riktiga betyg, satta på konstruktionen och
+ * tillverkarens egna uppgifter, och metodrutan skriver ut att just deras
+ * mixningsbetyg är en bedömning och inte ett mätvärde.
+ *
+ * ⚠️ Tre av dem — Ninja BN750EU, OBH Nordica Perfect Mix+ och Smeg 50's Style
+ * — publicerar ingen ljudnivå någonstans, kontrollerat hos tillverkaren och i
+ * sökning 2026-08-06. De ligger på 3,0 på `ljudniva`, alltså mitt i fältet,
+ * och tabellcellen står tom. Betyget är avsiktligt neutralt: det varken
+ * belönar eller straffar en uppgift vi inte har. Att härleda ett dB-tal ur
+ * motoreffekten vore en påhittad mätning, och den hade dessutom pekat åt fel
+ * håll — Wilfa Powerfuel drar 1 800 W och är näst tystast med 85 dB, medan
+ * Braun drar 1 600 W och är högljuddast med 94.
+ *
+ * ## Varför ordningen skiljer sig från Testfaktas
+ *
+ * Testfakta viktar prestanda 50, hanterbarhet 20, uthållighet 20 och buller
+ * 10. Den här sidan viktar kannan tyngre och uthålligheten lättare, vilket
+ * flyttar två produkter tydligt:
+ *
+ * - **Bosch går från delad trea till andra plats.** Kannan är kategorins
+ *   bästa: Tritan, lättast av alla med 1 079 gram, 2,0 liter arbetsvolym,
+ *   diskmaskinsäker och med säkerhetslock — plus 10 års motorgaranti.
+ * - **Braun går från andra till femte.** Den gör en perfekt smoothie på 59
+ *   sekunder, men är fältets högljuddaste med 94 dB och kannan får inte gå i
+ *   diskmaskinen. Två saker ägaren möter varje gång maskinen används.
+ *
+ * Skillnaden är alltså viktningen och inget annat, och den är publicerad.
+ */
+export const BLENDER: TestPage = {
+  slug: "blender",
+  label: "Blender",
+  title: "Blender bäst i test 2026: fler watt gav långsammare smoothie",
+  category: KOK,
+  methodology:
+    "Sidan jämför tretton kannblendrar mellan 1 199 och 2 990 kronor. Stavmixrar och matberedare är andra produkter för andra uppgifter och har egna sidor; personliga smoothiemixers på 300 watt rankas inte här.\n\nNio av de tretton ingår i en riktig oberoende provning. Testfakta lät laboratoriet Applitest GmbH i Nürnberg köra dem genom smoothie på fryst frukt, iskrossning, hackning av hasselnötter och ett uthållighetsprov på 100 cykler, och mätte ljudnivån separat. Hela resultattabellen är fritt läsbar och delbetygen bär kriteriet Mixningsresultat. Provningen gjordes i augusti 2025 och artikeln publicerades om i mars 2026.\n\nDäremot finns inget kriterium för testomdöme. Fyra av de tretton ingick inte i provningen, och ett viktat totalbetyg hade låtit provningsurvalet avgöra ordningen i stället för maskinerna.\n\nDe fyra otestade betygsätts på samma fem kriterier som de övriga, men deras mixningsbetyg är vår bedömning av konstruktionen, alltså knivuppsättning, kannans form och programmens utformning, och inte ett mätvärde. Tre av dem publicerar ingen ljudnivå alls och ligger därför mitt i fältet på det kriteriet, varken belönade eller straffade.\n\nMotoreffekten står i tabellen eftersom läsaren letar efter den, men den bär ingen vikt. Sorterad efter watt blir beredningstiden 45 och 55 sekunder för de två maskinerna på 1 200 W och 90 och 147 sekunder för de två på 1 800 W. Köpguiden förklarar varför.\n\nVi har inte mixat en enda smoothie. Kriteriebetygen är vår bedömning ur de sourcade mätvärdena, inte egna mätningar. Priser, artikelnummer och kundbetyg är lästa på butikernas egna produktsidor och daterade. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "mixningsresultat",
+      label: "Mixningsresultat",
+      weight: 30,
+      description:
+        "Vad som faktiskt kommer ur kannan: hur slät smoothien blir efter silning genom en 4 mm-sil, om isen krossas jämnt utan sörja och stora bitar, och om hasselnötterna hackas lika grovt hela vägen eller börjar släppa olja.\n\nFör de nio provade maskinerna sätts betyget på Applitests uppmätta delbetyg för de tre momenten. Spannet är stort: 10,0 för Braun och Bosch på smoothie mot 4,3 för Philips, och 9,5 för Ninja på nöthack mot 4,0 för Wilfa Powerfuel och Philips.\n\nFör de fyra som inte ingick i provningen är betyget vår bedömning av knivuppsättning, kannans form och programmens utformning, och det ligger genomgående under de bäst mätta maskinerna. Ingen av dem får ett tal som ser ut som ett mätvärde.",
+    },
+    {
+      key: "kannan",
+      label: "Kannan i vardagen",
+      weight: 25,
+      description:
+        "Den del du lyfter, fyller, häller ur och diskar varje gång. Vikten avgör mest: kannan med lock väger 754 gram på den lättaste och 2 080 på den tyngsta, alltså nästan tre gånger, och KitchenAids hela maskin väger 7,1 kilo mot Chef Matteos 3,4.\n\nDiskmaskinen är det som märks oftast. Två av de nio provade kannorna får inte gå i den, vilket betyder handdisk av en hög smal behållare med en kniv i botten efter varje smoothie.\n\nGlas känns gediget och tål varm soppa, men väger dubbelt mot plast och går sönder om det tappas. Här väger också arbetsvolymen, alltså vad maskinen faktiskt mixar, och ett säkerhetslock som hindrar start utan lock på.",
+    },
+    {
+      key: "kontroll",
+      label: "Kontroll över mixningen",
+      weight: 20,
+      description:
+        "Om du kan bestämma farten själv, eller bara trycka på ett program och vänta. Skillnaden märks när konsistensen ska bli precis rätt: en majonnäs vill startas långsamt, en fryst bär vill ha full gas direkt.\n\nSpannet går från steglös reglering med tolv lägen och pulsfunktion till ingen hastighetsinställning alls. Chef Matteo Blender III har enbart fasta program, vilket betyder att du får den konsistens programmet ger dig.\n\nFörinställda program räknas som en fördel när de finns vid sidan av manuell reglering, och som en begränsning när de är allt som finns. Pulsfunktionen väger tungt, eftersom den är det enda sättet att hacka grovt utan att purea.",
+    },
+    {
+      key: "ljudniva",
+      label: "Ljudnivå",
+      weight: 15,
+      description:
+        "Uppmätt i decibel med maskinen körande på is. Fältet går från 83 dB till 94, och eftersom skalan är logaritmisk är de elva stegen mycket mer än de ser ut: Testfakta jämför 93 och 94 dB med en motorgräsklippare eller en borrmaskin.\n\nDet avgör om maskinen går att använda på morgonen i ett hushåll där någon sover, eller om du startar programmet och lämnar köket. Skalan sätts linjärt mellan fältets ytterlägen, 83 dB ger 5,0 och 94 ger 1,0.\n\nLjudets karaktär väger också in. Chef Matteo mättes till 88 dB men fick anmärkning för ett skärande ljud som stör mer än de andras dovare buller.",
+    },
+    {
+      key: "uthallighet",
+      label: "Uthållighet",
+      weight: 10,
+      description:
+        "Om maskinen håller. Applitest körde varje blender 100 gånger i tre minuter på max med tre minuters vila, på en blandning av vatten och sågspån som simulerar pannkakssmet. Ingen motor gav upp, men fyra av nio lock deformerades av ångan från vätskan som knivarna värmde upp.\n\nDet är den enda kvalitetsanmärkningen provningen gör, och den står inte i någon produktbeskrivning. Två av de fyra säljs dessutom på att kunna göra varm soppa.\n\nGarantin väger in som det åtagande säljaren gör: Bosch anger 10 års motorgaranti mot registrering, Wilfa 5 år på hela produkten, och resten av fältet 2 år.",
+    },
+  ],
+};
+
 export const PIZZAUGN: TestPage = {
   slug: "pizzaugn",
   label: "Pizzaugn",
@@ -3468,12 +3653,834 @@ export const ELTANDBORSTE: TestPage = {
   ],
 };
 
+/**
+ * Elscooter. Underlag i .agent/research/elscooter.md.
+ *
+ * ## Varför laglighet inte är ett kriterium, trots att sidan handlar om den
+ *
+ * Transportstyrelsen klassar en elsparkcykel som cykel bara om den klarar
+ * både 20 km/h och 250 W kontinuerlig märkeffekt. Det är sidans hela ämne, och
+ * ett utkast vägde det som eget kriterium.
+ *
+ * Det hade varit `/babyvakt`-felet igen. Sidan rankar bara trafiklagliga
+ * modeller efter användarbeslut, så **alla fem anger 250 W nominellt** och
+ * kriteriet hade delat ut lika betyg till hela fältet. En grind varje produkt
+ * passerar är värd att skriva ut i prosa och nästan ingenting i en rankning.
+ *
+ * Talet som faktiskt rangordnar är toppeffekten, 450 till 1 200 W, alltså en
+ * faktor 2,7. Den bär kriteriet `kraft` i stället.
+ *
+ * ## Varför räckvidd inte betygsätts, trots att det är den vanligaste frågan
+ *
+ * De tre tillverkarna mäter tre olika saker. E-Wheels publicerar 45 km
+ * "optimal" och 23 till 27 km "förväntad" för samma modell, Segway anger 25 km
+ * vid 15 km/h och 20 km vid 20 km/h, och Pure mäter i ekoläge. Att betygsätta
+ * det högsta talet hade belönat den som mäter mest generöst.
+ *
+ * Batterikapaciteten i wattimmar är hård varufakta, finns för alla fem och
+ * spänner 220 till 468 Wh. Den bär kriteriet, och räckviddstalen står i
+ * tabellen med sina villkor.
+ */
+export const ELSCOOTER: TestPage = {
+  slug: "elscooter",
+  label: "Elscooter",
+  title: "Elscooter bäst i test 2026: fem trafiklagliga elsparkcyklar",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi jämför elsparkcyklar på specifikationer lästa hos tillverkarna och i butikernas egna produktdata: motorns två effekttal, batteriets storlek i wattimmar, vikt, bromsar, däck och dämpning. Segways och Pures egna tabeller bär de tekniska talen, E-Wheels sina egna, och priserna är lästa hos butiken samma dag.\n\nAlla fem får köras på svensk cykelbana. Transportstyrelsen klassar en elsparkcykel som cykel bara om den klarar både 20 km/h och 250 W kontinuerlig märkeffekt, och vi har valt bort allt som ligger över. Därför anger alla fem 250 W nominellt, och därför väger inte det talet i rankningen. Det som skiljer dem åt är toppeffekten, som spänner från 450 till 1 200 W.\n\nRäckvidden betygsätts inte. Tillverkarna mäter olika: ett tal gäller ekoläge vid 15 km/h, ett annat full fart, och en av dem publicerar båda för samma modell. Talen står i tabellen med sina villkor, men betyget för batteri sätts på wattimmar, som går att jämföra rakt av.\n\nDet finns inget kriterium för testomdöme. M3 har provat sju elsparkcyklar med betyg och uppmätt räckvidd, men bara en enda av dem finns i den här jämförelsen, och Råd & Rön har ingen provning alls. Vi har inte kört någon av dem själva.\n\nAlla fem bedöms mot samma kriterier och samma viktning, och källorna finns länkade längre ner. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "batteri",
+      label: "Batteri och räckvidd",
+      weight: 25,
+      description:
+        "Batteriets storlek i wattimmar, alltså hur mycket energi du har att köra på. Spannet är 220 till 468 Wh, vilket är mer än dubbelt, och det märks direkt i hur ofta du behöver ladda.\n\nEtt batteri på 220 Wh räcker till pendling på ett par kilometer i vardera riktningen med marginal för en kall dag. Ska du åka 10 kilometer enkel väg året om vill du ha 360 Wh eller mer, eftersom kyla, motvind och en tyngre förare äter av samma tal.\n\nRäckvidden i kilometer väger inte in, eftersom tillverkarna mäter under olika villkor. Den står i tabellen med sina förutsättningar.",
+    },
+    {
+      key: "kraft",
+      label: "Kraft i backar",
+      weight: 20,
+      description:
+        "Toppeffekten, alltså vad motorn får ta ut i korta pass när underlaget lutar. Alla fem har samma nominella effekt på 250 W, som är lagens tak, men toppeffekten spänner från 450 till 1 200 W.\n\nDet är den skillnaden du känner. En elsparkcykel på 450 W tappar fart i en uppförsbacke med en vuxen på, och du får skjuta på sista biten. Med 1 200 W under fötterna håller du farten uppför samma backe.\n\nDär tillverkaren anger maximal lutning väger också den in. Talen går från 12 till 23 procent, vilket är skillnaden mellan en mjuk stigning och en riktig backe.",
+    },
+    {
+      key: "vikt",
+      label: "Vikt och bärbarhet",
+      weight: 20,
+      description:
+        "Vad den väger när du bär den, och hur lätt den blir att bära. Spannet är 12 till 23 kilo, alltså nästan dubbelt.\n\nVikten avgör mer än den låter. En elsparkcykel bärs upp för en trappa, in i en hiss, ombord på pendeltåget och in i en hall, och 23 kilo i ena handen är tungt efter en trappa. Under 14 kilo bär de flesta utan att byta hand.\n\nHär väger också hur snabbt den fälls ihop och hur den blir att hålla i hopfälld. Två av dem fälls på 2 sekunder och styrröret blir ett bärhandtag.",
+    },
+    {
+      key: "konstruktion",
+      label: "Bromsar, däck och dämpning",
+      weight: 20,
+      description:
+        "De tre delarna som avgör hur den uppför sig på svensk asfalt i november. Bromsarna först: en mekanisk skivbroms tar hårdare och mer förutsägbart i väta än en trumbroms, och en elektronisk broms ensam räcker inte i ett utförsläge.\n\nDäcken är den andra halvan av komforten. Punkteringsfria däck slipper du laga i vägkanten, luftfyllda rullar mjukare över kullersten och grus, och ett större hjul går bättre ner i ett hål. Storlekarna här är 8,1 till 10 tum.\n\nDämpningen avgör resten. Fullfjädrad tar upp både framhjulets och bakhjulets stötar; enbart fram lämnar bakhjulet hårt. Kapslingsklassen väger också in, eftersom en elsparkcykel står ute i regn.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 15,
+      description:
+        "Priset vägt mot betygen i de fyra kriterierna ovan. Spannet är 2 799 till 7 990 kronor för fem elsparkcyklar som alla får köras lagligt.\n\nVikten är låg med flit. Den billigaste är sällan den vi rekommenderar, och skillnaden i batteri och bromsar betyder mer för hur nöjd du är efter en vinter än de tusenlappar som skiljer.",
+    },
+  ],
+};
+
+/**
+ * Airfryer. Underlag i .agent/research/airfryer.md.
+ *
+ * ## Varför effekten räknas per kammare och inte som märkeffekt
+ *
+ * Användarbeslut 2026-08-06, och sidans hela ärende. Handeln säljer dubbelkorg
+ * som en ren uppgradering: två lådor, två rätter, samma maskin. RTINGS har
+ * mätt vad det faktiskt kostar. Ninja Foodi DZ201 drar **1 540 W med båda
+ * lådorna igång och 1 470 W med bara en** — den andra lådan lägger alltså till
+ * sjuttio watt, inte fjortonhundra. Kör du båda får varje låda ungefär
+ * hälften.
+ *
+ * Det gäller EU-modellerna lika mycket. Ninjas egna bruksanvisningar anger
+ * `Effekt: 2470W` för både AF300EU på 7,6 liter och AF400EU på 9,5, alltså
+ * totalt för två zoner. 1 235 W per låda ligger under de 1 400 W RTINGS
+ * rekommenderar för att maskinen ska hinna tillbaka till måltemperaturen när
+ * kall mat läggs i.
+ *
+ * Kriteriet betygsätter därför watt per kammare i det läge maskinen säljs på.
+ * En enkelkorg får hela sin effekt räknad, och den som kan slå ihop två zoner
+ * till en får kredit för att den kan.
+ *
+ * ## Varför jämn tillagning betygsätter konstruktionen
+ *
+ * Samma skäl som `jamn-varme` på /pizzaugn. Ingen har mätt en enda av de tio
+ * maskinerna åt oss under exakt det namn de säljs under här: Råd & Röns och
+ * Stiftung Warentests tabeller ligger bakom betalvägg och får inte återges,
+ * och RTINGS provar amerikanska 120-voltsmodeller. Ett kriterium satt på
+ * mätvärdet hade låtit provningsurvalet avgöra rankningen.
+ *
+ * Skalan graderar i stället det som **orsakar** ojämnheten och går att läsa för
+ * hela fältet: hur många kammare maten fördelas på, hur stor botten varje
+ * kammare har, och om två zoner går att slå ihop till en. Att det är rätt sak
+ * att gradera är belagt från fyra håll, varav ett är tillverkaren själv:
+ * Ninjas svenska bruksanvisning skriver "se till att ingredienserna placeras i
+ * ett jämnt lager på botten av lådan och att de inte ligger på varandra".
+ *
+ * ## Varför det inte finns något kriterium för testomdöme
+ *
+ * Kategorin har två riktiga labbprovningar och de är stora — Råd & Rön 70
+ * luftfritöser, Stiftung Warentest 20 — men båda ligger bakom en betalvägg vi
+ * inte betalat, och Råd & Rön förbjuder vidarepublicering av testresultat.
+ * RTINGS 52 provningar är fritt tillgängliga men gäller modeller för 120 volt.
+ * Samma beslut som /pizzaugn, /skaftdammsugare och /mjolkskummare.
+ *
+ * ## Varför maxtemperatur är en axel här men var en grind på /pizzaugn
+ *
+ * På pizzaugnarna angav femton av femton 500 grader. Här delar fältet sig rakt
+ * itu: Ninja, Cosori och AIVIQ går till 240 grader, medan Philips hela
+ * sortiment, Bosch och OBH Nordica stannar på 200. RTINGS kör hela sin
+ * provning vid 204 grader, alltså över vad halva fältet kan nå.
+ */
+/**
+ * Fritös, alltså oljefritösen. Underlag i .agent/research/fritos.md.
+ *
+ * ## Varför inget kriterium för testomdöme
+ *
+ * Kategorins enda aktuella provning är belgiska Test-Achats 24 fritöser,
+ * refererad av Stiftung Warentest 2025-12-23 och fritt läsbar. Den namnger
+ * elva modeller, och **ingen av dem säljs i svensk handel**: Frifri och Fritel
+ * är belgiska märken, Domo DO458FR och Tefal FR3380 finns inte hos någon av de
+ * butiker som för kategorin här. Ett viktat testbetyg hade alltså gett noll
+ * poäng till samtliga elva rankade. Råd & Rön, Testfakta, tek.no och RTINGS
+ * har ingen provning av oljefritöser alls; deras frityrmaterial är airfryer och
+ * ligger på /airfryer.
+ *
+ * Vad Test-Achats kommit fram till bär i stället köpguiden och skalorna:
+ * bytesintervallet för oljan, att rengöringen fäller maskiner som friterar bra,
+ * och att kallzonen är en konstruktion som kan sluta fungera.
+ *
+ * ## Varför kallzonen inte bär vikt
+ *
+ * Åtta av elva anger den och tre gör det inte. De tre är inte produkter utan
+ * kallzon — det är produkter där uppgiften inte gått att belägga hos
+ * tillverkaren, och Severins eget produktblad räknar upp funktion efter
+ * funktion utan att nämna den medan KitchenTime säljer samma maskin under
+ * webbadressen `cold-zone-fritos-3-l`. Ett kriterium på kallzon hade betygsatt
+ * vem som skrivit ned den. Se `check:avdrag` och `ALDRIG_BEDOMD`.
+ *
+ * Kriteriet `Oljans livslängd` vilar därför på filtreringen, som separerar
+ * fältet i tre tydliga steg och är belagd för varenda produkt.
+ *
+ * ## Varför maxtemperaturen inte bär vikt
+ *
+ * Tio av elva anger 190 °C och Versalio Deluxe 180. Det är en grind och inte en
+ * axel, samma beslut som maxtemperaturen på /pizzaugn. Talet står i tabellen
+ * och i vinnarens nackdelar, eftersom det är den enda maskinen som inte når
+ * fältets normaltemperatur.
+ */
+export const FRITOS: TestPage = {
+  slug: "fritos",
+  label: "Fritös",
+  title: "Fritös bäst i test 2026: litertalet är oljan, inte maten",
+  category: KOK,
+  methodology:
+    "Sidan jämför elva oljefritöser mellan 412 och 1 345 kronor. Varmluftsfritöser är en annan maskin för en annan matlagning och ligger på /airfryer; Elgigantens egen kategori heter \"Fritös med olja\", och det är den avgränsningen som gäller här.\n\nSpecifikationerna är hämtade hos tillverkaren. Tefals egen jämförelsetabell på tefal.se, Princess egna specifikationstabeller på princesshome.eu, Severins produktblad för FR 2431, Tristars och Taurus egna produktsidor, samt Icecats strukturerade katalog för de sex Tefal-modeller där den är öppen. Priser, artikelnummer, GTIN och lagerstatus är lästa på butikernas egna produktsidor samma dag och daterade.\n\nDe två tal som avgör mest är oljemängden och matmängden, och poängen är att de inte följer varandra. Tre av maskinerna tar 3,0 liter olja och friterar 1,2 kg, 0,6 kg respektive 0,4 kg mat, alla tre tal hämtade hos respektive tillverkare. Kvoten dem emellan spänner från 1,54 till 7,50 liter per kilo, alltså nästan fem gånger, och den är räknad här och inte hämtad någonstans.\n\nMatmängden är tillverkarens egen friteringskapacitet, och alla menar inte riktigt samma sak med den. Tefal anger för Oleoclean Compact både 800 gram livsmedel och 600 gram pommes frites på samma sida. Där två tal finns används livsmedelskapaciteten, eftersom det är den handeln citerar, och skillnaden står utskriven i köpguiden.\n\nKategorins enda aktuella provning är belgiska Test-Achats 24 fritöser, refererad av Stiftung Warentest i december 2025. Den bär köpguiden och skalorna, men inget viktat testbetyg finns, eftersom ingen av de elva modeller de namnger säljs i svensk handel.\n\nVi har inte friterat en enda pommes. Kriteriebetygen är vår sammanvägning av publicerade specifikationer, inte mätvärden. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "oljeatgang",
+      label: "Oljeåtgång per kilo mat",
+      weight: 25,
+      description:
+        "Hur många liter olja maskinen måste fyllas med för varje kilo mat den friterar. Oljan är en förbrukningsvara som ska bytas efter fem till sju omgångar, så talet är den löpande kostnaden att äga fritösen.\n\nSkillnaden är större än något i handeln antyder. Tefal Easy Pro, Princess 182727 och Severin FR 2431 tar alla tre 3,0 liter och friterar 1,2 kg, 0,6 kg respektive 0,4 kg. Samma oljeköp, tre gånger så mycket mat ur den ena som ur den andra. Över hela fältet spänner kvoten från 1,54 till 7,50 liter per kilo.\n\nBetyget följer kvoten. Under 1,8 liter per kilo ger 5,0, upp till 2,0 ger 4,5, upp till 2,6 ger 4,0, upp till 3,0 ger 3,5 och upp till 3,5 ger 3,0. Runt 5,0 liter per kilo ger 2,0, och 7,5 ger 1,0.",
+    },
+    {
+      key: "oljans-livslangd",
+      label: "Oljans livslängd",
+      weight: 20,
+      description:
+        "Vad maskinen gör för att oljan ska hålla längre, och hur du får ut den när den ändå ska bytas. En fritös som silar bort smulorna håller oljan ljus, och en som inte gör det ger bränd smak långt före sjätte omgången.\n\nFiltreringen skiljer fältet i tre steg. Tefals två Oleoclean-modeller silar oljan automatiskt när du vrider på ratten och lagrar den i en sluten låda under maskinen, så den varken står kvar i grytan eller ska hällas i en burk. Fyra maskiner har ett fast filter som sitter kvar. Fem har inget filter alls, och där är enda hjälpen att hälla ur behållaren och sila för hand.\n\nAutomatisk filtrering med egen oljelåda ger 5,0, fast filter ger 4,0, ett dräneringssystem att tappa av oljan genom ger 3,5, och en löstagbar behållare att hälla ur ger 3,0.",
+    },
+    {
+      key: "rengoring",
+      label: "Rengöring",
+      weight: 20,
+      description:
+        "Hur mycket arbete maskinen ger efter middagen: om oljebehållaren går att lyfta ur, om den och korgen tål maskindisk, och om värmeelementet lyfts bort så att du kommer åt botten.\n\nDet väger tungt för att det är den punkt där en oberoende provning faktiskt fällde maskiner. Test-Achats gav Domo DO458FR full pott på pommesens bryning, krispighet och textur och underkände den ändå på rengöring, och den enda fritösen i deras test av 24 som fick medelmåttigt helhetsbetyg fälldes på just rengöringen. En fritös som är jobbig att göra ren står oanvänd.\n\nBetyget väger ihop de fyra sakerna ovan. Löstagbar behållare, maskindiskbara delar, avtagbart element och en yta som går att komma åt ger 5,0, och maskiner där oljan ska ösas ur en fast gryta hamnar på 3,0.",
+    },
+    {
+      key: "matkapacitet",
+      label: "Matmängd",
+      weight: 15,
+      description:
+        "Hur mycket mat tillverkaren anger att korgen tar, i gram. Det är talet som avgör om familjen äter samtidigt eller i omgångar, och det står nästan aldrig i annonsen.\n\nSpannet är 400 till 1 300 gram, alltså drygt tre gånger. Fyra portioner pommes frites väger runt 600 gram färdiga, så en maskin på 400 gram klarar två personer och en på 1 200 klarar sällskapet.\n\n1 200 gram och uppåt ger 4,5 till 5,0, ett kilo ger 4,0, 900 gram ger 3,5, 800 gram ger 3,0, 600 gram ger 2,5 och 400 gram ger 1,5.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du får för pengarna, räknat på hur mycket mat maskinen friterar och hur mycket olja den kräver för att göra det. Spannet är 412 till 1 345 kronor, alltså drygt tre gånger.\n\nPriset följer matmängden dåligt. Den billigaste maskinen på 412 kronor friterar 400 gram, och en på 679 kronor friterar tre gånger så mycket. Räknat per kilo mat är den dyrare maskinen alltså billigast i fältet.\n\nHär väger också vad oljan kostar över tiden. En fritös som tar 5 liter i stället för 2 kostar tre liter extra vid varje byte, och med ett byte var femte till sjätte omgång hinner den skillnaden bli större än inköpspriset.",
+    },
+  ],
+};
+
+export const AIRFRYER: TestPage = {
+  slug: "airfryer",
+  label: "Airfryer",
+  title: "Airfryer bäst i test 2026: två lådor halverar maskinen",
+  category: KOK,
+  methodology:
+    "Sidan jämför korgfritöser mellan 859 och 2 162 kronor, alltså det handeln kallar airfryer. Ugnstyper, multikokare och grillhybrider är en annan produkt för en annan köpare och rankas inte.\n\nSpecifikationerna är lästa hos tillverkaren: Ninjas bruksanvisningar för AF300EU, AF400EU, AF500EU och FN101EU, Philips egna produktsidor, Bosch, OBH Nordicas manual för AG8558N0, Cosoris egna produktsidor och AIVIQ:s egen katalog. Priser, artikelnummer och GTIN är lästa på butikernas egna produktsidor samma dag och daterade.\n\nDet som väger tyngst är hur jämnt maskinen tillagar, och det betyget sätts på konstruktionen. Skälet är att ingen oberoende part har mätt just de här tio: Råd & Rön har provat 70 luftfritöser och Stiftung Warentest 20, men båda tabellerna ligger bakom betalvägg och får inte återges, och RTINGS 52 provningar gäller amerikanska modeller för 120 volt. Ett viktat testbetyg hade låtit provningsurvalet avgöra ordningen i stället för maskinerna. Vad de tre kommit fram till om vad som orsakar ojämn tillagning bär i stället skalan.\n\nEffekten räknas per kammare och inte som märkeffekt. RTINGS har mätt en dubbelkorg till 1 540 W med båda lådorna igång och 1 470 W med bara en, och Ninjas egna manualer anger samma 2 470 W för både sju- och niolitersmodellen. Två lådor delar alltså på effekten, och det är den skillnaden kriteriet fångar.\n\nVi har inte friterat en enda pommes. Kriteriebetygen är vår sammanvägning av publicerade specifikationer, inte mätvärden. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "jamn-tillagning",
+      label: "Jämn tillagning",
+      weight: 30,
+      description:
+        "Om maten kan ligga i ett enda lager på korgens botten, eller om den måste staplas. Det är den skillnad som avgör om hela omgången blir krispig eller om några bitar bränns medan andra knappt får färg.\n\nTillverkaren säger det själv. Ninjas svenska bruksanvisning: \"se till att ingredienserna placeras i ett jämnt lager på botten av lådan och att de inte ligger på varandra\". RTINGS har visat vad som händer när man bryter mot det. De tejpade in en 33 procent mindre korg i en toppmodell, och andelen både brända och råa pommes sköt i höjden trots att tillagningstiden blev kortare. Deras tröskel är 325 kvadratcentimeter bottenyta.\n\nBetyget sätts därför på konstruktionen. En enda stor kammare, eller två zoner med en löstagbar delare som går att köra som en, ger 5,0. En enkel låda på sju liter eller mer ger 4,5. Två fasta lådor där varje låda tar en normalportion ger 3,5, och en liten korg där familjeportionen måste staplas ger 3,0.",
+    },
+    {
+      key: "effekt",
+      label: "Effekt per kammare",
+      weight: 20,
+      description:
+        "Hur mycket värme maskinen kan lägga på maten i en kammare. Det avgör hur snabbt den tar sig tillbaka till måltemperatur när du lägger i kall mat, och en fritös som ligger under sin börtemperatur större delen av tiden ångkokar i stället för att fritera.\n\nTalet räknas per kammare, inte som märkeffekt. En dubbelkorg på 2 470 watt är två zoner på ungefär 1 235 watt så fort du använder båda, och RTINGS mätning av en dubbelkorg visar hur lite den andra lådan tillför: 1 540 watt med båda igång mot 1 470 med bara en. Kör du bara den ena lådan får du alltså nästan hela effekten, och det är också så en dubbelkorg används bäst.\n\nRTINGS rekommendation är minst 1 400 watt. 1 700 och uppåt till en kammare ger 5,0, 1 500 till 1 700 ger 4,5, 1 400 till 1 500 ger 4,0 och under 1 300 ger 2,5. Den som kan slå ihop två zoner till en får kredit för hela effekten i det läget.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du får för pengarna, mätt mot vad samma kammarvolym och samma effekt kostar hos de andra. Spannet är 859 till 2 162 kronor, alltså två och en halv gånger.\n\nPriset följer prestandan dåligt i den här kategorin. Den dyraste dubbelkorgen kostar mer än dubbelt mot en enkelkorg som lägger mer effekt på maten, och niolitersmodellen från Philips kostar mindre än flera fyra- och sexlitersmaskiner.\n\nHär väger också vad du faktiskt kan använda. En tolvliters som bara tar en normalportion per låda är inte tolv liter i praktiken, och kronor per liter är därför ett sämre mått än kronor per portion som blir bra.",
+    },
+    {
+      key: "temperatur",
+      label: "Temperaturomfång",
+      weight: 15,
+      description:
+        "Hur varmt maskinen går, och hur svalt. Fältet delar sig rakt itu: Ninja, Cosori och AIVIQ når 240 grader, medan Philips hela sortiment, Bosch och OBH Nordica stannar på 200.\n\nDe fyrtio graderna är inte kosmetiska. Maillardreaktionen, som ger stekyta och smak, går igång runt 140 till 170 grader, och RTINGS kör hela sin provning vid 204 grader, alltså över vad halva fältet klarar. En maskin som toppar på 200 hinner inte bygga yta lika snabbt, och skillnaden syns tydligast på det som ska bli krispigt utanpå och saftigt inuti.\n\nDen låga änden avgör vad maskinen duger till utöver fritering. 30 till 40 grader räcker för att torka frukt och svamp, medan 80 grader som lägsta steg gör torkning omöjlig. En maskin utan justerbar termostat alls betygsätts efter vad den kan, inte efter vad den anger.",
+    },
+    {
+      key: "rengoring",
+      label: "Rengöring och material",
+      weight: 15,
+      description:
+        "Hur många delar som ska diskas efter varje middag, och vad de är belagda med. En airfryer som är jobbig att göra ren används mer sällan, och en dubbelkorg ger fyra delar att diska i stället för två.\n\nBeläggningen är en riktig skiljelinje och inte en detalj. Ninja CRISPi lagar i glasskålar helt utan beläggning, Cosoris svarta utförande och AIVIQ:s enkelkorg anger PFAS-fri keramik, och Ninjas krispningsplattor är keramiska. Resten är PTFE, alltså vanlig teflon, som fungerar utmärkt men slits och inte tål metallredskap.\n\nBetyget väger också ihop om delarna tål maskindisk, om korgen har ett löstagbart galler som annars fastnar, och om ytan går att komma åt. En kammare med släta väggar och ett galler som lyfts ur är snabbare än två lådor med varsin platta.",
+    },
+  ],
+};
+
+/**
+ * Stavmixer. Underlag i .agent/research/stavmixer.md.
+ *
+ * ## Varför inget kriterium för testomdöme
+ *
+ * Kategorin har två oberoende provningar och båda är otillgängliga på var sitt
+ * sätt. Råd & Rön har provat 57 stavmixrar med riktig labbmetod, publicerat
+ * 2024-11-29, men testet kostar 59 kr och deras sidfot förbjuder uttryckligen
+ * all vidarepublicering av testresultat och tabeller — även för den som
+ * betalat. M3.se har ett handpålagt test av sju modeller med publicerade betyg
+ * 2 till 4,5 av 5, men det är från 2023 och täcker sju av arton modeller i
+ * handeln. Ett viktat testbetyg hade låtit provningsurvalet avgöra ordningen.
+ * Efter användarbeslut 2026-08-06, samma beslut som /mjolkskummare, /pizzaugn,
+ * /smartwatch, /eltandborste och /bluetooth-hogtalare.
+ *
+ * ## Varför varvtalet inte bär vikt, trots att det är sidans fynd
+ *
+ * Fyra av tolv tillverkare anger ett varvtal. Bamix anger 17 000 till 18 000
+ * v/min för Swissline och 8 000 till 13 000 för Cordless, Wilfa 5 000, 10 000
+ * och 15 000 för Prostick, och KitchenAid Go har 13 500 hos Icecat men inte hos
+ * KitchenAid själva. Åtta anger ingenting. Ett kriterium som en tredjedel av
+ * fältet kan placeras på delar ut de andras vikt gratis, vilket är precis felet
+ * som beskrivs vid `redistributeMissing` i lib/products.ts.
+ *
+ * Talet bär i stället ett eget avsnitt högt på sidan och en tabellrad som får
+ * vara gles. Se `ALDRIG_BEDOMD` i lib/spec-schema.mjs.
+ *
+ * ## Varför effekten väger minst av fem
+ *
+ * Handeln säljer kategorin på watt och ger talet i praktiken all vikt: varenda
+ * konkurrent har effekt som första specrad. Watt mäter motorns
+ * anslutningseffekt, alltså elen in i vägguttaget, och den följer inte kniven.
+ * Bamix drar 200 W och går 18 000 v/min; Philips drar 800 och går 11 500.
+ *
+ * Att ändå ge effekten 15 i stället för noll är ett medvetet val efter
+ * användarbeslut. Läsaren kommer med watt i huvudet, och att utelämna talet helt
+ * hade lämnat frågan obesvarad. Bamix förlorar poäng där och vinner dem på de
+ * fyra andra kriterierna, och den spänningen syns i tabellen.
+ */
+export const STAVMIXER: TestPage = {
+  slug: "stavmixer",
+  label: "Stavmixer",
+  title: "Stavmixer bäst i test 2026: watten mäter uttaget, inte kniven",
+  category: KOK,
+  methodology:
+    "Sidan jämför tolv stavmixrar mellan 549 och 3 299 kronor, både sladdade och batteridrivna. Priser, artikelnummer, lagerstatus och kundbetyg är lästa i butikernas egna produktsidor och daterade. Specifikationerna är hämtade hos tillverkaren: Bamix egna manualer och produktsidor, Boschs tekniska översikt, OBH Nordicas specifikationstabell, Wilfas, Brauns, Ninjas och Severins egna uppgifter.\n\nEffekten som står i tabellen är tillverkarens eget specfält och inte det tal butiken skyltar med. Skillnaden är verklig: Brauns egen produktsida för MultiQuick 9 MQ 9135XI anger 1 000 W i två specifikationsrutor och 1 200 W tre gånger i säljtexten på samma sida, och MQ7035X anger 850 W där handeln säljer den som 1 000. Samma disciplin som JBL Charge 6 på /bluetooth-hogtalare, där specfältets 24 timmar gällde före säljpunkternas 28.\n\nDärför väger effekten också minst av de fem kriterierna. Watt mäter motorns anslutningseffekt, alltså vad maskinen drar ur vägguttaget, medan det som möter maten är hur fort kniven går. De två följer inte varandra: Bamix Swissline drar 200 W och går 18 000 varv i minuten, Philips ProMix drar 800 W och går 11 500.\n\nVarvtalet bär ändå ingen vikt, och det är sidans svåraste avvägning. Fyra av tolv tillverkare anger ett tal och åtta anger inget alls, så ett kriterium på varvtal hade delat ut de åttas vikt gratis och låtit tillverkarnas publicering avgöra ordningen i stället för maskinerna. Talet står i tabellen där det finns och som ett streck där det inte gör det.\n\nKategorin har två oberoende provningar. Råd & Rön har provat 57 stavmixrar med labbmetod, men testet ligger bakom betalning och deras villkor förbjuder vidarepublicering av resultat, så inget betyg därifrån finns på sidan. M3.se har provat sju för hand och publicerat betyg; de återges per modell med publikationen namngiven och påverkar inga poäng. Vi har inte mixat en enda soppa, och kriteriebetygen är vår sammanvägning av specifikationerna. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "hastighetsreglering",
+      label: "Hastighetsreglering",
+      weight: 25,
+      description:
+        "Hur fint du kan styra farten, från en enda fast hastighet till steglöst med turboläge. Det avgör två saker som Råd & Rön provar och som en stavmixer misslyckas med oftast: att starta tillräckligt långsamt för att majonnäsen ska lägga sig i stället för att skvätta, och att hålla full kraft genom frysta bär utan att motorn tappar varv.\n\nSpannet är hela vägen. OBH Nordica Super Mix Pro har en fart plus turbo, Bamix två fasta lägen, Wilfa Prostick tre, Bosch tolv steg och Braun steglös reglering där trycket på knappen är hastigheten.\n\nSteglöst rankas högst därför att övergången är den svåra biten. Fasta steg fungerar bra när de är många, sämre när de är två och tredje bäst när det bara finns en fart och en turboknapp som tar dig direkt till maxvarvet.",
+    },
+    {
+      key: "tillbehor",
+      label: "Tillbehören i lådan",
+      weight: 20,
+      description:
+        "Vad som faktiskt följer med: visp, minihackare, bägare, processor, iskniv, puréfot. En stavmixer utan visp gör inte pannkakssmet lika bra, och en utan hackare tvingar fram kniv och skärbräda för löken som ändå ska i soppan.\n\nRåd & Rön har gjort en iakttagelse här som är värd att känna till innan du väljer paket: samma mixerstav säljs under olika namn beroende på vilka tillbehör som ingår, och paketversionen får ofta lägre samlat betyg i deras test just därför att tillbehören dras med i bedömningen. Själva staven är likadan. Du betalar för tillbehören antingen du använder dem eller inte, alltså vägs de efter vad de går att göra.\n\nEn bägare räknas bara som tillbehör när den håller mått och tål värme. Wilfas Tritan-bägare tål 100 grader, vilket spelar roll den dag du mixar soppan direkt i den.",
+    },
+    {
+      key: "mixerfot",
+      label: "Mixerfot och knivar",
+      weight: 20,
+      description:
+        "Den del som går ner i grytan. Material avgör mest: en fot i rostfritt stål tål att stå i 90-gradig soppa och repar inte en non-stick-kastrull lika lätt som en i plast, som dessutom missfärgas av tomat och gurkmeja.\n\nHär vägs också knivens utformning och antalet blad. Bosch fyrvingade QuattroBlade och OBH:s fyrbladiga Powelix drar in maten från fler håll än ett tvåbladigt kors, och ett knivskydd med utstickande ben håller kniven från botten så att du kan mixa i en tunn kastrull utan att den slår i.\n\nEn löstagbar mixerfot räknas som en fördel, eftersom den både gör disken enklare och gör att foten går att byta separat den dag kniven blir slö.",
+    },
+    {
+      key: "reservdelar",
+      label: "Reservdelar och reparerbarhet",
+      weight: 20,
+      description:
+        "Hur länge maskinen går att hålla igång, mätt i vad tillverkaren åtar sig. Det är den axel som svarar mot kategorins verkliga risk: Råd & Röns hållbarhetsprov slog sönder en stavmixer efter 26 cykler och efter 8 när provet gjordes om med ett nytt exemplar, och en annan blev 90 grader varm och började smälta efter 50.\n\nÅtagandena skiljer sig mer än priset antyder. Bamix ger livstids garanti på motorn och säljer delar i egen butik, OBH Nordica håller reservdelar tillgängliga i 15 år efter inköpsdatum och märker de produkter som klarar kravet, Wilfa ger 5 år på hela sortimentet, medan Ninja anger 1 år.\n\nBetyget sätts på vad säljaren lovar och på om de delar som slits går att köpa, alltså på villkoren för köpet. Att en uppgift varit svår för oss att hitta sänker aldrig ett betyg.",
+    },
+    {
+      key: "effekt",
+      label: "Motorns effekt",
+      weight: 15,
+      description:
+        "Watt, alltså det tal hela handeln säljer kategorin på. Det mäter motorns anslutningseffekt, vad maskinen drar ur vägguttaget, och det säger mindre om resultatet i grytan än priset antyder.\n\nDärför väger det minst av de fem. Bamix Swissline drar 200 W och går 18 000 varv i minuten; Philips ProMix drar 800 W och går 11 500. Bamix anger dessutom samma maskin som 150 W i USA och 200 W i Sverige, eftersom nätspänningen skiljer, medan varvtalet är detsamma i båda dokumenten.\n\nMen watt är inte betydelselöst, och en motor på 400 W kämpar där en på 1 000 inte gör det. Talet som betygsätts är tillverkarens eget specfält, inte det butiken skyltar med.",
+    },
+  ],
+};
+
+/**
+ * Smoothiemixer. Underlag i .agent/research/smoothiemixer.md.
+ *
+ * Personliga mixrar där smoothien blandas direkt i muggen du dricker ur, både
+ * sladdlösa och nätdrivna, efter användarbeslut. Bänkblendern på 1,4 till 2
+ * liter är en annan produkt och får sin egen sida.
+ *
+ * ## Varför `mixkraft` betygsätter drivlinan och inte watten
+ *
+ * Sex av elva tillverkare anger motoreffekt i watt. De sladdlösa anger något
+ * annat i samma fält — Nutribullet skriver `Effekt: 2000mAh Battery` i sin
+ * egen specifikationstabell, Ninja anger batterispänning, KitchenAid volt i
+ * produktnamnet. Ett kriterium satt på watt hade lämnat fem produkter
+ * obetygsatta och delat ut 28 viktpoäng gratis till just dem, alltså exakt det
+ * som beskrivs vid `redistributeMissing` i lib/products.ts och som strök
+ * drifttidskriteriet på /skaftdammsugare.
+ *
+ * Skalan graderar därför det som **driver** kniven och går att läsa för hela
+ * fältet: nät eller batteri, angiven effekt eller spänning, varvtal, antal blad
+ * och om tillverkaren bygger maskinen för is. Samma konstruktion som
+ * `Jämn värme över stenen` på /pizzaugn.
+ *
+ * ## Varför `uthallighet` ger varje nätdriven 5,0
+ *
+ * Kriteriet mäter hur mycket mixning du får innan du måste vänta, och för en
+ * mixer med sladd är svaret att du inte måste. Att det gör halva fältet till
+ * ett gemensamt betygssteg är avsiktligt: det är den enda kostnaden med att
+ * välja sladdlöst som går att kvantifiera, och den är hela sidans fråga.
+ * Bland de sladdlösa rangordnar kriteriet på riktigt, från 5 minuter till 20.
+ *
+ * ⚠️ Tillverkarnas angivna vilotider — OBH Nordica 1 minut på och 5 minuters
+ * paus, Smeg 60 sekunder och 60 — bär **ingen vikt**. De står i manualerna hos
+ * en del av fältet och inte hos resten, och ett avdrag för dem hade betygsatt
+ * vilken tillverkare som skrivit ned villkoret. Talen ligger i tabellen och i
+ * ett eget avsnitt.
+ *
+ * ## Inget testomdömekriterium
+ *
+ * Testfaktas labbtest hos Applitest GmbH gäller bänkblenders på 1,4 till 2
+ * liter, alltså en annan produktklass. Råd & Röns test av 22 smoothieblendrar
+ * är från december 2017 och deras sidfot förbjuder vidarepublicering av
+ * testresultat. Samma beslut som /mjolkskummare, /bluetooth-hogtalare och
+ * /pizzaugn.
+ */
+export const SMOOTHIEMIXER: TestPage = {
+  slug: "smoothiemixer",
+  label: "Smoothiemixer",
+  title: "Smoothiemixer bäst i test 2026: 25 mixningar är 12 minuter",
+  category: KOK,
+  methodology:
+    "Sidan jämför personliga mixrar mellan 279 och 1 799 kronor, alltså de som blandar smoothien direkt i muggen du sedan dricker ur. Sju går på batteri och fyra på sladd. Bänkblendern med kanna på 1,4 till 2 liter är en annan maskin för en annan uppgift och rankas inte här.\n\nKategorin saknar en användbar oberoende provning. Testfakta har låtit Applitest GmbH i Nürnberg mäta nio blenders i labb, men på kannmaskiner mellan 1,4 och 2 liter. Råd & Rön har provat 22 smoothieblendrar med egen metod, och det testet är från december 2017. Inget kriterium väger därför in ett testomdöme, och inget betyg härifrån är lånat från någon annans provning.\n\nDet som väger tyngst är i stället kraften i drivlinan, satt på nätdrift eller batteri, angiven effekt eller spänning, varvtal och knivkonstruktion. Skälet är att bara sex av elva tillverkare anger motoreffekt i watt: de sladdlösa fyller samma fält med milliamperetimmar eller volt. Ett kriterium satt på watt hade rangordnat efter vilken enhet tillverkaren råkat välja.\n\nKapaciteten är max fyllnadsvolym och inte talet på kartongen, där de skiljer sig. Ninja Blast Max säljs som 570 ml och får fyllas till 490, Ninja BlendBoss som 710 ml och får fyllas till 650.\n\nPriser, artikelnummer, lagerstatus och kundbetyg är lästa i butikens egen produktsida och daterade. Specifikationerna är hämtade hos tillverkaren och i bruksanvisningarna. Vi har inte mixat en enda smoothie. Kriteriebetygen är vår bedömning, inte mätvärden, och ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "mixkraft",
+      label: "Mixkraft",
+      weight: 28,
+      description:
+        "Om frysta bär och isbitar blir släta eller ligger kvar som klumpar i botten, satt på det som driver kniven: nätdrift eller batteri, angiven effekt eller spänning, varvtal och knivkonstruktion.\n\nSpannet är det största i hela jämförelsen. Ninja BlendBoss har 1 100 watt ur vägguttaget, Wilfa Swift 45 watt ur ett batteri, alltså en faktor 24 mellan två maskiner som står under samma ord i butiken. Däremellan ligger 700, 300 och 150 watt.\n\nEn sladdlös mixer kan inte dra lika mycket ström som en nätdriven och betygsätts efter vad batteriet klarar av att leverera. Ninja Blast Max har 11,1 volt och tre program som växlar hastighet, medan CHiATO blendPLAY Travel har ett enda läge och 150 watt.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du betalar per mugg smoothie, mätt mot vad samma kraft och samma volym kostar hos de andra. Spannet är över sex gånger, från 279 till 1 799 kronor.\n\nPriset följer kraften illa. Den dyraste mixern här har 12 volt och klarar inte isbitar, medan den som kostar hälften har 700 watt och två muggar. Två av de billigaste tre är dessutom de lättaste att ta med.\n\nHär vägs också in vad som följer med. En mixer med två muggar gör två frukostar utan diskning mellan, och en som säljs utan batteri kostar mer än prislappen säger.",
+    },
+    {
+      key: "kapacitet",
+      label: "Kapacitet och muggar",
+      weight: 17,
+      description:
+        "Hur mycket smoothie du faktiskt får, räknat på max fyllnadsvolym och antal muggar. Talet på kartongen är ofta större: Ninja Blast Max marknadsförs som 570 ml och får fyllas till 490.\n\n300 ml räcker till ett glas och 650 ml till en frukost. Skillnaden märks första gången du häller i en banan, en näve frysta bär och två deciliter mjölk och upptäcker att det inte får plats.\n\nTvå muggar väger tungt. Med bara en får den som gör en smoothie till sig själv och en till någon annan diska mitt emellan, och det är just den morgonen mixern köptes för.",
+    },
+    {
+      key: "uthallighet",
+      label: "Uthållighet och laddning",
+      weight: 15,
+      description:
+        "Hur mycket mixning du får innan du måste vänta. En mixer med sladd tar aldrig slut och får därför högsta betyg; en med batteri får ett betyg efter hur länge det räcker och hur lång tid det tar att fylla på.\n\nBland de sladdlösa är spannet fyra gånger. KitchenAid Go ger 20 minuters mixtid på en laddning, Ninja Blast 5 minuter, och båda tar tre till fyra timmar att ladda fulla. Tar batteriet slut mitt i en smoothie är frukosten uppskjuten till kvällen.\n\nHyllans tal är antalet mixningar, och det jämför sämre än det ser ut. En mixning är en programcykel, och cykeln är 30 sekunder hos Ninja, 35 hos Wilfa och 60 hos KitchenAid.",
+    },
+    {
+      key: "barbarhet",
+      label: "Att ta med sig",
+      weight: 10,
+      description:
+        "Vikt, höjd och om muggen blir ett dricksglas som håller tätt i en väska. Det är hela poängen med kategorin, och den skiljer maskinerna mer än man tror.\n\nNutribullet Portable väger 0,73 kilo och är 27 centimeter hög, alltså en flaska. Ninja BlendBoss väger 2,55 kilo och behöver ett vägguttag, så det är muggen och inte mixern som följer med till jobbet.\n\nLocket avgör om det fungerar. Ett skruvlock med packning tål att ligga ner i en ryggsäck; ett snäpplock gör det inte.",
+    },
+    {
+      key: "rengoring",
+      label: "Rengöring",
+      weight: 10,
+      description:
+        "Vilka delar som får gå i diskmaskinen, och särskilt om knivenheten gör det. Det är den del som är obehagligast att diska för hand och den som avgör om mixern används på en tisdag.\n\nSpannet går från allt utom motordelen till ingenting. Ninja QB3001 tar muggar, lock och knivenhet i maskin, medan OBH Nordica anger i sin bruksanvisning att samtliga lösa delar diskas för hand, även flaskorna.\n\nEn hög och smal flaska är dessutom svår att få ren även i maskin, så formen väger in vid sidan av vad tillverkaren tillåter.",
+    },
+  ],
+};
+
+/**
+ * Dörr- och fönstersensor.
+ *
+ * ## Inget kriterium för testomdöme, och skälet är att det inte finns underlag
+ *
+ * Kontrollerat 2026-08-07. Råd & Rön har ingen provning av magnetkontakter;
+ * deras Boende & trädgård listar portabel AC, borrskruvdragare och
+ * stektermometrar. Stiftung Warentest har provat smarta säkerhetssystem och
+ * mekaniska fönsterlås, alltså två andra produkter. tek.no nämner
+ * dörr-/fönstersensorer bara inuti systemtester av Futurehome och Netatmo.
+ * Samma läge som /usb-c-laddare, /luftrenare, /pizzaugn och /skaftdammsugare.
+ *
+ * automatiserar.se är en svensk bloggare med riktig handpåläggning och
+ * publicerade betyg på Aeotec, IKEA PARASOLL och Nexa LMST-606. Det är tier C
+ * och en lead. Betygen refereras i prosa och påverkar ingen poäng.
+ *
+ * ## Sabotageskydd bär ingen vikt, trots att det delar fältet
+ *
+ * Sex av fjorton har det belagt, åtta nämner det inte. "Nämner inte" är vår
+ * research och inte produktens egenskap, så ett kriterium hade betygsatt vem
+ * som skrivit ned uppgiften. Uppgiften ligger i jämförelsetabellen och i ett
+ * eget avsnitt i köpguiden. Användarbeslut 2026-08-07, samma konstruktion som
+ * `Varvtal` på /stavmixer och tillverkarnas vilotider på /smoothiemixer.
+ *
+ * ## Varför öppenheten väger 30 och inte 20
+ *
+ * Den avgör om läsaren överhuvudtaget kan använda produkten. Fyra av fjorton
+ * fungerar bara med ett enda märkes basstation, och den som redan äger en
+ * DIRIGERA eller en Home Assistant kan inte köpa dem alls. Kriteriet har
+ * dessutom verklig spridning: 5,0 för Matter över Thread, 4,0 för en öppen
+ * standard och 2,0 för ett låst system. Det är en axel, inte en grind.
+ */
+export const DORR_OCH_FONSTERSENSOR: TestPage = {
+  slug: "dorr-och-fonstersensor",
+  label: "Dörr- och fönstersensor",
+  title: "Bäst i test dörr- och fönstersensor 2026",
+  category: SAKERHET,
+  methodology:
+    "Vi jämför dörr- och fönstersensorer på tillverkarnas publicerade specifikationer, på manualerna de själva länkar och på priser vi kontrollerat hos butikerna samma dag. Alla sensorer bedöms mot samma fem kriterier och samma viktning, och källorna ligger länkade längst ned på sidan.\n\nDet finns inget oberoende labbtest av den här produktkategorin. Råd & Rön, Stiftung Warentest och tek.no har alla provat närliggande saker, smarta larmsystem och mekaniska fönsterlås, men ingen har provat magnetkontakter som grupp. Därför finns inget kriterium för testomdöme här, till skillnad från våra sidor om smart belysning och smart plug. Vi säger hellre det rakt ut än viktar in ett betyg ingen av produkterna faktiskt har.\n\nMåtten är hämtade ur manualerna och tillverkarnas specifikationsflikar, eftersom butikernas specifikationsblock saknar dem genomgående. En av de tolv publicerar inget mått alls, och den raden står tom i tabellen i stället för att fyllas med ett tal från en systermodell.\n\nSabotageskydd väger noll. Fem av de tolv skriver ut att sensorn larmar när någon bryter loss den, sju nämner det inte, och att dra av för det senare vore att betygsätta hur utförligt en tillverkare skrivit sitt produktblad. Uppgiften står i tabellen där den är belagd. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      /* Hette `oppenhet` / "Öppenhet mot hubbar" fram till 2026-08-07, och
+         fälldes då av check:redovisning på ordet öppenhet. Det var en
+         nyckelordsträff och inte ett sakfel: kriteriet mäter vilka hubbar
+         sensorn fungerar med, inte om någon publicerat något. Men etiketten
+         var genuint tvetydig på svenska, där öppenhet lika gärna läses som
+         insyn, så den nya säger rakt ut vad som mäts. */
+      key: "hubbstod",
+      label: "Vilka hubbar den fungerar med",
+      weight: 30,
+      description:
+        "Vilka hubbar sensorn faktiskt fungerar med. Väger tyngst eftersom det avgör om du kan använda den alls: en sensor som kräver en basstation du inte äger är inte billig, den är omöjlig.\n\nSkalan följer standarden. 5,0 för Matter över Thread, som talar med vilken Matter-controller som helst. 4,0 för en öppen standard som Zigbee 3.0 eller Z-Wave Plus, där vilken hubb som helst i den standarden duger. 2,0 för en egen radio som bara når ett enda märkes basstation.\n\nFyra av tolv ligger i den nedersta gruppen: Tapo T110 kräver Tapo H100 eller H200, eufy kräver HomeBase, Philips Hue Secure kräver Hue Bridge och Yale kräver Yale Smart Hub. Det sista kostar sensorn med fältets längsta batteritid dess förstaplats.",
+    },
+    {
+      key: "batteritid",
+      label: "Batteritid",
+      weight: 20,
+      description:
+        "Hur länge tillverkaren anger att sensorn går på ett batteri. Spannet är en faktor fyra, från ungefär ett år till fyra, och det är fyra batteribyten mot ett över samma period.\n\nTalet betyder mer här än på de flesta produkter, eftersom en sensor sitter uppe på en karm och glöms bort. Sitter det sex av dem i huset är skillnaden mellan ett och fyra år arton batteribyten över fyra år, mot fyra.\n\nSaknar en tillverkare ett publicerat tal lämnas betyget utanför räkningen i stället för att sättas i botten. En uppgift vi inte kunnat belägga är vårt problem och inte produktens.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du får för pengarna, mätt mot de fyra andra kriterierna. Spannet är 129 till 499 kronor för produkter som utifrån ser likadana ut, alltså nästan fyra gånger.\n\nRäkna med flera. En sensor säkrar en dörr; ett hus har oftast sex till åtta ställen värda att bevaka, och då är prisskillnaden per styck plötsligt tusenlappar. Flera tillverkare säljer därför trepack och kit, och de är billigare per sensor än styckpriset.\n\nHubben räknas in där den krävs. En sensor för 129 kronor som förutsätter en basstation för flera hundra är inte det billigaste köpet på sidan, och den som redan äger basstationen ska läsa raden tvärtom.",
+    },
+    {
+      key: "montering",
+      label: "Storlek och montering",
+      weight: 15,
+      description:
+        "Hur stor sensorn är och vad som krävs för att få upp den. Fönsterkarmar är smala, och den här produkten sitter på den plats i huset där det finns minst utrymme.\n\nSpannet i volym är ungefär en faktor fyra mellan minsta och största av de rankade: Shelly BLU mäter 35 × 35 × 7 mm, Aqara P2 mäter 77 × 22 × 22. Ingen svensk konkurrentsida anger måtten över huvud taget, vilket gör det här till den uppgift som är svårast att få tag på och lättast att ångra.\n\nHit hör också hur mycket glapp sensorn tål mot magneten, om den fästs med tejp eller skruv, och om den behöver linjeras alls. Aqaras P100 är en enda enhet utan separat magnet och slipper problemet helt.",
+    },
+    {
+      key: "matvarden",
+      label: "Mäter mer än öppet och stängt",
+      weight: 15,
+      description:
+        "Om sensorn rapporterar något utöver att dörren är öppen eller stängd. En magnetkontakt sitter ändå på karmen och drar ändå ström, så det som ryms i samma hölje är rent tillskott.\n\nSpridningen är stor. Shelly BLU mäter tiltvinkel och ljusnivå i lux, Fibaro har en inbyggd temperatursensor, och Aqaras Multi-State P100 känner av rörelse, tilt, vibration och fall med accelerometer, gyroskop och magnetometer. Flertalet av de övriga rapporterar bara öppet eller stängt.\n\nTilt är mer användbart än det låter på ett fönster, eftersom ett vridfönster i luftningsläge varken är öppet eller stängt i en magnetkontakts mening.",
+    },
+  ],
+};
+
+/**
+ * Espressomaskin. Underlag i .agent/research/espressomaskin.md.
+ *
+ * ## Avgränsningen avgjordes av användaren, och ordet är genuint delat
+ *
+ * `espressomaskin` betyder två olika produkter i svensk handel. Råd & Rön,
+ * Elgiganten och fyra av fem jämförelsesajter menar **helautomaten**, alltså
+ * bönmaskinen med inbyggd kvarn. Coffee Friend, som är den enda
+ * flermärkesspecialisten med affiliateprogram, delar i sin egen meny upp
+ * `Espressomaskiner` (366 artiklar, portafilter) från `Helautomatiska
+ * kaffemaskiner` (170). Hos specialisten betyder ordet alltså portafilter.
+ *
+ * Sidan rankar helautomater, efter användarbeslut 2026-08-07. Skälen var
+ * källäget — Råd & Röns 57 provade maskiner är alla helautomater — och
+ * sökintentionen. Portafiltermaskinen förklaras i köpguiden och ligger bland
+ * övervägda.
+ *
+ * ## Varför inget kriterium för testomdöme, trots två fritt läsbara provningar
+ *
+ * Kategorin har för en gångs skull gott om oberoende underlag, och ingen av
+ * källorna kan ändå bära ett viktat betyg.
+ *
+ * **Råd & Rön** har provat 57 helautomater med tio blindtestande kaffeexperter,
+ * och testet är **gratis**. Men det är publicerat 2021-11-24, och skälet till
+ * att det låstes upp står på sidan själv: flera av modellerna går inte längre
+ * att köpa. Ett viktat betyg hade låtit ett fem år gammalt provningsurval
+ * avgöra ordningen bland maskiner som säljs i dag. Samma beslut som tek.no på
+ * /pizzaugn.
+ *
+ * **Ljud & Bild** har två grupptest, 2023 och 2024, och de provar modeller som
+ * finns i handeln. Men de täcker fyra maskiner vardera, varav två av våra
+ * tolv. Ett kriterium som en sjättedel av fältet kan placeras på delar ut de
+ * andras vikt gratis — samma fel som varvtalet på /stavmixer.
+ *
+ * Båda källorna återges i stället som prosa per modell med publikationen
+ * namngiven, och **påverkar ingen poäng**. Samma hantering som M3.se på
+ * /stavmixer.
+ *
+ * ## Fyra egenskaper bär medvetet ingen vikt
+ *
+ * - **Kaffetemperatur.** Råd & Rön mätte 53 till 71 grader och skriver att
+ *   sambandet med smaken inte går att se. Att vikta talet hade motsagt den
+ *   enda part som mätt det.
+ * - **Tid till första koppen.** 44 sekunder till över fem minuter är
+ *   kategorins mest slående spann, men bara Råd & Rön har mätt det och bara på
+ *   2021 års fält. Ingen tillverkare publicerar talet.
+ * - **Portionsval för svart kaffe.** 52 av 54 maskiner i handeln anger två. En
+ *   grind, inte en axel.
+ * - **Antal bönbehållare.** 42 av 54 anger en.
+ *
+ * Alla fyra bär köpguiden och fyndavsnittet i stället.
+ *
+ * ## Mjölksystemet väger tyngst, och det är en mätning och inte en känsla
+ *
+ * Spridningen kontrollerades mot samtliga 54 helautomater i lager under
+ * 15 500 kr innan vikten sattes: 30 slangsystem, 14 integrerad mjölkbehållare,
+ * 6 manuell ångstav, 3 automatisk skummare, 1 utan. Fyra verkliga lösningar
+ * med jämn fördelning är en axel; jämför de två grindarna ovan.
+ */
+export const ESPRESSOMASKIN: TestPage = {
+  slug: "espressomaskin",
+  label: "Espressomaskin",
+  title: "Espressomaskin bäst i test 2026: priset köper mjölken, inte kaffet",
+  category: KOK,
+  methodology:
+    "Sidan jämför tolv helautomatiska espressomaskiner mellan 2 700 och 14 888 kronor, alltså bönmaskiner med inbyggd kvarn. Portafiltermaskinen som Sage, Lelit och Rocket bygger är en annan produkt för en annan köpare och ligger bland övervägda.\n\nPriser, artikelnummer och EAN är lästa på Coffee Friends egna produktsidor samma dag och daterade. Specifikationerna är kontrollerade mot tillverkaren: Melittas svenska produktsidor, Siemens egna produkt- och supportsidor, Philips och DeLonghis registreringar via Icecat, och Gaggias och Krups egna datablad. Sju av tolv EAN öppnade i Icecat.\n\nDet tyngsta kriteriet är mjölksystemet, och vikten är satt efter en mätning. Bland samtliga 54 helautomater i lager under 15 500 kronor har 30 slang ner i mjölkpaketet, 14 en mjölkbehållare på maskinen, 6 en manuell ångstav och 3 en automatisk skummare. Det är den enda egenskapen i kategorin som både delar fältet jämnt och ändrar vad du gör varje morgon.\n\nInget kriterium mäter hur kaffet smakar, och det är sidans viktigaste förbehåll. Vi har inte bryggt en kopp. Råd & Rön har låtit tio blindtestande kaffeexperter göra det på 57 maskiner, och Ljud & Bild har provat åtta till i två grupptest, och deras omdömen står utskrivna vid de modeller de faktiskt gäller, med publikationen namngiven, och påverkar ingen poäng. Skälet är att Råd & Röns test är från 2021 och att Ljud & Bild täcker två av våra tolv.\n\nKaffetemperaturen bär ingen vikt, trots att den är kategorins mest omtalade tal. Råd & Rön mätte 53 till 71 grader ur de 57 maskinerna och skriver själva att det inte går att se ett samband mellan låg temperatur och sämre kaffe. Talet står i tabellen och i köpguiden. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "mjolksystem",
+      label: "Mjölksystem",
+      weight: 25,
+      description:
+        "Hur mjölken blir skum, och vad du diskar efteråt. Det är den enda egenskapen i kategorin som ändrar vad du gör varje morgon, och den du inte kan bygga om i efterhand.\n\nFyra lösningar delar fältet. En **manuell ångstav** betyder att du håller kannan själv, ungefär en minut per kopp, och att du sköljer staven direkt. En **slang ner i mjölkpaketet** ger cappuccino med ett tryck och lämnar ingen kanna att diska, men slangen ska sköljas och paketet stå framme. En **mjölkbehållare på maskinen** är bekvämast vid bänken och tar plats i kylen. En **automatisk skummare** skummar utan kanna men ger sällan en färdig dryck med ett tryck.\n\nDärför väger `Mjölkdrycker med ett tryck` in vid sidan av systemet. Nivona CafeRomatica NICR 550 har automatisk skummare och noll drycker med ett tryck; Krups Evidence ECO har slang och två. Systemet ensamt säger inte om du får din cappuccino utan att flytta koppen.\n\nRåd & Rön noterar en sak som gäller alla tolv: ingen av maskinerna kyler mjölken. Den ska ur kylen när du ska ha den, och tillbaka efteråt, oavsett vilken lösning du väljer.",
+    },
+    {
+      key: "installningar",
+      label: "Inställningar och drycker",
+      weight: 20,
+      description:
+        "Hur många drycker som ligger i menyn, hur mycket av dem du får ändra, och om maskinen minns vad du gillar.\n\nSpannet är hela vägen. DeLonghi Magnifica S har två drycker och ingen skärm; Gaggia Cadorna Prestige har fjorton och Melitta Barista T Smart arton. Sparade profiler går från noll till fyra, och de spelar roll så fort två personer i hushållet vill ha olika starkt kaffe ur samma maskin.\n\nStyrkelägen och portionsstorlek räknas hit och inte till kvarnen, eftersom de ändrar mängden kaffe per kopp snarare än hur bönan mals. En maskin med fem styrkelägen och programmerbar volym låter dig hitta din kopp utan att röra malningsgraden, vilket är den inställning som är svårast att ta tillbaka.",
+    },
+    {
+      key: "kvarn",
+      label: "Kvarn och malning",
+      weight: 20,
+      description:
+        "Hur fint du får styra malningen, vad skivorna är gjorda av och hur mycket bönor som får plats.\n\nMalningsgraden är den inställning som gör mest för smaken och den enda som kräver att du förstår vad du ändrar. Fältet spänner från fyra steg hos Nivona till tretton hos DeLonghi Magnifica S, alltså mer än tre gånger så fin upplösning för mindre pengar. Fler steg betyder att du kan följa en böna som byter rostgrad i stället för att välja mellan för surt och för beskt.\n\nKeramiska skivor mot stål väger lättare än stegantalet och åt båda hållen: keramik håller värmen nere och slits långsammare, stål är vassare från början. Vi rankar inte det ena över det andra, utan noterar vilket du får.\n\nBönbehållaren avgör hur ofta du fyller på. 125 gram hos Melitta Passione OT räcker ungefär en vecka för två koppar om dagen; 375 gram hos Siemens EQ900 räcker tre. Två kammare, som Melitta Barista T Smart har, låter dig växla mellan koffeinfritt och vanligt utan att tömma behållaren.",
+    },
+    {
+      key: "rengoring",
+      label: "Rengöring och skötsel",
+      weight: 15,
+      description:
+        "Vad du måste göra själv, och vad maskinen gör åt dig. Väger minst av de fyra egenskapskriterierna, och det är ett medvetet val efter vad den enda parten som mätt saken kom fram till.\n\nRåd & Rön lät fyra tillverkares maskiner brygga 2 500 koppar var, den ena skött enligt instruktionen och den andra bara tömd på sump och påfylld med vatten. Efter 2 500 koppar smakade kaffet ur de ovårdade maskinerna lika bra. Skötsel handlar alltså om din tid och maskinens livslängd, inte om koppen.\n\nDet som faktiskt skiljer är om bryggenheten går att lyfta ur. Elva av tolv går att ta ut och skölja under kranen; Krups Evidence ECO sitter fast och kan bara rengöras med tabletter genom maskinens eget program. Därtill väger ett eget rengöringsprogram för mjölksystemet, som nio av tolv har, och hur många delar mjölklösningen består av.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Vad du får för pengarna, mätt mot vad samma mjölksystem, samma kvarn och samma meny kostar hos de andra elva. Spannet är 2 700 till 14 888 kronor, alltså faktor 5,5.\n\nPriset följer utrustningen väl och kaffet dåligt. Den dyraste maskinen här har flest drycker, störst bönbehållare och den enda pumpen på 19 bar, och Ljud & Bild, som provat den, skriver att espresson är under genomsnittet. Den billigaste har en tolvstegs keramisk kvarn och en bryggenhet du kan lyfta ur.\n\nDärför räknas prisvärde mot de fyra andra kriterierna och aldrig mot varumärket. En dyr maskin kan få högt betyg om utrustningen motiverar priset, och en billig kan falla om den bara är billig.",
+    },
+  ],
+};
+
+/**
+ * Wifi-repeater. Underlag i .agent/research/wifi-repeater.md.
+ *
+ * ## Varför kartongens tal inte bär något kriterium
+ *
+ * AC1200, AX1800 och BE3600 är summan av bruttolänkhastigheten på alla band,
+ * och en klient sitter på ett band i taget. RE450 heter AC1750 därför att
+ * 1 300 på 5 GHz plus 450 på 2,4 GHz blir 1 750, och F.A.Z. Kaufkompass mätte
+ * 340 Mbit/s netto över den trådlösa vägen. Ett kriterium byggt på
+ * summatalet hade betygsatt marknadsföringens räknesätt.
+ *
+ * Därför är `hastighet` och `band24` två kriterier och aldrig ett. De
+ * betygsätter var sitt band, eftersom de är två radioapparater med olika
+ * fysik: 5 GHz bär farten, 2,4 GHz går genom väggarna.
+ *
+ * ## Varför nätverksuttaget väger 20
+ *
+ * Kategorins mest förbisedda tal och sidans fynd. F.A.Z. mäter varje repeater
+ * två gånger — en klient i sladd, alltså ett trådlöst hopp, och en klient
+ * trådlöst, alltså två. Med gigabituttag ligger sladden ungefär dubbelt så
+ * högt: 880 mot 460 på Fritz!Repeater 1200 AX, 775 mot 360 på RE505X, 690 mot
+ * 340 på RE450.
+ *
+ * Men på de sex med 100-megabitsuttag mätte de **95 Mbit/s i sladden mot 245 i
+ * luften**. 95 är takets tal för Fast Ethernet. Den som drar en nätverkskabel
+ * till tv:n för att det ska bli stabilare halverar då sin hastighet.
+ *
+ * Fältet delar sig i fyra klasser — saknas, 10/100, gigabit, 2,5 Gbit — vilket
+ * var villkoret för att bygga ett kriterium på det. En grind hade det varit om
+ * alla haft gigabit.
+ *
+ * ## Varför det inte finns något kriterium för sändareffekt
+ *
+ * PTSFS 2022:19 §173 sätter taket till 100 mW e.i.r.p. på 2,4 GHz, alltså
+ * samma tak för routern som för repeatern, och TP-Link anger CE-värdet för
+ * sina äldre modeller: RE305 sänder på <17 dBm och RE315 på ≤20 dBm. D-Link,
+ * Asus och Mercusys anger ingenting, och RE235BE och RE405BE anger bara
+ * FCC-värdet, som gäller i USA. Sex av tretton celler tomma är för få för ett
+ * kriterium. Talet bär köpguiden.
+ *
+ * ## Varför det inte finns något kriterium för testomdöme
+ *
+ * F.A.Z. Kaufkompass har mätt 39 repeatrar med öppen metod och fritt läsbar
+ * resultattabell, vilket är kategorins bästa underlag. Men bara fyra av de
+ * tretton som rankas här finns i deras provning, och två sträckor i ett tyskt
+ * hushåll med en 2×2-klient är en riktig mätning av just den uppställningen.
+ * Ett viktat testbetyg hade låtit provningsurvalet avgöra ordningen. Samma
+ * beslut som /pizzaugn, /airfryer och /skaftdammsugare.
+ *
+ * ## Varför effektförbrukningen inte väger
+ *
+ * Tre tillverkare anger tre olika storheter under samma ord. TP-Link skriver
+ * *Max. Power Consumption*, Mercusys *Power Consumption*, D-Link både
+ * *Power Consumption* och *Network Standby*, och F.A.Z. mäter faktisk drift.
+ * TP-Links 10 W för RE450 och F.A.Z:s uppmätta 3,2 W för samma apparat är
+ * inte samma mätning. Talen ligger i tabellen med sin källa.
+ */
+export const WIFI_REPEATER: TestPage = {
+  slug: "wifi-repeater",
+  label: "Wifi-repeater",
+  title: "Wifi-repeater bäst i test 2026: talet på kartongen är två band ihopräknade",
+  category: ELEKTRONIK,
+  methodology:
+    "Vi jämför wifi-repeatrar på specifikationer lästa hos tillverkaren: länkhastigheten per band, nätverksuttagets klass, vilken mesh-teknik apparaten talar, antalet antenner och sändareffekten. TP-Links, Mercusys, D-Links och Asus egna specifikationstabeller bär de tekniska talen, och priserna är lästa hos butiken samma dag.\n\nTalet i modellnamnet väger ingenting. AC1200 och AX3000 är summan av bruttolänkhastigheten på alla band, och din telefon sitter på ett band i taget. Vi betygsätter de två banden var för sig, eftersom 5 GHz bär farten och 2,4 GHz går genom väggarna.\n\nF.A.Z. Kaufkompass har mätt 39 repeatrar med iperf över två sträckor i ett hushåll och publicerar hela tabellen fritt. Deras tal ligger i specifikationerna för de fyra modeller som provats under exakt det namn de säljs under här. De bär inget betyg, eftersom nio av de tretton saknas i provningen och ordningen då hade avgjorts av vem som råkat bli provad.\n\nEn repeater står inkopplad dygnet runt, men effektförbrukningen betygsätts inte. TP-Link anger maximal förbrukning, D-Link anger både förbrukning och nätverksviloläge, och F.A.Z. mäter faktisk drift. Talen mäter olika saker och står i tabellen med sin källa.\n\nAlla tretton bedöms mot samma kriterier och samma viktning, och källorna finns länkade längre ner. Vi har inte kopplat in en enda av dem. Kriteriebetygen är vår bedömning av publicerade uppgifter, inte mätvärden.",
+  criteria: [
+    {
+      key: "hastighet",
+      label: "Fart på 5 GHz-bandet",
+      weight: 30,
+      description:
+        "Länkhastigheten på det snabba bandet, som bär både vägen tillbaka till routern och vägen ut till din dator. Spannet är 433 till 5 764 Mbit/s, alltså mer än en faktor tretton.\n\nTre saker avgör talet: vilken wifi-generation radion talar, hur många strömmar den kör, och hur brett kanalen får vara. En Wi-Fi 5-radio med två strömmar på 80 megahertz stannar på 867. Samma två strömmar på Wi-Fi 6 och 160 megahertz ger 2 402, och Wi-Fi 7 på 320 megahertz ger 5 764.\n\nDe fyra långsammaste här hamnar under 900 Mbit/s brutto, vilket räcker till strömmad film i ett rum men inte till en fiberuppkoppling på 500 Mbit/s och uppåt.",
+    },
+    {
+      key: "natverksuttag",
+      label: "Nätverksuttaget",
+      weight: 20,
+      description:
+        "Uttaget du sätter en nätverkskabel i, och kategorins mest förbisedda tal. Sitter tv:n eller stationära datorn i sladd behöver signalen bara ta ett trådlöst hopp från routern till repeatern, och F.A.Z. Kaufkompass mätte då ungefär dubbla hastigheten mot en trådlös klient: 690 mot 340 Mbit/s på TP-Link RE450.\n\nDet gäller bara den som har gigabit i uttaget. Sex av de trettiotvå repeatrar F.A.Z. mätte har ett hundramegabitsuttag, och där stannade sladden på 95 Mbit/s medan luften gav 245. Kabeln blir då den långsamma vägen.\n\n5,0 går till 2,5-gigabitsuttag, 4,0 till gigabit och 2,0 till hundra megabit. En repeater som byggts utan uttag får 1,0, eftersom den utestänger varje apparat som saknar wifi.",
+    },
+    {
+      key: "mesh",
+      label: "Ett nätverk eller två",
+      weight: 20,
+      description:
+        "Om repeatern går ihop med routern till ett enda nätverk, eller lägger ett andra nätverksnamn i hallen som du får byta till för hand. Det senare är den vanligaste besvikelsen med kategorin: telefonen hänger kvar på routerns svaga signal tvärs genom huset och byter aldrig över.\n\nEasyMesh väger tyngst, eftersom det är Wi-Fi Alliances standard och fungerar mot andra tillverkares EasyMesh-routrar. OneMesh, AiMesh och D-Link Wi-Fi Mesh gör samma sak men bara mot märkets egna routrar, vilket hjälper dig om du redan har en och inte alls om du har den router operatören skickade.\n\n4,5 för EasyMesh, 3,0 för ett märkesbundet system, 2,0 för enbart roamingstöd enligt 802.11k/v och 1,0 för en repeater som alltid sänder ett eget nätverksnamn.",
+    },
+    {
+      key: "band24",
+      label: "2,4 GHz-bandet",
+      weight: 10,
+      description:
+        "Det långsamma bandet, och det som faktiskt går genom en betongvägg och ner i källaren. Hastigheterna här spänner 300 till 800 Mbit/s.\n\nBandet bär också allt smått i huset. Termostater, vattenlarm, lampor och de flesta övervakningskameror talar bara 2,4 GHz, och de tävlar om samma utrymme som grannens router och mikrovågsugnen. Talet 574 eller 688 kommer från Wi-Fi 6 på 2,4 GHz, som hanterar många enheter samtidigt bättre än de 300 en Wi-Fi 4-radio ger.\n\nVikten är låg med flit. Bandet är brett stödd, spridningen är mindre än på 5 GHz och den som köper repeater gör det oftast för att strömma film och inte för att nå ett vattenlarm.",
+    },
+    {
+      key: "prisvarde",
+      label: "Prisvärde",
+      weight: 20,
+      description:
+        "Priset vägt mot betygen i de fyra kriterierna ovan. Spannet är 301 till 1 590 kronor, alltså faktor fem.\n\nPriset följer utrustningen sämre här än i de flesta kategorier. Den dyraste Wi-Fi 5-modellen kostar 1 290 kronor och saknar mesh helt, medan en Wi-Fi 6-repeater med gigabituttag och EasyMesh går på 599. Betalar du för fyra antenner i ett hem där varje telefon och dator kör två strömmar får du ingenting för dem.\n\nDärför räknas prisvärde mot de fyra andra kriterierna och aldrig mot varumärket.",
+    },
+  ],
+};
+
+/**
+ * Fönsterlarm.
+ *
+ * ## Systersida till /dorr-och-fonstersensor, och avgränsningen är hård
+ *
+ * Här ligger det **fristående sirenlarmet**: en batteridriven dosa som tjuter
+ * själv, utan app, hubb eller konto. Magnetkontakten som rapporterar till ett
+ * smart hem ligger på systersidan. De säljs i samma butiker, förväxlas
+ * ständigt och har ingen gemensam betygsaxel. Användarbeslut 2026-08-07.
+ *
+ * ## Slugen är `fonsterlarm` och inte sammansättningen
+ *
+ * Det bryter mot systersidans logik med flit. Där var `dörr- och
+ * fönstersensor` nödvändigt eftersom ingen butik säljer en ren fönstersensor.
+ * Här drar `dörrlarm` in intention vi inte vill ha: autocomplete ger
+ * hemtjänst, demens, hotell och resa. `fönsterlarm` har ett eget rent träd.
+ * Användarbeslut 2026-08-07.
+ *
+ * ## Inget kriterium för testomdöme
+ *
+ * Samma läge som systersidan. Ingen oberoende provning av fristående
+ * fönsterlarm existerar hos Råd & Rön, Stiftung Warentest eller tek.no.
+ *
+ * ## Varför ljudnivån väger 30
+ *
+ * Det är produktens enda funktion. Spannet 85 till 130 dB är logaritmiskt och
+ * alltså inte en halvering utan en helt annan vara, och handeln säljer varenda
+ * en av dem på ordet högljudd utan att sätta ut talet i rubriken.
+ *
+ * ## ⚠️ Omfördelningen avgör förstaplatsen här
+ *
+ * `Storlek och montering` väger 15 och saknas för Luxorparts och eStore,
+ * eftersom varken Kjell, tillverkaren eller manualen publicerar måtten.
+ * Förvalet fördelar om vikten, och utan den omfördelningen hade Clas Ohlson
+ * gått om Luxorparts. Det är rätt utfall: Luxorparts vinner de tre tyngsta
+ * kriterierna med 75 av 100 viktpoäng, och att nolla den för ett mått
+ * tillverkaren inte publicerat hade varit precis det avdrag
+ * `pnpm check:avdrag` finns för att fånga. Kostnaden står i metodrutan.
+ */
+export const FONSTERLARM: TestPage = {
+  slug: "fonsterlarm",
+  label: "Fönsterlarm",
+  title: "Bäst i test fönsterlarm 2026",
+  category: SAKERHET,
+  methodology:
+    "Vi jämför fristående fönsterlarm på tillverkarnas publicerade specifikationer, på manualerna butikerna länkar och på priser vi kontrollerat hos butikerna samma dag. Alla larm bedöms mot samma fem kriterier och samma viktning, och källorna ligger länkade längst ned på sidan.\n\nSidan rankar larm som tjuter själva. Magnetkontakten som i stället skickar en notis till en app har en egen sida hos oss, och de två förväxlas lätt eftersom de säljs i samma hylla och ser likadana ut. Ett fönsterlarm behöver varken hubb, wifi eller konto, och det är hela dess poäng.\n\nDet finns inget oberoende labbtest av den här produktklassen. Råd & Rön, Stiftung Warentest och tek.no har alla provat larmsystem och fönsterlås, men ingen har provat fristående fönsterlarm som grupp. Därför finns inget kriterium för testomdöme här. Decibeltalen är tillverkarnas egna uppgifter och inte något vi mätt.\n\nPriset per bevakad öppning räknas med batterier. Flera av larmen levereras utan, och på ett fyrpack som kräver åtta AAA gör det verklig skillnad: 299 kronor blir omkring 92 per fönster i stället för 75.\n\nTvå av de sju publicerar inga mått, varken hos butiken, hos tillverkaren eller i manualen. Deras betyg räknas på de kriterier som går att fylla i i stället för att sättas till noll för något ingen skrivit ned. Det spelar roll här: utan den hanteringen hade förstaplatsen bytt ägare, och den hade bytt ägare av fel skäl. Ingen tillverkare och ingen butik har fått påverka betyg eller ordning.",
+  criteria: [
+    {
+      key: "ljudniva",
+      label: "Ljudnivå",
+      weight: 30,
+      description:
+        "Hur högt larmet faktiskt låter, enligt tillverkarens egen uppgift. Väger tyngst eftersom det är produktens enda funktion: ett larm som inte hörs har misslyckats med hela sitt uppdrag.\n\nSpannet är 85 till 130 decibel, och skalan är logaritmisk. 85 dB motsvarar ungefär en dammsugare på en meters håll och är fullt möjligt att sova igenom två rum bort. 130 dB ligger vid smärtgränsen och hörs genom en stängd dörr.\n\nHandeln säljer varenda ett av dem på ordet högljudd, och talet står sällan i rubriken. Tre av de sju ligger på 85 dB trots att de marknadsförs på ljudet.",
+    },
+    {
+      key: "prisperoppning",
+      label: "Pris per bevakad öppning",
+      weight: 25,
+      description:
+        "Vad det kostar att larma ett enda fönster, med batterier inräknade. Styckpriset räcker inte som mått, eftersom förpackningarna innehåller olika många larm och flera levereras utan batterier.\n\nLuxorparts fyrpack kostar 299 kronor men kräver åtta AAA som säljs separat, alltså omkring 92 kronor per fönster. eStore kostar 69 med batterierna i lådan. Räknat per fönster är den dyraste förpackningen alltså inte den dyraste produkten.\n\nDet spelar roll därför att den som larmar ett hus sällan nöjer sig med ett fönster. Källarfönstren och altandörren är oftast fyra till sex ställen.",
+    },
+    {
+      key: "avlarmning",
+      label: "Hur larmet slås av och på",
+      weight: 20,
+      description:
+        "Vad som krävs för att stänga av larmet. Det är en säkerhetsuppgift och inte en bekvämlighetsfråga, vilket är lätt att missa när man jämför i butiken.\n\nEtt larm med en på- och avbrytare på sidan kan slås av av den som redan tagit sig in genom fönstret. Ett larm som kräver en fyrsiffrig kod på fronten kan det inte. En fjärrkontroll flyttar knappen ur rummet helt och gör dessutom att du kan larma av innan du öppnar, i stället för att stå och famla medan sirenen går.\n\nFyra av de sju har bara en strömbrytare. En har kodlås, en har fjärrkontroll och en har en lägesväljare med flera funktioner.",
+    },
+    {
+      key: "montering",
+      label: "Storlek och montering",
+      weight: 15,
+      description:
+        "Hur stor dosan är och vad som krävs för att få upp den. Ett fönsterlarm sitter på fönsterbågen, alltså på den plats i huset där det finns minst utrymme, och det ska dessutom gå att öppna fönstret förbi det.\n\nSpannet bland dem som anger måtten är stort. Nedis tunna variant är 8 millimeter tjock och 41 gram, medan deras kodlåsvariant är 105 millimeter hög och väger 105 gram, alltså mer än dubbelt.\n\nAlla sju fästs med dubbelhäftande tejp och kräver varken verktyg eller skruv, så det är formatet och inte metoden som skiljer dem åt.",
+    },
+    {
+      key: "batteri",
+      label: "Batteri",
+      weight: 10,
+      description:
+        "Vilken celltyp larmet drar och om den ligger i förpackningen. Väger minst av de fem, men det är den post som oftast överraskar efter köpet.\n\nTre av larmen levereras utan batterier, och två av dem kräver AAA i antal: Luxorparts fyrpack behöver åtta stycken. Knappceller som LR44 och SR44 är billiga men små, och de sitter ofta i tre eller fyra i rad för att räcka till en siren.\n\nCR2032 är den mest praktiska cellen i fältet, eftersom den finns i varje mataffär och håller längst i den här sortens konstruktion.",
+    },
+  ],
+};
+
 export const TEST_PAGES: TestPage[
 
   ] = [
+    WIFI_REPEATER,
+    ESPRESSOMASKIN,
+    FRITOS,
+    SMOOTHIEMIXER,
+    AIRFRYER,
+    ELSCOOTER,
     ELTANDBORSTE,
     KOMPAKTKAMERA,
     PIZZAUGN,
+    BLENDER,
+    STAVMIXER,
     SKAFTDAMMSUGARE,
     BABYVAKT,
     MJOLKSKUMMARE,
@@ -3498,6 +4505,7 @@ export const TEST_PAGES: TestPage[
     SMART_STROMBRYTARE,
     ELEKTRISK_RULLGARDIN,
     UTOMHUSTIMER,
+    RORELSEVAKT_UTOMHUS,
     VATTENLARM,
     BRANDVARNARE,
     SMART_BRANDVARNARE,
@@ -3510,6 +4518,8 @@ export const TEST_PAGES: TestPage[
     DORRKLOCKA_MED_KAMERA,
     INOMHUSKAMERA,
     KODLAS_YTTERDORR,
+    DORR_OCH_FONSTERSENSOR,
+    FONSTERLARM,
     HEMLARM,
     LARM_UTAN_ABONNEMANG,
     LUFTRENARE,

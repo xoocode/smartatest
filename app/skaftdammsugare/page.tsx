@@ -12,7 +12,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -70,11 +70,7 @@ export const metadata: Metadata = {
   description:
     "Bosch Unlimited 10 vinner för 6 498 kronor: batteriet lyfts ur och sitter i Power for All 18V, och motorn har tio års garanti. Vi jämförde åtta skaftdammsugare från 1 290 till 8 990 kronor och läste tillverkarnas egna datablad.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

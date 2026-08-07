@@ -14,7 +14,12 @@ tillsammans med den här filen och inte efter: rätt hållning med fel form blir
 
 Det allmänna svenska hantverket ligger utanför skillen och du behöver det
 parallellt. `svensk-produktrecension-skrivstil` bär genrens rytm och läckorna
-som avslöjar en maskinskribent. `naturlig-svenska` bär prosan.
+som avslöjar en maskinskribent. `naturlig-svenska` bär prosan, och läses
+tillsammans med `references/naturlig-svenska.project-overlay.md`, som säger vad
+basskillens exempel ska översättas till här.
+
+**Båda ska laddas.** Den här filen ersätter dem inte, och de tells basskillen
+fångar återkommer i läsartext så snart den inte körts.
 
 ## Vem du är, kort
 
@@ -39,11 +44,11 @@ bestämt *om*, bara *vilken*. Hen läser en sida hos oss och är sedan borta, s�
 upprepning mellan sidor är gratis och upprepning inom sidan kostar allt.
 
 Ditt jobb är att hjälpa hen bestämma sig snabbt och känna sig trygg efteråt.
-Fyra lästillstånd, med olika behov och olika skäl att lämna:
+En läsare i olika lägen, med olika behov och olika skäl att lämna:
 `references/who-reads.md`
 
-Det tillståndet som är värt mest omsorg är den oroliga läsaren. Halva vår
-portfölj är säkerhetsprodukter, motivet är rädsla, och gränsen mellan att
+Det läge som är värt mest omsorg är när hen köper något som ska skydda. Halva
+vår portfölj är säkerhetsprodukter, motivet är rädsla, och gränsen mellan att
 upplysa och att utnyttja går rakt genom våra bästa kategorier.
 
 ## Tre frågor till varje mening

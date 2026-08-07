@@ -26,9 +26,18 @@ import { ELTANDBORSTE } from "@/lib/test-pages";
  *
  * Sidan länkar Proshop och Teknikdelar, och det är hela urvalet av butiker vi
  * kan använda. Elgiganten, Power, NetOnNet, Clas Ohlson och MediaMarkt äger
- * kategorin i svensk handel och har inget affiliateprogram alls. Apotek och
- * hälsokostbolag är avförda som länkmål efter användarbeslut 2026-08-06, vilket
- * stryker Apotea, Apoteket, Apohem och MEDS. Kjell, Elon, Komplett, Webhallen,
+ * kategorin i svensk handel och har inget affiliateprogram alls. Apotea,
+ * Apoteket, Apohem och MEDS ströks 2026-08-06 på en spärr som då gällde alla
+ * apotek.
+ *
+ * ⚠️ **Den spärren är sedan 2026-08-07 smalare, och den träffar inte den här
+ * sidan.** Det är tillskotts- och sportnutritionsbutikerna som är spärrade, och
+ * ett apotek lever inte på det. En eltandborste hos Apotea är alltså ett
+ * tillåtet länkmål i dag. Butiksurvalet nedan är inte omgjort efter beslutet,
+ * så priser och lager behöver läsas om innan någon läggs till. Se
+ * `.claude/context/money.md`, "Spärrade kategorier och butiker".
+ *
+ * Kjell, Elon, Komplett, Webhallen,
  * CS Megastore, Estore och Prylstaden för inte kategorin, kontrollerat samma
  * dag. Lyko för den men hade sex av nio kontrollerade artiklar slut och priser
  * 30 till 40 procent över Proshop.

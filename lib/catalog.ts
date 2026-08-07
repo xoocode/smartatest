@@ -192,6 +192,895 @@ export type TestPageEntry = {
 
 export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
+    /* `rorelsevakt-utomhus` byggd 2026-08-07. Tjugonde sidan i gruppen Säkerhet.
+
+       Raden låg som 🟢 ready i `.agent/testsidor-tackning.md` med motiveringen
+       "knyter ihop belysning och utomhustimer, IP-klass ger äkta
+       certifieringsaxel".
+
+       AVGRÄNSNING: allt som är kapslat för utomhusbruk och reagerar på rörelse,
+       både 230-voltsvakter och batteridrivna sensorer, i en rankning. Samma
+       beslut som /utomhustimer. Strålkastare med inbyggd rörelsevakt ligger
+       utanför — då köper man en lampa, och Bygghemma delar själva sina två
+       guider på exakt den gränsen. Rena skymningsreläer utan pyrodetektor
+       ligger också utanför: Steinel NightMatic 3000 reagerar på ljus.
+
+       FYNDET: **wattalet på kartongen är en glödlampssiffra.** Fem tillverkare
+       delar upp belastningen på fem olika sätt och handeln plockar genomgående
+       det högsta talet:
+
+         Steinel IS 240      1 000 W resistiv · 132 µF · max 8 don · min 10 W
+         Steinel IS 3180     100 W av lampor < 2 W · 300 W av 2–8 W · 600 W av > 8 W
+         Steinel IS 2160 ECO 250 W LED
+         Schneider WDE008317 2 200 W resistiv · 200 W LED
+         Kjell 50614         1 200 W resistiv · 300 W induktiv · min 1 W
+         Biltema 46-207      1 000 W · 300 W lysrör
+         Anslut 422080       1 000 W glödljus · 500 W halogen · ingen LED-siffra
+         ESYLUX MD 120       1 000 W · max startström 4,5 A
+
+       Åtta belägg hos fem tillverkare, och det finns ingen omräkning mellan
+       enheterna. Mekanismen är startströmmen: varje LED-drivdon laddar en
+       kondensator i tändögonblicket, och det är antalet drivdon och inte summan
+       watt som avgör. Därför räknar Steinel mikrofarad och ESYLUX ampere.
+
+       ⚠️ **Steinel IS 3180 är det renaste belägget.** Samma sensor tar 100 W av
+       lampor under 2 W men 600 W av lampor över 8 W — sex gånger effekten ur
+       samma relä, avgjort av hur stor varje enskild lampa är.
+
+       ANDRA FYNDET: räckvidden gäller den som går **tvärs** över synfältet.
+       Både Bygghemma och Karl H Ström skriver ut "ej rakt emot sensorn", och
+       båda gör det i prosa och inte i specrutan. En pyrodetektor läser skillnad
+       mellan intilliggande linssegment, så den som kommer rakt emot fyller
+       samma segment hela vägen in.
+
+       TREDJE: talen är inte mätta likadant. Steinel anger tvärgående räckvidd,
+       ESYLUX anger konens djup och bredd var för sig (12 m framåt, 10 m i
+       sidled), Nexa villkorar med både montagehöjd och lufttemperatur ("10 m,
+       100° vid montering 2 m upp i temp. under 20 °C"), och Biltema, Kjell och
+       Jula anger ett naket tal. Steinel säljer dessutom temperaturstabiliserad
+       räckvidd som en egenskap — samma fysik som Nexas villkor, från andra
+       hållet.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen oberoende part har provat kategorin
+       på någon nordisk marknad. Råd & Rön, Ljud & Bild och tek.no har
+       ingenting. De fem svenska sidorna i sökresultatet är affiliatelistor utom
+       Bygghemmas, som är en butiks jämförelse av det egna sortimentet. Samma
+       läge som /utomhustimer.
+
+       ⚠️ IP-KLASSEN ÄR ETT GOLV OCH INTE HELA AXELN. Elsäkerhetsverket sätter
+       IP44 och varje rankad produkt klarar det, så ett kriterium som frågade
+       "är den utomhusklassad" hade varit en grind alla passerar. Det som väger
+       är steget över — IP54 mot IP44, fyra mot fem — plus drifttemperaturen,
+       som skiljer femton grader mellan Nexa (−10 °C) och ESYLUX (−25 °C).
+
+       ⚠️ FYRA AV NIO ÄR STEINEL. Det speglar svensk handel: Bygghemma, Jula,
+       Proffsmagasinet och Karl H Ström leder alla sina kategorier med Steinel.
+       Det står utskrivet på sidan, som "nio av tretton är TP-Link" på
+       /wifi-repeater.
+
+       ⚠️ ANSLUT 422080 SAKNAR BETYG PÅ `last` MED FLIT. Julas produktsida och
+       manual anger glödljus och halogen. Vad reläet tål med elektroniska
+       drivdon har inte gått att belägga, och ett lågt betyg där hade betygsatt
+       vår research i stället för varan. Se `pnpm check:avdrag`.
+
+       ⚠️ PHILIPS HUE OUTDOOR SENSOR RANKAS INTE. Detekteringsvinkel och
+       räckvidd finns varken hos Philips, i bruksanvisningen eller i Icecats
+       42 egenskaper för GTIN 8719514342262. Sidans två tyngsta kriterier är
+       bevakning och last, och en sensor vars bevakning inte går att belägga
+       hör då hemma bland övervägda. ⚠️ Manualens "Range: 12 m indoor" är
+       **radioräckvidden**, inte detekteringen; Galaxus säljer den under
+       rubriken "12 m Motion sensors" och har sannolikt läst just den raden fel.
+
+       PENGAR: ⚠️ **SIDAN TJÄNAR NÄSTAN INGENTING, OCH DET ÄR KATEGORIN.**
+       Bygghemma bär tre av nio och finns inte i något nätverk vi kartlagt, och
+       inte Jula eller Biltema heller. Kvar blir Kjell 5 % / 30 d på en produkt,
+       Proffsmagasinet 2 % / 30 d på två och Elbutik, som ligger på Tradedoubler
+       där vi saknar konto. Ingen butik i fältet tillåter PPC. Samma bild som
+       /utomhustimer: butikerna som äger den billiga halvan saknas i Adtraction.
+       ⚠️ **P Lindberg 6 % med ppc 2 kontrollerades mot sortimentet och föll** —
+       en enda PIR-sensor i hela butiken. Byggstart gav noll träffar, och
+       Prylstadens träffar är strålkastare och spionkameror. Samma hägring som
+       AIVIQ på /mjolkskummare.
+
+       ⚠️ BRAVE SEARCH VAR SLUT FÖR MÅNADEN. `scripts/sok.mjs` svarade 402 på
+       varje fråga 2026-08-07, precis som under /espressomaskin samma dag. Hela
+       researchen kördes på `--motor serper`.
+
+       ⚠️ ICECAT: 1 av 4 GTIN öppnade. Philips Hue Outdoor gav 42 egenskaper;
+       Steinel IS 1, ESYLUX MD 120 och Nexa SP-816 svarar alla "You are not
+       allowed to have Full Icecat access". Samtliga tre hämtades hos
+       tillverkaren eller distributören i stället.
+
+       Se .agent/research/rorelsevakt-utomhus.md. */
+    href: "/rorelsevakt-utomhus",
+    label: "Rörelsevakt utomhus",
+    category: SAKERHET,
+    blurb: "1 000 watt gäller glödlampor. Med LED räknas drivdon, inte watt.",
+    /* Live 2026-08-07. Samtliga nio priser, artikelnummer och kundbetyg lästa
+       i butikernas egen JSON-LD samma dag, och alla nio låg i lager.
+       Belastningsrader, luxområden, efterlystider och omgivningstemperaturer
+       hämtade hos Steinels svenska distributör Karl H Ström, hos Nexa själva,
+       i Biltemas egen bruksanvisning för 46-207 och i Proffsmagasinets
+       specifikationstabeller. Nio packshots på plats.
+
+       ⚠️ EN BILD LIGGER UNDER MASTERBREDDEN 1200 px. ESYLUX MD 120 är 480×480,
+       eftersom Proffsmagasinets bildserver svarar tomt på varje bredd över
+       480 och ESYLUX egen produktsida inte lämnar ut någon bild till vare sig
+       curl, jina eller playwright. Rätt produkt och rätt variant. Byt vid
+       nästa prisrunda.
+
+       ⚠️ PROFFSMAGASINET MOTSÄGER SIG SJÄLV OM STEINEL IS 1. Punktlistan säger
+       "500 W glödljus och halogen, max 3 st HF-don", specifikationsrutan på
+       samma sida säger "Max. omkopplingseffekt 1 000 W". Karl H Ström anger
+       88 µF, max 3 don och 300 W lysrör. Vi använder distributörens, som är den
+       enda fullständiga av de tre.
+
+       ⚠️ EN HANDBYGGD BYGGHEMMA-URL GAV KATEGORISIDAN I STÄLLET FÖR PRODUKTEN.
+       `p-1554660` för IS 130-2 gissades ur syskonproduktens id och svarade
+       HTTP 200 på sensorkategorin, utan Product-schema. Rätt adress är
+       `p-1554665-1554667`. Samma fälla som Kjell-URL:en i /new-page fas 4 och
+       Proshop-URL:en på /smoothiemixer.
+
+       ⚠️ EN BILD VAR FEL PRODUKT INNAN DEN KONTROLLERADES. Filen döptes till
+       IS 130-2 men var Bygghemmas packshot för IS 180-2, hämtad från fel
+       produktsida. Fångades i kontaktkarta före inläggning. Titta på bilderna.
+
+       Mätt 2026-08-07 i Chromium på 1440 och 390 px: ingen horisontell
+       sidscroll vid någondera bredden, jämförelsetabellen scrollar i sin egen
+       behållare, noll konsolfel från sidan och samtliga nio omdömen i fyra
+       stycken. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 9,
+  },
+  {
+    /* `wifi-repeater` byggd 2026-08-07. Tionde sidan i gruppen Elektronik.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner wifi, nätverk eller repeater; sidan är
+       beställd direkt, som /blender, /stavmixer och /espressomaskin.
+
+       ⚠️ GRUPPEN ÄR ELEKTRONIK EFTER ANVÄNDARBESLUT. Alternativen som
+       övervägdes var en sjätte grupp Nätverk, som hade öppnat router, mesh,
+       powerline, accesspunkt och nätverkskabel, och Smart hem. Nätverk föll på
+       samma invändning som gruppen Städ på /robotdammsugare: den hade stått på
+       en enda sida tills nästa byggs. Elektronik är definierad som "det som
+       följer med ut", vilket en repeater inte gör, men /usb-c-kabel ligger
+       redan där och gör det inte heller.
+
+       AVGRÄNSNING efter användarbeslut: bara enheter som förlänger den router
+       du redan har, 301 till 1 590 kr. Mesh-set på två eller tre enheter
+       ersätter routern och är ett annat köpbeslut; powerline löser samma
+       problem via elnätet. Båda ligger bland övervägda och förklaras i
+       köpguiden. F.A.Z. Kaufkompass delar upp sina tester på exakt samma sätt.
+
+       FYNDET, och det som avgör viktningen: **sladden fördubblar farten, utom
+       där sladden är långsammare än luften.** F.A.Z. mäter varje repeater två
+       gånger, en klient i sladd och en trådlöst, alltså ett trådlöst hopp mot
+       två. Med gigabituttag ligger sladden ungefär dubbelt så högt: 690 mot
+       340 Mbit/s på RE450, 775 mot 360 på RE505X. Men sex av deras trettiotvå
+       har ett 100-megabitsuttag, och där mätte de **95 Mbit/s i sladden mot
+       245 i luften**. 95 är takets tal för Fast Ethernet. Ingen svensk butik
+       anger uttagets klass; Proshop är enda undantaget.
+
+       ANDRA FYNDET: talet i namnet är två band ihopräknade. AC1750 på RE450 är
+       1 300 på 5 GHz plus 450 på 2,4 GHz, och en klient sitter på ett band i
+       taget. F.A.Z. mätte 340 Mbit/s netto. Därför är banden två kriterier och
+       aldrig ett, och därför väger summatalet ingenting.
+
+       TREDJE, läst i original: **lagen sätter samma tak för routern och för
+       repeatern.** PTSFS 2022:19 §173 anger 100 mW e.i.r.p. på 2 400,0–2 483,5
+       MHz för dataöverföring, §181 och §182 anger 200 mW inomhus på 5,15–5,35
+       GHz och §184 anger 1 W på 5,470–5,725 GHz. Ordet förstärkare beskriver
+       alltså inte vad apparaten gör; det den ändrar är avståndet. Samma form
+       som 250 W på /elscooter och 9H på /iphone-skarmskydd.
+
+       ⚠️ VI BEDÖMER ALDRIG om en namngiven produkt är laglig. Vi återger
+       paragrafen och produktens publicerade effekttal. Samma disciplin som
+       elsparkcyklarna. Prylstaden säljer en "Aktiv WiFi-förstärkare 4W" för
+       799 kr; den är inte en repeater och rankas inte.
+
+       ⚠️ SÄNDAREFFEKTEN BÄR INGEN VIKT. TP-Link anger CE-värdet för sina äldre
+       modeller — RE305 sänder på <17 dBm alltså 50 mW, RE315 och RE505X på
+       20 dBm — men D-Link, Asus och Mercusys anger ingenting, och RE235BE och
+       RE405BE anger bara FCC-värdet, som gäller i USA. Sex tomma celler av
+       tretton. Se ALDRIG_BEDOMD i lib/spec-schema.mjs.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. F.A.Z. Kaufkompass har mätt 39 repeatrar
+       med iperf över två sträckor och publicerar hela resultattabellen fritt,
+       vilket är kategorins bästa underlag och bättre än något Råd & Rön eller
+       tek.no har. Men bara fyra av de tretton rankade finns i provningen, och
+       ett viktat testbetyg hade låtit provningsurvalet avgöra ordningen. Samma
+       beslut som /pizzaugn, /airfryer och /skaftdammsugare.
+
+       ⚠️ M3.SE ÄR INGEN KÄLLA, trots att de ligger femma på Google för
+       "wifi repeater bäst i test". Artikeln är från 2024-02-13 och innehåller
+       inte ett enda mätvärde: varje stycke återger tillverkarens hyllsiffra
+       plus en bildtext om att repeatern ser ut som en kanin. Råd & Rön har
+       ingen provning alls, kontrollerat i två sökindex, och tek.no bara en
+       guide om routerplacering.
+
+       ⚠️ NIO AV TRETTON ÄR TP-LINK, och Mercusys är TP-Links budgetmärke. Det
+       speglar svensk handel: Kjells hela kategori är åtta TP-Link, två
+       Mercusys, två D-Link och en Asus. Det står utskrivet på sidan, som
+       "tre av fem är E-Wheels egna" på /elscooter.
+
+       ⚠️ TVÅ PRODUKTER LANDAR PÅ SAMMA BETYG MED FLIT. RE605X och RE505X får
+       båda 6,8, och de viktade summorna är exakt lika (340 mot 340). Det är
+       ingen avrundningsartefakt av det slag som beskrivs i lib/products.ts:
+       RE605X har dubbla hastigheten på 2,4 GHz och kostar 34 kronor mindre,
+       RE505X har EasyMesh mot RE605X:s märkesbundna OneMesh. Kriterierna tar
+       ut varandra, och det är ett ärligt utfall.
+
+       PENGAR: ⚠️ **SIDAN GÅR INTE ATT ANNONSERA.** De två Adtraction-program i
+       gruppen Elektronik som tillåter betald sök kontrollerades mot
+       sortimentet 2026-08-07 och båda föll. Prylstaden, 8 % med ppc 2, har en
+       egen kategori som heter WIFI repeater med **sex artiklar, varav fyra
+       inte är repeatrar** — en utomhus-CPE, en USB-wifiadapter, en riktantenn
+       och 4 W-förstärkaren — och noll från något av kategorins märken. Estore
+       gav noll träffar. Samma hägring som AIVIQ på /mjolkskummare och
+       Dentaworks på /eltandborste: kontrollera sortimentet, inte katalogen.
+       Kvar blir Kjell 5 % / 30 d och Proshop 3,2 % / 7 d, som bär hela fältet
+       mellan sig. ⚠️ **Proshop är billigare på varenda produkt de båda för**,
+       upp till 541 kronor på Asus RP-BE58, och sex produkter länkas dit trots
+       den lägre satsen. TP-Link äger kategorin i handeln och har inget
+       SE-program; märkesansökan ligger i affiliate-ansokningar.md §5.
+
+       SLUGEN AVGJORDES AV ANVÄNDAREN: handeln sätter `repeater` på själva
+       produkten — varenda artikeltitel hos Kjell heter så — medan
+       konkurrenternas URL:er säger `forstarkare`. Ordet förstärkare är
+       dessutom det sidan motbevisar.
+
+       Se .agent/research/wifi-repeater.md. */
+    href: "/wifi-repeater",
+    label: "Wifi-repeater",
+    category: ELEKTRONIK,
+    blurb: "AC1750 är två band ihopräknade. Du sitter på ett i taget.",
+    /* Live 2026-08-07. Samtliga tretton priser, artikelnummer, GTIN, lagerstatus
+       och kundbetyg lästa i Kjells och Proshops egen JSON-LD samma dag.
+       Specifikationerna hämtade hos tillverkaren: TP-Links tretton egna
+       specifikationstabeller på tp-link.com/se, Mercusys datablad för ME80X,
+       D-Links datablad för DAP-X1860 och bruksanvisning för DAP-1620, och Asus
+       egen tekniska specifikation för RP-BE58. Garantitiderna lästa i TP-Link
+       Nordics, Mercusys Nordics och D-Links egna garantivillkor: 3, 3 och 2 år.
+       Mätvärden för fyra modeller ur F.A.Z. Kaufkompass resultattabell. Tretton
+       packshots på plats, alla på masterbredden 1 200 px.
+
+       ⚠️ ASUS GARANTITID GICK INTE ATT BELÄGGA. Asus svenska garantisidor
+       täcker bärbara datorer och garantiförlängning, inte nätverksprodukter.
+       Cellen står tom och sänker inget betyg.
+
+       ⚠️ RE405BE SAKNAR PUBLICERADE YTTERMÅTT. TP-Links egen
+       specifikationstabell har raden Dimensions för elva av de tolv
+       TP-Link-modellerna men inte för den. Kontrollerat i tabellen 2026-08-07.
+
+       ⚠️ FYRA ARTIKLAR ÄR SLUT HOS KJELL och länkas därför till Proshop: Asus
+       RP-BE58 och TP-Link RE605X, som Proshop dessutom underprisar med 541
+       respektive 425 kronor. D-Link E15 och Mercusys ME25BE är slut hos Kjell
+       utan alternativ butik och ligger bland övervägda.
+
+       ⚠️ CHECK:TACKNING RÄTTADES FÖR DEN HÄR SIDAN. Kontrollens `nyckel` strök
+       alla tecken utom bokstäver, så `Hastighet 5 GHz` och `Hastighet 2,4 GHz`
+       föll ihop till samma nyckel och rapporterades som en namnkrock. Den bad
+       alltså sidan slå ihop just de två rader hela sidan finns för att ta
+       isär. Siffror behålls numera i nyckeln; synonymerna kontrollen jagar
+       skiljer sig i ord och inte i tal, så träffsäkerheten är oförändrad och
+       ingen annan sida bytte utfall. Se scripts/check-tackning.mjs.
+
+       Mätt 2026-08-07 i Chromium på 1440 och 390 px: ingen horisontell
+       sidscroll vid någondera bredden, jämförelsetabellen scrollar i sin egen
+       behållare, noll element utanför viewporten utan scrollbehållare, noll
+       konsolfel från sidan och samtliga tretton omdömen i fyra stycken. De
+       tretton bilder som inte laddas ligger i den parkerade sektionen
+       `alla-testvinnare`, som är dold tills admintoggeln slås på. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 13,
+  },
+  {
+    /* `espressomaskin` byggd 2026-08-07. Sidan i gruppen Kök som gruppens egen
+       beskrivning ovan räknade upp som en av sex möjliga.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner espressomaskin; sidan är beställd direkt,
+       som /blender, /stavmixer och /fritos.
+
+       ⚠️ ORDET BETYDER TVÅ OLIKA PRODUKTER, och avgränsningen avgjordes av
+       användaren. Råd & Rön, Elgiganten och fyra av fem jämförelsesajter menar
+       **helautomaten** när de skriver espressomaskin. Coffee Friend, som är
+       enda flermärkesspecialisten med affiliateprogram, delar i sin egen meny
+       `Espressomaskiner` (366 artiklar, portafilter) från `Helautomatiska
+       kaffemaskiner` (170). Hos specialisten betyder ordet portafilter. Sidan
+       rankar helautomater; portafiltret ligger bland övervägda och förklaras i
+       köpguiden.
+
+       FYNDET: **priset köper mjölken, inte kaffet.** Tre oberoende led pekar
+       åt samma håll. Råd & Rön mätte kaffet ur 57 helautomater till 53–71 °C
+       och skriver att sambandet med smaken inte går att se; deras Bra köp
+       kostade under 4 000 kr och deras Bäst i test 8 000–13 000. Ljud & Bild
+       skriver om Siemens EQ900 att den "slår konkurrenterna på utrustning och
+       pris, men förlorar på den viktigaste egenskapen: smaken". Samma
+       publikation gav en DeLonghi för 10 500 kr omdömet "den överlägset mest
+       välsmakande espresson i testet". Det som växer med priset är
+       mjölkautomatiken, menyn och behållarna.
+
+       ANDRA FYNDET: **kvarnen går åt andra hållet än priset.** DeLonghi
+       Magnifica S kostar 3 159 kr och har tretton malningssteg; Siemens EQ900
+       kostar 14 888 och har sex; Nivona NICR 550 kostar 6 440 och har fyra.
+       Malningsgraden är den inställning som gör mest för smaken.
+
+       TREDJE: **Råd & Röns uthållighetsprov.** Två maskiner vardera från fyra
+       tillverkare brygde 2 500 koppar, den ena bara tömd på sump och påfylld
+       med vatten. Kaffet ur de ovårdade smakade lika bra. Det är skälet att
+       rengöringskriteriet väger 15 och inte mer.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM, trots att kategorin för en gångs skull har
+       gott om fritt läsbart underlag. Råd & Röns test av 57 maskiner är
+       **gratis** — sidan säger själv att den låstes upp för att modellerna
+       utgått — men det är från 2021-11-24, och ett viktat betyg hade låtit ett
+       fem år gammalt urval avgöra ordningen. Ljud & Bild har två grupptest med
+       modeller som säljs, men täcker fyra maskiner vardera, varav två av våra
+       tolv. Båda återges som prosa per modell med publikationen namngiven och
+       påverkar ingen poäng. Samma hantering som M3.se på /stavmixer.
+
+       ⚠️ ETT TESTOMDÖME SOM INTE FLYTTADES. Ljud & Bilds hårda omdöme om
+       Siemens EQ900 gäller en maskin de beskriver som havande "två
+       bönbehållare, var och en med sin egen kvarn". Siemens egen produktsida
+       för TQ903R09 anger **en** behållare på 375 g. Annan variant, alltså
+       flyttas inte betyget. Samma fälla som Wilfa Xplode Vital på /blender.
+
+       ⚠️ BUTIKENS PIM HADE FEL OM VINNAREN. Coffee Friend anger `Antal
+       behållare med bönor: 1` för Melitta Barista T Smart; Melittas egen sida
+       anger `Bean Select (bönbehållare med två kammare): Ja`. Tillverkaren
+       gäller, och uppgiften är en del av skälet att maskinen vinner. Samma PIM
+       anger `Intensitet: 230 W` för Philips EP5547/90, alltså nätspänningen i
+       ett effektfält.
+
+       PENGAR, och det är sajtens bästa läge hittills: **fem program tillåter
+       PPC och tre bär kategorin på riktigt.** Coffee Friend 10 % / 30 d
+       (ppc 2) är enda flermärkesspecialisten och bär elva av tolv rankade.
+       AIVIQ 15 % och Kaffepro 10 % (båda ppc 2) bär AIVIQ:s egna maskiner —
+       men fyra av sex AIVIQ-maskiner är **portafilter med 58 mm filterhållare**
+       och alltså utanför avgränsningen. Siemens Home 5 % och Bosch Home 4 %
+       (båda ppc 2) är märkesprogram. Jämför Elektronik, där noll av sju
+       program tillåter betald sökning.
+
+       ⚠️ ELVA AV TOLV LÄNKAR GÅR TILL COFFEE FRIEND, vilket är fler än vanan
+       att sprida länkarna medger. Det är kontrollerat: de var billigast på
+       varje modell som jämfördes mot ett alternativ. Siemens EQ900 kostar
+       15 499 hos både Proshop och Siemens egen butik mot 14 888 där, och
+       Melitta Barista T Smart 8 990 hos Melitta själva mot 8 550.
+
+       ⚠️ BRAVE SEARCH VAR SLUT FÖR MÅNADEN. `scripts/sok.mjs` svarade 402 på
+       varje fråga 2026-08-07; hela researchen kördes på `--motor serper`.
+
+       ⚠️ ICECAT: 7 av 12 GTIN öppnade, alltså långt över sajtens 18 %. Stora
+       vitvarumärken är välkatalogiserade. Melitta, Siemens och Nivona svarar
+       `You are not allowed to have Full Icecat access` eller `Product
+       data-sheet is not public`; alla fem hämtades hos tillverkaren i stället.
+
+       Se .agent/research/espressomaskin.md. */
+    href: "/espressomaskin",
+    label: "Espressomaskin",
+    category: KOK,
+    blurb: "Priset köper mjölkautomatiken. Kvarnen blir grövre ju mer du betalar.",
+    /* Live 2026-08-07. Samtliga tolv priser, artikelnummer och EAN lästa i
+       produktsidornas egen JSON-LD hos Coffee Friend samma dag, och alla tolv
+       låg i lager. Specifikationerna kontrollerade mot tillverkaren där de bär
+       vikt: Melittas svenska produktsidor, Siemens egna produkt- och
+       supportsidor, Philips, DeLonghis, Krups och Gaggias data via Icecat.
+       Tolv packshots på plats, samtliga hämtade i 1440×1440 från butikens egen
+       bildserver. Alla tolv superlativ ligger på 22 till 34 tecken.
+
+       ⚠️ EN HANDBYGGD BUTIKS-URL GAV 404 PÅ TRE AV SEX ÖVERVÄGDA. Adresserna
+       gissades utifrån produktnamnet och hämtades sedan ur butikens eget
+       Store API i stället. Samma fälla som Proshop-URL:en på /smoothiemixer,
+       fast den gången med HTTP 200 på fel produkt.
+
+       ⚠️ EN CELL STÅR TOM MED FLIT. Melitta Passione OT saknar `Bryggenhet`
+       eftersom varken butiken, Icecat eller Melittas svenska produktsida anger
+       om den går att lyfta ur. Betyget på rengöring är satt på det som är
+       känt, utan avdrag för det som inte är det. Se `pnpm check:avdrag`.
+
+       ⚠️ COFFEE FRIENDS STORE API ÄR EN OVANLIGT GOD DATAKÄLLA.
+       `/wp-json/wc/store/v1/products?category=8739&per_page=100` ger ~40
+       strukturerade attribut per produkt inklusive EAN, mått och vikt för 170
+       helautomater. Kategori-id hämtas ur `/products/categories`. Det är tier
+       B och ska kontrolleras mot tillverkaren för allt som bär vikt. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 12,
+  },
+  {
+    /* `fritos` byggd 2026-08-07. Fjärde sidan i gruppen Kök.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner fritös; sidan är beställd direkt, som
+       /blender och /stavmixer.
+
+       AVGRÄNSNING efter användarbeslut: bara oljefritöser, hela spannet 412
+       till 1 345 kr. Varmluft ligger på /airfryer sedan 2026-08-06 och är en
+       annan produktklass — Stiftung Warentest behandlar dem som två skilda
+       tester med var sin för- och nackdelstabell, och **Elgigantens egen
+       kategori heter ordagrant "Fritös med olja"**.
+
+       FYNDET: litertalet är oljan du köper och slänger, inte maten du lagar.
+       Tefals egen jämförelsetabell listar `Oljekapacitet` och
+       `Livsmedelskapacitet` som två skilda rader, och de följer inte varandra.
+       **Tefal Easy Pro, Princess 182727 och Severin FR 2431 tar alla tre 3,0
+       liter olja och friterar 1,2 kg, 0,6 kg respektive 0,4 kg** — tre tal
+       hämtade hos tre tillverkare. Över fältet spänner kvoten 1,54 till 7,50
+       liter per kilo, alltså faktor 4,9. Ingen av de sex konkurrenterna anger
+       matmängden; alla listar liter.
+
+       ANDRA FYNDET, och det som gör det första till pengar: oljan är en
+       förbrukningsvara med publicerad livslängd. Test-Achats anger byte efter
+       fem till sex omgångar, Tefals egen FAQ fem till sju. Två oberoende led.
+       Därav oljekostnadsräknaren, som är sidans enda egna verktyg.
+
+       TREDJE, ur Tefals egen FAQ och obefintligt hos konkurrenterna:
+       metall- och kolfilter byts efter 35 till 50 friteringar, skumfilter
+       efter 20.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Test-Achats 24 fritöser, refererad fritt av
+       Stiftung Warentest 2025-12-23, är kategorins enda aktuella provning och
+       den är **inte** bakom betalvägg. Men de elva modeller den namnger —
+       Frifri, Fritel, Domo DO458FR, Tefal FR3380 — säljs inte i svensk handel,
+       så ett viktat testbetyg hade gett noll till samtliga rankade. Råd & Rön,
+       Testfakta, tek.no och RTINGS har ingen provning av oljefritöser alls.
+
+       ⚠️ KALLZONEN BÄR INGEN VIKT. Åtta av elva anger den. De tre andra är inte
+       maskiner utan kallzon utan maskiner där uppgiften inte gått att belägga:
+       Severins eget produktblad räknar upp funktion efter funktion utan att
+       nämna den, medan KitchenTime säljer samma maskin under webbadressen
+       `cold-zone-fritos-3-l`. Kriteriet `Oljans livslängd` vilar på
+       filtreringen i stället, som separerar fältet i tre steg.
+
+       ⚠️ VINNAREN NÅR BARA 180 °C där tio av elva går till 190. Temperaturen
+       bär ingen vikt — det är en grind, samma beslut som maxtemperaturen på
+       /pizzaugn — men talet står i tabellen och i vinnarens nackdelar.
+
+       ⚠️ PROSHOPS KATEGORI `/Fritoeser` BLANDAR OLJA OCH VARMLUFT. Princess
+       Deluxe 182060 ligger där och är en varmluftsfritös på 5,5 liter,
+       kontrollerad mot fem oberoende butikstexter. Klassificera varje kandidat;
+       lita aldrig på butikens kategori.
+
+       ⚠️ CDON RENDERAR ICECAT-DATA OCH ÄR EN VÄG RUNT SPÄRREN. Deras
+       produkttitlar bär Icecats fältvokabulär ordagrant. Spärrade GTIN gav ändå
+       öppen-nivåns fält den vägen, och det band Taurus GTIN 8414234739537 till
+       3 l / 0,9 kg. Värt att pröva på varje sida där `You are not allowed to
+       have Full Icecat access` dyker upp.
+
+       PENGAR: ⚠️ **INGEN PPC-TILLÅTEN BUTIK BÄR KATEGORIN**, kontrollerat mot
+       sortimentet och inte mot katalogen. AIVIQ 15 % har noll oljefritöser i
+       sina 30 produkter, Coffee Friend 10 % och Prylstaden 8 % för bara
+       varmluft, Estore 5 % noll träffar. Sidan går alltså inte att annonsera,
+       som /elscooter och /eltandborste. KitchenTime 8 % / 15 d och Bagaren och
+       Kocken 5 % / 5 d bär kategorin, Proshop 3,2 % / 7 d bär 21 oljefritöser
+       med GTIN på varenda en.
+       ⚠️ **CERVERA LIGGER PÅ ADTRACTION OCH SAKNAS I KATALOGFILEN.**
+       `cervera.se/affiliate` säger ordagrant "Ansök hos Adtraction här", och de
+       är kategorins bredaste sortiment med tio artiklar. Provisionen är alltså
+       okänd, inte obefintlig. Samma fynd som Bosch Home på /stavmixer. Raden i
+       `.agent/plans/affiliate-ansokningar.md` är rättad.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `frit`, `fritos`, `fritös` och
+       `frityr` över samtliga keyword-CSV:er ger noll träffar. Kör Keyword
+       Planner på `fritös`, `fritös bäst i test`, `bästa fritösen`,
+       `frityrkokare` och `fritös med olja`. Slugen är entydig i handeln:
+       Proshop, Cervera, KitchenTime, Bagaren och Kocken och NetOnNet har alla
+       en kategori som heter fritös.
+
+       Se .agent/research/fritos.md. */
+    href: "/fritos",
+    label: "Fritös",
+    category: KOK,
+    blurb: "Tre maskiner tar 3 liter olja. En gör 1,2 kilo mat, en gör 0,4.",
+    /* Live 2026-08-07. Alla elva priser, artikelnummer, GTIN och lagerstatus
+       lästa samma dag i Proshops JSON-LD, Cerveras mikrodata och KitchenTimes
+       egen produktsida. Oljemängd och matmängd hämtade hos tillverkaren:
+       tefal.se egen jämförelsetabell, princesshome.eu specifikationstabeller,
+       Severins produktblad 2431000_en.pdf, tristar.eu och taurus-home.com.
+       Sex Tefal-GTIN öppnade i Icecat, samtliga sju icke-Tefal spärrade. Elva
+       packshots på plats. Samtliga elva superlativ ligger under taket på 35
+       tecken.
+
+       ⚠️ CERVERAS FÖRSTA GALLERIBILD FÖR PRINCESS 184090 VAR EN VÅFFELJÄRN.
+       Fel produkt helt, inte fel variant. Bilden byttes mot Princess egen
+       packshot efter okulär kontroll av alla elva i kontaktkarta. Titta på
+       bilderna innan de läggs in.
+
+       ⚠️ TVÅ BILDER LIGGER UNDER MASTERBREDDEN 1200 px. Tefal Versalio och
+       Tefal Oleoclean Compact är 915×900, eftersom Proshop svarar 403 på varje
+       större variant och Icecats packshots för just de två är 482×482 och
+       366×345. Båda är rätt produkt. Byt vid nästa prisrunda.
+
+       ⚠️ TAURUS EGET ARTIKELNUMMER MATCHAR INTE PROSHOPS GTIN. taurus-home.com
+       visar 973953000 för Professional 3 Plus; Proshops GTIN är 8414234739537.
+       Identiteten är bunden via CDON, som har GTIN och specarna 3 l / 0,9 kg på
+       samma rad. Kontrollera igen vid nästa prisrunda.
+
+       ⚠️ SEVERINS PRODUKTBLAD ANGER PRODUKTMÅTT STÖRRE ÄN FÖRPACKNINGSMÅTT,
+       57,0 mot 43,3 cm. Kontrollerat med `pdftotext -table`, alltså inget
+       kolumnfel hos oss. Talen publiceras inte. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 11,
+  },
+  {
+    /* `smoothiemixer` byggd 2026-08-06. Tredje sidan i gruppen Kök.
+
+       AVGRÄNSNING efter användarbeslut: hela klassen "mixa direkt i muggen",
+       alltså både sladdlösa och nätdrivna personliga mixrar, 279 till 1 799 kr.
+       Bänkblendern med kanna på 1,4 till 2 liter är en annan produkt och får
+       sin egen sida. Namnvalet mellan `portabel blender` och `smoothiemixer`
+       gjordes också av användaren: Elgigantens guidesida heter "Smoothie mixer
+       to go", Clas Ohlson säljer Nutribullet Portable som "trådlös smoothie
+       mixer" och bäst-i-test.se rubricerar exakt vårt fält "Smoothiemixer".
+       Ordet rymmer både sladd och batteri, vilket `portabel` inte gör.
+
+       FYNDET: batteriet anges i mixningar, och en mixning är en programcykel
+       vars längd bara står i bruksanvisningen. Ninjas cykel är 30 sekunder,
+       Wilfas 35 och KitchenAids 60. Omräknat: KitchenAid Go 20 minuters
+       mixtid, Ninja Blast Max 12 min 30 s, Wilfa Swift 8 min 10 s, Ninja Blast
+       5 min. Hyllsiffran spänner faktor 2,5, mixtiden faktor 4, och ordningen
+       är en annan.
+
+       ANDRA FYNDET: nätdriven betyder inte obegränsad. OBH Nordicas egen
+       bruksanvisning anger "Maximal användningstid: 1 minut, vänta minst 5
+       minuter innan apparaten används igen". Smegs anger 60 sekunder på och 60
+       sekunders paus. Ingen av uppgifterna står på en produktsida i handeln.
+       Detta bekräftar Råd & Röns iakttagelse från 2017 på 2026 års produkter.
+
+       TREDJE: fältet `Effekt` innehåller fyra olika storheter. nutribullet
+       skriver `Effekt: 2000mAh Battery` i sin egen specifikationstabell, Ninja
+       anger batterispänning, KitchenAid volt i produktnamnet, Wilfa och CHiATO
+       anger watt. Sex av elva anger watt. Kjells egen köpguide säger samtidigt
+       att "motoreffekten i watt kan man använda som en fingervisning".
+
+       FJÄRDE: två volymer, och kartongens är den större. Ninja Blast Max 570
+       ml deklarerad mot 490 ml max fyllning, BlendBoss 710 mot 650.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Testfaktas labbtest hos Applitest GmbH
+       gäller bänkblenders på 1,4 till 2 liter, alltså en annan produktklass.
+       Råd & Röns test av 22 smoothieblendrar är från 2017-12-22 och deras
+       sidfot förbjuder vidarepublicering av testresultat. bäst-i-test.se har
+       ett eget handpålagt test med betyg 1–5, men är en affiliatesajt och
+       alltså en lead, aldrig en källa. Samma läge som /mjolkskummare,
+       /bluetooth-hogtalare och /pizzaugn.
+
+       ⚠️ TILLVERKARNAS VILOTIDER BÄR INGEN VIKT. De står i manualerna hos en
+       del av fältet och inte hos resten, och ett avdrag hade betygsatt vilken
+       tillverkare som skrivit ned villkoret. Talen ligger i tabellen och i ett
+       eget avsnitt, som drifttiden vid full effekt på /skaftdammsugare.
+
+       PENGAR, och det rättar vad som stod i fas 2: **Coffee Friend 10 % med
+       ppcMarketing 2 och 30 dagars cookie för sortimentet.** Deras kategori
+       "Blenders och smoothie mixers" har 77 artiklar med Nutribullet Portable,
+       Flex, Personal 500 och 600, Ultra 1200 och CHiATO. Sidan går alltså att
+       annonsera, till skillnad från /smartwatch och /eltandborste. KitchenTime
+       8 % / 15 d bär bredast sortiment och lägsta priser på åtta av elva.
+       Kjell 5 % / 30 d för Ninja, Komplett 2,5 % och Proshop 3,2 % för en var.
+       Clas Ohlson, Elgiganten, Power, NetOnNet, Webhallen och Amazon saknas i
+       Adtraction. Awin, Adrecord, Addrevenue och Partner-ads är osvepta.
+
+       ⚠️ ICECAT: 3 av 11 GTIN öppnade. KitchenAid Go gav 42 egenskaper och
+       fastställde bägaren till 473 ml, nutribullet Portable och Flex gav 18
+       respektive 15. Resten svarar "You are not allowed to have Full Icecat
+       access", vilket betyder att uppgiften finns och att vi inte ser den.
+
+       Se .agent/research/smoothiemixer.md. */
+    href: "/smoothiemixer",
+    label: "Smoothiemixer",
+    category: KOK,
+    blurb: "Batteriet räcker 25 mixningar. En mixning är 30 sekunder.",
+    /* Live 2026-08-06. Alla elva priser, artikelnummer, GTIN och lagerstatus
+       lästa i produktsidornas egen JSON-LD hos KitchenTime, Kjell, Komplett,
+       Coffee Friend och Proshop samma dag. Programcyklerna och vilotiderna
+       hämtade i bruksanvisningarna: Ninjas owner's guide för Blast, Ninjas
+       QB3000-manual, OBH Nordicas svenska manual för 7740 och 7744 och Smegs
+       svenska manual. Effekter och volymer hos tillverkaren. Elva packshots på
+       plats. Samtliga elva superlativ ligger på 22 till 33 tecken, alltså
+       under taket på 35.
+
+       ⚠️ EN HANDBYGGD PROSHOP-URL GAV HTTP 200 PÅ FEL PRODUKT. En gissad
+       adress för NutriBullet Portable returnerade en produktsida för en
+       värmekudde från Akuku, komplett med EAN och pris. Adressen söktes upp i
+       stället. Samma fälla som Kjell-URL:en i /new-page fas 4.
+
+       ⚠️ KITCHENAIDS EGEN BUTIK MOTSÄGER SIG SJÄLV OM PRISET. kitchenaid.se
+       visar 2026-08-06 tre olika tal för Go-blendern på samma sida: 1 199,25
+       för både "med batteri" och "utan batteri", och 1 349,25 i
+       modelljämförelsen längre ned, alla mot listpriser 1 599 respektive
+       1 799. Sidan använder KitchenTimes 1 799, som är entydigt och läst i
+       JSON-LD. Kontrollera om KitchenAids sommarrea ligger kvar vid nästa
+       prisrunda.
+
+       ⚠️ TVÅ PRODUKTER SAKNAR ETT KRITERIEBETYG MED FLIT. CHiATO blendPLAY
+       saknar `rengoring` eftersom varken tillverkaren eller butiken anger
+       vilka delar som tål maskindisk, och nutribullet Flex saknar
+       `uthallighet` eftersom nutribullet inte publicerar mixningar per
+       laddning för den modellen. Att sätta noll hade dragit ner ett betyg för
+       något produkten inte rår över. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 11,
+  },
+  {
+    /* `blender` byggd 2026-08-06. Tredje sidan i gruppen Kök.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner blender; sidan är beställd direkt. Gruppens
+       egen beskrivning ovan räknar upp den som en av sex möjliga.
+
+       SLUGEN VAR GENUINT DELAD och avgjordes av användaren:
+       Testfakta, Råd & Rön, Cervera, KitchenTime och tre av fyra konkurrenter
+       säger blender, medan bäst-i-test.se rubricerar sin sida `mixer` och
+       handeln blandar ("Blenders & Mixers" hos Elgiganten).
+
+       KÄLLÄGET ÄR SAJTENS BÄSTA HITTILLS. Testfakta lät Applitest GmbH i
+       Nürnberg labbtesta nio blendrar under 4 000 kr, och hela resultattabellen
+       med delbetyg per moment ligger **fritt läsbar**. Ingen betalvägg, till
+       skillnad från Råd & Rön (59 kr), Stiftung Warentest och Which?.
+
+       ⚠️ TESTET ÄR FRÅN AUGUSTI 2025, INTE 2026. PDF:en säger "Fakta och bild:
+       Testfakta i augusti 2025", filnamnet är 250825, TV4-inslaget sändes
+       2025-08-26 och produktkorten säger "bäst i test (2025)". Artikeln bär
+       `Publicerad: 17 mar, 2026` och är alltså ompublicerad. Skriv aldrig att
+       provningen är från 2026.
+
+       ⚠️ KOLUMNATTRIBUTIONEN I PDF:EN ÄR VERIFIERAD ARITMETISKT, INTE ÖGONMÄTT.
+       `pdftotext` utan flaggor och med `-layout` kastade om kolumnerna så att
+       delbetyg hamnade på fel produkt; `pdftotext -table` gav en rak tabell.
+       Kontrollen: varje produkts fyra delbetyg viktade 50/20/20/10 ger det
+       publicerade totalbetyget för samtliga nio. Ninja
+       8,3·0,5 + 7,7·0,2 + 10,0·0,2 + 6,9·0,1 = 8,38 → 8,4. Gör om den kontrollen
+       innan något tal härifrån ändras.
+
+       FYNDET: watt köper varken fart eller finess. Sorterat efter motoreffekt
+       tar smoothien 45 och 55 sekunder för de två maskinerna på 1 200 W, och 90
+       och 147 för de två på 1 800 W. Nöthacket lutar likadant: 9,5 och 7,9 för
+       1 200 W mot 4,8 och 4,0 för 1 800 W. **De två svagaste motorerna i fältet
+       gör de två snabbaste smoothiesarna och det bästa nöthacket.** Skriv det
+       som en iakttagelse och aldrig som fysik — tiden sätts av programmets
+       längd, och Testfakta skriver själva att Wilfas smoothieprogram tar 2
+       minuter och 27 sekunder. Tre av fyra konkurrenter rankar på motoreffekt.
+
+       ANDRA FYNDET: talet på kartongen är kannans bräddvolym. Tre tillverkare
+       skriver ut båda talen själva — Bosch "3,0-liter max / 2,0-liter vid
+       användning", Philips "2 l glaskanna med 1,8 l effektiv kapacitet", Ninja
+       "2,1 liter … 1,9 liter för flytande ämnen". Bagaren och Kocken säljer
+       Braun JB9040 under rubriken "3 liter" där Testfakta deklarerar 2 000 ml.
+       Tabellen bär arbetsvolymen för alla tretton.
+
+       TREDJE: fyra av nio lock deformerades av ånga i uthållighetsprovet —
+       Bosch, KitchenAid, OBH Nordica och Chef Matteo. Enda kvalitetsanmärkningen
+       i hela provningen, och den står inte i någon produktbeskrivning. Två av
+       dem säljs på att kunna göra varm soppa.
+
+       ⚠️ TESTFAKTA MOTSÄGER SIG SJÄLV OM VINNARENS BETYG. Rankningstabellen och
+       PDF:en säger båda 8,4; köpkortet och listan "Produkter i testet" på samma
+       sida säger 8.6. Aritmetiken ger 8,38. Använd 8,4. Iakttagelsen handlar om
+       hur en publikation skriver ett tal och ligger därför i köpguiden, aldrig
+       i ett omdöme.
+
+       ⚠️ RÅD & RÖN ÄR INTE KÖPT. 30 blendrar, publicerat 2024-06-13, 59 kr.
+       Deras sidfot förbjuder all vidarepublicering av testresultat. Metoden och
+       de fritt publicerade talen i ingressen bär köpguiden — 98,4 dB som högsta
+       uppmätta, en powerblendersoppa som bara nådde 37 grader — men **utan
+       produktnamn**, och vi vet inte vilken modell som vann. Samma läge som
+       /eltandborste, /smartwatch och /mjolkskummare.
+
+       ⚠️ tek.nos BETYG BINDS BARA TILL EXAKT PROVAD MODELL. De gav Chef Matteo
+       Blender III 7,5 och Ninja BN750EU 6,5, och båda säljs här under det
+       namnet. Deras testvinnare "Wilfa Xplode Vital" är däremot BLSP-1800S på
+       1 800 W, INTE den BLS-1500S på 1 500 W som säljs här. Samma fälla som
+       Nanoleaf Lines mot Essentials på /smart-belysning. Talet får inte flyttas.
+
+       ⚠️ ELECTROLUX EXPLORE 6 ÄR INTE UTGÅNGEN. Proshop märker den
+       `Discontinued`, vilket gäller Proshops eget sortiment. Elgiganten har
+       samma GTIN 7332543793020 i lager för 1 199 kr. Kontrollen gjordes innan
+       den rankades och svaret blev nej — men gör om den vid nästa prisrunda.
+
+       PENGAR: KitchenTime 8 % / 15 d bär fem av tretton och är bästa provision
+       i fältet. Bagaren och Kocken 5 % bär två, Proshop 3,2 % en.
+       ⚠️ **Bosch Home SE 4 % med ppcMarketing 2 är enda annonserbara butiken**
+       som faktiskt för en rankad produkt, och Bosch ligger tvåa. Sidan går
+       alltså att annonsera, till skillnad från hela Elektronik-gruppen.
+       ⚠️ KitchenTime och Nordic Nest är samma bolag — båda serverar bilder från
+       `prod.nordicnest.dev` och delar artikelnummer. Två program, ett sortiment.
+       ⚠️ AIVIQ 15 % och Kaffepro 10 % för NOLL blendrar, kontrollerat direkt mot
+       deras Shopify-flöden: 30 respektive 250 produkter, noll träffar på
+       blend/mixer/smoothie. Exakt samma mirage som på /mjolkskummare.
+       ⚠️ Chef Matteo är Powers eget märke och säljs bara av Power, som saknar
+       program. Electrolux länkas till Elgiganten, som ligger på Awin.
+
+       ⚠️ TESTVINNAREN ÄR SVÅRAST ATT LÄNKA. Ninja TB301EU är slut hos
+       Elgiganten och förbeställning hos Proshop; enda butiken med lager är
+       SharkNinjas egen på 1 799 kr, och SharkNinja ligger på **Awin där vi inte
+       har konto**. Ett Awin-konto öppnar dessutom Elgiganten, kategorins största
+       handlare. Efter användarbeslut byggdes sidan ändå och Ninja länkas till
+       KitchenTime på 2 279 kr. Ansökan är uppföljning, inte villkor.
+
+       Se .agent/research/blender.md. */
+    href: "/blender",
+    label: "Blender",
+    category: KOK,
+    blurb: "De två svagaste motorerna gjorde de två snabbaste smoothiesarna.",
+    /* Live 2026-08-06. Samtliga tretton priser, artikelnummer, GTIN och
+       kundbetyg lästa i butikernas egen JSON-LD samma dag, och specifikationerna
+       hämtade hos tillverkaren: Boschs eget faktablad via Elons dokumentarkiv,
+       OBH Nordicas faktablad för 7739, Brauns, Philips, SharkNinjas, Wilfas och
+       Smegs egna produktsidor. Nio produkters mätvärden ur Applitests
+       resultat-PDF. Tretton packshots på plats.
+
+       ⚠️ TVÅ BILDER LIGGER UNDER MASTERBREDDEN 1200 px. Chef Matteo är 600×600
+       (Power serverar ingen större; 1200px-varianten svarar 403) och Electrolux
+       640×1339 (Elgigantens egen). Båda är rätt produkt och rätt variant. Byt
+       vid nästa prisrunda om butiken lagt upp något större.
+
+       ⚠️ FEM AV TRETTON LÄNKAR GÅR TILL KITCHENTIME, vilket är fler än vanan
+       att sprida länkarna medger. Skälet är att de är enda specialisten med
+       program och bär Ninja, Wilfa Powerfuel, KitchenAid, Philips, OBH Perfect
+       Mix+ och Smeg. Där Bagaren och Kocken har samma produkt till jämförbart
+       pris är ett byte fritt och bör göras vid nästa runda. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 13,
+  },
+  {
+    /* `elscooter` byggd 2026-08-06. Sajtens första fordonssida.
+
+       ⚠️ GRUPPEN ÄR ELEKTRONIK EFTER ANVÄNDARBESLUT, inte en ny grupp Fordon.
+       Alternativen som övervägdes var en sjätte grupp Fordon, som hade öppnat
+       elcykel, elmoped, hjälm och lås, och en grupp Transport. Elektronik är
+       definierad som "det som följer med ut", och en elsparkcykel gör det
+       bokstavligt.
+
+       SLUGEN ÄR HANDELNS ORD. Myndigheterna säger uteslutande elsparkcykel:
+       Transportstyrelsen, Åklagarmyndigheten, Polismyndigheten och NTF använder
+       inte ordet elscooter en enda gång. Handeln och konkurrenterna säger
+       elscooter, och sex av sju konkurrenter har det i URL:en. Flera bär båda
+       orden i samma titel. Elsparkcykel bär H1, ingress och köpguide.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `scooter`, `sparkcykel` och
+       `elfordon` över samtliga keyword-CSV:er ger noll träffar. Kör Keyword
+       Planner på `elscooter`, `elsparkcykel`, `elscooter bäst i test` och
+       `elsparkcykel vuxen`.
+
+       AVGRÄNSNING efter användarbeslut: bara trafiklagliga, alltså 250 W
+       nominellt och 20 km/h. Maskinklassen från 500 till 2 400 W ligger bland
+       övervägda och förklaras i köpguiden.
+
+       FYNDET: talet 250 W är lagens tak och inte en uppgift om motorn.
+       Transportstyrelsen, läst i original, kräver BÅDE högst 20 km/h OCH högst
+       250 W kontinuerlig märkeffekt. Alla fem rankade anger därför exakt
+       250 W. Talet som faktiskt skiljer dem åt är toppeffekten, 450 till
+       1 200 W, alltså en faktor 2,7, och den står sällan i annonsen. Samma
+       form som 9H på /iphone-skarmskydd.
+
+       ANDRA FYNDET, belagt hos tillverkaren och sidans starkaste: samma
+       elsparkcykel säljs med tre nominella effekter. Pure Electrics egen sida
+       för Escape PRO anger 250 W för den svenska varianten, 350 W för EU och
+       500 W för Danmark och Norge, med oförändrad maxeffekt 924 W och samma
+       20 km/h på SE och DK/NO. Sveriges regel är alltså strängare än
+       grannländernas, och **varianten märkt Nordic är den dansk-norska**.
+
+       TREDJE: hastigheten i modellnamnet räcker inte. Segways bokstav är
+       hastighetsklassen, D för 20 km/h och E för 25, men Segway ZT3 Pro D har
+       500 W motoreffekt trots sina 20 km/h. Namnet ger ett av två tal och lagen
+       kräver båda.
+
+       ⚠️ INGEN NAVEE-ARTIKEL ÄR RANKAD, trots att Navee är det märke M3 provat
+       mest. Proshop säljer `GT5 Pro Nordic`, `GT5 Pro SE 250W` och `GT5 Pro EU`
+       som tre artiklar med skilda EAN till samma pris, men **produktbeskrivningen
+       är identisk ord för ord på alla tre** och säger 600 W nominellt. Navees
+       egen euro-sida anger 600 W för modellen och dokumenterar ingen
+       250 W-variant. Den svenska variantens märkeffekt går alltså inte att
+       belägga, och vi gissar aldrig om laglighet.
+
+       ⚠️ VI BEDÖMER ALDRIG om en namngiven elsparkcykel är laglig. Vi återger
+       Transportstyrelsens två gränsvärden och produktens publicerade effekttal.
+       Samma disciplin som batteriundantaget på /bluetooth-hogtalare.
+
+       ⚠️ BUTIKSTEXTER ÄR MALLADE I HELA KATEGORIN. Proshops beskrivning är
+       densamma på tre varianter, och Webhallens block om "45 km i Eco-läge"
+       ligger ordagrant på både Segway och Pure medan produktens egna punkter
+       säger 25 km. Använd bara produktspecifika fält. Webhallen skriver
+       dessutom Trafikverket där det ska stå Transportstyrelsen.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. M3 har provat sju modeller med betyg,
+       testdatum och uppmätt räckvidd, men bara en finns i jämförelsen. Råd &
+       Rön har ingen provning alls, kontrollerat i två sökindex. Aftonbladets
+       test ligger bakom betalvägg och är inte läst.
+
+       PENGAR: E-Wheels 8 % med 30 dagars cookie är kategorins bästa villkor,
+       och korgen är 3 000 till 15 000 kronor mot 300 på en skalsida. Ungefär
+       560 kronor per order mot 45. Webhallen bär 1 %, Komplett 2,5 % och
+       Proshop 3,2 %. Elgiganten och NetOnNet har inget SE-program, kontrollerat
+       utanför Adtraction. Wheelyshop kör Impact och är billigaste vägen till
+       Navee-sortimentet. ⚠️ Ingen butik i fältet tillåter PPC.
+
+       ⚠️ TRE AV FEM ÄR E-WHEELS EGNA, vilket speglar att de är den enda butiken
+       med både program och trafikledigt sortiment i lager. Det står utskrivet
+       på sidan.
+
+       Se .agent/research/elscooter.md. */
+    href: "/elscooter",
+    label: "Elscooter",
+    category: ELEKTRONIK,
+    blurb: "Alla anger 250 watt. Det är lagens tak, inte ett mått på motorn.",
+    status: "planned",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 5,
+  },
+  {
+    /* `airfryer` byggd 2026-08-06. Tredje sidan i Kök, efter mjölkskummare
+       och pizzaugn.
+
+       FYNDET, och det är belagt från fyra håll: **två lådor delar på
+       effekten.** RTINGS har mätt Ninja Foodi DZ201 till 1 540 W med båda
+       lådorna igång och 1 470 W med bara en — den andra lådan lägger till
+       sjuttio watt. Ninjas egna bruksanvisningar anger samma 2 470 W för både
+       AF300EU på 7,6 liter och AF400EU på 9,5, alltså totalt för två zoner.
+       1 235 W per låda ligger under de 1 400 W RTINGS rekommenderar.
+       Råd & Rön ser samma sak från andra hållet: kördes kyckling och pommes i
+       var sin korg blev det "svårare att få till bra pommes i det läget".
+       Samtliga svenska konkurrentsidor rankar dubbelkorg som ren uppgradering,
+       och konsumentvalet.se har en dubbelkorg som etta.
+
+       ANDRA FYNDET: literangivelsen är kammarens volym, inte portionen. Ninjas
+       svenska manual skriver själv att maten ska ligga "i ett jämnt lager på
+       botten av lådan" utan att ligga på varandra. Råd & Rön: minsta modellen
+       klarar 433 g pommes, men bara 289 g om de ska bli bra. RTINGS tröskel är
+       325 cm² bottenyta. **Ingen av de fem konkurrenterna anger bottenytan.
+       Alla listar liter.**
+
+       KÄLLÄGET: Råd & Rön 70 luftfritöser (25 november 2025), Stiftung
+       Warentest 20 modeller varav bara 6 "gut" (18 december 2024), RTINGS 52
+       med öppen metod och ett sabotageförsök som isolerar bottenyta, effekt och
+       fläktvarvtal var för sig. De två första ligger bakom betalvägg och får
+       inte återges; RTINGS provar 120-voltsmodeller. Därför finns inget
+       kriterium för testomdöme, som på /pizzaugn och /skaftdammsugare.
+
+       PENGAR: **första sidan där AIVIQ faktiskt bär kategorin.** 15 % och
+       ppcMarketing 2, med tre egna airfryers i lager, kontrollerat mot deras
+       Shopify-katalog. Jämför /mjolkskummare, där AIVIQ och Kaffepro hade en
+       enda artikel mellan sig och den var slutsåld hos båda. AIVIQ är också
+       enda butiken i hela svepet som anger korgens mått. KitchenTime 8 % och
+       Proshop 3,2 % bär resten; Proshop har bäst strukturerad data och
+       genomgående lägst pris. ⚠️ Ninja är kategorins dominerande varumärke och
+       SharkNinja SE ligger på Awin, där vi inte har konto. Prylstaden, 8 % med
+       ppc 2, för inte kategorin alls.
+
+       ⚠️ VINNAREN LÄNKAR TILL EN BUTIK VI INTE TJÄNAR PÅ. Det är avsiktligt och
+       följer viktningen. AIVIQ hamnar där betygen säger.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `airfryer`, `air fryer`, `fritös`
+       och `fritos` över samtliga keyword-CSV:er ger noll träffar. Slugen är
+       handelns ord: Proshop, Komplett, Power, Elgiganten och NetOnNet har alla
+       en kategori som heter Airfryer. Råd & Rön säger luftfritöser. Kör Keyword
+       Planner på `airfryer`, `airfryer bäst i test`, `varmluftsfritös` och
+       `luftfritös`.
+
+       Se .agent/research/airfryer.md. */
+    href: "/airfryer",
+    label: "Airfryer",
+    category: KOK,
+    blurb: "Två lådor är inte två fritöser. Den andra lägger till sjuttio watt.",
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 10,
+  },
+  {
     /* `eltandborste` byggd 2026-08-06. Nionde sidan i Elektronik.
 
        ⚠️ NY STÅENDE REGEL, beslutad här: **sajten länkar inte till apotek,
@@ -262,12 +1151,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Prylstaden för den inte. Lyko har 8 % men sex av nio artiklar slut och
        priser 30–40 % över Proshop. ⚠️ Ingen av butikerna tillåter PPC.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `tandborst` över samtliga filer i
-       .agent/keywords/ ger noll träffar. Kör Keyword Planner på `eltandborste`,
-       `eltandborste bäst i test`, `elektrisk tandborste`, `bästa eltandborsten`
-       och `tandborsthuvuden`. Slugen är dock enkel: Elgiganten, Power,
-       NetOnNet, Clas Ohlson, Lyko, Råd & Rön och samtliga sex konkurrenter
-       säger eltandborste i ett ord.
+       SLUGEN ÄR ENKEL: Elgiganten, Power, NetOnNet, Clas Ohlson, Lyko,
+       Råd & Rön och samtliga sex konkurrenter säger eltandborste i ett ord.
 
        Se .agent/research/eltandborste.md. */
     href: "/eltandborste",
@@ -385,6 +1270,135 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        artikel-id hos Zendesk och användes inte.
 
        Se .agent/research/pizzaugn.md. */
+    /* `stavmixer` byggd 2026-08-06. Tredje sidan i gruppen Kök.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner stavmixer; sidan är beställd direkt, som
+       /kompaktkamera.
+
+       AVGRÄNSNING efter användarbeslut: hela spannet 549 till 3 299 kr, både
+       sladdade och batteridrivna på samma sida. Testkompassen bryter ut
+       sladdlösa till egen sida; vi rankar dem tillsammans, eftersom bamix
+       Cordless på batteri går 13 000 varv mot Philips 11 500 med sladd och den
+       jämförelsen försvinner om de skiljs åt.
+
+       FYNDET: watt mäter vägguttaget, varvtal mäter kniven, och de följer inte
+       varandra. Philips eget datablad anger 800 W och max 11 500 v/min. bamix
+       egen manual anger 200 W och 17 000–18 000 v/min för SwissLine. Den
+       schweiziska maskinen drar en fjärdedel av effekten och snurrar femtio
+       procent fortare. Varenda konkurrent har effekt som första specrad och
+       ingen av de tio publicerar ett varvtal.
+
+       ⚠️ SAMMA BAMIX ANGES SOM 150 W I USA OCH 200 W I SVERIGE, eftersom nätet
+       är 120 mot 230 volt. Varvtalet är detsamma, 18 000 i läge 2, i båda
+       tillverkarens egna dokument. Talet på kartongen ändras med landet; det
+       kniven gör med maten gör det inte.
+
+       ANDRA FYNDET: **Braun säljs på ett watt-tal Braun själva inte anger.**
+       Deras egen svenska produktsida för MQ 9135XI skriver `Effekt (W) 1000` i
+       två specifikationsrutor och `1200 W` tre gånger i säljtexten på samma
+       sida. MQ7035X anger 850 W i specfältet där Elon säljer den som 1 000 W.
+       Sidan använder specfältet, samma disciplin som JBL Charge 6 på
+       /bluetooth-hogtalare.
+
+       TREDJE: OBH Nordica håller **reservdelar tillgängliga 15 år efter
+       inköpsdatum** sedan 2022-01-01 och märker de produkter som klarar kravet.
+       Det gäller lika mycket deras 549-kronorsmaskin som deras 1 490-kronors,
+       och det är därför båda får 5,0 på reparerbarhet.
+
+       ⚠️ NINJASVERIGE.COM.SE ÄR INTE NINJA. Sidan ligger överst på Google för
+       "Ninja Kitchen Sverige", anger 120 volt, 60 tums sladd, 3,17 pounds och
+       5,4 ampere, och har spanskt inloggningsformulär. `ninjakitchen.se` pekar
+       om till sharkninja.se, som är den riktiga. Talen skiljer i sak: den
+       falska anger 650 W och 1 års garanti, SharkNinja 850 W och 2 år. Båda
+       hade publicerats och båda hade varit fel. Samma fälla som `levoit.com.se`
+       i .claude/context/money.md.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM, efter användarbeslut. Råd & Rön har provat
+       57 stavmixrar med labbmetod, publicerat 2024-11-29, men testet kostar
+       59 kr och deras sidfot förbjuder vidarepublicering av resultat och
+       tabeller även för den som betalat. Testet är INTE köpt. M3.se har provat
+       sju för hand med publicerade betyg 2–4,5 av 5, men det är från 2023 och
+       täcker sju av arton. Betygen återges i prosa och påverkar inga poäng.
+
+       ⚠️ VARVTALET BÄR INGEN VIKT, trots att det är sidans starkaste uppgift.
+       Fyra av tolv anger ett tal: bamix för två modeller, Wilfa, och KitchenAid
+       bara via Icecat. Åtta anger ingenting. Se ALDRIG_BEDOMD i
+       lib/spec-schema.mjs.
+
+       ⚠️ MOTORNS EFFEKT VÄGER MINST AV FEM, 15 av 100, och det är avsiktligt.
+       Handeln ger watt i praktiken all vikt. bamix förlorar poäng där och
+       vinner dem på de fyra andra kriterierna.
+
+       PENGAR: ⚠️ TVÅ ADTRACTION-PROGRAM SOM KATALOGFILEN INTE KÄNNER TILL.
+       Bosch Home SE (`adtraction.com/se/annonsor/1954033850`) räknar upp
+       "stavmixer" i sin egen programtext, och Cervera hänvisar till Adtraction
+       från cervera.se/affiliate. Cervera är kategorins bredaste sortiment med
+       40+ artiklar på en kategorisida. Ingen av dem finns i
+       `.agent/adtraction-se-katalog.json` — katalogen är ett svep, inte en
+       fullständig sanning. Användaren söker båda. SharkNinja driver program på
+       Awin, där vi saknar konto.
+       KitchenTime 8 % / 15 d bär sju av tolv, Elon 5 % tre, Cervera två,
+       Bagaren och Kocken 5 % vinnaren. ⚠️ Ingen av dem tillåter PPC. AIVIQ
+       15 % och Kaffepro 10 %, gruppens enda ppc-tillåtna program, har
+       **noll stavmixrar** mellan sig av 30 respektive 250 artiklar — samma
+       utfall som på /mjolkskummare.
+
+       SLUGEN ÄR ENTYDIG: samtliga tio konkurrenter, Cervera, KitchenTime,
+       Elon, Bagaren och Kocken och Råd & Rön säger alla `stavmixer` i ett ord.
+
+       Se .agent/research/stavmixer.md. */
+    href: "/stavmixer",
+    label: "Stavmixer",
+    category: KOK,
+    blurb: "Watten står på kartongen. Varvtalet gör jobbet i grytan.",
+    /* Live 2026-08-06. Alla tolv priser, artikelnummer, GTIN, lagerstatus och
+       kundbetyg lästa samma dag: KitchenTime i butikens egen JSON-LD, Cervera,
+       Elon och Bagaren och Kocken renderade i riktig webbläsare eftersom alla
+       tre bygger priset med JavaScript. Specifikationerna hämtade hos
+       tillverkaren: bamix egna manualer och produktsidor, Boschs tekniska
+       översikt, OBH Nordicas specifikationstabell, Wilfas, Brauns, SharkNinjas,
+       Smegs och Severins egna uppgifter.
+
+       ⚠️ CERVERAS RELATERADE PRODUKTER LIGGER I SAMMA TEXTFLÖDE SOM
+       HUVUDPRODUKTEN. Ett första svep läste 609 kr för Braun MQ 9135XI; rätt
+       pris är 1 573 och 609 tillhörde en annan artikel längre ner på sidan.
+       Läs priset ur huvudblocket, aldrig ur första träffen.
+
+       ⚠️ OBHNORDICA.SE SVARAR 404 PÅ HEAD OCH 200 PÅ GET. Båda OBH-källorna är
+       kontrollerade med GET. En länkkontroll som bara skickar HEAD flaggar dem
+       felaktigt.
+
+       ⚠️ ICECAT GAV 1 AV 10 PÅ GTIN-SVEPET, och den enda träffen var
+       KitchenAid Go, där varvtalet 13 500 v/min bara finns hos Icecat och inte
+       hos KitchenAid. Det talet tillskrivs aldrig tillverkaren.
+
+       ⚠️ SJU AV TOLV LÄNKAR GÅR TILL KITCHENTIME, vilket bryter mot vanan att
+       sprida länkarna. Skälet är sortimentet: KitchenTime för varken Braun
+       eller OBH Nordica, Elon för ingen bamix, och Cervera saknar Ninja och
+       Severin. Ingen enskild butik täcker fältet.
+
+       ⚠️ WILFA SM-1FP ÄR BÄST I TEST HOS BÄST-I-TEST.SE OCH LIGGER BLAND
+       ÖVERVÄGDA. Den står som restnoterad hos butiken och bär fältets lägsta
+       kundbetyg där, 3,3 av 5. Lagerläget är ett operativt hinder och alltså en
+       uppgift: står den i lager vid nästa prisrunda rankas den in.
+
+       ⚠️ INGET EGET VERKTYG. Sidan bär fyndet i fyndavsnittet och köpguiden i
+       stället. Tolv av fyrtio live-sidor saknar eget verktyg, så det ligger inom
+       normen, men en väljare på tre frågor — hur ofta du lagar mat, om du har
+       ett ledigt uttag, hur länge maskinen ska hålla — faller ut direkt ur de
+       fem kriterierna och är den tydligaste uppföljningen på sidan.
+
+       Uppmätt vid 1440 och 390 px mot dev-servern: noll pixlar sidscroll vid
+       någondera bredden, inget element utanför dokumentbredden, och noll
+       klippta superlativ vid båda bredderna. Samtliga tolv superlativ ligger på
+       21–33 tecken, alltså under taket på 35. */
+    status: "live",
+    updated: "2026-08-06",
+    published: "2026-08-06",
+    count: 12,
+  },
+  {
     href: "/pizzaugn",
     label: "Pizzaugn",
     category: KOK,
@@ -413,12 +1427,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   },
   {
     /* `smartwatch` byggd 2026-08-06. Nionde sidan i Elektronik.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `klocka`, `smartwatch`, `garmin`,
-       `pulsklocka` och `apple watch` över samtliga sex keyword-CSV:er ger fyra
-       träffar och alla fyra gäller *dörrklocka*. Kör Keyword Planner på
-       `smartwatch`, `smartklocka`, `träningsklocka`, `pulsklocka`,
-       `sportklocka` och `smartwatch bäst i test` i samma körning.
 
        SLUGEN ÄR GENUINT DELAD, till skillnad från de flesta tidigare fall.
        Sex av tio konkurrenter säger `smartwatch` i URL:en (testproffs,
@@ -525,13 +1533,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
        `ideas-testsidor.md` nämner kamera; sidan är beställd direkt.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `kamera`, `kompakt`, `foto`,
-       `digitalkamera` och `objektiv` över samtliga sex keyword-CSV:er ger bara
-       övervakningskameratermer. Kör Keyword Planner på `kompaktkamera`,
-       `kompaktkamera bäst i test`, `digitalkamera`, `bästa kompaktkameran` och
-       `digicam`. Slugen är däremot enkel: samtliga åtta konkurrenter,
-       Scandinavian Photo, CyberPhoto, Elgiganten, Power och Canons egen
-       svenska sida säger alla kompaktkamera i ett ord.
+       SLUGEN ÄR ENKEL: samtliga åtta konkurrenter, Scandinavian Photo,
+       CyberPhoto, Elgiganten, Power och Canons egen svenska sida säger alla
+       kompaktkamera i ett ord.
 
        AVGRÄNSNING efter användarbeslut: fickformat, ungefär 2 000–13 000 kr.
        Leksakerna under 2 000 (Kodak Charmera 439, PixPro FZ45 1 489, Rollei
@@ -637,12 +1641,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Rankar bara elektriska kannor med värmeelement; manuell pumpskummare och
        handhållen batterivisp förklaras i köpguiden, efter användarbeslut.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `mjölkskum`, `skumm`, `latte`,
-       `cappuc`, `kaffe` och `espresso` över samtliga sex keyword-CSV:er ger
-       noll träffar. Kör Keyword Planner på `mjölkskummare`,
-       `mjölkskummare bäst i test`, `elektrisk mjölkskummare` och
-       `mjölkskummare visp`. Slugen är dock enkel: samtliga åtta konkurrenter,
-       Råd & Rön och varenda butik säger `mjölkskummare` i ett ord.
+       SLUGEN ÄR ENKEL: samtliga åtta konkurrenter, Råd & Rön och varenda butik
+       säger `mjölkskummare` i ett ord.
 
        FYNDET: en mjölkskummare har två maxnivåer och talet i modellnamnet är
        den högre. Severins hela sortiment, läst på tillverkarens egen svenska
@@ -730,10 +1730,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        bilden ur Elgigantens renderade DOM med Chrome-verktygen och ranka in
        den igen. Dess specifikationsläge är kategorins bästa.
 
-       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /powerbank,
-       /iphone-skal och /usb-c-laddare. Slugen är vald på handelns,
-       konkurrenternas och Råd & Röns gemensamma språkbruk. Kör Keyword Planner
-       ändå.
+       SLUGEN ÄR VALD på handelns, konkurrenternas och Råd & Röns gemensamma
+       språkbruk.
 
        ⚠️ GAP-PASS 2026-08-06 med /fix-page. Melittas och Alessis skumtal stod
        som opublicerade och låg i butikens egen produkttext; båda är nu ifyllda
@@ -755,12 +1753,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        försörjningen kontrollerades först. Elon bär 5 % med 14 dagars cookie och
        samtliga tio rankade modeller. `/fonsterputsrobot` stod också parkerad
        och byggdes ändå.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep över samtliga sex keyword-CSV:er ger
-       en enda träff, `bäst i test smart högtalare`, och den står utan volymdata
-       i plan.md samt gäller den parkerade produkten. Kör Keyword Planner på
-       `bluetooth högtalare`, `bärbar högtalare`, `trådlös högtalare` och
-       `jbl charge`.
 
        SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK efter användarbeslut. Elon, Kjell
        och Komplett säger alla Bluetooth-högtalare, och tre av fyra svenska
@@ -866,12 +1858,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        EcoFlows egen svenska butik `Powerstation`. Fem av sex konkurrenter säger
        powerstation. Ordet `portabel kraftstation` lever i produktnamnen och bär
        därför H1, ingress och köpguide, men inte URL:en.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `powerstation`, `kraftstation`,
-       `elverk`, `jackery`, `ecoflow` och `solpanel` över samtliga sex
-       keyword-CSV:er ger noll träffar. Kör Keyword Planner på `powerstation`,
-       `bärbar kraftstation`, `portabel kraftstation`, `powerstation bäst i
-       test` och `elverk` i samma körning.
 
        ⚠️ `elverk` är EN ANNAN PRODUKT, förbränningsmotor på bensin eller
        diesel. Både Prisjakt och Clas Ohlson har den som egen syskonkategori.
@@ -1034,9 +2020,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        30 dagars cookie. iPhonebutikens 15 % är Apple-only och går inte att
        använda för Samsung.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Kör Keyword Planner på `galaxy s26 fodral`,
-       `plånboksfodral samsung`, `mobilfodral samsung`.
-
        Se .agent/research/galaxy-s26-skal.md, som bär researchen för båda. */
     href: "/galaxy-s26-fodral",
     label: "Galaxy S26 plånboksfodral",
@@ -1143,10 +2126,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Samma arbete ger ungefär två tredjedelar av intäkten per krona. Inget
        program är ansökt ännu.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma läge som /iphone-skal och
-       /iphone-fodral. Kör Keyword Planner på `galaxy s26 skal`,
-       `samsung s26 skal`, `mobilskal samsung` och `galaxy s26 fodral`.
-
        Se .agent/research/galaxy-s26-skal.md. */
     href: "/galaxy-s26-skal",
     label: "Galaxy S26-skal",
@@ -1179,13 +2158,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        sjunde i Elektronik. Skalsidans avgränsning sköt uttryckligen
        skärmskydden hit, se .agent/research/iphone-skal.md.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `skärm`, `skarm`, `glas`,
-       `display`, `iphone` och `mobil` över samtliga sex keyword-CSV:er under
-       .agent/ ger noll träffar. Kör Keyword Planner på `skärmskydd`,
-       `skärmskydd iphone`, `härdat glas`, `iphone 17 pro skärmskydd` och
-       `panzerglas` i samma körning som skal- och fodralsidornas termer.
-
-       Slugen är dock enkel: Testix, Testkollen, iPhonebutiken, Kjell,
+       SLUGEN ÄR ENKEL: Testix, Testkollen, iPhonebutiken, Kjell,
        Elgiganten och Holdit säger alla skärmskydd. `panzerglas` är ett tyskt
        varumärkesord som inte används generiskt i svensk handel.
 
@@ -1289,10 +2262,8 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        `Garanti` för alla femton, från 6 månader till livstid, hämtad ur
        butikens eget garantifält per artikel. Den väger inte in i något betyg.
 
-       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /iphone-skal,
-       /iphone-fodral, /usb-c-laddare och /garageportsoppnare. Slugen är vald på
-       handelns och konkurrenternas gemensamma språkbruk, vilket är ett stabilare
-       underlag än de två gånger sajten gissat fel. Kör Keyword Planner ändå.
+       SLUGEN ÄR VALD på handelns och konkurrenternas gemensamma språkbruk,
+       vilket är ett stabilare underlag än de två gånger sajten gissat fel.
 
        ⚠️ TVÅ SPIGEN-ARTIKLAR LIGGER ETTA OCH TVÅA. De har skilda superlativ som
        pekar på olika köpare, den ena på den som monterat snett förr och den
@@ -1378,11 +2349,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        markerade rader här: samtliga sex ligger över 50 procent, eftersom
        butiken publicerar kortfack, material och laddning för varje artikel.
 
-       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, och slugen krockar
-       medvetet med /iphone-skal. Kör Keyword Planner på `iphone fodral`,
-       `plånboksfodral`, `plånboksfodral iphone` och `mobilfodral`, och följ
-       sidorna i Search Console. Byter de plats på samma fråga är det slugen och
-       inte texten som ska ändras.
+       ⚠️ SLUGEN KROCKAR MEDVETET MED /iphone-skal. Följ sidorna i Search
+       Console. Byter de plats på samma fråga är det slugen och inte texten som
+       ska ändras.
 
        EGET VERKTYG: `planboksfodralvaljare`, byggt 2026-08-05 direkt efter
        sidan. Tre frågor om laddning, kapacitet och livslängd.
@@ -1422,11 +2391,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        iPhone 18 skjuts till våren 2027. Det är första gången Apple delar
        lanseringen. Användarbeslut: ingen 18-sida köas nu.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `mobilskal`, `iphone`, `skal` och
-       `telefon` över samtliga keyword-CSV:er under .agent/ ger en enda träff,
-       och den är `porttelefon med kamera`. Kör Keyword Planner på `iphone skal`,
-       `mobilskal`, `iphone 17 pro skal` och `magsafe skal` när det passar.
-       Slugen är dock enkel den här gången: Testix, iPhonebutiken, Elgiganten och
+       SLUGEN ÄR ENKEL den här gången: Testix, iPhonebutiken, Elgiganten och
        Kjell säger alla skal, och ordet fodral betyder plånboksfodral i handeln.
 
        AVGRÄNSNING efter användarbeslut: bara skyddsskal. Plånboksfodral,
@@ -1515,10 +2480,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        tunn" rad som visade sig vara ofullständig research. Behandla varje
        sådan motivering som obevisad tills passet är gjort om.
 
-       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, som på /usb-c-laddare
-       och /garageportsoppnare. Slugen är vald på handelns och konkurrenternas
-       gemensamma språkbruk, alltså skal och inte fodral, vilket är ett stabilare
-       underlag än de två gånger sajten gissat fel. Kör Keyword Planner ändå.
+       SLUGEN ÄR VALD på handelns och konkurrenternas gemensamma språkbruk,
+       alltså skal och inte fodral, vilket är ett stabilare underlag än de två
+       gånger sajten gissat fel.
 
        ⚠️ PASSFORMSKOLUMNEN GÄLLER BARA 17 PRO. Sidan rankar skalmodeller med
        17 Pro-varianten som referenspris, men `Passar modeller` anger enbart den
@@ -1545,9 +2509,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        storlek efter användarbeslut. Den här rankar från 20 000 mAh och uppåt.
        Stiftung Warentest delar sitt eget test på samma storlekar.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma sak som moderssidan. `powerbank
-       20000` ska med i samma Keyword Planner-körning. Slugen följer
-       Teknikdelars egen kategori, `powerbank-20000mah`.
+       SLUGEN FÖLJER Teknikdelars egen kategori, `powerbank-20000mah`.
 
        TVÅ PRODUKTER ÄR BYGGDA INTILL TAKET: Linocell 27 600 mAh ligger på
        99,36 Wh och Anker Prime 26 250 mAh på 99,75 Wh. Marginal 0,64 respektive
@@ -1606,11 +2568,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
     /* `powerbank` byggd 2026-08-05. Tredje systersidan ur /usb-c-laddares
        avgränsning, efter /usb-c-kabel.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `powerbank`, `batteripack` och
-       `reservbatteri` över samtliga keyword-CSV:er ger noll träffar. Kör
-       Keyword Planner på `powerbank`, `powerbank bäst i test`, `batteripack`
-       och `powerbank 20000` när det passar.
 
        Slugen är enkel: handeln och samtliga konkurrenter säger powerbank i ett
        ord. Ingen använder batteripack eller reservbatteri som produktnamn.
@@ -1872,10 +2829,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        ett stående löfte i läsartext: /brandslackare säger om släcksprayen att
        "den får en egen sida hos oss". Samma metod som gav /hygrometer.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `släckspray` finns inte i någon keyword-CSV.
-       Ta med `släckspray`, `brandsläckningsspray`, `släckspray litium` och
-       `brandspray` i nästa Keyword Planner-körning.
-
        FYNDET: släcksprayer omfattas av SS-EN 3–7, alltså samma standard som
        handbrandsläckarna på /brandslackare, och klassen ska stå på burken.
        Housegard FireStopper anger 5A 21B (E) 5F och Taerosol Fire Fighter
@@ -2069,6 +3022,241 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     published: "2026-08-03",
   },
   {
+    /* `dorr-och-fonstersensor` byggd 2026-08-07. Sjuttonde sidan i Säkerhet.
+
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Varken `.agent/planerade-sidor.md` eller
+       `ideas-testsidor.md` nämner sensorn; sidan är beställd direkt, som
+       /blender och /stavmixer. Beställningen löd "fönstersensor", och att ta
+       reda på det bästa namnet var en del av uppdraget.
+
+       ⚠️ SLUGEN ÄR UTREDD, INTE VALD PÅ KÄNSLA, och användarbeslutet togs på
+       underlaget nedan. Ingen butik i Sverige säljer en ren "fönstersensor":
+       varan är alltid både dörr och fönster, och handeln säger det. IKEA
+       "PARASOLL dörr-/fönstersensor", Powers kategori "Dörr- och
+       fönstersensorer", PriceRunner "Dörr och fönstersensor", Kjell om eufy
+       "Dörr- och fönstersensor", tyska homeandsmart "Tür- und Fenstersensoren".
+       Sammansättningen är dessutom den enda kandidaten som bär både
+       `dörrsensor` och `fönstersensor` som delsträng.
+
+       De fyra som valdes bort, och varför:
+       - `fönstersensor` har klustrets renaste autocomplete-träd men
+         registrerar **noll datapunkter** i Google Trends över tolv månader, i
+         fyra olika upplägg, där `dörrsensor` ger 3,4 head-to-head.
+       - `dörrsensor` är störst men tvetydigt. Samma SERP ger IR-givare för
+         skåpbelysning hos xcen, Harvias bastudörrbrytare och Beslagsgruppens
+         "dörr ej stängd"-larm.
+       - `magnetkontakt` är Kjells kategorirubrik och Trends starkaste, men
+         SERP:en är installatörsledet: Alarmtech MC440, Ahlsell, Teletec,
+         Paradox, SecuritasPro. Fel köpare.
+       - `öppningssensor` ger **noll autocomplete-förslag**. I praktiken död.
+
+       KONKURRENTFÄLTET ÄR NÄSTAN TOMT, och det är sidans starkaste
+       kommersiella argument. En enda svensk sajt har en sida om kategorin,
+       smartahemtest.se. diginytt, konsumentvalet, testexperterna, bast-i-test,
+       testix och larmkollen har ingen. Jämför brandvarnare och hemlarm där fem
+       till nio sajter slåss.
+
+       FYNDET: hubben avgör, inte sensorn. Åtta produkter talar en öppen
+       standard och fungerar med vilken hubb som helst; fyra är låsta till ett
+       enda märkes basstation. Tapo T110 kräver H100 eller H200, Ring kräver
+       Ring Alarm-basstation, eufy kräver HomeBase, Hue Secure kräver Hue
+       Bridge, Yale kräver Yale Smart Hub. Följden är att **sensorns pris inte
+       är priset**: den billigaste i fältet på 129 kronor kräver en hubb som
+       kostar mer än den själv.
+
+       ANDRA FYNDET, ur gap-passet: öppenheten är inte gratis. Aqara P2 är
+       fältets mest öppna sensor, Matter över Thread, och samtidigt dess
+       största huvudenhet med 77 mm mot Shellys 35. Den drivs dessutom av
+       CR123A i stället för CR2032. Måtten står inte i en enda butiks
+       specblock; de kom ur manualerna och tillverkarnas specifikationsflikar.
+       **Ingen svensk konkurrent anger måtten alls.**
+
+       TREDJE: batteritid och storlek är en avvägning, utom hos en. Sonoff och
+       ThirdReality köper sin drifttid med två AAA-celler och blir stora av
+       det. Shelly når samma tre år på ett enda CR2032 i fältets minsta hölje.
+       Cleverio ligger lägst på ca 1 år enligt Kjells egen produkttext, alltså
+       fyra batteribyten där Yale klarar sig på ett.
+
+       ⚠️ IKEA PARASOLL RANKAS INTE. IKEA:s egen produktsida är märkt "Utgår
+       inom kort" och produkten ligger på deras "Last chance to buy",
+       kontrollerat 2026-08-07. Att ranka en utgående produkt är felet
+       /elektrisk-rullgardin och /smart-brandvarnare byggdes för att rätta. Det
+       kostar sidan IKEA:s program på 9 %, kategorins näst bästa sats.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Råd & Rön har ingen provning av
+       magnetkontakter. Stiftung Warentest har provat smarta säkerhetssystem
+       och mekaniska fönsterlås, alltså två andra produkter, och den
+       sammanblandningen ligger i flera tyska affiliatetexter. tek.no nämner
+       sensorerna bara inuti systemtester. automatiserar.se är en svensk
+       bloggare med riktig handpåläggning, alltså tier C och en lead.
+
+       ⚠️ SABOTAGESKYDD BÄR INGEN VIKT, efter användarbeslut. Sex av fjorton
+       har det belagt, åtta nämner det inte, och "nämner inte" är vår research
+       och inte produktens egenskap. Uppgiften ligger i tabellen och i ett eget
+       avsnitt. Samma konstruktion som `Varvtal` på /stavmixer.
+
+       PENGAR: ⚠️ **detta är sajtens lägsta korgvärde efter skalsidorna.**
+       129 till 499 kronor styck ger 6 till 40 kronor hos Kjell på 5 %. Tre
+       saker gör den ändå värd att bygga: varan köps i flertal och säljs i kit
+       och trepack, den kräver ofta en hubb som är den dyrare halvan av köpet
+       och som /smart-hem-hubb redan täcker, och sidan är en intern nod för
+       fem befintliga säkerhetssidor som saknar en komponentsida att peka på.
+       Kjell 5 % / 30 d bär nio av tolv och är enda butiken med både program
+       och djup, 19 artiklar i egen kategori. Inet bär tre och är billigare på
+       Aqara P2 (259 mot 299) och Aqara T1 (199), men saknar program och ska in
+       i affiliate-ansokningar.md. Proshop 3,2 % bär Sonoff. ⚠️ Nexsmart 15 %
+       med ppc=2 är en hägring: deras sensor fungerar bara med deras egen
+       GUARDIAN 2. Ingen butik i fältet tillåter PPC.
+
+       ⚠️ RING FLYTTADES TILL ÖVERVÄGDA sent i bygget. Ring säljer Contact
+       Sensor i två generationer med olika batteri och olika mått, 1st Gen på
+       ett CR123A och 2nd Gen på två CR2032, och Kjell anger ingen generation.
+       Två av fem betyg hade blivit gissningar om vilken vara som ligger i
+       kartongen. Fastställ generationen mot artikel 51859 så kan den rankas,
+       och fältet blir tretton.
+
+       ⚠️ KRITERIET HETTE `oppenhet` / "Öppenhet mot hubbar" fram till att
+       check:redovisning fällde det på ordet öppenhet. Det var en
+       nyckelordsträff och inte ett sakfel, men etiketten var genuint tvetydig
+       på svenska. Den heter nu "Vilka hubbar den fungerar med" och nyckeln
+       `hubbstod`. Se kommentaren i lib/test-pages.ts.
+
+       Se .agent/research/dorr-och-fonstersensor.md. */
+    href: "/dorr-och-fonstersensor",
+    label: "Dörr- och fönstersensor",
+    category: SAKERHET,
+    blurb: "Sensorn kostar 129 kronor. Hubben den kräver kostar mer.",
+    /* Live 2026-08-07. Samtliga tolv priser, lagerstatus och kundbetyg lästa
+       hos Kjell, Inet och Proshop samma dag. Måtten hämtade i tillverkarnas
+       manualer och specifikationsflikar: Cleverios och Fibaros PDF:er som
+       Kjell länkar, Aqaras specflik för P2 och P100, eufys egen servicesida.
+       Tolv packshots på plats. Samtliga tolv superlativ ligger på 23 till 32
+       tecken, alltså under taket på 35. Mätt vid 1440 och 390 px: noll
+       horisontellt överflöde och inget klippt superlativ i snabbvalspanelen.
+
+       ⚠️ TVÅ BILDER LIGGER UNDER MASTERBREDDEN 1200 px. Sonoff är 915×900
+       (Proshop serverar ingen större) och ThirdReality 724×770 (Inets egen).
+       Båda är rätt produkt. Byt vid nästa prisrunda.
+
+       ⚠️ TRE PRODUKTER SAKNAR BATTERITID och en saknar mått, så deras vikt
+       fördelas om av förvalet i weightedRating. Det lyfter Aqara P100 från
+       3,55 till 4,44 och för den inom fyra hundradelar från andraplatsen.
+       Kostnaden står utskriven i metodrutan. Räkna om ordningen om ett
+       batterital fastställs för P100. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 12,
+  },
+  {
+    /* `fonsterlarm` byggd 2026-08-07, samma dag som systersidan
+       /dorr-och-fonstersensor och som en direkt följd av den.
+
+       AVGRÄNSNING efter användarbeslut: det **fristående sirenlarmet**, alltså
+       en batteridriven dosa med magnetkontakt och inbyggd siren som tjuter
+       själv utan app, hubb eller konto. Magnetkontakten som rapporterar till
+       ett smart hem ligger på systersidan. De säljs i samma hylla, ser
+       likadana ut och förväxlas ständigt, men de har ingen gemensam
+       betygsaxel: den ena bedöms på protokoll och hubbkrav, den andra på
+       decibel. Båda sidorna förklarar skillnaden och korslänkar.
+
+       SLUGEN BRYTER MOT SYSTERSIDANS LOGIK MED FLIT, efter användarbeslut.
+       Där var sammansättningen nödvändig eftersom ingen butik säljer en ren
+       fönstersensor. Här är `dörrlarm` aktivt skadligt: autocomplete ger
+       hemtjänst, demens, hotell och resa, alltså en helt annan köpare.
+       `fönsterlarm` har ett eget rent träd (clas ohlson, husbil, vibration,
+       wifi, ikea) och registrerar dessutom i Google Trends där
+       `fönstersensor` ger noll.
+
+       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Kör Keyword Planner på `fönsterlarm`,
+       `dörrlarm`, `dörr- och fönsterlarm`, `fönsterlarm husvagn`,
+       `fönsterlarm bäst i test` och `inbrottslarm fönster`. Den sista är
+       uppmätt till 590/mån men betyder hela larmsystem i SERP:en, alltså
+       /hemlarm och /larm-utan-abonnemang som redan finns.
+
+       FYNDET: talet som säljer produkten står nästan aldrig utskrivet, och
+       när det gör det är spannet enormt. Hela Nedis-familjen ligger på 85 dB,
+       eStore på 90 och SkyddsExperten på 95 till 100, medan Clas Ohlson och
+       Luxorparts anger 130. Skalan är logaritmisk, så 85 mot 130 är inte en
+       halvering utan en annan produkt: 85 dB är ungefär en dammsugare och går
+       att sova igenom två rum bort. Varenda ett av dem marknadsförs som
+       högljutt.
+
+       ANDRA FYNDET: styckpriset är inte priset per fönster. Luxorparts
+       fyrpack kostar 299 kronor men kräver **åtta AAA som säljs separat**,
+       alltså omkring 92 kronor per fönster i stället för 75. eStore kostar 69
+       med batterierna i lådan. Tre av sju levereras utan batterier.
+
+       TREDJE: avlarmningen är en säkerhetsuppgift och inte en bekvämlighet.
+       Fyra av sju har bara en på/av-brytare på sidan, som kan slås av av den
+       som redan tagit sig in. Nedis ALRMD30WT kräver en fyrsiffrig kod på
+       fronten, Luxorparts en fjärrkontroll. Ingen konkurrent tar upp det.
+
+       FJÄRDE, och det är pengar: **samma Nedis-larm kostar 79 kronor hos
+       Teknikdelar och 130 hos Teknikproffset**, och Teknikdelar bär 5 % mot
+       Teknikproffsets 2 %. Kontrollera alltid båda.
+
+       ⚠️ CLAS OHLSON 36-6145 RANKAS INTE. Deras egen produktsida säger
+       "Produkten har utgått", kontrollerat 2026-08-07. Samma beslut som IKEA
+       PARASOLL på systersidan.
+
+       ⚠️ JULA BRIGHT SMART ÄR ÖVERVÄGD, inte rankad. Den både tjuter lokalt
+       och notifierar via app, alltså en hybrid som hör hemma på systersidan,
+       och Jula har den som butiksvara som inte går att köpa online.
+
+       ⚠️ GLASKROSSVARIANTEN RANKAS, efter användarbeslut. Nedis ALRMGBD20WT är
+       samma larm som deras magnetvariant med en extra utlösare för 20 kronor
+       mer, alltså inte en egen produktklass.
+
+       ⚠️ INGET TESTOMDÖMEKRITERIUM. Ingen oberoende provning av fristående
+       fönsterlarm existerar hos Råd & Rön, Stiftung Warentest eller tek.no.
+
+       ⚠️ OMFÖRDELNINGEN AVGÖR FÖRSTAPLATSEN. `Storlek och montering` väger 15
+       och saknas för Luxorparts och eStore: Kjell publicerar inga mått,
+       Luxorparts manual är en **skannad bild utan textlager**, och eStore
+       anger bara vikten. Utan omfördelningen hade Clas Ohlson gått om
+       Luxorparts. Det är ändå rätt utfall, eftersom Luxorparts vinner de tre
+       tyngsta kriterierna med 75 av 100 viktpoäng och ett avdrag för ett
+       opublicerat mått är precis vad check:avdrag finns för. Står utskrivet i
+       metodrutan.
+
+       PENGAR: ⚠️ **sajtens sämsta enhetsekonomi.** Korgen är 59 till 299
+       kronor. Teknikdelar 5 % / 30 d bär Nedis kodlåsvariant och är billigast
+       på den. Kjell 5 % / 30 d bär Luxorparts, som är sidans vinnare och
+       dyraste vara. Teknikproffset 2 % / 45 d bär två Nedis-varianter.
+       ⚠️ **Estore SE 5 % med ppcMarketing 2 är enda annonserbara butiken** i
+       fältet och bär 90 dB-larmet på 69 kronor. Clas Ohlson och SkyddsExperten
+       saknar program vi kartlagt; SkyddsExperten är en ny rad i
+       affiliate-ansokningar.md.
+
+       Se .agent/research/fonsterlarm.md. */
+    href: "/fonsterlarm",
+    label: "Fönsterlarm",
+    category: SAKERHET,
+    blurb: "Tre av sju låter 85 decibel. Alla säljs som högljudda.",
+    /* Live 2026-08-07. Samtliga sju priser och lagerstatus lästa hos Kjell,
+       Clas Ohlson, Teknikdelar, Teknikproffset, SkyddsExperten och eStore
+       samma dag. Specifikationerna hos Nedis egna svenska produktsidor för de
+       tre Nedis-varianterna, annars hos butiken. Sju packshots på plats.
+       Samtliga sju superlativ ligger på 26 till 33 tecken, under taket på 35.
+       Mätt vid 1440 och 390 px: noll horisontellt överflöde och inget klippt
+       superlativ i snabbvalspanelen.
+
+       ⚠️ TVÅ BILDER LIGGER UNDER MASTERBREDDEN 1200 px. eStore är 705×588 och
+       Nedis-varianterna 720×720 (butikerna serverar inga större). Clas Ohlson
+       är 1064×1200. Alla är rätt produkt. Byt vid nästa prisrunda.
+
+       ⚠️ MÅTTRADEN BÄR STRECK PÅ VINNAREN. ComparisonTable bygger radlistan ur
+       FÖRSTA produktens markerade specar, så raden hade försvunnit tyst för
+       alla sju om Luxorparts saknat den. Den ligger nu som `value: "–"`,
+       samma konstruktion som `Räckvidd inomhus` på /babyvakt. Fångat av
+       check:tackning, inte av tsc eller webbläsaren. */
+    status: "live",
+    updated: "2026-08-07",
+    published: "2026-08-07",
+    count: 7,
+  },
+  {
     /* `hemlarm` 2 900/mån, och toppbudet 40,61 till 179,12 kr är sajtens
        högsta med marginal: brandvarnare toppar på cirka 60. Sajtens första
        tjänst i stället för produkt, se lib/services.ts. Larm utan abonnemang
@@ -2084,11 +3272,10 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   },
   {
     /* Systersidan till /hemlarm, beslutad 2026-08-03. Slugen är vald på
-       bedömning och inte på siffror: `larm utan abonnemang` är inte mätt i
-       Keyword Planner. Alternativen var `/inbrottslarm`, uppmätt till 590 i
-       månaden men tyst om abonnemang, och `/hemlarm-utan-abonnemang`, som
-       bygger in kannibalisering mot /hemlarm i själva URL:en. Termen ska med
-       i nästa körning. Se .agent/research/larm-utan-abonnemang.md §1. */
+       bedömning: alternativen var `/inbrottslarm`, som är tyst om abonnemang,
+       och `/hemlarm-utan-abonnemang`, som bygger in kannibalisering mot
+       /hemlarm i själva URL:en. Se
+       .agent/research/larm-utan-abonnemang.md §1. */
     href: "/larm-utan-abonnemang",
     label: "Larm utan abonnemang",
     category: SAKERHET,
@@ -2114,9 +3301,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
     /* `skaftdammsugare` är klustrets största term, mätt i Google Trends för
        Sverige över tolv månader 2026-08-06: 1 401 mot 598 för handdammsugare
-       och 563 för sladdlös dammsugare. Keyword Planner-volymen är inte mätt,
-       och det är uppföljning och inte ett hinder. Se
-       .agent/research/skaftdammsugare.md §2.
+       och 563 för sladdlös dammsugare. Se .agent/research/skaftdammsugare.md §2.
 
        Avgränsningen mot /robotdammsugare och mot handdammsugare kommer ur
        branschens egen indelning: Råd & Rön, Elgiganten, NetOnNet, Jula och
@@ -2199,13 +3384,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        inte ur volym: fyra sidor ber elva gaanger laesaren maeta fukten foerst,
        utan att ha naagot att laenka till. Fyra inlaenkar fraan sidor som redan
        rankar, direkt vid lansering.
-
-       ⚠️ VOLYMEN AER ALDRIG MAETT. Termen finns inte i naagon av vaara
-       keyword-CSV:er. Systertermen `luftkvalitetsmaetare` ligger paa 720/maan.
-       Koer Keyword Planner paa `hygrometer`, `fuktmaetare` och
-       `luftfuktighetsmaetare` naer det passar. Sajten har gissat
-       slug tvaa gaanger och haft fel baada gaangerna, se
-       .agent/keywords/utfall.md.
 
        ⚠️ VINKELN AER OMSKRIVEN 2026-08-06 EFTER ETT SAKFEL. Sidan paastod att
        tvaa av tretton maetare anger hur maanga procentenheter de faar visa fel.
@@ -2442,12 +3620,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
     /* `nyckelskap` byggd 2026-08-05.
 
-       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK, INTE PÅ SIFFROR. Termen är inte
-       uppmätt: grep på `skåp` och `skap` över samtliga keyword-CSV:er ger noll
-       träffar. Kjell, Jula, Biltema och Clas Ohlson använder alla nyckelskåp i
-       produktnamnen, och Villaägarna har det i rubriken. `nyckelgömma` och
-       `nyckelbox` ska med i nästa Keyword Planner-körning. Sajten har gissat
-       slug två gånger och haft fel båda gångerna, se .agent/keywords/utfall.md.
+       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK. Kjell, Jula, Biltema och Clas
+       Ohlson använder alla nyckelskåp i produktnamnen, och Villaägarna har det
+       i rubriken.
 
        AVGRÄNSNING efter användarbeslut: sidan rankar bara konsumentboxarna,
        349 till 2 599 kr. Ordet täcker även SSF 3492-klassade stålskåp som
@@ -2489,13 +3664,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        Se .agent/research/nyckelskap.md. */
     /* `usb-c-laddare` byggd 2026-08-05. Öppnar gruppen Elektronik.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `laddare` ger noll träffar i samtliga
-       keyword-CSV:er under .agent/. Termen fanns inte i planen, i
+       ⚠️ KATEGORIN FANNS INTE I KÖN. Termen fanns inte i planen, i
        ideas-testsidor.md eller i sidkarta-framat.md: sidan är en beställning
-       utifrån och inte en köad idé. Kör Keyword Planner på `usb-c laddare`,
-       `usb laddare`, `snabbladdare`, `gan-laddare` och `mobilladdare` innan
-       status flippas till live. Sajten har gissat slug två gånger och haft fel
-       båda gångerna, se .agent/keywords/utfall.md.
+       utifrån och inte en köad idé.
 
        ⚠️ SLUGEN ÄR VALD PÅ BUTIKERNAS SPRÅKBRUK, inte konkurrenternas.
        Kjell, CDON och Teknikdelar säger alla usb-c-laddare; samtliga tre
@@ -2556,13 +3727,11 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        produktsidor samma dag, och direktivet läst i original på EUR-Lex.
        Tretton packshots på plats.
 
-       ⚠️ SLUGEN LÅSES I OCH MED DETTA. Sökvolymen är fortfarande omätt, och
-       konkurrenterna använder `usb-laddare` medan butikerna använder
-       `usb-c-laddare`. Fram till nu hade ett slugbyte varit gratis eftersom
-       sidan aldrig legat i sitemapen; efter det här kostar det omdirigeringar.
-       Publicerad på användarbeslut med den vetskapen. Kör ändå Keyword Planner
-       på `usb-c laddare`, `usb laddare`, `snabbladdare` och `gan-laddare`, och
-       byt bara om skillnaden är stor nog att bära ett byte.
+       ⚠️ SLUGEN LÅSES I OCH MED DETTA. Konkurrenterna använder `usb-laddare`
+       medan butikerna använder `usb-c-laddare`. Fram till nu hade ett slugbyte
+       varit gratis eftersom sidan aldrig legat i sitemapen; efter det här
+       kostar det omdirigeringar. Publicerad på användarbeslut med den
+       vetskapen.
 
        ⚠️ SIDAN GÅR INTE ATT ANNONSERA. Samtliga fyra butiker sidan länkar till
        bär `ppcMarketing: 0` i Adtraction: Kjell 5 %, IKEA 9 %, Teknikdelar 5 %
@@ -2575,12 +3744,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
   {
     /* `garageportsoppnare` byggd 2026-08-05. Beställd utifrån, som
        /usb-c-laddare, och alltså inte köad i planerade-sidor.md.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. `garage` ger noll träffar i samtliga
-       keyword-CSV:er under .agent/. Kör Keyword Planner på `garageportsöppnare`,
-       `garageportöppnare`, `garageöppnare`, `portautomatik` och
-       `garageport motor` naer det passar. Sajten har gissat slug
-       två gånger och haft fel båda gångerna, se .agent/keywords/utfall.md.
 
        SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK. Jula, Bauhaus, Elgiganten, CDON och
        Bygghemma säger alla garageportsöppnare med foge-s, liksom alla tre
@@ -2644,11 +3807,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        JSON-LD eller specifikationstabell samma dag, och kraftuppgifterna hämtade
        ur tillverkarnas bruksanvisningar som PDF.
 
-       ⚠️ SÖKVOLYMEN ÄR FORTFARANDE OMÄTT vid lansering, efter användarbeslut.
-       Slugen är vald på handelns språkbruk: Jula, Bauhaus, Elgiganten, CDON och
-       Bygghemma säger alla garageportsöppnare med foge-s, liksom alla tre
-       svenska konkurrenter. Kör Keyword Planner ändå, och gör det innan sidan
-       hunnit indexeras: en slugändring efter indexering är den dyra sorten. */
+       SLUGEN ÄR VALD PÅ HANDELNS SPRÅKBRUK: Jula, Bauhaus, Elgiganten, CDON
+       och Bygghemma säger alla garageportsöppnare med foge-s, liksom alla tre
+       svenska konkurrenter. */
     status: "live",
     updated: "2026-08-06",
     published: "2026-08-05",
@@ -2659,10 +3820,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        användarbeslut. Den rankar modulerna som kopplas till en öppnare du
        redan har; motorerna ligger kvar på moderssidan. Samma delning som
        /brandvarnare mot /smart-brandvarnare.
-
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT, samma sak som moderssidan. Kör
-       `smart garageportsöppnare`, `garageportsöppnare wifi`, `garageport app`
-       och `meross garageport` i samma Keyword Planner-körning.
 
        KONKURRENSEN ÄR NOLL. De tre svenska jämförelsesajterna som rankar på
        garageportsöppnare rankar samtliga motorer. Ingen svensk jämförelse av
@@ -2710,8 +3867,6 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* Live 2026-08-05. Alla sex priser och GTIN lästa i butikens egen JSON-LD
        samma dag, samtliga i lager.
 
-       ⚠️ Samma omätta sökvolym som moderssidan, se kommentaren där.
-
        ✅ 2026-08-06: variantfällan avförd. Meross egen produktsida för MSG100
        och NetOnNets egen produktsida anger båda HomeKit-stöd, och cellen står
        nu som ja. Samtidigt gjordes kontoskyddet om från ett kriterium som
@@ -2726,12 +3881,7 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
     /* `usb-c-kabel` byggd 2026-08-05. Systersida till /usb-c-laddare, vars
        avgränsning uttryckligen sköt kablarna hit.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `kabel`, `sladd`, `laddkabel` och
-       `usb` över samtliga keyword-CSV:er under .agent/ ger noll träffar för
-       kategorin. Kör Keyword Planner på `usb-c kabel`, `usb c sladd`,
-       `laddkabel` och `thunderbolt kabel` när det passar.
-
-       Slugen är däremot enkel den här gången, till skillnad från laddarsidan:
+       Slugen är enkel den här gången, till skillnad från laddarsidan:
        Kjell, Clas Ohlson, Teknikdelar, Testkollen och Testix säger alla kabel.
        Beställningens ord var sladd, som ingen i handeln använder.
 
@@ -2832,12 +3982,9 @@ export const TEST_PAGE_INDEX: TestPageEntry[] = [
        och ett andningslarm är en annan produkt med en annan köpare. De fyra
        ligger bland övervägda och förklaras i köpguiden.
 
-       ⚠️ SÖKVOLYMEN ÄR ALDRIG MÄTT. Grep på `baby`, `barnvakt` och `nanny` över
-       samtliga sex keyword-CSV:er ger noll träffar. Kör Keyword Planner på
-       `babyvakt`, `babyvakt bäst i test`, `babymonitor`, `babylarm` och
-       `andningslarm`. Slugen är dock ovanligt entydig: Råd & Rön, Clas Ohlson,
-       Kjell, Jollyroom, Babyland, Apotea, Elgiganten och Bygghemma säger alla
-       babyvakt, och `babymonitor` förekommer aldrig ensamt som kategorinamn.
+       SLUGEN ÄR OVANLIGT ENTYDIG: Råd & Rön, Clas Ohlson, Kjell, Jollyroom,
+       Babyland, Apotea, Elgiganten och Bygghemma säger alla babyvakt, och
+       `babymonitor` förekommer aldrig ensamt som kategorinamn.
 
        FYNDET: **den enda svenska laboratorieprovningen är från 15 juni 2012.**
        Råd & Röns test ligger kvar under rubriken Bäst i test: Babyvakter och är

@@ -64,6 +64,62 @@ export type Tool = {
 
 export const TOOLS: Tool[] = [
   {
+    slug: "oljekostnad-fritos",
+    name: "Oljekostnad fritös",
+    title: "Oljekostnad fritös: vad litertalet på kartongen kostar per år",
+    description:
+      "Räknar om en fritös oljemängd till vad oljan kostar per år och per portion, med det bytesintervall Test-Achats och Tefal själva anger.",
+    intro:
+      "Litertalet på kartongen är oljan du köper och slänger, inte maten du lagar. Räknaren översätter talet till kronor per år utifrån hur ofta du friterar, och visar vad en maskin med filtrering är värd.",
+    sections: [
+      {
+        heading: "Två källor anger samma bytesintervall",
+        body: [
+          "Belgiska Test-Achats, som provat 24 fritöser i den provning Stiftung Warentest publicerade i december 2025, rekommenderar att frityrfettet byts efter fem till sex omgångar. Tefals egen bruksanvisning för sina fritöser säger fem till sju gånger.",
+          "Räknaren utgår därför från sex omgångar per fyllning och låter dig flytta talet mellan fyra och tio. Skälet till bytet är att matrester samlas i fettet, ändrar smaken och påverkar hur oljan beter sig när den värms.",
+        ],
+      },
+      {
+        heading: "Oljemängden och matmängden är två olika tal",
+        body: [
+          "Tefal listar dem som två skilda rader i sin egen jämförelsetabell, och de följer inte varandra. Tefal Easy Pro, Princess 182727 och Severin FR 2431 tar alla tre exakt 3 liter olja och friterar 1,2 kilo, 600 gram respektive 400 gram mat.",
+          "Det betyder att samma oljekostnad ger tre gånger så mycket mat ur den ena maskinen som ur den andra. Över hela fältet spänner kvoten från 1,54 till 7,50 liter olja per kilo mat.",
+        ],
+      },
+      {
+        heading: "Vad filtreringen är värd",
+        body: [
+          "En kallzon håller smulorna borta från värmeelementet så att de inte bränns, och ett oljefilter silar bort dem. Tefals Oleoclean-modeller gör båda delarna automatiskt och lagrar oljan i en sluten låda mellan gångerna.",
+          "Hur många extra omgångar det ger är däremot ingen tillverkare och ingen provning som anger. Räknaren lägger på ett halvt steg för kallzon och två för automatisk filtrering, och det är en uppskattning som står utskriven vid resultatet.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Hur mycket kostar oljan till en fritös per år?",
+        answer:
+          "Mellan ungefär hundra och tusen kronor, beroende på maskinen och på hur ofta du friterar. En tvålitersmaskin som används varannan vecka drar omkring 26 liter om året, alltså runt 260 kronor med rapsolja i dunk. En femlitersmaskin vid samma bruk drar 65 liter och kostar omkring 650. Skillnaden på fem år är då nästan två tusen kronor, vilket är mer än vad någon fritös i jämförelsen kostar att köpa.",
+      },
+      {
+        question: "Hur ofta måste man byta frityrolja?",
+        answer:
+          "Efter fem till sju omgångar. Test-Achats anger fem till sex i den provning av 24 fritöser som Stiftung Warentest publicerade i december 2025, och Tefals egen bruksanvisning anger fem till sju. Har du friterat fisk bör oljan bytas direkt efteråt oavsett hur många gånger den använts, eftersom smaken annars följer med. En kallzon och ett oljefilter förlänger intervallet genom att hålla smulorna borta från värmen.",
+      },
+      {
+        question: "Lönar sig en fritös med automatisk oljefiltrering?",
+        answer:
+          "Om du friterar oftare än ungefär en gång i månaden, ja. Tefals Oleoclean-modeller silar oljan ned i en sluten låda när du vrider på ratten, så den varken står kvar i grytan eller ska hällas genom en sil för hand. Merpriset mot en maskin utan filtrering är några hundralappar, och det tjänas in dels på olja som räcker längre, dels på att momentet som får en fritös att stå oanvänd försvinner. Friterar du fyra gånger om året finns det ingen ekonomi i det.",
+      },
+      {
+        question: "Vilken olja räknar verktyget med?",
+        answer:
+          "Rapsolja på 30 kronor litern, vilket motsvarar femlitersdunk i svensk dagligvaruhandel, och priset går att ändra. Rapsolja är också den olja som passar bäst till fritering: neutral smak och en rökpunkt runt 240 grader, alltså god marginal till de 175 till 190 grader man friterar i. Fast frityrfett håller något längre men kostar mer per kilo, och olivolja har både lägre rökpunkt och en smak som följer med maten.",
+      },
+    ],
+    usedOn: ["fritos"],
+    updated: "2026-08-07",
+  },
+  {
     slug: "drifttid-skaftdammsugare",
     name: "Drifttid skaftdammsugare",
     title: "Drifttid skaftdammsugare: vad kartongens minuttal blir i turboläge",

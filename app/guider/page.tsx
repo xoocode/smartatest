@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { TOOLS, toolHref, type Tool } from "@/lib/tools";
 import { TEST_PAGE_INDEX, CATEGORIES } from "@/lib/catalog";
 import { graph, pageEntity } from "@/lib/schema";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Räkna ut hur många lumen rummet behöver och vad lamporna drar i el per år, eller ta reda på vad en kamera får filma och vilket lås försäkringsbolaget räknar som godkänt. Samma guider som ligger inbyggda i våra jämförelser.",
   alternates: { canonical: "/guider" },
-  openGraph: { title: "Guider och räknare", url: `${SITE.url}/guider` },
+  openGraph: pageOpenGraph({ title: "Guider och räknare", path: "/guider" }),
 };
 
 /**

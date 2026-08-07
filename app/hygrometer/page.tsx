@@ -12,7 +12,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -69,10 +69,6 @@ import Kopguide from "@/content/hygrometer/kopguide.mdx";
  * rekommendationer och inte bindande regler, vilket författningssamlingen
  * själv skriver ut. Sidan får aldrig påstå att ett värde är olagligt.
  *
- * ⚠️ VOLYMEN ÄR ALDRIG MÄTT. `hygrometer` finns inte i någon av våra
- * keyword-CSV:er. Kör Keyword Planner innan status flippas till live. Se
- * .agent/research/hygrometer.md.
- *
  * AFFILIATE-SWAP — LINK_MODE styr formen på länkarna. Se lib/links.ts.
  */
 
@@ -85,11 +81,7 @@ export const metadata: Metadata = {
   description:
     "Govee H5075 för 219 kronor håller sig inom 3 procentenheter, snävast av sju hygrometrar vi jämfört. Tre mätare mellan 179,90 och 269 kronor anger identiska ± 5, och mögelgränsen ligger bara femton enheter från den nivå du ska agera vid.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

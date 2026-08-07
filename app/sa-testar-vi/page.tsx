@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { publishedCategories, SMART_BELYSNING } from "@/lib/test-pages";
 import { SMART_BELYSNING_PRODUCTS } from "@/lib/data/smart-belysning";
 import { TEST_PAGE_INDEX, isBrowsable } from "@/lib/catalog";
@@ -46,11 +47,7 @@ export const metadata: Metadata = {
   description:
     "Vi gör inga egna mätningar. Betygen räknas fram ur specifikationer, publicerade tester och en viktning som står öppet på varje sida.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Så testar vi",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Så testar vi", path: PAGE_URL }),
 };
 
 const TOC = [

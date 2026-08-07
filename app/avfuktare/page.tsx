@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -74,11 +74,7 @@ export const metadata: Metadata = {
   description:
     "Meaco Arete One 25L för 4 299 kr vinner: 10,7 liter per dygn vid 20 °C och toppbetyg hos Which?. Vi jämförde tolv avfuktare från 1 499 till 7 890 kronor på vad de tar upp i svalt, hur djupt ned i kyla de arbetar och vad de drar per liter vatten.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

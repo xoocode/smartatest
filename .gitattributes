@@ -1,0 +1,44 @@
+# Line endings: LF everywhere, in the index and in the working tree.
+#
+# ## Varför filen finns
+#
+# Installationen av Git for Windows sätter `core.autocrlf=true` på systemnivå.
+# Indexet håller då LF medan varje textfil checkas ut med CRLF, så repot och
+# arbetskatalogen säger olika saker om samma fil. Bygget märker ingenting —
+# men varje verktyg som läser en fil med ett mönster skrivet för `\n` missar
+# tyst, och tyst är det värsta av alla utfall.
+#
+# Det hände 2026-08-07. Ett skript som skulle skriva om `openGraph`-blocket i
+# 75 sidor träffade 26 och gick igenom utan att klaga. De andra 49 låg med
+# CRLF. Ingenting i `pnpm check` hade fångat en halvfärdig omskrivning.
+#
+# ## Varför just den här filen och inte en inställning
+#
+# `core.autocrlf` bor i en enskild maskins konfiguration och följer inte med
+# klonen. Den här filen gör det, och attributen vinner över `core.autocrlf`.
+# Regeln gäller alltså oavsett vem som klonar och vad de har ställt in.
+#
+# `eol=lf` och inte bara `text=auto`: utan den följer arbetskatalogen
+# fortfarande `core.autocrlf` och är CRLF på Windows igen. Vercel bygger på
+# Linux, och LF är standard i ett JavaScript-repo.
+
+* text=auto eol=lf
+
+# Två avsiktliga NUL-tecken i escape-rutinen — `"*"` blir `\0` och sedan
+# `[\wåäöÅÄÖ-]+` — får Gits heuristik att läsa filen som binär, så varje diff
+# på den säger bara "Binary files differ". Filen är ren LF, så att tvinga
+# fram text är riskfritt och ger läsbara diffar tillbaka.
+#
+# Båda attributen behövs. `text` styr radslutskonverteringen, `diff` styr om
+# git renderar innehållet eller ger upp. Bara `text` lämnar diffen binär.
+scripts/sprakkoll.mjs text diff
+
+# Binärt. Aldrig konverterat, aldrig radbrutet.
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.ico  binary
+*.ttf  binary
+*.woff binary
+*.woff2 binary

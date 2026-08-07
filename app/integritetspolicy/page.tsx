@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE, publisherAddress } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { DEFAULT_REVIEWER } from "@/lib/people";
 import { graph, orgRef, pageEntity } from "@/lib/schema";
 import { Container } from "@/components/site/container";
@@ -42,11 +43,7 @@ export const metadata: Metadata = {
   description:
     "Vi har varken besöksstatistik, pixlar eller nyhetsbrev. Det som lagras är två cookies och det du själv skickar via kontaktformuläret.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Integritetspolicy",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Integritetspolicy", path: PAGE_URL }),
 };
 
 export default function IntegritetspolicyPage() {

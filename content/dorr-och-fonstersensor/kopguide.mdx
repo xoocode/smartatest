@@ -1,0 +1,217 @@
+## Sensorns pris är inte priset
+
+En dörr- och fönstersensor kostar mellan 129 och 499 kronor i den här
+jämförelsen. Det är sällan vad köpet landar på.
+
+Fyra av de tolv sensorerna fungerar bara med ett enda märkes basstation. Tapo
+T110 kräver en Tapo H100 eller H200. Ring Alarm Contact Sensor kräver en Ring
+Alarm-basstation. eufy Security kräver en HomeBase. Philips Hue Secure kräver
+en Hue Bridge, och Yale kräver Yale Smart Hub. Har du ingen av dem hemma är
+hubben det du egentligen köper, och den kostar i regel mer än sensorn.
+
+Det gör den billigaste produkten på sidan till den dyraste starten. Tapo T110
+på 129 kronor är lägsta styckpriset i hela jämförelsen, men bara om du redan
+har hubben. Sonoff SNZB-04PR2 kostar 159 kronor och talar Zigbee 3.0, alltså en
+öppen standard som fungerar med vilken Zigbee-hubb som helst, inklusive en du
+kanske redan har till lamporna.
+
+Det är därför öppenhet väger tyngst i vår rankning. En sensor du inte kan
+ansluta är inte billig.
+
+## Zigbee, Thread, Z-Wave och Matter, kort
+
+Fyra ord återkommer i varje produktbeskrivning och de betyder inte samma sak.
+
+**Zigbee** är den vanligaste radion i den här produktklassen. Låg
+strömförbrukning, bygger mesh där enheterna hjälper varandra vidare, och kräver
+en hubb som talar Zigbee. Sonoff, Cleverio, ThirdReality och Aqara T1 är
+Zigbee.
+
+**Thread** är samma sorts radio men med IP-adressering, alltså varje enhet har
+en egen adress på nätverket. Det är transporten Matter använder.
+
+**Z-Wave** är ett äldre alternativ på en annan frekvens med färre störningar
+men ett betydligt mindre produktutbud. Fibaro är den enda Z-Wave-sensorn här.
+
+**Matter** är ingen radio alls utan ett gemensamt språk ovanpå Thread eller
+wifi. En Matter-certifierad sensor fungerar med vilken certifierad styrenhet
+som helst, oavsett märke. Aqaras P2 är Matter över Thread, och det är den
+enda produkten här som fungerar lika bra med en Apple TV, en Google-högtalare,
+en SmartThings-hubb och Home Assistant utan att du köper något från Aqara.
+
+Praktisk regel: har du redan en hubb, köp en sensor som talar dess språk. Har
+du ingen och börjar från noll, köp Matter.
+
+## Mät karmen innan du beställer
+
+Det här är den uppgift som är svårast att hitta och lättast att ångra.
+
+Sensorerna i jämförelsen är mellan 35 och 90 millimeter långa, alltså en
+faktor 2,6. Ingen svensk jämförelsesajt anger måtten, och butikernas
+specifikationsblock saknar dem nästan alltid. Vi fick hämta dem i tillverkarnas
+manualer och specifikationsflikar.
+
+| Sensor | Mått | Batteri | Drifttid |
+|---|---|---|---|
+| Shelly BLU Door/Window ZB | 35 × 35 × 7 mm | CR2032 | upp till 3 år |
+| Aqara Sensor T1 | 41 × 22 × 11 mm | CR1632 | över 2 år |
+| Aqara Multi-State P100 | 45 × 31 × 13 mm | CR2450 | anges ej |
+| Cleverio Smart Magnetsensor | 54 × 22 × 12 mm | 2 × CR1632 | ca 1 år |
+| TP-Link Tapo T110 | 61 × 37 × 12 mm | CR2032 | över 1 år |
+| Yale Magnetkontakt inomhus | 68,5 × 29 × 9,5 mm | CR2450 | upp till 4 år |
+| Philips Hue Secure | 70 × 22 × 20 mm | anges ej | anges ej |
+| Fibaro Door/Window Sensor 2 | 71 × 18 × 18 mm | 1/2AA | upp till 2 år |
+| eufy Security | 73 × 28 × 22 mm | CR123A | 2 år |
+| Aqara Sensor P2 | 77 × 22 × 22 mm | CR123A | anges ej |
+| Sonoff SNZB-04PR2 | 90 × 26 × 13,5 mm | 2 × AAA | upp till 3 år |
+
+På en dörrkarm spelar det sällan roll. På en fönsterbåge, som är där den här
+produkten oftast ska sitta, avgör det om sensorn får plats utan att komma i
+vägen för hakar och handtag. Mät bågens bredd och det fria djupet innan du
+lägger något i korgen.
+
+## Batteritiden köps inte med storlek
+
+Man skulle tro att en större cell ger längre drift. Tabellen ovan säger något
+annat.
+
+Sonoff drar tre år ur två AAA-batterier och blir 90 millimeter lång av det.
+Shelly drar exakt lika länge ur ett enda CR2032 i ett hölje som är 35
+millimeter, alltså mindre än hälften. Yale går fyra år på ett CR2450 i ett 68,5
+millimeters hölje. Cleverio, som har två celler, går ungefär ett år.
+
+Sambandet mellan cellstorlek och drifttid är alltså mycket svagare än
+kartongen antyder. Det som faktiskt avgör är hur ofta sensorn skickar och hur
+sparsamt radion är skriven.
+
+Räkna dessutom på antalet. Sitter det sex sensorer i huset betyder ett års
+drifttid sex batteribyten om året, och fyra år betyder ett och ett halvt byte.
+Det är skillnaden mellan en produkt du sköter och en du glömmer.
+
+## Sabotageskydd, och varför det inte väger poäng här
+
+En vanlig magnetkontakt larmar när fönstret öppnas. Den larmar inte när någon
+lyfter av hela sensorn från karmen.
+
+Sabotageskydd är funktionen som täpper till det. Fibaro har en särskild
+TMP-knapp som utlöser både när enheten bryts loss och när höljet öppnas.
+Cleverio och Sonoff varnar vid borttagning, Aqaras P2 skickar en notis, och
+Yale gör det på både inomhus- och utomhusmodellen.
+
+Sex av de produkter vi tittat på skriver ut att de har det. Övriga nämner det
+inte, och det är inte samma sak som att de saknar det. Därför väger funktionen
+inga poäng i vår rankning: ett betyg hade mätt vilken tillverkare som skrivit
+ned uppgiften, inte vilken produkt som gör jobbet. Uppgiften står i
+jämförelsetabellen där den är belagd.
+
+Om skalskydd är hela ditt syfte med köpet, välj bland de sex.
+
+## Glappet mellan sensor och magnet
+
+En magnetkontakt består normalt av två delar som ska sitta mitt för varandra.
+Hur långt ifrån varandra de får sitta skiljer sig, och det avgör om sensorn
+fungerar på ett äldre fönster.
+
+Fibaro kräver att magneten sitter högst 5 millimeter från sensorn. Cleverio
+tillåter 10. Ett fönster som satt sig, en karm som slagit sig eller en tätlist
+som byggts på ger lätt några millimeters extra spel, och då börjar en sensor
+med snäv tolerans larma falskt eller sluta reagera helt.
+
+Aqaras Multi-State P100 går runt problemet genom att vara ett enda stycke utan
+separat magnet. Det finns ingenting att linjera och inget avstånd som kan bli
+för stort. På ett gammalt hus är det ett större argument än det låter.
+
+En sak till ur Cleverios manual, som ingen produktsida i handeln nämner:
+montera inte på dörrar eller fönster med metallkarm. Metallen stör magnetfältet.
+
+## Vad sensorn kan mäta utöver öppet och stängt
+
+De flesta rapporterar en enda sak: om kontakten är sluten. Tre gör mer.
+
+Shelly BLU mäter tiltvinkel och ljusnivå i lux. Fibaro har en inbyggd
+temperatursensor. Aqaras Multi-State P100 känner rörelse, tilt, vibration och
+fall med accelerometer, gyroskop och magnetometer, med tio känslighetsnivåer.
+
+Tilt är mer användbart än det låter. Ett vridfönster i luftningsläge är varken
+öppet eller stängt i en magnetkontakts mening, och en sensor som känner vinkeln
+kan skilja på ett fönster som står på glänt och ett som står vidöppet.
+Temperatur i samma enhet är praktiskt om du vill veta att altandörren står
+öppen när det är noll grader ute.
+
+Sensorn sitter ändå på karmen och drar ändå ström. Det som ryms i samma hölje
+är rent tillskott, och därför väger det.
+
+## Hur många behöver du?
+
+Räkna på de öppningar en person faktiskt kan ta sig in genom, inte på alla
+fönster i huset.
+
+I en normal villa blir det ytterdörren, altandörren, källardörren och de
+fönster som sitter i markplan. Ofta sex till åtta. Övervåningens fönster hoppar
+de flesta över. I en lägenhet räcker det oftast med ytterdörren och
+balkongdörren.
+
+Det är därför styckpriset betyder mer än det ser ut att göra. Sex Aqara T1
+kostar 1 194 kronor. Sex Yale kostar 2 994. Flera tillverkare säljer trepack
+och kit som är billigare per sensor än styckpriset, så kolla det innan du
+lägger tolv enskilda i korgen.
+
+## Sensor eller fristående fönsterlarm?
+
+De två förväxlas ständigt, säljs i samma butiker och löser olika problem.
+
+En **dörr- och fönstersensor** är en magnetkontakt som rapporterar till en app
+eller en hubb. Den låter ingenting själv. Ljudet kommer i så fall från en siren
+eller en basstation någon annanstans i huset. Den kostar 129 till 499 kronor
+och passar den som vill automatisera, se historik och bygga vidare.
+
+Ett **fönsterlarm** är en fristående dosa med inbyggd siren på 100 till 130
+decibel som tjuter direkt på fönstret. Ingen app, ingen hubb, inget wifi. Det
+kostar ofta under hundralappen och passar husvagnen, sommarstugan och
+hotellrummet.
+
+Ska du veta saker om ditt hem, köp en sensor. Ska något låta högt på en plats
+utan nätverk, köp ett fönsterlarm.
+
+## Vad sensorn kan göra åt lamporna och värmen
+
+För många är larmet inte huvudskälet.
+
+En sensor är bara en kontakt som talar om för din hubb att något hänt. Vad som
+sedan sker bestämmer du. Vanligast är att garderobsbelysningen tänds när dörren
+öppnas, att hallen tänds när ytterdörren går upp på kvällen, och att värmen i
+rummet stängs av när fönstret vädras.
+
+Det sista sparar verkliga pengar i ett hus med smarta termostater, och det är
+den automation som oftast motiverar hela inköpet. Vill du ha just
+belysningsscener och redan har Philips Hue är deras egen sensor enklast,
+eftersom allt ligger i samma app. Ska du styra saker från flera märken behöver
+du en sensor med öppen standard.
+
+## Utomhus kräver en annan produkt
+
+Nästan alla sensorer i den här klassen är byggda för inomhusbruk, och det står
+sällan tydligt.
+
+Av allt vi tittat på är Yales Magnetkontakt för utomhusbruk den enda med en
+IP-klass, IP55, och den kostar 749 kronor mot 129 till 499 för
+inomhusmodellerna. Skälet är att ett vanligt hölje släpper in fukt, och att
+kondens inuti elektroniken både ger falsklarm och kortar livslängden.
+
+Ska du bevaka en grind, en garageport eller en förrådsdörr som sitter i väder
+behöver du alltså en särskild produkt. Ska du bevaka ett fönster inifrån,
+vilket är det normala, räcker en inomhusmodell även om fönstret vetter ut.
+
+## Det finns inget oberoende test av den här produkten
+
+Det är värt att säga rakt ut, eftersom flera sidor på nätet antyder motsatsen.
+
+Råd & Rön har inte provat magnetkontakter. Stiftung Warentest har provat smarta
+säkerhetssystem och mekaniska fönsterlås, vilket är två andra produkter, och
+den sammanblandningen förekommer i flera tyska texter om ämnet. Norska tek.no
+nämner sensorerna bara inuti tester av hela system som Futurehome och Netatmo.
+
+Vår rankning bygger därför på tillverkarnas publicerade specifikationer, på de
+manualer butikerna själva länkar, och på priser vi läst hos butikerna och
+daterat. Inte på mätningar. Vi har ingen labbprovning att luta oss mot i den
+här kategorin och påstår inte att vi har det.

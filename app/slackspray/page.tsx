@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -68,11 +68,7 @@ export const metadata: Metadata = {
   description:
     "Housegard FireStopper vinner för 299 kronor: 5A 21B 5F är det största testbål någon spray här är provad mot, och 600 ml räcker i 30 sekunder. Vill du bara ha en burk i bilen kostar Biltemas 99,90. Fem sprayer jämförda på klass, släckmedel, kastlängd och tömningstid.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

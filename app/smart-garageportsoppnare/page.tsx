@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -61,11 +61,7 @@ export const metadata: Metadata = {
   description:
     "Meross MSG100 vinner för 499 kronor: den fungerar med Apple HomeKit, Google, Alexa och SmartThings, är provad mot 1 600 portöppnarmodeller och har jämförelsens starkaste kontoskydd. Bygger du på Matter tar du SwitchBot för 483. Kontrollera strömförsörjningen först: de två billigaste modulerna kräver elinstallatör.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

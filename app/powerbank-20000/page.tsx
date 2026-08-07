@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -62,11 +62,7 @@ export const metadata: Metadata = {
   description:
     "Linocell 25 000 vinner för 999 kronor: 140 watt ur en port, 508 gram och 27 millimeter tunn, alltså den som faktiskt följer med i datorväskan. Vill du ha maximal kapacitet inför flyget ger Linocell 165 W 99,36 wattimmar för samma pris. En powerbank får aldrig checkas in, oavsett storlek.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

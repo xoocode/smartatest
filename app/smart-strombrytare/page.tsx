@@ -10,7 +10,7 @@ import {
 } from "@/lib/data/smart-strombrytare";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -67,11 +67,7 @@ export const metadata: Metadata = {
   description:
     "Shelly 1 Gen4 för 269 kronor vinner: wifi, Bluetooth, Zigbee och Matter i samma modul, styrd lokalt utan molnkonto. Saknar dosan nolledare är Aqara H1 för 369 kronor den enda av de sex som fungerar ändå.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

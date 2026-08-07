@@ -1,8 +1,15 @@
 import type { Product } from "@/lib/products";
 import type { Service } from "@/lib/services";
+import { FRITOS_PRODUCTS } from "@/lib/data/fritos";
+import { WIFI_REPEATER_PRODUCTS } from "@/lib/data/wifi-repeater";
+import { AIRFRYER_PRODUCTS } from "@/lib/data/airfryer";
+import { ESPRESSOMASKIN_PRODUCTS } from "@/lib/data/espressomaskin";
 import { ELTANDBORSTE_PRODUCTS } from "@/lib/data/eltandborste";
 import { KOMPAKTKAMERA_PRODUCTS } from "@/lib/data/kompaktkamera";
 import { PIZZAUGN_PRODUCTS } from "@/lib/data/pizzaugn";
+import { SMOOTHIEMIXER_PRODUCTS } from "@/lib/data/smoothiemixer";
+import { BLENDER_PRODUCTS } from "@/lib/data/blender";
+import { STAVMIXER_PRODUCTS } from "@/lib/data/stavmixer";
 import { SKAFTDAMMSUGARE_PRODUCTS } from "@/lib/data/skaftdammsugare";
 import { BABYVAKT_PRODUCTS } from "@/lib/data/babyvakt";
 import { HEMLARM_SERVICES } from "@/lib/data/hemlarm";
@@ -11,6 +18,7 @@ import { SMART_PLUG_PRODUCTS } from "@/lib/data/smart-plug";
 import { SMART_STROMBRYTARE_PRODUCTS } from "@/lib/data/smart-strombrytare";
 import { ELEKTRISK_RULLGARDIN_PRODUCTS } from "@/lib/data/elektrisk-rullgardin";
 import { UTOMHUSTIMER_PRODUCTS } from "@/lib/data/utomhustimer";
+import { RORELSEVAKT_UTOMHUS_PRODUCTS } from "@/lib/data/rorelsevakt-utomhus";
 import { VATTENLARM_PRODUCTS } from "@/lib/data/vattenlarm";
 import { VATTENFELSBRYTARE_PRODUCTS } from "@/lib/data/vattenfelsbrytare";
 import { BRANDVARNARE_PRODUCTS } from "@/lib/data/brandvarnare";
@@ -52,6 +60,8 @@ import { BLUETOOTH_HOGTALARE_PRODUCTS } from "@/lib/data/bluetooth-hogtalare";
 import { POWERBANK_20000_PRODUCTS } from "@/lib/data/powerbank-20000";
 import { POWERSTATION_PRODUCTS } from "@/lib/data/powerstation";
 import { SMARTWATCH_PRODUCTS } from "@/lib/data/smartwatch";
+import { DORR_OCH_FONSTERSENSOR_PRODUCTS } from "@/lib/data/dorr-och-fonstersensor";
+import { FONSTERLARM_PRODUCTS } from "@/lib/data/fonsterlarm";
 
 /**
  * Every resolved product across all categories, so prose can name one by id.
@@ -74,10 +84,18 @@ import { SMARTWATCH_PRODUCTS } from "@/lib/data/smartwatch";
  * kategori anses klar.
  */
 export const ALL_PRODUCTS: Product[] = [
+  ...DORR_OCH_FONSTERSENSOR_PRODUCTS,
+  ...FONSTERLARM_PRODUCTS,
+  ...FRITOS_PRODUCTS,
+  ...ESPRESSOMASKIN_PRODUCTS,
+  ...AIRFRYER_PRODUCTS,
   ...ELTANDBORSTE_PRODUCTS,
   ...SMARTWATCH_PRODUCTS,
   ...KOMPAKTKAMERA_PRODUCTS,
   ...PIZZAUGN_PRODUCTS,
+  ...SMOOTHIEMIXER_PRODUCTS,
+  ...BLENDER_PRODUCTS,
+  ...STAVMIXER_PRODUCTS,
   ...SKAFTDAMMSUGARE_PRODUCTS,
   ...BABYVAKT_PRODUCTS,
   ...POWERSTATION_PRODUCTS,
@@ -101,6 +119,7 @@ export const ALL_PRODUCTS: Product[] = [
   ...SMART_STROMBRYTARE_PRODUCTS,
   ...ELEKTRISK_RULLGARDIN_PRODUCTS,
   ...UTOMHUSTIMER_PRODUCTS,
+  ...RORELSEVAKT_UTOMHUS_PRODUCTS,
   ...VATTENLARM_PRODUCTS,
   ...VATTENFELSBRYTARE_PRODUCTS,
   ...BRANDVARNARE_PRODUCTS,
@@ -125,6 +144,7 @@ export const ALL_PRODUCTS: Product[] = [
   ...FONSTERPUTSROBOT_PRODUCTS,
   ...SMART_HEM_HUBB_PRODUCTS,
   ...SMART_TERMOSTAT_PRODUCTS,
+  ...WIFI_REPEATER_PRODUCTS,
 ];
 
 export function findProduct(id: string): Product | undefined {

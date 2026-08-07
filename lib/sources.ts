@@ -951,6 +951,93 @@ export const UTOMHUSTIMER_SOURCES: Source[] = [
  * avgör om ett larm för 199 kronor är värt pengarna, och det är siffror från
  * branschen själv.
  */
+/**
+ * Källor för /rorelsevakt-utomhus.
+ *
+ * ## Inget enda oberoende test finns
+ *
+ * Sökt på svenska, norska och danska. Råd & Rön, Ljud & Bild och tek.no har
+ * ingen provning av kategorin. De fem svenska sidorna i sökresultatet är
+ * affiliatelistor utom Bygghemmas, som är en butiks jämförelse av det egna
+ * sortimentet och därför märkt `standard`. Samma läge som /utomhustimer.
+ *
+ * ## Karl H Ström bär merparten av specifikationerna
+ *
+ * De är Steinels svenska distributör och publicerar hela den tekniska
+ * databladstexten per modell — belastning i mikrofarad, antal drivdon,
+ * omgivningstemperatur, luxområde och efterlystid. Det är tier B och inte
+ * tillverkaren själv, men det är den enda svenska källan som har talen alls,
+ * och de fyra Steinel-modellerna i rankningen vilar på den.
+ */
+export const RORELSEVAKT_UTOMHUS_SOURCES: Source[] = [
+  {
+    publisher: "Elsäkerhetsverket",
+    title: "Säker el utomhus",
+    url: "https://www.elsakerhetsverket.se/privatpersoner/du-ar-ansvarig-for-elen/saker-el-utomhus/",
+    market: "SE",
+    kind: "standard",
+    note: "Uttag utomhus ska alltid vara skyddsjordade, och för nya uttag gäller dessutom krav på jordfelsbrytare. Det är den regel som avgör vad du får koppla en rörelsevakt till, och den som gör installationen till ett jobb för behörig elinstallatör.",
+  },
+  {
+    publisher: "Elsäkerhetsverket",
+    title: "Julbelysning och IP-klass",
+    url: "https://www.elsakerhetsverket.se/om-oss/press/nyhetsbrev/2024/december/nyhetsbrev-fran-elsakerhetsverket-december-2024/julbelysning-och-ip-klass/",
+    date: "2024-12",
+    market: "SE",
+    kind: "standard",
+    note: "Myndighetens gräns för vad som får sitta ute: IP44 eller högre siffervärde. Det är golvet varje produkt i jämförelsen klarar, och skälet att kriteriet väderskydd mäter steget över gränsen i stället för gränsen själv.",
+  },
+  {
+    publisher: "Karl H Ström",
+    title: "Steinel rörelsevakter, tekniska data per modell",
+    url: "https://khs.se/produkt-kategori/sensorer/rorelsevakt/",
+    market: "SE",
+    kind: "standard",
+    note: "Steinels svenska distributör, och den enda svenska källan som publicerar hela belastningsraden: mikrofarad, antal drivdon, minsta last och omgivningstemperatur per modell.\n\nHärifrån kommer talen för IS 240, IS 180-2, IS 130-2 och IS 1, och även den nyare generationens sätt att räkna. IS 3180 delar lasten efter lampstorlek och IS 2160 ECO anger 250 W LED rakt av.",
+  },
+  {
+    publisher: "Proffsmagasinet",
+    title: "Rörelsevakter, 348 artiklar med specifikationer",
+    url: "https://www.proffsmagasinet.se/el-belysning/belysning/styrning-anslutning/rorelsevakter",
+    market: "SE",
+    kind: "standard",
+    note: "Kategorins bredaste sortiment i svensk handel och den butik som bär både Steinel, ESYLUX, Niko och Schneider. Härifrån kommer ESYLUX MD 120:s startström på 4,5 A och Schneiders uppdelning i 200 W LED mot 2 200 W resistiv last, som är sidans tydligaste enskilda belägg.",
+  },
+  {
+    publisher: "Nexa",
+    title: "Z-Wave SP-816, teknisk data",
+    url: "https://nexa.se/smarta-hem/z-wave/sp-816",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen specifikation, och den enda i kategorin som villkorar räckvidden med både monteringshöjd och lufttemperatur: tio meter vid två meters montage under tjugo grader.",
+  },
+  {
+    publisher: "Biltema",
+    title: "Rörelsevakt IP44, bruksanvisning 46-207",
+    url: "https://docs.biltema.com/v2/documents/file/da/ddd5551c-4063-4a7b-8413-55eeccb878bf",
+    market: "SE",
+    kind: "standard",
+    note: "Manualen bär det produktsidan inte har: skymningsreläets område 5 till 200 lux, inkopplingstiden 10 sekunder till 4 minuter och rådet att inte montera vakten nära utsläpp från värmepump eller ventilation, eftersom varm luft utlöser den.",
+  },
+  {
+    publisher: "Bygghemma",
+    title: "Rörelsevakt utomhus bäst i test 2026",
+    url: "https://www.bygghemma.se/reportage-och-guider/rorelsevakt-utomhus-bast-i-test/",
+    date: "2026-02",
+    market: "SE",
+    kind: "standard",
+    note: "Den enda seriöst gjorda svenska jämförelsen i kategorin, med egen redaktion och daterad. Citeras som standard och inte som test, eftersom Bygghemma är butiken och de tre produkter de jämför är tre produkter de själva säljer. Deras text är också den enda i handeln som skriver ut att räckvidden gäller den som går tvärs och inte rakt emot.",
+  },
+  {
+    publisher: "Philips Hue",
+    title: "Hue Outdoor Sensor, produktspecifikation",
+    url: "https://www.philips-hue.com/sv-se/p/hue-outdoor-sensor/8719514342262",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens specifikation för den batteridrivna sensor som ligger bland övervägda: IP54, två AA-batterier och drift ned till −20 grader.",
+  },
+];
+
 export const VATTENLARM_SOURCES: Source[] = [
   {
     publisher: "Brandinfo",
@@ -6212,6 +6299,94 @@ const SKAFTDAMMSUGARE_SOURCES: Source[] = [
  * 19: en gissning åt tillverkaren är samma fabrikation som ett påhittat
  * mätvärde. Cellen står tom och skälet står här.
  */
+const BLENDER_SOURCES: Source[] = [
+  {
+    publisher: "Testfakta",
+    title: "Mixat resultat i blendertest",
+    url: "https://www.testfakta.se/sv/blender-bast-i-test",
+    date: "2026-03-17",
+    market: "SE",
+    kind: "test",
+    note: "Sidans huvudkälla. Testfakta lät laboratoriet Applitest GmbH i Nürnberg provköra nio blendrar under 4 000 kronor, med testledaren Anna Antonova ansvarig. Testet är initierat och betalt av Testfakta själva, vilket de skriver ut.\n\nMomenten är smoothie på fryst frukt med tidtagning och silning genom 4 mm-sil, iskrossning bedömd på jämnhet och smälthastighet, hackning av hasselnötter siktad genom 4 mm och 1,4 mm, samt ett uthållighetsprov på 100 cykler med vatten och sågspån. Ljudnivån mättes separat av Testfakta med maskinerna körande på is.\n\nProvningen gjordes i augusti 2025 och artikeln publicerades om i mars 2026.",
+  },
+  {
+    publisher: "Applitest",
+    title: "Oberoende laboratorietest: Blenders under 4 000 kronor",
+    url: "https://www.testfakta.se/sites/default/files/2025-08/Grafik_Blenders_TFE%28250825%29.pdf",
+    date: "2025-08",
+    market: "DE",
+    kind: "test",
+    note: "Hela resultattabellen, fritt läsbar. Härifrån kommer varje mätvärde på sidan: bullernivån 83 till 94 dB, beredningstiden 45 till 147 sekunder, delbetygen för smoothie, iskrossning och nöthack, samt kannornas vikt och deklarerade volym.\n\nTotalbetyget viktas prestanda 50 procent, hanterbarhet 20, uthållighet 20 och bullernivå 10. Vår egen viktning är en annan och står i metodrutan.",
+  },
+  {
+    publisher: "Råd & Rön",
+    title: "Blender – bäst i test",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/blender/",
+    date: "2024-06-13",
+    market: "SE",
+    kind: "test",
+    note: "30 blendrar provade i labb, varav sju powerblenders. Testet kostar 59 kronor och är inte köpt, och Råd & Rön förbjuder dessutom vidarepublicering av testresultat. Inget betyg och ingen placering härifrån knyts till någon produkt på sidan.\n\nDet som används är talen de själva publicerar fritt i ingressen, utan produktnamn: högsta uppmätta ljudnivå 98,4 dB, en powerblendersoppa som bara nådde 37 grader mot de övrigas 69 till 89, och en långsammaste maskin som behövde över fyra minuter på fryst frukt utan att bli klar.",
+  },
+  {
+    publisher: "tek.no",
+    title: "Blir blendere faktisk bedre med vakuum?",
+    url: "https://www.tek.no/test/i/oWxxBV/blir-blendere-faktisk-bedre-med-vakuum",
+    date: "2022-02-19",
+    market: "NO",
+    kind: "test",
+    note: "Chef Matteo Blender III Vakuumblender får 7,5 av 10 i en egen handpåläggning, jämförd mot Sage The Super Q. Betyget gäller exakt den modell som säljs här.\n\nDeras vakuumprov är det enda vi hittat: en liter smoothie vägde 1 020 gram mixad med vakuum mot 913 utan, alltså mätbart mindre luft. Men i kylskåpsprovet oxiderade vakuumsmoothien mer än den utan, och de märkte ingen smakskillnad.",
+  },
+  {
+    publisher: "tek.no",
+    title: "Beste blender: Den beste blenderen til en overkommelig penge",
+    url: "https://www.tek.no/samletest/i/lzzKjM/den-beste-blenderen-til-en-overkommelig-penge",
+    date: "2025-10-31",
+    market: "NO",
+    kind: "test",
+    note: "Samlingstest av blendrar under 2 000 norska kronor, betyg 1–10 per modell. Ninja BN750EU får 6,5 och utses till testets bästa på att krossa is, och det betyget gäller exakt den modell som säljs här.\n\n⚠️ Deras testvinnare heter Wilfa Xplode Vital och är BLSP-1800S på 1 800 W. Den Wilfa Xplode som säljs i Sverige är BLS-1500S på 1 500 W, alltså en annan maskin, och betyget 9 flyttas därför aldrig hit. Större delen av fältet i övrigt, alltså Point, Sabor, Kulz och Senz, säljs inte i svensk handel.",
+  },
+  {
+    publisher: "Bosch",
+    title: "Serie 6 Blender med hög prestanda VitaPower 1800 W, MMB6652B",
+    url: "https://static.elongroup.se/Document/Article/538092/faktablad-matberedning-bosch-mmb6652b.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens eget faktablad, och källan till kategorins andra fynd: kannan anges som \"XLarge 3,0-liter max / 2,0-liter vid användning\". Bosch skriver alltså själva ut både bräddvolymen och arbetsvolymen, där handeln bara trycker den ena.\n\nHärifrån kommer också 10 års motorgaranti mot registrering, 45 000 varv per minut, Tritan-kannan, sex automatiska program med steglös hastighet, EAN 4242005393107 och nettovikten 5,3 kg.",
+  },
+  {
+    publisher: "OBH Nordica",
+    title: "Prime Mix 1,75 l glass jar 1400 W, 7739",
+    url: "https://static.elongroup.se/Document/Article/355100/faktablad-matberedning-obh-nordica-7739.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens faktablad. Anger 1 400 W, kanna av tjockt glas på 1,75 liter, fyra förprogrammerade program med steglös hastighet och pulsfunktion, löstagbar knivsats med sex blad i rostfritt stål och rengöringsprogram.\n\nHärifrån kommer också säkerhetslocket, som gör att maskinen inte startar utan lock på.",
+  },
+  {
+    publisher: "Philips",
+    title: "7000 Series Höghastighetsmixer HR3760",
+    url: "https://www.home-appliances.philips/se/sv/p/HR3760_10",
+    market: "SE",
+    kind: "standard",
+    note: "Anger kannan som \"2 l glaskanna med 1,8 l effektiv kapacitet\", alltså båda talen utskrivna på samma rad. Det är den tydligaste formuleringen någon tillverkare i fältet ger av skillnaden mellan vad kannan rymmer och vad maskinen mixar.\n\nHärifrån kommer också 2 års garanti och snabbvalsprogrammen med förinställd tid och hastighet.",
+  },
+  {
+    publisher: "SharkNinja",
+    title: "Ninja Detect kraftfull mixer Pro och enportions, TB301EU",
+    url: "https://www.sharkninja.se/ninja-detect-kraftfull-mixer-pro-och-enportions-tb301eu/TB301EU.html",
+    market: "SE",
+    kind: "standard",
+    note: "Anger tillbringaren till 2,1 liter och kapaciteten för flytande ämnen till 1,9 liter, alltså samma två tal som Bosch och Philips publicerar. Testfakta deklarerar 1 900 ml för samma maskin.\n\nHärifrån kommer också 1 200 W, tio manuella mixningshastigheter, två portionskoppar på 700 ml, maskindiskbara delar, vikten 6,02 kg och två års begränsad garanti.",
+  },
+  {
+    publisher: "Wilfa",
+    title: "Xplode 1500 blender, BLS-1500S",
+    url: "https://wilfa.com/sv/products/xplode-1500",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen produktsida för en av de fyra modeller som inte ingick i labbprovningen. Anger 1 500 W, glaskanna på 1,8 liter, steglös hastighet med 25 lägen, pulsfunktion, löstagbara knivar, automatiskt rengöringsprogram och 22 000 varv per minut.\n\nHärifrån kommer också ljudnivån 85 dB och Wilfas 5 års garanti på alla Wilfa-märkta produkter, som är fältets näst längsta åtagande efter Boschs motorgaranti.",
+  },
+];
+
 const PIZZAUGN_SOURCES: Source[] = [
   {
     publisher: "tek.no",
@@ -6336,6 +6511,156 @@ const PIZZAUGN_SOURCES: Source[] = [
  * hela sidan vilar på två tal som ingen butik publicerar bredvid varandra,
  * borsthuvudets pris per styck och laddtiden till full laddning.
  */
+/**
+ * Elscooter. Underlag i .agent/research/elscooter.md.
+ *
+ * ⚠️ Två källor som ligger nära och medvetet INTE är med:
+ *
+ * **Aftonbladets test av elsparkcyklar** ligger bakom betalvägg. Hämtningen gav
+ * bara navigation, och de betyg som syntes hörde till en hörlursartikel på
+ * samma sidmall. Testet är alltså inte läst och får inte citeras.
+ *
+ * **Råd & Rön har ingen provning av elsparkcyklar.** Kontrollerat i två
+ * sökindex 2026-08-06. Enda träffen på radron.se är ett ARN-ärende om en
+ * elskoter som gick för långsamt, vilket är något annat.
+ */
+export const WIFI_REPEATER_SOURCES: Source[] = [
+  {
+    publisher: "F.A.Z. Kaufkompass",
+    title: "Der beste WLAN-Repeater",
+    url: "https://www.faz.net/kaufkompass/test/der-beste-wlan-repeater/",
+    date: "2026-06-16",
+    market: "DE",
+    kind: "test",
+    note:
+      "Kategorins tyngsta provning och sidans viktigaste källa. 39 repeatrar mätta med iperf över två sträckor i ett hushåll, med en Fritzbox som router och en bärbar dator med tvåströmsradio som fjärrklient. Hela resultattabellen ligger fritt läsbar.\n\nVarje apparat mäts två gånger per sträcka, en gång med klienten i sladd och en gång trådlöst. Skillnaden mellan de två talen är hela produktens fysik: med sladd tar signalen ett trådlöst hopp, trådlöst tar den två. Ingen svensk publikation mäter det.\n\nFyra av de tretton modeller som rankas här finns i provningen under exakt det namn de säljs under. Deras tal står i specifikationerna men bär inget betyg, eftersom nio saknas.",
+  },
+  {
+    publisher: "Post- och telestyrelsen",
+    title:
+      "PTSFS 2022:19: föreskrifter om undantag från tillståndsplikt för användning av vissa radiosändare",
+    url: "https://pts.se/contentassets/475c0285823d4966b321ca4ef4a6b4de/ptsfs-2022-19-undantag-fran-tillstandsplikt-for-anvandning-av-vissa-radiosandare.pdf",
+    date: "2022-12-01",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Föreskriften som sätter taket för hur starkt vilken wifi-sändare som helst får sända i Sverige, läst i original. §173 anger 100 mW e.i.r.p. på 2 400,0–2 483,5 MHz för dataöverföring, §181 och §182 anger 200 mW för inomhusbruk på 5,15–5,35 GHz och §184 anger 1 W på 5,470–5,725 GHz med krav på effektreglering och dynamiskt frekvensval.\n\nTaket gäller routern och repeatern lika. Det är skälet till att en repeater inte kan sända starkare än den router du redan har; den står bara närmare.",
+  },
+  {
+    publisher: "TP-Link",
+    title: "RE235BE, specifikationer",
+    url: "https://www.tp-link.com/nordic/home-networking/range-extender/re235be/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens egen tabell för vinnaren, och mallen för de elva andra TP-Link-modellernas specifikationer. Anger 2 882 Mbit/s på 5 GHz och 688 på 2,4 GHz var för sig, ett nätverksuttag på 2,5 gigabit, två externa antenner och stöd för EasyMesh.\n\nSändareffekten anges bara som FCC-värde för den här modellen, alltså det amerikanska. Cellen står därför tom i specifikationerna.",
+  },
+  {
+    publisher: "TP-Link Nordic",
+    title: "Warranty & RMA Policy",
+    url: "https://www.tp-link.com/nordic/support/replacement-warranty/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Garantivillkoren för den nordiska marknaden. Wi-Fi Extenders ligger under Network Expansion Products med tre års garanti, alltså samma tid som routrar och Deco-system.",
+  },
+  {
+    publisher: "Mercusys",
+    title: "ME80X AX3000 Wi-Fi 6 Range Extender, datablad",
+    url: "https://static.mercusys.com/manual/ME80X(UK)_1.0_Datasheet20250516030526.pdf",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens datablad för budgetvinnaren. Anger 2 402 Mbit/s på 5 GHz, 574 på 2,4 GHz, ett gigabituttag, två externa antenner och 13 W förbrukning.\n\nMercusys skriver också ut att apparaten talar EasyMesh utan att vara certifierad av Wi-Fi Alliance, vilket betyder att den kan krångla mot en router av annat märke.",
+  },
+  {
+    publisher: "D-Link",
+    title: "DAP-X1860 AX1800 Mesh Wi-Fi 6 Range Extender, datablad",
+    url: "https://www.dlink.com/fi/fi/-/media/consumer_products/dap/dap-x1860/datasheet/dap_x1860_datasheet_eu_en.pdf",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens datablad, med 1 200 Mbit/s på 5 GHz, 574 på 2,4 GHz, gigabituttag, två inbyggda antenner och 9,7 W förbrukning. Anger också att mesh-funktionen kräver en D-Link-router ur en uppräknad lista.",
+  },
+  {
+    publisher: "ASUS",
+    title: "RP-BE58, tekniska specifikationer",
+    url: "https://www.asus.com/us/networking-iot-servers/range-extenders/all-series/rp-be58/techspec/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens tabell för den enda Asus-modellen här. Anger 2 882 Mbit/s på 5 GHz och 688 på 2,4 GHz, tvåströmsradio på båda banden, två inbyggda antenner, ett gigabituttag och stöd för AiMesh mot Asus egna routrar.\n\nBär också tre driftlägen: repeater, accesspunkt och mediabrygga.",
+  },
+  {
+    publisher: "D-Link",
+    title: "Warranty Information",
+    url: "https://www.dlink.com/se/sv/support/warranty-information",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Garantitabellen för den svenska marknaden. Trådlösa routrar, accesspunkter och adaptrar bär två års garanti, alltså ett år kortare än TP-Link och Mercusys ger på motsvarande produkter.",
+  },
+  {
+    publisher: "Mercusys Nordic",
+    title: "Warranty Terms and Conditions",
+    url: "https://www.mercusys.com/nordic/support/warranty-terms/",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Anger tre års garanti på samtliga Mercusys-produkter köpta i Sverige.",
+  },
+];
+
+export const ELSCOOTER_SOURCES: Source[] = [
+  {
+    publisher: "Transportstyrelsen",
+    title: "Vilka regler gäller för elsparkcykel?",
+    url: "https://www.transportstyrelsen.se/elsparkcykel",
+    date: "2026-07-22",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Myndighetens egen sammanställning, och sidans utgångspunkt. Anger de två gränsvärden som avgör allt: högst 20 km/h och högst 250 W kontinuerlig märkeffekt, annars får fordonet bara köras inom inhägnat område. Rättsfall underkänner villatomter och campingplatser som inhägnat område.\n\nSkiljer också ut de två effekttalen i klartext, alltså att märkeffekten är den motorn klarar under längre tid medan maxeffekten bara gäller korta stunder. Lägger ansvaret för att fordonet uppfyller kraven på föraren.",
+  },
+  {
+    publisher: "M3",
+    title: "Stort test av elsparkcyklar – årets bästa elscootrar",
+    url: "https://www.m3.se/article/1860877/elsparkcykel.html",
+    date: "2026-05-24",
+    market: "SE",
+    kind: "test",
+    note:
+      "Den enda svenska jämförande provningen som är fritt läsbar. Sju modeller med betyg på femgradig skala, testmånad per modell och uppmätt räckvidd vid sidan av tillverkarens tal: 45 km specat mot cirka 25 km i verkligheten på en av dem.\n\nAnger nominell och maximal effekt var för sig för varje modell, vilket ingen av de svenska jämförelsesajterna gör. Bara en av de sju finns i den här jämförelsen, så testet bär inget betyg här.",
+  },
+  {
+    publisher: "Segway",
+    title: "Segway eKickScooter E2 E II – specifikationer",
+    url: "https://eu-en.segway.com/ekickscooter/products/e2-e-ii.html",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens egen tabell med 51 fält. Anger 250 W nominell effekt och 450 W maxeffekt var för sig, 220 Wh batteri, 16 kilo, trumbroms bak med elektronisk broms fram och 12 procents maximal lutning.\n\nAnger också räckvidden vid två hastigheter, 25 km i 15 km/h och 20 km i 20 km/h, vilket är skälet till att räckvidd inte betygsätts här.",
+  },
+  {
+    publisher: "Pure Electric",
+    title: "Pure Escape PRO Elscooter",
+    url: "https://se.pureelectric.com/sv/products/escape-pro-elscooter",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Tillverkarens variantbeskrivning, och den enskilt mest upplysande källan om varför modellnamn skiljer sig mellan länder. Samma elsparkcykel säljs med 250 W nominell effekt i Sverige, 350 W i övriga Europa och 500 W i Danmark och Norge, med oförändrad maxeffekt på 924 W.\n\nDet betyder att en svensk köpare som väljer varianten märkt Nordic får den dansk-norska versionen.",
+  },
+  {
+    publisher: "E-Wheels",
+    title: "E-wheels E2S V2 – produktdata",
+    url: "https://www.ewheels.se/elsparkcykel/e2s-v2/?code=18973",
+    market: "SE",
+    kind: "standard",
+    note:
+      "Butikens produktdata för E2S-serien, som anger nominell effekt och maxeffekt var för sig på varje modell. Bär också två räckviddstal per elsparkcykel, 35 km optimalt mot 18 till 21 km förväntat, vilket är ovanligt konkret för kategorin.\n\nHastigheten väljs i kassan: 20 km/h utan tillägg, eller en högre topphastighet mot 490 kronor och krav på trafikförsäkring.",
+  },
+];
+
 export const ELTANDBORSTE_SOURCES: Source[] = [
   {
     publisher: "Råd & Rön",
@@ -6475,9 +6800,703 @@ export const ELTANDBORSTE_SOURCES: Source[] = [
   },
 ];
 
+/**
+ * Airfryer.
+ *
+ * Kategorin har tre riktiga provningar och de drar åt olika håll, vilket är det
+ * mest värdefulla sidan kan publicera.
+ *
+ * ⚠️ **Två av tre ligger bakom betalvägg.** Råd & Röns tabell över 70
+ * luftfritöser och Stiftung Warentests över 20 får inte återges, och Råd & Rön
+ * förbjuder vidarepublicering av testresultat uttryckligen. Vi citerar deras
+ * **metod och kategoriomfattande fynd**, aldrig en enskild modells placering.
+ * Samma disciplin som /skaftdammsugare och /mjolkskummare.
+ *
+ * ⚠️ **RTINGS provar 120-voltsmodeller.** Deras konstruktionskritik och deras
+ * tre faktorer gäller lika mycket här, men enskilda watt-tal går inte att
+ * flytta över på EU-modellerna, som drar mer vid 230 volt. Inget RTINGS-mätvärde
+ * knyts till en produkt på den här sidan utom där modellnumret är detsamma.
+ *
+ * ⚠️ **Tek.no motsäger de andra två.** De skriver att de i blindtest "trolig
+ * aldri ville gjettet hvilken pommes som kom fra hvilken maskin", medan Råd &
+ * Rön ger nio av 70 en etta för just pommes. Skillnaden är sannolikt metod:
+ * RTINGS och tek.no skakar korgen under tillagningen, och tek.nos egen slutsats
+ * är att det lönar sig oavsett maskin. Motsättningen står utskriven i köpguiden.
+ */
+const FRITOS_SOURCES: Source[] = [
+  {
+    publisher: "Test-Achats",
+    title: "Fritteusen im Test: Top-Pommes schon ab 65 Euro",
+    url: "https://www.test.de/Fritteusen-im-Test-6270419-0/",
+    date: "2025-12-23",
+    market: "BE",
+    kind: "test",
+    note: "Kategorins enda aktuella labbprovning: 24 fritöser bedömda på tillagningstid, pommesens textur, bryning och krispighet, energiförbrukning och rengöring. Provningen är gjord av belgiska Test-Achats och refereras här av Stiftung Warentest, som publicerar den fritt.\n\nTvå fynd bär sidan. Det första är att rengöringen fäller maskiner som friterar bra: Domo DO458FR fick full pott på bryning, krispighet och textur och underkändes ändå på rengöring, och den enda av de 24 som bara nådde medelmåttig kvalitet fälldes på rengöringen och på att kallzonen inte fungerade. Det andra är bytesintervallet: de rekommenderar att frityrfettet byts efter fem till sex omgångar, eftersom matrester samlas i fettet och ändrar smaken.\n\nHärifrån kommer också definitionen av kallzonen: ett område i botten som är svalare, dit matrester ska sjunka utan att brännas och förorena oljan.\n\nDe elva modeller som namnges är belgiska och tyska och säljs inte i svensk handel. Inget betyg härifrån knyts till en rankad produkt.",
+  },
+  {
+    publisher: "Tefal",
+    title: "Oleoclean Pro FR804 fritös – produktsida med jämförelsetabell",
+    url: "https://www.tefal.se/K%C3%B6ksapparater/Frit%C3%B6ser/OLEOCLEAN-PRO-FR804-FRIT%C3%96S/p/7211001583",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen jämförelsetabell, och beviset för att litertalet är olja och inte mat. Tefal listar `Oljekapacitet` och `Livsmedelskapacitet` som två skilda rader: 3,5 liter olja mot 1,2 kg mat för Oleoclean Pro, 2 liter mot 800 gram för Oleoclean Compact.\n\nSamma sida anger en tredje kapacitet för Compact, 600 gram pommes frites, och det är skälet till att en butik och en annan kan citera olika tal för samma maskin och båda ha rätt.\n\nHärifrån kommer också hur automatfiltreringen fungerar: oljan rinner genom en sil ned i en oljeuppsamlare under maskinen när ratten vrids till automatisk filtrering, och Tefal anger effekten till 2 100–2 300 W.",
+  },
+  {
+    publisher: "Tefal",
+    title: "Standardfritös – bruksanvisning och vanliga frågor",
+    url: "https://www.tefal.com/instructions-for-use/csp/1500633470",
+    market: "FR",
+    kind: "standard",
+    note: "Tillverkarens egen driftdokumentation, och det andra oberoende belägget för hur ofta oljan ska bytas: \"The oil or fat should be replaced after frying 5 to 7 times.\" Test-Achats säger fem till sex, Tefal fem till sju.\n\nHärifrån kommer också filtrens livslängd, som ingen jämförelsesida i kategorin nämner: metall- och kolfilter byts efter 35 till 50 friteringar, skumfilter efter 20. Vid fisk rekommenderar Tefal separat filter och oljebyte efter användning.\n\nSamma sida förklarar varför fritöser kokar över, alltså fylld över maxstrecket eller blöt mat som lagts i olja, och att olika oljor aldrig ska blandas, eftersom de har olika friteringstemperatur och kan emulgera.",
+  },
+  {
+    publisher: "Severin",
+    title: "FR 2431 Deep Fryer – produktblad",
+    url: "https://severin.com/wp-content/uploads/2025/08/2431000_en.pdf",
+    date: "2023-10-28",
+    market: "DE",
+    kind: "standard",
+    note: "Tillverkarens eget produktblad, tre sidor, och källan till fältets ytterlighet: \"approx. 3 litre capacity and approx. 400 g frying capacity\". Tre liter olja för fyra hekto mat är 7,5 liter per kilo, mest i jämförelsen.\n\nBladet anger också 2 000 W, termostat upp till 190 °C med överhettningsskydd, emaljerad löstagbar oljebehållare där både behållaren och korgen tål maskindisk, utbytbart fettfilter i locket och ett värmeelement som stänger av sig automatiskt när det lyfts av.\n\nDokumentet räknar upp funktion efter funktion utan att nämna någon kallzon, trots att en svensk butik säljer maskinen under just det ordet. Kallzonen står därför som streck i tabellen och drar inte ned något betyg.",
+  },
+  {
+    publisher: "Princess",
+    title: "Princess 182727 Black Fryer 3L – specifikationer",
+    url: "https://www.princesshome.eu/en-gb/princess-products/fryers/princess-182727-black-fryer-3l-01.182727.01.050",
+    market: "NL",
+    kind: "standard",
+    note: "Tillverkarens egen specifikationstabell, och den enda i fältet som anger både kallzon och oljefilter som separata ja- och nej-fält: `Cool zone Yes`, `Clean & safety oil filter No`.\n\nTalen som används här: 3 liter olja, 600 gram mat, 2 000 W, termostat upp till 190 °C, löstagbar innerskål och delar som tål maskindisk.\n\nPrincess beskriver också själva vad kallzonen är till för: smulor som faller genom korgen samlas under värmeelementet i stället för att brännas, \"so your oil stays cleaner for longer\".",
+  },
+  {
+    publisher: "Princess",
+    title: "Princess 184090 Deep Fryer 5L – specifikationer",
+    url: "https://www.princesshome.eu/en-gb/princess-184090-deep-fryer-5l-01.184090.01.001",
+    market: "NL",
+    kind: "standard",
+    note: "Fältets största oljemängd: 5 liter för 1 000 gram mat, alltså 5 liter per kilo. Effekten anges som ett spann, 2 740 till 3 270 W, vilket är högst i jämförelsen.\n\nSamma tabell anger emaljerad innergryta, kallzon, maskindiskbara delar och termostat till 190 °C, och `Clean & safety oil filter No`.",
+  },
+  {
+    publisher: "Tristar",
+    title: "Tristar FR-6919 Deep fryer 2L – specifikationer",
+    url: "https://www.tristar.eu/en-gb/tristar-products/fryers-cookers/fryers/tristar-fr-6919-deep-fryer-2l-fr--6919",
+    market: "NL",
+    kind: "standard",
+    note: "Jämförelsens minsta maskin på båda talen: 2 liter olja, 400 gram mat och 800 W, vilket är en fjärdedel av effekten hos den starkaste här.\n\nTillverkaren anger kallzon och maskindiskbara delar men inget oljefilter.",
+  },
+  {
+    publisher: "Taurus",
+    title: "Professional 3 Plus – produktsida",
+    url: "https://taurus-home.com/products/professional-3-plus",
+    market: "ES",
+    kind: "standard",
+    note: "Tillverkarens egna uppgifter: 2 100 W, 3 liter olja och \"apta para cocinar hasta 900 g de patatas\", alltså 900 gram potatis. Maskinen har ett filtreringssystem för oljan, lock med fönster och möjlighet att fritera med locket stängt, och går att ta isär helt.\n\nGTIN 8414234739537 knyts till just de här talen via CDON:s strukturerade produktdata, eftersom Taurus egen sida använder ett annat artikelnummer.",
+  },
+  {
+    publisher: "Icakuriren",
+    title: "Stort test: Olje- och varmluftsfritöser",
+    url: "https://www.hemtrevligt.se/test/stort-test-fritoser/721177",
+    date: "2016-09-19",
+    market: "SE",
+    kind: "test",
+    note: "Den enda svenska provningen som ställt oljefritöser mot varmluftsfritöser i samma test, utförd av Birgitta Rasmusson, tidigare chef för Ica provkök. Tio modeller, sex med olja och fyra med varmluft, provade på pommes frites och panerade räkor.\n\nTestet är från 2016 och ingen av modellerna säljs längre, så inget betyg härifrån knyts till en produkt. Två kategoriomdömen står sig ändå: att den dyraste maskinen var sämst, och att rengöringen är det stora problemet i båda konstruktionerna: \"Det är oerhört mycket att diska. Med oljefritöserna är det bökigt med all olja.\"",
+  },
+];
+
+const AIRFRYER_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Bäst i test air fryers (luftfritöser)",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/luftfritoser/",
+    date: "2025-11-25",
+    market: "SE",
+    kind: "test",
+    note: "Den enda svenska labbprovningen, och den största som finns i kategorin: 70 luftfritöser, löpande uppdaterade och alla körda med samma testprogram. En expertpanel bedömer smak, utseende och krispighet på fabrikstillverkade frysta pommes och kylskåpskalla kycklingklubbor, och maskinerna får dessutom baka paj, chokladkaka och bake off-frallor.\n\nHärifrån kommer sidans viktigaste kategorifynd. Skillnaden mellan hur mycket som får plats och hur mycket som blir bra: minsta modellen tar 433 gram pommes, men bara 289 gram om de ska bli så bra som möjligt. Nio av fritöserna får bara en etta i delbetyget för pommes, oftast för att omgången inte blir jämnt tillagad. Den som låter mest blåser på i 65 dB(A). Och om dubbelkorgarna, när kyckling och pommes körs samtidigt i var sin korg: \"i några fall är det tydligt att det är svårare att få till bra pommes i det läget\".\n\nBetygen per modell ligger bakom betalvägg och får inte vidarepubliceras. Inget resultat härifrån knyts till en produkt eller påverkar en poäng.",
+  },
+  {
+    publisher: "RTINGS",
+    title: "Air Fryer Buying Guide: We Sabotaged A Top Model To Prove What Matters",
+    url: "https://www.rtings.com/air-fryer/learn/research/how-to-buy-best-air-fryer",
+    market: "US",
+    kind: "test",
+    note: "Kategorins starkaste fria källa, och den enda som publicerar hela metoden och varje mätvärde. 52 luftfritöser inköpta och provade, varav drygt 30 i det försök som ligger till grund för sidans betygsskala.\n\nMetoden: 250 gram handplockade frysta pommes, konstant spänning via variabel transformator, förvärmning till 204 grader, vikten loggad löpande och maten uttagen vid 45 procents viktförlust. Varje pommes sorteras därefter som undertillagad, krispig eller övertillagad.\n\nDet avgörande är att de sedan saboterade en toppmodell för att isolera varje faktor. En 33 procent mindre korgbotten gav kortare tillagningstid men mycket större andel både brända och råa pommes, eftersom maten staplades. Effekten nedskruvad från 1 600 till 900 watt förlängde tillagningen med tio minuter och gav övervägande undertillagad mat. Fläkten sänkt från 3 600 till 2 100 varv ångkokte maten i stället för att göra den krispig. Deras trösklar är 325 kvadratcentimeter bottenyta och 1 400 watt.\n\nProvningen gäller amerikanska 120-voltsmodeller. Principerna bär skalan; enskilda watt-tal flyttas aldrig över på en EU-modell.",
+  },
+  {
+    publisher: "RTINGS",
+    title: "Ninja Foodi DZ201 Air Fryer Review",
+    url: "https://www.rtings.com/air-fryer/reviews/ninja/foodi-dz201",
+    date: "2024-09-23",
+    market: "US",
+    kind: "test",
+    note: "Den enskilda mätning som avgör hur sidan räknar effekt. RTINGS anger maximal effekt för den här dubbelkorgen till 1 540 watt med båda lådorna igång, och noterar att talet sjunker till 1 470 watt när bara en låda används. Den andra lådan lägger alltså till sjuttio watt, inte fjortonhundra.\n\nHärifrån kommer också bottenytan per låda, 279,7 kvadratcentimeter, vilket är under RTINGS egen tröskel på 325, och fördelningen i deras pommestest: 72,7 procent krispiga, 3,0 procent övertillagade och 24,2 procent undertillagade.\n\nDZ201 säljs inte i Sverige. Mätningen används för vad den säger om konstruktionen dubbelkorg, inte om någon rankad produkt.",
+  },
+  {
+    publisher: "Stiftung Warentest",
+    title: "Heißluftfritteusen im Test: Auch günstige Airfryer liefern knusprige Pommes",
+    url: "https://www.test.de/Heissluftfritteusen-im-Test-5115675-0/",
+    date: "2024-12-18",
+    market: "DE",
+    kind: "test",
+    note: "Tjugo modeller provade, femton med ett garrum och fem med två fack. Bara sex av tjugo får sammanfattningsbetyget \"gut\", och i det tyngst vägande provmomentet, tillagningen av maten, spänner betygen från \"gut\" ned till \"ausreichend\".\n\nDeras iakttagelse om storlek ligger nära Råd & Röns: flera av maskinerna klarar inte stora portioner. De har också mätt energiförbrukningen och räknat om den till årskostnad per modell samt jämfört mot vanlig ugn.\n\nBetygen per modell ligger bakom betalvägg vi inte betalat. Inget resultat härifrån knyts till en produkt.",
+  },
+  {
+    publisher: "tek.no",
+    title: "Best i test – Airfryer over 2000 kr",
+    url: "https://www.tek.no/samletest/i/O8yr01/den-beste-airfryeren-over-2000-kr",
+    date: "2025",
+    market: "NO",
+    kind: "test",
+    note: "Den nordiska provningen med egen handpåläggning, bedömd på tilberedning, lydnivå, rengjøring, allsidighet och korgarnas uppbyggnad. Philips Airfryer 5000 Dual Basket utses till testvinnare i den dyrare klassen.\n\nDen tas med för att den **motsäger** de andra två, och det är värt mer än ett medhåll. Tek.no skriver att de i en blindtest sannolikt aldrig hade gissat vilka pommes som kom från vilken maskin, och att den viktigaste slutsatsen är att det lönar sig att skaka korgen under tillagningen oavsett vilken maskin man har. Deras huvudpoäng är att skillnaderna ligger i funktionalitet snarare än i resultat.\n\nBetygen per modell återges inte, eftersom bara ett fåtal av de provade säljs här under samma namn.",
+  },
+  {
+    publisher: "Ninja",
+    title: "AF300EU Dual Zone Air Fryer – bruksanvisning",
+    url: "https://gzhls.at/blob/ldb/6/b/4/8/56ed8b43de91e763d9cee80a0696d4daf2c0.pdf",
+    kind: "standard",
+    note: "Tillverkarens egen bruksanvisning, och den som avgör två av sidans påståenden.\n\nDe tekniska specifikationerna anger `Spänning: 220-240V~, 50-60Hz` och `Effekt: 2470W`. Samma tal står i manualen för AF400EU på 9,5 liter, alltså totalt för två zoner i båda fallen.\n\nOch i den svenska brukstexten står mekanismen bakom hela sidans betygsskala, skriven av tillverkaren själv: \"För en jämn tillagning, se till att ingredienserna placeras i ett jämnt lager på botten av lådan och att de inte ligger på varandra. Skaka lådan för att vända på ingredienser för jämn krispighet.\"",
+  },
+  {
+    publisher: "Ninja",
+    title: "AF500EU MegaZone FlexDrawer Air Fryer – bruksanvisning",
+    url: "https://manuals.coolblue.be/b6/ninja-af500euwh.pdf",
+    kind: "standard",
+    note: "Anger `Effekt: 2470W` och 10,4 liter, och beskriver MegaZone-läget: delaren tas ur för att laga i en enda zon på 10,4 liter. Det är den konstruktion som skiljer AF500EU från de fasta dubbelkorgarna och som ger den toppbetyg på jämn tillagning.",
+  },
+  {
+    publisher: "Philips",
+    title: "Airfryer 3000 Series Dual Basket NA351/00",
+    url: "https://acc.philips.se/c-p/NA351_00/3000-series-dual-basket-airfryer",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens svenska produktsida. Härifrån kommer effekten 2 750 W, maxtemperaturen 200 °C, nio liters kapacitet för upp till 1,5 kg brysselkål eller en kyckling på 1,5 kg i en korg, nonstick-beläggning, två års garanti, måtten 315 × 444 × 348 mm och vikten 7,85 kg.",
+  },
+  {
+    publisher: "Bosch",
+    title: "Serie 6 Air Fryer MAF671B1",
+    url: "https://www.bosch-home.se/sv/product/koksverktyg/air-fryers/airfryersingledrawer/MAF671B1",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens svenska produktsida, och en av få som anger elementets placering: `Typ av element: Övervärme`, alltså den konventionella konstruktion RTINGS teardowns visar fungerar bäst. Härifrån också 7,2 liter, en korg, 1 800 W, temperaturintervall 40–200 °C och måtten 314 × 309 × 388 mm.",
+  },
+  {
+    publisher: "OBH Nordica",
+    title: "Easy Fry Mega Air Fryer 7,5 l – produktsida och bruksanvisning AG8558N0",
+    url: "https://www.obhnordica.se/koksredskap/matlagning/airfryer/easy-fry-mega-air-fryer-75-l-black",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkaren anger 7,5 liters **användbar** kapacitet och 2 kg mat, vilket är ovanligt: de flesta anger bara kammarens volym. Vidare en låda, åtta program, temperaturintervall 80–200 °C, non-stick, nettovikt 6 kg och måtten 390 × 315 × 305 mm.\n\nEffekten står inte på produktsidan utan i bruksanvisningen till AG8558N0, som anger 220–240 V och 1 700–2 020 W.",
+  },
+  {
+    publisher: "Cosori",
+    title: "Dual Blaze Twinfry 10L Smart Air Fryer",
+    url: "https://cosori.co.uk/products/cosori-dual-blaze-twinfry-10l-smart-air-fryer",
+    market: "UK",
+    kind: "standard",
+    note: "Tillverkarens egen produktsida, den brittiska eftersom Cosori inte driver någon svensk. Anger temperaturintervallet 35–240 °C, måtten 51,8 × 33,8 × 31,3 cm och att den svarta varianten har PFAS-fri keramisk beläggning medan den ljusa har vanlig non-stick.\n\nDet som gör den intressant för sidan är konstruktionen: en enda tioliterskammare som delas i två femtioliterszoner med en **löstagbar** delare, alltså samma princip som Ninjas MegaZone.",
+  },
+  {
+    publisher: "AIVIQ",
+    title: "Premio Dual Airfryer 8L, AAF-D321",
+    url: "https://www.aiviq.se/products/premio-dual-airfryer-8l",
+    market: "SE",
+    kind: "standard",
+    note: "Enda butiken och enda tillverkaren i hela svepet som publicerar korgens mått: L223,5 × B159 × H128 mm per låda, alltså 355 kvadratcentimeter bottenyta. Det är just det tal RTINGS mätning pekar ut som avgörande, och det ligger över deras tröskel på 325.\n\nHärifrån också effekten 2 460 W, kapaciteten 8 liter fördelat på 4 liter per låda, temperaturområdet 40–240 °C, sex program och yttermåtten 391 × 366 × 350 mm.",
+  },
+];
+
+/**
+ * Stavmixer. Underlag i .agent/research/stavmixer.md.
+ *
+ * ⚠️ **Råd & Röns test är inte köpt och får inte återges även om det köps.**
+ * Deras sidfot förbjuder uttryckligen all vidarepublicering av testresultat,
+ * tabeller, text och bild. Metoden och den fritt läsbara prosan refereras med
+ * publikationen namngiven; inga betyg, inga placeringar, ingen uppgift om
+ * vilken modell som vann. Efter användarbeslut 2026-08-06.
+ *
+ * ⚠️ **Brauns egen produktsida motsäger sig själv om effekten.** Specfältet
+ * anger 1 000 W för MQ 9135XI, säljtexten på samma sida 1 200 W, tre gånger.
+ * Sidan använder specfältet. Se `Effekt` i lib/spec-schema.mjs.
+ *
+ * ⚠️ **obhnordica.se svarar 404 på HEAD och 200 på GET.** Båda OBH-länkarna
+ * nedan är kontrollerade med GET 2026-08-06 och levererar 66 respektive 94 kB.
+ * En länkkontroll som bara skickar HEAD flaggar dem felaktigt.
+ *
+ * ⚠️ **bamix.dk har utgånget TLS-certifikat** (`ERR_CERT_DATE_INVALID`,
+ * kontrollerat 2026-08-06) och länkas därför inte, trots att det är den
+ * nordiska distributörens sajt. bamix.com och bamix.us svarar normalt.
+ */
+const STAVMIXER_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Test: Stavmixer",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/stavmixer/",
+    date: "2024-11-29",
+    market: "SE",
+    kind: "test",
+    note: "Kategorins tyngsta provning: 57 stavmixrar i labb, med majonnäs, pannkakssmet, smoothie och barnmat, hackning av örter, nötter och lök, vispning av grädde och äggvita, ljudnivå, säkerhet och ett hållbarhetsprov mätt i cykler. Projektledare Lisa Wärmegård.\n\nTestet kostar 59 kronor och är inte köpt, och Råd & Rön förbjuder dessutom vidarepublicering av resultat och tabeller. Ingen placering och inget betyg härifrån finns därför på sidan. Det som återges är metoden och de slutsatser de publicerat fritt: att hållbarhetsprovet slog sönder en modell efter 26 cykler och efter 8 vid omprov, att en annan blev 90 grader varm och började smälta efter 50, och att samma mixerstav ofta får lägre samlat betyg när den säljs som paket eftersom tillbehören vägs in i bedömningen.",
+  },
+  {
+    publisher: "M3",
+    title: "Test: 7 stavmixrar som gör underverk i köket",
+    url: "https://www.m3.se/article/1829862/stavmixrar.html",
+    date: "2023-03-26",
+    market: "SE",
+    kind: "test",
+    note: "Handpålagt svenskt test av sju stavmixrar med publicerade betyg 1–5, skrivet av Andreas Bergsman för M3, som ges ut av Foundry Sverige tillsammans med PC för Alla och Macworld.\n\nBetygen spänner från 2 av 5 för en Biltemamixer på 150 W till 4,5 för Braun MultiQuick 9. Testet är från 2023 och flera provade utföranden har bytts ut sedan dess, så betyget återges bara där modellen säljs i dag under samma namn. Det påverkar inga poäng.",
+  },
+  {
+    publisher: "bamix",
+    title: "bamix SwissLine Immersion Blender",
+    url: "https://bamix.us/products/bamix-swissline",
+    date: "2026-08",
+    market: "US",
+    note: "Tillverkarens egen specifikation, och den enda i kategorin som anger effekt och varvtal på samma rad: 150 W vid 120 volt, hastighet I 13 000 v/min och hastighet II 18 000. Livstidsgarantin på motorn anges här.\n\nSidan är amerikansk och effekten gäller det amerikanska nätet. Den svenska versionen av samma D-modell anges som 200 W, medan varvtalet är detsamma. Det är precis den iakttagelse sidan bär: talet på kartongen ändras med landet, varvtalet gör det inte.",
+  },
+  {
+    publisher: "bamix",
+    title: "bamix Cordless Hand Blender",
+    url: "https://bamix.com/products/bamix-cordless",
+    date: "2026-08",
+    market: "CH",
+    note: "Tillverkarens egen sida för den batteridrivna modellen: hastighet I 8 000 v/min, hastighet II 13 000 och skaftlängd 14 cm. Samma sajt bär bamix egen reservdelsavdelning, som är underlaget för märkets betyg på reparerbarhet.",
+  },
+  {
+    publisher: "Wilfa",
+    title: "Prostick immersion blender",
+    url: "https://wilfa.com/products/prostick",
+    date: "2026-08",
+    market: "NO",
+    note: "Tillverkarens egen specifikation för Prostick IM4B-1000FP: 1 000 W, tre hastigheter angivna som 5 000, 10 000 och 15 000 v/min, bägare i Tritan som tål 100 grader, och 5 års garanti på hela Wilfas sortiment med upp till 10 år på utvalda produkter, i båda fallen på motorn.",
+  },
+  {
+    publisher: "OBH Nordica",
+    title: "Femton års åtagande för reparation",
+    url: "https://www.obhnordica.se/femton-ars-atagande-for-reparation",
+    date: "2026-08",
+    market: "SE",
+    note: "Tillverkarens åtagande att hålla reservdelar tillgängliga i 15 år efter inköpsdatum, gällande sedan 1 januari 2022 och även efter garantitidens slut. Varje ny produkt kontrolleras mot märkningen 15 års reparerbar, och delarna säljs via auktoriserad verkstad.\n\nDet är det längsta uttalade åtagandet i fältet vid sidan av bamix livstidsgaranti på motorn, och underlaget för båda OBH-produkternas betyg på reparerbarhet.",
+  },
+  {
+    publisher: "Braun Household",
+    title: "MultiQuick 9 stavmixer MQ 9135XI",
+    url: "https://www.braunhousehold.com/sv-se/p/multiquick-9-multiquick-9-stavmixer-mq-9135xi/HB901-MQ9135XI.html",
+    date: "2026-08",
+    market: "SE",
+    note: "Tillverkarens egen svenska produktsida, och källan till sidans andra iakttagelse. Under Tekniska specifikationer står Effekt (W) 1000, i två separata rutor. I säljtexten på samma sida står 1 200 watt tre gånger.\n\nHandeln återger genomgående det högre talet. Tabellen här använder specfältet. Sidan ger också sladdlängd 1,2 meter, vikt 0,7 kilo, steglös hastighetsreglering och tillbehören: hackare på 500 ml, iskniv, visp och bägare.",
+  },
+  {
+    publisher: "OBH Nordica",
+    title: "InfinyForce Pro stavmixer",
+    url: "https://www.obhnordica.se/koksredskap/matberedning-och-mixning/stavmixers/infinyforce-pro-stavmixer",
+    date: "2026-08",
+    market: "SE",
+    note: "Tillverkarens specifikationstabell för HN95HDS0: 1 200 W, fyrbladig Powelix-kniv, steglös hastighetsreglering med turbo, kabel 1,1 meter, rostfritt stål och plast, 1,63 kilo, och tillbehören visp, minihackare, mixerbägare och puréfot.",
+  },
+  {
+    publisher: "Bosch",
+    title: "Stavmixer ErgoMixx 750 W MSM67160",
+    url: "https://www.bosch-home.se/sv/product/koksverktyg/stavmixers/ovrigt/MSM67160",
+    date: "2026-08",
+    market: "SE",
+    note: "Tillverkarens tekniska översikt: anslutningseffekt 750 W, tolv hastighetsval, mixerfot i stål som går att ta loss, fyrvingad QuattroBlade och nettovikt 1,3 kilo. Bosch driver egen reservdelsförsäljning för hushållsapparater.",
+  },
+  {
+    publisher: "Ninja",
+    title: "Ninja Foodi Power Mixer System CI100",
+    url: "https://www.ninjasverige.com.se/product/ninja-foodi-power-mixer-system-hand-blender-and-5-speed-hand-mixer-combo-svarta/",
+    date: "2026-08",
+    market: "SE",
+    note: "Tillverkarens egen svenska produktsida, som anger 650 W och garantitid 1 år. Det är den kortaste garantin bland de tolv, mot Wilfas fem år och bamix livstid på motorn.",
+  },
+  {
+    publisher: "Severin",
+    title: "Bruksanvisning SM 3771 / SM 3772",
+    url: "https://cdn.starwebserver.se/shops/severin/files/3772.pdf",
+    date: "2026-08",
+    market: "DE",
+    note: "Tillverkarens egen bruksanvisning, med tekniska data på tolv språk: 220–240 volt och 600 watt. Manualen beskriver varvtalsreglaget och turboknappen men anger inget varvtal, vilket är normalfallet i kategorin.",
+  },
+  {
+    publisher: "Philips",
+    title: "Datablad ProMix-stavmixer HR2652/90",
+    url: "https://media.flixcar.com/f360cdn/Philips-43902866-hr2652_90_pss_swese.pdf",
+    date: "2019-03-27",
+    market: "SE",
+    note: "Philips eget produktdatablad, version 6.0.1, och ett av två dokument i hela svepet som anger ett varvtal: 800 W och max 11 500 varv i minuten. Talet är jämförelsepunkten mot bamix 200 W och 18 000 v/min, alltså grunden för att effekt och varvtal inte följer varandra.\n\nModellen ingår inte i rankningen. Databladet är med som källa för själva storheten.",
+  },
+];
+
+const SMOOTHIEMIXER_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Smoothie direkt i muggen: test av 22 smoothieblendrar",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/smoothieblendrar/",
+    date: "2017-12-22",
+    market: "SE",
+    kind: "test",
+    note: "Den enda svenska labbprovningen av just den här produktklassen, med 22 modeller provade på tre smoothierecept av testledaren Ronny Karlsson. Testet är från 2017 och Råd & Rön har låst upp det själva med motiveringen att flera av modellerna inte längre säljs, så inga betyg och inga produkter härifrån ligger på den här sidan.\n\nDet som fortfarande gäller är metodens iakttagelser om kategorin: att många maskiner har en angiven maxtid på en minut och sedan måste vila, att motoreffekten då låg på 200 till 300 watt hos majoriteten, och att morötter och stjälkselleri är svårast att finfördela. Vi har kontrollerat maxtiden mot dagens bruksanvisningar och den står kvar.",
+  },
+  {
+    publisher: "Testfakta",
+    title: "Mixat resultat i blendertest, laboratorietest av nio blenders",
+    url: "https://www.testfakta.se/sv/blender-bast-i-test",
+    date: "2025-08",
+    market: "SE",
+    kind: "test",
+    note: "Laboratorietest utfört av Applitest GmbH i Nürnberg på uppdrag av Testfakta, med tidtagning och silning av smoothie, iskrossning, nöthack, bullermätning och 100 uthållighetscykler.\n\nTestet gäller bänkblenders med kanna mellan 1,4 och 2 liter, alltså inte produkterna på den här sidan, och bär därför inga betyg här. Det är med som mätpunkt för vad en kannmaskin gör: nio av nio låg mellan 1 200 och 1 800 watt, och smoothieprogrammen tog mellan 45 och 147 sekunder.",
+  },
+  {
+    publisher: "Ninja",
+    title: "Ninja Blast Portable Blender BC100/BC150 Series, Owner's Guide",
+    url: "https://www.trovaprezzi.it/manuali/ninja_blast_bc151eubk.pdf",
+    market: "UK",
+    kind: "standard",
+    note: "Bruksanvisningen som definierar vad en mixning är: ett tryck på start startar en fast cykel på 30 sekunder. Det är talet som gör Ninjas mixningar jämförbara med KitchenAids minuter.\n\nHärifrån kommer också laddningstiden på minst 2 timmar, driftspänningen 5 volt över USB-C och anvisningen att låta motorn svalna omkring 15 minuter om den överhettas.",
+  },
+  {
+    publisher: "OBH Nordica",
+    title: "Bruksanvisning Twister Go 7740 och 7744",
+    url: "https://static.elongroup.se/Document/Article/241360/manual-matberedning-obh-nordica-7744.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen bruksanvisning, och sidans skarpaste enskilda uppgift: \"Maximal användningstid: 1 minut, vänta minst 5 minuter innan apparaten används igen.\" Ingen produktsida i handeln återger det.\n\nHärifrån kommer också 300 watt, blenderflaskans volym 600 ml och beskedet att samtliga lösa delar diskas för hand, även flaskorna.",
+  },
+  {
+    publisher: "Smeg",
+    title: "Bruksanvisning kompakt blender PBF01",
+    url: "https://static.elongroup.se/Document/Article/357070/manual-matberedning-smeg-121705.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Anger att maskinen får köras i högst 60 sekunder åt gången och sedan ska vila i 60 sekunder, samt att kannan inte får fyllas över 600 ml. Jämförelsepunkten mot OBH Nordicas fem minuters vila på en maskin i samma klass.\n\nHär står också att ingredienserna ska skäras i bitar om högst 1 × 1 centimeter och att vätskan ska vara minst hälften av det fasta.",
+  },
+  {
+    publisher: "Ninja",
+    title: "Nutri Ninja QB3000-serien, bruksanvisning",
+    url: "https://manuals.coolblue.be/61/nutri-ninja-qb3001.pdf",
+    market: "US",
+    kind: "standard",
+    note: "Anger 700 watt och att muggar, lock och knivenhet alla tål maskindisk medan motordelen torkas av. Det är den bredaste maskindisken i hela jämförelsen.\n\nDokumentet är den amerikanska utgåvan och anger 120 volt och muggar på 16 oz. Den europeiska modellen säljs med 470 ml-muggar, vilket är talet som används här.",
+  },
+  {
+    publisher: "Wilfa",
+    title: "Swift RCBL-45 portabel blender",
+    url: "https://wilfa.com/sv/products/swift-white",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen produktsida, och en av två i hela fältet som anger både effekt och programlängd: 45 watt, 18 000 varv i minuten och ett blenderprogram på 35 sekunder. Med upp till 14 mixningar per laddning ger det 8 minuter och 10 sekunders mixtid.\n\nHärifrån kommer också 300 ml i tritan, måtten 8,2 × 20,7 centimeter och artikelnumret 604163.",
+  },
+  {
+    publisher: "KitchenAid",
+    title: "How to use KitchenAid Go cordless personal blender",
+    url: "https://www.kitchenaid.ie/product-tips/kitchenaid-go/cordless-personal-blender",
+    market: "UK",
+    kind: "standard",
+    note: "Den enda tillverkaren som anger batteriet i minuter i stället för i mixningar: upp till 20 minuters mixtid på en laddning, med en knapp som kör maskinen i en minut och sedan stänger av automatiskt. Batteriet tar omkring 3 timmar att ladda fullt och delas med hela Go-serien.",
+  },
+  {
+    publisher: "nutribullet",
+    title: "nutribullet Portable NBP003: produktsida och specifikationer",
+    url: "https://www.nutribullet.com/sv-se/p/nutribullet-portable-nutribullet-portable/NBP003NBL.html",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen specifikationstabell, där fältet Effekt innehåller \"2000mAh Battery\". Det är kategorins tydligaste exempel på att watt och batterikapacitet trycks in i samma rad.\n\nHärifrån kommer 475 ml i tritan, vikten 0,73 kilo, måtten 267 × 95 × 95 millimeter, korsbladet i rostfritt stål och uppgiften att en laddning räcker till över 15 användningar.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Ninja Blast Max bärbar mixer",
+    url: "https://www.kjell.com/se/produkter/hem-fritid/kok-matsal/mixers-blenders/ninja-blast-max-barbar-mixer-p47505",
+    market: "SE",
+    kind: "standard",
+    note: "Butiksspecifikationen som är fylligare än tillverkarens egen svenska sida: 570 ml deklarerad volym med max fyllning 490 ml, batterispänning 11,1 volt, laddningstid omkring 4 timmar, upp till 25 mixningar och ett manuellt läge på 30 sekunder.\n\nSamma sida bär BlendBoss-uppgifterna: 1 100 watt, resebägare på 710 ml med 650 ml max fyllnad, vikt 2,55 kilo och att lock, sugrör och kniv går i diskmaskinen.",
+  },
+];
+
+/**
+ * Dörr- och fönstersensor.
+ *
+ * ⚠️ Noll poster med `kind: "test"`, och det är ett riktigt läge och inte en
+ * lucka. Ingen oberoende provning av magnetkontakter existerar: Råd & Rön har
+ * ingen, Stiftung Warentest har provat smarta säkerhetssystem och mekaniska
+ * fönsterlås, och tek.no nämner sensorerna bara inuti systemtester. Det står
+ * utskrivet i metodrutan, i köpguiden och i en FAQ-post, enligt IDÉ-012.
+ *
+ * Tyngdpunkten ligger därför på manualer och tillverkarnas specifikationsflik.
+ * De två PDF:erna gav uppgifter som inte står någonstans i handeln: Cleverios
+ * mått och dess anti-tamper, och Fibaros TMP-knapp.
+ */
+const DORR_OCH_FONSTERSENSOR_SOURCES: Source[] = [
+  {
+    publisher: "Cleverio",
+    title: "Window & Door Sensor SS100, user guide",
+    url: "https://www.kjell.com/globalassets/mediaassets/864506_51826_manual_en_no_sv_20220921.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Manualen som Kjell länkar från produktsidan, och den enda källan till sensorns mått: 54 × 22 × 12 mm för sensorn och 33 × 10 × 12 för magneten, vikt 23 gram. Butikens eget specifikationsblock anger inget av det.\n\nHärifrån kommer också att magneten får sitta högst 10 mm från sensorn, att drifttemperaturen är −10 till 55 °C, och att anti-tamper-skyddet finns. Manualen avråder uttryckligen från montering på dörrar och fönster med metallkarm, vilket inget produktblad i handeln nämner.",
+  },
+  {
+    publisher: "Fibaro",
+    title: "Door/Window Sensor 2 FGDW-002, operating manual",
+    url: "https://www.kjell.com/globalassets/mediaassets/711865_50594_manual_en.pdf",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens manual, länkad från Kjells produktsida. Bekräftar sabotageknappen (TMP) som utlöser när enheten lossas eller öppnas, att sensorn är av Hall-effekttyp och Z-Wave Plus-certifierad, och att magneten ska sitta högst 5 mm från sensorn.\n\nAnger också räckvidden till upp till 50 meter utomhus och 40 meter inomhus, samt att en inbyggd temperaturmätning ingår. Den sista uppgiften är skälet till att Fibaro får poäng på kriteriet för fler mätvärden.",
+  },
+  {
+    publisher: "Aqara",
+    title: "Door and Window Sensor P2, specifications",
+    url: "https://www.aqara.com/en/product/door-and-window-sensor-p2/specs/",
+    kind: "standard",
+    note: "Tillverkarens egen specifikationsflik. Huvudenheten mäter 77 × 22 × 22 mm och magneten 36 × 11,5 × 7,3, vilket gör den till fältets största huvudenhet, dubbelt så lång som Shellys. Batteriet är CR123A och protokollen Thread och Bluetooth, modellbeteckning DW-S02E och DW-S02D.\n\nAqara anger ingen batteritid för modellen och skriver att den beror på vilken Thread-router och vilken Matter-app sensorn används med. Det är skälet till att P2 saknar betyg på det kriteriet i stället för att få ett lågt.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Smarta magnetkontakter",
+    url: "https://www.kjell.com/se/produkter/smarta-hem/smarta-sensorer/smarta-magnetkontakter",
+    market: "SE",
+    kind: "standard",
+    note: "Kategorisidan med 19 artiklar, alltså det djupaste sortimentet i svensk handel. Härifrån kommer priser, lagerstatus och kundbetyg för nio av de tolv rankade sensorerna.\n\nKjell publicerar batteritid och mått per produkt, vilket är ovanligt i den här kategorin. Däremot anges inget GTIN, så produkterna går inte att matcha mot tillverkarens artikelnummer härifrån.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Yale Magnetkontakt för inomhusbruk",
+    url: "https://www.kjell.com/se/produkter/smarta-hem/smarta-sensorer/smarta-magnetkontakter/yale-magnetkontakt-for-inomhusbruk-p67914",
+    market: "SE",
+    kind: "standard",
+    note: "Butiksspecifikationen med fältets längsta batteritid: upp till fyra år på ett CR2450. Anger också måtten 68,5 × 29 × 9,52 mm, vikten 35 gram, radion Horizon+ på 868 MHz och en räckvidd på upp till en kilometer.\n\nSamma sida är belägget för att produkten är ett tillbehör till Yale Smart Hub, vilket är skälet till att den bästa hårdvaran i fältet ändå bara får 2,0 på öppenhet.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Shelly BLU Door/Window ZB",
+    url: "https://www.kjell.com/se/produkter/smarta-hem/smarta-sensorer/smarta-magnetkontakter/shelly-blu-doorwindow-zb-ivory-p52298",
+    market: "SE",
+    kind: "standard",
+    note: "Butiksspecifikationen för fältets minsta sensor: 35 × 35 × 7 mm, med magnet på 35 × 12 × 7. Anger upp till tre års batteritid på ett enda CR2032 som medföljer, alltså samma drifttid som de sensorer som behöver två AAA-celler för att nå dit.\n\nHärifrån kommer också att sensorn mäter tiltvinkel och ljusnivå i lux vid sidan av öppet och stängt, att den talar både Bluetooth 5.0 och Zigbee 3.0, och att drifttemperaturen är −20 till 40 °C.",
+  },
+  {
+    publisher: "Inet",
+    title: "ThirdReality Dörr- och fönstersensor P1DSA1-GEU",
+    url: "https://www.inet.se/produkt/8310162/thirdreality-dorr-fonstersensor",
+    market: "SE",
+    kind: "standard",
+    note: "Anger två AAA-batterier och upp till två års drifttid, samt att sensorn fungerar med Home Assistant, SmartThings, Aeotec, Homey och Hubitat över Zigbee 3.0.\n\nInets specifikationsblock ligger i sidans HTML och går att läsa med vanlig hämtning, till skillnad från Kjells. Deras sida svarar däremot 403 på en automatiserad webbläsare, alltså tvärtemot Kjell. Två butiker, två motsatta hinder.",
+  },
+  {
+    publisher: "Proshop",
+    title: "Sonoff SNZB-04PR2 öppningssensor för fönster och dörr",
+    url: "https://www.proshop.se/Smarta-Hem/Sonoff-SONOFF-SNZB-04PR2-oeppningssensor-foer-foenster-och-doerr/3491835",
+    market: "SE",
+    kind: "standard",
+    note: "Enda källan i hela fältet som publicerar ett GTIN, 6979033600140. Anger Zigbee 3.0, två AAA-batterier för upp till tre års drift, sabotageavkänning, och att sensorn fungerar med eWeLink, Home Assistant, MQTT, iHost, Amazon Alexa och Apple Home via Matter-brygga.\n\nUppgifterna är butikens och inte Sonoffs egna, eftersom tillverkaren inte har någon fungerande produktsida för modellen. Måtten 90 × 26 × 13,5 mm kommer därför från två andra håll som stämmer överens.",
+  },
+  {
+    publisher: "IKEA",
+    title: "PARASOLL dörr-/fönstersensor, smart/vit",
+    url: "https://www.ikea.com/se/sv/p/parasoll-doerr-foenstersensor-smart-vit-80504308/",
+    market: "SE",
+    kind: "standard",
+    note: "Sidan är märkt \"Utgår inom kort\" och produkten ligger på IKEA:s egen sida \"Last chance to buy\", kontrollerat 2026-08-07. Det är skälet till att PARASOLL ligger bland övervägda i stället för i rankningen.\n\nSidan anger måtten 40 × 88 × 18 mm, att batteri inte medföljer, och att sensorn kräver DIRIGERA eftersom den inte kan anslutas till den äldre TRÅDFRI-gatewayen. Det sista är värt att veta för alla som byggt sitt IKEA-hem före 2023.",
+  },
+  {
+    publisher: "Connectivity Standards Alliance",
+    title: "Matter, the standard for smart home connectivity",
+    url: "https://csa-iot.org/all-solutions/matter/",
+    kind: "standard",
+    note: "Standardorganet bakom Matter, citerat för vad märkningen innebär: en Matter-certifierad sensor fungerar med vilken certifierad controller som helst, oavsett vilket märke som tillverkat den.\n\nDet är definitionen som gör kriteriet Öppenhet mot hubbar mätbart i stället för en åsikt. Räknas inte som ett produkttest.",
+  },
+  {
+    publisher: "Thread Group",
+    title: "What is Thread, overview",
+    url: "https://www.threadgroup.org/What-is-Thread/Overview",
+    kind: "standard",
+    note: "Citerad för skillnaden mellan Thread och Zigbee, som båda är lågenergiradio i mesh men inte samma sak: Thread bär IP-adressering och är transporten Matter använder i den här produktklassen.\n\nSkillnaden avgör varför Aqaras P2 får ett högre betyg på öppenhet än en Zigbee-sensor som kräver att hubben talar just Zigbee.",
+  },
+  {
+    publisher: "Smarta Hem Test",
+    title: "Bästa magnetsensor till smarta hem 2026",
+    url: "https://www.smartahemtest.se/test/basta-smarta-magnetsensor",
+    market: "SE",
+    kind: "comparison",
+    note: "Den enda svenska sajt som har en sida om den här kategorin över huvud taget. Deras topplista har Aqara P2 etta, Frient Entry Sensor Pro fyra och NEO Coolcam femma.\n\nDet är en jämförelse och ingen provning, så inga betyg härifrån väger i vår rankning. Den är med för att den är kategorins enda svenska konkurrent, och för att den bekräftade att sabotagelarm finns som egenskap i fältet, vilket vi sedan belade hos tillverkarna.",
+  },
+  {
+    publisher: "Automatiserar.se",
+    title: "Test av dörrsensorn PARASOLL från IKEA",
+    url: "https://automatiserar.se/test-av-dorrsensorn-parasoll/",
+    market: "SE",
+    kind: "comparison",
+    note: "Svensk blogg med riktig handpåläggning som publicerat enskilda tester av IKEA PARASOLL, Aeotec dörr- och fönstersensor och Nexa LMST-606, med egna betyg. Deras iakttagelse om PARASOLL är att den bara gör en sak, och att formfaktorn krånglar på äldre fönster.\n\nDet är en bloggs praktiska erfarenhet och inte en labbprovning, så den väger noll i rankningen och citeras bara i prosa. Den räknas som jämförelse och inte som experttest, just för att den inte ska addera till antalet oberoende tester vi säger oss ha läst.",
+  },
+];
+
+const ESPRESSOMASKIN_SOURCES: Source[] = [
+  {
+    publisher: "Råd & Rön",
+    title: "Fixa kaffet på minuten – test av 57 espressomaskiner",
+    url: "https://www.radron.se/tester/koksmaskiner-stadning/espressomaskiner/",
+    date: "2021-11-24",
+    market: "SE",
+    kind: "test",
+    note: "Kategorins tyngsta provning, och ovanligt nog fritt läsbar. Sidan säger själv varför: \"Vi har låst upp det här testet för att flera av de testade modellerna inte längre kan köpas i butik.\" Tio specialtränade kaffeexperter blindtestade kopp efter kopp i enskilda bås, och labbet mätte temperaturen i varje kopp.\n\nTre tal härifrån bär den här sidan. Kaffet ur maskinerna höll mellan 53 och 71 grader, och Råd & Rön skriver att det inte går att se ett samband mellan låg temperatur och sämre kaffe. Tiden från påslag till första kopp gick från 44 sekunder till över fem minuter. Och i ett uthållighetsprov brygde två maskiner från var och en av fyra tillverkare 2 500 koppar, varav den ena bara fick sumplådan tömd, och kaffet ur de ovårdade smakade lika bra.\n\nBetygen och de sex utnämningarna används inte. Testet är fem år gammalt och deras villkor förbjuder vidarepublicering av testresultat och tabeller.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "Grupptest: 4 espressomaskiner (2024)",
+    url: "https://www.ljudochbild.se/test/smart-hem/4-espressomaskiner-2024/",
+    date: "2024-11-09",
+    market: "SE",
+    kind: "test",
+    note: "Fyra helautomater i mellanklassen, provade med samma två bönor genomgående: en Lavazza för ungefär 205 kronor kilot och en Yirgacheffe för 475. Bedömningen väger kaffekvalitet och användarvänlighet tyngst.\n\nTvå av de provade säljs här under exakt samma modellbeteckning, och deras omdömen står vid respektive produkt: Philips Series 5500 EP5547/90 och Aiviq AEM-101S. Om den tredje, DeLonghi Dinamica Plus, skriver de att den gör \"den överlägset mest välsmakande espresson i testet\", men den varianten heter ECAM380.85.SB och säljs inte här, så talet flyttas inte.\n\n⚠️ Ljud & Bilds egen sidfot upplyser om att artiklar utanför plustjänsten är \"friköpta\" från betalvägggen av tillverkaren eller leverantören. Provningen är ändå kritisk mot flera av maskinerna, men uppgiften hör till bedömningen av källan.",
+  },
+  {
+    publisher: "Ljud & Bild",
+    title: "Grupptest: 4 espressomaskiner i toppklass",
+    url: "https://www.ljudochbild.se/test/smart-hem/4-espressomaskiner-i-toppklass/",
+    date: "2023-11-04",
+    market: "SE",
+    kind: "test",
+    note: "De fyra dyraste maskinerna på marknaden, provade dagligen i flera veckor plus ett jämförande smaktest med två gäster.\n\nOm Siemens EQ900 skriver de \"Godkänd i teorin, misslyckad i praktiken\": maskinen slår konkurrenterna på utrustning och pris men ger espresso, americano och cappuccino \"under genomsnittet\". Det är den skarpaste illustrationen av att utrustningslistan och koppen inte följer varandra.\n\n⚠️ Omdömet knyts **inte** till TQ903R09 på den här sidan. Ljud & Bild beskriver sin EQ900 som \"två bönbehållare, var och en med sin egen kvarn\", medan Siemens egen produktsida för TQ903R09 anger en bönbehållare på 375 gram. Det är en annan variant, och ett betyg får aldrig flyttas mellan varianter.",
+  },
+  {
+    publisher: "Testfakta",
+    title: "Stora skillnader på espresson",
+    url: "https://www.testfakta.se/sv/hem-hushall/article/stora-skillnader-pa-espresson",
+    date: "2008-10-25",
+    market: "SE",
+    kind: "test",
+    note: "Nio helautomater blindtestade av två kaffeproffs, med viktningen utskriven och en kemisk analys av bly, nickel, arsenik, koppar och kadmium i det bryggda kaffet utförd av Sveriges Tekniska Forskningsinstitut.\n\nTas med för metoden och inte för resultaten. Testet är från 2008 och ingen av de nio maskinerna säljs i dag, så inget tal härifrån rör en produkt på sidan. Det visar däremot att blindtestning av espresso ur helautomater har gjorts likadant i Sverige i snart tjugo år.",
+  },
+  {
+    publisher: "Melitta",
+    title: "Barista T Smart – produktsida och tekniska data",
+    url: "https://www.melitta.se/espressomaskiner/barista-t-smart-/faerg-svart",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen specifikation, och den som rättar handeln. Melitta anger `Bean Select (bönbehållare med två kammare): Ja` och beskriver funktionen i prosa: \"Bönbehållaren med två kammare gör det möjligt att välja manuellt mellan två olika sorters kaffebönor.\" Butikens strukturerade attribut angav en behållare.\n\nSamma sida anger fem malningsnivåer, fem styrkelägen, avtagbar bryggenhet, arton kaffedrycker, fyra sparade profiler under \"My Coffee\" och styrning via Melitta Connect.",
+  },
+  {
+    publisher: "Siemens",
+    title: "Så här rengör du bryggenheten på din EQ900 kaffemaskin",
+    url: "https://www.siemens-home.bsh-group.com/se/kundservice/rengoring-och-underhall/kaffemaskiner/eq900/djuprengoring/bryggenhet",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen serviceanvisning, som visar bryggenheten lyftas ur maskinen steg för steg. Den avgör en cell som varken butiken eller Icecat kunde fylla: EQ900 har avtagbar bryggenhet.",
+  },
+  {
+    publisher: "Siemens",
+    title: "TQ903R09 EQ900 – teknisk översikt",
+    url: "https://www.siemens-home.bsh-group.com/se/sv/product/TQ903R09",
+    market: "SE",
+    kind: "standard",
+    note: "Anger 2,3 liters vattentank, **en** bönbehållare på 375 gram, mjölksystem med integrerad mjölkbehållare och den fullständiga listan över mjölkdrycker som fås med ett tryck utan att koppen flyttas. Malningsgraden styrs elektroniskt per dryck, vilket Siemens kallar eGrinder.\n\nAntalet bönbehållare är skälet till att Ljud & Bilds EQ900-omdöme inte knyts till den här modellen.",
+  },
+  {
+    publisher: "Siemens",
+    title: "TE651209RW EQ.6 plus s100 – teknisk översikt",
+    url: "https://www.siemens-home.bsh-group.com/se/sv/product/TE651209RW",
+    market: "SE",
+    kind: "standard",
+    note: "Anger 1,7 liters vattentank, 300 grams bönbehållare, keramisk kvarn och mjölksystem med slang till extern mjölkbehållare eller mjölkpaket. Två funktioner står utskrivna: autoMilk Clean, som sköljer mjölksystemet efter varje dryck, och aromaDouble Shot, som mal och brygger i två omgångar.",
+  },
+  {
+    publisher: "Coffee Friend",
+    title: "Helautomatiska kaffemaskiner – sortiment, priser och specifikationer",
+    url: "https://www.coffeefriend.se/c/kaffemaskiner/helautomatiska-kaffemaskiner/",
+    date: "2026-08-07",
+    market: "SE",
+    kind: "standard",
+    note: "Butikens eget sortiment, och underlaget för både priser och den mätning som satte vikten på mjölksystemet. 170 helautomater i katalogen, varav 54 i lager under 15 500 kronor den dag sidan skrevs.\n\nVarje produktsida publicerar EAN, mått, vikt och ett fyrtiotal strukturerade attribut, vilket är ovanligt utförligt för svensk handel. Priserna är lästa på produktsidorna samma dag.\n\n⚠️ Butiksdata är tier B och har rättats mot tillverkaren på två punkter: antalet bönkammare i Melitta Barista T Smart, och ett effektfält som för Philips EP5547/90 innehåller nätspänningen.",
+  },
+];
+
+/**
+ * Fönsterlarm.
+ *
+ * ⚠️ Noll poster med `kind: "test"`, precis som på systersidan
+ * /dorr-och-fonstersensor. Ingen oberoende provning av fristående
+ * fönsterlarm existerar. Det står utskrivet i metodrutan, i köpguiden och i
+ * en FAQ-post, enligt IDÉ-012.
+ *
+ * Tyngdpunkten ligger på Nedis egna svenska produktsidor, som är den enda
+ * tillverkaren i fältet med publicerade specifikationstabeller. Resten av
+ * fältet är butiksdata.
+ */
+const FONSTERLARM_SOURCES: Source[] = [
+  {
+    publisher: "Nedis",
+    title: "Dörr- och fönsterlarm med siren, magnetisk sensor, ALRMD20WT",
+    url: "https://nedis.se/sv-se/product/550726778/dorr-och-fonsterlarm-med-siren-magnetisk-sensor-batteridriven-2x-cr2032-85-db-vit",
+    market: "SE",
+    kind: "standard",
+    note: "Tillverkarens egen specifikationstabell, och den enda i hela fältet som publicerar mått, vikt och celltyp i ett sammanhållet format. Larmenheten mäter 76 × 8 × 76 mm och väger 41 gram, vilket gör den till fältets tunnaste. Ljudnivån anges till 85 dB och de två CR2032-cellerna medföljer.\n\nSamma sida bär glaskrossvarianten ALRMGBD20WT på 76 × 9 × 76 mm och 45 gram, alltså en millimeter tjockare för en extra utlösare. Båda aktiveras med en enkel av- och påknapp.",
+  },
+  {
+    publisher: "Nedis",
+    title: "Dörr- och fönsterlarm med siren, knappsats, ALRMD30WT",
+    url: "https://nedis.se/sv-se/product/550727584/dorr-och-fonsterlarm-med-siren-knappsats-magnetisk-sensor-batteridriven-3x-aaalr03-85-db-vit",
+    market: "SE",
+    kind: "standard",
+    note: "Fältets enda larm med kodlås på fronten, och tillverkarens beskrivning av vad det innebär: en fyrsiffrig PIN-kod aktiverar larmet och systemet har tre driftlägen. Ljudnivån är samma 85 dB som deras enklare modell.\n\nHärifrån kommer också priset man betalar i format: 33 × 105 × 62 mm och 105 gram, alltså mer än dubbelt så tungt som deras tunna variant, och de tre AAA-batterierna medföljer inte.",
+  },
+  {
+    publisher: "Teknikdelar",
+    title: "Nedis dörr- och fönsterlarm, batteridriven, 85 dB",
+    url: "https://www.teknikdelar.se/produkt/nedis-dorr-och-fonsterlarm-batteridriven-85-db-vit",
+    market: "SE",
+    kind: "standard",
+    note: "Enda källan i fältet som publicerar ett GTIN, 5412810329465 för ALRMD30WT. Priset är 79 kronor mot 130 för samma artikel hos en annan butik, alltså 39 procent skillnad på identisk vara.\n\nDeras beskrivning förklarar också de tre driftlägena, däribland ett nödläge som utlöser sirenen direkt oavsett om larmet är påslaget.",
+  },
+  {
+    publisher: "Kjell & Company",
+    title: "Luxorparts trådlöst fönster- och dörrlarm 4-pack, MC-02",
+    url: "https://www.kjell.com/se/produkter/sakerhet-overvakning/larmsystem/hemlarm/inbrottslarm/luxorparts-tradlost-fonster-och-dorrlarm-4-pack-p51448",
+    market: "SE",
+    kind: "standard",
+    note: "Fältets enda larm med fjärrkontroll och dess högsta ljudnivå: 130 dB i 30 sekunder, tre valbara larmsignaler och en fjärrkontroll med upp till 15 meters räckvidd. Kundbetyget 4,5 av 5 från 117 personer är det bredaste underlaget i hela jämförelsen.\n\nHär står också uppgiften som ändrar räkningen: paketet drivs av totalt åtta AAA-batterier som säljs separat, plus ett CR2032 till fjärrkontrollen som medföljer. Måtten publiceras inte, och den bifogade manualen är en inskannad bild utan sökbar text.",
+  },
+  {
+    publisher: "Clas Ohlson",
+    title: "Dörrlarm och passagelarm med magnetkontakt, 36-8496",
+    url: "https://www.clasohlson.com/se/Dorrlarm---passagelarm-med-magnetkontakt/p/36-8496",
+    market: "SE",
+    kind: "standard",
+    note: "Det högljuddaste enskilda larmet i jämförelsen. Butikens egen text anger cirka 130 dB och beskriver det som en ljudstyrka som är smärtsamt hög. Larmenheten mäter 65 × 34 × 17 mm och magneten 36 × 10 × 14, och tre LR44-celler medföljer.\n\nProdukten har fem funktioner och kan ställas om från siren till en ding-dong-signal, vilket gör den användbar som dörrvakt i stället för som inbrottslarm. 132 kundomdömen ger den 4,0 av 5.",
+  },
+  {
+    publisher: "SkyddsExperten",
+    title: "Dörr- och fönsterlarm",
+    url: "https://www.skyddsexperten.se/hem-tradgard/larm-overvakning/dorr-och-fonsterlarm",
+    market: "SE",
+    kind: "standard",
+    note: "Fältets billigaste larm på 59 kronor, med en angiven ljudnivå på 95 till 100 dB. Huvudenheten mäter 93 × 31 mm och magnetkontakten 50 × 13, och larmet aktiveras med en på- och avbrytare på huvudenheten.\n\nDe två AAA-batterierna medföljer inte, vilket butiken skriver ut och som gör att den faktiska kostnaden ligger närmare de larm som är dyrare på hyllan.",
+  },
+  {
+    publisher: "eStore",
+    title: "Kompakt och lättmonterat fönster- och dörrlarm med 90 dB",
+    url: "https://estore.nu/sv/fonster-och-dorrlarm/2590-kompakt-och-lattmonterat-fonster-d-rr-larm-med-90-db.html",
+    market: "SE",
+    kind: "standard",
+    note: "69 kronor med tre LR44-celler och monteringstejp i förpackningen, alltså det billigaste sättet att larma ett fönster utan att köpa något mer. Ljudnivån anges till 90 dB och larmet utlöses när de två delarna separeras.\n\nVikten anges till 35 gram men inga mått publiceras, varken här eller hos någon annan återförsäljare av samma artikel.",
+  },
+  {
+    publisher: "Teknikproffset",
+    title: "Nedis dörr- och fönsterlarm med glaskrossensor, ALRMGBD20WT",
+    url: "https://www.teknikproffset.se/hem-hushall-tradgard/larm-sakerhet/rorelsesensorer/tunn-glaskrossdetektor-med-larm-for-dorrar-och-fonster-inbyggd",
+    market: "SE",
+    kind: "standard",
+    note: "Den enda produkten i jämförelsen som reagerar på två saker: både att fönstret öppnas och att rutan krossas. Det senare betyder att larmet går innan någon tagit sig in, till skillnad från en ren magnetkontakt.\n\nButiken tar 105 kronor mot 85 för Nedis motsvarande larm utan glaskrossensorn, alltså tjugo kronor för den extra utlösaren. Ljudnivån är samma 85 dB.",
+  },
+];
+
 export const SOURCES_BY_HREF: Record<string, Source[]> = {
+  "/wifi-repeater": WIFI_REPEATER_SOURCES,
+  "/espressomaskin": ESPRESSOMASKIN_SOURCES,
+  "/fonsterlarm": FONSTERLARM_SOURCES,
+  "/fritos": FRITOS_SOURCES,
+  "/dorr-och-fonstersensor": DORR_OCH_FONSTERSENSOR_SOURCES,
+  "/smoothiemixer": SMOOTHIEMIXER_SOURCES,
+  "/airfryer": AIRFRYER_SOURCES,
   "/eltandborste": ELTANDBORSTE_SOURCES,
   "/pizzaugn": PIZZAUGN_SOURCES,
+  "/blender": BLENDER_SOURCES,
+  "/stavmixer": STAVMIXER_SOURCES,
   "/skaftdammsugare": SKAFTDAMMSUGARE_SOURCES,
   "/babyvakt": BABYVAKT_SOURCES,
   "/mjolkskummare": MJOLKSKUMMARE_SOURCES,
@@ -6525,6 +7544,7 @@ export const SOURCES_BY_HREF: Record<string, Source[]> = {
   "/smart-brandvarnare": SMART_BRANDVARNARE_SOURCES,
   "/smart-plug": SMART_PLUG_SOURCES,
   "/smart-strombrytare": SMART_STROMBRYTARE_SOURCES,
+  "/rorelsevakt-utomhus": RORELSEVAKT_UTOMHUS_SOURCES,
   "/utomhustimer": UTOMHUSTIMER_SOURCES,
   "/utrymningsstege": UTRYMNINGSSTEGE_SOURCES,
   "/vattenlarm": VATTENLARM_SOURCES,

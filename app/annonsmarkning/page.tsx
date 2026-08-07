@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { graph, orgRef, pageEntity } from "@/lib/schema";
 import { Container } from "@/components/site/container";
@@ -39,11 +40,10 @@ export const metadata: Metadata = {
   description:
     "Vi får provision när du köper via våra länkar. Så ser du vilka länkar det gäller, varför en del länkar är omärkta, och vad provisionen inte får påverka.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Annonsmärkning och hur vi tjänar pengar",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+    path: PAGE_URL,
+  }),
 };
 
 export default function AnnonsmarkningPage() {

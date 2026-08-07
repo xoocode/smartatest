@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PUBLISHER, SITE, publisherAddress } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { PEOPLE } from "@/lib/people";
 import { publishedCategories } from "@/lib/test-pages";
 import { graph, orgRef, pageEntity, personNode, personRef } from "@/lib/schema";
@@ -43,11 +44,11 @@ export const metadata: Metadata = {
   description:
     "Vilka som står bakom betygen på smartatest.se, varför sajten finns och vad vi kan och inte kan göra.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
+  openGraph: pageOpenGraph({
     title: "Om oss",
-    url: `${SITE.url}${PAGE_URL}`,
+    path: PAGE_URL,
     type: "website",
-  },
+  }),
 };
 
 export default function OmOssPage() {

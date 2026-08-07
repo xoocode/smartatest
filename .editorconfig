@@ -1,0 +1,21 @@
+# Editor defaults, so a new file is born with the endings .gitattributes wants.
+#
+# `.gitattributes` rättar radsluten på väg in i git. Den här filen rättar dem
+# ett steg tidigare, i det ögonblick filen skapas, så att en nyskriven fil
+# aldrig hinner vara CRLF i arbetskatalogen. De två gör samma sak på var sin
+# sida om spartangenten och ska hållas överens.
+#
+# VS Code läser den här filen genom tillägget EditorConfig; `.vscode/
+# settings.json` sätter samma sak inbyggt. Övriga redigerare läser den här.
+
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+# Två avslutande blanksteg är en radbrytning i Markdown.
+trim_trailing_whitespace = false

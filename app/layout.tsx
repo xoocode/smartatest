@@ -34,7 +34,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: `${SITE.name}. ${SITE.tagline}`,
-    template: `%s | ${SITE.name}`,
+    /* Inget suffix. Titlarna här är fullständiga meningar som redan är långa
+       nog att klippas i resultatlistan, och " | Smartatest" åt tretton tecken
+       ur den delen läsaren faktiskt läser. Avsändaren står ändå i resultatet,
+       som domännamn ovanför titeln och som `og:site_name` i delade länkar. */
+    template: "%s",
   },
   description: DESCRIPTION,
   applicationName: SITE.name,
@@ -50,11 +54,13 @@ export const metadata: Metadata = {
     title: `${SITE.name}. ${SITE.tagline}`,
     description: DESCRIPTION,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${SITE.name}. ${SITE.tagline}`,
-    description: DESCRIPTION,
-  },
+  /* Bara kortformatet. Titel och beskrivning sätts med flit inte här: Next
+     fyller i dem från sidans `openGraph` först när de saknas, och så länge
+     roten satte dem ärvde varje sida rotens rad i stället. Alla 75 sidor
+     delades därför på X och LinkedIn under samma rubrik, "Smartatest. Vi
+     testar och jämför så du slipper", oavsett vad kortet länkade till.
+     Bilden hade aldrig problemet, eftersom roten aldrig satte den. */
+  twitter: { card: "summary_large_image" },
   robots: {
     index: true,
     follow: true,

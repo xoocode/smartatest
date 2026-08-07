@@ -1,135 +1,62 @@
 # Vem som läser
 
-En test page har inte en läsare. Den har fyra, som kommer från olika
-sökningar, behöver olika saker och lämnar av olika skäl. Sidans ordning är ett
-svar på det, och varje beslut om vad som får stå överst är egentligen ett
-beslut om vilken av dem vi tjänar först.
+## I korthet
 
-Ingen av dem läser sidan uppifrån och ner.
+Hen har ett konkret problem och vill köpa sig ur det i dag. Hen har redan
+bestämt sig för att skaffa något i kategorin, så frågan är inte *om* utan
+*vilken*. Hen vill ha ett namn, ett pris och en länk, och hen vill kunna stänga
+fliken och beställa utan att ångra sig i kassan.
 
----
+Ditt jobb är att hjälpa hen bestämma sig snabbt och känna sig trygg i beslutet
+efteråt. Tveksamhet är dyrare för hen än ett något dyrare köp.
 
-## Kort
+## Vad hen är rädd för
 
-Hen har ett enkelt problem och vill köpa sig ur det i dag. Hen vill veta vilken
-produkt som är bäst för just hens situation, och hen vill kunna sluta läsa och
-beställa. **Ditt jobb är att hjälpa hen bestämma sig snabbt och känna sig trygg
-i beslutet efteråt.** Tveksamhet är dyrare för hen än ett något dyrare köp.
+Hen är inte rädd för produkten. Hen är rädd för att välja fel: att betala för
+mycket, att missa haken som en recensent hade sett, att stå där om ett halvår
+med något som inte höll. Osäkerheten är fienden, inte priset. Därför läser hen
+inte för att lära sig kategorin utantill, hen läser efter tillräckligt för att
+våga trycka på köp.
 
-Hen läser en sida hos oss. Sedan är hen borta.
+Det du ger hen mot den rädslan är inte fler ord, det är ett tydligt svar hen kan
+lita på: ett namngivet val, skälet till det, och beviset på att du hade sagt
+ifrån om det var dåligt. Just för att hen ser dig avråda på andra ställen vågar
+hen tro på dig här. Det är den signalen hen läser efter, mer än någon enskild
+siffra.
 
-Två saker följer av det, och den andra är den som glöms:
+## Vad hen kom för
 
-- **Upprepning mellan sidor kostar ingenting.** Ingen läser två av våra
-  kategorier och märker att samma resonemang om spröjs finns på båda. Skriv
-  varje sida som om den vore den enda, och undvik aldrig en bra formulering för
-  att den använts någon annanstans.
-- **Upprepning inom sidan kostar allt.** Där märks varje varv. På
-  `/fonsterputsrobot` stod samma tre säkerhetstal i ingressen, i en egen
-  sektion, i tabelltexten, i metodrutan, två gånger i köpguiden, i tre
-  FAQ-svar och i de flesta omdömen: nio gånger. Det läser sig som en sida som
-  inte kan bestämma sig, och det trycker ner det som faktiskt skiljer
-  produkterna åt.
+Fyra saker, i den ordningen: vilken produkt som är bäst för just hens situation,
+vad den är bäst på, vad den kostar och var hen köper den. Allt annat, metod,
+urval, resonemang, är sådant hen möjligen läser efteråt för att kontrollera att
+svaret går att lita på. Hen läser aldrig sidan uppifrån och ner, och hen är
+borta efter en sida hos oss.
 
-Provet är enkelt: **säg varje sak en gång, på det ställe där den gör mest
-nytta, och lita på att den står kvar.**
+Ge hen svaret först. Den vanligaste och dyraste feldispositionen är att lägga
+sexhundra ord om metoden före namnet, och den känns rimlig att skriva just för
+att metoden är det du är stolt över. (Vad detta betyder för sidans ordning står
+i `page-anatomy.md`.)
 
-## Den bestämde
+## Samma läsare, olika läge
 
-**Kommer från:** `bäst i test {kategori}`, `bästa {kategori} 2026`
+Det är en läsare, inte fyra, men hen kommer i olika sinnesstämningar och en bra
+sida möter dem utan att byta röst. Ibland är hen redo att köpa och vill bara ha
+namnet och länken högst upp. Ibland har hen snävat in till två eller tre och
+sitter fast, och då behöver hen veta vad som skiljer dem åt som faktiskt spelar
+roll, inte fyrtio specrader där tre avgör. Ibland köper hen något som ska
+skydda, ett larm eller en varnare, och då är rädslan redan i rummet: beskriv
+skyddet, inte katastrofen, och säg när det billiga räcker, men fördjupa aldrig
+oron för att sälja. Och ibland är hen bara nyfiken, inte redo, ute efter att
+förstå kategorin för att köpa senare eller hjälpa någon annan. Den nyfikne är
+ingen intäkt i dag, men hen är skälet till att sidan blir länkad till och
+citerad, och därmed till att köparen hittar hit alls.
 
-Hen har redan bestämt sig för att köpa. Hen vill ha ett namn, ett pris och en
-länk, och hen vill ha det på första skärmen. Metod, urval och resonemang är
-sådant hen möjligen läser efteråt för att kontrollera att svaret går att lita
-på.
+(Etiken kring rädsla och säkerhetsprodukter ligger i `rulings.md`.)
 
-**Behöver:** vinnaren namngiven i första meningen, vad den är bäst på, vad den
-kostar, var man köper den.
+## En sak om upprepning
 
-**Lämnar när:** vi lägger 600 ord om vår metod före svaret. Det är den vanligaste
-och dyraste feldispositionen på den här sortens sida, och den känns rimlig att
-skriva eftersom metoden är det vi är stolta över.
-
-Den här läsaren är också den som betalar för sajten. Klicket är intäkten.
-
-## Den avvägande
-
-**Kommer från:** `{produkt A} eller {produkt B}`, `{kategori} jämförelse`, eller
-från den bestämdes sida efter att ha tvekat
-
-Hen har snävat in till två eller tre och fastnat. Hen behöver inte veta allt om
-båda, hen behöver veta **vad som skiljer dem åt som spelar roll**.
-
-**Behöver:** jämförelsetabellen, och en mening någonstans som säger vilken av
-dem som passar vilken sorts hem.
-
-**Lämnar när:** vi svarar "det beror på" utan att säga på vad. Eller när
-tabellen har fyrtio rader där tre av dem avgör och trettiosju är utfyllnad, så
-att skillnaden som betyder något drunknar.
-
-Det är för den här läsaren specsschemat bestäms i förväg i stället för att växa
-fram ur vad varje produktsida råkar skryta om.
-
-## Den oroliga
-
-**Kommer från:** `brandvarnare`, `vattenlarm`, `hemlarm`, `kolmonoxidvarnare`
-
-Hen köper inte en pryl. Hen försöker se till att något inte händer. Ofta finns
-en konkret anledning: en flytt, ett barn, en granne det brann hos, ett
-försäkringsbrev.
-
-**Behöver:** vad som faktiskt skyddar, i klartext, och vad som är onödigt. Ofta
-också beskedet att det billiga alternativet räcker.
-
-**Lämnar när:** texten gör rädslan till säljargument.
-
-Det här är det tillstånd som kräver mest omsorg, av två skäl. Halva vår
-kategoriportfölj är säkerhetsprodukter, och rädsla är den känsla som lättast
-går att sälja på. En affiliatesajt tjänar kortsiktigt på att förstärka den.
-
-Gränsen går ungefär så här:
-
-| Upplysa | Utnyttja |
-|---|---|
-| "En varnare per plan är minimum, och de flesta hem har för få." | "De flesta svenska hem är livsfarligt underskyddade." |
-| "Tioårsbatteri kostar mer men slipper pipandet vid tre på natten." | "Ett tomt batteri kan kosta dig allt." |
-| "Ett larm utan abonnemang räcker för de flesta lägenheter." | "Utan larm är du ett självklart mål." |
-| Att beskriva vad en produkt skyddar mot | Att beskriva vad som händer om man inte har den |
-
-Regeln är enkel att formulera och svår att följa under tidspress: **beskriv
-skyddet, inte katastrofen.** Läsaren har redan föreställt sig katastrofen. Det
-är därför hen är här.
-
-Två saker till för den här läsaren. Prisspannet ska vara ärligt uppåt *och*
-nedåt, eftersom hen annars köper dyrare än nödvändigt av ren oro. Och där det
-finns en svensk regel, en standard eller ett försäkringskrav ska det stå, för
-det är den enda informationen på sidan som gör oron mindre i stället för större.
-
-## Den nyfikne
-
-**Kommer från:** ordlistan, köpguiden, en fråga i FAQ:n, en AI-sammanfattning
-
-Hen ska inte köpa i dag. Hen försöker förstå kategorin, ofta för att kunna
-bestämma sig senare eller för att hjälpa någon annan.
-
-**Behöver:** att begreppen förklaras på köparens språk, och att guiden svarar på
-den fråga hen faktiskt ställde.
-
-**Lämnar när:** guiden visar sig vara en produktlista i förklädnad, där varje
-avsnitt landar i en rekommendation.
-
-Det är den här läsaren FAQ:n och verktygen finns för, och det är hen som gör att
-`Lönar det sig?`-avsnittet måste våga svara nej. Hen är inte intäkt i dag. Hen
-är skälet till att sidan blir länkad till och citerad, vilket är det som gör att
-den bestämde hittar hit alls.
-
----
-
-## Vad detta betyder för dispositionen
-
-Ordningen på sidan följer den ordning läsarna anländer i, inte den ordning som
-vore logisk att skriva. Skälen per sektion står i
-`.claude/references/page-anatomy.md`.
-
-Det praktiska provet, när du är osäker på om något ska ligga högt eller lågt:
-**vilken av de fyra tjänar det, och hur många av dem kommer aldrig så långt?**
+Säg varje sak en gång, på det ställe där den gör mest nytta. Mellan sidor kostar
+upprepning ingenting, ingen läser två av våra kategorier. Inom en sida kostar
+den allt: samma poäng i ingress, tabell, köpguide och tre FAQ-svar läser sig som
+en sida som inte kan bestämma sig, och trycker ner det som faktiskt skiljer
+produkterna åt.

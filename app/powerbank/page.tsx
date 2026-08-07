@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -64,11 +64,7 @@ export const metadata: Metadata = {
   description:
     "Anker Nano 45 W vinner för 699 kronor: 45 watt räcker till en bärbar dator, kabeln rullas ut ur enheten och 37 wattimmar laddas fulla på två timmar. Vill du ha mest energi per krona kostar Linocell 10000 249,90 och rymmer lika många wattimmar. Räkna med två telefonladdningar av 10 000 mAh, inte tre.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

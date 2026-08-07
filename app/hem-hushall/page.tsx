@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, pageEntity } from "@/lib/schema";
 import { HEM_HUSHALL, testPagesInCategory, isBrowsable } from "@/lib/catalog";
 import { groupSources } from "@/lib/sources";
@@ -37,11 +38,7 @@ export const metadata: Metadata = {
   description:
     "Våra jämförelser av luftrenare och hushållsmaskiner. Vi läser myndigheternas granskningar och standarderna bakom orden på kartongen, redovisar viktningen och säger rakt ut när ingen har testat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Hem & hushåll",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Hem & hushåll", path: PAGE_URL }),
 };
 
 const FAQ = [

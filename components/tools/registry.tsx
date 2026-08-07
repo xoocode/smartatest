@@ -144,6 +144,7 @@ import { ProtocolPicker } from "@/components/tools/protocol-picker";
 import { RunningCostCalculator } from "@/components/tools/running-cost-calculator";
 import { WattLumenTable } from "@/components/tools/watt-lumen-table";
 import { BabyMonitorRange } from "@/components/tools/baby-monitor-range";
+import { OilCostCalculator } from "@/components/tools/oil-cost-calculator";
 import { VacuumRuntime } from "@/components/tools/vacuum-runtime";
 
 /**
@@ -1039,6 +1040,7 @@ export function VentilpassningTool() {
 export const TOOL_WIDGETS: Record<string, ComponentType> = {
   "drifttid-skaftdammsugare": VacuumRuntime,
   "rackvidd-babyvakt": BabyMonitorRange,
+  "oljekostnad-fritos": OilCostCalculator,
   lumenraknare: LumenCalculator,
   "elkostnad-lampor": RunningCostCalculator,
   "protokollvaljare-smart-hem": ProtocolPicker,

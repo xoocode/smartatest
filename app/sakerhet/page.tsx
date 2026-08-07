@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, pageEntity } from "@/lib/schema";
 import { SAKERHET, testPagesInCategory, isBrowsable } from "@/lib/catalog";
 import { groupSources } from "@/lib/sources";
@@ -38,11 +39,7 @@ export const metadata: Metadata = {
   description:
     "Våra jämförelser av brandvarnare, vattenlarm, kameror och lås. Vi läser de tester som finns, redovisar viktningen och säger rakt ut när ingen har testat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Säkerhet i hemmet",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Säkerhet i hemmet", path: PAGE_URL }),
 };
 
 const FAQ = [

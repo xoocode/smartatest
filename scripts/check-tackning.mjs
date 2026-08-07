@@ -58,6 +58,52 @@ import path from "node:path";
 const DIR = "lib/data";
 const GRANS = 0.5;
 
+/**
+ * Markerade rader som aer glesa **med flit**, och skaelet.
+ *
+ * Kontrollen utgaar fraan att en gles rad aer ofaerdig research, och det aer
+ * raett i de allra flesta fall. Men det finns en klass daer glesheten aer hela
+ * poaengen: sidor vars fynd aer att bara ett faatal tillverkare publicerar en
+ * uppgift alls. Att fylla cellen aat de oevriga vore en gissning, och en gissad
+ * specifikation aer samma sak som en paahittad maetning — se ALDRIG_BEDOMD i
+ * lib/spec-schema.mjs. Att ta bort raden raderar det sidan finns foer att visa.
+ *
+ * Baada utvaegarna goer alltsaa sidan saemre, och en kontroll som driver dit aer
+ * en kontroll som ska raettas. Samma laerdom som naer den haer kontrollen raeknade
+ * omarkerade etiketter till 2026-08-06 och fick /babyvakt att radera fyra rader
+ * belagd tier A-data.
+ *
+ * Undantaget aer **inte** en tyst allowlist. Raderna nedan rapporteras aendaa,
+ * men som deklarerade beslut i staellet foer som skuld, saa att den som laeser
+ * kan pruova skaelet. Laegg bara till en rad haer naer baada dessa gaeller:
+ *
+ *  1. Uppgiften finns inte publicerad hos de tillverkare som saknas — kontrollerat
+ *     mot deras egna sidor och dokument, inte bara mot butiken.
+ *  2. Raden baer sidans fynd, alltsaa spridningen aer det laesaren kommer foer.
+ */
+const DEKLARERAT_GLESA = [
+  {
+    fil: "smartwatch",
+    label: "Batteritid med GPS",
+    skal:
+      "Apple publicerar inget GPS-tal foer naagon av sina tre modeller. Att raekna om " +
+      "fraan ett annat laege hade raderat spridningen sidan finns foer att visa.",
+  },
+  {
+    fil: "stavmixer",
+    label: "Varvtal",
+    skal:
+      "Aatta av tolv tillverkare anger inget varvtal alls, och det aer sidans fynd: " +
+      "watt maeter vaegguttaget, varvtal maeter kniven. Bosch tekniska oeversikt " +
+      "utelaemnar det och OBH har faeltet tomt.",
+  },
+];
+
+const deklarerat = (fil, label) =>
+  DEKLARERAT_GLESA.find(
+    (d) => d.fil === fil.replace(/\.ts$/, "") && d.label === label,
+  );
+
 /* `Ej angiven` i alla boejningar, plus streckvarianterna. Samma lista som
    EJ_ANGIVET och TOMMA_VARDEN i components/product/comparison-table.tsx. */
 const TOMMA = new Set([
@@ -75,6 +121,8 @@ const TOMMA = new Set([
 const tomt = (v) => TOMMA.has(v.trim().toLowerCase());
 
 const rader = [];
+/* Glesa rader som staar i DEKLARERAT_GLESA. Rapporteras separat, aldrig som skuld. */
+const forklarade = [];
 const ojamna = [];
 /* Etiketter som bara finns paa naagra faa produkter. En tabell daer varje rad
    gaeller en tredjedel av faeltet aer inte en jaemfoerelse, den aer en lista
@@ -85,10 +133,26 @@ const fragment = [];
 const dubbletter = [];
 
 /** Ordmaengd utan boejning, saa att omkastade etiketter matchar varandra. */
+/**
+ * Etiketten normaliserad till en jaemfoerbar nyckel, foer synonymkontrollen.
+ *
+ * ⚠️ **Siffror behaalls.** Fram till 2026-08-07 stroeks allt utom bokstaever,
+ * och daa foell `Hastighet 5 GHz` och `Hastighet 2,4 GHz` ihop till samma
+ * nyckel `ghz hastighet`. Kontrollen bad alltsaa `/wifi-repeater` att slaa ihop
+ * de tva raderna, vilket aer precis den sammanblandning sidan finns foer att ta
+ * isaer: talet AC1750 aer 1 300 Mbit/s paa 5 GHz plus 450 paa 2,4, och en klient
+ * sitter paa ett band i taget.
+ *
+ * Synonymerna kontrollen faktiskt jagar skiljer sig i ORD och inte i tal —
+ * `Maatt hopfaelld` mot `Hopfaellt maatt`, `Max utrymningshoejd` mot
+ * `Max evakueringshoejd` — saa siffrorna kostar ingen traeffsaekerhet. Tvaa
+ * etiketter som skiljer sig bara paa ett tal aer daeremot naestan alltid tvaa
+ * olika egenskaper.
+ */
 const nyckel = (label) =>
   label
     .toLowerCase()
-    .replace(/[^a-zåäö\s]/g, " ")
+    .replace(/[^a-zåäö0-9\s]/g, " ")
     .split(/\s+/)
     .filter(Boolean)
     .map((w) => w.replace(/(en|et|ad|d|t|a)$/, ""))
@@ -181,7 +245,9 @@ for (const fil of fs.readdirSync(DIR).filter((f) => f.endsWith(".ts")).sort()) {
     if (totalt < 3) continue;
     const kvot = fyllda / totalt;
     if (kvot < GRANS) {
-      rader.push({ fil, label, fyllda, totalt, kvot });
+      const d = deklarerat(fil, label);
+      if (d) forklarade.push({ fil, label, fyllda, totalt, kvot, skal: d.skal });
+      else rader.push({ fil, label, fyllda, totalt, kvot });
     }
   }
 }
@@ -245,4 +311,20 @@ if (rader.length) {
   );
 } else {
   console.log(`  Alla markerade tabellrader minst ${GRANS * 100} % ifyllda.`);
+}
+
+if (forklarade.length) {
+  console.log(`\n  ${forklarade.length} glesa rader aer deklarerade och raeknas inte som skuld:\n`);
+  for (const f of forklarade) {
+    console.log(
+      `    ${String(Math.round(f.kvot * 100)).padStart(3)} %  ` +
+        `${f.fil.replace(/\.ts$/, "")} · ${f.label}  (${f.fyllda}/${f.totalt})`,
+    );
+    console.log(`           ${f.skal}`);
+  }
+  console.log(
+    `\n  Glesheten aer sjaelva uppgiften paa de haer sidorna. Fyll aldrig cellen aat\n` +
+      `  den som tiger, och ta inte bort raden. Skaelen staar i DEKLARERAT_GLESA\n` +
+      `  hoegst upp i den haer filen och ska pruovas, inte foerutsaettas.\n`,
+  );
 }

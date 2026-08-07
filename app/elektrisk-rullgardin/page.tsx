@@ -12,7 +12,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -60,11 +60,7 @@ export const metadata: Metadata = {
   description:
     "SwitchBot Curtain 3 vinner på 25 dB i tyst läge och 16 kg dragkraft, för 1 049 kr. Vi jämförde åtta motorer för rullgardin, gardin och persienn på passform, ljud och batteritid. IKEA säljer inte längre några elektriska rullgardiner.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

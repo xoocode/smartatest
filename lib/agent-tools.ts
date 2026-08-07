@@ -45,6 +45,12 @@ import {
   runtimeInMode,
 } from "@/lib/tool-logic/skaftdammsugare-drifttid";
 import {
+  FILTERING as OIL_FILTERING,
+  PUBLISHED_ADVICE as OIL_ADVICE,
+  costVerdict,
+  oilCost,
+} from "@/lib/tool-logic/fritos-oljekostnad";
+import {
   TOLERANSER,
   tolkaAvlasning,
   type ToleransKey,
@@ -350,6 +356,65 @@ const vacuumRuntimeTool: AgentTool = {
       "Ytan bygger på 3,3 kvadratmeter i minuten, vilket är vad Dreame och Philips själva anger för en laddning i ekoläge.",
       "Talen är tillverkarnas egna uppgifter. Vi har inte kört någon av maskinerna. Använd resultatet som en storleksordning inför köpet.",
       `Mer, och räknaren i webbläsaren: ${toolUrl("drifttid-skaftdammsugare")}`,
+    ].join("\n\n");
+  },
+};
+
+const oilCostTool: AgentTool = {
+  name: "oljekostnad_fritos",
+  description:
+    "Räknar ut vad oljan i en oljefritös kostar per år och per portion. Litertalet på kartongen är oljan som köps och slängs, inte maten maskinen gör, och oljan ska bytas efter fem till sju omgångar enligt Test-Achats och Tefal.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      liter: {
+        type: "number",
+        description:
+          "Oljemängden fritösen tar, i liter. Vanliga värden är 1,8, 2, 3 och 5.",
+      },
+      gangerPerAr: {
+        type: "number",
+        description:
+          "Hur många gånger per år användaren friterar. 12 är en gång i månaden, 26 varannan vecka, 52 varje vecka.",
+      },
+      filtrering: {
+        type: "string",
+        enum: OIL_FILTERING.map((f) => f.key),
+        description:
+          "Vad maskinen gör med oljan. ingen = varken filter eller kallzon, kallzon = kallzon utan filter, filter = fast oljefilter, automatisk = filtrering som silar och lagrar oljan. Utelämna för ingen.",
+      },
+      oljepris: {
+        type: "number",
+        description:
+          "Kronor per liter olja. Utelämna för 30, vilket är rapsolja i femlitersdunk.",
+      },
+    },
+    required: ["liter", "gangerPerAr"],
+  },
+  run(args) {
+    const liter = readNumber(args, "liter", 3);
+    const gangerPerAr = readNumber(args, "gangerPerAr", 26);
+    const filtrering =
+      typeof args?.filtrering === "string" ? args.filtrering : "ingen";
+    const oljepris = readNumber(args, "oljepris", 30);
+    const r = oilCost(liter, gangerPerAr, filtrering, oljepris);
+
+    if (r.costPerYear <= 0) {
+      return "Ange hur många liter olja fritösen tar och hur många gånger per år du friterar, till exempel 3 liter och 26 gånger.";
+    }
+
+    const grund = OIL_ADVICE.map(
+      (a) => `${a.source}: byt efter ${a.advice}`,
+    ).join("\n");
+
+    return [
+      `${r.litres} liter olja och ${r.batchesPerYear} friteringar per år ger omkring ${nf.format(r.costPerYear)} kronor i olja per år, alltså ${r.costPerBatch} kronor varje gång du friterar.`,
+      `Det blir ${r.litresPerYear} liter fördelat på ${r.fillsPerYear} oljebyten, räknat på ${r.batchesPerFill} omgångar per fyllning med ${r.filtering.label.toLowerCase()}.`,
+      costVerdict(r.costPerYear),
+      `Bytesintervallet kommer från två oberoende källor:\n${grund}`,
+      "Litertalet är oljemängden och inte matmängden. Tefal Easy Pro, Princess 182727 och Severin FR 2431 tar alla tre 3 liter och friterar 1,2 kilo, 600 gram respektive 400 gram mat.",
+      "Hur många extra omgångar ett filter ger är vår uppskattning och inget publicerat tal. Använd resultatet som en storleksordning när du väger två maskiner mot varandra.",
+      `Mer, och räknaren i webbläsaren: ${toolUrl("oljekostnad-fritos")}`,
     ].join("\n\n");
   },
 };
@@ -1476,6 +1541,7 @@ const fireKitTool: AgentTool = {
 export const AGENT_TOOLS: Record<string, AgentTool[]> = {
   lumenraknare: [lumenTool],
   "drifttid-skaftdammsugare": [vacuumRuntimeTool],
+  "oljekostnad-fritos": [oilCostTool],
   "rackvidd-babyvakt": [babyMonitorRangeTool],
   "watt-till-lumen": [wattLumenTool],
   fargtemperatur: [kelvinTool],

@@ -1,0 +1,259 @@
+## Talet på kartongen är två radioapparater ihopräknade
+
+Det står AC1200 på en, AX3000 på nästa och BE6500 på den dyraste. Talet ser ut
+att vara hastigheten, och det är det inte.
+
+Siffran är summan av bruttohastigheten på samtliga band. TP-Link RE450 heter
+AC1750 därför att den gör 1 300 Mbit/s på 5 GHz och 450 på 2,4 GHz, och 1 300
+plus 450 blir 1 750. Mercusys ME80X heter AX3000 därför att 2 402 plus 574 blir
+strax under 3 000.
+
+Din telefon sitter på ett band i taget. Den kan använda 5 GHz eller 2,4 GHz,
+aldrig båda samtidigt, så det sammanräknade talet är ett tal ingen apparat i
+huset någonsin kommer i närheten av. Kolla hastigheten per band, som står i
+tabellen längre upp, och jämför bandet du faktiskt kommer att använda.
+
+Att bruttotal och verklig hastighet skiljer sig är väntat och gäller all
+radiokommunikation. Hur mycket de skiljer sig är däremot värt att veta: tyska
+F.A.Z. Kaufkompass har mätt RE450 till 340 Mbit/s netto över den trådlösa
+vägen. Kartongen säger 1 750, rummet ger 340, och varken 1 300 eller 450 går
+heller att nå.
+
+## Därför halveras farten, och därför gör den det inte alltid
+
+En vanlig repeater har två radioapparater, en för varje band. Den tar emot från
+routern och skickar vidare till dig, och när båda hoppen ligger på samma band
+delar de på tiden. Halva sändningstiden går åt till att lyssna på routern.
+
+Det syns rakt av i mätningarna. F.A.Z. mäter varje repeater två gånger på samma
+plats: en gång med en dator ansluten via nätverkskabel, alltså med bara ett
+trådlöst hopp, och en gång trådlöst med två hopp.
+
+| Repeater | Klient i sladd | Klient trådlöst |
+|---|---|---|
+| TP-Link RE505X | 775 Mbit/s | 360 Mbit/s |
+| TP-Link RE450 | 690 Mbit/s | 340 Mbit/s |
+| AVM Fritz!Repeater 1200 AX | 880 Mbit/s | 460 Mbit/s |
+
+Ungefär hälften, genomgående. Undantaget är repeatrar med tre band, som avsätter
+ett eget radioband till vägen tillbaka mot routern. AVM Fritz!Repeater 3000 AX
+mätte 940 Mbit/s både med sladd och trådlöst i samma uppställning, alltså ingen
+halvering alls. Sådana modeller kostar från ungefär 1 500 kronor och säljs
+sparsamt i svensk handel.
+
+## Nätverksuttaget är det viktigaste ingen anger
+
+Det följer direkt av tabellen ovan. Har du en tv, en spelkonsol eller en
+stationär dator som kan ta emot en nätverkskabel, och sätter du den i repeaterns
+uttag, får den ungefär dubbla hastigheten mot en trådlös apparat i samma rum.
+
+Men bara om uttaget är gigabit. Sex av de trettiotvå repeatrar F.A.Z. mätte har
+ett uttag som klarar 100 megabit, och där vänder det:
+
+| Repeater | Klient i sladd | Klient trådlöst |
+|---|---|---|
+| TP-Link RE330 | 95 Mbit/s | 245 Mbit/s |
+| Mercusys ME30 | 95 Mbit/s | 220 Mbit/s |
+| D-Link DAP-1610 | 95 Mbit/s | 125 Mbit/s |
+
+95 Mbit/s är taket för den äldre nätverksstandarden Fast Ethernet, och det är
+alltså inte ett omdöme om just de tre. Varje repeater med ett hundramegabitsuttag
+landar där. Den som drar en kabel till tv:n för att bilden ska sluta hacka
+halverar då hastigheten.
+
+Fyra klasser finns i handeln: inget uttag alls, 100 megabit, gigabit och 2,5
+gigabit. Skillnaden mellan den billigaste och den dyraste av dem kostar några
+hundralappar och avgör om kabeln hjälper eller stjälper. Ingen svensk butik utom
+Proshop anger vilken klass uttaget har, så det är tillverkarens
+specifikationstabell som gäller. Klassen står i tabellen längre upp för alla
+tretton.
+
+## Ett nätverksnamn eller två
+
+Den vanligaste besvikelsen med kategorin har ingenting med hastighet att göra.
+
+En repeater utan mesh-teknik sänder ett eget trådlöst nätverk, oftast med EXT
+efter namnet. Telefonen väljer inte över dit av sig själv, utan håller fast vid
+routerns nätverk så länge den ser minsta pinne kvar, och du sitter i sovrummet
+med en till synes fungerande uppkoppling som ändå inte laddar något.
+
+Mesh löser det genom att repeatern och routern uppträder som ett enda nätverk
+med ett namn, och routern bestämmer när telefonen ska lämnas över. Tre varianter
+finns i handeln, och skillnaden mellan dem är vem de fungerar med:
+
+- **EasyMesh** är Wi-Fi Alliances öppna standard och fungerar mot andra
+  tillverkares EasyMesh-routrar.
+- **OneMesh** från TP-Link, **AiMesh** från Asus och **D-Link Wi-Fi Mesh**
+  fungerar bara mot en router av samma märke.
+
+De flesta svenskar har routern operatören skickade. Mot en sådan är EasyMesh
+den enda av de fyra som har någon chans, och även den är beroende av att
+operatörens router stöder standarden. Fungerar det inte kan du sätta samma
+nätverksnamn och lösenord på repeatern för hand, vilket gör att telefonen
+åtminstone kan byta, men bytet blir trögt och sker ofta först när du tappar
+uppkopplingen helt.
+
+## Lagen sätter samma tak för routern och för repeatern
+
+Ordet förstärkare antyder att apparaten skruvar upp signalen. Det gör den inte,
+och den får inte heller.
+
+Post- och telestyrelsens föreskrift PTSFS 2022:19 undantar wifi från
+tillståndsplikt på villkor att sändaren håller sig under bestämda gränser:
+
+| Band | Högsta effekt | Paragraf |
+|---|---|---|
+| 2 400,0–2 483,5 MHz | 100 mW e.i.r.p. | §173 |
+| 5,15–5,25 GHz, inomhus | 200 mW e.i.r.p. | §181 |
+| 5,25–5,35 GHz, inomhus | 200 mW e.i.r.p. | §182 |
+| 5,470–5,725 GHz | 1 W e.i.r.p. | §184 |
+
+Taket gäller alla sändare lika, alltså routern i hallen och repeatern i
+sovrummet. Det repeatern ändrar är avståndet: den står halvvägs och behöver
+därför inte nå lika långt, och den har oftast bättre antenner än telefonen den
+talar med.
+
+Alla tretton här ligger under gränserna, men de ligger inte lika nära dem.
+TP-Link anger sändareffekten själva för sina äldre modeller, och där syns en
+skillnad butikerna aldrig nämner: RE305 sänder på högst 17 dBm, vilket är
+50 milliwatt, medan RE315 och RE505X går till 20 dBm, alltså 100. Dubbelt så
+mycket, till samma lagliga tak.
+
+## Var repeatern ska sitta
+
+Halvvägs, och inte där problemet är.
+
+Det är det vanligaste installationsfelet. Repeatern sätts i uttaget närmast det
+rum som saknar täckning, får dålig signal från routern, och skickar vidare
+precis den dåliga signalen. En repeater kan inte laga något den tar emot i
+trasigt skick.
+
+Sätt den där du fortfarande har god täckning, men så långt bort från routern som
+den täckningen räcker. Flera av modellerna här hjälper till: TP-Link har en lampa
+som lyser med olika färg beroende på signalstyrkan, och D-Link visar tre lägen
+på fronten. Pröva två eller tre uttag och läs av, det tar fem minuter och gör
+mer skillnad än vilken modell du valde.
+
+Tänk också på vad som står emellan. Betong, tegel, kakel och våta väggar dämpar
+kraftigt, medan gipsväggar knappt märks. Ett badrum eller ett trapphus mitt
+emellan kostar mer räckvidd än tio meter fri sikt.
+
+## 2,4 GHz är bandet som når, 5 GHz är bandet som bär
+
+De två banden gör olika saker och det är därför båda står i tabellen.
+
+5 GHz har fler och bredare kanaler och tar därför mycket mer data, men vågorna
+är kortare och tar stryk av väggar och bjälklag. 2,4 GHz går längre och genom
+mer, men bandet är trångt: det delas med grannens router, med bluetooth, med
+trådlösa telefoner och med mikrovågsugnen.
+
+Nästan allt smått i ett hem talar dessutom bara 2,4 GHz. Termostater,
+vattenlarm, smarta lampor, rörelsevakter och de flesta övervakningskameror har
+ingen 5 GHz-radio alls. Har du femton sådana enheter är det bandets kapacitet
+som avgör om de fungerar, och där skiljer sig fältet från 300 Mbit/s med den
+gamla Wi-Fi 4-tekniken till 800 med den bästa.
+
+En repeater som ska nå ner i källaren eller ut i garaget lever på 2,4 GHz. En
+som ska bära film till en tv en vägg bort lever på 5 GHz. Vet du vilket problem
+du löser vet du vilket tal du ska titta på.
+
+## Wi-Fi 5, 6 och 7, och när skillnaden betyder något
+
+Generationen avgör hur snabbt bandet kan gå och hur väl radion hanterar många
+apparater samtidigt.
+
+Wi-Fi 5 kom 2014 och finns i de billigaste modellerna. Wi-Fi 6 lade till teknik
+för att dela upp en kanal mellan flera enheter, vilket märks i ett hem med tjugo
+uppkopplade prylar. Wi-Fi 7 fördubblade kanalbredden till 320 megahertz och
+lyfter takhastigheten kraftigt.
+
+Två saker är värda att veta innan du betalar för den nyaste. Repeatern kopplar
+upp sig mot routern på den lägsta gemensamma standarden, så en Wi-Fi 7-repeater
+mot en Wi-Fi 5-router arbetar som Wi-Fi 5 på den sträckan. Och den bredaste
+kanalen kräver att både routern och din dator klarar den.
+
+Det betyder inte att en ny generation är bortkastad. Repeatern lever längre än
+routern, och de klienter du köper de närmaste åren talar den nya standarden.
+Men om budgeten är knapp ger pengarna mer i ett bättre nätverksuttag och i
+mesh-stöd än i en generation huset ännu inte kan använda.
+
+## Antenner: fler är inte snabbare för dig
+
+Modellerna här har mellan två och fyra antenner, och det är frestande att räkna
+dem.
+
+Antalet antenner motsvarar antalet dataströmmar radion kan köra parallellt. Fyra
+strömmar ger dubbelt så mycket som två, men bara mot en motpart som också kör
+fyra. Telefoner kör nästan undantagslöst två. Bärbara datorer kör två, ibland
+tre. Fyra strömmar utnyttjas i praktiken bara på sträckan mellan repeatern och
+en router som också har fyra antenner.
+
+Utvändiga antenner har en annan och mer konkret fördel: de går att rikta. Ska
+signalen ner ett trapphus eller ut genom en altandörr vinklar du dem åt det
+hållet och märker skillnad. Inbyggda antenner strålar runt och tar mindre plats,
+vilket avgör om repeatern får plats bakom en soffa.
+
+## Vad den drar, och varför talen inte går att jämföra
+
+En repeater sitter i vägguttaget 8 760 timmar om året, så förbrukningen är värd
+en tanke. Problemet är att tillverkarna räknar olika.
+
+TP-Link anger *maximal* förbrukning och landar på 7 till 15 watt. D-Link anger
+förbrukning och dessutom nätverksviloläge, 4,3 respektive 3,7 watt för DAP-1620.
+Mercusys anger 13 watt för ME80X. Talen mäter inte samma sak och går därför inte
+att ställa mot varandra.
+
+F.A.Z. Kaufkompass har mätt vad apparaterna faktiskt drar i drift, och där
+hamnar hela fältet mycket lägre: 2,3 till 9 watt över trettiotvå modeller, med
+RE450 på 3,2 och RE505X på 3,7. Räknat på 2,50 kronor per kilowattimme kostar
+3 watt runt 66 kronor om året och 9 watt runt 197. Skillnaden mellan den
+snålaste och den törstigaste är alltså drygt en hundralapp per år, vilket är
+värt att veta men sällan värt att välja efter.
+
+## Repeater, mesh eller powerline
+
+Tre sätt att lösa samma problem, och de kostar och kräver olika mycket.
+
+**Repeater**, 300 till 1 600 kronor. Behåller din router och lägger till en
+enhet i ett vägguttag. Enklast och billigast, och det som räcker när ett rum
+eller en våning saknar täckning.
+
+**Mesh-system**, från ungefär 2 000 kronor. Två eller tre enheter som ersätter
+routern och talar med varandra över ett eget band. Ger jämn täckning i hela
+huset och ett enda nätverksnamn utan krångel, men du byter ut fungerande
+utrustning och operatörens router får ofta stå kvar i bryggläge.
+
+**Powerline**, 800 till 2 000 kronor. Skickar nätverket genom husets elledningar
+till ett uttag i andra änden, där en andra dosa sänder ut wifi. Löser problem
+som radio aldrig kommer runt, som ett fristående garage eller en källare bakom
+en armerad bjälklagsplatta. Hastigheten beror helt på elinstallationens ålder
+och på om de två uttagen sitter på samma fassektor.
+
+Är problemet ett rum tar du en repeater. Är problemet hela huset är mesh byggt
+för det. Är problemet en betongvägg eller en uthusbyggnad är powerline det enda
+som brukar fungera.
+
+## Innan du beställer
+
+Fem saker att kontrollera, i den ordning de kostar dig pengar om du missar dem.
+
+**Mät uttaget.** Flera modeller här är 15 till 16 centimeter höga eller breda
+och lägger sig över det andra uttaget i en dubbeldosa. Ska repeatern sitta bakom
+en soffa eller i en trång hall är djupet lika viktigt: de med utfällbara antenner
+behöver tio centimeter fri luft framför sig.
+
+**Ta reda på vad routern är.** Är den en TP-Link, Asus eller D-Link får du full
+nytta av märkets mesh-system. Är den från operatören är EasyMesh det enda som
+ger dig en chans till ett enda nätverksnamn.
+
+**Räkna efter vad du faktiskt har i abonnemang.** Har du 250 Mbit/s räcker en
+repeater på 867 Mbit/s brutto gott, och pengarna gör mer nytta i ett
+gigabituttag. Har du 1 000 vill du ha en radio som orkar bära dem.
+
+**Bestäm om något ska sitta i sladd.** Gör det, och uttaget är gigabit, får den
+apparaten ungefär dubbelt mot alla andra i rummet. Det är den enskilt billigaste
+förbättringen i hela kategorin.
+
+**Vänta med att slänga kvittot.** En repeater är beroende av husets väggar på ett
+sätt ingen specifikation fångar. Fungerar den inte där du tänkt, pröva två andra
+uttag innan du ger upp, och behåll returrätten tills du vet.

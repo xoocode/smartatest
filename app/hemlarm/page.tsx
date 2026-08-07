@@ -10,7 +10,7 @@ import {
   PRICE_CHECKED,
 } from "@/lib/data/hemlarm";
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -76,11 +76,7 @@ export const metadata: Metadata = {
   description:
     "SecuritasHome LILLA vinner: 349 kr i månaden och 1 995 kr för villapaketet, runt 22 900 kronor över fem år mot Verisures 39 900. Vi läste avtalsvillkoren för alla åtta bolagen i original, med utgåva och punktnummer, och räknade ut vad det kostar att lämna vart och ett.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [

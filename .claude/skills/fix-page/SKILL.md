@@ -340,7 +340,34 @@ if they disagree, and it also fails on any **tool** that builds on the page, so
 bump those too. Record in `.agent/research/{slug}.md` what you rewrote, which
 cells you filled, which you failed to fill and where you looked.
 
-Report the six before-and-after numbers from step 1.
+### What to report
+
+One or two sentences on what the page says now that it did not before, then the
+six numbers as a table. Nothing else.
+
+```
+Reparerade /{slug}. {Vad rewriten avslöjade — fyndet, inte processen.}
+
+| | Före | Efter |
+|---|---|---|
+| Omdömen i ett block | 6 | 0 |
+| Rader under 50 % | 4 | 1 |
+| Tomma celler | 31 | 12 |
+| Frånvaropåståenden i prosan | 11 | 0 |
+| Kriterier som betygsätter publicering | 1 | 0 |
+| Betygssteg som drar av för saknad uppgift | 2 | 0 |
+| Rankningen | — | oförändrad / vinnaren bytte |
+```
+
+**Det som inte hör hemma i rapporten:** att du inte driftsatte, inte pushade
+eller inte körde `git add .`. Det är så här skillen alltid arbetar, och
+förväntat beteende är inte en nyhet. Inte heller research du inte hann med —
+den hör hemma i `.agent/research/{slug}.md`.
+
+Tre saker hör dit, och bara när de faktiskt inträffat: en rankning som kastades
+om, en delad fil som lämnats ocommittad för att en annan session höll på i den,
+och ett beslut du fattade i stället för en `AskUserQuestion` som en förnuftig
+person kunde ha fattat annorlunda.
 
 ## What this skill does not do
 
@@ -360,6 +387,10 @@ invoked it and whatever time of day it is — they are not night-run rules.
 3. **Commits only the page's own files.** Never `git add .`, never `git commit
    -a`. Name the paths: the data file, the page, the guide, the sources, and the
    shared files you genuinely touched.
+
+**De tre är inte fynd.** Att inte driftsätta är inget utfall, och att inte pusha
+är det inte heller. Räkna aldrig upp dem i slutrapporten — se rapportformatet
+ovan.
 
 That last one has teeth in this repo. Several sessions work in it at once, and
 `lib/test-pages.ts`, `lib/catalog.ts`, `lib/tools.ts` and `lib/corrections.ts`

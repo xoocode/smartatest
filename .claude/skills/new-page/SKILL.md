@@ -18,7 +18,7 @@ not up front.
 | 1 | `.claude/context/research.md`, `.claude/context/money.md` |
 | 1 | `scripts/fetch.mjs` and `scripts/sok.mjs` — the research toolkit, see below |
 | 3–4 | `.claude/context/data.md` |
-| 3 | `pnpm check:redovisning` and `pnpm check:avdrag` on your draft criteria, before you propose them |
+| 3 | `pnpm check:redovisning` and `pnpm check:avdrag` on your draft criteria, before you build on them |
 | 4 | `.claude/references/spec-sourcing.md`, before the gap pass |
 | any | `.claude/references/establishing-absence.md` + `node scripts/fetch.mjs`, **the moment you are about to write that a fact is not published** |
 | 4 | Skill `swedish-voice`, before any reader-facing sentence |
@@ -28,19 +28,67 @@ not up front.
 
 ---
 
-## Phase 0: Orient
+## Phase 0: Orient and pick the subject
 
-Do not ask anything yet.
+Read all five before you ask anything. The one question this skill asks lives at
+the end of this phase.
 
-1. `.agent/plans/plan.md`, `.agent/planerade-sidor.md`, `.agent/ideas-testsidor.md`
+1. **`.agent/testsidor-tackning.md`** — the coverage map. Which pages exist per
+   category, which are missing, and which have already been rejected and why.
+   **This is where the subject comes from.**
 2. `lib/catalog.ts` for which test pages exist and their `status`
 3. `lib/data/smart-belysning.ts` and `app/smart-belysning/page.tsx` as the
    reference implementation. Everything new mirrors these.
 4. `.agent/adtraction-se-katalog.json` for merchant supply
+5. `.agent/plans/plan.md`, and `.agent/byggda-sidor.md` for what a previous
+   build of a neighbouring page ran into
 
-## Phase 1: Research, before any questions
+### Picking the subject
 
-Competitors, independent tests, products, also-rans, search intent. The supply
+**If the user named a subject, build that.** Nothing below applies.
+
+**If they did not**, offer a choice with `AskUserQuestion`. **The tool takes at
+most four options**, and it adds "Other" itself, so pick exactly four.
+
+Order of drawing:
+
+1. **Every `ready` row first.** Someone already did the thinking on those, and
+   there are rarely more than three. Skip any that is `writing`.
+2. **Fill the remaining slots from `suggested`**, choosing rows that differ from
+   each other — a large category and a niche one, a commercially strong one and
+   a cheap one — rather than the first four in file order. Name the category
+   each comes from, since the map is sorted by category and not by priority.
+
+Each option gets the row's own comment as its description, so the user chooses
+on the reason the row exists rather than on the slug.
+
+Three things the map is telling you, and they are easy to misread:
+
+- **A `rejected` row is closed.** The reason is on the row. Do not re-propose it,
+  and do not re-derive the reason.
+- **A `ready` row beats a `suggested` one.** Someone already did the thinking.
+- **Low volume is not a reason to skip a row.** The map is deliberately
+  permissive: a term with 90 searches and no competitor is often worth more than
+  one with 12 000 and six affiliate sites fighting over it. Volume orders the
+  queue; it does not filter it.
+
+The map is a task list, five row forms:
+
+```
+- [x] `/slug` — live          - [ ] `/slug` — suggested
+- 🟢 `/slug` — ready          - ✍️ `/slug` — writing
+- ❌ `/slug` — rejected
+```
+
+Change `- [ ]` to `- ✍️` when you start, and to `- [x]` when the page ships.
+Then run `pnpm check:sidkarta`, which reconciles the map against the catalog in
+both directions. A build that leaves the map stale makes the next agent either
+redo a page that exists or skip one that does not.
+
+## Phase 1: Research
+
+The subject is settled and nothing else gets asked, so this phase decides the
+page. Competitors, independent tests, products, also-rans, search intent. The supply
 sweep runs here too, because it decides which merchant every product links to.
 
 ### The tools
@@ -99,36 +147,101 @@ Two habits that decide whether the research is real:
 Write findings to `.agent/research/{slug}.md` **as you gather**. A full run is
 long enough to be compacted, and anything re-derived from memory is invented.
 
+### Every programme the sweep turns up goes in the tracker
+
+`.agent/plans/affiliate-ansokningar.md` is the standing list of programmes and
+networks, with a status column Peter fills in. **Add any programme the sweep
+surfaces that is not already there, in the same pass**, with status `–`. That
+includes the ones you decide against: a programme with the wrong assortment is
+worth a row saying so, because the next build otherwise re-checks it.
+
+The rule exists because the finding used to die in the research file. Coffee
+Friend at 10 percent with paid search allowed was found on `/mjolkskummare` on
+2026-08-05 and found again from scratch on `/smoothiemixer` the next day, where
+it was reported as news. The programme is filed under `Food` in Adtraction's
+catalogue and sells blenders, so a category grep will keep missing it — which is
+exactly the sort of thing a written row fixes and a research file does not.
+
+**Never fill in Status, Datum or Kommentar.** Applying is a business relation in
+Peter's name, and an agent that writes `Ansökt` invents a task nobody did.
+
 Produce a written summary before asking anything.
 
-## Phase 2: Confirm scope (AskUserQuestion)
+## Phase 2: Set the scope
 
-One batch, each option carrying what the research found:
+**Decide these from the research and write them down. Do not ask.**
 
-1. **Test page and slug.** Existing `planned` entry or new? URLs stay flat; the
-   category is taxonomy only.
-2. **Category.** `Smart hem` today. If the subject is security-shaped,
-   ask whether to open a `Säkerhet` category.
-3. **Product shortlist**, with prices and merchants. Say which candidates a
-   high-commission, PPC-permitted shop carries.
-4. **Anything the research surfaced as genuinely ambiguous.** A discontinued
-   product, a subject that splits by socket or size, a market where one brand
-   owns 80 % of results.
+Once the subject is chosen the run is unattended. Every question after that
+point was answered with the recommended option anyway, so asking spent a round
+trip to arrive where the research already pointed.
+
+1. **Slug.** Flat URL. Take the coverage map's slug unless the research shows a
+   bigger term — measure before you rename, `/elektrisk-rullgardin` beat
+   `/smarta-gardiner` 1 600 to 110.
+2. **Category.** Take the one the map puts the row under. Five exist:
+   `Säkerhet`, `Elektronik`, `Hem & hushåll`, `Smart hem`, `Kök`. They are
+   **wide buckets on purpose**, and a subject that only half fits goes in the
+   closest one.
+3. **Product shortlist.** Eight to twelve ranked, the rest considered. Prefer a
+   payable, PPC-permitted merchant near the top where the ranking allows it —
+   never by moving the ranking.
+4. **The angle.** What this page knows that the competitors do not. If the
+   research produced no such finding, keep researching; a page without one is
+   the sixth copy of a list that already exists five times.
+
+### Ask only when you cannot recommend
+
+`AskUserQuestion` is not banned after the subject is chosen. The rule is
+narrower: **if you can form a recommendation, act on it.** A question whose
+first option is the one you would have taken is a question that should not have
+been asked.
+
+That leaves genuinely few cases, and they share a shape — the evidence is
+present and still does not decide:
+
+- **Opening a new category.** Needs a `Category` in `lib/catalog.ts` and affects
+  navigation sitewide. Ask only when several rows are ready at once; do not open
+  one to fit a single page.
+- **Two tier-A sources disagreeing on a safety figure**, where the choice moves
+  a placement. Say what each says and let the user pick.
+- **A merchant question that moves money** — a shop on the blocked list in
+  `.claude/context/money.md`, or dropping the only payable merchant on the page.
+- **The subject turning out to be two subjects**, where splitting or merging
+  changes what the page compares.
+
+Everything else — weights, scales, which product is cut, which row is swapped,
+how a criterion is worded — you settle and record. The audit trail is the trade:
+the reasoning goes in `.agent/research/{slug}.md`, and anything that moves a
+score goes in `lib/corrections.ts`.
 
 Do not ask about what the codebase already decides. Flat URLs, derived scoring,
 the em-dash rule and the tools pattern are settled.
 
-## Phase 3: Criteria and weights (AskUserQuestion)
+## Phase 3: Criteria and weights
 
-Propose 5 criteria with weights summing to 100 and a one-line justification
-each, drawn from what the sourced tests actually measure.
+Five criteria, weights summing to 100, each with a one-line justification drawn
+from what the sourced tests actually measure. **Set them yourself and record the
+reasoning in `.agent/research/{slug}.md`.**
 
-**The weights are the user's call.** They decide the ranking, and a weighting
-invented by the assistant is the same fabrication as an invented measurement.
-Recommend, then let the user adjust.
+This used to be a gate, on the argument that a weighting invented by the
+assistant is the same fabrication as an invented measurement. That was wrong,
+and the distinction is worth keeping straight: **a measurement is a fact we
+either have or do not. A weighting is a judgement, and it is defensible when it
+follows the sourced tests and is written down.** The fabrication risk lives in
+inventing what the tests found, not in deciding how much each finding counts.
+
+So the bar is not approval — it is that a reader could reconstruct your
+reasoning from the page. The criterion descriptions are reader-facing and carry
+that weight; write them as though someone will argue with them, because the
+whole model of this site is that they can.
 
 Drop a criterion the sourced tests cover too thinly to score. A column of
 dashes is worse than four criteria.
+
+Run `pnpm check:redovisning` and `pnpm check:avdrag` on the draft before you
+build on it. Both read `lib/test-pages.ts`, so the criteria have to be written
+first — and both catch faults that are expensive to unpick once every product
+carries a score.
 
 ### Never build a criterion that scores publication
 
@@ -228,11 +341,11 @@ absence to be **established positively** rather than merely unfound:
 - **Commercial terms**, where a price you cannot get without a sales visit is
   itself a worse offer. You tried to buy and were stopped — that is evidence.
 
-*(`/fix-page` may later remove a criterion and redistribute its weight without
-asking. That is not a contradiction of the rule above: the user sets the
-weighting for a page that ranks the goods, and a criterion that turns out to
-rank the paperwork was never part of that decision. The change is logged in
-`lib/corrections.ts`.)*
+*(`/fix-page` may later remove one of your criteria and redistribute its weight.
+That is the same standard applied twice, not a reversal: a criterion that turns
+out to rank the paperwork should not have carried weight in the first place. It
+logs the change in `lib/corrections.ts` with `affectedRanking: true` when the
+order moves.)*
 
 ## Phase 4: Source real data
 
@@ -450,11 +563,15 @@ job rather than a separate decision someone else makes. Do it in the same pass:
 images in place for every ranked product, criterion scores set, `pnpm check`
 and `pnpm build` green, both widths measured.
 
-Do not invent a fourth condition. Unmeasured search volume, an affiliate
-programme we have not joined, and a page we cannot advertise are **not**
-blockers — they are follow-up work, recorded once in
-`.agent/research/{slug}.md` and nowhere else. The full statement, and why each
-one costs more unpublished than published, is in `.claude/context/ship.md`.
+Set `published` on the catalog entry to the date you built it, and flip the row
+in `.agent/testsidor-tackning.md` to ✅. Then run `pnpm check:sidkarta`, which
+compares the map against the catalog and says so when the two disagree.
+
+Do not invent an extra condition. An affiliate programme we have not joined and
+a page we cannot advertise are **not** blockers — they are follow-up work,
+recorded once in `.agent/research/{slug}.md` and nowhere else. The full
+statement, and why each one costs more unpublished than published, is in
+`.claude/context/ship.md`.
 
 An unpublished finished page earns nothing, ages nowhere, and answers nobody.
 
@@ -488,9 +605,9 @@ When one of these applies: leave `status: "planned"`, write in
 your report. **Fix it and publish if you can** — the hold is for the case where
 you genuinely cannot, not the case where it would take another hour.
 
-Everything else ships. A thin spec row, an unmeasured search volume, a category
-where nobody has run an independent test, a merchant we earn nothing from — all
-of those are ordinary and none of them is a reason to sit on a finished page.
+Everything else ships. A thin spec row, a category where nobody has run an
+independent test, a merchant we earn nothing from — all of those are ordinary
+and none of them is a reason to sit on a finished page.
 
 ## Scripted edits to shared files
 
@@ -569,3 +686,53 @@ Run `git status --porcelain` first. **If a shared file carries another session's
 unfinished work and your entry cannot be separated from it, do not commit at
 all** — leave the work in the tree and say so in your report. An uncommitted
 finished page beats a commit that drags half-built pages into history.
+
+**These three are how this skill always works. They are not findings.** Not
+deploying is not an outcome, and neither is not pushing. Do not list them at the
+end of a run — see the report format below, which is the last word on what a
+finished run says.
+
+## Finish: what to report
+
+A finished page gets a **short** report. One or two sentences of prose saying
+what was built and what makes it worth reading, then the table. Nothing else.
+
+```
+Byggde /{slug}. {En mening om sidans vinkel — det fyndet som gör den värd att läsa.}
+
+| | |
+|---|---|
+| Status | live |
+| Produkter | 11 rankade, 4 övervägda |
+| Kriterier | 5, tyngst: Räckvidd 25 % |
+| Vinnare | CAPiDi Premium, 1 399 kr hos Kjell |
+| Butiker | Kjell, Proshop, Apotea |
+| Verktyg | /guider/rackvidd-babyvakt |
+| Köpguide | 1 590 ord, 12 avsnitt |
+| Provision | ~4 % hos Kjell, ca 56 kr per såld vinnare |
+| Kontroller | check, typecheck, lint, build gröna |
+```
+
+Adapt the rows to the page — drop `Verktyg` when none was built, add a row when
+something genuinely matters. **`Provision` is an estimate and should read like
+one**: the merchant's rate applied to the winner's price. Say `okänd` when we
+are not in the programme; that is a real answer and takes one word.
+
+### What does not go in the report
+
+- **Anything you did not do because the skill says not to.** Not deployed, not
+  pushed, no `git add .`. Expected behaviour is not news.
+- **Research you did not do.** A spec cell you could not fill belongs in
+  `.agent/research/{slug}.md`. It is not a caveat on the work.
+- **A gap you closed.** The reader wants the page, not the hunt.
+- **Process narration.** Which phase you were in, how many times you re-ran a
+  check, what you considered and dropped.
+
+Three things *do* belong, and only when they actually happened: a page held back
+instead of published and why, a shared file left uncommitted because another
+session was mid-edit, and a decision you made in place of an `AskUserQuestion`
+that a reasonable person might have made differently.
+
+The test: **every line should be something the user would have had to ask for
+if you had not written it.** "I did not deploy" fails that test. "Vinnaren
+ligger 955 kronor under närmaste likvärdiga" passes.

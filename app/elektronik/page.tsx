@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, pageEntity } from "@/lib/schema";
 import { ELEKTRONIK, testPagesInCategory, isBrowsable } from "@/lib/catalog";
 import { groupSources } from "@/lib/sources";
@@ -37,11 +38,7 @@ export const metadata: Metadata = {
   description:
     "Våra jämförelser av laddare och elektroniktillbehör. Vi läser reglerna bakom orden på kartongen, redovisar viktningen öppet och säger rakt ut när ingen har provat något.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Elektronik",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Elektronik", path: PAGE_URL }),
 };
 
 const FAQ = [

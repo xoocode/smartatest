@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { graph, pageEntity } from "@/lib/schema";
 import { KOK, testPagesInCategory, isBrowsable } from "@/lib/catalog";
 import { groupSources } from "@/lib/sources";
@@ -36,11 +37,7 @@ export const metadata: Metadata = {
   description:
     "Våra jämförelser av köksapparater. Vi läser vad tillverkaren faktiskt anger om just sin modell, redovisar viktningen öppet och säger rakt ut när vi inte vet vad en provning kom fram till.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "Kök",
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: "Kök", path: PAGE_URL }),
 };
 
 const FAQ = [

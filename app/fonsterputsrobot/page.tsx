@@ -11,7 +11,7 @@ import {
 import { DEFAULT_AUTHOR, DEFAULT_REVIEWER } from "@/lib/people";
 import { getStyle } from "@/lib/style-server";
 import { priceCaption } from "@/lib/captions";
-import { SITE } from "@/lib/site";
+import { pageOpenGraph } from "@/lib/metadata";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Container } from "@/components/site/container";
 import { Section } from "@/components/site/section";
@@ -80,11 +80,7 @@ export const metadata: Metadata = {
   description:
     "Kärcher RCW 2 vinner för 2 190 kronor: billigast av sju robotar och den som sitter kvar längst när strömmen går, 40 minuter. Är dina rutor mindre än 35 × 35 cm tar du Ecovacs Winbot Mini för 3 299 kronor, som kommer upp på 22 × 25. Vi jämförde sju fönsterputsrobotar från 2 190 till 6 026 kronor.",
   alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: TEST_PAGE.title,
-    url: `${SITE.url}${PAGE_URL}`,
-    type: "article",
-  },
+  openGraph: pageOpenGraph({ title: TEST_PAGE.title, path: PAGE_URL }),
 };
 
 const TOC = [
